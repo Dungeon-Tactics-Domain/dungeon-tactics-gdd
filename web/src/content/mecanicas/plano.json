@@ -7,8 +7,8 @@
       "decision": "Corpo primeiro: antecipação e recuperação no pulo, no golpe e na reação do alvo; impacto e câmera depois (14/11)."
     },
     {
-      "topic": "Cura entre andares sem acampamento",
-      "decision": "Ao descer de andar, todo herói recupera 50% da vida máxima (sem passar do máximo); provisório até o acampamento voltar (15/11)."
+      "topic": "Cura entre salas e andares sem acampamento",
+      "decision": "Depois de cada sala vencida, +25% da vida máxima; ao descer de andar, +50%; nunca passa do máximo. Provisório até o acampamento voltar (15/11)."
     }
   ],
   "phases": [
