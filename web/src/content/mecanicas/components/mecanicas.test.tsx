@@ -118,7 +118,7 @@ describe('descida', () => {
       const t = turnosDe(vidaDe(s.inimigos));
       expect(t >= sala.min && t <= sala.max, `${s.nome}: ${t}`).toBe(true);
     }
-    const t = turnosDe(vidaDe(['colossus', 'minion', 'minion']));
+    const t = turnosDe(vidaDe(descida.chefeInimigos));
     expect(t >= chefe.min && t <= chefe.max, `chefe: ${t}`).toBe(true);
   });
 });

@@ -1,5 +1,5 @@
 {
-  "fonte": "Proposta do lab de Mecânicas (15/11) para a descida do MVP do loop de dungeon crawler (decisões 27, 34, 41 de dungeon-tactics/_notas/LOOP-DUNGEON-CRAWLER-AUDIO.md). Números do jogo lidos em master e49ddb6; duração medida em _notas/agentes/duracao-combate.md (simulador IA contra IA, 100 seeds). Fora deste grupo: bag, acampamento, craft, classes de apoio, trinkets e cidade (decisão 41), preços e durabilidade (em espera pelo Orquestrador dos Labs, 15/11) e regras de destino (decisão 39).",
+  "fonte": "Proposta do lab de Mecânicas (15/11) para a descida do MVP do loop de dungeon crawler (decisões 27, 34, 41 de dungeon-tactics/_notas/LOOP-DUNGEON-CRAWLER-AUDIO.md). Números do jogo lidos em master e49ddb6; duração medida em _notas/agentes/duracao-combate.md (simulador IA contra IA, 100 seeds). Fora deste grupo: bag, acampamento, craft, classes de apoio, trinkets e cidade (decisão 41), preços e durabilidade (em espera pelo Orquestrador dos Labs, 15/11) e regras de destino (decisão 39). Tamanhos de mapa contados em meias casas desde 15/11 (decisão do Fernando: sala do tamanho do Bosque das Cinzas).",
   "ritmo": {
     "danoPorTurnoDeHeroi": 12.8,
     "turnosSala": {
@@ -30,7 +30,7 @@
     {
       "regra": "Quanto dano o grupo tira por turno de herói",
       "valor": "cerca de 12,8 de vida inimiga por turno de herói",
-      "origem": "dedução: Escaramuça mede 14,9 turnos de herói para 190 de vida inimiga (soldado 45 + arqueiro esqueleto 33 + mago sombrio 30 + bruto 82), 81% de vitória. É IA contra IA, conta também as derrotas; dano contra o chefe parado não foi medido"
+      "origem": "dedução: Escaramuça mede 14,9 turnos de herói para 190 de vida inimiga (soldado 45 + arqueiro esqueleto 33 + mago sombrio 30 + bruto 82), 81% de vitória. É IA contra IA, conta também as derrotas; dano contra o chefe parado não foi medido. No Bosque das Cinzas, maior e com os lados mais longe, a mesma vida (190) leva 20,2 turnos: cerca de 9,4 por turno. Por isso a distância inicial abaixo fica curta"
     },
     {
       "regra": "Vida inimiga somada por sala",
@@ -100,17 +100,17 @@
   "chefe": [
     {
       "regra": "Chefe do MVP",
-      "valor": "Colosso de Ossos (160 de vida, ocupa 2x2 casas inteiras, ou 4x4 meias casas, não anda, Onda Sombria e Explosão) + 2 lacaios",
+      "valor": "Colosso de Ossos (160 de vida, ocupa 4x4 meias casas, não anda, Onda Sombria e Explosão) + 1 lacaio",
       "origem": "src/content/units.ts (colossus e minion) em e49ddb6; já existe no jogo, sem motor novo"
     },
     {
       "regra": "Duração alvo",
-      "valor": "12 a 18 turnos de herói; a proposta soma 208 de vida, cerca de 16 turnos",
-      "origem": "proposta (cerca de 2 salas); 208 ÷ 12,8 é dedução"
+      "valor": "12 a 18 turnos de herói: 184 de vida, cerca de 14 turnos, mais 2 a 3 de aproximação",
+      "origem": "proposta (cerca de 2 salas); 184 ÷ 12,8 é dedução. Com 2 lacaios e o mapa maior passaria de 18"
     },
     {
       "regra": "Sala do chefe",
-      "valor": "10x10 casas, o Colosso no fundo e no alto, 2 rotas até ele (uma curta e exposta, uma longa e coberta)",
+      "valor": "28x28 meias casas, o Colosso no fundo e no alto, heróis a 16 a 20 meias casas dele, 2 rotas (uma curta e exposta, uma longa e coberta)",
       "origem": "proposta: ele não anda, então a luta é chegar perto debaixo das magias (comentário em units.ts)"
     }
   ],
@@ -144,17 +144,17 @@
   "mapa": [
     {
       "regra": "Tamanho",
-      "valor": "8x8 casas na sala curta; 10x10 na do chefe",
-      "origem": "a Escaramuça (8x8) é o mapa mais curto medido; os de campanha vão até 20x20"
+      "valor": "24x24 meias casas (12x12 casas, o tamanho do Bosque das Cinzas) na sala; 28x28 (14x14 casas) na do chefe",
+      "origem": "decisão do Fernando de 15/11 (via Implementação); os mapas se contam em meias casas daqui em diante"
     },
     {
       "regra": "Distância inicial",
-      "valor": "5 a 7 casas entre o herói mais à frente e o inimigo mais perto: contato no 1º ou no 2º turno",
-      "origem": "proposta; movimento das classes de 3 a 5 (units.ts)"
+      "valor": "10 a 14 meias casas (5 a 7 casas) entre o herói mais à frente e o inimigo mais perto, mesmo no mapa maior: contato no 1º ou 2º turno. O espaço a mais serve para flanquear, não para caminhar",
+      "origem": "proposta: com os lados longe (como no Bosque das Cinzas) a sala dura cerca de 35% mais (20,2 contra 14,9 turnos, duracao-combate.md) e sai do alvo de 5 a 8"
     },
     {
       "regra": "Posições iniciais",
-      "valor": "heróis numa faixa de 2 linhas de um lado; inimigos do outro lado ou num canto; nunca na água, nos espinhos ou na borda",
+      "valor": "heróis numa faixa de 4 meias casas (2 casas) de um lado do centro; inimigos a 10 a 14 meias casas deles; nunca na água, nos espinhos ou na borda",
       "origem": "proposta"
     },
     {
@@ -179,7 +179,7 @@
     },
     {
       "regra": "Espinhos",
-      "valor": "0 a 3 casas, longe das posições iniciais; servem de alvo para empurrão (10 de dano)",
+      "valor": "0 a 6 casas de espinho (o mapa tem mais área), longe das posições iniciais; servem de alvo para empurrão (10 de dano)",
       "origem": "SPIKE_DAMAGE 10 em src/shared/battle/combat.ts"
     },
     {
@@ -197,5 +197,6 @@
     "Grupo inteiro caído numa sala: a expedição acaba e o grupo volta à cidade? (o que acontece com o loot fica para quando a bag voltar)",
     "Composição das salas fixa (esta lista, sorteada por andar) ou gerada por orçamento de vida (o gerador soma inimigos até 64 a 102)?",
     "Quem caiu volta com 25% e ganha também os 25% da sala (chega a 50%), ou fica nos 25%? O lab leu que fica nos 25%."
-  ]
+  ],
+  "chefeInimigos": ["colossus", "minion"]
 }
