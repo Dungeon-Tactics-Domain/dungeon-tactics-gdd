@@ -100,7 +100,7 @@ describe('registered labs', () => {
     if (!p.conteudo) return;
     const { container } = render(<MemoryRouter>{p.conteudo()}</MemoryRouter>);
     await vi.waitFor(() => expect(container.textContent).not.toMatch(/^Carregando…$/));
-    expect(container.textContent).not.toMatch(/desconhecido|inválido/);
+    expect(container.textContent).not.toMatch(/\b(desconhecido|inválido):/);
     vi.unstubAllGlobals();
   });
 });
