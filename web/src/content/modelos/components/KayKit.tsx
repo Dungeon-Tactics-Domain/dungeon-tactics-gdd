@@ -2,8 +2,17 @@
 // base character, swap its parts with other classes, play the 17 game clips or any clip of the full KayKit animation pack
 // (listed by the bench's clips.json) and put weapons in each hand like the Animações pages.
 import { useEffect, useState } from 'react';
-import { alterna, type Botao, DUAS_MAOS, Grupo, MAO_PRINCIPAL, MAO_SECUNDARIA, urlDaAnimacao } from './Animacoes';
-import { BANCADA, CLASSE_VIEWER } from './bancada';
+import {
+  alterna,
+  type Botao,
+  DUAS_MAOS,
+  Grupo,
+  LadoALado,
+  MAO_PRINCIPAL,
+  MAO_SECUNDARIA,
+  urlDaAnimacao,
+} from './Animacoes';
+import { BANCADA, CLASSE_OPCOES, CLASSE_VIEWER_LADO } from './bancada';
 import { Botoes } from './Visualizador';
 
 export const PERSONAGENS: readonly Botao[] = [
@@ -135,8 +144,22 @@ export function KayKit() {
     ...lista.pacote.flatMap((g) => g.clipes.map((c) => [`${g.categoria}/${c.name}`, c] as const)),
   ].find(([id]) => id === clipe)?.[1];
   return (
-    <>
-      <div className="border border-t-[6px] border-borda border-t-lab bg-folha px-5 py-4">
+    <LadoALado
+      viewer={
+        <>
+          <iframe
+            src={urlKayKit(base, partes, clipe, principal, secundaria, duas)}
+            title="Personagem KayKit 3D"
+            className={CLASSE_VIEWER_LADO}
+          />
+          <p className="m-0 mt-2 text-apagado">
+            Tocando: {nome(clipe.replace(/^.*\//, ''))}
+            {tocando?.dur ? ` (${tocando.dur.toLocaleString('pt-BR')} s)` : ''}
+          </p>
+        </>
+      }
+    >
+      <div className={CLASSE_OPCOES}>
         <Grupo titulo="🧍 Personagem" botoes={PERSONAGENS} atual={base} escolher={setBase} />
         {PARTES.map(([parte, titulo]) => (
           <Grupo
@@ -199,15 +222,6 @@ export function KayKit() {
           }}
         />
       </div>
-      <p className="m-0 mt-2 text-apagado">
-        Tocando: {nome(clipe.replace(/^.*\//, ''))}
-        {tocando?.dur ? ` (${tocando.dur.toLocaleString('pt-BR')} s)` : ''}
-      </p>
-      <iframe
-        src={urlKayKit(base, partes, clipe, principal, secundaria, duas)}
-        title="Personagem KayKit 3D"
-        className={CLASSE_VIEWER}
-      />
-    </>
+    </LadoALado>
   );
 }

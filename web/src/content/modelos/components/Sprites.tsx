@@ -60,7 +60,7 @@ export function Sprites({ modelo, children }: { modelo: string; children?: React
       <canvas
         ref={canvas}
         aria-label="Sprite animado"
-        className="block h-[360px] w-[360px] max-w-full rounded-lg bg-terra [image-rendering:pixelated]"
+        className="block aspect-square h-auto w-[min(70vh,100%)] rounded-lg bg-terra [image-rendering:pixelated]"
       />
       <h3>Folha de contato</h3>
       <img src={`${base}/contato.png`} alt="Folha de contato" className="mt-3 max-w-full rounded-lg" />

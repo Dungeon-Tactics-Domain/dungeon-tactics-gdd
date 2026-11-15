@@ -1,7 +1,7 @@
 // Game clips (animations.glb plus the knight Idle) and extras (reactions, water) playing on each model's rigged
 // character, on the 3D bench. Same buttons, scenes and URLs as the old lab (dungeon-tactics-lab/modelos/src/main.ts).
 import { type ReactNode, useEffect, useState } from 'react';
-import { BANCADA, BENCH, CLASSE_VIEWER } from './bancada';
+import { BANCADA, BENCH, CLASSE_OPCOES, CLASSE_VIEWER_LADO } from './bancada';
 import { Botoes } from './Visualizador';
 
 // id "clip:<name>" plays one clip; "walk:", "jump:" and "act:" assemble a scene on the bench
@@ -126,6 +126,19 @@ export function Grupo({
   );
 }
 
+/**
+ * The 3D viewer on the left (58% of the width, Fernando's ultrawide screens), sticky while the options on the right scroll (Nov 15, Fernando's request); below 900 px
+ * they stack, viewer first.
+ */
+export function LadoALado({ viewer, children }: { viewer: ReactNode; children: ReactNode }) {
+  return (
+    <div className="grid items-start gap-4 min-[900px]:grid-cols-[minmax(0,58fr)_minmax(0,42fr)]">
+      <div className="min-w-0 min-[900px]:sticky min-[900px]:top-[calc(var(--reino-h)+1rem)]">{viewer}</div>
+      <div className="min-w-0">{children}</div>
+    </div>
+  );
+}
+
 /** Rigged character of one model with all the clips; says so if the model is not on the bench yet. */
 export function Animacoes({ modelo, children }: { modelo: string; children?: ReactNode }) {
   const glb = `${BANCADA}/eval/anim-${modelo}/char.glb`;
@@ -157,45 +170,50 @@ export function Animacoes({ modelo, children }: { modelo: string; children?: Rea
   return (
     <>
       {children}
-      <div className="border border-t-[6px] border-borda border-t-lab bg-folha px-5 py-4">
-        {SETORES.map(([titulo, botoes]) => (
-          <Grupo key={titulo} titulo={titulo} botoes={botoes} atual={escolha} escolher={setEscolha} />
-        ))}
-        {/* a weapon in one hand, the other hand or both: two hands clears the others and the reverse; clicking the active one removes it */}
-        <Grupo
-          titulo="🗡️ Mão principal (direita)"
-          botoes={MAO_PRINCIPAL}
-          atual={principal}
-          escolher={(id) => {
-            setPrincipal(alterna(principal, id));
-            setDuas('');
-          }}
-        />
-        <Grupo
-          titulo="🛡️ Mão secundária (esquerda)"
-          botoes={MAO_SECUNDARIA}
-          atual={secundaria}
-          escolher={(id) => {
-            setSecundaria(alterna(secundaria, id));
-            setDuas('');
-          }}
-        />
-        <Grupo
-          titulo="🙌 Duas mãos"
-          botoes={DUAS_MAOS}
-          atual={duas}
-          escolher={(id) => {
-            setDuas(alterna(duas, id));
-            setPrincipal('');
-            setSecundaria('');
-          }}
-        />
-      </div>
-      <iframe
-        src={urlDaAnimacao(modelo, glb, escolha, principal, secundaria, duas)}
-        title="Animação 3D"
-        className={CLASSE_VIEWER}
-      />
+      <LadoALado
+        viewer={
+          <iframe
+            src={urlDaAnimacao(modelo, glb, escolha, principal, secundaria, duas)}
+            title="Animação 3D"
+            className={CLASSE_VIEWER_LADO}
+          />
+        }
+      >
+        <div className={CLASSE_OPCOES}>
+          {SETORES.map(([titulo, botoes]) => (
+            <Grupo key={titulo} titulo={titulo} botoes={botoes} atual={escolha} escolher={setEscolha} />
+          ))}
+          {/* a weapon in one hand, the other hand or both: two hands clears the others and the reverse; clicking the active one removes it */}
+          <Grupo
+            titulo="🗡️ Mão principal (direita)"
+            botoes={MAO_PRINCIPAL}
+            atual={principal}
+            escolher={(id) => {
+              setPrincipal(alterna(principal, id));
+              setDuas('');
+            }}
+          />
+          <Grupo
+            titulo="🛡️ Mão secundária (esquerda)"
+            botoes={MAO_SECUNDARIA}
+            atual={secundaria}
+            escolher={(id) => {
+              setSecundaria(alterna(secundaria, id));
+              setDuas('');
+            }}
+          />
+          <Grupo
+            titulo="🙌 Duas mãos"
+            botoes={DUAS_MAOS}
+            atual={duas}
+            escolher={(id) => {
+              setDuas(alterna(duas, id));
+              setPrincipal('');
+              setSecundaria('');
+            }}
+          />
+        </div>
+      </LadoALado>
     </>
   );
 }
