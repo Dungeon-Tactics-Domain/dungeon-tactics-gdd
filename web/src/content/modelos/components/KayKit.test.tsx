@@ -36,6 +36,7 @@ describe('KayKit', () => {
       kaykit: '1',
       solo: '1',
       anim: 'Idle',
+      zoom: '1.2',
     });
     expect(q.has('head')).toBe(false);
   });

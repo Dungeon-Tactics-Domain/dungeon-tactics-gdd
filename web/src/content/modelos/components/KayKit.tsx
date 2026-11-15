@@ -95,6 +95,7 @@ export function urlKayKit(
   q.set('char', base);
   q.set('kaykit', '1');
   q.set('solo', '1');
+  q.set('zoom', '1.2'); // the bench puts them at the game's 0.85 height, smaller than the Animações models
   for (const [parte, de] of Object.entries(partes)) if (de) q.set(parte, de);
   return url.toString();
 }
