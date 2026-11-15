@@ -77,7 +77,7 @@ function Portrait({ who, size = 'md', q = 0 }: { who: Who; size?: 'sm' | 'md' | 
 
 type Change = { from: number; to: number; kind: 'loss' | 'gain' };
 // the game's gauge(); max 0 gives an empty bar (it used to draw width:NaN% and look full)
-function Gauge({
+export function Gauge({
   cls,
   label,
   value,
@@ -203,7 +203,7 @@ const Strike = () => (
 
 // ---------- command menu and submenu ----------
 
-interface Row {
+export interface Row {
   label: string;
   icon?: string;
   orb?: 'gold' | 'blue' | 'bronze';
@@ -212,7 +212,7 @@ interface Row {
   why?: string;
 }
 // the game's .panel .item; arrows move the focus between rows, and mouse and keyboard move the same .focus mark
-function Menu({ cls, title, rows }: { cls: string; title: string; rows: Row[] }) {
+export function Menu({ cls, title, rows }: { cls: string; title: string; rows: Row[] }) {
   const [foco, setFoco] = useState(rows.findIndex((r) => r.state === 'focus'));
   return (
     <div
@@ -267,7 +267,15 @@ const ABILITIES: Row[] = [
 // ---------- smaller pieces ----------
 
 // the game's choice() and slider()
-function Choice<T extends string>({ label, options, value }: { label: string; options: [T, string][]; value: T }) {
+export function Choice<T extends string>({
+  label,
+  options,
+  value,
+}: {
+  label: string;
+  options: [T, string][];
+  value: T;
+}) {
   const [v, setV] = useState(value);
   return (
     <div className="choice" role="group" aria-label={label}>
@@ -282,7 +290,7 @@ function Choice<T extends string>({ label, options, value }: { label: string; op
     </div>
   );
 }
-function Slider({ label, value }: { label: string; value: number }) {
+export function Slider({ label, value }: { label: string; value: number }) {
   const [v, setV] = useState(value);
   return (
     <label className="slider">
@@ -318,7 +326,7 @@ function Tip({ icone, name, text, open = false }: { icone: string; name: string;
   );
 }
 
-const Counter = ({ cls, label, value }: { cls: string; label: string; value: string }) => (
+export const Counter = ({ cls, label, value }: { cls: string; label: string; value: string }) => (
   <div className={`panel counter ${cls}`}>
     <span className="counter-label">{label}</span>
     <strong>{value}</strong>
@@ -348,7 +356,7 @@ const Charge = ({ ability, ticks, done }: { ability: string; ticks: number; done
   </div>
 );
 
-const Botao = ({ cls, label, k, state = '' }: { cls: string; label: string; k: string; state?: string }) => (
+export const Botao = ({ cls, label, k, state = '' }: { cls: string; label: string; k: string; state?: string }) => (
   <button type="button" className={`${cls} ${state}`.trim()} disabled={state === 'disabled'}>
     {label}
     <Kbd k={k} />
@@ -503,28 +511,22 @@ const Piece = ({ title, note, children }: { title: string; note: string; childre
   </section>
 );
 
-// 1920x1080 stage at scale: the kit's sizes are full-screen ones, the page only shrinks the drawing
-function Scene() {
+// stage at scale (1920x1080 by default): the kit's sizes are full-screen ones, the page only shrinks the drawing
+export function Scene({ w = 1920, h = 1080, children }: { w?: number; h?: number; children: ReactNode }) {
   const frame = useRef<HTMLDivElement>(null);
   const [k, setK] = useState(0.5);
   useEffect(() => {
     const f = frame.current;
     // jsdom (tests) has no ResizeObserver; the browser always does
     if (!f || typeof ResizeObserver === 'undefined') return;
-    const ro = new ResizeObserver(() => setK(f.clientWidth / 1920));
+    const ro = new ResizeObserver(() => setK(f.clientWidth / w));
     ro.observe(f);
     return () => ro.disconnect();
-  }, []);
+  }, [w]);
   return (
     <div className="fft-scene" ref={frame}>
-      <div className="fft-stage" style={css({ '--k': String(k) })}>
-        <Queue />
-        <UnitPanel u={ARIA} />
-        <Strike />
-        <div className="fft-cmds">
-          <Menu cls="commands" title="Comandos" rows={COMMANDS} />
-        </div>
-        <Counter cls="turn" label="Turno" value="3" />
+      <div className="fft-stage" style={css({ '--k': String(k), width: `${w}px`, height: `${h}px` })}>
+        {children}
       </div>
     </div>
   );
@@ -671,7 +673,15 @@ export function KitFft() {
         <p className="fft-note">
           Fila à esquerda, ficha embaixo à esquerda, previsão embaixo no meio, comandos embaixo à direita.
         </p>
-        <Scene />
+        <Scene>
+          <Queue />
+          <UnitPanel u={ARIA} />
+          <Strike />
+          <div className="fft-cmds">
+            <Menu cls="commands" title="Comandos" rows={COMMANDS} />
+          </div>
+          <Counter cls="turn" label="Turno" value="3" />
+        </Scene>
       </section>
     </div>
   );
