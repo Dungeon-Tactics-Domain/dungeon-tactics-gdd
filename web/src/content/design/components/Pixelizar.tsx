@@ -72,6 +72,8 @@ export function Pixelizar() {
                   <img
                     src={`${ASSETS}/ia/pixelizar/${pasta}/${id}-q${q}.png`}
                     alt={`${nomeP} (${nome})`}
+                    loading="lazy"
+                    decoding="async"
                     className="block size-48 object-contain [image-rendering:pixelated]"
                   />
                 </div>
