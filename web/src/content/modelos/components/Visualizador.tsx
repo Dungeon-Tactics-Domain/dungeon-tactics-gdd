@@ -1,11 +1,10 @@
 // The 3D bench viewer of the models lab: piece and style buttons over an iframe of the bench (eval.html), which runs in
-// the game's worktree on port 5205. Same URLs and behaviour as the old lab (dungeon-tactics-lab/modelos/src/main.ts).
+// the game's worktree (see bancada.ts). Same URLs and behaviour as the old lab (dungeon-tactics-lab/modelos/src/main.ts).
 import { type ReactNode, useEffect, useState } from 'react';
 import { DecisaoAsset } from '@/components/content/DecisaoAsset';
 import pecas from '../pecas.json';
+import { BANCADA, BENCH, CLASSE_VIEWER } from './bancada';
 
-const BANCADA = 'http://localhost:5205';
-const BENCH = `${BANCADA}/eval.html`;
 const ESTILOS = [
   ['psx', 'PSX'],
   ['normal', 'Pintado (jogo)'],
@@ -94,11 +93,7 @@ function Bancada({ pecas: lista, asset, children }: { pecas: Peca[]; asset: stri
           )}
         </div>
       )}
-      <iframe
-        src={urlDaPeca(peca, estilo)}
-        title="Visualizador 3D"
-        className="block aspect-[16/10] w-full border-0 bg-terra"
-      />
+      <iframe src={urlDaPeca(peca, estilo)} title="Visualizador 3D" className={CLASSE_VIEWER} />
       <DecisaoAsset key={peca.id} id={`${asset}/${peca.id}`} rotulo={peca.nome} />
     </>
   );
