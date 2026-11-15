@@ -72,10 +72,12 @@ describe('registered labs', () => {
     expect(c.vazias).toEqual([]);
   });
 
-  it('modelos keeps the old lab tree: 5 groups, 16 pages', () => {
+  it('modelos keeps the old lab tree: 7 groups, 24 pages', () => {
     const s = CONTEUDO.modelos!.sumario;
     expect(s.grupos.map((g) => `${g.id}:${g.paginas.length}`)).toEqual([
       'personagens:4',
+      'animacoes:6',
+      'sprites:2',
       'carrocas:4',
       'arvores:5',
       'estilos:2',
