@@ -31,7 +31,14 @@ createServer((req, res) => {
   stream.on('error', () => (res.headersSent ? res.destroy() : res.writeHead(503).end()));
   stream.on('open', () => {
     // Hashed bundles never change; everything else (index.html, lab content) must be revalidated so a rebuild shows without Ctrl+F5.
-    const cache = url.startsWith('/assets/') ? 'public, max-age=31536000, immutable' : 'no-cache';
+    // Media under /content/ is replaced in place by the labs: 5 min fresh, then served stale while revalidating in the background,
+    // so a revisit costs no tunnel round trip (~0.25 s each) but a replaced image shows within minutes.
+    const media = url.startsWith('/content/') && /\.(png|jpe?g|webp|gif|ogg|mp3|wav|mp4|glb)$/.test(url);
+    const cache = url.startsWith('/assets/')
+      ? 'public, max-age=31536000, immutable'
+      : media
+        ? 'public, max-age=300, stale-while-revalidate=86400'
+        : 'no-cache';
     res.writeHead(200, { 'content-type': types[extname(file)] ?? 'application/octet-stream', 'cache-control': cache });
     if (req.method === 'HEAD') {
       stream.destroy();
