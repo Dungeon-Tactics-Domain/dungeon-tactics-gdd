@@ -20,7 +20,7 @@ $p.Id | Set-Content labs-server.pid
 It reads `config/fabrica.toml` (git-ignored, real session ids) and serves `web/dist`. Fernando's per-asset decisions
 are saved in `data/decisoes.json` (git-ignored, created on the first save; another path with `decisoes = '...'` in the
 config). The page "Decisões" lists them; Claude sessions read the file.
-PC: http://localhost:5191/ . Phone: http://192.168.3.10:5191/ (needs the Windows Firewall rule for 5191, Private profile).
+PC: http://localhost:5191/ . Phone: http://<PC-LAN-IP>:5191/ (needs the Windows Firewall rule for 5191, Private profile).
 
 ## Stop
 
