@@ -21,10 +21,14 @@
     {
       "id": "batalha-a",
       "letra": "A",
-      "titulo": "Batalha · A",
+      "titulo": "Batalha · A · Brasas no Desfiladeiro",
       "audio": "audio/batalha_A.ogg",
       "critica": "**Crítica Opus (só pela partitura, ninguém ouviu): 54/80.** C menor, 132 bpm, 56 compassos. Um motivo próprio (sol sol dó, quarta acima) que é invertido no oboé, reduzido e sequenciado na ponte; emenda G7 para Cm com fill de tons.\n\n- **Maior ajuste:** Compassos 33-56: os stabs de metal caem em todo compasso por 24 compassos. Deixar só nas cabeças de frase (45, 49, 53) e voltar a escrevê-los de sol3 para cima, para limpar o registro médio.\n- **Medido no áudio:** 101.8 s, média -18.8 dB, pico -0.9 dB; 30.6% da energia abaixo de 150 Hz; 2.4% entre 2 e 6 kHz; o fim do loop é 6.8 dB mais alto que o começo (quanto maior, mais o loop parece reiniciar).\n- **Segunda opinião (Fable, às cegas, 56.5/80):** 2º lugar. A peça mais individual: única que não está em ré menor, cadência com segundo grau bemol, contraste de 12 compassos com melodia própria, sem atritos de semitom. Problema: o tema da trompa (55-77) fica dentro do ostinato (48-65) e dos stabs (53-63) nos compassos 5-12 e 45-56, e o baixo só toca a raiz em 93% dos compassos.",
       "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Opus 5.5 · esforço **high**.\n- **Como foi feita:** um subagente recebeu o mesmo pedido que os outros cinco (avaliação às cegas, sem saber a qual modelo cada letra pertencia) e escreveu a composição como script Python; o MIDI e o áudio saem do script."
+        },
         {
           "titulo": "Resumo",
           "texto": "Faixa de batalha A do eval 2 (tema de luta para substituir `battle.mp3`). Ninguém ouviu: tudo abaixo vem da partitura e de medições do arquivo. A chave de quem a compôs só aparece quando você der as notas."
@@ -46,9 +50,13 @@
     {
       "id": "batalha-a-t",
       "letra": "A·T",
-      "titulo": "Batalha · A (tratada)",
+      "titulo": "Batalha · A · Brasas no Desfiladeiro (tratada)",
       "audio": "audio/batalha_A_t.ogg",
       "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Opus 5.5 · esforço **high**.\n- **Como foi feita:** um subagente recebeu o mesmo pedido que os outros cinco (avaliação às cegas, sem saber a qual modelo cada letra pertencia) e escreveu a composição como script Python; o MIDI e o áudio saem do script."
+        },
         {
           "titulo": "Tratamento",
           "texto": "- Mesma faixa **A** com: corte abaixo de 32 Hz, compressor, limitador e volume igualado em -14 LUFS (agudo da original: -35.4 dB acima de 3 kHz, sem filtro de agudo).\n- Serve para ouvir sem os picos e sem diferença de volume. A crítica e as notas estão na faixa original, logo acima."
@@ -58,10 +66,14 @@
     {
       "id": "batalha-a-tfg",
       "letra": "A2",
-      "titulo": "Batalha · A com a soundfont Tactical Fantasy Guy",
+      "titulo": "Batalha · A · Brasas no Desfiladeiro com a soundfont Tactical Fantasy Guy",
       "audio": "audio/batalha_A_tfg.ogg",
       "critica": "Mesma partitura da faixa Batalha A, re-voiceada para a soundfont **Tactical Fantasy Guy (PSX)**: celli no lugar do baixo, tímpano no lugar de bumbo, tons e congas, caixa e prato do pacote, sem chimbal, maracas nem pandeiro. Ninguém ouviu.\n\n- **Medido:** 101.8 s, média -17.3 dB, pico -0.7 dB.",
       "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Opus 5.5 · esforço **high**.\n- **Como foi feita:** um subagente recebeu o mesmo pedido que os outros cinco (avaliação às cegas, sem saber a qual modelo cada letra pertencia) e escreveu a composição como script Python; o MIDI e o áudio saem do script.\n- **Som:** o mesmo MIDI re-escalado por script para a soundfont Tactical Fantasy Guy; o modelo só compôs, a troca de instrumentos não é dele."
+        },
         {
           "titulo": "Resumo",
           "texto": "Mesma partitura da faixa Batalha A, re-voiceada para a soundfont **Tactical Fantasy Guy (PSX)**: celli no lugar do baixo, tímpano no lugar de bumbo, tons e congas, caixa e prato do pacote, sem chimbal, maracas nem pandeiro. Ninguém ouviu."
@@ -75,9 +87,13 @@
     {
       "id": "batalha-a-tfg-t",
       "letra": "A2·T",
-      "titulo": "Batalha · A com a soundfont Tactical Fantasy Guy (tratada)",
+      "titulo": "Batalha · A · Brasas no Desfiladeiro com a soundfont Tactical Fantasy Guy (tratada)",
       "audio": "audio/batalha_A_tfg_t.ogg",
       "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Opus 5.5 · esforço **high**.\n- **Como foi feita:** um subagente recebeu o mesmo pedido que os outros cinco (avaliação às cegas, sem saber a qual modelo cada letra pertencia) e escreveu a composição como script Python; o MIDI e o áudio saem do script.\n- **Som:** o mesmo MIDI re-escalado por script para a soundfont Tactical Fantasy Guy; o modelo só compôs, a troca de instrumentos não é dele."
+        },
         {
           "titulo": "Tratamento",
           "texto": "- Mesma faixa **A2** com: corte abaixo de 32 Hz, compressor, limitador e volume igualado em -14 LUFS (agudo da original: -34.4 dB acima de 3 kHz, sem filtro de agudo).\n- Serve para ouvir sem os picos e sem diferença de volume. A crítica e as notas estão na faixa original, logo acima."
@@ -87,10 +103,14 @@
     {
       "id": "batalha-b",
       "letra": "B",
-      "titulo": "Batalha · B",
+      "titulo": "Batalha · B · Lâmina Veloz",
       "audio": "audio/batalha_B.ogg",
       "critica": "**Crítica Opus (só pela partitura, ninguém ouviu): 33/80.** Ré menor, 116 bpm, 40 compassos. A peça mais fina: tema de 8 compassos reaproveitado, ponte sem melodia, só 2 padrões de bateria, termina em Dm e não na dominante.\n\n- **Maior ajuste:** Escrever uma melodia para a ponte (21-28) a partir da cabeça do tema e terminar o compasso 40 em lá (dominante) para o loop ter puxada.\n- **Medido no áudio:** 82.8 s, média -17.9 dB, pico -1.1 dB; 25.1% da energia abaixo de 150 Hz; 4.6% entre 2 e 6 kHz; o fim do loop é 3.2 dB mais alto que o começo (quanto maior, mais o loop parece reiniciar).\n- **Segunda opinião (Fable, às cegas, 35.0/80):** Último lugar, precisa de reescrita. A ponte (compassos 21-28) não tem melodia, a emenda é Dm para Dm com 8 compassos de baixa energia ao redor e as velocities do metal são planas.",
       "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Haiku 5.5 · esforço **low**.\n- **Como foi feita:** um subagente recebeu o mesmo pedido que os outros cinco (avaliação às cegas, sem saber a qual modelo cada letra pertencia) e escreveu a composição como script Python; o MIDI e o áudio saem do script."
+        },
         {
           "titulo": "Resumo",
           "texto": "Faixa de batalha B do eval 2 (tema de luta para substituir `battle.mp3`). Ninguém ouviu: tudo abaixo vem da partitura e de medições do arquivo. A chave de quem a compôs só aparece quando você der as notas."
@@ -112,9 +132,13 @@
     {
       "id": "batalha-b-t",
       "letra": "B·T",
-      "titulo": "Batalha · B (tratada)",
+      "titulo": "Batalha · B · Lâmina Veloz (tratada)",
       "audio": "audio/batalha_B_t.ogg",
       "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Haiku 5.5 · esforço **low**.\n- **Como foi feita:** um subagente recebeu o mesmo pedido que os outros cinco (avaliação às cegas, sem saber a qual modelo cada letra pertencia) e escreveu a composição como script Python; o MIDI e o áudio saem do script."
+        },
         {
           "titulo": "Tratamento",
           "texto": "- Mesma faixa **B** com: corte abaixo de 32 Hz, compressor, limitador e volume igualado em -14 LUFS (agudo da original: -33.1 dB acima de 3 kHz, sem filtro de agudo).\n- Serve para ouvir sem os picos e sem diferença de volume. A crítica e as notas estão na faixa original, logo acima."
@@ -124,10 +148,14 @@
     {
       "id": "batalha-b-tfg",
       "letra": "B2",
-      "titulo": "Batalha · B com a soundfont Tactical Fantasy Guy",
+      "titulo": "Batalha · B · Lâmina Veloz com a soundfont Tactical Fantasy Guy",
       "audio": "audio/batalha_B_tfg.ogg",
       "critica": "Mesma partitura da faixa Batalha B, re-voiceada para a soundfont **Tactical Fantasy Guy (PSX)**: celli no lugar do baixo, tímpano no lugar de bumbo, tons e congas, caixa e prato do pacote, sem chimbal, maracas nem pandeiro. Ninguém ouviu.\n\n- **Medido:** 82.8 s, média -16.6 dB, pico -0.8 dB.",
       "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Haiku 5.5 · esforço **low**.\n- **Como foi feita:** um subagente recebeu o mesmo pedido que os outros cinco (avaliação às cegas, sem saber a qual modelo cada letra pertencia) e escreveu a composição como script Python; o MIDI e o áudio saem do script.\n- **Som:** o mesmo MIDI re-escalado por script para a soundfont Tactical Fantasy Guy; o modelo só compôs, a troca de instrumentos não é dele."
+        },
         {
           "titulo": "Resumo",
           "texto": "Mesma partitura da faixa Batalha B, re-voiceada para a soundfont **Tactical Fantasy Guy (PSX)**: celli no lugar do baixo, tímpano no lugar de bumbo, tons e congas, caixa e prato do pacote, sem chimbal, maracas nem pandeiro. Ninguém ouviu."
@@ -141,9 +169,13 @@
     {
       "id": "batalha-b-tfg-t",
       "letra": "B2·T",
-      "titulo": "Batalha · B com a soundfont Tactical Fantasy Guy (tratada)",
+      "titulo": "Batalha · B · Lâmina Veloz com a soundfont Tactical Fantasy Guy (tratada)",
       "audio": "audio/batalha_B_tfg_t.ogg",
       "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Haiku 5.5 · esforço **low**.\n- **Como foi feita:** um subagente recebeu o mesmo pedido que os outros cinco (avaliação às cegas, sem saber a qual modelo cada letra pertencia) e escreveu a composição como script Python; o MIDI e o áudio saem do script.\n- **Som:** o mesmo MIDI re-escalado por script para a soundfont Tactical Fantasy Guy; o modelo só compôs, a troca de instrumentos não é dele."
+        },
         {
           "titulo": "Tratamento",
           "texto": "- Mesma faixa **B2** com: corte abaixo de 32 Hz, compressor, limitador e volume igualado em -14 LUFS (agudo da original: -34.3 dB acima de 3 kHz, sem filtro de agudo).\n- Serve para ouvir sem os picos e sem diferença de volume. A crítica e as notas estão na faixa original, logo acima."
@@ -153,10 +185,14 @@
     {
       "id": "batalha-c",
       "letra": "C",
-      "titulo": "Batalha · C",
+      "titulo": "Batalha · C · Marcha das Cinzas",
       "audio": "audio/batalha_C.ogg",
       "critica": "**Crítica Opus (só pela partitura, ninguém ouviu): 61/80.** Ré menor, 132 bpm, 52 compassos. A melhor harmonia: baixo cromático subindo com acordes diminutos na ponte e baixo com notas de aproximação; sem lama no grave e sem sobreposição de partes.\n\n- **Maior ajuste:** O trompete fica em velocity 92-114 o tempo todo, então o retorno não pesa mais. Dar-lhe forma: tema ~80-90, ponte subindo, retorno 100+.\n- **Medido no áudio:** 94.5 s, média -20.0 dB, pico -1.0 dB; 15.0% da energia abaixo de 150 Hz; 10.0% entre 2 e 6 kHz; o fim do loop é 9.1 dB mais alto que o começo (quanto maior, mais o loop parece reiniciar).\n- **Segunda opinião (Fable, às cegas, 60.5/80):** 1º lugar, a única candidata a entrar no jogo depois de pequenos ajustes: 12 acordes, baixo cromático de ré a lá na ponte, o único baixo que anda por graus, tema de 16 compassos trocado entre trompete e cordas, registros mais limpos. Problema é de equilíbrio, não de composição: compassos 5-20 e 37-52 têm trompete quase plano (92-114), cordas no volume de canal 127 e a maior fatia de 2-5 kHz (~11%) com o grave mais leve; o trecho 37-40 é cheio demais.",
       "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Fable 5.2 · esforço **high**.\n- **Como foi feita:** um subagente recebeu o mesmo pedido que os outros cinco (avaliação às cegas, sem saber a qual modelo cada letra pertencia) e escreveu a composição como script Python; o MIDI e o áudio saem do script.\n- **Ajuste depois:** o trompete foi removido por script a pedido do Fernando (15/11), sem modelo."
+        },
         {
           "titulo": "Resumo",
           "texto": "Faixa de batalha C do eval 2 (tema de luta para substituir `battle.mp3`). Ninguém ouviu: tudo abaixo vem da partitura e de medições do arquivo. A chave de quem a compôs só aparece quando você der as notas."
@@ -182,9 +218,13 @@
     {
       "id": "batalha-c-t",
       "letra": "C·T",
-      "titulo": "Batalha · C (tratada)",
+      "titulo": "Batalha · C · Marcha das Cinzas (tratada)",
       "audio": "audio/batalha_C_t.ogg",
       "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Fable 5.2 · esforço **high**.\n- **Como foi feita:** um subagente recebeu o mesmo pedido que os outros cinco (avaliação às cegas, sem saber a qual modelo cada letra pertencia) e escreveu a composição como script Python; o MIDI e o áudio saem do script.\n- **Ajuste depois:** o trompete foi removido por script a pedido do Fernando (15/11), sem modelo."
+        },
         {
           "titulo": "Tratamento",
           "texto": "- Mesma faixa **C** com: corte abaixo de 32 Hz, compressor, limitador e volume igualado em -14 LUFS, mais um filtro que tira agudo acima de 2,5 kHz (a original media -31.0 dB acima de 3 kHz, mais brilhante que a referência Trisection, -33).\n- Serve para ouvir sem os picos e sem diferença de volume. A crítica e as notas estão na faixa original, logo acima."
@@ -198,10 +238,14 @@
     {
       "id": "batalha-c-tfg",
       "letra": "C2",
-      "titulo": "Batalha · C com a soundfont Tactical Fantasy Guy",
+      "titulo": "Batalha · C · Marcha das Cinzas com a soundfont Tactical Fantasy Guy",
       "audio": "audio/batalha_C_tfg.ogg",
       "critica": "Mesma partitura da faixa C (MIDI idêntico), re-voiceada para a soundfont **Tactical Fantasy Guy (PSX)**, os samples inspirados no FFT. Mudanças: celli no lugar do violoncelo e do contrabaixo (a soundfont não tem baixo), tímpano no lugar do bumbo e dos tons, caixa e prato próprios, **sem chimbal** (não existe no pacote). Ninguém ouviu; compare lado a lado com a faixa C normal.\n\n- **Medido:** 94,5 s, média -18,5 dB, pico -1,0 dB; os 10 instrumentos tocam sozinhos sem ficar mudos (o prato é o mais baixo, só 6 batidas).\n- **Licença:** EULA do pacote permite usar em jogos; o `.sf2` não pode ir no repositório, só os `.ogg` renderizados.",
       "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Fable 5.2 · esforço **high**.\n- **Como foi feita:** um subagente recebeu o mesmo pedido que os outros cinco (avaliação às cegas, sem saber a qual modelo cada letra pertencia) e escreveu a composição como script Python; o MIDI e o áudio saem do script.\n- **Som:** o mesmo MIDI re-escalado por script para a soundfont Tactical Fantasy Guy; o modelo só compôs, a troca de instrumentos não é dele.\n- **Ajuste depois:** o trompete foi removido por script a pedido do Fernando (15/11), sem modelo."
+        },
         {
           "titulo": "Resumo",
           "texto": "Mesma partitura da faixa C (MIDI idêntico), re-voiceada para a soundfont **Tactical Fantasy Guy (PSX)**, os samples inspirados no FFT. Mudanças: celli no lugar do violoncelo e do contrabaixo (a soundfont não tem baixo), tímpano no lugar do bumbo e dos tons, caixa e prato próprios, **sem chimbal** (não existe no pacote). Ninguém ouviu; compare lado a lado com a faixa C normal."
@@ -219,9 +263,13 @@
     {
       "id": "batalha-c-tfg-t",
       "letra": "C2·T",
-      "titulo": "Batalha · C com a soundfont Tactical Fantasy Guy (tratada)",
+      "titulo": "Batalha · C · Marcha das Cinzas com a soundfont Tactical Fantasy Guy (tratada)",
       "audio": "audio/batalha_C_tfg_t.ogg",
       "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Fable 5.2 · esforço **high**.\n- **Como foi feita:** um subagente recebeu o mesmo pedido que os outros cinco (avaliação às cegas, sem saber a qual modelo cada letra pertencia) e escreveu a composição como script Python; o MIDI e o áudio saem do script.\n- **Som:** o mesmo MIDI re-escalado por script para a soundfont Tactical Fantasy Guy; o modelo só compôs, a troca de instrumentos não é dele.\n- **Ajuste depois:** o trompete foi removido por script a pedido do Fernando (15/11), sem modelo."
+        },
         {
           "titulo": "Tratamento",
           "texto": "- Mesma faixa **C2** com: corte abaixo de 32 Hz, compressor, limitador e volume igualado em -14 LUFS, mais um filtro que tira agudo acima de 2,5 kHz (a original media -29.9 dB acima de 3 kHz, mais brilhante que a referência Trisection, -33).\n- Serve para ouvir sem os picos e sem diferença de volume. A crítica e as notas estão na faixa original, logo acima."
@@ -235,10 +283,14 @@
     {
       "id": "batalha-d",
       "letra": "D",
-      "titulo": "Batalha · D",
+      "titulo": "Batalha · D · Escudo e Tambor",
       "audio": "audio/batalha_D.ogg",
       "critica": "**Crítica Opus (só pela partitura, ninguém ouviu): 47/80.** Ré menor, 132 bpm, 56 compassos. Partitura densa (8 partes, o teto): harpa no registro do baixo e melodia quase sempre dobrada; a emenda é um precipício (compasso 56 cheio, compasso 1 quase vazio).\n\n- **Maior ajuste:** Subir a harpa uma oitava nos compassos 21-32 e 49-56 (arpejo de sol3, não sol2): tira quase toda a lama. Depois manter o baixo tocando nos compassos 1-2.\n- **Medido no áudio:** 101.8 s, média -18.6 dB, pico -0.8 dB; 24.7% da energia abaixo de 150 Hz; 4.5% entre 2 e 6 kHz; o fim do loop é 15.3 dB mais alto que o começo (quanto maior, mais o loop parece reiniciar).\n- **Segunda opinião (Fable, às cegas, 45.5/80):** 5º lugar. Tem o melhor arco de dinâmica para os últimos 8 compassos, mas repete o tema de 8 compassos literalmente 3 vezes (5-12, 13-20, 41-48), tem notas erradas nos compassos 37-38 (si natural contra si bemol) e 31 (ré da trompa contra dó sustenido), e a emenda cai 15,4 dB.",
       "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Sonnet 5.5 · esforço **medium**.\n- **Como foi feita:** um subagente recebeu o mesmo pedido que os outros cinco (avaliação às cegas, sem saber a qual modelo cada letra pertencia) e escreveu a composição como script Python; o MIDI e o áudio saem do script."
+        },
         {
           "titulo": "Resumo",
           "texto": "Faixa de batalha D do eval 2 (tema de luta para substituir `battle.mp3`). Ninguém ouviu: tudo abaixo vem da partitura e de medições do arquivo. A chave de quem a compôs só aparece quando você der as notas."
@@ -260,9 +312,13 @@
     {
       "id": "batalha-d-t",
       "letra": "D·T",
-      "titulo": "Batalha · D (tratada)",
+      "titulo": "Batalha · D · Escudo e Tambor (tratada)",
       "audio": "audio/batalha_D_t.ogg",
       "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Sonnet 5.5 · esforço **medium**.\n- **Como foi feita:** um subagente recebeu o mesmo pedido que os outros cinco (avaliação às cegas, sem saber a qual modelo cada letra pertencia) e escreveu a composição como script Python; o MIDI e o áudio saem do script."
+        },
         {
           "titulo": "Tratamento",
           "texto": "- Mesma faixa **D** com: corte abaixo de 32 Hz, compressor, limitador e volume igualado em -14 LUFS (agudo da original: -33.3 dB acima de 3 kHz, sem filtro de agudo).\n- Serve para ouvir sem os picos e sem diferença de volume. A crítica e as notas estão na faixa original, logo acima."
@@ -272,10 +328,14 @@
     {
       "id": "batalha-d-tfg",
       "letra": "D2",
-      "titulo": "Batalha · D com a soundfont Tactical Fantasy Guy",
+      "titulo": "Batalha · D · Escudo e Tambor com a soundfont Tactical Fantasy Guy",
       "audio": "audio/batalha_D_tfg.ogg",
       "critica": "Mesma partitura da faixa Batalha D, re-voiceada para a soundfont **Tactical Fantasy Guy (PSX)**: celli no lugar do baixo, tímpano no lugar de bumbo, tons e congas, caixa e prato do pacote, sem chimbal, maracas nem pandeiro. Ninguém ouviu.\n\n- **Medido:** 101.8 s, média -19.3 dB, pico -0.9 dB.",
       "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Sonnet 5.5 · esforço **medium**.\n- **Como foi feita:** um subagente recebeu o mesmo pedido que os outros cinco (avaliação às cegas, sem saber a qual modelo cada letra pertencia) e escreveu a composição como script Python; o MIDI e o áudio saem do script.\n- **Som:** o mesmo MIDI re-escalado por script para a soundfont Tactical Fantasy Guy; o modelo só compôs, a troca de instrumentos não é dele."
+        },
         {
           "titulo": "Resumo",
           "texto": "Mesma partitura da faixa Batalha D, re-voiceada para a soundfont **Tactical Fantasy Guy (PSX)**: celli no lugar do baixo, tímpano no lugar de bumbo, tons e congas, caixa e prato do pacote, sem chimbal, maracas nem pandeiro. Ninguém ouviu."
@@ -289,9 +349,13 @@
     {
       "id": "batalha-d-tfg-t",
       "letra": "D2·T",
-      "titulo": "Batalha · D com a soundfont Tactical Fantasy Guy (tratada)",
+      "titulo": "Batalha · D · Escudo e Tambor com a soundfont Tactical Fantasy Guy (tratada)",
       "audio": "audio/batalha_D_tfg_t.ogg",
       "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Sonnet 5.5 · esforço **medium**.\n- **Como foi feita:** um subagente recebeu o mesmo pedido que os outros cinco (avaliação às cegas, sem saber a qual modelo cada letra pertencia) e escreveu a composição como script Python; o MIDI e o áudio saem do script.\n- **Som:** o mesmo MIDI re-escalado por script para a soundfont Tactical Fantasy Guy; o modelo só compôs, a troca de instrumentos não é dele."
+        },
         {
           "titulo": "Tratamento",
           "texto": "- Mesma faixa **D2** com: corte abaixo de 32 Hz, compressor, limitador e volume igualado em -14 LUFS (agudo da original: -34.9 dB acima de 3 kHz, sem filtro de agudo).\n- Serve para ouvir sem os picos e sem diferença de volume. A crítica e as notas estão na faixa original, logo acima."
@@ -301,10 +365,14 @@
     {
       "id": "batalha-e",
       "letra": "E",
-      "titulo": "Batalha · E",
+      "titulo": "Batalha · E · Crepúsculo de Aço",
       "audio": "audio/batalha_E.ogg",
       "critica": "**Crítica Opus (só pela partitura, ninguém ouviu): 59/80.** Ré menor, 128 bpm, 52 compassos. Tudo nasce de um só motivo (em ré, em sol, aumentado, fragmentado); plano de registros mais limpo e bateria com arco desenhado; o retorno repete o tema quase literal.\n\n- **Maior ajuste:** Compassos 29-32: o trêmolo de cordas cobre a melodia da trompa. Começar o trêmolo no compasso 33, quando o trompete assume uma oitava acima.\n- **Medido no áudio:** 97.5 s, média -19.7 dB, pico -1.1 dB; 19.8% da energia abaixo de 150 Hz; 8.7% entre 2 e 6 kHz; o fim do loop é 7.8 dB mais alto que o começo (quanto maior, mais o loop parece reiniciar).\n- **Segunda opinião (Fable, às cegas, 55.5/80):** 3º lugar, empatada com A (1 ponto). Desenvolvimento de motivo mais disciplinado, sem atritos de semitom, retorno com ganho real (+2,7 dB). Problema: o retorno (37-52) é uma reapresentação em uníssono na mesma oitava e o compasso do motivo aparece 6 vezes por loop, cerca de 37 vezes em 10 minutos.",
       "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Opus 5.5 · esforço **xhigh**.\n- **Como foi feita:** um subagente recebeu o mesmo pedido que os outros cinco (avaliação às cegas, sem saber a qual modelo cada letra pertencia) e escreveu a composição como script Python; o MIDI e o áudio saem do script.\n- **Ajuste depois:** o trompete foi removido por script a pedido do Fernando (15/11), sem modelo."
+        },
         {
           "titulo": "Resumo",
           "texto": "Faixa de batalha E do eval 2 (tema de luta para substituir `battle.mp3`). Ninguém ouviu: tudo abaixo vem da partitura e de medições do arquivo. A chave de quem a compôs só aparece quando você der as notas."
@@ -330,9 +398,13 @@
     {
       "id": "batalha-e-t",
       "letra": "E·T",
-      "titulo": "Batalha · E (tratada)",
+      "titulo": "Batalha · E · Crepúsculo de Aço (tratada)",
       "audio": "audio/batalha_E_t.ogg",
       "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Opus 5.5 · esforço **xhigh**.\n- **Como foi feita:** um subagente recebeu o mesmo pedido que os outros cinco (avaliação às cegas, sem saber a qual modelo cada letra pertencia) e escreveu a composição como script Python; o MIDI e o áudio saem do script.\n- **Ajuste depois:** o trompete foi removido por script a pedido do Fernando (15/11), sem modelo."
+        },
         {
           "titulo": "Tratamento",
           "texto": "- Mesma faixa **E** com: corte abaixo de 32 Hz, compressor, limitador e volume igualado em -14 LUFS (agudo da original: -32.4 dB acima de 3 kHz, sem filtro de agudo).\n- Serve para ouvir sem os picos e sem diferença de volume. A crítica e as notas estão na faixa original, logo acima."
@@ -346,10 +418,14 @@
     {
       "id": "batalha-e-tfg",
       "letra": "E2",
-      "titulo": "Batalha · E com a soundfont Tactical Fantasy Guy",
+      "titulo": "Batalha · E · Crepúsculo de Aço com a soundfont Tactical Fantasy Guy",
       "audio": "audio/batalha_E_tfg.ogg",
       "critica": "Mesma partitura da faixa Batalha E, re-voiceada para a soundfont **Tactical Fantasy Guy (PSX)**: celli no lugar do baixo, tímpano no lugar de bumbo, tons e congas, caixa e prato do pacote, sem chimbal, maracas nem pandeiro. Ninguém ouviu.\n\n- **Medido:** 97.5 s, média -18.2 dB, pico -1.0 dB.",
       "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Opus 5.5 · esforço **xhigh**.\n- **Como foi feita:** um subagente recebeu o mesmo pedido que os outros cinco (avaliação às cegas, sem saber a qual modelo cada letra pertencia) e escreveu a composição como script Python; o MIDI e o áudio saem do script.\n- **Som:** o mesmo MIDI re-escalado por script para a soundfont Tactical Fantasy Guy; o modelo só compôs, a troca de instrumentos não é dele.\n- **Ajuste depois:** o trompete foi removido por script a pedido do Fernando (15/11), sem modelo."
+        },
         {
           "titulo": "Resumo",
           "texto": "Mesma partitura da faixa Batalha E, re-voiceada para a soundfont **Tactical Fantasy Guy (PSX)**: celli no lugar do baixo, tímpano no lugar de bumbo, tons e congas, caixa e prato do pacote, sem chimbal, maracas nem pandeiro. Ninguém ouviu."
@@ -367,9 +443,13 @@
     {
       "id": "batalha-e-tfg-t",
       "letra": "E2·T",
-      "titulo": "Batalha · E com a soundfont Tactical Fantasy Guy (tratada)",
+      "titulo": "Batalha · E · Crepúsculo de Aço com a soundfont Tactical Fantasy Guy (tratada)",
       "audio": "audio/batalha_E_tfg_t.ogg",
       "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Opus 5.5 · esforço **xhigh**.\n- **Como foi feita:** um subagente recebeu o mesmo pedido que os outros cinco (avaliação às cegas, sem saber a qual modelo cada letra pertencia) e escreveu a composição como script Python; o MIDI e o áudio saem do script.\n- **Som:** o mesmo MIDI re-escalado por script para a soundfont Tactical Fantasy Guy; o modelo só compôs, a troca de instrumentos não é dele.\n- **Ajuste depois:** o trompete foi removido por script a pedido do Fernando (15/11), sem modelo."
+        },
         {
           "titulo": "Tratamento",
           "texto": "- Mesma faixa **E2** com: corte abaixo de 32 Hz, compressor, limitador e volume igualado em -14 LUFS (agudo da original: -32.2 dB acima de 3 kHz, sem filtro de agudo).\n- Serve para ouvir sem os picos e sem diferença de volume. A crítica e as notas estão na faixa original, logo acima."
@@ -383,10 +463,14 @@
     {
       "id": "batalha-f",
       "letra": "F",
-      "titulo": "Batalha · F",
+      "titulo": "Batalha · F · Fogo na Ponte",
       "audio": "audio/batalha_F.ogg",
       "critica": "**Crítica Opus (só pela partitura, ninguém ouviu): 55/80.** Ré menor, 132 bpm, 56 compassos. O maior material melódico e a bateria mais variada, com retorno ornamentado; o metal do tema sobe a dó6-ré6 forte e a emenda cai de 94 para 46.\n\n- **Maior ajuste:** Compassos 33-35 e 47-52: descer o metal uma oitava acima de dó6 (ou passar as notas às cordas) e limitar a velocity perto de 100; corrigir o tímpano que é tocado de novo enquanto ainda soa nos compassos 4-5.\n- **Medido no áudio:** 101.8 s, média -19.3 dB, pico -0.7 dB; 41.0% da energia abaixo de 150 Hz; 5.2% entre 2 e 6 kHz; o fim do loop é 11.8 dB mais alto que o começo (quanto maior, mais o loop parece reiniciar).\n- **Segunda opinião (Fable, às cegas, 51.0/80):** 4º lugar. Melhor pulso e variedade de bateria (25 padrões) e baixo com notas de aproximação. Problema: grave muito pesado (37-50% da energia abaixo de 150 Hz nas partes de pulso), o metal chega a ré6 no compasso 34 e a harmonia é simples (6 acordes).",
       "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Sonnet 5.5 · esforço **high**.\n- **Como foi feita:** um subagente recebeu o mesmo pedido que os outros cinco (avaliação às cegas, sem saber a qual modelo cada letra pertencia) e escreveu a composição como script Python; o MIDI e o áudio saem do script."
+        },
         {
           "titulo": "Resumo",
           "texto": "Faixa de batalha F do eval 2 (tema de luta para substituir `battle.mp3`). Ninguém ouviu: tudo abaixo vem da partitura e de medições do arquivo. A chave de quem a compôs só aparece quando você der as notas."
@@ -408,9 +492,13 @@
     {
       "id": "batalha-f-t",
       "letra": "F·T",
-      "titulo": "Batalha · F (tratada)",
+      "titulo": "Batalha · F · Fogo na Ponte (tratada)",
       "audio": "audio/batalha_F_t.ogg",
       "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Sonnet 5.5 · esforço **high**.\n- **Como foi feita:** um subagente recebeu o mesmo pedido que os outros cinco (avaliação às cegas, sem saber a qual modelo cada letra pertencia) e escreveu a composição como script Python; o MIDI e o áudio saem do script."
+        },
         {
           "titulo": "Tratamento",
           "texto": "- Mesma faixa **F** com: corte abaixo de 32 Hz, compressor, limitador e volume igualado em -14 LUFS (agudo da original: -33.7 dB acima de 3 kHz, sem filtro de agudo).\n- Serve para ouvir sem os picos e sem diferença de volume. A crítica e as notas estão na faixa original, logo acima."
@@ -420,10 +508,14 @@
     {
       "id": "batalha-f-tfg",
       "letra": "F2",
-      "titulo": "Batalha · F com a soundfont Tactical Fantasy Guy",
+      "titulo": "Batalha · F · Fogo na Ponte com a soundfont Tactical Fantasy Guy",
       "audio": "audio/batalha_F_tfg.ogg",
       "critica": "Mesma partitura da faixa Batalha F, re-voiceada para a soundfont **Tactical Fantasy Guy (PSX)**: celli no lugar do baixo, tímpano no lugar de bumbo, tons e congas, caixa e prato do pacote, sem chimbal, maracas nem pandeiro. Ninguém ouviu.\n\n- **Medido:** 101.8 s, média -17.8 dB, pico -1.0 dB.",
       "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Sonnet 5.5 · esforço **high**.\n- **Como foi feita:** um subagente recebeu o mesmo pedido que os outros cinco (avaliação às cegas, sem saber a qual modelo cada letra pertencia) e escreveu a composição como script Python; o MIDI e o áudio saem do script.\n- **Som:** o mesmo MIDI re-escalado por script para a soundfont Tactical Fantasy Guy; o modelo só compôs, a troca de instrumentos não é dele."
+        },
         {
           "titulo": "Resumo",
           "texto": "Mesma partitura da faixa Batalha F, re-voiceada para a soundfont **Tactical Fantasy Guy (PSX)**: celli no lugar do baixo, tímpano no lugar de bumbo, tons e congas, caixa e prato do pacote, sem chimbal, maracas nem pandeiro. Ninguém ouviu."
@@ -437,9 +529,13 @@
     {
       "id": "batalha-f-tfg-t",
       "letra": "F2·T",
-      "titulo": "Batalha · F com a soundfont Tactical Fantasy Guy (tratada)",
+      "titulo": "Batalha · F · Fogo na Ponte com a soundfont Tactical Fantasy Guy (tratada)",
       "audio": "audio/batalha_F_tfg_t.ogg",
       "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Sonnet 5.5 · esforço **high**.\n- **Como foi feita:** um subagente recebeu o mesmo pedido que os outros cinco (avaliação às cegas, sem saber a qual modelo cada letra pertencia) e escreveu a composição como script Python; o MIDI e o áudio saem do script.\n- **Som:** o mesmo MIDI re-escalado por script para a soundfont Tactical Fantasy Guy; o modelo só compôs, a troca de instrumentos não é dele."
+        },
         {
           "titulo": "Tratamento",
           "texto": "- Mesma faixa **F2** com: corte abaixo de 32 Hz, compressor, limitador e volume igualado em -14 LUFS (agudo da original: -33.7 dB acima de 3 kHz, sem filtro de agudo).\n- Serve para ouvir sem os picos e sem diferença de volume. A crítica e as notas estão na faixa original, logo acima."

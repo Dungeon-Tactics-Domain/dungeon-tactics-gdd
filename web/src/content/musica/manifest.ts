@@ -1,7 +1,7 @@
 // Music lab: battle and pastoral evals, copied from dungeon-tactics-lab/musica (src/main.ts, data/*.json). Each old
 // page (#/batalha, #/pastoral) is a group and each old anchor (referencias, a track id, checagens) a page with the same
 // id, so old links like #/batalha/batalha-c land on the same content.
-import { faixasDe, PAGINAS } from './components/Musica';
+import { faixasDe, PAGINAS, type Faixa } from './components/Musica';
 import type { GrupoManifesto, Manifesto } from '../types';
 
 // the TFG versions' full titles do not fit one menu line; the page keeps the full title in its heading
@@ -17,6 +17,17 @@ const noMenu = (grupo: string, faixa: string) =>
         ? !/^ref-trisection-midi-(fa-|transcricao)|-cru$/.test(faixa)
         : true;
 
+// menu line: letter, invented name and who composed it (read from the "Quem fez" section), e.g. "F · Cantiga do Moinho · Haiku low"
+const rotulo = (grupo: string, t: Faixa) => {
+  const quem = t.secoes?.[0]?.texto.match(/Modelo e esforço:\*\* (\w+) [\d.]+ · esforço \*\*(\w+)\*\*/);
+  const partes = t.titulo.split(' · ');
+  const nome =
+    grupo === 'tema-dark' ? partes[0] + (t.id.includes('-v1-') ? ' (v1)' : '') : partes.slice(1, 3).join(' · ');
+  return quem && (grupo === 'tema-dark' || grupo === 'batalha' || grupo === 'pastoral')
+    ? `${nome} · ${quem[1]} ${quem[2]}`
+    : curto(t.titulo);
+};
+
 const grupos: GrupoManifesto[] = Object.entries(PAGINAS).map(([id, p]) => {
   const faixas = faixasDe(p).filter((t) => noMenu(id, t.id));
   const refs = p.referencias ?? [];
@@ -31,7 +42,7 @@ const grupos: GrupoManifesto[] = Object.entries(PAGINAS).map(([id, p]) => {
     resumo: `${texto} · ${faixas.length} faixas · ${pendentes} checagens pendentes`,
     paginas: [
       { id: 'referencias', titulo: 'Referências' },
-      ...faixas.map((t) => ({ id: t.id, titulo: curto(t.titulo) })),
+      ...faixas.map((t) => ({ id: t.id, titulo: rotulo(id, t) })),
       { id: 'checagens', titulo: 'Checagens' },
     ],
   };

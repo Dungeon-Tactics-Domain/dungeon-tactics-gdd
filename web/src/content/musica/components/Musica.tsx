@@ -136,17 +136,29 @@ const SONS_TRISECTION = [
   ['fa-sonatina', 'Sonatina'],
   ['transcricao', 'Transcrição do áudio'],
 ] as const;
+// sounds offered for every battle and pastoral track; the key is the suffix of its stems folder ('' is MuseScore)
+const SONS_JOGO = [
+  ['', 'MuseScore General'],
+  ['gugs', 'GeneralUser GS'],
+  ['fluidr3', 'FluidR3'],
+  ['sgm', 'SGM'],
+  ['neo', 'Neo Orchestra'],
+  ['tfg', 'Tactical Fantasy Guy'],
+  ['sonatina', 'Sonatina'],
+] as const;
 const versoesDe = (id: string) => {
   const f = /^(batalha|pastoral)-[a-f](-tfg)?(-t)?$/.exec(id);
   if (f) {
     const raiz = id.replace(/(-tfg)?(-t)?$/, '');
     return {
       raiz,
-      atual: f[2] ? 1 : 0,
-      opcoes: [
-        { rotulo: 'MuseScore General', faixa: raiz },
-        { rotulo: 'Tactical Fantasy Guy', faixa: `${raiz}-tfg` },
-      ],
+      atual: f[2] ? SONS_JOGO.findIndex(([k]) => k === 'tfg') : 0,
+      // the text of each sound comes from its own page when there is one (MuseScore and TFG); the others reuse the base page
+      opcoes: SONS_JOGO.map(([k, rotulo]) => ({
+        rotulo,
+        faixa: k === 'tfg' ? `${raiz}-tfg` : raiz,
+        stems: `${stemsDe(raiz)}${k ? `_${k}` : ''}`,
+      })),
     };
   }
   const tri = /^ref-trisection-midi-(fa(?:-\w+?)?|transcricao)(-cru)?$/.exec(id);
@@ -157,7 +169,11 @@ const versoesDe = (id: string) => {
         0,
         SONS_TRISECTION.findIndex(([k]) => k === tri[1]),
       ),
-      opcoes: SONS_TRISECTION.map(([k, rotulo]) => ({ rotulo, faixa: `ref-trisection-midi-${k}` })),
+      opcoes: SONS_TRISECTION.map(([k, rotulo]) => ({
+        rotulo,
+        faixa: `ref-trisection-midi-${k}`,
+        stems: stemsDe(`ref-trisection-midi-${k}`),
+      })),
     };
 };
 
@@ -219,7 +235,7 @@ export function FaixaMusica({ pagina: id, faixa }: { pagina: IdPagina; faixa: st
   // one track, several sounds: the page switches in place (batalha-a and batalha-a-tfg; the Trisection fan MIDI per soundfont)
   const grupo = versoesDe(t.id);
   const alvo = grupo ? (pagina(id)?.faixas?.find((f) => f.id === grupo.opcoes[versao]?.faixa) ?? t) : t;
-  const stems = stemsDe(grupo ? alvo.id : t.id);
+  const stems = grupo ? grupo.opcoes[versao]?.stems : stemsDe(t.id);
   const midi = stems ?? midiDe(t.id);
   const secoes = secoesDe(alvo);
   return (

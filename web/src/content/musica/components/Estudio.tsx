@@ -53,6 +53,7 @@ export function Estudio({
   const [mudo, setMudo] = useState<Set<number>>(new Set());
   const [solo, setSolo] = useState<Set<number>>(new Set());
   const [tratada, setTratada] = useState(tratadaInicial);
+  const [geral, setGeral] = useState(1);
   const [agora, setAgora] = useState(0);
   const ctx = useRef<AudioContext | null>(null);
   const buffers = useRef<AudioBuffer[]>([]);
@@ -105,6 +106,11 @@ export function Estudio({
       g.gain.value = mudo.has(ch) || (solo.size > 0 && !solo.has(ch)) ? 0 : (vol[ch] ?? 1);
     }
   }, [vol, mudo, solo]);
+
+  // master volume: the gain every stem goes through before the treatment chain
+  useEffect(() => {
+    if (mestre.current) mestre.current.entrada.gain.value = geral;
+  }, [geral, estado]);
 
   // treatment: bypass, or highpass + softer highs + compressor + makeup + a ceiling (close to the ffmpeg chain, not identical)
   useEffect(() => {
@@ -392,11 +398,20 @@ export function Estudio({
           compasso {Math.min(Math.floor(agora / seg) + 1, Math.round(total / seg))} de {Math.round(total / seg)}
         </span>
         <span className="tabular-nums text-[#5b6675]">{Math.round(bpm)} bpm</span>
-        <div
-          className="ml-auto flex overflow-hidden rounded border border-[#c9d1db]"
-          role="group"
-          aria-label="Versão do som"
-        >
+        <label className="ml-auto flex items-center gap-2 text-[#5b6675]">
+          Volume geral
+          <input
+            type="range"
+            min={0}
+            max={1.5}
+            step={0.05}
+            value={geral}
+            onChange={(ev) => setGeral(Number(ev.target.value))}
+            className="w-32 accent-[#1c2430]"
+          />
+          <span className="w-10 tabular-nums">{Math.round(geral * 100)}%</span>
+        </label>
+        <div className="flex overflow-hidden rounded border border-[#c9d1db]" role="group" aria-label="Versão do som">
           {(
             [
               [false, 'Original'],

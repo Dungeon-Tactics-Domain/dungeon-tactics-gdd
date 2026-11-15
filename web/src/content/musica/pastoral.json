@@ -11,10 +11,14 @@
     {
       "id": "pastoral-a",
       "letra": "PA",
-      "titulo": "Pastoral · A",
+      "titulo": "Pastoral · A · Manhã na Aldeia",
       "audio": "audio/pastoral_A.ogg",
       "critica": "**Opus (partitura): 43/60. Fable (às cegas): 46/60.** Os dois colocam D e A no topo e F por último.\n\n- **Maior ajuste:** Reharmonizar A' ou A'' (compassos 13-19 ou 29-35) para sair da progressão que lembra o Cânone de Pachelbel e reescrever a contramelodia do oboé.\n- **Medido:** 120.0 s, média -17.5 dB, 17.8% da energia abaixo de 150 Hz; diferença de nível entre o fim e o começo do loop -2.6 dB.",
       "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Fable 5.2 · esforço **high**.\n- **Como foi feita:** um subagente recebeu o mesmo pedido que os outros cinco (avaliação às cegas, sem saber a qual modelo cada letra pertencia) e escreveu a composição como script Python; o MIDI e o áudio saem do script."
+        },
         {
           "titulo": "Resumo",
           "texto": "Faixa pastoral A do eval 1, o clima de Truth and Dreams (Breath of Fire IV), só humor e instrumentação, nenhuma nota copiada. Ninguém ouviu."
@@ -36,9 +40,13 @@
     {
       "id": "pastoral-a-t",
       "letra": "PA·T",
-      "titulo": "Pastoral · A (tratada)",
+      "titulo": "Pastoral · A · Manhã na Aldeia (tratada)",
       "audio": "audio/pastoral_A_t.ogg",
       "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Fable 5.2 · esforço **high**.\n- **Como foi feita:** um subagente recebeu o mesmo pedido que os outros cinco (avaliação às cegas, sem saber a qual modelo cada letra pertencia) e escreveu a composição como script Python; o MIDI e o áudio saem do script."
+        },
         {
           "titulo": "Tratamento",
           "texto": "- Mesma faixa **PA** com: corte abaixo de 32 Hz, compressor, limitador e volume igualado em -14 LUFS (agudo da original: -32.8 dB acima de 3 kHz, sem filtro de agudo).\n- Serve para ouvir sem os picos e sem diferença de volume. A crítica e as notas estão na faixa original, logo acima."
@@ -48,10 +56,14 @@
     {
       "id": "pastoral-a-tfg",
       "letra": "PA2",
-      "titulo": "Pastoral · A com a soundfont Tactical Fantasy Guy",
+      "titulo": "Pastoral · A · Manhã na Aldeia com a soundfont Tactical Fantasy Guy",
       "audio": "audio/pastoral_A_tfg.ogg",
       "critica": "Mesma partitura da faixa Pastoral A, re-voiceada para a soundfont **Tactical Fantasy Guy (PSX)**: celli no lugar do baixo, tímpano no lugar de bumbo, tons e congas, caixa e prato do pacote, sem chimbal, maracas nem pandeiro. Ninguém ouviu.\n\n- **Medido:** 120.0 s, média -18.7 dB, pico -1.0 dB.",
       "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Fable 5.2 · esforço **high**.\n- **Como foi feita:** um subagente recebeu o mesmo pedido que os outros cinco (avaliação às cegas, sem saber a qual modelo cada letra pertencia) e escreveu a composição como script Python; o MIDI e o áudio saem do script.\n- **Som:** o mesmo MIDI re-escalado por script para a soundfont Tactical Fantasy Guy; o modelo só compôs, a troca de instrumentos não é dele."
+        },
         {
           "titulo": "Resumo",
           "texto": "Mesma partitura da faixa Pastoral A, re-voiceada para a soundfont **Tactical Fantasy Guy (PSX)**: celli no lugar do baixo, tímpano no lugar de bumbo, tons e congas, caixa e prato do pacote, sem chimbal, maracas nem pandeiro. Ninguém ouviu."
@@ -65,9 +77,13 @@
     {
       "id": "pastoral-a-tfg-t",
       "letra": "PA2·T",
-      "titulo": "Pastoral · A com a soundfont Tactical Fantasy Guy (tratada)",
+      "titulo": "Pastoral · A · Manhã na Aldeia com a soundfont Tactical Fantasy Guy (tratada)",
       "audio": "audio/pastoral_A_tfg_t.ogg",
       "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Fable 5.2 · esforço **high**.\n- **Como foi feita:** um subagente recebeu o mesmo pedido que os outros cinco (avaliação às cegas, sem saber a qual modelo cada letra pertencia) e escreveu a composição como script Python; o MIDI e o áudio saem do script.\n- **Som:** o mesmo MIDI re-escalado por script para a soundfont Tactical Fantasy Guy; o modelo só compôs, a troca de instrumentos não é dele."
+        },
         {
           "titulo": "Tratamento",
           "texto": "- Mesma faixa **PA2** com: corte abaixo de 32 Hz, compressor, limitador e volume igualado em -14 LUFS, mais um filtro que tira agudo acima de 2,5 kHz (a original media -30.1 dB acima de 3 kHz, mais brilhante que a referência Trisection, -33).\n- Serve para ouvir sem os picos e sem diferença de volume. A crítica e as notas estão na faixa original, logo acima."
@@ -77,10 +93,14 @@
     {
       "id": "pastoral-b",
       "letra": "PB",
-      "titulo": "Pastoral · B",
+      "titulo": "Pastoral · B · Pão e Lareira",
       "audio": "audio/pastoral_B.ogg",
       "critica": "**Opus (partitura): 29/60. Fable (às cegas): 31/60.** Os dois colocam D e A no topo e F por último.\n\n- **Maior ajuste:** Reescrever a cabeça do tema (compassos 5-7) com mais passos (69% de saltos hoje); o compasso 5 é idêntico ao da faixa F. Baixo da raiz errada em acordes invertidos.\n- **Medido:** 126.3 s, média -16.8 dB, 22.0% da energia abaixo de 150 Hz; diferença de nível entre o fim e o começo do loop -9.9 dB.",
       "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Sonnet 5.5 · esforço **medium**.\n- **Como foi feita:** um subagente recebeu o mesmo pedido que os outros cinco (avaliação às cegas, sem saber a qual modelo cada letra pertencia) e escreveu a composição como script Python; o MIDI e o áudio saem do script."
+        },
         {
           "titulo": "Resumo",
           "texto": "Faixa pastoral B do eval 1, o clima de Truth and Dreams (Breath of Fire IV), só humor e instrumentação, nenhuma nota copiada. Ninguém ouviu."
@@ -102,9 +122,13 @@
     {
       "id": "pastoral-b-t",
       "letra": "PB·T",
-      "titulo": "Pastoral · B (tratada)",
+      "titulo": "Pastoral · B · Pão e Lareira (tratada)",
       "audio": "audio/pastoral_B_t.ogg",
       "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Sonnet 5.5 · esforço **medium**.\n- **Como foi feita:** um subagente recebeu o mesmo pedido que os outros cinco (avaliação às cegas, sem saber a qual modelo cada letra pertencia) e escreveu a composição como script Python; o MIDI e o áudio saem do script."
+        },
         {
           "titulo": "Tratamento",
           "texto": "- Mesma faixa **PB** com: corte abaixo de 32 Hz, compressor, limitador e volume igualado em -14 LUFS (agudo da original: -32.6 dB acima de 3 kHz, sem filtro de agudo).\n- Serve para ouvir sem os picos e sem diferença de volume. A crítica e as notas estão na faixa original, logo acima."
@@ -114,10 +138,14 @@
     {
       "id": "pastoral-b-tfg",
       "letra": "PB2",
-      "titulo": "Pastoral · B com a soundfont Tactical Fantasy Guy",
+      "titulo": "Pastoral · B · Pão e Lareira com a soundfont Tactical Fantasy Guy",
       "audio": "audio/pastoral_B_tfg.ogg",
       "critica": "Mesma partitura da faixa Pastoral B, re-voiceada para a soundfont **Tactical Fantasy Guy (PSX)**: celli no lugar do baixo, tímpano no lugar de bumbo, tons e congas, caixa e prato do pacote, sem chimbal, maracas nem pandeiro. Ninguém ouviu.\n\n- **Medido:** 126.3 s, média -17.2 dB, pico -1.0 dB.",
       "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Sonnet 5.5 · esforço **medium**.\n- **Como foi feita:** um subagente recebeu o mesmo pedido que os outros cinco (avaliação às cegas, sem saber a qual modelo cada letra pertencia) e escreveu a composição como script Python; o MIDI e o áudio saem do script.\n- **Som:** o mesmo MIDI re-escalado por script para a soundfont Tactical Fantasy Guy; o modelo só compôs, a troca de instrumentos não é dele."
+        },
         {
           "titulo": "Resumo",
           "texto": "Mesma partitura da faixa Pastoral B, re-voiceada para a soundfont **Tactical Fantasy Guy (PSX)**: celli no lugar do baixo, tímpano no lugar de bumbo, tons e congas, caixa e prato do pacote, sem chimbal, maracas nem pandeiro. Ninguém ouviu."
@@ -131,9 +159,13 @@
     {
       "id": "pastoral-b-tfg-t",
       "letra": "PB2·T",
-      "titulo": "Pastoral · B com a soundfont Tactical Fantasy Guy (tratada)",
+      "titulo": "Pastoral · B · Pão e Lareira com a soundfont Tactical Fantasy Guy (tratada)",
       "audio": "audio/pastoral_B_tfg_t.ogg",
       "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Sonnet 5.5 · esforço **medium**.\n- **Como foi feita:** um subagente recebeu o mesmo pedido que os outros cinco (avaliação às cegas, sem saber a qual modelo cada letra pertencia) e escreveu a composição como script Python; o MIDI e o áudio saem do script.\n- **Som:** o mesmo MIDI re-escalado por script para a soundfont Tactical Fantasy Guy; o modelo só compôs, a troca de instrumentos não é dele."
+        },
         {
           "titulo": "Tratamento",
           "texto": "- Mesma faixa **PB2** com: corte abaixo de 32 Hz, compressor, limitador e volume igualado em -14 LUFS, mais um filtro que tira agudo acima de 2,5 kHz (a original media -28.8 dB acima de 3 kHz, mais brilhante que a referência Trisection, -33).\n- Serve para ouvir sem os picos e sem diferença de volume. A crítica e as notas estão na faixa original, logo acima."
@@ -143,10 +175,14 @@
     {
       "id": "pastoral-c",
       "letra": "PC",
-      "titulo": "Pastoral · C",
+      "titulo": "Pastoral · C · Trigal ao Vento",
       "audio": "audio/pastoral_C.ogg",
       "critica": "**Opus (partitura): 34/60. Fable (às cegas): 39/60.** Os dois colocam D e A no topo e F por último.\n\n- **Maior ajuste:** Calcular a quinta do baixo a partir da raiz do acorde, não do baixo da inversão (remove os noves menores nos compassos 10, 18, 22, 26, 34); tirar a harpa da oitava da melodia.\n- **Medido:** 126.3 s, média -16.7 dB, 7.9% da energia abaixo de 150 Hz; diferença de nível entre o fim e o começo do loop -5.3 dB.",
       "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Sonnet 5.5 · esforço **high**.\n- **Como foi feita:** um subagente recebeu o mesmo pedido que os outros cinco (avaliação às cegas, sem saber a qual modelo cada letra pertencia) e escreveu a composição como script Python; o MIDI e o áudio saem do script."
+        },
         {
           "titulo": "Resumo",
           "texto": "Faixa pastoral C do eval 1, o clima de Truth and Dreams (Breath of Fire IV), só humor e instrumentação, nenhuma nota copiada. Ninguém ouviu."
@@ -168,9 +204,13 @@
     {
       "id": "pastoral-c-t",
       "letra": "PC·T",
-      "titulo": "Pastoral · C (tratada)",
+      "titulo": "Pastoral · C · Trigal ao Vento (tratada)",
       "audio": "audio/pastoral_C_t.ogg",
       "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Sonnet 5.5 · esforço **high**.\n- **Como foi feita:** um subagente recebeu o mesmo pedido que os outros cinco (avaliação às cegas, sem saber a qual modelo cada letra pertencia) e escreveu a composição como script Python; o MIDI e o áudio saem do script."
+        },
         {
           "titulo": "Tratamento",
           "texto": "- Mesma faixa **PC** com: corte abaixo de 32 Hz, compressor, limitador e volume igualado em -14 LUFS (agudo da original: -36.8 dB acima de 3 kHz, sem filtro de agudo).\n- Serve para ouvir sem os picos e sem diferença de volume. A crítica e as notas estão na faixa original, logo acima."
@@ -180,10 +220,14 @@
     {
       "id": "pastoral-c-tfg",
       "letra": "PC2",
-      "titulo": "Pastoral · C com a soundfont Tactical Fantasy Guy",
+      "titulo": "Pastoral · C · Trigal ao Vento com a soundfont Tactical Fantasy Guy",
       "audio": "audio/pastoral_C_tfg.ogg",
       "critica": "Mesma partitura da faixa Pastoral C, re-voiceada para a soundfont **Tactical Fantasy Guy (PSX)**: celli no lugar do baixo, tímpano no lugar de bumbo, tons e congas, caixa e prato do pacote, sem chimbal, maracas nem pandeiro. Ninguém ouviu.\n\n- **Medido:** 126.3 s, média -18.4 dB, pico -1.0 dB.",
       "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Sonnet 5.5 · esforço **high**.\n- **Como foi feita:** um subagente recebeu o mesmo pedido que os outros cinco (avaliação às cegas, sem saber a qual modelo cada letra pertencia) e escreveu a composição como script Python; o MIDI e o áudio saem do script.\n- **Som:** o mesmo MIDI re-escalado por script para a soundfont Tactical Fantasy Guy; o modelo só compôs, a troca de instrumentos não é dele."
+        },
         {
           "titulo": "Resumo",
           "texto": "Mesma partitura da faixa Pastoral C, re-voiceada para a soundfont **Tactical Fantasy Guy (PSX)**: celli no lugar do baixo, tímpano no lugar de bumbo, tons e congas, caixa e prato do pacote, sem chimbal, maracas nem pandeiro. Ninguém ouviu."
@@ -197,9 +241,13 @@
     {
       "id": "pastoral-c-tfg-t",
       "letra": "PC2·T",
-      "titulo": "Pastoral · C com a soundfont Tactical Fantasy Guy (tratada)",
+      "titulo": "Pastoral · C · Trigal ao Vento com a soundfont Tactical Fantasy Guy (tratada)",
       "audio": "audio/pastoral_C_tfg_t.ogg",
       "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Sonnet 5.5 · esforço **high**.\n- **Como foi feita:** um subagente recebeu o mesmo pedido que os outros cinco (avaliação às cegas, sem saber a qual modelo cada letra pertencia) e escreveu a composição como script Python; o MIDI e o áudio saem do script.\n- **Som:** o mesmo MIDI re-escalado por script para a soundfont Tactical Fantasy Guy; o modelo só compôs, a troca de instrumentos não é dele."
+        },
         {
           "titulo": "Tratamento",
           "texto": "- Mesma faixa **PC2** com: corte abaixo de 32 Hz, compressor, limitador e volume igualado em -14 LUFS, mais um filtro que tira agudo acima de 2,5 kHz (a original media -31.7 dB acima de 3 kHz, mais brilhante que a referência Trisection, -33).\n- Serve para ouvir sem os picos e sem diferença de volume. A crítica e as notas estão na faixa original, logo acima."
@@ -209,10 +257,14 @@
     {
       "id": "pastoral-d",
       "letra": "PD",
-      "titulo": "Pastoral · D",
+      "titulo": "Pastoral · D · Praça do Farol",
       "audio": "audio/pastoral_D.ogg",
       "critica": "**Opus (partitura): 44/60. Fable (às cegas): 47/60.** Os dois colocam D e A no topo e F por último.\n\n- **Maior ajuste:** Manter um pulso leve na emenda (violão ou o coração da conga nos compassos 39-40 e 1-2): a emenda é o único ponto fraco. Reescrever a flauta nos compassos 13-18.\n- **Medido:** 126.3 s, média -17.2 dB, 30.0% da energia abaixo de 150 Hz; diferença de nível entre o fim e o começo do loop -2.5 dB.",
       "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Opus 5.5 · esforço **xhigh**.\n- **Como foi feita:** um subagente recebeu o mesmo pedido que os outros cinco (avaliação às cegas, sem saber a qual modelo cada letra pertencia) e escreveu a composição como script Python; o MIDI e o áudio saem do script."
+        },
         {
           "titulo": "Resumo",
           "texto": "Faixa pastoral D do eval 1, o clima de Truth and Dreams (Breath of Fire IV), só humor e instrumentação, nenhuma nota copiada. Ninguém ouviu."
@@ -234,9 +286,13 @@
     {
       "id": "pastoral-d-t",
       "letra": "PD·T",
-      "titulo": "Pastoral · D (tratada)",
+      "titulo": "Pastoral · D · Praça do Farol (tratada)",
       "audio": "audio/pastoral_D_t.ogg",
       "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Opus 5.5 · esforço **xhigh**.\n- **Como foi feita:** um subagente recebeu o mesmo pedido que os outros cinco (avaliação às cegas, sem saber a qual modelo cada letra pertencia) e escreveu a composição como script Python; o MIDI e o áudio saem do script."
+        },
         {
           "titulo": "Tratamento",
           "texto": "- Mesma faixa **PD** com: corte abaixo de 32 Hz, compressor, limitador e volume igualado em -14 LUFS (agudo da original: -33.0 dB acima de 3 kHz, sem filtro de agudo).\n- Serve para ouvir sem os picos e sem diferença de volume. A crítica e as notas estão na faixa original, logo acima."
@@ -246,10 +302,14 @@
     {
       "id": "pastoral-d-tfg",
       "letra": "PD2",
-      "titulo": "Pastoral · D com a soundfont Tactical Fantasy Guy",
+      "titulo": "Pastoral · D · Praça do Farol com a soundfont Tactical Fantasy Guy",
       "audio": "audio/pastoral_D_tfg.ogg",
       "critica": "Mesma partitura da faixa pastoral D (a de maior nota nos dois críticos: Opus 44/60, Fable 47/60), re-voiceada para a soundfont **Tactical Fantasy Guy (PSX)**. Mudanças: o violão vira *pizzicato* de cordas (a soundfont não tem violão), o baixo vira celli, as congas viram tímpano suave, o triângulo vira glockenspiel, e **maracas e pandeiro somem** (não existem no pacote). Flauta, oboé, harpa e cordas têm instrumento próprio. Ninguém ouviu.\n\n- **Medido:** 126,3 s (igual à D normal), média -17,9 dB, pico -0,9 dB.",
       "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Opus 5.5 · esforço **xhigh**.\n- **Como foi feita:** um subagente recebeu o mesmo pedido que os outros cinco (avaliação às cegas, sem saber a qual modelo cada letra pertencia) e escreveu a composição como script Python; o MIDI e o áudio saem do script.\n- **Som:** o mesmo MIDI re-escalado por script para a soundfont Tactical Fantasy Guy; o modelo só compôs, a troca de instrumentos não é dele."
+        },
         {
           "titulo": "Resumo",
           "texto": "Mesma partitura da faixa pastoral D (a de maior nota nos dois críticos: Opus 44/60, Fable 47/60), re-voiceada para a soundfont **Tactical Fantasy Guy (PSX)**. Mudanças: o violão vira *pizzicato* de cordas (a soundfont não tem violão), o baixo vira celli, as congas viram tímpano suave, o triângulo vira glockenspiel, e **maracas e pandeiro somem** (não existem no pacote). Flauta, oboé, harpa e cordas têm instrumento próprio. Ninguém ouviu."
@@ -263,9 +323,13 @@
     {
       "id": "pastoral-d-tfg-t",
       "letra": "PD2·T",
-      "titulo": "Pastoral · D com a soundfont Tactical Fantasy Guy (tratada)",
+      "titulo": "Pastoral · D · Praça do Farol com a soundfont Tactical Fantasy Guy (tratada)",
       "audio": "audio/pastoral_D_tfg_t.ogg",
       "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Opus 5.5 · esforço **xhigh**.\n- **Como foi feita:** um subagente recebeu o mesmo pedido que os outros cinco (avaliação às cegas, sem saber a qual modelo cada letra pertencia) e escreveu a composição como script Python; o MIDI e o áudio saem do script.\n- **Som:** o mesmo MIDI re-escalado por script para a soundfont Tactical Fantasy Guy; o modelo só compôs, a troca de instrumentos não é dele."
+        },
         {
           "titulo": "Tratamento",
           "texto": "- Mesma faixa **PD2** com: corte abaixo de 32 Hz, compressor, limitador e volume igualado em -14 LUFS, mais um filtro que tira agudo acima de 2,5 kHz (a original media -29.5 dB acima de 3 kHz, mais brilhante que a referência Trisection, -33).\n- Serve para ouvir sem os picos e sem diferença de volume. A crítica e as notas estão na faixa original, logo acima."
@@ -275,10 +339,14 @@
     {
       "id": "pastoral-e",
       "letra": "PE",
-      "titulo": "Pastoral · E",
+      "titulo": "Pastoral · E · Rio das Lavadeiras",
       "audio": "audio/pastoral_E.ogg",
       "critica": "**Opus (partitura): 37/60. Fable (às cegas): 36/60.** Os dois colocam D e A no topo e F por último.\n\n- **Maior ajuste:** Limitar as cordas abaixo da melodia (cerca de sol3 a lá4) nos compassos 13-40, para não dobrar flauta e oboé em uníssono.\n- **Medido:** 126.3 s, média -17.3 dB, 18.1% da energia abaixo de 150 Hz; diferença de nível entre o fim e o começo do loop 0.3 dB.",
       "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Opus 5.5 · esforço **high**.\n- **Como foi feita:** um subagente recebeu o mesmo pedido que os outros cinco (avaliação às cegas, sem saber a qual modelo cada letra pertencia) e escreveu a composição como script Python; o MIDI e o áudio saem do script."
+        },
         {
           "titulo": "Resumo",
           "texto": "Faixa pastoral E do eval 1, o clima de Truth and Dreams (Breath of Fire IV), só humor e instrumentação, nenhuma nota copiada. Ninguém ouviu."
@@ -300,9 +368,13 @@
     {
       "id": "pastoral-e-t",
       "letra": "PE·T",
-      "titulo": "Pastoral · E (tratada)",
+      "titulo": "Pastoral · E · Rio das Lavadeiras (tratada)",
       "audio": "audio/pastoral_E_t.ogg",
       "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Opus 5.5 · esforço **high**.\n- **Como foi feita:** um subagente recebeu o mesmo pedido que os outros cinco (avaliação às cegas, sem saber a qual modelo cada letra pertencia) e escreveu a composição como script Python; o MIDI e o áudio saem do script."
+        },
         {
           "titulo": "Tratamento",
           "texto": "- Mesma faixa **PE** com: corte abaixo de 32 Hz, compressor, limitador e volume igualado em -14 LUFS (agudo da original: -32.1 dB acima de 3 kHz, sem filtro de agudo).\n- Serve para ouvir sem os picos e sem diferença de volume. A crítica e as notas estão na faixa original, logo acima."
@@ -312,10 +384,14 @@
     {
       "id": "pastoral-e-tfg",
       "letra": "PE2",
-      "titulo": "Pastoral · E com a soundfont Tactical Fantasy Guy",
+      "titulo": "Pastoral · E · Rio das Lavadeiras com a soundfont Tactical Fantasy Guy",
       "audio": "audio/pastoral_E_tfg.ogg",
       "critica": "Mesma partitura da faixa Pastoral E, re-voiceada para a soundfont **Tactical Fantasy Guy (PSX)**: celli no lugar do baixo, tímpano no lugar de bumbo, tons e congas, caixa e prato do pacote, sem chimbal, maracas nem pandeiro. Ninguém ouviu.\n\n- **Medido:** 126.3 s, média -16.2 dB, pico -1.2 dB.",
       "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Opus 5.5 · esforço **high**.\n- **Como foi feita:** um subagente recebeu o mesmo pedido que os outros cinco (avaliação às cegas, sem saber a qual modelo cada letra pertencia) e escreveu a composição como script Python; o MIDI e o áudio saem do script.\n- **Som:** o mesmo MIDI re-escalado por script para a soundfont Tactical Fantasy Guy; o modelo só compôs, a troca de instrumentos não é dele."
+        },
         {
           "titulo": "Resumo",
           "texto": "Mesma partitura da faixa Pastoral E, re-voiceada para a soundfont **Tactical Fantasy Guy (PSX)**: celli no lugar do baixo, tímpano no lugar de bumbo, tons e congas, caixa e prato do pacote, sem chimbal, maracas nem pandeiro. Ninguém ouviu."
@@ -329,9 +405,13 @@
     {
       "id": "pastoral-e-tfg-t",
       "letra": "PE2·T",
-      "titulo": "Pastoral · E com a soundfont Tactical Fantasy Guy (tratada)",
+      "titulo": "Pastoral · E · Rio das Lavadeiras com a soundfont Tactical Fantasy Guy (tratada)",
       "audio": "audio/pastoral_E_tfg_t.ogg",
       "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Opus 5.5 · esforço **high**.\n- **Como foi feita:** um subagente recebeu o mesmo pedido que os outros cinco (avaliação às cegas, sem saber a qual modelo cada letra pertencia) e escreveu a composição como script Python; o MIDI e o áudio saem do script.\n- **Som:** o mesmo MIDI re-escalado por script para a soundfont Tactical Fantasy Guy; o modelo só compôs, a troca de instrumentos não é dele."
+        },
         {
           "titulo": "Tratamento",
           "texto": "- Mesma faixa **PE2** com: corte abaixo de 32 Hz, compressor, limitador e volume igualado em -14 LUFS, mais um filtro que tira agudo acima de 2,5 kHz (a original media -28.5 dB acima de 3 kHz, mais brilhante que a referência Trisection, -33).\n- Serve para ouvir sem os picos e sem diferença de volume. A crítica e as notas estão na faixa original, logo acima."
@@ -341,10 +421,14 @@
     {
       "id": "pastoral-f",
       "letra": "PF",
-      "titulo": "Pastoral · F",
+      "titulo": "Pastoral · F · Cantiga do Moinho",
       "audio": "audio/pastoral_F.ogg",
       "critica": "**Opus (partitura): 17/60. Fable (às cegas): 22/60.** Os dois colocam D e A no topo e F por último.\n\n- **Maior ajuste:** Corrigir a raiz do baixo no acorde de sol (sai si e fá sustenido embaixo de sol por 10 compassos), variar o retorno e cortar os 14 compassos sem melodia na emenda.\n- **Medido:** 132.0 s, média -17.4 dB, 29.8% da energia abaixo de 150 Hz; diferença de nível entre o fim e o começo do loop 5.8 dB.",
       "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Haiku 5.5 · esforço **low**.\n- **Como foi feita:** um subagente recebeu o mesmo pedido que os outros cinco (avaliação às cegas, sem saber a qual modelo cada letra pertencia) e escreveu a composição como script Python; o MIDI e o áudio saem do script."
+        },
         {
           "titulo": "Resumo",
           "texto": "Faixa pastoral F do eval 1, o clima de Truth and Dreams (Breath of Fire IV), só humor e instrumentação, nenhuma nota copiada. Ninguém ouviu."
@@ -366,9 +450,13 @@
     {
       "id": "pastoral-f-t",
       "letra": "PF·T",
-      "titulo": "Pastoral · F (tratada)",
+      "titulo": "Pastoral · F · Cantiga do Moinho (tratada)",
       "audio": "audio/pastoral_F_t.ogg",
       "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Haiku 5.5 · esforço **low**.\n- **Como foi feita:** um subagente recebeu o mesmo pedido que os outros cinco (avaliação às cegas, sem saber a qual modelo cada letra pertencia) e escreveu a composição como script Python; o MIDI e o áudio saem do script."
+        },
         {
           "titulo": "Tratamento",
           "texto": "- Mesma faixa **PF** com: corte abaixo de 32 Hz, compressor, limitador e volume igualado em -14 LUFS (agudo da original: -33.6 dB acima de 3 kHz, sem filtro de agudo).\n- Serve para ouvir sem os picos e sem diferença de volume. A crítica e as notas estão na faixa original, logo acima."
@@ -378,10 +466,14 @@
     {
       "id": "pastoral-f-tfg",
       "letra": "PF2",
-      "titulo": "Pastoral · F com a soundfont Tactical Fantasy Guy",
+      "titulo": "Pastoral · F · Cantiga do Moinho com a soundfont Tactical Fantasy Guy",
       "audio": "audio/pastoral_F_tfg.ogg",
       "critica": "Mesma partitura da faixa Pastoral F, re-voiceada para a soundfont **Tactical Fantasy Guy (PSX)**: celli no lugar do baixo, tímpano no lugar de bumbo, tons e congas, caixa e prato do pacote, sem chimbal, maracas nem pandeiro. Ninguém ouviu.\n\n- **Medido:** 132.0 s, média -16.9 dB, pico -0.9 dB.",
       "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Haiku 5.5 · esforço **low**.\n- **Como foi feita:** um subagente recebeu o mesmo pedido que os outros cinco (avaliação às cegas, sem saber a qual modelo cada letra pertencia) e escreveu a composição como script Python; o MIDI e o áudio saem do script.\n- **Som:** o mesmo MIDI re-escalado por script para a soundfont Tactical Fantasy Guy; o modelo só compôs, a troca de instrumentos não é dele."
+        },
         {
           "titulo": "Resumo",
           "texto": "Mesma partitura da faixa Pastoral F, re-voiceada para a soundfont **Tactical Fantasy Guy (PSX)**: celli no lugar do baixo, tímpano no lugar de bumbo, tons e congas, caixa e prato do pacote, sem chimbal, maracas nem pandeiro. Ninguém ouviu."
@@ -395,9 +487,13 @@
     {
       "id": "pastoral-f-tfg-t",
       "letra": "PF2·T",
-      "titulo": "Pastoral · F com a soundfont Tactical Fantasy Guy (tratada)",
+      "titulo": "Pastoral · F · Cantiga do Moinho com a soundfont Tactical Fantasy Guy (tratada)",
       "audio": "audio/pastoral_F_tfg_t.ogg",
       "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Haiku 5.5 · esforço **low**.\n- **Como foi feita:** um subagente recebeu o mesmo pedido que os outros cinco (avaliação às cegas, sem saber a qual modelo cada letra pertencia) e escreveu a composição como script Python; o MIDI e o áudio saem do script.\n- **Som:** o mesmo MIDI re-escalado por script para a soundfont Tactical Fantasy Guy; o modelo só compôs, a troca de instrumentos não é dele."
+        },
         {
           "titulo": "Tratamento",
           "texto": "- Mesma faixa **PF2** com: corte abaixo de 32 Hz, compressor, limitador e volume igualado em -14 LUFS, mais um filtro que tira agudo acima de 2,5 kHz (a original media -29.5 dB acima de 3 kHz, mais brilhante que a referência Trisection, -33).\n- Serve para ouvir sem os picos e sem diferença de volume. A crítica e as notas estão na faixa original, logo acima."

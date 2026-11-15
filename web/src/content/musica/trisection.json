@@ -16,6 +16,10 @@
       "audio": "audio/ref_trisection.ogg",
       "secoes": [
         {
+          "titulo": "Quem fez",
+          "texto": "- **Autoria:** gravação do jogo Final Fantasy Tactics (referência de estudo), não foi feita por modelo."
+        },
+        {
           "titulo": "Sobre este áudio",
           "texto": "- Faixa de referência **só para estudo local**: tema de batalha de Final Fantasy Tactics (1997, Hitoshi Sakimoto e Masaharu Iwata), 2:37.\n- Áudio extraído do vídeo do YouTube indicado acima, convertido para `.ogg`. Original em `D:/Projetos/_musica-tools/referencias/trisection/`.\n- **Não vai para o jogo nem para o repositório** (os `.ogg` ficam fora do git). Hospedada neste lab por decisão do Fernando (15/11), mesmo sendo música da Square Enix. Nenhuma nota dela é copiada para as nossas músicas."
         },
@@ -36,6 +40,10 @@
       "audio": "audio/ref_trisection_midi_fa.ogg",
       "secoes": [
         {
+          "titulo": "Quem fez",
+          "texto": "- **Autoria:** MIDI feito por um fã (vgmusic.com), não por modelo; aqui é só tocado em cada soundfont, com o trompete removido por script."
+        },
+        {
           "titulo": "O que é",
           "texto": "- Sequência de fã de 2004 (VGMusic), renderizada aqui com o soundfont MuseScore General, **não** com o som do PS1.\n- Serve para ouvir as notas e a estrutura em instrumentos limpos; o timbre e o andamento podem diferir do jogo."
         },
@@ -51,6 +59,10 @@
       "titulo": "MuseScore General: MIDI de fã (sem tratamento)",
       "audio": "audio/ref_trisection_midi_fa_cru.ogg",
       "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Autoria:** MIDI feito por um fã (vgmusic.com), não por modelo; aqui é só tocado em cada soundfont, com o trompete removido por script."
+        },
         {
           "titulo": "O que é",
           "texto": "- Sequência de fã de 2004 (VGMusic), renderizada aqui com o soundfont MuseScore General, **não** com o som do PS1.\n- Serve para ouvir as notas e a estrutura em instrumentos limpos; o timbre e o andamento podem diferir do jogo."
@@ -68,6 +80,10 @@
       "audio": "audio/ref_trisection_midi_fa_gugs.ogg",
       "secoes": [
         {
+          "titulo": "Quem fez",
+          "texto": "- **Autoria:** MIDI feito por um fã (vgmusic.com), não por modelo; aqui é só tocado em cada soundfont, com o trompete removido por script."
+        },
+        {
           "titulo": "O que é",
           "texto": "- O mesmo MIDI de fã renderizado com o soundfont GeneralUser GS (General MIDI completo), sem filtro PS1, para comparar com o MuseScore General."
         },
@@ -83,6 +99,10 @@
       "titulo": "GeneralUser GS: MIDI de fã (sem tratamento)",
       "audio": "audio/ref_trisection_midi_fa_gugs_cru.ogg",
       "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Autoria:** MIDI feito por um fã (vgmusic.com), não por modelo; aqui é só tocado em cada soundfont, com o trompete removido por script."
+        },
         {
           "titulo": "O que é",
           "texto": "- O mesmo MIDI de fã renderizado com o soundfont GeneralUser GS (General MIDI completo), sem filtro PS1, para comparar com o MuseScore General."
@@ -100,6 +120,10 @@
       "audio": "audio/ref_trisection_midi_fa_fluidr3.ogg",
       "secoes": [
         {
+          "titulo": "Quem fez",
+          "texto": "- **Autoria:** MIDI feito por um fã (vgmusic.com), não por modelo; aqui é só tocado em cada soundfont, com o trompete removido por script."
+        },
+        {
           "titulo": "O que é",
           "texto": "- O mesmo MIDI de fã renderizado com FluidR3 GM, sem filtro PS1.\n- Licença: Frank Wen, licença MIT (conferida no COPYING do repositório pianobooster/fluid-soundfont). General MIDI completo, 148 MB.\n- Arquivo em `D:/Projetos/_musica-tools/soundfonts/`, fora do repositório."
         },
@@ -115,6 +139,10 @@
       "titulo": "FluidR3 GM: MIDI de fã (sem tratamento)",
       "audio": "audio/ref_trisection_midi_fa_fluidr3_cru.ogg",
       "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Autoria:** MIDI feito por um fã (vgmusic.com), não por modelo; aqui é só tocado em cada soundfont, com o trompete removido por script."
+        },
         {
           "titulo": "O que é",
           "texto": "- O mesmo MIDI de fã renderizado com FluidR3 GM, sem filtro PS1.\n- Licença: Frank Wen, licença MIT (conferida no COPYING do repositório pianobooster/fluid-soundfont). General MIDI completo, 148 MB.\n- Arquivo em `D:/Projetos/_musica-tools/soundfonts/`, fora do repositório."
@@ -132,6 +160,10 @@
       "audio": "audio/ref_trisection_midi_fa_sgm.ogg",
       "secoes": [
         {
+          "titulo": "Quem fez",
+          "texto": "- **Autoria:** MIDI feito por um fã (vgmusic.com), não por modelo; aqui é só tocado em cada soundfont, com o trompete removido por script."
+        },
+        {
           "titulo": "O que é",
           "texto": "- O mesmo MIDI de fã renderizado com SGM-V2.01 (Shan), sem filtro PS1.\n- Licença: Shan; as fontes divergem: \"dar crédito\" no site da Polyphone, CC BY 4.0 no Musical Artifacts, custom no Arch. **Licença não resolvida**, 247 MB.\n- Arquivo em `D:/Projetos/_musica-tools/soundfonts/`, fora do repositório."
         },
@@ -147,6 +179,10 @@
       "titulo": "SGM-V2.01: MIDI de fã (sem tratamento)",
       "audio": "audio/ref_trisection_midi_fa_sgm_cru.ogg",
       "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Autoria:** MIDI feito por um fã (vgmusic.com), não por modelo; aqui é só tocado em cada soundfont, com o trompete removido por script."
+        },
         {
           "titulo": "O que é",
           "texto": "- O mesmo MIDI de fã renderizado com SGM-V2.01 (Shan), sem filtro PS1.\n- Licença: Shan; as fontes divergem: \"dar crédito\" no site da Polyphone, CC BY 4.0 no Musical Artifacts, custom no Arch. **Licença não resolvida**, 247 MB.\n- Arquivo em `D:/Projetos/_musica-tools/soundfonts/`, fora do repositório."
@@ -164,6 +200,10 @@
       "audio": "audio/ref_trisection_midi_fa_neo.ogg",
       "secoes": [
         {
+          "titulo": "Quem fez",
+          "texto": "- **Autoria:** MIDI feito por um fã (vgmusic.com), não por modelo; aqui é só tocado em cada soundfont, com o trompete removido por script."
+        },
+        {
           "titulo": "O que é",
           "texto": "- O mesmo MIDI de fã renderizado com Neo Orchestra HQ, sem filtro PS1.\n- Licença: Variante libre (CC0 no GitHub NeoSoundFonts) feita de bibliotecas livres (VCSL, VSCO-2 CE, FreePats e outras); a licença de cada amostra de origem **não foi conferida**. 14 MB.\n- Arquivo em `D:/Projetos/_musica-tools/soundfonts/`, fora do repositório."
         },
@@ -179,6 +219,10 @@
       "titulo": "Neo Orchestra HQ: MIDI de fã (sem tratamento)",
       "audio": "audio/ref_trisection_midi_fa_neo_cru.ogg",
       "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Autoria:** MIDI feito por um fã (vgmusic.com), não por modelo; aqui é só tocado em cada soundfont, com o trompete removido por script."
+        },
         {
           "titulo": "O que é",
           "texto": "- O mesmo MIDI de fã renderizado com Neo Orchestra HQ, sem filtro PS1.\n- Licença: Variante libre (CC0 no GitHub NeoSoundFonts) feita de bibliotecas livres (VCSL, VSCO-2 CE, FreePats e outras); a licença de cada amostra de origem **não foi conferida**. 14 MB.\n- Arquivo em `D:/Projetos/_musica-tools/soundfonts/`, fora do repositório."
@@ -196,6 +240,10 @@
       "audio": "audio/ref_trisection_midi_fa_tfg.ogg",
       "secoes": [
         {
+          "titulo": "Quem fez",
+          "texto": "- **Autoria:** MIDI feito por um fã (vgmusic.com), não por modelo; aqui é só tocado em cada soundfont, com o trompete removido por script."
+        },
+        {
           "titulo": "O que é",
           "texto": "- O mesmo MIDI de fã, com os instrumentos trocados para o soundfont Tactical Fantasy Guy (SoundFontGuy) e o filtro lo-fi do PS1: é o jeito que as nossas faixas soam.\n- Mapeamento feito por mim (cordas, trompa, tuba, contrabaixo como cello, sinos, bateria como tímpano e caixa); pode soar diferente do original."
         },
@@ -211,6 +259,10 @@
       "titulo": "Tactical Fantasy Guy: MIDI de fã (sem tratamento)",
       "audio": "audio/ref_trisection_midi_fa_tfg_cru.ogg",
       "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Autoria:** MIDI feito por um fã (vgmusic.com), não por modelo; aqui é só tocado em cada soundfont, com o trompete removido por script."
+        },
         {
           "titulo": "O que é",
           "texto": "- O mesmo MIDI de fã, com os instrumentos trocados para o soundfont Tactical Fantasy Guy (SoundFontGuy) e o filtro lo-fi do PS1: é o jeito que as nossas faixas soam.\n- Mapeamento feito por mim (cordas, trompa, tuba, contrabaixo como cello, sinos, bateria como tímpano e caixa); pode soar diferente do original."
@@ -228,6 +280,10 @@
       "audio": "audio/ref_trisection_midi_fa_sonatina.ogg",
       "secoes": [
         {
+          "titulo": "Quem fez",
+          "texto": "- **Autoria:** MIDI feito por um fã (vgmusic.com), não por modelo; aqui é só tocado em cada soundfont, com o trompete removido por script."
+        },
+        {
           "titulo": "O que é",
           "texto": "- O mesmo MIDI de fã renderizado com Sonatina Symphonic Orchestra, sem filtro PS1, **com os instrumentos remapeados por mim** (o banco não segue a numeração General MIDI): violinos, cellos, baixos, trompa, tuba, sinos; bateria como tímpano e prato (sem caixa no banco, então a caixa virou um golpe agudo de tímpano).\n- Licença: Mattias Westlund e Peter Eastman, CC Sampling Plus 1.0 (README do zip). Banco orquestral convertido para SF2 por terceiro, com falhas conhecidas (flautas uma oitava acima, sem pizzicato); 495 MB.\n- Arquivo em `D:/Projetos/_musica-tools/soundfonts/`, fora do repositório."
         },
@@ -243,6 +299,10 @@
       "titulo": "Sonatina Symphonic Orchestra: MIDI de fã (sem tratamento)",
       "audio": "audio/ref_trisection_midi_fa_sonatina_cru.ogg",
       "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Autoria:** MIDI feito por um fã (vgmusic.com), não por modelo; aqui é só tocado em cada soundfont, com o trompete removido por script."
+        },
         {
           "titulo": "O que é",
           "texto": "- O mesmo MIDI de fã renderizado com Sonatina Symphonic Orchestra, sem filtro PS1, **com os instrumentos remapeados por mim** (o banco não segue a numeração General MIDI): violinos, cellos, baixos, trompa, tuba, sinos; bateria como tímpano e prato (sem caixa no banco, então a caixa virou um golpe agudo de tímpano).\n- Licença: Mattias Westlund e Peter Eastman, CC Sampling Plus 1.0 (README do zip). Banco orquestral convertido para SF2 por terceiro, com falhas conhecidas (flautas uma oitava acima, sem pizzicato); 495 MB.\n- Arquivo em `D:/Projetos/_musica-tools/soundfonts/`, fora do repositório."
@@ -260,6 +320,10 @@
       "audio": "audio/ref_trisection_midi_transcricao.ogg",
       "secoes": [
         {
+          "titulo": "Quem fez",
+          "texto": "- **Autoria:** notas derivadas do áudio original por um modelo de transcrição (basic-pitch, não é um modelo de linguagem), tocadas num soundfont."
+        },
+        {
           "titulo": "O que é",
           "texto": "- Saída do basic-pitch sobre o áudio do YouTube: uma linha só, notas aproximadas, **suja** em orquestra; tocada com o soundfont MuseScore General e com o volume normalizado.\n- Serve para conferir o que a máquina entendeu, não como partitura."
         },
@@ -275,6 +339,10 @@
       "titulo": "Transcrição automática do áudio, tocada em piano (sem tratamento)",
       "audio": "audio/ref_trisection_midi_transcricao_cru.ogg",
       "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Autoria:** notas derivadas do áudio original por um modelo de transcrição (basic-pitch, não é um modelo de linguagem), tocadas num soundfont."
+        },
         {
           "titulo": "O que é",
           "texto": "- Saída do basic-pitch sobre o áudio do YouTube: uma linha só, notas aproximadas, **suja** em orquestra; tocada com o soundfont MuseScore General e com o volume normalizado.\n- Serve para conferir o que a máquina entendeu, não como partitura."

@@ -16,6 +16,7 @@ describe('music lab', () => {
     render(<FaixaMusica pagina="batalha" faixa="batalha-c" />);
     expect(screen.getByText('Sobre esta faixa')).toBeInTheDocument();
     expect(screen.getAllByRole('heading', { level: 3 }).map((h) => h.textContent)).toEqual([
+      'Quem fez',
       'Resumo',
       'Forma e instrumentos',
       'Crítica',
