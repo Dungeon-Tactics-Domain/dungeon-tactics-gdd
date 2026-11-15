@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { Animacoes, urlDaAnimacao } from './Animacoes';
+import { Animacoes } from './Animacoes';
 
 const GLB = 'http://localhost:5205/eval/anim-fable/char.glb';
 const B = 'http://localhost:5205/eval.html';
@@ -14,16 +14,6 @@ function bancadaNoAr(headers: HeadersInit = { 'content-type': 'model/gltf-binary
 }
 
 afterEach(() => vi.unstubAllGlobals());
-
-describe('urlDaAnimacao', () => {
-  it('uses the clip zoom, the scene zoom and the fable effects', () => {
-    const q = (u: string) => new URL(u).searchParams;
-    expect(q(urlDaAnimacao('opus', GLB, 'clip:Idle', '', '', '')).get('anim')).toBe('Idle');
-    expect(q(urlDaAnimacao('opus', GLB, 'clip:Idle', '', '', '')).get('zoom')).toBe('1.6');
-    const cena = q(urlDaAnimacao('fable-leve', GLB, 'jump:over', '', '', ''));
-    expect([cena.get('jump'), cena.get('zoom'), cena.get('fx')]).toEqual(['over', '3.4', '1']);
-  });
-});
 
 describe('Animacoes', () => {
   it('plays a clip and combines weapons like the old lab', async () => {

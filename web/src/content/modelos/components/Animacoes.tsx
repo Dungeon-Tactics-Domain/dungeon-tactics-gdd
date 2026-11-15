@@ -86,7 +86,7 @@ const DUAS_MAOS: readonly Botao[] = [
 ];
 
 /** Bench URL for the chosen clip or scene and weapons. */
-export function urlDaAnimacao(
+function urlDaAnimacao(
   modelo: string,
   glb: string,
   escolha: string,
