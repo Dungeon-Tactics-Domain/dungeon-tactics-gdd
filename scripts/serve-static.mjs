@@ -21,7 +21,12 @@ createServer((req, res) => {
   let file = join(root, normalize(url));
   if (!file.startsWith(root)) return res.writeHead(403).end();
   if (!existsSync(file) || statSync(file).isDirectory()) file = join(root, 'index.html');
-  res.writeHead(200, { 'content-type': types[extname(file)] ?? 'application/octet-stream' });
-  if (req.method === 'HEAD') return res.end();
-  createReadStream(file).pipe(res);
+  // dist is rewritten by `build:watch`: a file can vanish between the check and the read, so a stream error must not kill the server.
+  const stream = createReadStream(file);
+  stream.on('error', () => (res.headersSent ? res.destroy() : res.writeHead(503).end()));
+  stream.on('open', () => {
+    res.writeHead(200, { 'content-type': types[extname(file)] ?? 'application/octet-stream' });
+    if (req.method === 'HEAD') return res.end(stream.destroy());
+    stream.pipe(res);
+  });
 }).listen(port, '127.0.0.1', () => console.log(`static ${root} on 127.0.0.1:${port}`));
