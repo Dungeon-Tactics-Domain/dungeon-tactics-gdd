@@ -1,6 +1,6 @@
 <Callout tom="aviso" titulo="Origem">
 
-O quadro das fases vem do áudio do Fernando (15/11), resumido por outra IA. As 17 decisões abaixo são dele, tomadas no grill de 15/11 (até 17h). A crítica e o MVP sugerido pela outra IA são sugestão, não decisão. Estado: guardado, ninguém age agora.
+O quadro das fases vem do áudio do Fernando (15/11), resumido por outra IA. As 31 decisões abaixo são dele, tomadas no grill de 15/11. A crítica e o MVP sugerido pela outra IA são sugestão, não decisão. Estado: guardado, ninguém age agora.
 
 </Callout>
 
@@ -113,6 +113,90 @@ Grill de 15/11, decisões do Fernando. A decisão 2 foi corrigida pelas decisõe
       'Destravam três coisas: destinos e andares mais fundos, receitas e itens novos (loja e craft), e diálogos de ambientação na cidade. Instalações continuam fixas.',
       'Nenhum registrado.',
     ],
+    [
+      '18',
+      'Regras únicas dos destinos',
+      '1 regra simples por destino (montanha: comida gasta mais rápido; floresta: inimigos escondidos; dungeon: visão curta); sem morte permanente. A pressão passa a ser leve e por destino.',
+      'Resolve a tensão com a decisão 3.',
+    ],
+    [
+      '19',
+      'Limite de peso',
+      '40 kg para o grupo (poção 0,5 kg, ração 1 kg, ingrediente 0,5 a 2 kg, arma 3 kg, armadura 8 kg; equipamento vestido não conta). Número inicial, ajustar jogando.',
+      'Ajustar jogando.',
+    ],
+    [
+      '20',
+      'Classes de apoio',
+      '3 classes separadas: batedor-cozinheiro (ingredientes extras, comida melhor, enxerga de longe), alquimista (poções, munição, bombas) e ferreiro de campo (repara e melhora arma no acampamento). O jogador monta o grupo de 4.',
+      'Ferreiro de campo enfraquece o motivo de voltar à cidade.',
+    ],
+    [
+      '21',
+      'Exploração do andar',
+      'Mapa de nós com salas ligadas; cada nó mostra o que há (inimigos, baú, acampamento); a batalha tática acontece na sala escolhida. O gerador faz o grafo de salas e, por sala de batalha, um mapa tático.',
+      'Tela nova.',
+    ],
+    [
+      '22',
+      'Tamanho da descida',
+      'Salas curtas (5 a 8 turnos de herói, 3 a 5 min) mais 1 chefe grande no fim. Medido: os mapas atuais levam 26 a 55 turnos, 7 a 16 min por combate; só cabem 1 a 3 salas em 30 a 40 min.',
+      'Precisa de mapas novos e menores, e de um mapa de chefe no tamanho atual.',
+    ],
+    [
+      '23',
+      'História',
+      'Interação com o povo da cidade e o grupo, pegando quests e eventos, vibe Stardew Valley. Fica para depois de fechar o core gameplay loop.',
+      'Só depois do core loop.',
+    ],
+    [
+      '24',
+      'Do Darkest Dungeon',
+      'Entram habilidades de acampamento e trinkets/relíquias. Não entram, por ora: stress e aflições, traços (quirks).',
+      'Nenhum registrado.',
+    ],
+    [
+      '25',
+      'Ações de acampamento',
+      'Cada classe tem 1 ou 2 ações de acampamento (batedor-cozinheiro cozinha, alquimista faz poções, ferreiro conserta; as outras têm ação simples).',
+      'Mais conteúdo por classe.',
+    ],
+    [
+      '26',
+      'Trinkets',
+      '2 slots por personagem; o peso só conta quando estão na bag.',
+      'Mais itens para escrever e balancear.',
+    ],
+    [
+      '27',
+      'Apoio no protótipo',
+      'As 3 classes de apoio entram desde o primeiro protótipo.',
+      '3 conjuntos de ações e itens antes do primeiro teste.',
+    ],
+    [
+      '28',
+      'Pesos na bag',
+      'Comida e ingredientes pesam mais que loot (ingrediente 1 a 2 kg, comida pronta cerca de 0,5 kg, loot 0,2 a 1 kg, equipamento reserva pesado).',
+      'Números a afinar no protótipo.',
+    ],
+    [
+      '29',
+      'Sem comida',
+      'Sem cura no acampamento; dá para improvisar com os ingredientes que sobraram ou voltar à cidade. Sem punição extra.',
+      'Nenhum registrado.',
+    ],
+    [
+      '30',
+      'Retorno à cidade',
+      'Permitido de qualquer sala já limpa; perde o progresso da descida (recomeça com destino novo) e mantém loot e ingredientes na bag.',
+      'Nenhum registrado.',
+    ],
+    [
+      '31',
+      'O que o dinheiro compra',
+      'Comida e ingredientes, equipamento e conserto, recrutar e treinar, e trinkets/relíquias (além de achá-los nas descidas).',
+      'Preços a definir no protótipo.',
+    ],
   ]}
 />
 
@@ -142,18 +226,15 @@ Descrição do áudio do Fernando. Ponto bom: suprimentos trazidos da cidade e l
 
 Tensões entre decisões, para o Fernando resolver:
 
-- **Pressão extra (3) contra regras únicas por destino (15):** a decisão 3 diz nenhuma pressão além da bag; a 15 dá a cada destino uma regra (frio, escuridão) que já é pressão. Definir quais regras entram no MVP, ou adiar todas.
+- **Pressão extra (3) contra regras únicas por destino (15):** resolvida pela decisão 18 (regras leves, uma por destino, sem morte permanente). Confirmar quais exatamente entram.
 - **Cidade que evolui contra cidade fixa (2, 16, 17):** a decisão 2 original dizia que a cidade evolui; as 16 e 17 dizem que só o grupo evolui e os rumores destravam destinos, receitas e diálogos. A decisão 2 já foi reescrita; confirmar que é isso.
 - **Slots contra peso em kg (6, 14):** o áudio e a decisão 6 falam em slots (tetris); a 14 escolheu peso numérico. Decidir se a decisão 6 cai e se a UI mostra slots, kg ou os dois.
 
 ## Ainda a decidir
 
-Ninguém perguntou ainda no grill:
-
-- Valores: tamanho do limite de peso, preços.
-- Quais regras únicas de destino entram no MVP.
-- Receitas iniciais.
-- Classe de apoio exata.
+- Preços e receitas iniciais.
+- Fórmula exata de peso dos itens.
+- Quais ações de acampamento cada classe tem.
 - UI da exploração do andar.
 
 <Callout tom="simples" titulo="Sugestões da outra IA, não decididas">
