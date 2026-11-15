@@ -2,14 +2,14 @@
 import type { Manifesto, PaginaManifesto } from '../types';
 
 const ESFORCOS = [
-  ['low', 'Esforço baixo'],
-  ['medium', 'Esforço médio'],
-  ['high', 'Esforço alto'],
-  ['xhigh', 'Esforço máximo'],
+  ['low', 'esforço baixo'],
+  ['medium', 'esforço médio'],
+  ['high', 'esforço alto'],
+  ['xhigh', 'esforço máximo'],
 ] as const;
 const porEsforco: PaginaManifesto[] = ESFORCOS.map(([id, titulo]) => ({
   id,
-  titulo,
+  titulo: `Fable 5.2 · ${titulo}`,
   resumo: 'Três versões feitas no mesmo esforço.',
 }));
 
@@ -28,17 +28,17 @@ export default {
       icone: '🧍',
       resumo: 'O guerreiro-viajante em cada técnica.',
       paginas: [
-        { id: 'codigo', titulo: 'Guerreiro em código', icone: '🗡️', resumo: 'Fable 5.2, só com código, sem KayKit.' },
+        { id: 'codigo', titulo: 'Fable 5.2 · código', icone: '🗡️', resumo: 'Fable 5.2, só com código, sem KayKit.' },
         {
           id: 'blender-sonnet',
-          titulo: 'Blender · Sonnet',
+          titulo: 'Sonnet 5.5 · Blender',
           icone: '🧱',
           resumo: 'Script do Blender feito pelo Sonnet 5.5.',
         },
-        { id: 'blender-opus', titulo: 'Blender · Opus', icone: '🧱', resumo: 'Script do Blender feito pelo Opus 5.5.' },
+        { id: 'blender-opus', titulo: 'Opus 5.5 · Blender', icone: '🧱', resumo: 'Script do Blender feito pelo Opus 5.5.' },
         {
           id: 'blender-fable',
-          titulo: 'Blender · Fable',
+          titulo: 'Fable 5.2 · Blender',
           icone: '🧱',
           resumo: 'Script do Blender feito pelo Fable 5.2.',
         },
@@ -58,7 +58,7 @@ export default {
       resumo: 'A árvore velha do Bosque, 12 versões por esforço, mais as livres.',
       paginas: [
         ...porEsforco,
-        { id: 'livres', titulo: 'Árvores livres', resumo: 'Sem as peças-base do projeto: Fable (P) contra Opus (Q).' },
+        { id: 'livres', titulo: 'Fable 5.2 × Opus 5.5 · livres', resumo: 'Sem as peças-base do projeto: Fable (P) contra Opus (Q).' },
       ],
     },
     {
@@ -67,8 +67,8 @@ export default {
       icone: '🎨',
       resumo: 'O que cada estilo mostra.',
       paginas: [
-        { id: 'pintado', titulo: 'Pintado', icone: '🖌️', resumo: 'O estilo atual do jogo.' },
-        { id: 'psx', titulo: 'PSX', icone: '📼', resumo: 'Teste de estilo do primeiro PlayStation.' },
+        { id: 'pintado', titulo: 'Pintado (Fable 5.2)', icone: '🖌️', resumo: 'O estilo atual do jogo.' },
+        { id: 'psx', titulo: 'PSX (carroça do Fable 5.2)', icone: '📼', resumo: 'Teste de estilo do primeiro PlayStation.' },
       ],
     },
     {
