@@ -1,0 +1,307 @@
+{
+  "titulo": "Trisection (FFT)",
+  "descricao": "Referência de estudo: o tema de batalha de Final Fantasy Tactics, para ouvir aqui mesmo e comparar com as nossas faixas.",
+  "referencias": [
+    {
+      "rotulo": "Trisection no YouTube (origem do áudio)",
+      "href": "https://www.youtube.com/watch?v=q7W5zevSY-A",
+      "youtube": "q7W5zevSY-A"
+    }
+  ],
+  "faixas": [
+    {
+      "id": "ref-trisection",
+      "letra": "FFT",
+      "titulo": "Trisection · Final Fantasy Tactics",
+      "audio": "audio/ref_trisection.ogg",
+      "secoes": [
+        {
+          "titulo": "Sobre este áudio",
+          "texto": "- Faixa de referência **só para estudo local**: tema de batalha de Final Fantasy Tactics (1997, Hitoshi Sakimoto e Masaharu Iwata), 2:37.\n- Áudio extraído do vídeo do YouTube indicado acima, convertido para `.ogg`. Original em `D:/Projetos/_musica-tools/referencias/trisection/`.\n- **Não vai para o jogo nem para o repositório** (os `.ogg` ficam fora do git). Hospedada neste lab por decisão do Fernando (15/11), mesmo sendo música da Square Enix. Nenhuma nota dela é copiada para as nossas músicas."
+        },
+        {
+          "titulo": "Medições (MIDI de fã e transcrição)",
+          "texto": "Medido por código em 15/11; **ninguém ouviu**, e as duas fontes são aproximadas.\n\n- **MIDI de fã** (Christopher Ng, 2004, baixado do VGMusic): 144,7 s, 159 compassos, instrumentos Str Hi, Str Lo, Str Bass, Mute Trmpt, Fr Horn, Horn Bass, Drms e Gong. Notas mais frequentes: E 18%, A 16%, D 16%, B 13%.\n- **Transcrição automática do áudio** (basic-pitch, uma linha só, mistura tudo): centro em **Mi menor** (B 25%, E 21%, A 15%, D 11%). O andamento 120 que ela mostra é padrão da ferramenta, não medido.\n- **Tom:** o palpite automático do MIDI deu Ré maior, mas as notas (Mi, Si, Lá, Ré, Dó natural) apontam para **Mi menor ou Mi dórico**. Considerar Mi menor até alguém conferir de ouvido.\n- **Forma no MIDI:** a densidade dos violinos e do baixo muda em blocos de 8 compassos; trompete e trompas entram em seções próprias (violinos caem para ~20 notas por bloco, baixo e trompas sobem). Sugere seções contrastantes, não um ostinato contínuo.\n- **Andamento:** o MIDI de fã grava 260 e 270 em unidades de tempo, o que provavelmente é o dobro do pulso real; **não confirmado**.\n\nArquivos fora do repositório: `D:/Projetos/_musica-tools/referencias/trisection/` (`midi/` e `transcricao/`) e o script `D:/Projetos/_musica-tools/analise/midi_stats.py`."
+        },
+        {
+          "titulo": "Dados medidos",
+          "texto": "- **Duração** 157.4 s, **volume** -13.9 LUFS, **pico** 0.3 dB, **crista** 16.3 dB.\n- **Agudo** acima de 3 kHz: -33.1 dB; **grave** abaixo de 100 Hz: -20.8 dB.\n- Nenhum tratamento: é o áudio original convertido para ogg."
+        }
+      ]
+    },
+    {
+      "id": "ref-trisection-midi-fa",
+      "letra": "MIDI",
+      "titulo": "MIDI de fã (tratada)",
+      "audio": "audio/ref_trisection_midi_fa.ogg",
+      "secoes": [
+        {
+          "titulo": "O que é",
+          "texto": "- Sequência de fã de 2004 (VGMusic), renderizada aqui com o soundfont MuseScore General, **não** com o som do PS1.\n- Serve para ouvir as notas e a estrutura em instrumentos limpos; o timbre e o andamento podem diferir do jogo."
+        },
+        {
+          "titulo": "Dados medidos",
+          "texto": "- **Duração** 157.1 s, **volume** -13.9 LUFS, **pico** -3.2 dB, **crista** (pico menos média) 13.6 dB.\n- **Agudo** acima de 3 kHz: -34.0 dB (referência original: -33,1). **Grave** abaixo de 100 Hz: -28.1 dB.\n- **Notas do MIDI** (sem bateria): mais grave **E1** (nota 28), mais aguda **C6** (nota 84), 2322 notas.\n- **Bateria no MIDI:** velocidade máxima 60, média 59 (escala 0 a 127).\n- **Tratamentos desta versão:** bateria do MIDI a 60% (máximo 80); corte abaixo de 32 Hz; filtro de agudo (shelf -9 dB em 2,5 kHz e corte em 9 kHz); compressor (razão 3,5), limitador e volume igualado em -14 LUFS."
+        }
+      ]
+    },
+    {
+      "id": "ref-trisection-midi-fa-cru",
+      "letra": "MIDI-cru",
+      "titulo": "MuseScore General: MIDI de fã (sem tratamento)",
+      "audio": "audio/ref_trisection_midi_fa_cru.ogg",
+      "secoes": [
+        {
+          "titulo": "O que é",
+          "texto": "- Sequência de fã de 2004 (VGMusic), renderizada aqui com o soundfont MuseScore General, **não** com o som do PS1.\n- Serve para ouvir as notas e a estrutura em instrumentos limpos; o timbre e o andamento podem diferir do jogo."
+        },
+        {
+          "titulo": "Dados medidos",
+          "texto": "- **Duração** 157.0 s, **volume** -9.9 LUFS, **pico** 0.8 dB, **crista** (pico menos média) 14.2 dB.\n- **Agudo** acima de 3 kHz: -25.1 dB (referência original: -33,1). **Grave** abaixo de 100 Hz: -26.1 dB.\n- **Notas do MIDI** (sem bateria): mais grave **E1** (nota 28), mais aguda **C6** (nota 84), 2322 notas.\n- **Bateria no MIDI:** velocidade máxima 100, média 98 (escala 0 a 127).\n- **Tratamentos:** nenhum. Bateria do MIDI na velocidade original; volume, grave e agudo como o soundfont rende."
+        }
+      ]
+    },
+    {
+      "id": "ref-trisection-midi-fa-gugs",
+      "letra": "GU",
+      "titulo": "MIDI de fã com GeneralUser GS (tratada)",
+      "audio": "audio/ref_trisection_midi_fa_gugs.ogg",
+      "secoes": [
+        {
+          "titulo": "O que é",
+          "texto": "- O mesmo MIDI de fã renderizado com o soundfont GeneralUser GS (General MIDI completo), sem filtro PS1, para comparar com o MuseScore General."
+        },
+        {
+          "titulo": "Dados medidos",
+          "texto": "- **Duração** 148.7 s, **volume** -13.8 LUFS, **pico** -3.6 dB, **crista** (pico menos média) 12.7 dB.\n- **Agudo** acima de 3 kHz: -36.2 dB (referência original: -33,1). **Grave** abaixo de 100 Hz: -26.3 dB.\n- **Notas do MIDI** (sem bateria): mais grave **E1** (nota 28), mais aguda **C6** (nota 84), 2322 notas.\n- **Bateria no MIDI:** velocidade máxima 60, média 59 (escala 0 a 127).\n- **Tratamentos desta versão:** bateria do MIDI a 60% (máximo 80); corte abaixo de 32 Hz; filtro de agudo (shelf -9 dB em 2,5 kHz e corte em 9 kHz); compressor (razão 3,5), limitador e volume igualado em -14 LUFS."
+        }
+      ]
+    },
+    {
+      "id": "ref-trisection-midi-fa-gugs-cru",
+      "letra": "GU-cru",
+      "titulo": "GeneralUser GS: MIDI de fã (sem tratamento)",
+      "audio": "audio/ref_trisection_midi_fa_gugs_cru.ogg",
+      "secoes": [
+        {
+          "titulo": "O que é",
+          "texto": "- O mesmo MIDI de fã renderizado com o soundfont GeneralUser GS (General MIDI completo), sem filtro PS1, para comparar com o MuseScore General."
+        },
+        {
+          "titulo": "Dados medidos",
+          "texto": "- **Duração** 148.7 s, **volume** -10.7 LUFS, **pico** 0.7 dB, **crista** (pico menos média) 14.3 dB.\n- **Agudo** acima de 3 kHz: -28.1 dB (referência original: -33,1). **Grave** abaixo de 100 Hz: -24.9 dB.\n- **Notas do MIDI** (sem bateria): mais grave **E1** (nota 28), mais aguda **C6** (nota 84), 2322 notas.\n- **Bateria no MIDI:** velocidade máxima 100, média 98 (escala 0 a 127).\n- **Tratamentos:** nenhum. Bateria do MIDI na velocidade original; volume, grave e agudo como o soundfont rende."
+        }
+      ]
+    },
+    {
+      "id": "ref-trisection-midi-fa-fluidr3",
+      "letra": "FL",
+      "titulo": "MIDI de fã com FluidR3 GM (tratada)",
+      "audio": "audio/ref_trisection_midi_fa_fluidr3.ogg",
+      "secoes": [
+        {
+          "titulo": "O que é",
+          "texto": "- O mesmo MIDI de fã renderizado com FluidR3 GM, sem filtro PS1.\n- Licença: Frank Wen, licença MIT (conferida no COPYING do repositório pianobooster/fluid-soundfont). General MIDI completo, 148 MB.\n- Arquivo em `D:/Projetos/_musica-tools/soundfonts/`, fora do repositório."
+        },
+        {
+          "titulo": "Dados medidos",
+          "texto": "- **Duração** 157.1 s, **volume** -13.9 LUFS, **pico** -3.1 dB, **crista** (pico menos média) 13.7 dB.\n- **Agudo** acima de 3 kHz: -34.4 dB (referência original: -33,1). **Grave** abaixo de 100 Hz: -28.2 dB.\n- **Notas do MIDI** (sem bateria): mais grave **E1** (nota 28), mais aguda **C6** (nota 84), 2322 notas.\n- **Bateria no MIDI:** velocidade máxima 60, média 59 (escala 0 a 127).\n- **Tratamentos desta versão:** bateria do MIDI a 60% (máximo 80); corte abaixo de 32 Hz; filtro de agudo (shelf -9 dB em 2,5 kHz e corte em 9 kHz); compressor (razão 3,5), limitador e volume igualado em -14 LUFS. Antes disso: ganho -2 dB."
+        }
+      ]
+    },
+    {
+      "id": "ref-trisection-midi-fa-fluidr3-cru",
+      "letra": "FL-cru",
+      "titulo": "FluidR3 GM: MIDI de fã (sem tratamento)",
+      "audio": "audio/ref_trisection_midi_fa_fluidr3_cru.ogg",
+      "secoes": [
+        {
+          "titulo": "O que é",
+          "texto": "- O mesmo MIDI de fã renderizado com FluidR3 GM, sem filtro PS1.\n- Licença: Frank Wen, licença MIT (conferida no COPYING do repositório pianobooster/fluid-soundfont). General MIDI completo, 148 MB.\n- Arquivo em `D:/Projetos/_musica-tools/soundfonts/`, fora do repositório."
+        },
+        {
+          "titulo": "Dados medidos",
+          "texto": "- **Duração** 157.0 s, **volume** -9.9 LUFS, **pico** -0.3 dB, **crista** (pico menos média) 13.0 dB.\n- **Agudo** acima de 3 kHz: -25.5 dB (referência original: -33,1). **Grave** abaixo de 100 Hz: -26.0 dB.\n- **Notas do MIDI** (sem bateria): mais grave **E1** (nota 28), mais aguda **C6** (nota 84), 2322 notas.\n- **Bateria no MIDI:** velocidade máxima 100, média 98 (escala 0 a 127).\n- **Tratamentos:** ganho -2 dB. Bateria do MIDI na velocidade original; volume, grave e agudo como o soundfont rende."
+        }
+      ]
+    },
+    {
+      "id": "ref-trisection-midi-fa-sgm",
+      "letra": "SG",
+      "titulo": "MIDI de fã com SGM-V2.01 (tratada)",
+      "audio": "audio/ref_trisection_midi_fa_sgm.ogg",
+      "secoes": [
+        {
+          "titulo": "O que é",
+          "texto": "- O mesmo MIDI de fã renderizado com SGM-V2.01 (Shan), sem filtro PS1.\n- Licença: Shan; as fontes divergem: \"dar crédito\" no site da Polyphone, CC BY 4.0 no Musical Artifacts, custom no Arch. **Licença não resolvida**, 247 MB.\n- Arquivo em `D:/Projetos/_musica-tools/soundfonts/`, fora do repositório."
+        },
+        {
+          "titulo": "Dados medidos",
+          "texto": "- **Duração** 148.3 s, **volume** -13.9 LUFS, **pico** -2.8 dB, **crista** (pico menos média) 13.5 dB.\n- **Agudo** acima de 3 kHz: -32.6 dB (referência original: -33,1). **Grave** abaixo de 100 Hz: -23.4 dB.\n- **Notas do MIDI** (sem bateria): mais grave **E1** (nota 28), mais aguda **C6** (nota 84), 2322 notas.\n- **Bateria no MIDI:** velocidade máxima 60, média 59 (escala 0 a 127).\n- **Tratamentos desta versão:** bateria do MIDI a 60% (máximo 80); corte abaixo de 32 Hz; sem filtro de agudo; compressor (razão 3,5), limitador e volume igualado em -14 LUFS. Antes disso: ganho -2 dB."
+        }
+      ]
+    },
+    {
+      "id": "ref-trisection-midi-fa-sgm-cru",
+      "letra": "SG-cru",
+      "titulo": "SGM-V2.01: MIDI de fã (sem tratamento)",
+      "audio": "audio/ref_trisection_midi_fa_sgm_cru.ogg",
+      "secoes": [
+        {
+          "titulo": "O que é",
+          "texto": "- O mesmo MIDI de fã renderizado com SGM-V2.01 (Shan), sem filtro PS1.\n- Licença: Shan; as fontes divergem: \"dar crédito\" no site da Polyphone, CC BY 4.0 no Musical Artifacts, custom no Arch. **Licença não resolvida**, 247 MB.\n- Arquivo em `D:/Projetos/_musica-tools/soundfonts/`, fora do repositório."
+        },
+        {
+          "titulo": "Dados medidos",
+          "texto": "- **Duração** 148.3 s, **volume** -14.2 LUFS, **pico** -1.3 dB, **crista** (pico menos média) 15.5 dB.\n- **Agudo** acima de 3 kHz: -31.6 dB (referência original: -33,1). **Grave** abaixo de 100 Hz: -24.0 dB.\n- **Notas do MIDI** (sem bateria): mais grave **E1** (nota 28), mais aguda **C6** (nota 84), 2322 notas.\n- **Bateria no MIDI:** velocidade máxima 100, média 98 (escala 0 a 127).\n- **Tratamentos:** ganho -2 dB. Bateria do MIDI na velocidade original; volume, grave e agudo como o soundfont rende."
+        }
+      ]
+    },
+    {
+      "id": "ref-trisection-midi-fa-neo",
+      "letra": "NE",
+      "titulo": "MIDI de fã com Neo Orchestra HQ (tratada)",
+      "audio": "audio/ref_trisection_midi_fa_neo.ogg",
+      "secoes": [
+        {
+          "titulo": "O que é",
+          "texto": "- O mesmo MIDI de fã renderizado com Neo Orchestra HQ, sem filtro PS1.\n- Licença: Variante libre (CC0 no GitHub NeoSoundFonts) feita de bibliotecas livres (VCSL, VSCO-2 CE, FreePats e outras); a licença de cada amostra de origem **não foi conferida**. 14 MB.\n- Arquivo em `D:/Projetos/_musica-tools/soundfonts/`, fora do repositório."
+        },
+        {
+          "titulo": "Dados medidos",
+          "texto": "- **Duração** 148.3 s, **volume** -13.7 LUFS, **pico** -3.0 dB, **crista** (pico menos média) 13.6 dB.\n- **Agudo** acima de 3 kHz: -32.3 dB (referência original: -33,1). **Grave** abaixo de 100 Hz: -26.4 dB.\n- **Notas do MIDI** (sem bateria): mais grave **E1** (nota 28), mais aguda **C6** (nota 84), 2322 notas.\n- **Bateria no MIDI:** velocidade máxima 60, média 59 (escala 0 a 127).\n- **Tratamentos desta versão:** bateria do MIDI a 60% (máximo 80); corte abaixo de 32 Hz; filtro de agudo (shelf -9 dB em 2,5 kHz e corte em 9 kHz); compressor (razão 3,5), limitador e volume igualado em -14 LUFS. Antes disso: ganho -2 dB."
+        }
+      ]
+    },
+    {
+      "id": "ref-trisection-midi-fa-neo-cru",
+      "letra": "NE-cru",
+      "titulo": "Neo Orchestra HQ: MIDI de fã (sem tratamento)",
+      "audio": "audio/ref_trisection_midi_fa_neo_cru.ogg",
+      "secoes": [
+        {
+          "titulo": "O que é",
+          "texto": "- O mesmo MIDI de fã renderizado com Neo Orchestra HQ, sem filtro PS1.\n- Licença: Variante libre (CC0 no GitHub NeoSoundFonts) feita de bibliotecas livres (VCSL, VSCO-2 CE, FreePats e outras); a licença de cada amostra de origem **não foi conferida**. 14 MB.\n- Arquivo em `D:/Projetos/_musica-tools/soundfonts/`, fora do repositório."
+        },
+        {
+          "titulo": "Dados medidos",
+          "texto": "- **Duração** 148.2 s, **volume** -11.9 LUFS, **pico** -0.1 dB, **crista** (pico menos média) 15.1 dB.\n- **Agudo** acima de 3 kHz: -25.0 dB (referência original: -33,1). **Grave** abaixo de 100 Hz: -25.5 dB.\n- **Notas do MIDI** (sem bateria): mais grave **E1** (nota 28), mais aguda **C6** (nota 84), 2322 notas.\n- **Bateria no MIDI:** velocidade máxima 100, média 98 (escala 0 a 127).\n- **Tratamentos:** ganho -2 dB. Bateria do MIDI na velocidade original; volume, grave e agudo como o soundfont rende."
+        }
+      ]
+    },
+    {
+      "id": "ref-trisection-midi-fa-tfg",
+      "letra": "TFG",
+      "titulo": "MIDI de fã com o som PS1 (tratada)",
+      "audio": "audio/ref_trisection_midi_fa_tfg.ogg",
+      "secoes": [
+        {
+          "titulo": "O que é",
+          "texto": "- O mesmo MIDI de fã, com os instrumentos trocados para o soundfont Tactical Fantasy Guy (SoundFontGuy) e o filtro lo-fi do PS1: é o jeito que as nossas faixas soam.\n- Mapeamento feito por mim (cordas, trompete surdo, trompa, tuba, contrabaixo como cello, sinos, bateria como tímpano e caixa); pode soar diferente do original."
+        },
+        {
+          "titulo": "Dados medidos",
+          "texto": "- **Duração** 147.8 s, **volume** -13.9 LUFS, **pico** -4.0 dB, **crista** (pico menos média) 12.7 dB.\n- **Agudo** acima de 3 kHz: -31.5 dB (referência original: -33,1). **Grave** abaixo de 100 Hz: -24.1 dB.\n- **Notas do MIDI** (sem bateria): mais grave **F1** (nota 29), mais aguda **C6** (nota 84), 2299 notas.\n- **Bateria no MIDI:** velocidade máxima 60, média 59 (escala 0 a 127).\n- **Tratamentos desta versão:** bateria do MIDI a 60% (máximo 80); corte abaixo de 32 Hz; sem filtro de agudo; compressor (razão 3,5), limitador e volume igualado em -14 LUFS. Antes disso: filtro lo-fi PS1 (corte em 8,5 kHz, 22 kHz de amostragem, 11 bits); ganho -2 dB."
+        }
+      ]
+    },
+    {
+      "id": "ref-trisection-midi-fa-tfg-cru",
+      "letra": "TFG-cru",
+      "titulo": "Tactical Fantasy Guy: MIDI de fã (sem tratamento)",
+      "audio": "audio/ref_trisection_midi_fa_tfg_cru.ogg",
+      "secoes": [
+        {
+          "titulo": "O que é",
+          "texto": "- O mesmo MIDI de fã, com os instrumentos trocados para o soundfont Tactical Fantasy Guy (SoundFontGuy) e o filtro lo-fi do PS1: é o jeito que as nossas faixas soam.\n- Mapeamento feito por mim (cordas, trompete surdo, trompa, tuba, contrabaixo como cello, sinos, bateria como tímpano e caixa); pode soar diferente do original."
+        },
+        {
+          "titulo": "Dados medidos",
+          "texto": "- **Duração** 147.8 s, **volume** -12.7 LUFS, **pico** -0.7 dB, **crista** (pico menos média) 15.1 dB.\n- **Agudo** acima de 3 kHz: -30.4 dB (referência original: -33,1). **Grave** abaixo de 100 Hz: -23.9 dB.\n- **Notas do MIDI** (sem bateria): mais grave **F1** (nota 29), mais aguda **C6** (nota 84), 2299 notas.\n- **Bateria no MIDI:** velocidade máxima 100, média 98 (escala 0 a 127).\n- **Tratamentos:** filtro lo-fi PS1 (corte em 8,5 kHz, 22 kHz de amostragem, 11 bits); ganho -2 dB. Bateria do MIDI na velocidade original; volume, grave e agudo como o soundfont rende."
+        }
+      ]
+    },
+    {
+      "id": "ref-trisection-midi-fa-sonatina",
+      "letra": "SO",
+      "titulo": "MIDI de fã com Sonatina Symphonic Orchestra (tratada)",
+      "audio": "audio/ref_trisection_midi_fa_sonatina.ogg",
+      "secoes": [
+        {
+          "titulo": "O que é",
+          "texto": "- O mesmo MIDI de fã renderizado com Sonatina Symphonic Orchestra, sem filtro PS1, **com os instrumentos remapeados por mim** (o banco não segue a numeração General MIDI): violinos, cellos, baixos, trompete, trompa, tuba, sinos; bateria como tímpano e prato (sem caixa no banco, então a caixa virou um golpe agudo de tímpano).\n- Licença: Mattias Westlund e Peter Eastman, CC Sampling Plus 1.0 (README do zip). Banco orquestral convertido para SF2 por terceiro, com falhas conhecidas (flautas uma oitava acima, sem pizzicato); 495 MB.\n- Arquivo em `D:/Projetos/_musica-tools/soundfonts/`, fora do repositório."
+        },
+        {
+          "titulo": "Dados medidos",
+          "texto": "- **Duração** 148.3 s, **volume** -13.5 LUFS, **pico** -2.6 dB, **crista** (pico menos média) 13.9 dB.\n- **Agudo** acima de 3 kHz: -32.4 dB (referência original: -33,1). **Grave** abaixo de 100 Hz: -27.6 dB.\n- **Notas do MIDI** (sem bateria): mais grave **E1** (nota 28), mais aguda **C6** (nota 84), 2322 notas.\n- **Bateria no MIDI:** velocidade máxima 40, média 39 (escala 0 a 127).\n- **Tratamentos desta versão:** bateria do MIDI a 60% (máximo 80); corte abaixo de 32 Hz; sem filtro de agudo; compressor (razão 3,5), limitador e volume igualado em -14 LUFS. Antes disso: instrumentos remapeados por mim; ganho -3 dB."
+        }
+      ]
+    },
+    {
+      "id": "ref-trisection-midi-fa-sonatina-cru",
+      "letra": "SO-cru",
+      "titulo": "Sonatina Symphonic Orchestra: MIDI de fã (sem tratamento)",
+      "audio": "audio/ref_trisection_midi_fa_sonatina_cru.ogg",
+      "secoes": [
+        {
+          "titulo": "O que é",
+          "texto": "- O mesmo MIDI de fã renderizado com Sonatina Symphonic Orchestra, sem filtro PS1, **com os instrumentos remapeados por mim** (o banco não segue a numeração General MIDI): violinos, cellos, baixos, trompete, trompa, tuba, sinos; bateria como tímpano e prato (sem caixa no banco, então a caixa virou um golpe agudo de tímpano).\n- Licença: Mattias Westlund e Peter Eastman, CC Sampling Plus 1.0 (README do zip). Banco orquestral convertido para SF2 por terceiro, com falhas conhecidas (flautas uma oitava acima, sem pizzicato); 495 MB.\n- Arquivo em `D:/Projetos/_musica-tools/soundfonts/`, fora do repositório."
+        },
+        {
+          "titulo": "Dados medidos",
+          "texto": "- **Duração** 148.2 s, **volume** -12.6 LUFS, **pico** -1.8 dB, **crista** (pico menos média) 14.2 dB.\n- **Agudo** acima de 3 kHz: -31.9 dB (referência original: -33,1). **Grave** abaixo de 100 Hz: -27.9 dB.\n- **Notas do MIDI** (sem bateria): mais grave **E1** (nota 28), mais aguda **C6** (nota 84), 2322 notas.\n- **Bateria no MIDI:** velocidade máxima 66, média 65 (escala 0 a 127).\n- **Tratamentos:** instrumentos remapeados por mim; ganho -3 dB. Bateria do MIDI na velocidade original; volume, grave e agudo como o soundfont rende."
+        }
+      ]
+    },
+    {
+      "id": "ref-trisection-midi-transcricao",
+      "letra": "TR",
+      "titulo": "Transcrição automática do áudio, tocada em piano (tratada)",
+      "audio": "audio/ref_trisection_midi_transcricao.ogg",
+      "secoes": [
+        {
+          "titulo": "O que é",
+          "texto": "- Saída do basic-pitch sobre o áudio do YouTube: uma linha só, notas aproximadas, **suja** em orquestra; tocada com o soundfont MuseScore General e com o volume normalizado.\n- Serve para conferir o que a máquina entendeu, não como partitura."
+        },
+        {
+          "titulo": "Dados medidos",
+          "texto": "- **Duração** 158.3 s, **volume** -14.1 LUFS, **pico** -3.4 dB, **crista** (pico menos média) 13.2 dB.\n- **Agudo** acima de 3 kHz: -47.2 dB (referência original: -33,1). **Grave** abaixo de 100 Hz: -26.1 dB.\n- **Notas do MIDI** (sem bateria): mais grave **E1** (nota 28), mais aguda **A5** (nota 81), 959 notas.\n- **Tratamentos:** volume normalizado (-18 LUFS na primeira versão); depois corte abaixo de 32 Hz, compressor, limitador e volume igualado em -14 LUFS."
+        }
+      ]
+    },
+    {
+      "id": "ref-trisection-midi-transcricao-cru",
+      "letra": "TR-cru",
+      "titulo": "Transcrição automática do áudio, tocada em piano (sem tratamento)",
+      "audio": "audio/ref_trisection_midi_transcricao_cru.ogg",
+      "secoes": [
+        {
+          "titulo": "O que é",
+          "texto": "- Saída do basic-pitch sobre o áudio do YouTube: uma linha só, notas aproximadas, **suja** em orquestra; tocada com o soundfont MuseScore General e com o volume normalizado.\n- Serve para conferir o que a máquina entendeu, não como partitura."
+        },
+        {
+          "titulo": "Dados medidos",
+          "texto": "- **Duração** 158.2 s, **volume** -17.7 LUFS, **pico** -2.1 dB, **crista** (pico menos média) 18.1 dB.\n- **Agudo** acima de 3 kHz: -50.4 dB (referência original: -33,1). **Grave** abaixo de 100 Hz: -30.2 dB.\n- **Notas do MIDI** (sem bateria): mais grave **E1** (nota 28), mais aguda **A5** (nota 81), 959 notas.\n- **Tratamentos:** só a normalização de volume (-18 LUFS) feita ao renderizar."
+        }
+      ]
+    }
+  ],
+  "checagens": [
+    {
+      "texto": "Áudio copiado e convertido (ogg, 157 s)",
+      "estado": "feito"
+    },
+    {
+      "texto": "MIDI de fã baixado e medido (tom, instrumentos, densidade por bloco)",
+      "estado": "feito"
+    },
+    {
+      "texto": "Áudio transcrito para MIDI com basic-pitch (centro em Mi menor)",
+      "estado": "feito"
+    },
+    {
+      "texto": "Conferir andamento, tom e forma de ouvido",
+      "estado": "pendente"
+    }
+  ]
+}

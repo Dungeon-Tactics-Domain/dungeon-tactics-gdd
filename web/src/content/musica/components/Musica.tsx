@@ -10,6 +10,8 @@ import { Stars } from '@/components/content/Stars';
 import { YouTubeEmbed } from '@/components/content/YouTubeEmbed';
 import batalha from '../batalha.json';
 import pastoral from '../pastoral.json';
+import temaDark from '../tema-dark.json';
+import trisection from '../trisection.json';
 
 interface Ref {
   rotulo: string;
@@ -45,7 +47,12 @@ export interface PaginaMusica {
   checagens?: Checagem[];
 }
 
-export const PAGINAS: Record<'batalha' | 'pastoral', PaginaMusica> = { batalha, pastoral };
+export const PAGINAS: Record<'batalha' | 'pastoral' | 'trisection' | 'tema-dark', PaginaMusica> = {
+  batalha,
+  pastoral,
+  trisection,
+  'tema-dark': temaDark,
+};
 export type IdPagina = keyof typeof PAGINAS;
 
 /** Tracks in the old page order: by letter. */

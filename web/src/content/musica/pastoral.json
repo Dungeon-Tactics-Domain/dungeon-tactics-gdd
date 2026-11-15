@@ -34,6 +34,18 @@
       ]
     },
     {
+      "id": "pastoral-a-t",
+      "letra": "PA·T",
+      "titulo": "Pastoral · A (tratada)",
+      "audio": "audio/pastoral_A_t.ogg",
+      "secoes": [
+        {
+          "titulo": "Tratamento",
+          "texto": "- Mesma faixa **PA** com: corte abaixo de 32 Hz, compressor, limitador e volume igualado em -14 LUFS (agudo da original: -32.8 dB acima de 3 kHz, sem filtro de agudo).\n- Serve para ouvir sem os picos e sem diferença de volume. A crítica e as notas estão na faixa original, logo acima."
+        }
+      ]
+    },
+    {
       "id": "pastoral-a-tfg",
       "letra": "PA2",
       "titulo": "Pastoral · A com a soundfont Tactical Fantasy Guy",
@@ -47,6 +59,18 @@
         {
           "titulo": "Como regenerar",
           "texto": "`python scripts/music/tfg_remap.py <slot_A.mid> 40 80 <saída>` (veja `scripts/music/tfg_remap.py`)."
+        }
+      ]
+    },
+    {
+      "id": "pastoral-a-tfg-t",
+      "letra": "PA2·T",
+      "titulo": "Pastoral · A com a soundfont Tactical Fantasy Guy (tratada)",
+      "audio": "audio/pastoral_A_tfg_t.ogg",
+      "secoes": [
+        {
+          "titulo": "Tratamento",
+          "texto": "- Mesma faixa **PA2** com: corte abaixo de 32 Hz, compressor, limitador e volume igualado em -14 LUFS, mais um filtro que tira agudo acima de 2,5 kHz (a original media -30.1 dB acima de 3 kHz, mais brilhante que a referência Trisection, -33).\n- Serve para ouvir sem os picos e sem diferença de volume. A crítica e as notas estão na faixa original, logo acima."
         }
       ]
     },
@@ -76,6 +100,18 @@
       ]
     },
     {
+      "id": "pastoral-b-t",
+      "letra": "PB·T",
+      "titulo": "Pastoral · B (tratada)",
+      "audio": "audio/pastoral_B_t.ogg",
+      "secoes": [
+        {
+          "titulo": "Tratamento",
+          "texto": "- Mesma faixa **PB** com: corte abaixo de 32 Hz, compressor, limitador e volume igualado em -14 LUFS (agudo da original: -32.6 dB acima de 3 kHz, sem filtro de agudo).\n- Serve para ouvir sem os picos e sem diferença de volume. A crítica e as notas estão na faixa original, logo acima."
+        }
+      ]
+    },
+    {
       "id": "pastoral-b-tfg",
       "letra": "PB2",
       "titulo": "Pastoral · B com a soundfont Tactical Fantasy Guy",
@@ -89,6 +125,18 @@
         {
           "titulo": "Como regenerar",
           "texto": "`python scripts/music/tfg_remap.py <slot_B.mid> 40 76 <saída>` (veja `scripts/music/tfg_remap.py`)."
+        }
+      ]
+    },
+    {
+      "id": "pastoral-b-tfg-t",
+      "letra": "PB2·T",
+      "titulo": "Pastoral · B com a soundfont Tactical Fantasy Guy (tratada)",
+      "audio": "audio/pastoral_B_tfg_t.ogg",
+      "secoes": [
+        {
+          "titulo": "Tratamento",
+          "texto": "- Mesma faixa **PB2** com: corte abaixo de 32 Hz, compressor, limitador e volume igualado em -14 LUFS, mais um filtro que tira agudo acima de 2,5 kHz (a original media -28.8 dB acima de 3 kHz, mais brilhante que a referência Trisection, -33).\n- Serve para ouvir sem os picos e sem diferença de volume. A crítica e as notas estão na faixa original, logo acima."
         }
       ]
     },
@@ -118,6 +166,18 @@
       ]
     },
     {
+      "id": "pastoral-c-t",
+      "letra": "PC·T",
+      "titulo": "Pastoral · C (tratada)",
+      "audio": "audio/pastoral_C_t.ogg",
+      "secoes": [
+        {
+          "titulo": "Tratamento",
+          "texto": "- Mesma faixa **PC** com: corte abaixo de 32 Hz, compressor, limitador e volume igualado em -14 LUFS (agudo da original: -36.8 dB acima de 3 kHz, sem filtro de agudo).\n- Serve para ouvir sem os picos e sem diferença de volume. A crítica e as notas estão na faixa original, logo acima."
+        }
+      ]
+    },
+    {
       "id": "pastoral-c-tfg",
       "letra": "PC2",
       "titulo": "Pastoral · C com a soundfont Tactical Fantasy Guy",
@@ -131,6 +191,18 @@
         {
           "titulo": "Como regenerar",
           "texto": "`python scripts/music/tfg_remap.py <slot_C.mid> 40 76 <saída>` (veja `scripts/music/tfg_remap.py`)."
+        }
+      ]
+    },
+    {
+      "id": "pastoral-c-tfg-t",
+      "letra": "PC2·T",
+      "titulo": "Pastoral · C com a soundfont Tactical Fantasy Guy (tratada)",
+      "audio": "audio/pastoral_C_tfg_t.ogg",
+      "secoes": [
+        {
+          "titulo": "Tratamento",
+          "texto": "- Mesma faixa **PC2** com: corte abaixo de 32 Hz, compressor, limitador e volume igualado em -14 LUFS, mais um filtro que tira agudo acima de 2,5 kHz (a original media -31.7 dB acima de 3 kHz, mais brilhante que a referência Trisection, -33).\n- Serve para ouvir sem os picos e sem diferença de volume. A crítica e as notas estão na faixa original, logo acima."
         }
       ]
     },
@@ -160,6 +232,18 @@
       ]
     },
     {
+      "id": "pastoral-d-t",
+      "letra": "PD·T",
+      "titulo": "Pastoral · D (tratada)",
+      "audio": "audio/pastoral_D_t.ogg",
+      "secoes": [
+        {
+          "titulo": "Tratamento",
+          "texto": "- Mesma faixa **PD** com: corte abaixo de 32 Hz, compressor, limitador e volume igualado em -14 LUFS (agudo da original: -33.0 dB acima de 3 kHz, sem filtro de agudo).\n- Serve para ouvir sem os picos e sem diferença de volume. A crítica e as notas estão na faixa original, logo acima."
+        }
+      ]
+    },
+    {
       "id": "pastoral-d-tfg",
       "letra": "PD2",
       "titulo": "Pastoral · D com a soundfont Tactical Fantasy Guy",
@@ -173,6 +257,18 @@
         {
           "titulo": "Como regenerar",
           "texto": "`python scripts/music/tfg_remap.py D:/Projetos/_musica-tools/eval/slot_D.mid 40 76 D:/Projetos/_musica-tools/battle-tfg/pastoral_D_tfg`"
+        }
+      ]
+    },
+    {
+      "id": "pastoral-d-tfg-t",
+      "letra": "PD2·T",
+      "titulo": "Pastoral · D com a soundfont Tactical Fantasy Guy (tratada)",
+      "audio": "audio/pastoral_D_tfg_t.ogg",
+      "secoes": [
+        {
+          "titulo": "Tratamento",
+          "texto": "- Mesma faixa **PD2** com: corte abaixo de 32 Hz, compressor, limitador e volume igualado em -14 LUFS, mais um filtro que tira agudo acima de 2,5 kHz (a original media -29.5 dB acima de 3 kHz, mais brilhante que a referência Trisection, -33).\n- Serve para ouvir sem os picos e sem diferença de volume. A crítica e as notas estão na faixa original, logo acima."
         }
       ]
     },
@@ -202,6 +298,18 @@
       ]
     },
     {
+      "id": "pastoral-e-t",
+      "letra": "PE·T",
+      "titulo": "Pastoral · E (tratada)",
+      "audio": "audio/pastoral_E_t.ogg",
+      "secoes": [
+        {
+          "titulo": "Tratamento",
+          "texto": "- Mesma faixa **PE** com: corte abaixo de 32 Hz, compressor, limitador e volume igualado em -14 LUFS (agudo da original: -32.1 dB acima de 3 kHz, sem filtro de agudo).\n- Serve para ouvir sem os picos e sem diferença de volume. A crítica e as notas estão na faixa original, logo acima."
+        }
+      ]
+    },
+    {
       "id": "pastoral-e-tfg",
       "letra": "PE2",
       "titulo": "Pastoral · E com a soundfont Tactical Fantasy Guy",
@@ -215,6 +323,18 @@
         {
           "titulo": "Como regenerar",
           "texto": "`python scripts/music/tfg_remap.py <slot_E.mid> 40 76 <saída>` (veja `scripts/music/tfg_remap.py`)."
+        }
+      ]
+    },
+    {
+      "id": "pastoral-e-tfg-t",
+      "letra": "PE2·T",
+      "titulo": "Pastoral · E com a soundfont Tactical Fantasy Guy (tratada)",
+      "audio": "audio/pastoral_E_tfg_t.ogg",
+      "secoes": [
+        {
+          "titulo": "Tratamento",
+          "texto": "- Mesma faixa **PE2** com: corte abaixo de 32 Hz, compressor, limitador e volume igualado em -14 LUFS, mais um filtro que tira agudo acima de 2,5 kHz (a original media -28.5 dB acima de 3 kHz, mais brilhante que a referência Trisection, -33).\n- Serve para ouvir sem os picos e sem diferença de volume. A crítica e as notas estão na faixa original, logo acima."
         }
       ]
     },
@@ -244,6 +364,18 @@
       ]
     },
     {
+      "id": "pastoral-f-t",
+      "letra": "PF·T",
+      "titulo": "Pastoral · F (tratada)",
+      "audio": "audio/pastoral_F_t.ogg",
+      "secoes": [
+        {
+          "titulo": "Tratamento",
+          "texto": "- Mesma faixa **PF** com: corte abaixo de 32 Hz, compressor, limitador e volume igualado em -14 LUFS (agudo da original: -33.6 dB acima de 3 kHz, sem filtro de agudo).\n- Serve para ouvir sem os picos e sem diferença de volume. A crítica e as notas estão na faixa original, logo acima."
+        }
+      ]
+    },
+    {
       "id": "pastoral-f-tfg",
       "letra": "PF2",
       "titulo": "Pastoral · F com a soundfont Tactical Fantasy Guy",
@@ -257,6 +389,18 @@
         {
           "titulo": "Como regenerar",
           "texto": "`python scripts/music/tfg_remap.py <slot_F.mid> 44 80 <saída>` (veja `scripts/music/tfg_remap.py`)."
+        }
+      ]
+    },
+    {
+      "id": "pastoral-f-tfg-t",
+      "letra": "PF2·T",
+      "titulo": "Pastoral · F com a soundfont Tactical Fantasy Guy (tratada)",
+      "audio": "audio/pastoral_F_tfg_t.ogg",
+      "secoes": [
+        {
+          "titulo": "Tratamento",
+          "texto": "- Mesma faixa **PF2** com: corte abaixo de 32 Hz, compressor, limitador e volume igualado em -14 LUFS, mais um filtro que tira agudo acima de 2,5 kHz (a original media -29.5 dB acima de 3 kHz, mais brilhante que a referência Trisection, -33).\n- Serve para ouvir sem os picos e sem diferença de volume. A crítica e as notas estão na faixa original, logo acima."
         }
       ]
     }

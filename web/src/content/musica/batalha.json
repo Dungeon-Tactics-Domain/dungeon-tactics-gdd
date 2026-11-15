@@ -44,6 +44,18 @@
       ]
     },
     {
+      "id": "batalha-a-t",
+      "letra": "A·T",
+      "titulo": "Batalha · A (tratada)",
+      "audio": "audio/batalha_A_t.ogg",
+      "secoes": [
+        {
+          "titulo": "Tratamento",
+          "texto": "- Mesma faixa **A** com: corte abaixo de 32 Hz, compressor, limitador e volume igualado em -14 LUFS (agudo da original: -35.4 dB acima de 3 kHz, sem filtro de agudo).\n- Serve para ouvir sem os picos e sem diferença de volume. A crítica e as notas estão na faixa original, logo acima."
+        }
+      ]
+    },
+    {
       "id": "batalha-a-tfg",
       "letra": "A2",
       "titulo": "Batalha · A com a soundfont Tactical Fantasy Guy",
@@ -57,6 +69,18 @@
         {
           "titulo": "Como regenerar",
           "texto": "`python scripts/music/tfg_remap.py <slot_A.mid> 56 132 <saída>` (veja `scripts/music/tfg_remap.py`)."
+        }
+      ]
+    },
+    {
+      "id": "batalha-a-tfg-t",
+      "letra": "A2·T",
+      "titulo": "Batalha · A com a soundfont Tactical Fantasy Guy (tratada)",
+      "audio": "audio/batalha_A_tfg_t.ogg",
+      "secoes": [
+        {
+          "titulo": "Tratamento",
+          "texto": "- Mesma faixa **A2** com: corte abaixo de 32 Hz, compressor, limitador e volume igualado em -14 LUFS (agudo da original: -34.4 dB acima de 3 kHz, sem filtro de agudo).\n- Serve para ouvir sem os picos e sem diferença de volume. A crítica e as notas estão na faixa original, logo acima."
         }
       ]
     },
@@ -86,6 +110,18 @@
       ]
     },
     {
+      "id": "batalha-b-t",
+      "letra": "B·T",
+      "titulo": "Batalha · B (tratada)",
+      "audio": "audio/batalha_B_t.ogg",
+      "secoes": [
+        {
+          "titulo": "Tratamento",
+          "texto": "- Mesma faixa **B** com: corte abaixo de 32 Hz, compressor, limitador e volume igualado em -14 LUFS (agudo da original: -33.1 dB acima de 3 kHz, sem filtro de agudo).\n- Serve para ouvir sem os picos e sem diferença de volume. A crítica e as notas estão na faixa original, logo acima."
+        }
+      ]
+    },
+    {
       "id": "batalha-b-tfg",
       "letra": "B2",
       "titulo": "Batalha · B com a soundfont Tactical Fantasy Guy",
@@ -99,6 +135,18 @@
         {
           "titulo": "Como regenerar",
           "texto": "`python scripts/music/tfg_remap.py <slot_B.mid> 40 116 <saída>` (veja `scripts/music/tfg_remap.py`)."
+        }
+      ]
+    },
+    {
+      "id": "batalha-b-tfg-t",
+      "letra": "B2·T",
+      "titulo": "Batalha · B com a soundfont Tactical Fantasy Guy (tratada)",
+      "audio": "audio/batalha_B_tfg_t.ogg",
+      "secoes": [
+        {
+          "titulo": "Tratamento",
+          "texto": "- Mesma faixa **B2** com: corte abaixo de 32 Hz, compressor, limitador e volume igualado em -14 LUFS (agudo da original: -34.3 dB acima de 3 kHz, sem filtro de agudo).\n- Serve para ouvir sem os picos e sem diferença de volume. A crítica e as notas estão na faixa original, logo acima."
         }
       ]
     },
@@ -128,6 +176,18 @@
       ]
     },
     {
+      "id": "batalha-c-t",
+      "letra": "C·T",
+      "titulo": "Batalha · C (tratada)",
+      "audio": "audio/batalha_C_t.ogg",
+      "secoes": [
+        {
+          "titulo": "Tratamento",
+          "texto": "- Mesma faixa **C** com: corte abaixo de 32 Hz, compressor, limitador e volume igualado em -14 LUFS, mais um filtro que tira agudo acima de 2,5 kHz (a original media -31.0 dB acima de 3 kHz, mais brilhante que a referência Trisection, -33).\n- Serve para ouvir sem os picos e sem diferença de volume. A crítica e as notas estão na faixa original, logo acima."
+        }
+      ]
+    },
+    {
       "id": "batalha-c-tfg",
       "letra": "C2",
       "titulo": "Batalha · C com a soundfont Tactical Fantasy Guy",
@@ -141,6 +201,18 @@
         {
           "titulo": "Como regenerar",
           "texto": "`python scripts/music/tfg_remap.py D:/Projetos/_musica-tools/eval/battle/slot_C.mid 52 132 D:/Projetos/_musica-tools/battle-tfg/slot_C_tfg` (usa `psx.py` e a soundfont em `D:/Projetos/_musica-tools/tactical-fantasy-guy/`)."
+        }
+      ]
+    },
+    {
+      "id": "batalha-c-tfg-t",
+      "letra": "C2·T",
+      "titulo": "Batalha · C com a soundfont Tactical Fantasy Guy (tratada)",
+      "audio": "audio/batalha_C_tfg_t.ogg",
+      "secoes": [
+        {
+          "titulo": "Tratamento",
+          "texto": "- Mesma faixa **C2** com: corte abaixo de 32 Hz, compressor, limitador e volume igualado em -14 LUFS, mais um filtro que tira agudo acima de 2,5 kHz (a original media -29.9 dB acima de 3 kHz, mais brilhante que a referência Trisection, -33).\n- Serve para ouvir sem os picos e sem diferença de volume. A crítica e as notas estão na faixa original, logo acima."
         }
       ]
     },
@@ -170,6 +242,18 @@
       ]
     },
     {
+      "id": "batalha-d-t",
+      "letra": "D·T",
+      "titulo": "Batalha · D (tratada)",
+      "audio": "audio/batalha_D_t.ogg",
+      "secoes": [
+        {
+          "titulo": "Tratamento",
+          "texto": "- Mesma faixa **D** com: corte abaixo de 32 Hz, compressor, limitador e volume igualado em -14 LUFS (agudo da original: -33.3 dB acima de 3 kHz, sem filtro de agudo).\n- Serve para ouvir sem os picos e sem diferença de volume. A crítica e as notas estão na faixa original, logo acima."
+        }
+      ]
+    },
+    {
       "id": "batalha-d-tfg",
       "letra": "D2",
       "titulo": "Batalha · D com a soundfont Tactical Fantasy Guy",
@@ -183,6 +267,18 @@
         {
           "titulo": "Como regenerar",
           "texto": "`python scripts/music/tfg_remap.py <slot_D.mid> 56 132 <saída>` (veja `scripts/music/tfg_remap.py`)."
+        }
+      ]
+    },
+    {
+      "id": "batalha-d-tfg-t",
+      "letra": "D2·T",
+      "titulo": "Batalha · D com a soundfont Tactical Fantasy Guy (tratada)",
+      "audio": "audio/batalha_D_tfg_t.ogg",
+      "secoes": [
+        {
+          "titulo": "Tratamento",
+          "texto": "- Mesma faixa **D2** com: corte abaixo de 32 Hz, compressor, limitador e volume igualado em -14 LUFS (agudo da original: -34.9 dB acima de 3 kHz, sem filtro de agudo).\n- Serve para ouvir sem os picos e sem diferença de volume. A crítica e as notas estão na faixa original, logo acima."
         }
       ]
     },
@@ -212,6 +308,18 @@
       ]
     },
     {
+      "id": "batalha-e-t",
+      "letra": "E·T",
+      "titulo": "Batalha · E (tratada)",
+      "audio": "audio/batalha_E_t.ogg",
+      "secoes": [
+        {
+          "titulo": "Tratamento",
+          "texto": "- Mesma faixa **E** com: corte abaixo de 32 Hz, compressor, limitador e volume igualado em -14 LUFS (agudo da original: -32.4 dB acima de 3 kHz, sem filtro de agudo).\n- Serve para ouvir sem os picos e sem diferença de volume. A crítica e as notas estão na faixa original, logo acima."
+        }
+      ]
+    },
+    {
       "id": "batalha-e-tfg",
       "letra": "E2",
       "titulo": "Batalha · E com a soundfont Tactical Fantasy Guy",
@@ -225,6 +333,18 @@
         {
           "titulo": "Como regenerar",
           "texto": "`python scripts/music/tfg_remap.py <slot_E.mid> 52 128 <saída>` (veja `scripts/music/tfg_remap.py`)."
+        }
+      ]
+    },
+    {
+      "id": "batalha-e-tfg-t",
+      "letra": "E2·T",
+      "titulo": "Batalha · E com a soundfont Tactical Fantasy Guy (tratada)",
+      "audio": "audio/batalha_E_tfg_t.ogg",
+      "secoes": [
+        {
+          "titulo": "Tratamento",
+          "texto": "- Mesma faixa **E2** com: corte abaixo de 32 Hz, compressor, limitador e volume igualado em -14 LUFS (agudo da original: -32.2 dB acima de 3 kHz, sem filtro de agudo).\n- Serve para ouvir sem os picos e sem diferença de volume. A crítica e as notas estão na faixa original, logo acima."
         }
       ]
     },
@@ -254,6 +374,18 @@
       ]
     },
     {
+      "id": "batalha-f-t",
+      "letra": "F·T",
+      "titulo": "Batalha · F (tratada)",
+      "audio": "audio/batalha_F_t.ogg",
+      "secoes": [
+        {
+          "titulo": "Tratamento",
+          "texto": "- Mesma faixa **F** com: corte abaixo de 32 Hz, compressor, limitador e volume igualado em -14 LUFS (agudo da original: -33.7 dB acima de 3 kHz, sem filtro de agudo).\n- Serve para ouvir sem os picos e sem diferença de volume. A crítica e as notas estão na faixa original, logo acima."
+        }
+      ]
+    },
+    {
       "id": "batalha-f-tfg",
       "letra": "F2",
       "titulo": "Batalha · F com a soundfont Tactical Fantasy Guy",
@@ -267,6 +399,18 @@
         {
           "titulo": "Como regenerar",
           "texto": "`python scripts/music/tfg_remap.py <slot_F.mid> 56 132 <saída>` (veja `scripts/music/tfg_remap.py`)."
+        }
+      ]
+    },
+    {
+      "id": "batalha-f-tfg-t",
+      "letra": "F2·T",
+      "titulo": "Batalha · F com a soundfont Tactical Fantasy Guy (tratada)",
+      "audio": "audio/batalha_F_tfg_t.ogg",
+      "secoes": [
+        {
+          "titulo": "Tratamento",
+          "texto": "- Mesma faixa **F2** com: corte abaixo de 32 Hz, compressor, limitador e volume igualado em -14 LUFS (agudo da original: -33.7 dB acima de 3 kHz, sem filtro de agudo).\n- Serve para ouvir sem os picos e sem diferença de volume. A crítica e as notas estão na faixa original, logo acima."
         }
       ]
     }
