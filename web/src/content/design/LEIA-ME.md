@@ -1,6 +1,7 @@
 # Design lab (migrated from dungeon-tactics-lab/design)
 
-Copied on 2026-11-14 at 23:37:51 (-03:00), recopied twice on 2026-11-15 (AI tests and images at 10:47; the lab's tab reorganisation at 11:07:40, -03:00) from a snapshot of `D:\Projetos\dungeon-tactics-lab\design` and
+Copied on 2026-11-14 at 23:37:51 (-03:00), recopied three times on 2026-11-15 (AI tests and images at 10:47; the lab's tab reorganisation at 11:07:40; the expression bench's
+official version D and kept moment, the SDXL pixelizer rows and the regenerated `ia-alinhado-rosto` sheets at 14:14, -03:00) from a snapshot of `D:\Projetos\dungeon-tactics-lab\design` and
 `D:\Projetos\dungeon-tactics-lab\public\design`, while the lab's own session was still editing it.
 
 ## Where things are
@@ -31,6 +32,7 @@ this PC only (grill decision of 13/11). Copy them from the old lab:
 | `ia/`                              | `ia/`, top-level files (AI images, `cena-colina.jpg`)                                         | 100    |
 | `ia/icones/`, `ia/atlas/`          | `ia/icones/`, `ia/atlas/` (PNG only; the `.json` files are read by no page)                   | 57, 10 |
 | `ia/pixelizar/<tool>/`             | `ia/pixelizar/` (7 tools, 9 frames each)                                                      | 63     |
+| `ia/sdxl/<run>/`                   | `ia/sdxl/` (only `s000-controle`, `s035-seed7`, `s035-seed7-boca`, the runs a page shows)     | 24     |
 | `chars/ia*/`                       | `chars/ia`, `ia-boca`, `ia-pixel2`, `ia-alinhado`, `ia-alinhado-rosto` (AI expression sheets) | 35     |
 | `cenas/`                           | `cenas/` (game captures behind the mock-ups)                                                  | 3      |
 | `chars/px/`                        | `chars/px/` (pixel faces made by the game's script)                                           | 10     |

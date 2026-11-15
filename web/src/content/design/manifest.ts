@@ -22,7 +22,7 @@ export default {
     caminho: '/design/',
     fonte:
       'dungeon-tactics-lab/design: src/main.ts, ia.ts, inicio.ts, icones.ts, expressoes.ts, pixelizar.ts, fft-kit.ts, rostos.ts, data/',
-    copiadoEm: '2026-11-15T11:07:40-03:00',
+    copiadoEm: '2026-11-15T14:14:11-03:00',
   },
   // old anchors (#maquetes, #ia…) and the old lab's tab-system map lead to the new route; "#/tab/section" routes work as they are
   linksAntigos: {
