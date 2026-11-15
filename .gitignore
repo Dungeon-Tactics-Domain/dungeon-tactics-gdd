@@ -17,3 +17,4 @@ config/fabrica.toml
 !web/public/favicon.*
 !web/public/icon*.*
 _notas/
+*.gif
