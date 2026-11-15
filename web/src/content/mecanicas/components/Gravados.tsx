@@ -5,7 +5,7 @@ import { CLIPES } from '../dados';
 const BASE = '/content/mecanicas/clips';
 
 function Midia({ file, label }: { file: string; label: string }) {
-  const cls = 'block w-full max-w-[960px]';
+  const cls = 'block w-full';
   return file.endsWith('.gif') ? (
     <img src={`${BASE}/${file}`} alt={label} loading="lazy" className={cls} />
   ) : (

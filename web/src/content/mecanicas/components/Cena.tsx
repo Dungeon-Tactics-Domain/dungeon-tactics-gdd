@@ -50,7 +50,7 @@ function Quadro({ src, titulo, legenda }: { src: string; titulo: string; legenda
         src={src}
         title={titulo}
         allow="fullscreen"
-        className="block aspect-video w-full max-w-[960px] border-0"
+        className="block aspect-video w-full border-0"
       />
       {legenda && <figcaption className="px-2 py-1 text-[14px] text-sobre-tinta">{legenda}</figcaption>}
     </figure>
