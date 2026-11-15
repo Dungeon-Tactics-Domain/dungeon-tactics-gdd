@@ -15,7 +15,7 @@ official version D and kept moment, the SDXL pixelizer rows and the regenerated 
 - `components/`: `Decisoes`, `Referencias` (overview with filters, game intro, capture blocks), `Ia` (tests by subject,
   per platform, grouped by conversation; featured pick; platforms table), `Cartoes` + `Leitor` (cards and the full-screen
   reader), `Direcao` + `maquetes.css`, `KitFft` + `fft-kit.css`, `Rostos`, `EmUso`, `Icones`, `Expressoes` +
-  `expressoes.css`, `Pixelizar`.
+  `expressoes.css`, `Pixelizar`, `Telas` + `telas.css` (screen mock-ups built from the kit's pieces, which `KitFft` exports).
 - The `.mdx` pages are a component call (`plano/tema.mdx` is the plan text itself). A page with a new route needs its
   `.mdx`: `registry.test.tsx` fails on a page without one and on an orphan file.
 - Old paths of the first copy (`/design/decisoes/...`, `/design/testes-de-ia/...`, `/design/maquetes/...`) no longer

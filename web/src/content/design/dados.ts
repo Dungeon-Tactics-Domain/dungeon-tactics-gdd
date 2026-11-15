@@ -153,3 +153,18 @@ export const MOUTH_HZ = 5;
 const FALA = [1, 2, 3, 2];
 export const mouthFrame = (ms: number, talking: boolean, hz = MOUTH_HZ) =>
   talking ? FALA[Math.floor((ms * hz) / 1000) % FALA.length]! : 0;
+
+/** Frames of the AI face sheets (chars/ia-alinhado-rosto/<id>.png, 8 frames of 256 px, the Copilot sheets' order). */
+export const ROSTO = {
+  neutro: 0,
+  falando1: 1,
+  falando2: 2,
+  gritando: 3,
+  dano: 4,
+  ferido: 5,
+  sorrindo: 6,
+  bravo: 7,
+} as const;
+/** Face on the end-of-battle screen: the fallen and anyone below 30% of life look hurt; the rest smile on a victory and stay neutral on a defeat. */
+export const rostoFim = (hp: number, max: number, vitoria: boolean) =>
+  hp <= 0 || hp < max * 0.3 ? ROSTO.ferido : vitoria ? ROSTO.sorrindo : ROSTO.neutro;

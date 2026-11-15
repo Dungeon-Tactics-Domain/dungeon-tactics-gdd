@@ -51,6 +51,11 @@ export default {
           resumo: 'Kit de peças com todos os estados e montagem 1920×1080.',
         },
         {
+          id: 'telas',
+          titulo: 'Telas: fim de batalha, mapa e título (maquetes)',
+          resumo: 'Maquetes 1920×1080 e 1280×720, em português e inglês, para o jogo refazer estas telas com o kit.',
+        },
+        {
           id: 'icones',
           titulo: 'Em uso: ícones 32 px',
           resumo: 'Atlas de 32 px dos ícones de habilidade, em 1x, 2x e 4x.',
