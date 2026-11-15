@@ -1,0 +1,304 @@
+{
+  "referencias": [
+    {
+      "rotulo": "Final Fantasy Tactics · Trisection (tema de batalha)",
+      "href": "https://www.youtube.com/watch?v=q7W5zevSY-A",
+      "youtube": "q7W5zevSY-A",
+      "nota": "Referência do eval 2 (batalha). Faixa da trilha original de Hitoshi Sakimoto e Masaharu Iwata."
+    },
+    {
+      "rotulo": "Final Fantasy Tactics · Attack Team (tema de batalha)",
+      "href": "https://www.youtube.com/watch?v=7KSjj07mBnw",
+      "youtube": "7KSjj07mBnw",
+      "nota": "Segunda referência de batalha da mesma trilha."
+    },
+    {
+      "rotulo": "Final Fantasy Tactics · busca por outras faixas de batalha",
+      "href": "https://www.youtube.com/results?search_query=Final+Fantasy+Tactics+battle+theme"
+    }
+  ],
+  "faixas": [
+    {
+      "id": "batalha-a",
+      "letra": "A",
+      "titulo": "Batalha · A",
+      "audio": "audio/batalha_A.ogg",
+      "critica": "**Crítica Opus (só pela partitura, ninguém ouviu): 54/80.** C menor, 132 bpm, 56 compassos. Um motivo próprio (sol sol dó, quarta acima) que é invertido no oboé, reduzido e sequenciado na ponte; emenda G7 para Cm com fill de tons.\n\n- **Maior ajuste:** Compassos 33-56: os stabs de metal caem em todo compasso por 24 compassos. Deixar só nas cabeças de frase (45, 49, 53) e voltar a escrevê-los de sol3 para cima, para limpar o registro médio.\n- **Medido no áudio:** 101.8 s, média -18.8 dB, pico -0.9 dB; 30.6% da energia abaixo de 150 Hz; 2.4% entre 2 e 6 kHz; o fim do loop é 6.8 dB mais alto que o começo (quanto maior, mais o loop parece reiniciar).\n- **Segunda opinião (Fable, às cegas, 56.5/80):** 2º lugar. A peça mais individual: única que não está em ré menor, cadência com segundo grau bemol, contraste de 12 compassos com melodia própria, sem atritos de semitom. Problema: o tema da trompa (55-77) fica dentro do ostinato (48-65) e dos stabs (53-63) nos compassos 5-12 e 45-56, e o baixo só toca a raiz em 93% dos compassos.",
+      "secoes": [
+        {
+          "titulo": "Resumo",
+          "texto": "Faixa de batalha A do eval 2 (tema de luta para substituir `battle.mp3`). Ninguém ouviu: tudo abaixo vem da partitura e de medições do arquivo. A chave de quem a compôs só aparece quando você der as notas."
+        },
+        {
+          "titulo": "Forma e instrumentos",
+          "texto": "Dó menor, 132 bpm, 56 compassos (1:41,8). 1-4 intro com ostinato de cordas 3+3+2 e tímpano; 5-12 tema na trompa; 13-20 violinos com contramelodia da trompa; 21-32 contraste em mi bemol com oboé invertendo o motivo; 33-44 ponte subindo Ab Bb Cm Db com rufo de caixa; 45-56 retorno com final novo e fill de tons. Partes: cordas (2), contrabaixo, trompa, metais, tímpano, oboé, bateria."
+        },
+        {
+          "titulo": "Crítica",
+          "texto": "**Crítica Opus (só pela partitura, ninguém ouviu): 54/80.** C menor, 132 bpm, 56 compassos. Um motivo próprio (sol sol dó, quarta acima) que é invertido no oboé, reduzido e sequenciado na ponte; emenda G7 para Cm com fill de tons.\n\n- **Maior ajuste:** Compassos 33-56: os stabs de metal caem em todo compasso por 24 compassos. Deixar só nas cabeças de frase (45, 49, 53) e voltar a escrevê-los de sol3 para cima, para limpar o registro médio.\n- **Medido no áudio:** 101.8 s, média -18.8 dB, pico -0.9 dB; 30.6% da energia abaixo de 150 Hz; 2.4% entre 2 e 6 kHz; o fim do loop é 6.8 dB mais alto que o começo (quanto maior, mais o loop parece reiniciar).\n- **Segunda opinião (Fable, às cegas, 56.5/80):** 2º lugar. A peça mais individual: única que não está em ré menor, cadência com segundo grau bemol, contraste de 12 compassos com melodia própria, sem atritos de semitom. Problema: o tema da trompa (55-77) fica dentro do ostinato (48-65) e dos stabs (53-63) nos compassos 5-12 e 45-56, e o baixo só toca a raiz em 93% dos compassos."
+        },
+        {
+          "titulo": "Como regenerar",
+          "texto": "Script `scripts/music/eval/battle/slot_A.py` (usa `scripts/music/psx.py`: MIDI + MuseScore General + filtro PS1, 22 kHz, 11 bits). Saída `.ogg` em `D:/Projetos/_musica-tools/eval/battle/slot_A.ogg`."
+        }
+      ]
+    },
+    {
+      "id": "batalha-a-tfg",
+      "letra": "A2",
+      "titulo": "Batalha · A com a soundfont Tactical Fantasy Guy",
+      "audio": "audio/batalha_A_tfg.ogg",
+      "critica": "Mesma partitura da faixa Batalha A, re-voiceada para a soundfont **Tactical Fantasy Guy (PSX)**: celli no lugar do baixo, tímpano no lugar de bumbo, tons e congas, caixa e prato do pacote, sem chimbal, maracas nem pandeiro. Ninguém ouviu.\n\n- **Medido:** 101.8 s, média -17.3 dB, pico -0.7 dB.",
+      "secoes": [
+        {
+          "titulo": "Resumo",
+          "texto": "Mesma partitura da faixa Batalha A, re-voiceada para a soundfont **Tactical Fantasy Guy (PSX)**: celli no lugar do baixo, tímpano no lugar de bumbo, tons e congas, caixa e prato do pacote, sem chimbal, maracas nem pandeiro. Ninguém ouviu."
+        },
+        {
+          "titulo": "Como regenerar",
+          "texto": "`python scripts/music/tfg_remap.py <slot_A.mid> 56 132 <saída>` (veja `scripts/music/tfg_remap.py`)."
+        }
+      ]
+    },
+    {
+      "id": "batalha-b",
+      "letra": "B",
+      "titulo": "Batalha · B",
+      "audio": "audio/batalha_B.ogg",
+      "critica": "**Crítica Opus (só pela partitura, ninguém ouviu): 33/80.** Ré menor, 116 bpm, 40 compassos. A peça mais fina: tema de 8 compassos reaproveitado, ponte sem melodia, só 2 padrões de bateria, termina em Dm e não na dominante.\n\n- **Maior ajuste:** Escrever uma melodia para a ponte (21-28) a partir da cabeça do tema e terminar o compasso 40 em lá (dominante) para o loop ter puxada.\n- **Medido no áudio:** 82.8 s, média -17.9 dB, pico -1.1 dB; 25.1% da energia abaixo de 150 Hz; 4.6% entre 2 e 6 kHz; o fim do loop é 3.2 dB mais alto que o começo (quanto maior, mais o loop parece reiniciar).\n- **Segunda opinião (Fable, às cegas, 35.0/80):** Último lugar, precisa de reescrita. A ponte (compassos 21-28) não tem melodia, a emenda é Dm para Dm com 8 compassos de baixa energia ao redor e as velocities do metal são planas.",
+      "secoes": [
+        {
+          "titulo": "Resumo",
+          "texto": "Faixa de batalha B do eval 2 (tema de luta para substituir `battle.mp3`). Ninguém ouviu: tudo abaixo vem da partitura e de medições do arquivo. A chave de quem a compôs só aparece quando você der as notas."
+        },
+        {
+          "titulo": "Forma e instrumentos",
+          "texto": "Ré menor, 116 bpm, 40 compassos (1:22,8). 1-4 intro com pads e baixo; 5-12 tema nos metais; 13-20 contraste com violinos; 21-28 ponte com baixo em colcheias e rufo; 29-36 retorno uma oitava acima; 37-40 final em Dm. Partes: baixo acústico, cordas (2), metais, tímpano, bateria."
+        },
+        {
+          "titulo": "Crítica",
+          "texto": "**Crítica Opus (só pela partitura, ninguém ouviu): 33/80.** Ré menor, 116 bpm, 40 compassos. A peça mais fina: tema de 8 compassos reaproveitado, ponte sem melodia, só 2 padrões de bateria, termina em Dm e não na dominante.\n\n- **Maior ajuste:** Escrever uma melodia para a ponte (21-28) a partir da cabeça do tema e terminar o compasso 40 em lá (dominante) para o loop ter puxada.\n- **Medido no áudio:** 82.8 s, média -17.9 dB, pico -1.1 dB; 25.1% da energia abaixo de 150 Hz; 4.6% entre 2 e 6 kHz; o fim do loop é 3.2 dB mais alto que o começo (quanto maior, mais o loop parece reiniciar).\n- **Segunda opinião (Fable, às cegas, 35.0/80):** Último lugar, precisa de reescrita. A ponte (compassos 21-28) não tem melodia, a emenda é Dm para Dm com 8 compassos de baixa energia ao redor e as velocities do metal são planas."
+        },
+        {
+          "titulo": "Como regenerar",
+          "texto": "Script `scripts/music/eval/battle/slot_B.py` (usa `scripts/music/psx.py`: MIDI + MuseScore General + filtro PS1, 22 kHz, 11 bits). Saída `.ogg` em `D:/Projetos/_musica-tools/eval/battle/slot_B.ogg`."
+        }
+      ]
+    },
+    {
+      "id": "batalha-b-tfg",
+      "letra": "B2",
+      "titulo": "Batalha · B com a soundfont Tactical Fantasy Guy",
+      "audio": "audio/batalha_B_tfg.ogg",
+      "critica": "Mesma partitura da faixa Batalha B, re-voiceada para a soundfont **Tactical Fantasy Guy (PSX)**: celli no lugar do baixo, tímpano no lugar de bumbo, tons e congas, caixa e prato do pacote, sem chimbal, maracas nem pandeiro. Ninguém ouviu.\n\n- **Medido:** 82.8 s, média -16.6 dB, pico -0.8 dB.",
+      "secoes": [
+        {
+          "titulo": "Resumo",
+          "texto": "Mesma partitura da faixa Batalha B, re-voiceada para a soundfont **Tactical Fantasy Guy (PSX)**: celli no lugar do baixo, tímpano no lugar de bumbo, tons e congas, caixa e prato do pacote, sem chimbal, maracas nem pandeiro. Ninguém ouviu."
+        },
+        {
+          "titulo": "Como regenerar",
+          "texto": "`python scripts/music/tfg_remap.py <slot_B.mid> 40 116 <saída>` (veja `scripts/music/tfg_remap.py`)."
+        }
+      ]
+    },
+    {
+      "id": "batalha-c",
+      "letra": "C",
+      "titulo": "Batalha · C",
+      "audio": "audio/batalha_C.ogg",
+      "critica": "**Crítica Opus (só pela partitura, ninguém ouviu): 61/80.** Ré menor, 132 bpm, 52 compassos. A melhor harmonia: baixo cromático subindo com acordes diminutos na ponte e baixo com notas de aproximação; sem lama no grave e sem sobreposição de partes.\n\n- **Maior ajuste:** O trompete fica em velocity 92-114 o tempo todo, então o retorno não pesa mais. Dar-lhe forma: tema ~80-90, ponte subindo, retorno 100+.\n- **Medido no áudio:** 94.5 s, média -20.0 dB, pico -1.0 dB; 15.0% da energia abaixo de 150 Hz; 10.0% entre 2 e 6 kHz; o fim do loop é 9.1 dB mais alto que o começo (quanto maior, mais o loop parece reiniciar).\n- **Segunda opinião (Fable, às cegas, 60.5/80):** 1º lugar, a única candidata a entrar no jogo depois de pequenos ajustes: 12 acordes, baixo cromático de ré a lá na ponte, o único baixo que anda por graus, tema de 16 compassos trocado entre trompete e cordas, registros mais limpos. Problema é de equilíbrio, não de composição: compassos 5-20 e 37-52 têm trompete quase plano (92-114), cordas no volume de canal 127 e a maior fatia de 2-5 kHz (~11%) com o grave mais leve; o trecho 37-40 é cheio demais.",
+      "secoes": [
+        {
+          "titulo": "Resumo",
+          "texto": "Faixa de batalha C do eval 2 (tema de luta para substituir `battle.mp3`). Ninguém ouviu: tudo abaixo vem da partitura e de medições do arquivo. A chave de quem a compôs só aparece quando você der as notas."
+        },
+        {
+          "titulo": "Forma e instrumentos",
+          "texto": "Ré menor, 132 bpm, 52 compassos (1:34,5). 1-4 intro com ostinato de violoncelo e rufo; 5-20 tema (trompete, cordas respondem); 21-28 contraste em fá com oboé e cordas; 29-36 ponte com baixo cromático de ré a lá; 37-52 retorno com descante de cordas e final novo; o último compasso leva ao 1 pela sensível. Partes: violoncelo, contrabaixo, trompete, trompas, cordas agudas, tímpano, oboé, bateria."
+        },
+        {
+          "titulo": "Crítica",
+          "texto": "**Crítica Opus (só pela partitura, ninguém ouviu): 61/80.** Ré menor, 132 bpm, 52 compassos. A melhor harmonia: baixo cromático subindo com acordes diminutos na ponte e baixo com notas de aproximação; sem lama no grave e sem sobreposição de partes.\n\n- **Maior ajuste:** O trompete fica em velocity 92-114 o tempo todo, então o retorno não pesa mais. Dar-lhe forma: tema ~80-90, ponte subindo, retorno 100+.\n- **Medido no áudio:** 94.5 s, média -20.0 dB, pico -1.0 dB; 15.0% da energia abaixo de 150 Hz; 10.0% entre 2 e 6 kHz; o fim do loop é 9.1 dB mais alto que o começo (quanto maior, mais o loop parece reiniciar).\n- **Segunda opinião (Fable, às cegas, 60.5/80):** 1º lugar, a única candidata a entrar no jogo depois de pequenos ajustes: 12 acordes, baixo cromático de ré a lá na ponte, o único baixo que anda por graus, tema de 16 compassos trocado entre trompete e cordas, registros mais limpos. Problema é de equilíbrio, não de composição: compassos 5-20 e 37-52 têm trompete quase plano (92-114), cordas no volume de canal 127 e a maior fatia de 2-5 kHz (~11%) com o grave mais leve; o trecho 37-40 é cheio demais."
+        },
+        {
+          "titulo": "Como regenerar",
+          "texto": "Script `scripts/music/eval/battle/slot_C.py` (usa `scripts/music/psx.py`: MIDI + MuseScore General + filtro PS1, 22 kHz, 11 bits). Saída `.ogg` em `D:/Projetos/_musica-tools/eval/battle/slot_C.ogg`."
+        }
+      ]
+    },
+    {
+      "id": "batalha-c-tfg",
+      "letra": "C2",
+      "titulo": "Batalha · C com a soundfont Tactical Fantasy Guy",
+      "audio": "audio/batalha_C_tfg.ogg",
+      "critica": "Mesma partitura da faixa C (MIDI idêntico), re-voiceada para a soundfont **Tactical Fantasy Guy (PSX)**, os samples inspirados no FFT. Mudanças: celli no lugar do violoncelo e do contrabaixo (a soundfont não tem baixo), tímpano no lugar do bumbo e dos tons, caixa e prato próprios, **sem chimbal** (não existe no pacote). Ninguém ouviu; compare lado a lado com a faixa C normal.\n\n- **Medido:** 94,5 s, média -18,5 dB, pico -1,0 dB; os 10 instrumentos tocam sozinhos sem ficar mudos (o prato é o mais baixo, só 6 batidas).\n- **Licença:** EULA do pacote permite usar em jogos; o `.sf2` não pode ir no repositório, só os `.ogg` renderizados.",
+      "secoes": [
+        {
+          "titulo": "Resumo",
+          "texto": "Mesma partitura da faixa C (MIDI idêntico), re-voiceada para a soundfont **Tactical Fantasy Guy (PSX)**, os samples inspirados no FFT. Mudanças: celli no lugar do violoncelo e do contrabaixo (a soundfont não tem baixo), tímpano no lugar do bumbo e dos tons, caixa e prato próprios, **sem chimbal** (não existe no pacote). Ninguém ouviu; compare lado a lado com a faixa C normal."
+        },
+        {
+          "titulo": "Como regenerar",
+          "texto": "`python scripts/music/tfg_remap.py D:/Projetos/_musica-tools/eval/battle/slot_C.mid 52 132 D:/Projetos/_musica-tools/battle-tfg/slot_C_tfg` (usa `psx.py` e a soundfont em `D:/Projetos/_musica-tools/tactical-fantasy-guy/`)."
+        }
+      ]
+    },
+    {
+      "id": "batalha-d",
+      "letra": "D",
+      "titulo": "Batalha · D",
+      "audio": "audio/batalha_D.ogg",
+      "critica": "**Crítica Opus (só pela partitura, ninguém ouviu): 47/80.** Ré menor, 132 bpm, 56 compassos. Partitura densa (8 partes, o teto): harpa no registro do baixo e melodia quase sempre dobrada; a emenda é um precipício (compasso 56 cheio, compasso 1 quase vazio).\n\n- **Maior ajuste:** Subir a harpa uma oitava nos compassos 21-32 e 49-56 (arpejo de sol3, não sol2): tira quase toda a lama. Depois manter o baixo tocando nos compassos 1-2.\n- **Medido no áudio:** 101.8 s, média -18.6 dB, pico -0.8 dB; 24.7% da energia abaixo de 150 Hz; 4.5% entre 2 e 6 kHz; o fim do loop é 15.3 dB mais alto que o começo (quanto maior, mais o loop parece reiniciar).\n- **Segunda opinião (Fable, às cegas, 45.5/80):** 5º lugar. Tem o melhor arco de dinâmica para os últimos 8 compassos, mas repete o tema de 8 compassos literalmente 3 vezes (5-12, 13-20, 41-48), tem notas erradas nos compassos 37-38 (si natural contra si bemol) e 31 (ré da trompa contra dó sustenido), e a emenda cai 15,4 dB.",
+      "secoes": [
+        {
+          "titulo": "Resumo",
+          "texto": "Faixa de batalha D do eval 2 (tema de luta para substituir `battle.mp3`). Ninguém ouviu: tudo abaixo vem da partitura e de medições do arquivo. A chave de quem a compôs só aparece quando você der as notas."
+        },
+        {
+          "titulo": "Forma e instrumentos",
+          "texto": "Ré menor, 132 bpm, 56 compassos (1:41,8). 1-4 intro; 5-20 tema (metais, depois oboé com harmonia de trompa); 21-32 seção B lírica com oboé e harpa; 33-40 ponte com stabs e rufo; 41-56 retorno e variação com o motivo invertido. Partes: baixo, violoncelo, cordas, metais, oboé, trompa, tímpano, harpa, bateria (8 partes, o teto)."
+        },
+        {
+          "titulo": "Crítica",
+          "texto": "**Crítica Opus (só pela partitura, ninguém ouviu): 47/80.** Ré menor, 132 bpm, 56 compassos. Partitura densa (8 partes, o teto): harpa no registro do baixo e melodia quase sempre dobrada; a emenda é um precipício (compasso 56 cheio, compasso 1 quase vazio).\n\n- **Maior ajuste:** Subir a harpa uma oitava nos compassos 21-32 e 49-56 (arpejo de sol3, não sol2): tira quase toda a lama. Depois manter o baixo tocando nos compassos 1-2.\n- **Medido no áudio:** 101.8 s, média -18.6 dB, pico -0.8 dB; 24.7% da energia abaixo de 150 Hz; 4.5% entre 2 e 6 kHz; o fim do loop é 15.3 dB mais alto que o começo (quanto maior, mais o loop parece reiniciar).\n- **Segunda opinião (Fable, às cegas, 45.5/80):** 5º lugar. Tem o melhor arco de dinâmica para os últimos 8 compassos, mas repete o tema de 8 compassos literalmente 3 vezes (5-12, 13-20, 41-48), tem notas erradas nos compassos 37-38 (si natural contra si bemol) e 31 (ré da trompa contra dó sustenido), e a emenda cai 15,4 dB."
+        },
+        {
+          "titulo": "Como regenerar",
+          "texto": "Script `scripts/music/eval/battle/slot_D.py` (usa `scripts/music/psx.py`: MIDI + MuseScore General + filtro PS1, 22 kHz, 11 bits). Saída `.ogg` em `D:/Projetos/_musica-tools/eval/battle/slot_D.ogg`."
+        }
+      ]
+    },
+    {
+      "id": "batalha-d-tfg",
+      "letra": "D2",
+      "titulo": "Batalha · D com a soundfont Tactical Fantasy Guy",
+      "audio": "audio/batalha_D_tfg.ogg",
+      "critica": "Mesma partitura da faixa Batalha D, re-voiceada para a soundfont **Tactical Fantasy Guy (PSX)**: celli no lugar do baixo, tímpano no lugar de bumbo, tons e congas, caixa e prato do pacote, sem chimbal, maracas nem pandeiro. Ninguém ouviu.\n\n- **Medido:** 101.8 s, média -19.3 dB, pico -0.9 dB.",
+      "secoes": [
+        {
+          "titulo": "Resumo",
+          "texto": "Mesma partitura da faixa Batalha D, re-voiceada para a soundfont **Tactical Fantasy Guy (PSX)**: celli no lugar do baixo, tímpano no lugar de bumbo, tons e congas, caixa e prato do pacote, sem chimbal, maracas nem pandeiro. Ninguém ouviu."
+        },
+        {
+          "titulo": "Como regenerar",
+          "texto": "`python scripts/music/tfg_remap.py <slot_D.mid> 56 132 <saída>` (veja `scripts/music/tfg_remap.py`)."
+        }
+      ]
+    },
+    {
+      "id": "batalha-e",
+      "letra": "E",
+      "titulo": "Batalha · E",
+      "audio": "audio/batalha_E.ogg",
+      "critica": "**Crítica Opus (só pela partitura, ninguém ouviu): 59/80.** Ré menor, 128 bpm, 52 compassos. Tudo nasce de um só motivo (em ré, em sol, aumentado, fragmentado); plano de registros mais limpo e bateria com arco desenhado; o retorno repete o tema quase literal.\n\n- **Maior ajuste:** Compassos 29-32: o trêmolo de cordas cobre a melodia da trompa. Começar o trêmolo no compasso 33, quando o trompete assume uma oitava acima.\n- **Medido no áudio:** 97.5 s, média -19.7 dB, pico -1.1 dB; 19.8% da energia abaixo de 150 Hz; 8.7% entre 2 e 6 kHz; o fim do loop é 7.8 dB mais alto que o começo (quanto maior, mais o loop parece reiniciar).\n- **Segunda opinião (Fable, às cegas, 55.5/80):** 3º lugar, empatada com A (1 ponto). Desenvolvimento de motivo mais disciplinado, sem atritos de semitom, retorno com ganho real (+2,7 dB). Problema: o retorno (37-52) é uma reapresentação em uníssono na mesma oitava e o compasso do motivo aparece 6 vezes por loop, cerca de 37 vezes em 10 minutos.",
+      "secoes": [
+        {
+          "titulo": "Resumo",
+          "texto": "Faixa de batalha E do eval 2 (tema de luta para substituir `battle.mp3`). Ninguém ouviu: tudo abaixo vem da partitura e de medições do arquivo. A chave de quem a compôs só aparece quando você der as notas."
+        },
+        {
+          "titulo": "Forma e instrumentos",
+          "texto": "Ré menor, 128 bpm, 52 compassos (1:37,5). Um motivo de 5 notas guardado como dado e derivado (transposto, aumentado, fragmento). 1-4 intro; 5-12 tema A1 no trompete; 13-20 A2 nas cordas; 21-28 contraste em fá com motivo aumentado; 29-36 ponte com baixo subindo; 37-52 retorno em uníssono com final novo no sol5. Partes: trompete, trompas, cordas, violoncelo, contrabaixo, tímpano, bateria."
+        },
+        {
+          "titulo": "Crítica",
+          "texto": "**Crítica Opus (só pela partitura, ninguém ouviu): 59/80.** Ré menor, 128 bpm, 52 compassos. Tudo nasce de um só motivo (em ré, em sol, aumentado, fragmentado); plano de registros mais limpo e bateria com arco desenhado; o retorno repete o tema quase literal.\n\n- **Maior ajuste:** Compassos 29-32: o trêmolo de cordas cobre a melodia da trompa. Começar o trêmolo no compasso 33, quando o trompete assume uma oitava acima.\n- **Medido no áudio:** 97.5 s, média -19.7 dB, pico -1.1 dB; 19.8% da energia abaixo de 150 Hz; 8.7% entre 2 e 6 kHz; o fim do loop é 7.8 dB mais alto que o começo (quanto maior, mais o loop parece reiniciar).\n- **Segunda opinião (Fable, às cegas, 55.5/80):** 3º lugar, empatada com A (1 ponto). Desenvolvimento de motivo mais disciplinado, sem atritos de semitom, retorno com ganho real (+2,7 dB). Problema: o retorno (37-52) é uma reapresentação em uníssono na mesma oitava e o compasso do motivo aparece 6 vezes por loop, cerca de 37 vezes em 10 minutos."
+        },
+        {
+          "titulo": "Como regenerar",
+          "texto": "Script `scripts/music/eval/battle/slot_E.py` (usa `scripts/music/psx.py`: MIDI + MuseScore General + filtro PS1, 22 kHz, 11 bits). Saída `.ogg` em `D:/Projetos/_musica-tools/eval/battle/slot_E.ogg`."
+        }
+      ]
+    },
+    {
+      "id": "batalha-e-tfg",
+      "letra": "E2",
+      "titulo": "Batalha · E com a soundfont Tactical Fantasy Guy",
+      "audio": "audio/batalha_E_tfg.ogg",
+      "critica": "Mesma partitura da faixa Batalha E, re-voiceada para a soundfont **Tactical Fantasy Guy (PSX)**: celli no lugar do baixo, tímpano no lugar de bumbo, tons e congas, caixa e prato do pacote, sem chimbal, maracas nem pandeiro. Ninguém ouviu.\n\n- **Medido:** 97.5 s, média -18.2 dB, pico -1.0 dB.",
+      "secoes": [
+        {
+          "titulo": "Resumo",
+          "texto": "Mesma partitura da faixa Batalha E, re-voiceada para a soundfont **Tactical Fantasy Guy (PSX)**: celli no lugar do baixo, tímpano no lugar de bumbo, tons e congas, caixa e prato do pacote, sem chimbal, maracas nem pandeiro. Ninguém ouviu."
+        },
+        {
+          "titulo": "Como regenerar",
+          "texto": "`python scripts/music/tfg_remap.py <slot_E.mid> 52 128 <saída>` (veja `scripts/music/tfg_remap.py`)."
+        }
+      ]
+    },
+    {
+      "id": "batalha-f",
+      "letra": "F",
+      "titulo": "Batalha · F",
+      "audio": "audio/batalha_F.ogg",
+      "critica": "**Crítica Opus (só pela partitura, ninguém ouviu): 55/80.** Ré menor, 132 bpm, 56 compassos. O maior material melódico e a bateria mais variada, com retorno ornamentado; o metal do tema sobe a dó6-ré6 forte e a emenda cai de 94 para 46.\n\n- **Maior ajuste:** Compassos 33-35 e 47-52: descer o metal uma oitava acima de dó6 (ou passar as notas às cordas) e limitar a velocity perto de 100; corrigir o tímpano que é tocado de novo enquanto ainda soa nos compassos 4-5.\n- **Medido no áudio:** 101.8 s, média -19.3 dB, pico -0.7 dB; 41.0% da energia abaixo de 150 Hz; 5.2% entre 2 e 6 kHz; o fim do loop é 11.8 dB mais alto que o começo (quanto maior, mais o loop parece reiniciar).\n- **Segunda opinião (Fable, às cegas, 51.0/80):** 4º lugar. Melhor pulso e variedade de bateria (25 padrões) e baixo com notas de aproximação. Problema: grave muito pesado (37-50% da energia abaixo de 150 Hz nas partes de pulso), o metal chega a ré6 no compasso 34 e a harmonia é simples (6 acordes).",
+      "secoes": [
+        {
+          "titulo": "Resumo",
+          "texto": "Faixa de batalha F do eval 2 (tema de luta para substituir `battle.mp3`). Ninguém ouviu: tudo abaixo vem da partitura e de medições do arquivo. A chave de quem a compôs só aparece quando você der as notas."
+        },
+        {
+          "titulo": "Forma e instrumentos",
+          "texto": "Ré menor, 132 bpm, 56 compassos (1:41,8). 1-4 intro; 5-12 A nos metais; 13-20 A' com cordas e variação; 21-28 B em fá com oboé e harpa; 29-36 ponte com sequência subindo e rufos; 37-44 retorno; 45-52 retorno ornamentado com segunda metade nova; 53-56 eco do motivo. Partes: metais, cordas, violoncelo, baixo, tímpano, oboé, trompa, harpa, bateria."
+        },
+        {
+          "titulo": "Crítica",
+          "texto": "**Crítica Opus (só pela partitura, ninguém ouviu): 55/80.** Ré menor, 132 bpm, 56 compassos. O maior material melódico e a bateria mais variada, com retorno ornamentado; o metal do tema sobe a dó6-ré6 forte e a emenda cai de 94 para 46.\n\n- **Maior ajuste:** Compassos 33-35 e 47-52: descer o metal uma oitava acima de dó6 (ou passar as notas às cordas) e limitar a velocity perto de 100; corrigir o tímpano que é tocado de novo enquanto ainda soa nos compassos 4-5.\n- **Medido no áudio:** 101.8 s, média -19.3 dB, pico -0.7 dB; 41.0% da energia abaixo de 150 Hz; 5.2% entre 2 e 6 kHz; o fim do loop é 11.8 dB mais alto que o começo (quanto maior, mais o loop parece reiniciar).\n- **Segunda opinião (Fable, às cegas, 51.0/80):** 4º lugar. Melhor pulso e variedade de bateria (25 padrões) e baixo com notas de aproximação. Problema: grave muito pesado (37-50% da energia abaixo de 150 Hz nas partes de pulso), o metal chega a ré6 no compasso 34 e a harmonia é simples (6 acordes)."
+        },
+        {
+          "titulo": "Como regenerar",
+          "texto": "Script `scripts/music/eval/battle/slot_F.py` (usa `scripts/music/psx.py`: MIDI + MuseScore General + filtro PS1, 22 kHz, 11 bits). Saída `.ogg` em `D:/Projetos/_musica-tools/eval/battle/slot_F.ogg`."
+        }
+      ]
+    },
+    {
+      "id": "batalha-f-tfg",
+      "letra": "F2",
+      "titulo": "Batalha · F com a soundfont Tactical Fantasy Guy",
+      "audio": "audio/batalha_F_tfg.ogg",
+      "critica": "Mesma partitura da faixa Batalha F, re-voiceada para a soundfont **Tactical Fantasy Guy (PSX)**: celli no lugar do baixo, tímpano no lugar de bumbo, tons e congas, caixa e prato do pacote, sem chimbal, maracas nem pandeiro. Ninguém ouviu.\n\n- **Medido:** 101.8 s, média -17.8 dB, pico -1.0 dB.",
+      "secoes": [
+        {
+          "titulo": "Resumo",
+          "texto": "Mesma partitura da faixa Batalha F, re-voiceada para a soundfont **Tactical Fantasy Guy (PSX)**: celli no lugar do baixo, tímpano no lugar de bumbo, tons e congas, caixa e prato do pacote, sem chimbal, maracas nem pandeiro. Ninguém ouviu."
+        },
+        {
+          "titulo": "Como regenerar",
+          "texto": "`python scripts/music/tfg_remap.py <slot_F.mid> 56 132 <saída>` (veja `scripts/music/tfg_remap.py`)."
+        }
+      ]
+    }
+  ],
+  "checagens": [
+    {
+      "texto": "Duração, média e pico de cada .ogg medidos com ffprobe e volumedetect (batem com o relato dos agentes)",
+      "estado": "feito"
+    },
+    {
+      "texto": "Crítica de teoria por partitura (Opus) e medições de sinal (Sonnet)",
+      "estado": "feito"
+    },
+    {
+      "texto": "Crítica independente às cegas (Fable)",
+      "estado": "feito"
+    },
+    {
+      "texto": "Alguém ouvir: nenhum agente nem eu ouvimos as faixas",
+      "estado": "pendente"
+    },
+    {
+      "texto": "Originalidade contra as referências: só uma lembrança do Opus, não verificada",
+      "estado": "pendente"
+    },
+    {
+      "texto": "Ranking dos dois críticos: C primeiro (61 e 60,5); depois E/A (Opus: E, F, A; Fable: A, E, F); D e B nas últimas. Podem inverter vizinhas depois de ouvir",
+      "estado": "feito"
+    },
+    {
+      "texto": "Todas as faixas reiniciam de uma intro mais fraca a cada volta (queda de 3,7 a 15,4 dB): decidir se a vencedora volta no compasso 5",
+      "estado": "pendente"
+    }
+  ]
+}

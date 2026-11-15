@@ -1,0 +1,282 @@
+{
+  "referencias": [
+    {
+      "rotulo": "Breath of Fire IV · Truth and Dreams",
+      "href": "https://www.youtube.com/watch?v=2pOVQIPnEiE",
+      "youtube": "2pOVQIPnEiE",
+      "nota": "Referência do eval 1 (pastoral). Upload de fã da faixa do jogo."
+    }
+  ],
+  "faixas": [
+    {
+      "id": "pastoral-a",
+      "letra": "PA",
+      "titulo": "Pastoral · A",
+      "audio": "audio/pastoral_A.ogg",
+      "critica": "**Opus (partitura): 43/60. Fable (às cegas): 46/60.** Os dois colocam D e A no topo e F por último.\n\n- **Maior ajuste:** Reharmonizar A' ou A'' (compassos 13-19 ou 29-35) para sair da progressão que lembra o Cânone de Pachelbel e reescrever a contramelodia do oboé.\n- **Medido:** 120.0 s, média -17.5 dB, 17.8% da energia abaixo de 150 Hz; diferença de nível entre o fim e o começo do loop -2.6 dB.",
+      "secoes": [
+        {
+          "titulo": "Resumo",
+          "texto": "Faixa pastoral A do eval 1, o clima de Truth and Dreams (Breath of Fire IV), só humor e instrumentação, nenhuma nota copiada. Ninguém ouviu."
+        },
+        {
+          "titulo": "Forma e instrumentos",
+          "texto": "Ré maior, 80 bpm, 40 compassos (2:00). Duas rodadas do tema com baixo diferente; oboé como contramelodia."
+        },
+        {
+          "titulo": "Crítica",
+          "texto": "**Opus 43/60, Fable 46/60.**\n\n- **Maior ajuste:** Reharmonizar A' ou A'' (compassos 13-19 ou 29-35) para sair da progressão que lembra o Cânone de Pachelbel e reescrever a contramelodia do oboé.\n- **Medido:** 120.0 s, média -17.5 dB, 17.8% abaixo de 150 Hz, diferença fim/começo -2.6 dB."
+        },
+        {
+          "titulo": "Como regenerar",
+          "texto": "Script `scripts/music/eval/slot_A.py` (com `scripts/music/psx.py`). Saída `.ogg` em `D:/Projetos/_musica-tools/eval/slot_A.ogg`."
+        }
+      ]
+    },
+    {
+      "id": "pastoral-a-tfg",
+      "letra": "PA2",
+      "titulo": "Pastoral · A com a soundfont Tactical Fantasy Guy",
+      "audio": "audio/pastoral_A_tfg.ogg",
+      "critica": "Mesma partitura da faixa Pastoral A, re-voiceada para a soundfont **Tactical Fantasy Guy (PSX)**: celli no lugar do baixo, tímpano no lugar de bumbo, tons e congas, caixa e prato do pacote, sem chimbal, maracas nem pandeiro. Ninguém ouviu.\n\n- **Medido:** 120.0 s, média -18.7 dB, pico -1.0 dB.",
+      "secoes": [
+        {
+          "titulo": "Resumo",
+          "texto": "Mesma partitura da faixa Pastoral A, re-voiceada para a soundfont **Tactical Fantasy Guy (PSX)**: celli no lugar do baixo, tímpano no lugar de bumbo, tons e congas, caixa e prato do pacote, sem chimbal, maracas nem pandeiro. Ninguém ouviu."
+        },
+        {
+          "titulo": "Como regenerar",
+          "texto": "`python scripts/music/tfg_remap.py <slot_A.mid> 40 80 <saída>` (veja `scripts/music/tfg_remap.py`)."
+        }
+      ]
+    },
+    {
+      "id": "pastoral-b",
+      "letra": "PB",
+      "titulo": "Pastoral · B",
+      "audio": "audio/pastoral_B.ogg",
+      "critica": "**Opus (partitura): 29/60. Fable (às cegas): 31/60.** Os dois colocam D e A no topo e F por último.\n\n- **Maior ajuste:** Reescrever a cabeça do tema (compassos 5-7) com mais passos (69% de saltos hoje); o compasso 5 é idêntico ao da faixa F. Baixo da raiz errada em acordes invertidos.\n- **Medido:** 126.3 s, média -16.8 dB, 22.0% da energia abaixo de 150 Hz; diferença de nível entre o fim e o começo do loop -9.9 dB.",
+      "secoes": [
+        {
+          "titulo": "Resumo",
+          "texto": "Faixa pastoral B do eval 1, o clima de Truth and Dreams (Breath of Fire IV), só humor e instrumentação, nenhuma nota copiada. Ninguém ouviu."
+        },
+        {
+          "titulo": "Forma e instrumentos",
+          "texto": "Mi menor, 76 bpm, 40 compassos (2:06). Flauta e oboé agudos; metade das seções repetida literalmente."
+        },
+        {
+          "titulo": "Crítica",
+          "texto": "**Opus 29/60, Fable 31/60.**\n\n- **Maior ajuste:** Reescrever a cabeça do tema (compassos 5-7) com mais passos (69% de saltos hoje); o compasso 5 é idêntico ao da faixa F. Baixo da raiz errada em acordes invertidos.\n- **Medido:** 126.3 s, média -16.8 dB, 22.0% abaixo de 150 Hz, diferença fim/começo -9.9 dB."
+        },
+        {
+          "titulo": "Como regenerar",
+          "texto": "Script `scripts/music/eval/slot_B.py` (com `scripts/music/psx.py`). Saída `.ogg` em `D:/Projetos/_musica-tools/eval/slot_B.ogg`."
+        }
+      ]
+    },
+    {
+      "id": "pastoral-b-tfg",
+      "letra": "PB2",
+      "titulo": "Pastoral · B com a soundfont Tactical Fantasy Guy",
+      "audio": "audio/pastoral_B_tfg.ogg",
+      "critica": "Mesma partitura da faixa Pastoral B, re-voiceada para a soundfont **Tactical Fantasy Guy (PSX)**: celli no lugar do baixo, tímpano no lugar de bumbo, tons e congas, caixa e prato do pacote, sem chimbal, maracas nem pandeiro. Ninguém ouviu.\n\n- **Medido:** 126.3 s, média -17.2 dB, pico -1.0 dB.",
+      "secoes": [
+        {
+          "titulo": "Resumo",
+          "texto": "Mesma partitura da faixa Pastoral B, re-voiceada para a soundfont **Tactical Fantasy Guy (PSX)**: celli no lugar do baixo, tímpano no lugar de bumbo, tons e congas, caixa e prato do pacote, sem chimbal, maracas nem pandeiro. Ninguém ouviu."
+        },
+        {
+          "titulo": "Como regenerar",
+          "texto": "`python scripts/music/tfg_remap.py <slot_B.mid> 40 76 <saída>` (veja `scripts/music/tfg_remap.py`)."
+        }
+      ]
+    },
+    {
+      "id": "pastoral-c",
+      "letra": "PC",
+      "titulo": "Pastoral · C",
+      "audio": "audio/pastoral_C.ogg",
+      "critica": "**Opus (partitura): 34/60. Fable (às cegas): 39/60.** Os dois colocam D e A no topo e F por último.\n\n- **Maior ajuste:** Calcular a quinta do baixo a partir da raiz do acorde, não do baixo da inversão (remove os noves menores nos compassos 10, 18, 22, 26, 34); tirar a harpa da oitava da melodia.\n- **Medido:** 126.3 s, média -16.7 dB, 7.9% da energia abaixo de 150 Hz; diferença de nível entre o fim e o começo do loop -5.3 dB.",
+      "secoes": [
+        {
+          "titulo": "Resumo",
+          "texto": "Faixa pastoral C do eval 1, o clima de Truth and Dreams (Breath of Fire IV), só humor e instrumentação, nenhuma nota copiada. Ninguém ouviu."
+        },
+        {
+          "titulo": "Forma e instrumentos",
+          "texto": "Ré menor, 76 bpm, 40 compassos (2:06). Harpa no registro da melodia; baixo confuso."
+        },
+        {
+          "titulo": "Crítica",
+          "texto": "**Opus 34/60, Fable 39/60.**\n\n- **Maior ajuste:** Calcular a quinta do baixo a partir da raiz do acorde, não do baixo da inversão (remove os noves menores nos compassos 10, 18, 22, 26, 34); tirar a harpa da oitava da melodia.\n- **Medido:** 126.3 s, média -16.7 dB, 7.9% abaixo de 150 Hz, diferença fim/começo -5.3 dB."
+        },
+        {
+          "titulo": "Como regenerar",
+          "texto": "Script `scripts/music/eval/slot_C.py` (com `scripts/music/psx.py`). Saída `.ogg` em `D:/Projetos/_musica-tools/eval/slot_C.ogg`."
+        }
+      ]
+    },
+    {
+      "id": "pastoral-c-tfg",
+      "letra": "PC2",
+      "titulo": "Pastoral · C com a soundfont Tactical Fantasy Guy",
+      "audio": "audio/pastoral_C_tfg.ogg",
+      "critica": "Mesma partitura da faixa Pastoral C, re-voiceada para a soundfont **Tactical Fantasy Guy (PSX)**: celli no lugar do baixo, tímpano no lugar de bumbo, tons e congas, caixa e prato do pacote, sem chimbal, maracas nem pandeiro. Ninguém ouviu.\n\n- **Medido:** 126.3 s, média -18.4 dB, pico -1.0 dB.",
+      "secoes": [
+        {
+          "titulo": "Resumo",
+          "texto": "Mesma partitura da faixa Pastoral C, re-voiceada para a soundfont **Tactical Fantasy Guy (PSX)**: celli no lugar do baixo, tímpano no lugar de bumbo, tons e congas, caixa e prato do pacote, sem chimbal, maracas nem pandeiro. Ninguém ouviu."
+        },
+        {
+          "titulo": "Como regenerar",
+          "texto": "`python scripts/music/tfg_remap.py <slot_C.mid> 40 76 <saída>` (veja `scripts/music/tfg_remap.py`)."
+        }
+      ]
+    },
+    {
+      "id": "pastoral-d",
+      "letra": "PD",
+      "titulo": "Pastoral · D",
+      "audio": "audio/pastoral_D.ogg",
+      "critica": "**Opus (partitura): 44/60. Fable (às cegas): 47/60.** Os dois colocam D e A no topo e F por último.\n\n- **Maior ajuste:** Manter um pulso leve na emenda (violão ou o coração da conga nos compassos 39-40 e 1-2): a emenda é o único ponto fraco. Reescrever a flauta nos compassos 13-18.\n- **Medido:** 126.3 s, média -17.2 dB, 30.0% da energia abaixo de 150 Hz; diferença de nível entre o fim e o começo do loop -2.5 dB.",
+      "secoes": [
+        {
+          "titulo": "Resumo",
+          "texto": "Faixa pastoral D do eval 1, o clima de Truth and Dreams (Breath of Fire IV), só humor e instrumentação, nenhuma nota copiada. Ninguém ouviu."
+        },
+        {
+          "titulo": "Forma e instrumentos",
+          "texto": "Mi menor, 76 bpm, 40 compassos (2:06). Flauta, oboé, violão, harpa, cordas, baixo e percussão de mão; harmonia e clima mais fortes."
+        },
+        {
+          "titulo": "Crítica",
+          "texto": "**Opus 44/60, Fable 47/60.**\n\n- **Maior ajuste:** Manter um pulso leve na emenda (violão ou o coração da conga nos compassos 39-40 e 1-2): a emenda é o único ponto fraco. Reescrever a flauta nos compassos 13-18.\n- **Medido:** 126.3 s, média -17.2 dB, 30.0% abaixo de 150 Hz, diferença fim/começo -2.5 dB."
+        },
+        {
+          "titulo": "Como regenerar",
+          "texto": "Script `scripts/music/eval/slot_D.py` (com `scripts/music/psx.py`). Saída `.ogg` em `D:/Projetos/_musica-tools/eval/slot_D.ogg`."
+        }
+      ]
+    },
+    {
+      "id": "pastoral-d-tfg",
+      "letra": "PD2",
+      "titulo": "Pastoral · D com a soundfont Tactical Fantasy Guy",
+      "audio": "audio/pastoral_D_tfg.ogg",
+      "critica": "Mesma partitura da faixa pastoral D (a de maior nota nos dois críticos: Opus 44/60, Fable 47/60), re-voiceada para a soundfont **Tactical Fantasy Guy (PSX)**. Mudanças: o violão vira *pizzicato* de cordas (a soundfont não tem violão), o baixo vira celli, as congas viram tímpano suave, o triângulo vira glockenspiel, e **maracas e pandeiro somem** (não existem no pacote). Flauta, oboé, harpa e cordas têm instrumento próprio. Ninguém ouviu.\n\n- **Medido:** 126,3 s (igual à D normal), média -17,9 dB, pico -0,9 dB.",
+      "secoes": [
+        {
+          "titulo": "Resumo",
+          "texto": "Mesma partitura da faixa pastoral D (a de maior nota nos dois críticos: Opus 44/60, Fable 47/60), re-voiceada para a soundfont **Tactical Fantasy Guy (PSX)**. Mudanças: o violão vira *pizzicato* de cordas (a soundfont não tem violão), o baixo vira celli, as congas viram tímpano suave, o triângulo vira glockenspiel, e **maracas e pandeiro somem** (não existem no pacote). Flauta, oboé, harpa e cordas têm instrumento próprio. Ninguém ouviu."
+        },
+        {
+          "titulo": "Como regenerar",
+          "texto": "`python scripts/music/tfg_remap.py D:/Projetos/_musica-tools/eval/slot_D.mid 40 76 D:/Projetos/_musica-tools/battle-tfg/pastoral_D_tfg`"
+        }
+      ]
+    },
+    {
+      "id": "pastoral-e",
+      "letra": "PE",
+      "titulo": "Pastoral · E",
+      "audio": "audio/pastoral_E.ogg",
+      "critica": "**Opus (partitura): 37/60. Fable (às cegas): 36/60.** Os dois colocam D e A no topo e F por último.\n\n- **Maior ajuste:** Limitar as cordas abaixo da melodia (cerca de sol3 a lá4) nos compassos 13-40, para não dobrar flauta e oboé em uníssono.\n- **Medido:** 126.3 s, média -17.3 dB, 18.1% da energia abaixo de 150 Hz; diferença de nível entre o fim e o começo do loop 0.3 dB.",
+      "secoes": [
+        {
+          "titulo": "Resumo",
+          "texto": "Faixa pastoral E do eval 1, o clima de Truth and Dreams (Breath of Fire IV), só humor e instrumentação, nenhuma nota copiada. Ninguém ouviu."
+        },
+        {
+          "titulo": "Forma e instrumentos",
+          "texto": "Ré maior, 76 bpm, 40 compassos (2:06). Transformações exatas do motivo, limpa de erros."
+        },
+        {
+          "titulo": "Crítica",
+          "texto": "**Opus 37/60, Fable 36/60.**\n\n- **Maior ajuste:** Limitar as cordas abaixo da melodia (cerca de sol3 a lá4) nos compassos 13-40, para não dobrar flauta e oboé em uníssono.\n- **Medido:** 126.3 s, média -17.3 dB, 18.1% abaixo de 150 Hz, diferença fim/começo 0.3 dB."
+        },
+        {
+          "titulo": "Como regenerar",
+          "texto": "Script `scripts/music/eval/slot_E.py` (com `scripts/music/psx.py`). Saída `.ogg` em `D:/Projetos/_musica-tools/eval/slot_E.ogg`."
+        }
+      ]
+    },
+    {
+      "id": "pastoral-e-tfg",
+      "letra": "PE2",
+      "titulo": "Pastoral · E com a soundfont Tactical Fantasy Guy",
+      "audio": "audio/pastoral_E_tfg.ogg",
+      "critica": "Mesma partitura da faixa Pastoral E, re-voiceada para a soundfont **Tactical Fantasy Guy (PSX)**: celli no lugar do baixo, tímpano no lugar de bumbo, tons e congas, caixa e prato do pacote, sem chimbal, maracas nem pandeiro. Ninguém ouviu.\n\n- **Medido:** 126.3 s, média -16.2 dB, pico -1.2 dB.",
+      "secoes": [
+        {
+          "titulo": "Resumo",
+          "texto": "Mesma partitura da faixa Pastoral E, re-voiceada para a soundfont **Tactical Fantasy Guy (PSX)**: celli no lugar do baixo, tímpano no lugar de bumbo, tons e congas, caixa e prato do pacote, sem chimbal, maracas nem pandeiro. Ninguém ouviu."
+        },
+        {
+          "titulo": "Como regenerar",
+          "texto": "`python scripts/music/tfg_remap.py <slot_E.mid> 40 76 <saída>` (veja `scripts/music/tfg_remap.py`)."
+        }
+      ]
+    },
+    {
+      "id": "pastoral-f",
+      "letra": "PF",
+      "titulo": "Pastoral · F",
+      "audio": "audio/pastoral_F.ogg",
+      "critica": "**Opus (partitura): 17/60. Fable (às cegas): 22/60.** Os dois colocam D e A no topo e F por último.\n\n- **Maior ajuste:** Corrigir a raiz do baixo no acorde de sol (sai si e fá sustenido embaixo de sol por 10 compassos), variar o retorno e cortar os 14 compassos sem melodia na emenda.\n- **Medido:** 132.0 s, média -17.4 dB, 29.8% da energia abaixo de 150 Hz; diferença de nível entre o fim e o começo do loop 5.8 dB.",
+      "secoes": [
+        {
+          "titulo": "Resumo",
+          "texto": "Faixa pastoral F do eval 1, o clima de Truth and Dreams (Breath of Fire IV), só humor e instrumentação, nenhuma nota copiada. Ninguém ouviu."
+        },
+        {
+          "titulo": "Forma e instrumentos",
+          "texto": "Mi menor, 80 bpm, 44 compassos (2:12). Retorno repete o tema nota por nota."
+        },
+        {
+          "titulo": "Crítica",
+          "texto": "**Opus 17/60, Fable 22/60.**\n\n- **Maior ajuste:** Corrigir a raiz do baixo no acorde de sol (sai si e fá sustenido embaixo de sol por 10 compassos), variar o retorno e cortar os 14 compassos sem melodia na emenda.\n- **Medido:** 132.0 s, média -17.4 dB, 29.8% abaixo de 150 Hz, diferença fim/começo 5.8 dB."
+        },
+        {
+          "titulo": "Como regenerar",
+          "texto": "Script `scripts/music/eval/slot_F.py` (com `scripts/music/psx.py`). Saída `.ogg` em `D:/Projetos/_musica-tools/eval/slot_F.ogg`."
+        }
+      ]
+    },
+    {
+      "id": "pastoral-f-tfg",
+      "letra": "PF2",
+      "titulo": "Pastoral · F com a soundfont Tactical Fantasy Guy",
+      "audio": "audio/pastoral_F_tfg.ogg",
+      "critica": "Mesma partitura da faixa Pastoral F, re-voiceada para a soundfont **Tactical Fantasy Guy (PSX)**: celli no lugar do baixo, tímpano no lugar de bumbo, tons e congas, caixa e prato do pacote, sem chimbal, maracas nem pandeiro. Ninguém ouviu.\n\n- **Medido:** 132.0 s, média -16.9 dB, pico -0.9 dB.",
+      "secoes": [
+        {
+          "titulo": "Resumo",
+          "texto": "Mesma partitura da faixa Pastoral F, re-voiceada para a soundfont **Tactical Fantasy Guy (PSX)**: celli no lugar do baixo, tímpano no lugar de bumbo, tons e congas, caixa e prato do pacote, sem chimbal, maracas nem pandeiro. Ninguém ouviu."
+        },
+        {
+          "titulo": "Como regenerar",
+          "texto": "`python scripts/music/tfg_remap.py <slot_F.mid> 44 80 <saída>` (veja `scripts/music/tfg_remap.py`)."
+        }
+      ]
+    }
+  ],
+  "checagens": [
+    {
+      "texto": "Crítica Opus (partitura), crítica Fable às cegas e medições de sinal (Sonnet)",
+      "estado": "feito"
+    },
+    {
+      "texto": "Bug do baixo (raiz tirada da primeira nota de um acorde invertido) confirmado no script da faixa F; afeta B, C e F",
+      "estado": "feito"
+    },
+    {
+      "texto": "Alguém ouvir e escolher",
+      "estado": "pendente"
+    },
+    {
+      "texto": "Comparar MuseScore General com GeneralUser GS num trecho da escolhida",
+      "estado": "pendente"
+    }
+  ]
+}
