@@ -1,6 +1,7 @@
 // The 3D bench viewer of the models lab: piece and style buttons over an iframe of the bench (eval.html), which runs in
 // the game's worktree on port 5205. Same URLs and behaviour as the old lab (dungeon-tactics-lab/modelos/src/main.ts).
 import { type ReactNode, useEffect, useState } from 'react';
+import { DecisaoAsset } from '@/components/content/DecisaoAsset';
 import pecas from '../pecas.json';
 
 const BANCADA = 'http://localhost:5205';
@@ -66,7 +67,8 @@ function Botoes<T>({
   );
 }
 
-function Bancada({ pecas: lista, children }: { pecas: Peca[]; children?: ReactNode }) {
+/** `asset` prefixes the piece id into the decision's asset id (`modelos/<set>/<piece>`). */
+function Bancada({ pecas: lista, asset, children }: { pecas: Peca[]; asset: string; children?: ReactNode }) {
   const [peca, setPeca] = useState(lista[0]!);
   const [estilo, setEstilo] = useState<Estilo>('liso');
   const [foraDoAr, setForaDoAr] = useState(false);
@@ -97,6 +99,7 @@ function Bancada({ pecas: lista, children }: { pecas: Peca[]; children?: ReactNo
         title="Visualizador 3D"
         className="block aspect-[16/10] w-full border-0 bg-terra"
       />
+      <DecisaoAsset key={peca.id} id={`${asset}/${peca.id}`} rotulo={peca.nome} />
     </>
   );
 }
@@ -105,7 +108,11 @@ function Bancada({ pecas: lista, children }: { pecas: Peca[]; children?: ReactNo
 export function Visualizador({ conjunto, children }: { conjunto: Conjunto; children?: ReactNode }) {
   const lista = CONJUNTOS[conjunto];
   if (!lista?.length) return <p className="m-0 text-stop">Conjunto de peças desconhecido: {conjunto}.</p>;
-  return <Bancada pecas={lista}>{children}</Bancada>;
+  return (
+    <Bancada pecas={lista} asset={`modelos/${conjunto}`}>
+      {children}
+    </Bancada>
+  );
 }
 
 /** Page of a Blender model: if the file is not on the bench yet, says so instead of showing an empty bench. */
@@ -131,5 +138,9 @@ export function Blender({ modelo, children }: { modelo: string; children?: React
         Em andamento: o modelo ainda não está na bancada (ou a bancada da porta 5205 está fora do ar).
       </p>
     );
-  return <Bancada pecas={[{ id: modelo, nome: 'Guerreiro', glb, zoom: 1.6 }]}>{children}</Bancada>;
+  return (
+    <Bancada pecas={[{ id: modelo, nome: 'Guerreiro', glb, zoom: 1.6 }]} asset="modelos/blender">
+      {children}
+    </Bancada>
+  );
 }

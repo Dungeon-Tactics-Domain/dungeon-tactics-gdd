@@ -4,6 +4,7 @@
 /* eslint-disable react-refresh/only-export-components -- PAGINAS is data the manifest reads; the components never hot-reload alone */
 import { Fragment, type ReactNode } from 'react';
 import { Callout } from '@/components/content/Callout';
+import { DecisaoAsset } from '@/components/content/DecisaoAsset';
 import { Player } from '@/components/content/Player';
 import { Stars } from '@/components/content/Stars';
 import { YouTubeEmbed } from '@/components/content/YouTubeEmbed';
@@ -165,6 +166,7 @@ export function FaixaMusica({ pagina: id, faixa }: { pagina: IdPagina; faixa: st
         <Player src={t.audio && `/content/musica/${t.audio}`} titulo={t.titulo} />
         <Stars chave={`musica:nota:${t.id}`} rotulo={t.titulo} notaSessao={t.nota} />
       </Callout>
+      <DecisaoAsset id={`musica/${t.id}`} rotulo={t.titulo} />
       {secoesDe(t).map((s) => (
         <section key={s.titulo} className="grid gap-2">
           <h3 className="m-0 mt-1 text-[21px] leading-tight">{s.titulo}</h3>
