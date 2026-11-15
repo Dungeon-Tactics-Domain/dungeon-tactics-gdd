@@ -338,7 +338,7 @@ function Titulo({ t, opcoes, lang }: { t: Tr; opcoes: boolean; lang: string }) {
               value="medio"
             />
             <Choice
-              label={t('Velocidade do texto', 'Text speed')}
+              label={t('Velocidade do texto das conversas', 'Dialogue text speed')}
               options={[
                 ['normal', 'Normal'],
                 ['fast', t('Rápida', 'Fast')],
@@ -347,7 +347,7 @@ function Titulo({ t, opcoes, lang }: { t: Tr; opcoes: boolean; lang: string }) {
               value="normal"
             />
             <Slider label={t('Música', 'Music')} value={40} />
-            <Slider label={t('Efeitos', 'Sound effects')} value={70} />
+            <Slider label={t('Efeitos', 'Effects')} value={70} />
           </div>
           <div className="tl-acoes">
             <Botao cls="secondary" label={t('Voltar', 'Back')} k="Esc" />
@@ -366,7 +366,7 @@ function Titulo({ t, opcoes, lang }: { t: Tr; opcoes: boolean; lang: string }) {
               { label: t('Opções', 'Options'), orb: 'bronze' },
             ]}
           />
-          <span className="tl-dica">{t('Enter escolhe · setas movem', 'Enter picks · arrows move')}</span>
+          <span className="tl-dica">{t('Setas escolhem · Enter confirma', 'Arrows choose · Enter confirms')}</span>
         </>
       )}
     </div>
@@ -411,7 +411,7 @@ function Maquete({
   titulo: string;
   nota: string;
   controles: ReactNode;
-  legenda: [pecas: string, obrigatorio: string, opcional: string];
+  legenda: [kit: string, novas: string, obrigatorio: string, opcional: string, jogoHoje: string];
   w: number;
   h: number;
   children: ReactNode;
@@ -431,10 +431,16 @@ function Maquete({
           <b>Peças do kit:</b> {legenda[0]}
         </li>
         <li>
-          <b>Obrigatório:</b> {legenda[1]}
+          <b>Peças novas (entram no design system do jogo):</b> {legenda[1]}
         </li>
         <li>
-          <b>Opcional:</b> {legenda[2]}
+          <b>Obrigatório:</b> {legenda[2]}
+        </li>
+        <li>
+          <b>Opcional:</b> {legenda[3]}
+        </li>
+        <li>
+          <b>Diferente do jogo hoje:</b> {legenda[4]}
         </li>
       </ul>
     </section>
@@ -484,9 +490,9 @@ export function Telas() {
   return (
     <div className="tl min-w-0">
       <p className="fft-note">
-        Maquetes para o orquestrador do jogo refazer estas telas. Só peças do kit FFT Clássico e seus tokens; nomes,
-        cidades, itens e preços vêm do jogo. Em 1280×720 as peças mantêm o tamanho em pixels do kit e a tela fica mais
-        cheia, como no jogo.
+        Maquetes para o orquestrador do jogo refazer estas telas, com as peças do kit FFT Clássico e seus tokens; o que
+        o kit não tinha está em "Peças novas" na legenda de cada uma. Nomes, cidades, itens e preços vêm do jogo. Em
+        1280×720 as peças mantêm o tamanho em pixels do kit e a tela fica mais cheia, como no jogo.
       </p>
       <Maquete
         titulo="1. Fim de batalha"
@@ -506,9 +512,11 @@ export function Telas() {
           </>
         }
         legenda={[
-          'painel com cabeçalho (.panel, .panel-head), barra de VIDA (gauge), nome e classe da ficha (.unit-name, .unit-class), botão primário com tecla (Enter), rosto de IA de 128 px (quadros 6 sorrindo, 5 ferido, 0 neutro).',
+          'painel com cabeçalho (.panel, .panel-head), barra de VIDA (gauge), nome e classe da ficha (.unit-name, .unit-class), botão primário com tecla (Enter).',
+          'rosto pintado de 128 px fora da janela de conversa (quadros 6 sorrindo, 5 ferido, 0 neutro; hoje o design system só o usa na conversa), cartão de herói do resultado, faixa de título Vitória/Derrota, painel de resultado em colunas.',
           'título Vitória/Derrota, um cartão por quem lutou (rosto, nome, classe, VIDA), regra do rosto (sorrindo / ferido abaixo de 30% / caído), painel de resultado com ouro, experiência e itens, botão Continuar.',
           'nível no cartão, EXP por pessoa, rosto caído em cinza, faixa vinho na derrota, fundo da batalha escurecido.',
+          'o jogo não tem experiência nem nível (números de exemplo, pedidos para esta tela); o fim de batalha de hoje (game/end-screens.ts) tem uma frase e os botões "Voltar ao mapa" ou "Tentar de novo" + "Mapa", não "Continuar".',
         ]}
         w={w}
         h={h}
@@ -530,9 +538,11 @@ export function Telas() {
           </>
         }
         legenda={[
-          'menu de comandos (Menu: foco ▶, selecionado ▸), painel com cabeçalho, contador de ouro (.counter.gold), linhas de lista (.item-cost, .item-why), botão secundário (desativado apagado + motivo), barras VIDA e MP, rosto de IA de 128 px e 64 px, marcadores de casa (bola .orb) e cursor ▼ amarelo.',
+          'menu de comandos (Menu: foco ▶, selecionado ▸), painel com cabeçalho, contador de ouro (.counter.gold), linhas de lista (.item-cost, .item-why), botão secundário (desativado apagado + motivo), barras VIDA e MP, bola .orb.',
+          'marcador de lugar no mapa (bola + nome; cidade quadrada, batalha redonda) com cursor ▼, linha de loja/taverna (nome, preço com moeda, botão à direita), cartão da ficha (rosto pintado 128 px + barras), rosto pintado 64 px na taverna, janela da cidade ao lado do menu.',
           'marcadores de cidade e de batalha com nome, caminho, cursor na escolhida, menu da cidade (Loja, Taverna, Ficha do grupo, Sair), ouro sempre visível; Loja com preço, Comprar e "faltam N" quando o ouro não dá; Taverna com preço e Recrutar; Ficha com rosto, nome, classe, nível, VIDA e MP.',
           'desenho do mapa (mar, terra, neve, rio), boato na Taverna, tipo do item (arma, armadura, acessório), painel de dica no mapa.',
+          'o mapa do jogo (world-ui.ts) tem desenho próprio, bússola e ícones de lugar; a cidade abre um diálogo com botões (Loja, Bar, Grupo), não um menu de comandos; a Taverna de hoje também tem missões; o jogo não tem nível. Lugares, ordem do caminho, itens, preços e custo de recruta (200) são os do jogo.',
         ]}
         w={w}
         h={h}
@@ -558,8 +568,10 @@ export function Telas() {
         }
         legenda={[
           'menu de comandos (Menu), painel com cabeçalho, choice() com ✓ no escolhido, slider() com valor em %, botão secundário com tecla (Esc), cena da Colina ao fundo.',
+          'nome do jogo em 96 px sobre a cena (o jogo usa 64 px).',
           'nome do jogo, Novo jogo / Continuar / Opções com foco no primeiro; em Opções: idioma, ângulo da câmera, velocidade do texto, música e efeitos, e Voltar.',
           'dica de teclas no rodapé, escurecimento do fundo, Continuar apagado com motivo quando não há jogo salvo.',
+          'o título do jogo (game/title.ts) põe Continuar antes de Novo jogo e tem também Batalha avulsa, Como jogar, Créditos e Desenvolvedor; as Opções do jogo (game/options.ts) têm seções Jogo, Som, Vídeo e efeitos, Controles e Idioma e não têm ângulo da câmera (a câmera gira com R; as opções Alto/Médio/Baixo são de exemplo).',
         ]}
         w={w}
         h={h}
