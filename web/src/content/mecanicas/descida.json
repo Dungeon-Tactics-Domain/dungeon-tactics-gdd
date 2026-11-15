@@ -139,6 +139,11 @@
       "regra": "Cura dentro da descida",
       "valor": "em batalha, a Cura do mago herói (12 a 18); depois de cada sala vencida, quem ficou de pé recupera 25% da vida máxima; ao descer de andar, todo herói recupera mais 50%; nunca passa do máximo",
       "origem": "src/content/abilities.ts (heal) em e49ddb6; 25% por sala e 50% por andar decididos pelo Fernando em 15/11, provisório até o acampamento voltar; a cura da sala não somar para quem caiu é leitura do lab"
+    },
+    {
+      "regra": "Grupo inteiro caído",
+      "valor": "a expedição acaba e o grupo volta à cidade sem perder ouro nem itens",
+      "origem": "grill do ouro de 15/11 com o Fernando"
     }
   ],
   "mapa": [
@@ -194,7 +199,6 @@
     }
   ],
   "perguntas": [
-    "Grupo inteiro caído numa sala: a expedição acaba e o grupo volta à cidade? (o que acontece com o loot fica para quando a bag voltar)",
     "Composição das salas fixa (esta lista, sorteada por andar) ou gerada por orçamento de vida (o gerador soma inimigos até 64 a 102)?",
     "Quem caiu volta com 25% e ganha também os 25% da sala (chega a 50%), ou fica nos 25%? O lab leu que fica nos 25%."
   ],
