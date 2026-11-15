@@ -59,6 +59,7 @@ export function Paginas({ sumario: s, base }: { sumario: Sumario; base: string }
   const chave = `paginas:${s.lab}:grupo`;
   const href = (r: string) => `${base}/${r}`;
 
+  const aviso = (location.state as { aviso?: string } | null)?.aviso;
   const lista = entradas(s);
   const atual = lista.find((e) => e.rota === rota);
   const grupo = s.grupos.find((g) => g.id === rota);
@@ -84,11 +85,22 @@ export function Paginas({ sumario: s, base }: { sumario: Sumario; base: string }
   useEffect(() => {
     const h = decodeURIComponent(location.hash.slice(1));
     if (!h) return;
-    const destino = h.startsWith('/') ? h.slice(1) : s.linksAntigos?.[h];
+    const destino = h === '/inicio' ? '' : h.startsWith('/') ? h.slice(1) : s.linksAntigos?.[h];
     if (destino !== undefined) void navigate(href(destino), { replace: true });
     // href only depends on base
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.hash, s.linksAntigos, base, navigate]);
+
+  // a route that does not exist: an old path of the first copy (/decisoes/fases, /maquetes/x) goes by linksAntigos, trying the
+  // whole path, then its last and first segment; anything else lands on the lab home with a quiet notice
+  useEffect(() => {
+    if (!rota || atual || grupo) return;
+    const partes = rota.split('/');
+    const destino = [rota, partes.at(-1)!, partes[0]!].map((k) => s.linksAntigos?.[k]).find((d) => d !== undefined);
+    void navigate(href(destino ?? ''), { replace: true, state: destino === undefined ? { aviso: rota } : null });
+    // href only depends on base
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [rota, atual, grupo, s.linksAntigos, base, navigate]);
 
   // the page's exit hook runs when the route moves away from it and on unmount
   // keyed on the route string: the entries are rebuilt on every render (each live board update re-renders the app)
@@ -255,6 +267,11 @@ export function Paginas({ sumario: s, base }: { sumario: Sumario; base: string }
     corpo = (
       <>
         <Titulo ref={h1}>{s.titulo}</Titulo>
+        {aviso && (
+          <p role="status" className="m-0 text-[15px] text-apagado">
+            Não existe página em “{aviso}”; você está no início do lab.
+          </p>
+        )}
         <Resumo texto={s.resumo} />
         {s.inicio && <div className="grid gap-4">{s.inicio()}</div>}
         <Cartoes

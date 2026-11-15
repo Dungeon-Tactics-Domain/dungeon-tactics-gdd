@@ -9,7 +9,7 @@ const sair = vi.fn();
 const SUMARIO: Sumario = {
   lab: 'teste',
   titulo: 'Lab de teste',
-  linksAntigos: { fases: 'decisoes/fases' },
+  linksAntigos: { fases: 'decisoes/fases', 'testes-de-ia': 'refs/ogre' },
   grupos: [
     {
       id: 'decisoes',
@@ -65,12 +65,34 @@ describe('Paginas', () => {
     expect(within(menu()).getByRole('link', { name: 'Jogo embutido' })).toHaveAttribute('aria-current', 'page');
   });
 
-  it('shows the full group summary on the lab home and a not-found page for unknown routes', () => {
-    const { unmount } = montar('/lab');
+  it('shows the full group summary on the lab home', () => {
+    montar('/lab');
     expect(screen.getByText(SUMARIO.grupos[0]!.resumo!)).toBeVisible();
-    unmount();
+  });
+
+  it('sends an unknown route to the lab home with a notice', () => {
     montar('/lab/nada/aqui');
-    expect(screen.getByRole('heading', { name: 'Página não encontrada' })).toBeInTheDocument();
+    expect(onde()).toBe('/lab/');
+    expect(screen.getByText(/Não existe/)).toHaveTextContent('Não existe página em “nada/aqui”');
+    expect(screen.getByRole('heading', { level: 1, name: 'Lab de teste' })).toBeInTheDocument();
+  });
+
+  it('maps old paths of the first copy by the whole path, the last segment or the first', () => {
+    const { unmount } = montar('/lab/antigo/fases');
+    expect(onde()).toBe('/lab/decisoes/fases');
+    unmount();
+    montar('/lab/testes-de-ia/qualquer');
+    expect(onde()).toBe('/lab/refs/ogre');
+    expect(screen.queryByText(/Não existe página/)).toBeNull();
+  });
+
+  it('turns the old hash routes into real routes, and #/inicio into the lab home', () => {
+    const { unmount } = montar('/lab#/decisoes/jogo');
+    expect(onde()).toBe('/lab/decisoes/jogo');
+    unmount();
+    montar('/lab#/inicio');
+    expect(onde()).toBe('/lab/');
+    expect(screen.queryByText(/Não existe página/)).toBeNull();
   });
 
   it('moves focus to the title when navigating', async () => {
