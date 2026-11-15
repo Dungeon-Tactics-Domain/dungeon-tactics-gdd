@@ -120,6 +120,12 @@ export default {
         },
         { id: 'pecas', titulo: 'Peças', icone: '🗡️', resumo: '7 espaços, 3 raridades, drop e preço.' },
         { id: 'buffs', titulo: 'Buffs e consumíveis', icone: '✨', resumo: 'Habilidades, poções, altares e comida.' },
+        {
+          id: 'ouro',
+          titulo: 'Ouro e cidade',
+          icone: '🪙',
+          resumo: 'Drop por monstro, loja, ferreiro, encantador e taverna.',
+        },
       ],
     },
     {

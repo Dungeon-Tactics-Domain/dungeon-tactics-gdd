@@ -411,12 +411,12 @@
     },
     {
       "regra": "Onde aparece",
-      "valor": "loja da cidade: comum; sala vencida: 30% de chance de uma comum e 10% de uma rara; chefe: 1 rara garantida, com 25% de chance de virar épica",
-      "origem": "proposta do lab (15/11)"
+      "valor": "raras e épicas só no drop (tabela de drop em Ouro e cidade); a loja vende comuns",
+      "origem": "grill do ouro de 15/11 com o Fernando"
     },
     {
       "regra": "Preço",
-      "valor": "comum 100 a 150 de ouro, rara 300, épica 600; vender devolve metade; o ouro não muda com a escala x5",
+      "valor": "loja: comum 100 a 150; venda pela metade (rara vale 300 e épica 600 só para a conta da venda)",
       "origem": "proposta do lab (15/11); hoje as peças custam de 100 a 240 (items.ts)"
     }
   ],
@@ -636,5 +636,99 @@
     "Magia não é esquivada (contra magia só vale a resistência mágica): confirma?",
     "Os números de classes e inimigos (vida, stamina, mana, resistências) servem de ponto de partida para jogar e afinar?"
   ],
-  "nota": "Só a vida x5 e as regras de recurso são decisão do grill; stamina, mana, regen e resistências de cada classe e inimigo são proposta do lab, para afinar jogando."
+  "nota": "Só a vida x5 e as regras de recurso são decisão do grill; stamina, mana, regen e resistências de cada classe e inimigo são proposta do lab, para afinar jogando.",
+  "ouro": [
+    {
+      "regra": "De onde vem",
+      "valor": "todo ouro e todo item vêm do drop dos monstros; só dropa ouro quem faz sentido carregar (gente armada, magos, o chefe); mortos-vivos simples dropam itens",
+      "origem": "grill do ouro de 15/11 com o Fernando"
+    },
+    {
+      "regra": "Ouro por descida",
+      "valor": "cerca de 500 a 800 numa descida completa (6 salas + chefe), o bastante para 1 melhoria ou 3 a 4 peças comuns",
+      "origem": "proposta do lab (15/11); dedução a partir da tabela de drop abaixo e das salas da Descida"
+    },
+    {
+      "regra": "Vender",
+      "valor": "item dropado vende por metade do preço da loja (comum 50 a 75, rara 150, épica 300)",
+      "origem": "proposta do lab (15/11)"
+    },
+    {
+      "regra": "Começo de jogo",
+      "valor": "0 de ouro; cada um dos 4 personagens começa com a arma comum da sua classe",
+      "origem": "grill do ouro de 15/11 com o Fernando"
+    },
+    {
+      "regra": "Grupo inteiro caído",
+      "valor": "volta à cidade sem perder ouro nem itens",
+      "origem": "grill do ouro de 15/11 com o Fernando"
+    },
+    {
+      "regra": "Loja",
+      "valor": "vende peças comuns (100 a 150) e os consumíveis (Poção de vida 40, Éter 60, Óleo de fogo 50, Poção de pedra 50); raras e épicas só no drop",
+      "origem": "grill do ouro de 15/11 com o Fernando (loja); preços são proposta do lab (15/11)"
+    },
+    {
+      "regra": "Ferreiro: melhorar",
+      "valor": "peça +1, +2, +3; cada nível soma 50% dos atributos positivos da peça, arredondado para baixo; custo +1 = 100, +2 = 250, +3 = 500, vezes 2 na rara e 3 na épica",
+      "origem": "grill do ouro de 15/11 com o Fernando (ferreiro); números são proposta do lab (15/11)"
+    },
+    {
+      "regra": "Ferreiro: consertar",
+      "valor": "preço a definir junto com a durabilidade (pausada)",
+      "origem": "decisão de 15/11: o ferreiro conserta"
+    },
+    {
+      "regra": "Encantador",
+      "valor": "põe +20% de resistência a um elemento numa peça, 1 encanto por peça; 150 de ouro, trocar custa 75",
+      "origem": "grill do ouro de 15/11 com o Fernando (encantador); números são proposta do lab (15/11)"
+    },
+    {
+      "regra": "Taverna",
+      "valor": "recrutar custa 200, até 8 no grupo, como hoje",
+      "origem": "src/client/group.ts (RECRUIT_COST 200, GROUP_MAX)"
+    }
+  ],
+  "drops": [
+    {
+      "monstro": "Lacaio esqueleto",
+      "ouro": "—",
+      "itens": "10% comum"
+    },
+    {
+      "monstro": "Arqueiro esqueleto",
+      "ouro": "—",
+      "itens": "15% comum, 3% rara"
+    },
+    {
+      "monstro": "Soldado",
+      "ouro": "30 a 50",
+      "itens": "15% comum, 3% rara"
+    },
+    {
+      "monstro": "Mago sombrio",
+      "ouro": "40 a 60",
+      "itens": "15% comum, 5% rara"
+    },
+    {
+      "monstro": "Acólito do Véu",
+      "ouro": "40 a 60",
+      "itens": "15% comum, 5% rara"
+    },
+    {
+      "monstro": "Cavaleiro do Véu",
+      "ouro": "60 a 90",
+      "itens": "20% comum, 8% rara"
+    },
+    {
+      "monstro": "Bruto",
+      "ouro": "50 a 80",
+      "itens": "20% comum, 8% rara"
+    },
+    {
+      "monstro": "Colosso de Ossos (chefe)",
+      "ouro": "300",
+      "itens": "1 rara garantida, 25% de virar épica"
+    }
+  ]
 }

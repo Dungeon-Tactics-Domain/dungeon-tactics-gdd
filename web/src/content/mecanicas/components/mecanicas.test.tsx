@@ -32,18 +32,18 @@ beforeEach(() => {
 afterEach(() => vi.unstubAllGlobals());
 
 describe('mecanicas manifest', () => {
-  it('keeps the old lab tree plus the descent and equipment groups: 7 groups and 83 pages and subpages', () => {
+  it('keeps the old lab tree plus the descent and equipment groups: 7 groups and 84 pages and subpages', () => {
     expect(manifesto.grupos.map((g) => `${g.id}:${g.paginas.length}`)).toEqual([
       'decisoes:4',
       'descida:4',
-      'equipamento:4',
+      'equipamento:5',
       'clipes:4',
       'regras:8',
       'sensacao:5',
       'referencias:10',
     ]);
     const n = manifesto.grupos.flatMap((g) => g.paginas.flatMap((p) => [p, ...(p.subpaginas ?? [])])).length;
-    expect(n).toBe(83);
+    expect(n).toBe(84);
     expect((manifesto.linksAntigos as Record<string, string>)['cena-walk']).toBe('clipes/movimento/walk');
     expect((manifesto.linksAntigos as Record<string, string>)._geral).toBe('referencias/geral');
   });
@@ -103,12 +103,12 @@ describe('Cena', () => {
 });
 
 describe('Pedidos', () => {
-  it('splits open and done requests like the old lab (6 open, 13 done)', () => {
+  it('splits open and done requests like the old lab (6 open, 14 done)', () => {
     const { unmount } = render(<Pedidos />);
     expect(screen.getAllByRole('row')).toHaveLength(7);
     unmount();
     render(<Pedidos feitos />);
-    expect(screen.getAllByRole('row')).toHaveLength(14);
+    expect(screen.getAllByRole('row')).toHaveLength(15);
   });
 });
 

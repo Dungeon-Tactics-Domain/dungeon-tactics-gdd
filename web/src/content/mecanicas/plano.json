@@ -17,6 +17,10 @@
     {
       "topic": "Equipamento e atributos (grill de 15/11)",
       "decision": "Força vem do loot da descida e da cidade; 7 espaços (mão principal, mão secundária, capacete, corpo, pernas, 2 acessórios); vida e dano x5; resistência física, mágica e de 6 elementos (fogo, gelo, raio, sombra, vento, luz) em %, que multiplicam e podem ser negativas; esquiva multiplica o acerto (frente 1, lado 0,75, costas 0,5, com os +15/+30 de hoje); carregando: −50 física e −25 mágica; magia gasta mana, marcial gasta stamina, básico grátis, carga continua; stamina enche a cada sala, mana persiste como a vida; regen de vida e mana; poder físico e mágico separados; 3 raridades fixas; buffs de habilidade, consumível, altar e comida."
+    },
+    {
+      "topic": "Ouro (grill de 15/11)",
+      "decision": "Todo ouro e item vem do drop dos monstros (ouro só de quem faz sentido carregar); a cidade tem várias formas de gastar: loja de comuns e consumíveis, ferreiro que melhora peça, encantador de elemento e taverna; jogo novo começa com 0 de ouro e peças básicas; grupo inteiro caído não perde nada."
     }
   ],
   "phases": [
@@ -46,6 +50,13 @@
     }
   ],
   "requests": [
+    {
+      "date": "15/11",
+      "ask": "Regra de ouro da descida (pedido via Implementação)",
+      "owner": "esta sessão",
+      "status": "feito",
+      "next": "Página Ouro e cidade em Equipamento e atributos, números em equipamento.json (ouro e drops)"
+    },
     {
       "date": "15/11",
       "ask": "Grill de equipamento e buffs (\"Sim, começa\")",

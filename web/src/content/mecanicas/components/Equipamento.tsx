@@ -4,7 +4,7 @@ import { Callout } from '@/components/content/Callout';
 import equipamento from '../equipamento.json';
 import { Tabela } from './Descida';
 
-type Secao = 'formulas' | 'classes' | 'inimigos' | 'habilidades' | 'raridade' | 'pecas' | 'buffs';
+type Secao = 'formulas' | 'classes' | 'inimigos' | 'habilidades' | 'raridade' | 'pecas' | 'buffs' | 'ouro' | 'drops';
 const TITULO: Record<string, string> = {
   regra: 'Regra',
   valor: 'Valor',
@@ -30,6 +30,9 @@ const TITULO: Record<string, string> = {
   fonte: 'De onde vem',
   efeito: 'Efeito',
   duracao: 'Duração',
+  monstro: 'Monstro',
+  ouro: 'Ouro',
+  itens: 'Itens',
 };
 
 export function Lista({ de }: { de: Secao }) {
