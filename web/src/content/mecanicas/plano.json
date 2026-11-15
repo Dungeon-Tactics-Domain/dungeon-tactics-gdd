@@ -9,6 +9,10 @@
     {
       "topic": "Cura entre salas e andares sem acampamento",
       "decision": "Depois de cada sala vencida, +25% da vida máxima; ao descer de andar, +50%; nunca passa do máximo. Provisório até o acampamento voltar (15/11)."
+    },
+    {
+      "topic": "XP e nível",
+      "decision": "Não entra agora: todos os atributos vêm de equipamento e buffs, e o foco passa a ser isso (15/11). Antes de cancelar, o ganho de XP tinha sido escolhido como base por sala mais bônus por ação."
     }
   ],
   "phases": [
@@ -38,6 +42,13 @@
     }
   ],
   "requests": [
+    {
+      "date": "15/11",
+      "ask": "XP e nível no loop novo (pedido via Implementação)",
+      "owner": "esta sessão",
+      "status": "feito",
+      "next": "Cancelado por você: \"todos os stats vão vir de equips e buffs\""
+    },
     {
       "date": "15/11",
       "ask": "Números da descida do MVP do loop (pedido via Orquestrador dos Labs; foco só na dungeon, decisão 41)",

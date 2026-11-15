@@ -102,12 +102,12 @@ describe('Cena', () => {
 });
 
 describe('Pedidos', () => {
-  it('splits open and done requests like the old lab (6 open, 11 done)', () => {
+  it('splits open and done requests like the old lab (6 open, 12 done)', () => {
     const { unmount } = render(<Pedidos />);
     expect(screen.getAllByRole('row')).toHaveLength(7);
     unmount();
     render(<Pedidos feitos />);
-    expect(screen.getAllByRole('row')).toHaveLength(12);
+    expect(screen.getAllByRole('row')).toHaveLength(13);
   });
 });
 
