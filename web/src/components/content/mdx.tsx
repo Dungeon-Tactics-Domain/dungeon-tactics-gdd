@@ -6,6 +6,7 @@ import type { ComponentProps } from 'react';
 import { Link } from 'react-router';
 import { Callout } from './Callout';
 import { DataTable, Rolagem, TABELA } from './DataTable';
+import { DecisaoAsset } from './DecisaoAsset';
 import { Gallery } from './Gallery';
 import { Player } from './Player';
 import { Stars } from './Stars';
@@ -43,6 +44,7 @@ export const MDX_COMPONENTS: MDXComponents = {
   ),
   Callout,
   DataTable,
+  DecisaoAsset,
   Gallery,
   Player,
   Stars,
