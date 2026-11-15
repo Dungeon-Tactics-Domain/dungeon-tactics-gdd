@@ -22,6 +22,9 @@ pub struct Config {
     /// Known sessions, always shown, in this order.
     #[serde(default)]
     pub sessoes: Vec<SessaoConhecida>,
+    /// File with the per-asset decisions; read once when the server starts.
+    #[serde(default = "default_decisoes")]
+    pub decisoes: PathBuf,
 }
 
 /// A session with a fixed place on the board.
@@ -40,6 +43,13 @@ pub struct SessaoConhecida {
 
 fn default_hours() -> f64 {
     24.0
+}
+
+/// Where the decisions go when the config does not say.
+pub const DECISOES_PADRAO: &str = "data/decisoes.json";
+
+fn default_decisoes() -> PathBuf {
+    DECISOES_PADRAO.into()
 }
 
 impl Config {
@@ -90,6 +100,7 @@ mod tests {
         )
         .unwrap();
         assert_eq!(cfg.horas_sessao_nova, 24.0);
+        assert_eq!(cfg.decisoes, Path::new(DECISOES_PADRAO));
         assert_eq!(cfg.pastas, [r"D:\Projetos\dungeon-tactics"]);
         assert_eq!(
             cfg.known("local_a").map(|(i, s)| (i, s.id.as_str())),

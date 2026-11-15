@@ -13,10 +13,12 @@
 use std::path::PathBuf;
 
 pub mod config;
+pub mod decisoes;
 pub mod model;
 mod reader;
 
 pub use config::{Config, SessaoConhecida};
+pub use decisoes::{Decisao, ErroDecisao, Escolha};
 pub use model::{Estacao, Estado, Fabrica, Subagente};
 pub use reader::{Board, Paths, iso};
 
