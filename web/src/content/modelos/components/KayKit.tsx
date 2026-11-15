@@ -138,6 +138,8 @@ export function urlKayKit(
   q.set('solo', '1');
   // the bench puts them at the game's 0.85 height, smaller than the Animações models; a scene spans 3 to 4 tiles
   q.set('zoom', CENA.test(clipe) ? '2.6' : '1.2');
+  // jumping down starts on a 2-level block: the view aims higher or the head leaves the frame
+  if (clipe === 'jump:down') q.set('fy', '0.8');
   for (const [parte, de] of Object.entries(partes)) if (de) q.set(parte, de);
   return url.toString();
 }

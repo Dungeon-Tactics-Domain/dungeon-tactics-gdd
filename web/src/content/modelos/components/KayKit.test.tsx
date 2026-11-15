@@ -96,6 +96,8 @@ describe('KayKit', () => {
     expect(params().has('anim')).toBe(false);
     expect(screen.getByText('Tocando: Por cima de uma casa vazia')).toBeInTheDocument();
 
+    await userEvent.click(screen.getByRole('button', { name: 'Caindo de um obstáculo' }));
+    expect([params().get('jump'), params().get('fy')]).toEqual(['down', '0.8']);
     await userEvent.click(screen.getByRole('button', { name: 'Andando numa rampa' }));
     expect(params().get('walk')).toBe('ramp');
     await userEvent.click(screen.getByRole('button', { name: 'Cena: batendo na parede' }));
