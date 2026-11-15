@@ -112,4 +112,14 @@ describe('design lab components', () => {
     await user.click(screen.getByRole('button', { name: 'Neutro (parado)' }));
     expect(screen.getByText('42/42')).toBeInTheDocument();
   });
+
+  it('opens on the official version D and keeps the chosen moment when the character changes, without new damage', async () => {
+    const user = userEvent.setup();
+    render(<Expressoes />);
+    expect(screen.getByRole('button', { name: /^D · / })).toHaveAttribute('aria-pressed', 'true');
+    await user.click(screen.getByRole('button', { name: 'Levar dano' }));
+    await user.click(screen.getByRole('button', { name: 'Maga' }));
+    expect(screen.getByText('28/42')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Levar dano' })).toHaveAttribute('aria-pressed', 'true');
+  });
 });

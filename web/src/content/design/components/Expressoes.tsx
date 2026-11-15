@@ -38,17 +38,17 @@ const ROTULO: Record<Momento, string> = {
 const MAX_HP = 42;
 // versions of the sheet for the jitter test (the game's ia-variantes script): folder chars/<folder>/<id>.png
 const VERSOES: [pasta: string, nome: string, nota: string][] = [
+  [
+    'ia-alinhado-rosto',
+    'D · Alinhado + capacete parado (oficial)',
+    'Oficial por enquanto (escolha do Fernando, 15/11), é o que está no jogo. Quadros alinhados e só o rosto (olhos e boca) vem do quadro novo; capacete, chapéu e capuz ficam do neutro, então a cabeça não muda de formato.',
+  ],
   ['ia', 'Original (IA)', 'Quadros como a IA entregou: o rosto inteiro muda a cada quadro e treme.'],
   ['ia-boca', 'A · Só a boca colada', 'Rosto parado do quadro neutro; só a boca vem dos quadros de fala.'],
   [
     'ia-pixel2',
     'C · A + pixel art 128 px (proper-pixel-art)',
     'Versão A passada pelo proper-pixel-art com grade de 2 px (128x128, 48 cores): borda de pixel real, perde menos detalhe que a grade de 4 px.',
-  ],
-  [
-    'ia-alinhado-rosto',
-    'D · Alinhado + capacete parado',
-    'Quadros alinhados e só o rosto (olhos e boca) vem do quadro novo; capacete, chapéu e capuz ficam do neutro, então a cabeça não muda de formato.',
   ],
   [
     'ia-alinhado',
@@ -99,7 +99,8 @@ function Quadro({ pasta, id, n, lado }: { pasta: string; id: string; n: number; 
 }
 
 export function Expressoes() {
-  const [pasta, setPasta] = useState('ia');
+  const [pasta, setPasta] = useState('ia-alinhado-rosto');
+  const [escolhido, setEscolhido] = useState<Momento>('neutro');
   const [id, setId] = useState('barbarian');
   const [zoom, setZoom] = useState(1);
   const [q, setQ] = useState<number>(Q.neutro);
@@ -202,7 +203,16 @@ export function Expressoes() {
   const toca = (m: Momento) => {
     parar();
     setFx((f) => ({ ...f, cls: '' }));
+    setEscolhido(m);
     acao[m]();
+  };
+  // switching character or version keeps the chosen moment; damage is not applied again (only the frame is repainted)
+  const refaz = () => {
+    if (escolhido !== 'dano') toca(escolhido);
+    else {
+      parar();
+      setQ(Q.dano);
+    }
   };
   // leaving the page stops every timer
   useEffect(() => {
@@ -225,7 +235,7 @@ export function Expressoes() {
           ativo={(p) => p === pasta}
           onPick={(p) => {
             setPasta(p);
-            toca('neutro');
+            refaz();
           }}
         />
         <p className="expr-nota">{VERSOES.find(([p]) => p === pasta)![2]}</p>
@@ -235,13 +245,13 @@ export function Expressoes() {
           ativo={(i) => i === id}
           onPick={(i) => {
             setId(i);
-            toca('neutro');
+            refaz();
           }}
         />
         <div className="expr-bar" role="group" aria-label="Momento">
           <span className="rot">Momento</span>
           {MOMENTOS.map((m) => (
-            <button key={m} type="button" onClick={() => toca(m)}>
+            <button key={m} type="button" aria-pressed={m === escolhido} onClick={() => toca(m)}>
               {ROTULO[m]}
             </button>
           ))}
