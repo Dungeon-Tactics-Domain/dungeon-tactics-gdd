@@ -1,0 +1,188 @@
+{
+  "game": "Unicorn Overlord",
+  "slug": "unicorn-overlord",
+  "year": 2024,
+  "shots": [
+    {
+      "file": "refs/unicorn-overlord/01-batalha.jpg",
+      "source": "https://www.rpgfan.com/gallery/unicorn-overlord-screenshots/",
+      "screen": "batalha",
+      "title": "Mapa de campo em tempo real com tropas, marcadores e quadro das unidades embaixo",
+      "layout": "Paisagem pintada de cima. Pontos de vitória e tempo no topo. Minimapa no canto superior direito. Duas plataformas de quadrados (uma de cada lado) no rodapé com retratos nos cantos. Barra de HP total no centro embaixo.",
+      "pieces": [
+        "'Valor Points' com barra cinza em fatias e '2/10' em número grande no canto superior esquerdo",
+        "'Time Limit' em medalhão central no alto com ponteiro",
+        "Minimapa moldurado em madeira com pontos vermelhos e brancos, abaixo etiquetas 'Road' e ícones",
+        "Cada tropa no mapa com anel colorido (azul aliado, vermelho inimigo, amarelo selecionado) e número em escudo (4, 5, 6, 9)",
+        "Barra central com números '26' (laranja) e '9' (azul) e coração verde 'HP' no meio",
+        "Plataformas de tabuleiro em xadrez no rodapé: à esquerda a de Simone (marrom, bandeira vermelha, retrato), à direita a de Alain (azul, bandeira azul, retrato), cada um com Lv e HP '16/16', '45/45', '58/58'",
+        "Faixas de nome 'Simone's Unit' 4 e 'Alain's Unit' 6 com ícone de espadas cruzadas",
+        "Menu pequeno 'Select / Details' ao lado da tropa escolhida"
+      ],
+      "take": "As duas formações de tabuleiro no rodapé permitem ler o que cada tropa tem, sem tampar o mapa.",
+      "avoid": "Muitos elementos nos cantos competem; escudos numéricos sobre o mapa ficam pequenos."
+    },
+    {
+      "file": "refs/unicorn-overlord/02-ficha.jpg",
+      "source": "https://www.rpgfan.com/gallery/unicorn-overlord-screenshots/",
+      "screen": "ficha",
+      "title": "Tela de formação de unidade: lista de membros, info da unidade e stats do selecionado",
+      "layout": "Fundo escuro marrom com moldura dourada. Esquerda: tabuleiro 3D da unidade e nome da unidade. Direita em cima: grade de membros. Embaixo: três painéis (info, tabela, stats).",
+      "pieces": [
+        "Título 'Unit Formation' em placa dourada com ícone amarelo no canto superior esquerdo",
+        "Grade de personagens em fileiras de 5 com nível 'Lv.' e número de custo ('04', '05', '06') ao lado do boneco",
+        "Seleção com feixe de luz laranja sobre o personagem",
+        "Tabuleiro da unidade 'Alain's Unit' com faixa azul e '3/4' membros",
+        "Painel 'Unit Information' com membros, stamina, movimento, tipo e 'Leader Effect Morale Boost' e descrição",
+        "Painel central em branco com ícones em tabela",
+        "Painel de stats: Melisandre Lv.13 Swordfighter, HP 28/28, Phys. ATK, Phys. DEF, Mag. ATK, Mag. DEF, Accuracy, Evasion, Critical Rate, Guard Rate, Initiative",
+        "Dicas 'Sort (Unit)' e 'Toggle Info' com indicador de página 1234"
+      ],
+      "take": "Organizar a tropa num tabuleiro 3D com os números do selecionado ao lado faz a decisão ser feita sem sair da tela.",
+      "avoid": "Três painéis de stats e dicas apertam o rodapé em letra pequena."
+    },
+    {
+      "file": "refs/unicorn-overlord/03-previa-combate.jpg",
+      "source": "https://www.rpgfan.com/gallery/unicorn-overlord-screenshots/",
+      "screen": "previa",
+      "title": "Cena de combate lateral com painéis de HP e chance de acerto nas bordas",
+      "layout": "Cena pintada em plano lateral, aliados à direita e inimigos à esquerda. Bandeiras no alto de cada lado. Mini-tabuleiros com HP nos cantos inferiores.",
+      "pieces": [
+        "Bandeira vermelha (inimigo) no canto superior esquerdo e azul (aliado) no direito",
+        "Barras verdes de HP com valores '82/82', '33/60', '130/130', '0/52' sobre cada combatente e pequenos losangos de cor embaixo",
+        "'Hit Rate 100%' perto do alvo",
+        "Mini-tabuleiro em xadrez marrom com bonecos no canto inferior esquerdo e outro no direito",
+        "Faixa azul 'Snow-white Strike' com ícone de gema em ornamento dourado à direita, nome da habilidade em uso",
+        "Efeito de feixe azul com flocos atravessando a cena"
+      ],
+      "take": "Cada combatente leva o próprio HP na cena e o nome da habilidade fica em faixa à parte.",
+      "avoid": "Prévia numérica de dano não aparece; só chance de acerto, e pequena."
+    },
+    {
+      "file": "refs/unicorn-overlord/04-dialogo.jpg",
+      "source": "https://www.rpgfan.com/gallery/unicorn-overlord-screenshots/",
+      "screen": "dialogo",
+      "title": "Diálogo com balões pergaminho e escolha de duas opções",
+      "layout": "Cena pintada de acampamento; personagens ao rodapé; balões em pergaminho no meio e no alto.",
+      "pieces": [
+        "Balão 'Melisandre' com texto em fonte serifada escura sobre fundo bege e placa preta com nome",
+        "Balão 'Alain' acima com opções numeradas: '1. Recruit her.' (selecionada, com ícone de seta dourada) e '2. Execute her.' (cinza)",
+        "Pontas de balão apontando para quem fala",
+        "Personagens em pose na cena, sem retrato separado"
+      ],
+      "take": "Balão em pergaminho preso ao personagem mantém a cena inteira visível.",
+      "avoid": "Opção não escolhida fica cinza e parece desativada."
+    },
+    {
+      "file": "refs/unicorn-overlord/05-mapa.jpg",
+      "source": "https://www.rpgfan.com/gallery/unicorn-overlord-screenshots/",
+      "screen": "mapa",
+      "title": "Mapa do mundo em tempo real com rota a ser traçada e menu de ações",
+      "layout": "Paisagem vista de cima. Marcador de valor no alto esquerdo, tempo no centro, minimapa no canto superior direito. Unidade do jogador no centro com menu de 3 linhas ao lado. Tabuleiro e retrato no canto inferior direito.",
+      "pieces": [
+        "'Valor' com barra de fatias e '3/10'",
+        "'Time Limit' em medalhão",
+        "Minimapa com etiquetas 'Road' e 'Speed 1'",
+        "Tropa selecionada com anel amarelo e escudo '6' verde, ponteiro de espada azul sobre ela",
+        "Linha de setas azuis claras desde a tropa até um feixe branco de luz (destino)",
+        "Menu: 'Move', 'Set Relay Point', 'Adjust Route'",
+        "Inimigos com anel laranja e escudos '4' e '6'",
+        "Tabuleiro 'Alain's Unit' com faixa '6' no canto inferior direito"
+      ],
+      "take": "O caminho como linha de setas até um feixe de luz mostra o destino sem texto.",
+      "avoid": "Menu flutuante sem moldura se perde na pintura do mapa."
+    },
+    {
+      "file": "refs/unicorn-overlord/06-classe.jpg",
+      "source": "https://www.rpgfan.com/gallery/unicorn-overlord-screenshots/",
+      "screen": "classe",
+      "title": "Tela de promoção de classe: antes e depois, stats com nota de A a S",
+      "layout": "Cabeçalho 'Promote' em placa e botão 'View Skills' no alto. Faixa 'antes e depois' com setas douradas. Grade de membros à esquerda; silhueta com troféu '50' no centro; coluna de stats à direita; rodapé com descrição e moedas.",
+      "pieces": [
+        "Faixa do personagem antes ('Alain Lv.8 Lord') e depois ('Alain Lv.8 High Lord') ligadas por três setas douradas",
+        "Grade 3 colunas de bonecos com 'Lv.' e nome",
+        "Silhueta preta de cavaleiro montado com medalha vermelha de troféu '50' no centro",
+        "Coluna 'Stats' com setas L/R: Growth Type, AP/PP em gemas, HP 44, Phys. ATK 15, Phys. DEF 12, Mag. ATK 14, Mag. DEF 15, Accuracy 129, Evasion 37, Crit. Rate 11%, Guard Rate 16%, Initiative 24",
+        "Setas verdes com ganho e nota ao lado (A, C, A, C, B, B, A, C, S, A)",
+        "Texto 'A noble warrior bearing the blood of royalty...' e linhas 'Gold 19435 G', 'Honors 1900', 'Renown 5000 pts'"
+      ],
+      "take": "Antes/depois com setas verdes de ganho e uma nota de letra em cada stat deixa a escolha da promoção clara.",
+      "avoid": "A silhueta preta grande ocupa o centro sem dizer nada."
+    },
+    {
+      "file": "refs/unicorn-overlord/07-loja.jpg",
+      "source": "https://www.rpgfan.com/gallery/unicorn-overlord-screenshots/",
+      "screen": "loja",
+      "title": "Inventário de itens com grade de unidades e lista em duas colunas",
+      "layout": "Fundo desfocado do mapa. Esquerda: grade de unidades com 'Next' de XP. Direita: lista de itens em duas colunas com abas de categoria no alto. Descrição embaixo.",
+      "pieces": [
+        "Título 'Items' em placa dourada",
+        "Placa azul 'Chloe Lv.7 To Next 91 Soldier'",
+        "Grade de bonecos com 'Next' e valor de XP e 'Lv.'",
+        "Abas de categoria em ícones dourados (poção, espadas, anel...) com a aba ativa realçada",
+        "Lista em duas colunas: ícone, nome e quantidade à direita; o item selecionado em barra azul clara",
+        "Rodapé: 'Novice Military Treatise' em placa, 'Held 8' e texto de efeito 'Grants 50 EXP to a selected ally...'"
+      ],
+      "take": "Abas de ícone no topo e lista em 2 colunas mostram muito item ao mesmo tempo, com nome e contagem alinhados.",
+      "avoid": "Ícones de aba sem rótulo."
+    },
+    {
+      "file": "refs/unicorn-overlord/08-equipamento.jpg",
+      "source": "https://www.rpgfan.com/gallery/unicorn-overlord-screenshots/",
+      "screen": "equipamento",
+      "title": "Detalhes da unidade: equipamento, stats e lista de táticas por prioridade",
+      "layout": "Cabeçalho 'Unit Details' com abas em medalhões no alto direito (Loadout, Skills, Details, Stats). Esquerda: tabuleiro da unidade. Direita: painéis de equipamento, stats e táticas. Rodapé: efeito de líder, stamina e arma selecionada.",
+      "pieces": [
+        "Abas em medalhões de ornamento dourado com LB e RB",
+        "Painel 'Equipment': Bronze Sword, Bronze Shield, Ring of the Unicorn, cada um com ícone",
+        "Painel de stats: HP 44, Phys. ATK 22, Phys. DEF 14, Mag. ATK 14, Mag. DEF 13, Initiative 19, Accuracy 126, Evasion 34, Crit. Rate 11 %, Guard Rate 40 %",
+        "Painel 'Tactics': colunas Priority, Action, Condition 1 e 2; linhas 'Lean Edge' em vermelho com 1, 'Luminous Cover' e 'Noble Guard' em ciano com 1 e 2, e linhas '+ Add a Tactic' apagadas",
+        "Botões 'Edit', 'Reposition', 'Make Leader' sob o tabuleiro",
+        "Rodapé com 'Leader Effect Morale Boost', Stamina 9/9, Wait Time 0.0/6.0, Mobility 100 e a arma 'Bronze Sword' com Phys. ATK 8"
+      ],
+      "take": "A lista de táticas por prioridade e condição, em linhas coloridas pelo tipo, vira um programa simples que o jogador monta.",
+      "avoid": "Moldura dourada ornamental em cada painel pesa e compete com o conteúdo."
+    },
+    {
+      "file": "refs/unicorn-overlord/09-loja.jpg",
+      "source": "https://www.rpgfan.com/gallery/unicorn-overlord-screenshots/",
+      "screen": "loja",
+      "title": "Provisioner: Buy, Sell e Buy Back com lista de itens em placa de ferro",
+      "layout": "NPC e balão à esquerda; placas Buy, Sell, Buy Back penduradas; lista numa moldura de ferro à direita; descrição embaixo.",
+      "pieces": [
+        "Título 'Provisioner'",
+        "Placas Buy, Sell, Buy Back",
+        "Colunas To Buy, Held, In Stock, Price com setas de quantidade",
+        "Peso do inventário e ouro no rodapé da lista",
+        "Painel de descrição do item"
+      ],
+      "take": "As colunas de quantidade e o peso do inventário junto ao ouro.",
+      "avoid": "A moldura enfeitada ocupa espaço."
+    },
+    {
+      "file": "refs/unicorn-overlord/10-loja.jpg",
+      "source": "https://www.rpgfan.com/gallery/unicorn-overlord-screenshots/",
+      "screen": "loja",
+      "title": "Taverna: pratos com preço, participantes e ganho de vínculo",
+      "layout": "NPC e balão à esquerda; três pratos em cartões à direita com barras e ícones.",
+      "pieces": ["Título 'Tavern'", "Três pratos com foto, preço, participantes e ganho de vínculo", "Ouro no rodapé"],
+      "take": "O efeito vem em ícones e números ao lado do preço.",
+      "avoid": "Sem nome do prato, só 'Main Dish'."
+    },
+    {
+      "file": "refs/unicorn-overlord/11-titulo.jpg",
+      "source": "https://gamesdb.launchbox-app.com/games/details/392309-unicorn-overlord",
+      "screen": "titulo",
+      "title": "Título: logo grande sobre ilustração de dois exércitos",
+      "layout": "Logo gigante no topo; arte dos exércitos em lados opostos; moldura de papel desgastado.",
+      "pieces": ["Logo com coroa, unicórnio e dois anéis", "Exércitos em lados opostos", "Moldura de papel desgastado"],
+      "take": "A arte já conta o conflito.",
+      "avoid": "Só arte e logo; não há menu na captura."
+    }
+  ],
+  "notFound": [
+    "Fila de turnos: não existe; as tropas agem em tempo real",
+    "Opções não achadas",
+    "Prévia numérica de dano antes de atacar"
+  ]
+}

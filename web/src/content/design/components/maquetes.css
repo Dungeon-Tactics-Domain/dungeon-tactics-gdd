@@ -1,0 +1,844 @@
+/* Copied from dungeon-tactics-lab/design/src/maquetes.css (14/11). Everything is nested under .dz-maquetes so the generic
+   class names (.stage, .bar, .menu, .tile…) never reach the rest of the app once this chunk has loaded. */
+.dz-maquetes {
+  /* Amostras de estilo das 3 direções (Fase 2, passo 1). Cada direção vive dentro de .dir-<id> .stage e não vaza para a
+   casca. O palco é 16:9 e mede tudo em cqw (largura do palco), para a amostra escalar como a tela do jogo escalaria:
+   1.6cqw = 16 px numa tela de 1000 px de largura, ~30 px em 1920. */
+  .tile {
+    display: grid;
+    gap: 12px;
+  }
+  .tile > h3 {
+    font-size: 20px;
+    margin: 0;
+  }
+  .tile > p {
+    margin: 0;
+    max-width: 75ch;
+  }
+  .tile-notes {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 24px;
+    font-size: 14px;
+  }
+  .tile-notes strong {
+    display: block;
+    margin: 10px 0 4px;
+  }
+  .tile-notes strong:first-child {
+    margin-top: 0;
+  }
+  .tile-notes p {
+    margin: 0;
+  }
+  .swatches {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 6px;
+  }
+  .swatches li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .swatches i {
+    width: 28px;
+    height: 28px;
+    flex: none;
+    border: 1px solid rgba(0, 0, 0, 0.35);
+  }
+  .specimen {
+    display: grid;
+    gap: 2px;
+    margin: 0 0 8px !important;
+  }
+  .specimen-sample {
+    font-size: 26px;
+    line-height: 1.15;
+  }
+  @media (max-width: 900px) {
+    .tile-notes {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  .stage {
+    position: relative;
+    container-type: inline-size;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    font-size: 1.6cqw;
+    line-height: 1.25;
+    /* captura real do jogo (Colina do Farol, 1920x1080, sem interface); o degradê só aparece se a imagem faltar */
+    background:
+      var(--cena, url(/content/design/cenas/cena-colina.jpg)) center / cover,
+      linear-gradient(#1b2a3a, #14201c);
+  }
+  .stage ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .stage button {
+    font: inherit;
+    cursor: pointer;
+  }
+  .stage kbd {
+    font: inherit;
+  }
+  .stage .bar {
+    display: grid;
+    grid-template-columns: 3.4em 1fr 3.6em;
+    align-items: center;
+    gap: 0.6em;
+    font-size: 1.3cqw;
+  }
+  .stage .bar-track {
+    display: block;
+    height: 0.8cqw;
+  }
+  .stage .bar-track i {
+    display: block;
+    height: 100%;
+  }
+  .stage .bar-num {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+  .stage .unit {
+    position: absolute;
+    bottom: 2.2cqw;
+    display: flex;
+    gap: 1.2cqw;
+    align-items: center;
+    width: 30cqw;
+  }
+  .stage .unit.hero {
+    left: 2.2cqw;
+  }
+  .stage .unit.foe {
+    right: 2.2cqw;
+    flex-direction: row-reverse;
+  }
+  .stage .unit-body {
+    flex: 1;
+    display: grid;
+    gap: 0.5cqw;
+    min-width: 0;
+  }
+  .stage .unit-name {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    column-gap: 0.8em;
+  }
+  .stage .unit-class {
+    font-size: 1.3cqw;
+    white-space: nowrap;
+  }
+  .stage .face {
+    width: 6.4cqw;
+    height: 8.4cqw;
+    flex: none;
+  }
+  .stage small {
+    font-size: 0.45em;
+  }
+
+  /* ───────── A · Vitral ───────── */
+  .dir-a .stage {
+    --night: #161c38;
+    --lead: #070912;
+    --lamp: #f0a93a;
+    --crystal: #74c8f0;
+    --ruby: #d9506a;
+    --linen: #f3efe4;
+    --moss: #6fbf88;
+    color: var(--linen);
+    font-family: 'Karla', system-ui, sans-serif;
+  }
+  /* vidro chumbado: fundo quase opaco, chumbo grosso por fora, um fio de cristal por dentro, cantos chanfrados */
+  .dir-a :is(.menu, .preview, .unit, .queue) {
+    background: color-mix(in srgb, var(--night) 94%, transparent);
+    border: 0.35cqw solid var(--lead);
+    box-shadow: inset 0 0 0 0.1cqw color-mix(in srgb, var(--crystal) 45%, transparent);
+    clip-path: polygon(
+      1cqw 0,
+      calc(100% - 1cqw) 0,
+      100% 1cqw,
+      100% calc(100% - 1cqw),
+      calc(100% - 1cqw) 100%,
+      1cqw 100%,
+      0 calc(100% - 1cqw),
+      0 1cqw
+    );
+  }
+  .dir-a .queue {
+    position: absolute;
+    left: 2.2cqw;
+    top: 2.2cqw;
+    width: 15cqw;
+    display: grid;
+  }
+  .dir-a .queue li {
+    display: flex;
+    gap: 0.8em;
+    align-items: baseline;
+    padding: 0.55cqw 1cqw;
+    border-bottom: 0.2cqw solid var(--lead);
+    font-size: 1.4cqw;
+    border-left: 0.5cqw solid var(--crystal);
+  }
+  .dir-a .queue li:last-child {
+    border-bottom: none;
+  }
+  .dir-a .queue li.foe {
+    border-left-color: var(--ruby);
+  }
+  .dir-a .queue li.now {
+    background: var(--lamp);
+    color: var(--lead);
+    font-weight: 700;
+  }
+  .dir-a .queue b {
+    font-weight: 400;
+    opacity: 0.75;
+    font-variant-numeric: tabular-nums;
+  }
+  .dir-a .menu {
+    position: absolute;
+    left: 63%;
+    top: 16%;
+    width: 19cqw;
+    display: grid;
+  }
+  .dir-a .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.9cqw 1.3cqw;
+    border-bottom: 0.25cqw solid var(--lead);
+    font:
+      600 2.1cqw/1 'Cormorant Garamond',
+      Georgia,
+      serif;
+    letter-spacing: 0.01em;
+  }
+  .dir-a .row:last-child {
+    border-bottom: none;
+  }
+  .dir-a .row kbd {
+    font:
+      400 1.2cqw 'Karla',
+      sans-serif;
+    border: 0.1cqw solid currentColor;
+    padding: 0.1em 0.45em;
+    opacity: 0.8;
+  }
+  .dir-a .row.focus {
+    background: linear-gradient(#f6bd58, var(--lamp));
+    color: var(--lead);
+  }
+  .dir-a .preview {
+    position: absolute;
+    left: 22%;
+    bottom: 14.5cqw;
+    width: 38cqw;
+    padding: 1.2cqw 1.6cqw 1.4cqw;
+    display: grid;
+    gap: 0.7cqw;
+  }
+  .dir-a .preview-title {
+    font:
+      600 2.2cqw/1 'Cormorant Garamond',
+      Georgia,
+      serif;
+  }
+  .dir-a .preview-nums {
+    display: flex;
+    gap: 2.2cqw;
+    align-items: baseline;
+    font:
+      600 4cqw/1 'Cormorant Garamond',
+      Georgia,
+      serif;
+    font-variant-numeric: lining-nums tabular-nums;
+  }
+  .dir-a .preview-nums small {
+    font:
+      400 1.3cqw 'Karla',
+      sans-serif;
+    margin-left: 0.3em;
+  }
+  .dir-a .dmg {
+    color: #ff9db0;
+  }
+  .dir-a .preview-after {
+    font-size: 1.4cqw;
+  }
+  .dir-a .buttons {
+    display: flex;
+    gap: 0.8cqw;
+    margin-top: 0.3cqw;
+  }
+  .dir-a button {
+    padding: 0.7cqw 1.6cqw;
+    font-size: 1.5cqw;
+    font-weight: 700;
+    border: 0.3cqw solid var(--lead);
+    color: var(--linen);
+    background: #232b52;
+    box-shadow: inset 0 0 0 0.1cqw var(--crystal);
+  }
+  .dir-a button.primary {
+    background: linear-gradient(#f6bd58, var(--lamp));
+    color: var(--lead);
+    box-shadow: none;
+  }
+  .dir-a button:disabled {
+    opacity: 0.62;
+    cursor: default;
+  }
+  .dir-a button:focus-visible {
+    outline: 0.3cqw solid var(--linen);
+    outline-offset: 0.25cqw;
+  }
+  .dir-a .unit {
+    padding: 1cqw 1.2cqw;
+  }
+  .dir-a .unit-name {
+    font:
+      600 2.2cqw/1 'Cormorant Garamond',
+      Georgia,
+      serif;
+  }
+  .dir-a .unit-class {
+    font:
+      400 1.3cqw 'Karla',
+      sans-serif;
+    opacity: 0.8;
+  }
+  .dir-a .face {
+    background: linear-gradient(160deg, #2c3970, #1a2148);
+    border: 0.3cqw solid var(--lead);
+    box-shadow: inset 0 0 0 0.1cqw var(--crystal);
+  }
+  .dir-a .unit.foe .face {
+    box-shadow: inset 0 0 0 0.1cqw var(--ruby);
+  }
+  .dir-a .bar-track {
+    background: var(--lead);
+  }
+  .dir-a .hp i {
+    background: var(--moss);
+  }
+  .dir-a .mp i {
+    background: var(--crystal);
+  }
+
+  /* ───────── B · Ferro e cinza ───────── */
+  .dir-b .stage {
+    --ash: #d9d6ce;
+    --ash-lo: #c4c0b7;
+    --iron: #232327;
+    --ember: #b8420f;
+    --soot: #45423e;
+    --verdigris: #2c7a69;
+    --steel: #325f96;
+    color: var(--iron);
+    font-family: 'Barlow', system-ui, sans-serif;
+  }
+  .dir-b .queue {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    background: var(--iron);
+    color: var(--ash);
+  }
+  .dir-b .queue li {
+    padding: 0.7cqw 1.6cqw;
+    font:
+      600 1.6cqw/1 'Big Shoulders Display',
+      'Barlow',
+      sans-serif;
+    letter-spacing: 0.04em;
+    border-right: 0.15cqw solid #45454c;
+    border-bottom: 0.4cqw solid var(--steel);
+  }
+  .dir-b .queue li.foe {
+    border-bottom-color: #a5371f;
+  }
+  .dir-b .queue li.now {
+    background: var(--ash);
+    color: var(--iron);
+  }
+  /* bancada: chapa de cinza com a borda de cima em ferro e rebites */
+  .dir-b .bench {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: grid;
+    grid-template-columns: 23cqw 1fr 23cqw;
+    gap: 1.6cqw;
+    align-items: center;
+    padding: 1.8cqw 1.6cqw 1.2cqw;
+    background: linear-gradient(var(--ash), var(--ash-lo));
+    border-top: 0.7cqw solid var(--iron);
+    background-image:
+      radial-gradient(circle at center, #8f8b84 0 0.22cqw, transparent 0.24cqw),
+      linear-gradient(var(--ash), var(--ash-lo));
+    background-size:
+      5cqw 1.2cqw,
+      auto;
+    background-repeat: repeat-x, no-repeat;
+    background-position:
+      0 0.1cqw,
+      0 0;
+  }
+  .dir-b .unit {
+    position: static;
+    width: auto;
+  }
+  .dir-b .unit-name {
+    font:
+      700 2.2cqw/1 'Big Shoulders Display',
+      'Barlow',
+      sans-serif;
+    letter-spacing: 0.03em;
+  }
+  .dir-b .unit-class {
+    font:
+      500 1.3cqw 'Barlow',
+      sans-serif;
+    color: var(--soot);
+    letter-spacing: 0;
+  }
+  .dir-b .face {
+    background: #9d9990;
+    border: 0.3cqw solid var(--iron);
+  }
+  .dir-b .bar-track {
+    background: var(--iron);
+    padding: 0.12cqw;
+    height: 1cqw;
+  }
+  .dir-b .hp i {
+    background: #4fb39c;
+  }
+  .dir-b .mp i {
+    background: #6d9ad2;
+  }
+  .dir-b .mid {
+    display: grid;
+    gap: 0.9cqw;
+  }
+  .dir-b .preview {
+    display: flex;
+    align-items: baseline;
+    gap: 1.6cqw;
+    white-space: nowrap;
+    padding-bottom: 0.7cqw;
+    border-bottom: 0.15cqw solid var(--iron);
+  }
+  .dir-b .preview-title {
+    font:
+      700 2.2cqw/1 'Big Shoulders Display',
+      'Barlow',
+      sans-serif;
+    letter-spacing: 0.03em;
+  }
+  .dir-b .hit,
+  .dir-b .dmg {
+    font:
+      700 2.6cqw/1 'Big Shoulders Display',
+      'Barlow',
+      sans-serif;
+    font-variant-numeric: tabular-nums;
+  }
+  .dir-b .hit small {
+    font:
+      500 1.3cqw 'Barlow',
+      sans-serif;
+  }
+  .dir-b .dmg {
+    color: #8e2b12;
+  }
+  .dir-b .preview-after {
+    font-size: 1.4cqw;
+    color: var(--soot);
+  }
+  .dir-b .menu,
+  .dir-b .buttons {
+    display: flex;
+    gap: 0.6cqw;
+    align-items: stretch;
+  }
+  .dir-b .row,
+  .dir-b button {
+    display: flex;
+    align-items: center;
+    gap: 0.7cqw;
+    padding: 0.85cqw 1.1cqw;
+    border: 0.25cqw solid var(--iron);
+    background: #ebe8e1;
+    color: var(--iron);
+    font:
+      700 1.7cqw/1 'Big Shoulders Display',
+      'Barlow',
+      sans-serif;
+    letter-spacing: 0.04em;
+    box-shadow: 0 0.3cqw 0 var(--iron);
+  }
+  .dir-b .row kbd {
+    font:
+      600 1.2cqw 'Barlow',
+      sans-serif;
+    background: var(--iron);
+    color: var(--ash);
+    padding: 0.15em 0.5em;
+    letter-spacing: 0;
+  }
+  .dir-b .row.focus,
+  .dir-b button.primary {
+    background: var(--ember);
+    color: #fff;
+  }
+  .dir-b .row.focus kbd {
+    background: #fff;
+    color: var(--ember);
+  }
+  .dir-b button:disabled {
+    opacity: 0.62;
+    box-shadow: none;
+    cursor: default;
+  }
+  .dir-b button:focus-visible {
+    outline: 0.3cqw solid var(--steel);
+    outline-offset: 0.25cqw;
+  }
+
+  /* ───────── C · Carta de campo ───────── */
+  /* fichas de papel sobre a cena; medidas em cqw a partir da tela de 1280 (1px = .078cqw), com piso de 12px no texto e 44px nos alvos */
+  .dir-c .stage {
+    --paper: #f2ecdc;
+    --paper-lo: #e4dcc6;
+    --ink: #26241f;
+    --seal: #b3261e;
+    --seal-dk: #8a1a14;
+    --sea: #14595c;
+    --sea-dk: #0d4346;
+    --lead: #4a463c;
+    color: var(--ink);
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  }
+  /* cqw no próprio palco mediria a página; nos filhos mede o palco */
+  .dir-c .stage > * {
+    font-size: max(12px, 1.02cqw);
+  }
+  .dir-c .marks {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+  .dir-c :is(.queue, .forecast, .unit) {
+    background: rgba(242, 236, 220, 0.94);
+    border: 0.16cqw solid var(--ink);
+  }
+  .dir-c .queue {
+    position: absolute;
+    top: 1.25cqw;
+    left: 1.9cqw;
+    display: flex;
+    font-weight: 600;
+    font-size: max(12px, 1.1cqw);
+  }
+  .dir-c .queue li {
+    padding: 0.47cqw 1.1cqw;
+    border-left: 0.16cqw solid var(--ink);
+    color: var(--sea-dk);
+  }
+  .dir-c .queue li:first-child {
+    border-left: none;
+  }
+  .dir-c .queue li.foe {
+    color: var(--seal-dk);
+  }
+  .dir-c .queue li.now {
+    background: var(--ink);
+    color: var(--paper);
+  }
+  /* painel único ao lado do alvo: ficha do inimigo + previsão; a borda direita em lacre diz "inimigo" */
+  /* painel e trilha empilhados num só bloco, para a trilha nunca ficar por baixo do painel quando o piso de 12px o alonga */
+  .dir-c .anchor {
+    position: absolute;
+    left: 55%;
+    top: 6.1%;
+    width: 36cqw;
+    display: grid;
+    gap: 0.9cqw;
+    justify-items: start;
+  }
+  .dir-c .forecast {
+    justify-self: stretch;
+    padding: 1.1cqw 1.56cqw 1.25cqw;
+    display: grid;
+    gap: 0.55cqw;
+    border-right: 0.62cqw solid var(--seal);
+    box-shadow: 0 0 0 0.4cqw rgba(242, 236, 220, 0.35);
+  }
+  .dir-c .fc-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .dir-c .fc-name {
+    font:
+      700 1.72cqw/1.1 'Spectral',
+      Georgia,
+      serif;
+  }
+  .dir-c .tag {
+    font-weight: 600;
+    font-size: max(12px, 0.94cqw);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--seal-dk);
+  }
+  .dir-c .fc-sub {
+    color: var(--lead);
+    margin-top: -0.3cqw;
+  }
+  .dir-c .fc-nums {
+    display: flex;
+    align-items: baseline;
+    gap: 1.7cqw;
+    margin-top: 0.3cqw;
+  }
+  .dir-c .dmg {
+    font:
+      600 3.1cqw/1 'IBM Plex Mono',
+      monospace;
+    color: var(--seal-dk);
+  }
+  .dir-c .hit {
+    font:
+      600 1.72cqw/1 'IBM Plex Mono',
+      monospace;
+  }
+  .dir-c .hit small {
+    font-size: max(12px, 1.02cqw);
+    font-weight: 400;
+    color: var(--lead);
+  }
+  .dir-c .bar {
+    font-size: max(12px, 1.02cqw);
+    grid-template-columns: 3.2em 1fr 7.6em;
+    text-transform: uppercase;
+  }
+  .dir-c .bar-track {
+    position: relative;
+    height: 0.8cqw;
+    border: 0.08cqw solid var(--ink);
+    background: var(--paper-lo);
+  }
+  .dir-c .hp-forecast .bar-track {
+    height: 1.1cqw;
+  }
+  .dir-c .hp-forecast .bar-num {
+    text-transform: none;
+    font-weight: 600;
+  }
+  /* 3 faixas: tinta = vida que sobra com certeza, tinta listrada = talvez sobre, lacre = o que o golpe tira; o vazio é a vida que já faltava */
+  .dir-c .hp-forecast .bar-track i {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+  }
+  .dir-c .bar-track .sure {
+    background: var(--ink);
+  }
+  .dir-c .bar-track .maybe {
+    background: repeating-linear-gradient(135deg, var(--ink) 0 0.25cqw, var(--paper-lo) 0.25cqw 0.5cqw);
+  }
+  .dir-c .bar-track .dmg-band {
+    background: var(--seal);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .dir-c .bar-track .dmg-band {
+      animation: dz-dmg-pulse 1.1s ease-in-out infinite alternate;
+    }
+  }
+  .dir-c .legend {
+    list-style: none;
+    margin: -0.2cqw 0 0;
+    padding: 0 0 0 calc(3.2em + 0.6em);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3cqw 1.2cqw;
+    color: var(--lead);
+  }
+  .dir-c .legend li {
+    display: flex;
+    align-items: center;
+    gap: 0.4em;
+  }
+  .dir-c .legend li::before {
+    content: '';
+    width: 1.1em;
+    height: 0.8em;
+    border: 1px solid var(--ink);
+  }
+  .dir-c .legend li.gone::before {
+    background: var(--paper-lo);
+  }
+  .dir-c .legend .sure::before {
+    background: var(--ink);
+  }
+  .dir-c .legend .maybe::before {
+    background: repeating-linear-gradient(135deg, var(--ink) 0 2px, var(--paper-lo) 2px 4px);
+  }
+  .dir-c .legend .dmg-band::before {
+    background: var(--seal);
+  }
+  .dir-c .forecast .mp {
+    color: var(--lead);
+  }
+  .dir-c .forecast .mp .bar-track {
+    border-style: dashed;
+    border-color: var(--lead);
+    background: none;
+  }
+  .dir-c .buttons {
+    display: flex;
+    gap: 0.94cqw;
+    margin-top: 0.4cqw;
+  }
+  .dir-c button {
+    min-height: max(44px, 3.5cqw);
+    padding: 0.5cqw 1.6cqw;
+    font:
+      700 1.48cqw/1 'Spectral',
+      Georgia,
+      serif;
+    border: 0.16cqw solid var(--ink);
+    background: transparent;
+    color: var(--ink);
+  }
+  .dir-c button kbd {
+    font:
+      400 max(12px, 0.94cqw) 'IBM Plex Mono',
+      monospace;
+    margin-left: 0.3em;
+  }
+  .dir-c button.primary {
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .dir-c button:focus-visible {
+    outline: 0.3cqw solid var(--seal);
+    outline-offset: 0.25cqw;
+  }
+  /* menu recolhido: só a trilha do que já foi escolhido, apagada, para o único foco ser Executar */
+  .dir-c .trail {
+    padding: 0.4cqw 1cqw;
+    background: rgba(242, 236, 220, 0.8);
+    color: var(--lead);
+    font-weight: 600;
+  }
+  .dir-c .unit {
+    bottom: 5%;
+    width: 23.4cqw;
+    padding: 0.78cqw 1.1cqw 0.94cqw;
+    border-left: 0.62cqw solid var(--sea);
+  }
+  .dir-c .face {
+    display: none;
+  }
+  .dir-c .unit-body {
+    gap: 0.35cqw;
+  }
+  .dir-c .unit-name {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    font:
+      700 1.72cqw/1.1 'Spectral',
+      Georgia,
+      serif;
+  }
+  .dir-c .unit-name::after {
+    content: 'Aliada';
+    grid-row: 1;
+    grid-column: 2;
+    align-self: baseline;
+    font:
+      600 max(12px, 0.94cqw) 'IBM Plex Mono',
+      monospace;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--sea-dk);
+  }
+  .dir-c .unit-class {
+    grid-row: 2;
+    grid-column: 1 / -1;
+    font:
+      400 max(12px, 1.02cqw) 'IBM Plex Mono',
+      monospace;
+    color: var(--lead);
+  }
+  .dir-c .hp i {
+    background: var(--sea);
+  }
+  .dir-c .mp i {
+    background: #3d4f8a;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .stage .row {
+      transition: background-color 90ms ease-out;
+    }
+  }
+  /* lado na fila também pela forma, não só pela cor (conferência medida de 14/11): herói ● , inimigo ◆ */
+  .stage .queue li::before {
+    content: '● ';
+    font-size: 0.7em;
+  }
+  .stage .queue li.foe::before {
+    content: '◆ ';
+  }
+
+  /* new app: wraps at 375px, 44px targets, and the lab accent (--accent is a light token here, white on it would fail) */
+  .cenas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    margin: 0.5rem 0 1rem;
+  }
+  .cenas button {
+    font: inherit;
+    min-height: 44px;
+    padding: 0.35rem 0.8rem;
+    border: 1px solid currentColor;
+    background: transparent;
+    color: inherit;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .cenas button[aria-pressed='true'] {
+    background: var(--lab);
+    color: #fff;
+    border-color: transparent;
+  }
+}
+@keyframes dz-dmg-pulse {
+  to {
+    opacity: 0.45;
+  }
+}

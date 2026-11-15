@@ -1,0 +1,148 @@
+{
+  "game": "Into the Breach",
+  "slug": "into-the-breach",
+  "year": 2018,
+  "shots": [
+    {
+      "file": "refs/into-the-breach/01-batalha.jpg",
+      "source": "https://store.steampowered.com/app/590380/Into_the_Breach/",
+      "screen": "batalha",
+      "title": "Batalha com intenção dos inimigos marcada no mapa e dica de terreno",
+      "layout": "Mapa isométrico no centro. Canto superior esquerdo: engrenagem, barra de energia da rede (Power Grid) e botão Reset. Logo abaixo, botão grande End Turn com Undo Move ao lado. Coluna de retratos dos 3 pilotos na lateral esquerda. Canto superior direito: contagem de turnos para vencer e objetivos bônus. Canto inferior esquerdo: nome e retrato da unidade inimiga sob o cursor. Canto inferior direito: caixa de dica do terreno.",
+      "pieces": [
+        "Barra Power Grid: 8 células retangulares laranjas, 3 acesas, rótulo em maiúsculas e porcentagem de defesa; moldura azul-escura fina.",
+        "End Turn: botão grande azul-escuro com borda azul-acinzentada e texto pixel branco; Undo Move apagado ao lado.",
+        "Coluna de pilotos: retrato do piloto + ícone do mecha + barra de vida verde pequena; moldura azul fina empilhada.",
+        "Intenção do inimigo: tiles listrados em vermelho/rosa e setas rosadas apontando a direção do golpe, desenhadas direto no mapa.",
+        "Objetivos bônus: painel com estrela e texto verde riscado quando cumprido.",
+        "Caixa Chasm Tile: título branco em negrito e uma frase curta de regra, fundo azul quase preto com borda azul."
+      ],
+      "take": "Mostrar a intenção do inimigo como marcas no próprio mapa, antes de o jogador agir, e explicar o terreno numa caixa de uma frase.",
+      "avoid": "Muitos painéis de mesmo peso nos quatro cantos competem pela atenção."
+    },
+    {
+      "file": "refs/into-the-breach/02-ficha.jpg",
+      "source": "https://store.steampowered.com/app/590380/Into_the_Breach/",
+      "screen": "ficha",
+      "title": "Tela de montar o esquadrão com resumo de cada mecha",
+      "layout": "Fundo escuro com a cena do hangar à esquerda. Botões Back (topo esquerdo) e Start (topo direito) grandes. Painel Customize Squad à direita, em coluna, com 3 linhas de mecha. Painel do Time Traveler (piloto) embaixo à esquerda sobre a cena.",
+      "pieces": [
+        "Cabeçalho do painel com aba inclinada azul e título em fonte pixel grande.",
+        "Linha de mecha: ícone do mecha, nome em fonte pixel, ícone da arma, ícone passivo, valores de vida e movimento em verde e a palavra Ranged em amarelo.",
+        "Botões quadrados de lápis e de cor ao lado de cada linha.",
+        "Painel do piloto: retrato grande, nome, texto de habilidade em duas linhas e botões Randomize e Change Time Traveler.",
+        "Botões largos Edit Squad e Change Squad no pé do painel."
+      ],
+      "take": "Cada unidade cabe numa linha com ícones: arma, passiva e números, sem abrir outra tela.",
+      "avoid": "Fonte pixel grande nos títulos e fonte comum minúscula nos botões de baixo ficam desiguais."
+    },
+    {
+      "file": "refs/into-the-breach/03-mapa.jpg",
+      "source": "https://store.steampowered.com/app/590380/Into_the_Breach/",
+      "screen": "mapa",
+      "title": "Seleção de missão com objetivos, aviso de clima e fala da operadora",
+      "layout": "Barra de recursos centralizada no topo. Retratos dos mechas esmaecidos na lateral esquerda. Mapa-múndi escuro de fundo. Painel da missão ao centro-esquerda com a miniatura isométrica do terreno saindo para a direita. Fala com retrato acima, ao lado direito.",
+      "pieces": [
+        "Barra de topo: estrela, engrenagem, Power Grid com células laranjas, Grid Defense e ícone de pessoas, separados por linhas verticais finas.",
+        "Painel da missão: nome da região em vermelho com fonte pixel, linhas Bonus Objectives e Warning com divisórias e rótulo.",
+        "Aviso WIND STORM em amarelo, dentro de um losango com seta, em fonte pixel.",
+        "Miniatura do terreno em losango com contorno azul e tiles marrons.",
+        "Caixa de fala: texto branco corrido, borda azul fina, retrato quadrado à direita com moldura."
+      ],
+      "take": "Antes da batalha, mostrar objetivos e riscos (aviso em amarelo) junto da miniatura do terreno.",
+      "avoid": "Retratos de mechas quase invisíveis na lateral parecem desativados e confundem."
+    },
+    {
+      "file": "refs/into-the-breach/04-previa.jpg",
+      "source": "https://store.steampowered.com/app/590380/Into_the_Breach/",
+      "screen": "previa",
+      "title": "Arma selecionada: área atingida e números sobre os inimigos antes de confirmar",
+      "layout": "Mapa isométrico ocupa o centro. HUD de topo e lateral esquerda iguais à batalha comum. Barra inferior esquerda com retrato do piloto, ícone de reparo, arma selecionada e botão laranja de desarmar. Canto inferior direito: dica do terreno de água.",
+      "pieces": [
+        "Barra da unidade: retrato do piloto com nome, botão de chave inglesa (R), arma grande com tecla 1 e uma caixa laranja com texto de desarmar.",
+        "Tiles da área da arma pintados em laranja e vermelho translúcidos sobre o mapa, com borda mais clara.",
+        "Inimigos com contorno vermelho e barrinha de vida verde com pips acima.",
+        "Números amarelos grandes 1 a 5 sobre inimigos e tiles rosados; pela posição, leio como ordem de ataque dos inimigos, mas a imagem não confirma.",
+        "Caixa Water Tile em branco sobre azul-escuro explicando a regra."
+      ],
+      "take": "Pintar a área afetada no mapa e marcar os alvos, para o jogador ver o resultado antes de confirmar.",
+      "avoid": "A imagem não mostra um número de dano explícito por alvo; os números amarelos são ambíguos."
+    },
+    {
+      "file": "refs/into-the-breach/05-dialogo.jpg",
+      "source": "https://store.steampowered.com/app/590380/Into_the_Breach/",
+      "screen": "dialogo",
+      "title": "Cena de diálogo com ilustração em quadro e retrato da personagem",
+      "layout": "Barra de recursos no topo. Ilustração grande em moldura no centro da tela, ocupando mais da metade. Título da cena em faixa no topo da ilustração. Caixa de fala embaixo com retrato quadrado à esquerda. Botão Continue no canto inferior direito.",
+      "pieces": [
+        "Faixa de título translúcida escura sobre a ilustração, texto pixel branco centrado.",
+        "Caixa de fala: fundo azul quase preto, borda fina azul, texto em fonte sem serifa branca, retrato em tom ciano.",
+        "Botão CONTINUE: placa azul-escura com canto cortado, texto pixel branco em maiúsculas."
+      ],
+      "take": "Diálogo em duas camadas: arte à vista e caixa curta de texto, com um único botão para seguir.",
+      "avoid": ""
+    },
+    {
+      "file": "refs/into-the-breach/06-batalha.jpg",
+      "source": "https://store.steampowered.com/app/590380/Into_the_Breach/",
+      "screen": "batalha",
+      "title": "Batalha em mapa gelado com indicação de golpes e objetivos",
+      "layout": "Mesmo HUD da batalha: topo esquerdo com energia e Reset Turn, End Turn e Undo grandes, retratos dos pilotos na esquerda, objetivos e vitória em N turnos no canto direito. Caixas vazias nos cantos inferiores.",
+      "pieces": [
+        "Botão Reset Turn com contador entre parênteses, borda azul.",
+        "Setas rosadas e laranjas sobre o mapa indicando direção do ataque inimigo.",
+        "Objetivos bônus com estrela vazia e contador entre parênteses.",
+        "Duas caixas vazias escuras nos cantos inferiores, reservadas para unidade e dica."
+      ],
+      "take": "Reservar cantos fixos para o painel da unidade e para dicas: o layout não muda de uma batalha para outra.",
+      "avoid": "Caixas vazias visíveis sem conteúdo parecem erro."
+    },
+    {
+      "file": "refs/into-the-breach/07-equipamento.jpg",
+      "source": "https://store.steampowered.com/app/590380/Into_the_Breach/",
+      "screen": "equipamento",
+      "title": "Tela de upgrade do mecha: piloto, reator, atributos, armas e depósito",
+      "layout": "Barra de recursos no topo. Coluna de ícones dos mechas à esquerda. Painel principal no centro dividido em colunas: Pilot, Reactor, Stats e as duas armas. Painel Storage separado à direita com setas de página. Faixa de dica embaixo.",
+      "pieces": [
+        "Cabeçalho com nome do mecha em fonte pixel grande e aba cinza com a classe do mecha.",
+        "Seções com abas inclinadas azuis (PILOT, REACTOR, STATS, STORAGE).",
+        "Coluna do reator: pequenas marcas verticais e botão INSTALL com ícone redondo.",
+        "Botões de melhoria com cápsulas de pontos embaixo (+1 Range, +1 Damage), esmaecidos quando bloqueados.",
+        "Texto cortado no nome das armas (ilegível em parte)."
+      ],
+      "take": "Melhorias como botões com cápsulas de custo; o jogador vê quantos pontos cada uma gasta.",
+      "avoid": "Nomes de arma cortados e texto pequeno nos botões."
+    },
+    {
+      "file": "refs/into-the-breach/08-mapa.jpg",
+      "source": "https://store.steampowered.com/app/590380/Into_the_Breach/",
+      "screen": "mapa",
+      "title": "Seleção de missão com aviso de tempestade ácida",
+      "layout": "Barra de recursos no topo; mechas esmaecidos à esquerda; painel de missão centralizado com miniatura do terreno à direita; fala com retrato do operador acima.",
+      "pieces": [
+        "Título da região em vermelho com fonte pixel.",
+        "Dois objetivos bônus com estrela vazia em azul.",
+        "Aviso em amarelo A.C.I.D. STORMS com ícone de gotas em losango.",
+        "Miniatura isométrica com borda azul fina em formato de losango."
+      ],
+      "take": "Padrão repetível de cartão de missão: nome, objetivos, aviso de risco, miniatura.",
+      "avoid": ""
+    },
+    {
+      "file": "refs/into-the-breach/09-titulo.jpg",
+      "source": "https://gamesdb.launchbox-app.com/games/details/112995-into-the-breach",
+      "screen": "titulo",
+      "title": "Título: menu em barras à esquerda com robô gigante",
+      "layout": "Logo no topo; botões em barras à esquerda; robô de pixel art à direita; perfil e conquistas no canto.",
+      "pieces": [
+        "Logo grande em pixel",
+        "Barras Continue, New Game, Options, Credits; a ativa em amarelo",
+        "Rodapé: perfil, conquistas, estatísticas",
+        "Versão e copyright"
+      ],
+      "take": "Menu de poucas linhas, só a ativa tem cor.",
+      "avoid": "Contraste do texto fraco sobre o fundo."
+    }
+  ],
+  "notFound": ["Prévia numérica de dano por alvo", "Fila de turnos: o jogo não tem", "Loja", "Opções não achadas"]
+}

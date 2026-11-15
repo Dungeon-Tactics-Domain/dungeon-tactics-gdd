@@ -1,0 +1,136 @@
+{
+  "now": null,
+  "nextStep": "Olhar as 3 amostras de estilo na área Maquetes e dizer o que agrada e o que não agrada em cada uma, antes das telas inteiras.",
+  "decisions": [
+    ["Alcance", "Tudo do zero, inclusive o HUD da batalha."],
+    ["Onde nasce", "Maquetes primeiro; o código do jogo só muda depois de aprovado."],
+    ["Clima visual", "Três direções bem diferentes, propostas aqui; ele escolhe vendo."],
+    ["Rodada de escolha", "Batalha, Ficha, Loja e Título nas 3 direções (12 maquetes)."],
+    ["HUD da batalha", "Totalmente livre: pode ter outro fluxo e outra posição de menu."],
+    ["Base técnica", "DOM e CSS como hoje; molduras e texturas em imagem liberadas."],
+    ["Pesquisa", "Ver as telas de verdade dos 10 jogos antes das maquetes."],
+    ["Capturas", "Só neste projeto local. Não vão para artefato nem para o GitHub, nem em repositório privado."],
+    [
+      "Onde mora",
+      "D:\\Projetos\\dungeon-tactics-lab\\design (os 3 laboratórios num projeto só desde 14/11), sem remoto."
+    ],
+    ["Áreas", "Referências, Maquetes, Peças e Decisões/Pedidos."],
+    ["Ponte para o jogo", "Um CSS de tokens e um de peças, copiados por script; teste no jogo falha se divergir."],
+    [
+      "Plataformas",
+      "Desktop primeiro, com teclado, mouse e controle. Celular e tablet só depois de o desktop estar definido (corrigido por ele em 13/11)."
+    ],
+    ["Tamanhos na escolha", "Só PC, em 1920×1080 e 1280×720; celular e tablet são uma etapa posterior."],
+    ["Aprovação", "Ele aprova a pesquisa, a direção, cada peça e cada tela."],
+    [
+      "Quem faz",
+      "Fable 5.2 desenha; um subagente Fable de contexto limpo critica; Sonnet busca na internet e faz a conferência medida."
+    ],
+    [
+      "Fixos",
+      "Fantasia sombria \"Cinzas do Farol\", português e inglês, regras de batalha atuais. Sem pixel art por enquanto. Regra nova pode ser sugerida por UX."
+    ],
+    [
+      "Régua",
+      "Completa e medida em toda peça: contraste, alvo de 44 px, foco, cor nunca sozinha, movimento reduzido, texto 30% maior, todos os estados."
+    ],
+    [
+      "Ordem das telas",
+      "Peças base → Batalha → Título e Opções → Mapa, Grupo e Ficha → Loja, Bar e Cidade → Criação, conversa e fim de fase."
+    ],
+    ["Arte da interface", "Testar as 3 fontes na mesma peça: SVG próprio, kit CC0 e imagem gerada por IA."],
+    [
+      "IA de imagem",
+      "Pesquisada em 13/11: testar FLUX.2 klein 4B local (ComfyUI), Scenario Pro e Kenney Fantasy UI Borders."
+    ],
+    ["Mudança de regra", "Proposta separada; ele aprova uma a uma; o orquestrador implementa."],
+    ["Pronto", "Laboratório completo (todas as peças e telas aprovadas). Levar ao jogo é um segundo projeto."]
+  ],
+  "phases": [
+    ["Fase 0", "Laboratório local com as 4 áreas", "sem portão", "feito"],
+    ["Fase 1", "Pesquisa visual dos 10 jogos", "Portão 1 aprovado em 14/11 (112 capturas)", "feito"],
+    [
+      "Fase 2",
+      "Três direções, 12 maquetes de PC",
+      "Portão 2: qual direção? Aos poucos: primeiro a amostra de estilo",
+      "fazendo"
+    ],
+    ["Fase 3", "Teste das 3 fontes de arte na mesma peça", "Portão 3: qual fonte de arte?", "aberto"],
+    ["Fase 4", "Tokens e peças base, com a régua medida", "Portão 4: cada peça", "aberto"],
+    ["Fase 5", "Telas de desktop, uma por vez (teclado, mouse e controle)", "Portão 5: cada tela", "aberto"],
+    ["Fase 6", "Documento do design system e os 2 CSS prontos para o jogo", "fim do desktop", "aberto"],
+    ["Depois", "Versão de celular e tablet (toque)", "só com o desktop definido", "aberto"]
+  ],
+  "requests": [
+    [
+      "13/11",
+      "Sessão de design system focada em UX e elementos de interface",
+      "esta sessão",
+      "feito",
+      "6 commits no master (f2a4de5 a 940917e), publicados em dungeon-tactics.fernandorffdev.com"
+    ],
+    [
+      "13/11",
+      "\"qual a melhor implementação para evoluirmos o design system do jogo?\"",
+      "esta sessão",
+      "feito",
+      "Respondido; virou o plano do zero (22 decisões)"
+    ],
+    [
+      "13/11",
+      "\"veja na internet as melhores recomendações para design system usando o fable 5.2 e opus 5.5\"",
+      "subagente Sonnet",
+      "feito",
+      "Sem fonte oficial da Anthropic; só blogs. Divisão de modelos decidida no grill"
+    ],
+    [
+      "13/11",
+      "\"use sonnet para buscar na internet e reconstruir em prints todos os elementos de interface\" do FFT e do Tactics Ogre; \"que outros jogos tactics podemos nos basear?\"",
+      "subagentes Sonnet",
+      "fazendo",
+      "Catálogo de texto feito; capturas reais dos 10 jogos chegando na área Referências"
+    ],
+    [
+      "13/11",
+      "\"a interface não precisa ser pergaminho… projetar o design system como se fosse do zero\"",
+      "esta sessão",
+      "fazendo",
+      "Plano aprovado; Fase 1 em andamento"
+    ],
+    [
+      "13/11",
+      "\"pare de fazer design… só vamos começar a fazer design depois do plano com o grill me estar finalizado\"",
+      "esta sessão",
+      "feito",
+      "Grill fechado com 22 respostas; plano aprovado por ele"
+    ],
+    [
+      "13/11",
+      "\"crie um projeto local web para irmos construindo o design system… nele você pode colocar as imagens\"",
+      "esta sessão",
+      "feito",
+      "Este laboratório (porta 5190, /design/)"
+    ],
+    [
+      "13/11",
+      "Usar de fato as skills de design",
+      "esta sessão",
+      "aberto",
+      "Entram na Fase 2: frontend-design, design, design-critique, accessibility-review, ux-copy, design-system"
+    ],
+    [
+      "13/11",
+      "\"procure na internet as melhores soluções\" de IA de imagem para arte de interface",
+      "subagente Sonnet",
+      "feito",
+      "Relatório em ia-arte-de-interface-2026-11-13.md; teste na Fase 3"
+    ],
+    [
+      "13/11",
+      "\"teste as 3 direções\" de fonte de arte (SVG, kit CC0, IA)",
+      "esta sessão",
+      "aberto",
+      "Fase 3, depois da direção escolhida"
+    ]
+  ]
+}

@@ -1,0 +1,143 @@
+{
+  "game": "Triangle Strategy",
+  "slug": "triangle-strategy",
+  "year": 2022,
+  "shots": [
+    {
+      "file": "refs/triangle-strategy/03-previa.jpg",
+      "source": "https://store.steampowered.com/app/1850510",
+      "screen": "previa",
+      "title": "Menu de habilidades com alcance em vermelho e inimigo-alvo com HP previsto",
+      "layout": "Menu em lista ao lado esquerdo e descrição abaixo; cena ocupa o centro. Alvo selecionado com cartão de inimigo à direita do meio. Retrato e fila de turnos no rodapé. Terreno e altura no alto à direita.",
+      "pieces": [
+        "Cabeçalho 'Action' com ícones hexagonais para trocar categoria (magia, item) e setas",
+        "Lista de habilidades em faixas escuras; 'Scorch' selecionada em faixa clara com pontas, ícones de ação em losango amarelo à direita",
+        "'End Turn' no fim da lista",
+        "Bloco de detalhes: Power 143, Range 0-4 (Height -10 a +10) e frase de descrição",
+        "Tiles de alcance em vermelho brilhante sobre o chão com linhas de arco vermelhas ligando o lançador aos alvos",
+        "Cartão do inimigo: 'Lv.12 Glenbrook Pikeman', losangos de ação, barra com número '0 ‹160' e mira '100%'",
+        "Marcadores de fogo laranja redondos sobre o chão e número '10' sobre o alvo",
+        "Alto à direita: 'Pavement' ícone 'Height 22' e 'Freezable'",
+        "Rodapé: retrato grande de Frederica Lv.31, nome, classe Pyromancer, HP 253/253, ícones de status em escudo; fila de retratos com losangos amarelos"
+      ],
+      "take": "Menu, detalhes numéricos e alvo previsto aparecem juntos: o jogador compara poder, alcance e resultado antes de confirmar.",
+      "avoid": "Muita coisa junta; menu cobre quase um terço esquerdo do mapa."
+    },
+    {
+      "file": "refs/triangle-strategy/04-fila.jpg",
+      "source": "https://store.steampowered.com/app/1850510",
+      "screen": "fila",
+      "title": "Barra de turnos com retratos de aliados e inimigos e retrato do ativo",
+      "layout": "Cena de mina escura. Painel do ativo no canto inferior esquerdo. Fila de retratos em linha no rodapé. Local e altura no alto à direita.",
+      "pieces": [
+        "Retrato grande do ativo com moldura azul, Lv.31, EXP1",
+        "Painel ao lado: ícone de arma, nome 'Serenoa', classe 'Swordfighter', 4 losangos amarelos, HP 320/320 e barra",
+        "Fila: retratos quadrados com moldura azul para aliado e vermelha para inimigo, 3 ou 4 losangos amarelos sob cada um; o ativo levantado e com seta",
+        "Número '20' acima do ativo e marcador deslizante na linha embaixo",
+        "Alto à direita: 'Call Station' com ícone, 'Height 14' e 'Freezable'",
+        "Número de dano '98' em branco sobre o alvo; mini-barra de HP do alvo em vermelho"
+      ],
+      "take": "Retrato com cor de lado e losangos de ação sob ele resume quem age e quanto pode fazer.",
+      "avoid": "Fila ocupa uma faixa comprida e os retratos são pequenos para ler as cores à distância."
+    },
+    {
+      "file": "refs/triangle-strategy/01-batalha.jpg",
+      "source": "https://store.steampowered.com/app/1850510",
+      "screen": "batalha",
+      "title": "Golpe em área com números de dano e barras sobre vários alvos",
+      "layout": "Cena de rua à noite. Quase sem interface: só números de dano, barras sobre as unidades e uma notificação no canto direito.",
+      "pieces": [
+        "Barras de HP vermelhas curtas com losangos amarelos de ação sobre cada unidade",
+        "Números de dano grandes serifados em rosa-claro (192, 224, 208, 147, 184) sobre os alvos",
+        "Faixa de conquista no canto direito: ícone de flor com '+3' e 'Simultaneously strike 5 or more units.'",
+        "Faíscas laranja de efeito pelo cenário"
+      ],
+      "take": "Número de dano grande e legível em cima do alvo funciona como retorno imediato do golpe.",
+      "avoid": "Números sobrepostos quando o grupo está junto."
+    },
+    {
+      "file": "refs/triangle-strategy/02-equipamento.jpg",
+      "source": "https://store.steampowered.com/app/1850510",
+      "screen": "equipamento",
+      "title": "Árvore de melhorias de arma por nível de patente, com custo de materiais",
+      "layout": "Fileira de retratos no alto; retrato grande da unidade à esquerda; grade de ícones em losango no centro, três fileiras; descrição e materiais embaixo.",
+      "pieces": [
+        "Faixa de retratos coloridos no topo para trocar de unidade, com L e R",
+        "Título 'Weapon Upgrades' com moeda e '9000' no canto direito",
+        "Barra cinza 'Rank/Abilities'",
+        "Fileiras 'Weapon Rank 1/2/3' com estrelas; ícones em losango (azul para o equipado, preto para os outros) com cadeado nos bloqueados e setas ligando",
+        "Retrato grande da Anna com Lv.26, EXP 0, classe 'Assassin', HP 274/274",
+        "Bloco 'Deadly Blaze' com texto da habilidade",
+        "Bloco 'Materials Required': itens com marca verde e '1/1', e custo 1000"
+      ],
+      "take": "Rank como linhas e ramos de habilidade como colunas tornam a progressão legível e o custo visível ao lado.",
+      "avoid": "Ícones pretos pequenos sem nome; só dá para saber o que são abrindo cada um."
+    },
+    {
+      "file": "refs/triangle-strategy/05-menu-comandos.jpg",
+      "source": "https://www.rpgfan.com/gallery/project-triangle-strategy-screenshots/",
+      "screen": "batalha",
+      "title": "Menu de comandos: lista de golpes com poder e alcance, área vermelha no mapa",
+      "layout": "Painel no canto superior esquerdo com os golpes e o texto do selecionado; mapa com área do golpe em vermelho; cartão da unidade e faixa de retratos embaixo.",
+      "pieces": [
+        "Título 'Action' com duas abas em hexágono",
+        "Lista: Lance, Double Thrust, Rush; losangos indicam o custo",
+        "Detalhes: Power 45, Ranged 1-3, descrição do efeito",
+        "Dicas: Y alterna detalhes, X termina o turno",
+        "Cartão: retrato, nome, classe, HP",
+        "Fila horizontal de retratos com barra de rolagem e contagem",
+        "Terreno e altura no canto superior direito"
+      ],
+      "take": "Os dados do golpe aparecem no painel enquanto o mapa mostra a área atingida.",
+      "avoid": "Texto pequeno e claro sobre mapa escuro."
+    },
+    {
+      "file": "refs/triangle-strategy/06-fila.jpg",
+      "source": "https://www.rpgfan.com/gallery/project-triangle-strategy-screenshots/",
+      "screen": "fila",
+      "title": "Fila de turnos em retratos com prévia do alvo e acerto",
+      "layout": "Cartão do atacante no canto inferior esquerdo; fila de 9 retratos na borda de baixo; informação do alvo ao lado dele.",
+      "pieces": [
+        "Fila horizontal; o retrato do alvo em moldura branca com número",
+        "Marcas L e R nas pontas da fila",
+        "Painel do alvo: nível, nome, estrelas, HP e porcentagens",
+        "Chance de status (Blindness 90%)",
+        "Textos 'Weak!' e dano 15 sobre o alvo",
+        "Tiles vermelhos de alcance, tile azul e seta de arco"
+      ],
+      "take": "A fila em cartões de retrato reaproveita o rosto que o jogador já reconhece.",
+      "avoid": "Retratos pequenos, o lado só se vê pela moldura."
+    },
+    {
+      "file": "refs/triangle-strategy/07-fila.jpg",
+      "source": "https://www.rpgfan.com/gallery/project-triangle-strategy-screenshots/",
+      "screen": "fila",
+      "title": "Fila de turnos com cartão da unidade e área de movimento em azul",
+      "layout": "Cartão no canto inferior esquerdo, fila na borda de baixo, tiles azuis e roxos no mapa.",
+      "pieces": [
+        "Cartão: retrato, nome, classe, HP, estrelas",
+        "Fila de 9 retratos com L e R",
+        "Tiles azuis de movimento e roxos",
+        "Terreno e altura no canto"
+      ],
+      "take": "Fila e cartão juntos na mesma base da tela.",
+      "avoid": "A base da tela fica pesada."
+    },
+    {
+      "file": "refs/triangle-strategy/08-titulo.jpg",
+      "source": "https://gamesdb.launchbox-app.com/games/details/159652-triangle-strategy",
+      "screen": "titulo",
+      "title": "Título: logo centrada sobre cena do jogo, 'Press Any Button'",
+      "layout": "Cena isométrica desfocada de fundo; logo grande no alto e instrução pequena no centro.",
+      "pieces": [
+        "Logo em letras serifadas brancas com filetes",
+        "Texto 'Press Any Button'",
+        "Copyright no rodapé",
+        "Personagens e bandeiras no mapa de fundo"
+      ],
+      "take": "Título curto: logo e uma instrução sobre uma cena do próprio jogo.",
+      "avoid": "Não mostra menu; só espera um botão."
+    }
+  ],
+  "notFound": ["Loja e opções não achadas (só título)", "Prévia numérica de acerto e dano na ação de ataque"]
+}

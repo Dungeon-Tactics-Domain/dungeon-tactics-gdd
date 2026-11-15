@@ -1,0 +1,62 @@
+[
+  {
+    "id": "a",
+    "name": "A · Vitral",
+    "idea": "O HUD é a lanterna do Farol: vidros escuros presos por chumbo, e o que está em foco é o vidro aceso em âmbar.",
+    "from": "Cantos ocupados e cena livre no meio, como no FFT The Ivalice Chronicles; a prévia com números grandes, como no Tactics Ogre Reborn.",
+    "palette": [
+      ["Vidro da noite", "#161c38", "fundo dos painéis"],
+      ["Chumbo", "#070912", "molduras e divisórias"],
+      ["Lâmpada", "#f0a93a", "foco e ação principal"],
+      ["Cristal", "#74c8f0", "heróis, MP, contorno"],
+      ["Rubi", "#d9506a", "inimigos e dano"],
+      ["Linho", "#f3efe4", "texto"]
+    ],
+    "type": [
+      ["Nomes e títulos", "Cormorant Garamond", "Aria, a Guerreira"],
+      ["Interface e números", "Karla", "Vida 42/42 · acerto 75%"]
+    ],
+    "hud": "Fila de turnos em coluna à esquerda, menu ao lado do boneco, prévia numa janela própria, um painel de unidade em cada canto de baixo.",
+    "risk": "Os cantos chanfrados e o chumbo pedem moldura em SVG; com muito texto (Loja, Ficha) pode pesar."
+  },
+  {
+    "id": "b",
+    "name": "B · Ferro e cinza",
+    "idea": "Uma bancada de ferreiro: chapas de cinza fria rebitadas, letras de placa gravada, e a brasa só no que você vai apertar.",
+    "from": "Barra inferior de ponta a ponta com atalhos à vista, como no XCOM 2; comandos lado a lado em vez de lista.",
+    "palette": [
+      ["Cinza fria", "#d9d6ce", "chapas (fundo dos painéis)"],
+      ["Ferro", "#232327", "molduras e texto"],
+      ["Brasa", "#b8420f", "foco e ação principal"],
+      ["Fuligem", "#45423e", "texto apagado"],
+      ["Azinhavre", "#2c7a69", "vida"],
+      ["Aço azul", "#325f96", "MP e heróis"]
+    ],
+    "type": [
+      ["Comandos e títulos", "Big Shoulders Display", "Golpe pesado"],
+      ["Texto e números", "Barlow", "Vida 42/42 · acerto 75%"]
+    ],
+    "hud": "Tudo numa bancada embaixo: quem age à esquerda, alvo à direita, comandos e prévia no meio. Fila de turnos em linha no topo.",
+    "risk": "A bancada cobre a base do mapa o tempo todo; o claro sobre a cena chama mais atenção que o jogo."
+  },
+  {
+    "id": "c",
+    "name": "C · Carta de campo",
+    "idea": "O HUD é uma carta de campanha anotada: fichas de papel, letra de máquina, e uma linha curta ligando a ficha à unidade no mapa.",
+    "from": "Painel ancorado ao lado do alvo e barra que desenha o resultado, como pede a crítica de 14/11; o botão diz a ação, como na B.",
+    "palette": [
+      ["Papel", "#f2ecdc", "fundo das fichas"],
+      ["Tinta", "#26241f", "texto, molduras, vida que sobra"],
+      ["Lacre", "#b3261e", "dano e alvo"],
+      ["Lacre escuro", "#8a1a14", "texto de dano e de inimigo"],
+      ["Verde-mar", "#14595c", "aliados"],
+      ["Grafite", "#4a463c", "texto apagado"]
+    ],
+    "type": [
+      ["Nomes e botões", "Spectral", "Lacaio de osso"],
+      ["Números e rótulos", "IBM Plex Mono", "−19 a 26 · 75% de acerto"]
+    ],
+    "hud": "Fila de turnos no alto; previsão e ficha do alvo num painel só, ao lado dele; menu recolhido em trilha enquanto a previsão está aberta; ficha de quem age embaixo à esquerda.",
+    "risk": "O painel ao lado do alvo precisa trocar de lado quando o alvo está na borda da tela; o anel vermelho é desenho por cima da captura (só confere na Colina)."
+  }
+]

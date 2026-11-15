@@ -1,0 +1,155 @@
+{
+  "game": "Wargroove",
+  "slug": "wargroove",
+  "year": 2019,
+  "shots": [
+    {
+      "file": "refs/wargroove/01-outro.jpg",
+      "source": "https://store.steampowered.com/app/607050/Wargroove/",
+      "screen": "outro",
+      "title": "Cena de combate em duas metades com vida dos comandantes",
+      "layout": "Quadro de pergaminho ocupa o centro da tela (cerca de 60% da largura), sobre o mapa tático ao fundo. Título do turno e dos lados centralizado no topo do quadro. Em cada metade, no canto inferior, retrato, bônus de defesa e barra de vida.",
+      "pieces": [
+        "Faixa TURN 7 em bege com bordas escuras.",
+        "Duas etiquetas de lado com cor própria: MERCIA em vermelho e GREENFINGER em verde, ligadas por um X.",
+        "Retrato rosto do comandante em moldura quadrada bege.",
+        "Bônus de defesa: ícone de escudo com +0 e +3.",
+        "Barra de vida em segmentos azul a verde sobre fundo bege (segmentos vazios em bege).",
+        "Moldura do pergaminho com bordas dobradas."
+      ],
+      "take": "Barra de vida em segmentos grandes, com o bônus de terreno ao lado, durante a animação de ataque.",
+      "avoid": "A animação cobre quase todo o mapa e esconde o resto do tabuleiro."
+    },
+    {
+      "file": "refs/wargroove/02-batalha.jpg",
+      "source": "https://store.steampowered.com/app/607050/Wargroove/",
+      "screen": "batalha",
+      "title": "Batalha com menu de ações ao lado da unidade e painel do comandante",
+      "layout": "Mapa em visão de cima ocupa toda a tela. Painel do comandante no canto superior esquerdo. Minimapa no canto inferior esquerdo. Menu de ações pequeno ao lado da unidade selecionada, no centro.",
+      "pieces": [
+        "Painel do comandante: retrato, etiqueta com o nome em vermelho, moedas 910 e Turn 15, e uma aba de meio círculo embaixo com ícones de sol.",
+        "Menu de ações: caixa bege com três linhas — Wait, Elder Shield (selecionado em marrom), Cancel — com ícone pequeno antes de cada.",
+        "Seta de seleção branca sobre a unidade, com cantos de mira.",
+        "Números em plaquinhas brancas pequenas junto às unidades, que são pontos de vida.",
+        "Minimapa em moldura bege no canto."
+      ],
+      "take": "Menu de ações pequeno, colado na unidade, com poucos verbos.",
+      "avoid": "Plaquinhas de vida com números minúsculos sobre sprites pequenos são difíceis de ler."
+    },
+    {
+      "file": "refs/wargroove/03-mapa.jpg",
+      "source": "https://store.steampowered.com/app/607050/Wargroove/",
+      "screen": "mapa",
+      "title": "Mapa de campanha com nós de fase ligados por pontos",
+      "layout": "Mapa-múndi em pixel art em tela cheia. Três placas de informação em linha no canto superior esquerdo. Nós de fase espalhados no mapa, ligados por trilhas de pontos brancos. O herói pequeno parado sobre o caminho.",
+      "pieces": [
+        "Placas bege: nome do local (Cherrystone Castle) com bota, tipo (Prologue) com espada, data com três estrelas amarelas.",
+        "Nós das fases: quadrados bege com ícone do lugar e bandeirola amarela ao lado.",
+        "Trilha de pontos brancos conectando os nós.",
+        "Personagem animado pequeno marcando a posição atual."
+      ],
+      "take": "Campanha como mapa com nós e trilha, e as informações do progresso em placas pequenas no canto.",
+      "avoid": ""
+    },
+    {
+      "file": "refs/wargroove/04-batalha.jpg",
+      "source": "https://store.steampowered.com/app/607050/Wargroove/",
+      "screen": "batalha",
+      "title": "Batalha com alcance de movimento em vermelho e painel do comandante no canto direito",
+      "layout": "Mapa em visão de cima. Painel do comandante no canto superior direito, com retrato de um cachorro. Área de alcance pintada no chão.",
+      "pieces": [
+        "Painel: etiqueta Caesar em vermelho, moedas 1300 e Turn 4, aba de semicírculo com ícones (gota e sol).",
+        "Alcance de movimento: faixa vermelha com contorno amarelo sobre o piso azul-acinzentado.",
+        "Estrelas brancas sobre algumas unidades (provavelmente já agiram; não confirmado pela imagem).",
+        "Plaquinhas numéricas brancas junto das unidades."
+      ],
+      "take": "Alcance pintado direto no chão numa cor sólida, sem competir com as unidades.",
+      "avoid": "Cor do alcance igual à cor da equipe confunde o que é território e o que é movimento."
+    },
+    {
+      "file": "refs/wargroove/05-outro.jpg",
+      "source": "https://store.steampowered.com/app/607050/Wargroove/",
+      "screen": "outro",
+      "title": "Cena de combate entre dois lados com mira e vida",
+      "layout": "Mesma estrutura do quadro de combate: pergaminho central com título do turno e lados no topo, duas metades com retratos e barras de vida na base.",
+      "pieces": [
+        "Faixa TURN 12 com etiquetas RAGNA em azul e MERCIA em vermelho.",
+        "Retratos em cantos inferiores, bônus +1 e -1 com ícone de escudo (o negativo mostra a penalidade de terreno).",
+        "Barras de vida segmentadas azul e verde sobre fundo bege.",
+        "Mira branca em cruz sobre o alvo do tiro."
+      ],
+      "take": "Bônus positivo e negativo de terreno no mesmo lugar, junto da vida.",
+      "avoid": ""
+    },
+    {
+      "file": "refs/wargroove/06-loja.jpg",
+      "source": "https://store.steampowered.com/app/607050/Wargroove/",
+      "screen": "loja",
+      "title": "Recrutar unidade: lista com preço, descrição, movimento e forças e fraquezas",
+      "layout": "Janela de pergaminho no centro sobre o mapa. Lista com ouro disponível na coluna da esquerda. Detalhes na direita: ilustração da unidade com movimento e tipo, descrição, linha de eficácia, linha de vulnerabilidade. Botões Cancel e Recruit no canto inferior direito.",
+      "pieces": [
+        "Título Recruit Unit numa barra bege no topo.",
+        "Lista: ícone da unidade, nome em fonte pixel e preço numa pílula com moeda; preços que o jogador não paga em vermelho; item escolhido em marrom.",
+        "Faixa Available Gold: 850 com moeda.",
+        "Quadro de detalhes: Move 6, tipo Cavalry, texto de descrição em caixa bege.",
+        "Duas linhas de ícones: Effective em azul-verde e Vulnerable em laranja, com 5 a 7 ícones cada.",
+        "Botões Cancel e Recruit marrons com texto bege."
+      ],
+      "take": "Lista com preço numa coluna, e à direita o que a unidade faz bem e mal, em ícones.",
+      "avoid": "Ícones de força e fraqueza sem legenda: é preciso decorar o significado."
+    },
+    {
+      "file": "refs/wargroove/07-dialogo.jpg",
+      "source": "https://store.steampowered.com/app/607050/Wargroove/",
+      "screen": "dialogo",
+      "title": "Diálogo em balão dentro de quadro ilustrado",
+      "layout": "Quadro de pergaminho no centro com a cena e o balão de fala dentro. Mapa tático ao fundo.",
+      "pieces": [
+        "Etiqueta do nome (Valder) em azul acima do balão.",
+        "Balão bege com seta apontando para o falante e triângulo de continuar no canto.",
+        "Cena animada com neve e unidades em perfil."
+      ],
+      "take": "Fala em balão, ligada ao personagem por uma seta, dentro de uma cena ilustrada.",
+      "avoid": ""
+    },
+    {
+      "file": "refs/wargroove/08-loja.jpg",
+      "source": "https://wargroove.com/presskit/",
+      "screen": "loja",
+      "title": "Recrutar: unidades aéreas com ouro, descrição, forças e fraquezas",
+      "layout": "Janela central sobre o mapa. À esquerda lista com preço; à direita ilustração e quadros de movimento e descrição.",
+      "pieces": [
+        "Título 'Recruit Unit'",
+        "Ouro disponível no topo da lista",
+        "Lista com ícone, nome e preço em moldura",
+        "Ilustração com 'Move' e descrição do tipo",
+        "Quadro 'Effective' e 'Vulnerable' em ícones",
+        "Botões OK e Cancel"
+      ],
+      "take": "Forças e fraquezas em ícones junto ao preço ajudam a decidir.",
+      "avoid": "Sem comparação com o que o jogador já tem."
+    },
+    {
+      "file": "refs/wargroove/09-loja.jpg",
+      "source": "https://www.rpgfan.com/gallery/wargroove-screenshots/",
+      "screen": "loja",
+      "title": "Recrutar: lista longa de unidades de uma facção, com preço crescente",
+      "layout": "Janela larga sobre o mapa; lista de 10 unidades com preço e painel de detalhes.",
+      "pieces": [
+        "Ouro disponível",
+        "10 linhas com ícone, nome e preço; a selecionada em marrom escuro",
+        "Ilustração e dica da unidade",
+        "Linhas 'Effective' e 'Vulnerable' com ícones",
+        "Botões OK e Cancel com ícone do controle"
+      ],
+      "take": "Lista ordenada por preço mais painel de forças e fraquezas dá leitura rápida.",
+      "avoid": "Ícones pequenos de forças e fraquezas."
+    }
+  ],
+  "notFound": [
+    "Prévia de dano antes de confirmar",
+    "Fila de turnos (o jogo não tem)",
+    "Ficha detalhada de unidade",
+    "Título e opções não achados"
+  ]
+}

@@ -1,0 +1,145 @@
+{
+  "game": "The Banner Saga",
+  "slug": "banner-saga",
+  "year": 2014,
+  "shots": [
+    {
+      "file": "refs/banner-saga/01-batalha.jpg",
+      "source": "https://store.steampowered.com/app/237990/The_Banner_Saga/",
+      "screen": "batalha",
+      "title": "Batalha em grade com alcance azul e amarelo e fila de turnos em retratos",
+      "layout": "Cena em perspectiva isométrica sobre ilustração de neve. Fila de turnos em retratos redondos no canto inferior esquerdo. Quadro de atributos pequeno em cima da fila. Botão de ajuda no canto direito inferior. Ícone pequeno no canto superior esquerdo.",
+      "pieces": [
+        "Fila: retratos redondos em fileira com molduras laranja e escuras, o ativo à esquerda e maior, com nome Bahon acima.",
+        "Quadro de atributos: seis ícones coloridos (vermelho, azul, laranja, verde, roxo) com números em coluna, texto minúsculo, ilegível.",
+        "Grade: losangos azuis translúcidos (alcance de movimento) e amarelos (alcance de ataque) sobre o chão, com contorno branco.",
+        "Alvo inimigo marcado com contorno vermelho em losango.",
+        "Unidade ativa com círculo azul sob os pés."
+      ],
+      "take": "Alcance de movimento e de ataque como duas cores no chão, e fila de turnos por retratos num canto só.",
+      "avoid": "Quadro de atributos minúsculo e distante do alvo."
+    },
+    {
+      "file": "refs/banner-saga/02-mapa.jpg",
+      "source": "https://store.steampowered.com/app/237990/The_Banner_Saga/",
+      "screen": "mapa",
+      "title": "Acampamento com contador de dias e ícones de interação na cena",
+      "layout": "Ilustração larga entre faixas pretas no topo e na base. Placa de recursos no topo centralizado. Ícones redondos de retrato espalhados na cena, ligados a cada tenda. Botão de ajuda no canto inferior direito.",
+      "pieces": [
+        "Medalhão central redondo em madeira com o número 15, ladeado por ícones pequenos.",
+        "Placa com Peasants, Fighters, Varl em fonte serifada cinza sobre fundo escuro.",
+        "Fitas com contadores vermelho e dourado nas laterais da placa.",
+        "Ícones de retrato em círculo com setinha, sobre cada área clicável.",
+        "Letras brilhantes azul-claro flutuando sobre as áreas (rótulos de lugares, pequenos)."
+      ],
+      "take": "Os pontos clicáveis ficam dentro da própria ilustração, e os recursos ficam em uma placa única no topo.",
+      "avoid": "Rótulos em letra brilhante e curvos são difíceis de ler."
+    },
+    {
+      "file": "refs/banner-saga/03-ficha.jpg",
+      "source": "https://store.steampowered.com/app/237990/The_Banner_Saga/",
+      "screen": "ficha",
+      "title": "Tela Heroes: personagem à esquerda e atributos em faixas coloridas à direita",
+      "layout": "Título Heroes e botão de voltar no topo esquerdo. Contador de pontos em faixa vermelha no topo direito. Personagem grande à esquerda. Seis barras horizontais coloridas à direita. Caixa do item no canto inferior esquerdo. Botão de ajuda no canto direito.",
+      "pieces": [
+        "Título em letra azul-clara com contorno e ornamento nórdico.",
+        "Barra de pontos: faixa vermelha em forma de bandeira com 95.",
+        "Seis faixas em forma de bandeira rasgada, cada uma de uma cor (roxo, azul, vermelho, amarelo, verde, cinza), com valor 8/12, 10/12, 5/10, 2/3, 1/2 e ícone circular no fim.",
+        "Navegação entre heróis por setas em círculo ao lado do nome e rank (Rank 1 Spearmaster).",
+        "Caixa do item: ícone circular verde, nome em serifa dourada (Tryggvi's Necklace), descrição e bônus em verde (+10% 2X STR DAM).",
+        "Botões + e − em círculo ao lado do item para aplicar pontos."
+      ],
+      "take": "Atributos como faixas coloridas cujo comprimento e cor indicam categoria e valor máximo.",
+      "avoid": "A faixa roxa não mostra o número na imagem; ícones sem rótulo dependem de decorar as cores."
+    },
+    {
+      "file": "refs/banner-saga/04-mapa.jpg",
+      "source": "https://store.steampowered.com/app/237990/The_Banner_Saga/",
+      "screen": "mapa",
+      "title": "Acampamento maior com medalhão de dias, recursos e rótulos de ação",
+      "layout": "Ilustração larga com faixas pretas no topo e na base. Medalhão de dias e placa de recursos no centro do topo. Rótulos brilhantes flutuando sobre as áreas do acampamento.",
+      "pieces": [
+        "Medalhão de madeira com 10, ícones pequenos ao redor e uma seta de recolher acima.",
+        "Placa com Clansmen: 433, Fighters: 79, Varl: 0 em fonte serifada clara; fitas vermelha com 33 e dourada com 9.",
+        "Rótulos brilhantes em azul-claro (Training, Heroes, Rest, Leave) sobre as tendas, em letra curva.",
+        "Silhueta escura em primeiro plano nas bordas."
+      ],
+      "take": "Ações do acampamento como rótulos no cenário, sem menus.",
+      "avoid": "Rótulos em letra curva e translúcida são difíceis de ler."
+    },
+    {
+      "file": "refs/banner-saga/05-mapa.jpg",
+      "source": "https://store.steampowered.com/app/237990/The_Banner_Saga/",
+      "screen": "mapa",
+      "title": "Caravana em viagem com medalhão de dias e recursos",
+      "layout": "Paisagem de montanhas em tela larga. Faixas pretas em cima e embaixo. Medalhão e placa de recursos centralizados no topo. Botão de ajuda no canto inferior direito. A caravana é uma linha minúscula com bandeira vermelha no centro.",
+      "pieces": [
+        "Medalhão com 17 e um ícone de tenda listrada ao lado.",
+        "Placa com Peasants: 0, Fighters: 51, Varl: 588; fitas com 6 e 114.",
+        "Caravana: pontinhos com uma faixa vermelha grande acima, único elemento de cor quente."
+      ],
+      "take": "Em fase de viagem, deixar a ilustração dominar e só o HUD do topo aparece.",
+      "avoid": ""
+    },
+    {
+      "file": "refs/banner-saga/06-fila.jpg",
+      "source": "https://www.rpgfan.com/gallery/the-banner-saga-screenshots/",
+      "screen": "fila",
+      "title": "Fila de retratos redondos com o ativo em destaque, na borda inferior",
+      "layout": "Cena grande de batalha. Faixa de retratos redondos na borda inferior; atributos em coluna à esquerda; chifre no topo.",
+      "pieces": [
+        "Retrato maior do ativo com nome",
+        "Retratos redondos com borda por lado (um em destaque vermelho)",
+        "Coluna de atributos à esquerda",
+        "Chifre de ações no topo",
+        "Botão de ajuda"
+      ],
+      "take": "Retratos redondos com borda por lado leem rápido.",
+      "avoid": "A faixa cobre a base do mapa."
+    },
+    {
+      "file": "refs/banner-saga/07-titulo.jpg",
+      "source": "https://www.youtube.com/watch?v=phesvBk-7Ds",
+      "screen": "titulo",
+      "title": "Título ilustrado com menu em texto na direita",
+      "layout": "Ilustração grande ocupa a tela toda, logo ao centro. Menu em coluna no canto inferior direito: Resume, New Game, Load Game, Heraldry, Options, Credits. Nome do perfil no canto superior direito.",
+      "pieces": [
+        "Itens só texto, sem caixa, alinhados à direita.",
+        "Item ativo em dourado; indisponíveis em cinza apagado.",
+        "Fonte serifada de época."
+      ],
+      "take": "Menu sem moldura sobre a arte; indisponível fica apagado em vez de escondido.",
+      "avoid": "Texto fino sobre ilustração clara pode perder contraste."
+    },
+    {
+      "file": "refs/banner-saga/08-opcoes.jpg",
+      "source": "https://www.youtube.com/watch?v=phesvBk-7Ds",
+      "screen": "opcoes",
+      "title": "Opções num painel estreito: botões e três ícones de som",
+      "layout": "Painel vertical estreito no centro, fundo escurecido. Título Options acima. Quatro botões empilhados: Load, Difficulty, Language, Credits. No rodapé do painel, três ícones quadrados: efeitos, música e legendas.",
+      "pieces": [
+        "Botões de texto em caixa fina; o focado com contorno azul brilhante.",
+        "Ícones quadrados liga/desliga: alto-falante, nota musical, CC.",
+        "Moldura ornamentada com cantos e divisória."
+      ],
+      "take": "Opções mínimas: o que muda a partida em botões, o som em ícones liga/desliga.",
+      "avoid": "Sem barra de volume; ícones sem rótulo."
+    },
+    {
+      "file": "refs/banner-saga/09-opcoes-dificuldade.jpg",
+      "source": "https://www.youtube.com/watch?v=phesvBk-7Ds",
+      "screen": "opcoes",
+      "title": "Escolha de dificuldade com texto de explicação",
+      "layout": "Painel estreito com título Difficulty. Três botões: Easy, Normal, Hard. Caixa de texto larga embaixo explica a opção em foco.",
+      "pieces": [
+        "Cada nome na cor da dificuldade: verde, azul, vermelho.",
+        "Bolinha verde marca a opção atual.",
+        "Contorno azul no botão em foco.",
+        "Caixa de dica com duas linhas sob o painel."
+      ],
+      "take": "Cor e dica de uma frase por opção, e marca clara da escolha atual.",
+      "avoid": "Dica fora do painel, separada das opções."
+    }
+  ],
+  "notFound": ["Loja", "Equipamento em tela própria"]
+}

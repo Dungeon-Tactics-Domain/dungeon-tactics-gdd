@@ -1,0 +1,931 @@
+/* Copied from dungeon-tactics-lab/design/src/fft-kit.css (14/11). Already scoped: every rule hangs on .fft or an fft-*
+   class. The Alegreya Sans font comes from a <link> in KitFft.tsx (an @import here would land mid-bundle). */
+/* Kit "FFT Clássico" (14/11). Os tokens têm os nomes do :root do jogo (style.css); no porte, os valores daqui substituem o
+   pergaminho. Contraste medido com a fórmula WCAG sobre estes hex: --ink 6.8:1 no topo do degradê (--paper-hi) e 15:1 no pé;
+   --ink-muted 4.9:1 no topo; branco na faixa de foco 5.3:1; texto na faixa vinho 9:1. Medidas da tela 1920x1080. */
+.fft {
+  --paper-hi: #2a4c8c;
+  --paper: #21407c;
+  --paper-lo: #0f1d40;
+  --paper-edge: #dfe6f8;
+  --ink: #f4f6ff;
+  --ink-muted: #c8d3ee;
+  --ink-off: #8592b4;
+  --focus: #ffd75e; /* anel e moldura de foco: amarelo do FFT, 7:1 no painel, 3.7:1 na grama (anel de controle pede 3:1) */
+  --focus-band: linear-gradient(#3e66ad, #33599f); /* linha em foco: azul mais claro que o painel, branco 5.3:1 */
+  --focus-halo: 0 0 0 2px #0a1028; /* faixa escura colada no anel amarelo: o anel aparece no céu claro e na grama */
+  --hero: #5aa8ff;
+  --enemy: #e0525a;
+  --enemy-paper: linear-gradient(#7a2436, #3e0f1c); /* metade do alvo na previsão */
+  --hp: #5ccf5f;
+  --mp: #4f9cf0;
+  --ct: #e8b030;
+  --heal: #6fdc8c;
+  --well: #08112a;
+  --strike-dmg: #ffc2c2;
+  --mark-move: #6fc0ff;
+  --mark-range: #ff7a3c;
+  --mark-blocked: #b07ae0;
+  --mark-threat: #ff2d55;
+  /* moldura: linha escura por fora, borda fina clara, brilho interno no alto e sombra embaixo (era a dívida --paper-frame) */
+  --paper-frame:
+    0 0 0 1px #050a18, inset 0 0 0 1px rgba(5, 10, 24, 0.7), inset 0 2px 8px rgba(255, 255, 255, 0.14),
+    0 3px 0 rgba(0, 0, 0, 0.45);
+  --font: 'Alegreya Sans', 'Segoe UI', system-ui, sans-serif;
+  --font-px: var(--font); /* FFT: letra simples, sem serifa de título */
+  --fs-sm: 16px;
+  --fs: 20px;
+  --fs-lg: 24px;
+  --fs-xl: 34px;
+  --gap: 8px;
+  --r: 2px;
+  --tap: 44px;
+  font: 500 var(--fs)/1.25 var(--font);
+  color: var(--ink);
+}
+.fft p {
+  max-width: none;
+  margin: 0;
+}
+.fft h3 {
+  color: inherit;
+}
+.fft-note {
+  color: #555;
+  font:
+    15px/1.4 system-ui,
+    sans-serif;
+  margin: 0 0 12px !important;
+}
+.fft-piece {
+  background: #7d8290;
+  border-radius: 4px;
+  padding: 16px 20px 24px;
+  margin: 0 0 20px;
+  overflow-x: auto; /* new app: the kit keeps its 1920x1080 sizes; at 375px each piece scrolls inside its box, not the page */
+}
+.fft-piece > h3 {
+  font:
+    700 20px/1.2 system-ui,
+    sans-serif;
+  color: #10131c;
+  margin: 0 0 4px;
+}
+.fft-piece > .fft-note {
+  color: #10131c;
+}
+.fft-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  align-items: flex-start;
+}
+.fft-grid {
+  display: grid;
+  grid-template-columns: repeat(5, auto);
+  gap: 12px 16px;
+  justify-content: start;
+}
+
+/* ---------- painel ---------- */
+.fft .panel {
+  background: linear-gradient(var(--paper-hi), var(--paper) 45%, var(--paper-lo));
+  border: 2px solid var(--paper-edge);
+  border-radius: var(--r);
+  box-shadow: var(--paper-frame);
+  color: var(--ink);
+  text-shadow: 1px 1px 0 #050a18;
+}
+.fft .panel-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 6px 14px 7px;
+  font-size: var(--fs);
+  border-bottom: 2px solid rgba(223, 230, 248, 0.55);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* ---------- retrato: sheet 4x64 px, --q escolhe o quadro ---------- */
+.fft .portrait {
+  --s: 64px;
+  display: block;
+  flex: none;
+  width: var(--s);
+  height: var(--s);
+  background: var(--sheet) 0 0 / 400% 100% no-repeat;
+  background-position-x: calc(var(--q, 0) * 100% / 3);
+  image-rendering: pixelated;
+  border: 2px solid var(--paper-edge);
+  box-shadow: 0 0 0 1px #050a18;
+}
+.fft .portrait.sm {
+  --s: 56px;
+}
+.fft .portrait.lg {
+  --s: 128px;
+} /* lg = 2x exato do pixel art */
+
+/* ---------- barras (gauge do jogo) ---------- */
+.fft .gauge {
+  display: grid;
+  grid-template-columns: 3.4em 1fr 4.6em;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--fs-sm);
+}
+.fft .gauge-label {
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+.fft .gauge-bar {
+  position: relative;
+  height: 10px;
+  background: var(--well);
+  border: 1px solid #050a18;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+.fft .gauge-bar > i {
+  position: absolute;
+  inset: 0 auto 0 0;
+  background: linear-gradient(rgba(255, 255, 255, 0.35), transparent 60%), var(--bar);
+}
+.fft .gauge.hp {
+  --bar: var(--hp);
+}
+.fft .gauge.mp {
+  --bar: var(--mp);
+}
+.fft .gauge.ct {
+  --bar: var(--ct);
+}
+/* dano previsto em listras vermelhas que piscam devagar; cura em listras verdes paradas (como no jogo) */
+.fft .gauge-change {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+}
+.fft .gauge-change.loss {
+  background: repeating-linear-gradient(135deg, var(--enemy) 0 4px, #4a0d18 4px 8px);
+  animation: fft-blink 1s steps(2) infinite;
+}
+.fft .gauge-change.gain {
+  background: repeating-linear-gradient(135deg, var(--heal) 0 4px, #0f3d1e 4px 8px);
+}
+.fft .gauge-num {
+  text-align: right;
+  font-size: var(--fs);
+  font-variant-numeric: tabular-nums;
+}
+.fft .gauges {
+  display: grid;
+  gap: 10px;
+  padding: 14px 16px;
+  width: 420px;
+}
+
+/* ---------- ficha da unidade (~35% x 18% = 672 x 194) ---------- */
+.fft .unit-panel {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  width: 672px;
+  height: 194px;
+  padding: 0 22px;
+  box-sizing: border-box;
+}
+.fft .unit-body {
+  flex: 1;
+  display: grid;
+  gap: 6px;
+}
+.fft .unit-name {
+  font-size: var(--fs-lg);
+  font-weight: 700;
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+}
+.fft .unit-side {
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  color: var(--ink-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.fft .unit-side::before {
+  content: '● ';
+  color: var(--hero);
+}
+.fft .enemy .unit-side::before {
+  content: '◆ ';
+  color: var(--enemy);
+}
+.fft .unit-class {
+  color: var(--ink-muted);
+  margin: -6px 0 2px;
+}
+.fft .unit-panel.enemy {
+  border-left: 6px solid var(--enemy);
+}
+.fft .unit-panel.hero {
+  border-left: 6px solid var(--hero);
+}
+
+/* ---------- menu de comandos (~22% x 30% = 422 x 324) e submenu ---------- */
+.fft .commands,
+.fft .abilities {
+  width: 422px;
+  display: grid;
+  padding-bottom: 8px;
+}
+.fft .abilities {
+  width: 460px;
+}
+.fft .item {
+  all: unset;
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 60px;
+  padding: 0 18px 0 46px;
+  font: 500 var(--fs-lg) var(--font);
+  color: var(--ink);
+  cursor: pointer;
+  text-shadow: inherit;
+}
+.fft .item .gi,
+.fft .orb {
+  width: 28px;
+  height: 28px;
+  flex: none;
+}
+.fft .gi {
+  fill: currentColor;
+}
+/* marcadores redondos dos comandos (bola de vidro) */
+.fft .orb {
+  border-radius: 50%;
+  box-shadow:
+    inset -3px -4px 6px rgba(0, 0, 0, 0.5),
+    0 0 0 2px #050a18;
+  background: radial-gradient(circle at 35% 30%, #fff8 0 15%, var(--o) 45%);
+}
+.fft .orb.gold {
+  --o: #c8a040;
+}
+.fft .orb.blue {
+  --o: #4a78d0;
+}
+.fft .orb.bronze {
+  --o: #b06a30;
+}
+.fft .orb.off {
+  --o: #4a5068;
+}
+.fft .item-label {
+  flex: 1;
+}
+.fft .item-cost {
+  font-size: var(--fs);
+  color: var(--ink-muted);
+  font-variant-numeric: tabular-nums;
+}
+.fft .item-why {
+  font-size: var(--fs-sm);
+  font-style: italic;
+}
+/* foco: faixa mais clara, filete amarelo e ▶ que pulsa; não usa anel (o mesmo cursor de teclado, mouse e controle) */
+.fft .item.focus,
+.fft .item:focus-visible {
+  background: var(--focus-band);
+  box-shadow: inset 0 0 0 1px var(--focus);
+}
+.fft .item.focus::before,
+.fft .item:focus-visible::before {
+  content: '▶';
+  position: absolute;
+  left: 14px;
+  color: var(--focus);
+  font-size: 20px;
+  animation: fft-nudge 0.6s steps(2) infinite;
+}
+.fft .item:hover:not([aria-disabled]) {
+  background: rgba(255, 255, 255, 0.1);
+}
+/* selecionado: o comando cujo submenu está aberto fica marcado e com ▸ à direita */
+.fft .item.picked {
+  background: rgba(5, 10, 24, 0.45);
+  box-shadow: inset 4px 0 0 var(--focus);
+}
+.fft .item.picked::after {
+  content: '▸';
+  color: var(--focus);
+}
+/* desativado: apagado, bola cinza e o motivo escrito (não só a opacidade) */
+.fft .item[aria-disabled] {
+  color: var(--ink-off);
+  cursor: default;
+  text-shadow: none;
+}
+.fft .item[aria-disabled] .gi {
+  opacity: 0.5;
+}
+
+/* ---------- fila de turnos (~5% = 96 px) ---------- */
+.fft .queue {
+  list-style: none;
+  margin: 0;
+  padding: 8px 0;
+  width: 96px;
+  box-sizing: border-box;
+  display: grid;
+  gap: 6px;
+  justify-items: center;
+}
+.fft .queue-row {
+  border: 0;
+  box-shadow: none; /* a casca do lab tem uma .now própria */
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  width: 80px;
+}
+.fft .queue-row .portrait {
+  border-color: var(--hero);
+}
+.fft .queue-row.enemy .portrait {
+  border-color: var(--enemy);
+}
+.fft .queue-row.now .portrait {
+  border-color: var(--focus);
+  box-shadow:
+    0 0 0 1px #050a18,
+    0 0 10px rgba(255, 215, 94, 0.6);
+}
+.fft .queue-n {
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  justify-self: start;
+  line-height: 1;
+}
+.fft .queue-row.now .queue-n {
+  color: var(--focus);
+  justify-self: center;
+  letter-spacing: 0.06em;
+}
+.fft .queue-name {
+  font-size: var(--fs-sm);
+  white-space: nowrap;
+}
+.fft .queue-name i {
+  font-style: normal;
+  font-size: 14px;
+  margin-right: 3px;
+  color: var(--hero);
+  vertical-align: 1px;
+}
+.fft .queue-row.enemy .queue-name i {
+  color: var(--enemy);
+}
+
+/* ---------- previsão de ataque: lado aliado azul, alvo vinho ---------- */
+.fft .strike {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 760px;
+  height: 128px;
+  border: 2px solid var(--paper-edge);
+  border-radius: var(--r);
+  box-shadow: var(--paper-frame);
+  text-shadow: 1px 1px 0 #050a18;
+  overflow: hidden;
+}
+.fft .strike-main,
+.fft .strike-target {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  padding: 0 16px;
+}
+.fft .strike-main {
+  background: linear-gradient(var(--paper-hi), var(--paper-lo));
+}
+.fft .strike-target {
+  background: var(--enemy-paper);
+  border-left: 2px solid var(--paper-edge);
+  justify-content: flex-end;
+}
+.fft .strike-target > div {
+  flex: 1;
+  display: grid;
+  gap: 4px;
+}
+.fft .strike-info {
+  font-size: var(--fs);
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+}
+.fft .strike-target .unit-side::before {
+  content: '◆ ';
+  color: #ff9aa2;
+}
+.fft .strike-row {
+  display: flex;
+  gap: 18px;
+  align-items: baseline;
+}
+.fft .strike-pts {
+  font-size: var(--fs-xl);
+  color: var(--strike-dmg);
+  font-variant-numeric: tabular-nums;
+}
+.fft .strike-hit {
+  font-size: var(--fs-lg);
+  font-weight: 700;
+}
+.fft .strike-hit small {
+  font-size: var(--fs-sm);
+  font-weight: 500;
+}
+.fft .strike-hp {
+  font-size: var(--fs-sm);
+  color: #f6dfe3;
+}
+.fft .strike .gauge {
+  grid-template-columns: 3.4em 1fr 3.4em;
+}
+
+/* ---------- botões ---------- */
+.fft button.primary,
+.fft button.secondary {
+  font: 700 var(--fs) var(--font);
+  min-height: var(--tap);
+  padding: 0 18px;
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--paper-edge);
+  border-radius: var(--r);
+  color: var(--ink);
+  cursor: pointer;
+  text-shadow: 1px 1px 0 #050a18;
+  box-shadow:
+    0 0 0 1px #050a18,
+    0 3px 0 rgba(0, 0, 0, 0.45);
+}
+.fft button.primary {
+  background: linear-gradient(#3b6ab8, #2a55a0);
+}
+.fft button.secondary {
+  background: linear-gradient(#18295a, #0f1d40);
+  border-color: #8fa0c8;
+  font-weight: 500;
+}
+.fft button.primary:hover,
+.fft button.primary.h {
+  background: linear-gradient(#4572c0, #2f5ca8);
+}
+.fft button.secondary:hover,
+.fft button.secondary.h {
+  background: linear-gradient(#22366c, #15254e);
+}
+.fft button:focus-visible,
+.fft button.f {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+  box-shadow:
+    var(--focus-halo),
+    0 3px 0 rgba(0, 0, 0, 0.45);
+}
+.fft button.primary:active,
+.fft button.p {
+  transform: translateY(2px);
+  box-shadow:
+    0 0 0 1px #050a18,
+    inset 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+.fft button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.fft .kbd {
+  font-size: 14px;
+  font-weight: 500;
+  padding: 1px 6px;
+  border: 1px solid currentColor;
+  border-radius: 2px;
+  opacity: 0.85;
+}
+.fft button[aria-pressed='true'] {
+  background: var(--focus-band);
+  border-color: var(--focus);
+  font-weight: 700;
+}
+.fft button[aria-pressed='true']::before {
+  content: '✓';
+  color: var(--focus);
+}
+
+/* ---------- diálogo (dialog() do jogo) ---------- */
+.fft .dialog {
+  background: linear-gradient(var(--paper-hi), var(--paper) 45%, var(--paper-lo));
+  border: 2px solid var(--paper-edge);
+  border-radius: var(--r);
+  box-shadow:
+    var(--paper-frame),
+    0 12px 40px rgba(0, 0, 0, 0.5);
+  width: 520px;
+  padding: 0 20px 20px;
+  text-shadow: 1px 1px 0 #050a18;
+  display: grid;
+  gap: 16px;
+}
+.fft .dialog-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 -20px;
+  padding: 8px 12px 8px 20px;
+  border-bottom: 2px solid rgba(223, 230, 248, 0.55);
+}
+.fft .dialog-head h2 {
+  font: 700 var(--fs-lg) var(--font);
+  margin: 0;
+}
+.fft .dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+.fft button.icon {
+  all: unset;
+  display: inline-grid;
+  place-items: center;
+  width: var(--tap);
+  height: var(--tap);
+  font-size: var(--fs-lg);
+  cursor: pointer;
+  border-radius: var(--r);
+  color: var(--ink);
+}
+.fft button.icon:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+.fft button.icon:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: -3px;
+}
+.fft button.icon .gi {
+  width: 30px;
+  height: 30px;
+}
+
+/* ---------- janela de história (talk.ts) ---------- */
+.fft .talk {
+  all: unset;
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  gap: 20px;
+  width: 1100px;
+  min-height: 176px;
+  padding: 20px 24px;
+  cursor: pointer;
+  background: linear-gradient(var(--paper-hi), var(--paper) 45%, var(--paper-lo));
+  border: 2px solid var(--paper-edge);
+  border-radius: var(--r);
+  box-shadow: var(--paper-frame);
+  color: var(--ink);
+  text-shadow: 1px 1px 0 #050a18;
+}
+.fft .talk:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+}
+.fft .talk-body {
+  display: grid;
+  align-content: start;
+  gap: 6px;
+  flex: 1;
+}
+.fft .talk-name {
+  font-size: var(--fs-lg);
+  color: var(--focus);
+}
+.fft .talk-text {
+  font-size: var(--fs-lg);
+  line-height: 1.4;
+  min-height: 2.8em;
+}
+.fft .talk-next {
+  position: absolute;
+  right: 18px;
+  bottom: 10px;
+  visibility: hidden;
+  animation: fft-nudge 0.6s steps(2) infinite;
+}
+.fft .talk.done .talk-next {
+  visibility: visible;
+}
+.fft .talk-keys {
+  position: absolute;
+  right: 48px;
+  bottom: 8px;
+  font-size: var(--fs-sm);
+  color: var(--ink-muted);
+}
+
+/* ---------- dica, ícones, contadores, carga ---------- */
+.fft .has-tip {
+  position: relative;
+  display: inline-block;
+}
+.fft .tip {
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + 10px);
+  white-space: nowrap;
+  padding: 6px 12px;
+  font-size: var(--fs-sm);
+  display: none;
+  z-index: 2;
+  pointer-events: none;
+}
+.fft .tip::after {
+  content: '';
+  position: absolute;
+  left: 17px;
+  top: 100%;
+  border: 7px solid transparent;
+  border-top-color: var(--paper-edge);
+}
+.fft .has-tip:hover > .tip,
+.fft .has-tip:focus-within > .tip,
+.fft .has-tip.open > .tip {
+  display: block;
+}
+.fft .has-tip.open {
+  margin-top: 44px;
+}
+.fft .icons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 6px;
+  max-width: 280px;
+}
+.fft .counter {
+  display: inline-flex;
+  gap: 10px;
+  align-items: baseline;
+  padding: 6px 14px;
+}
+.fft .counter strong {
+  font-size: var(--fs-lg);
+  font-variant-numeric: tabular-nums;
+}
+.fft .counter-label {
+  font-size: var(--fs-sm);
+  color: var(--ink-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.fft .counter.gold strong::before {
+  content: '';
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+  border-radius: 50%;
+  vertical-align: -1px;
+  background: radial-gradient(circle at 35% 30%, #fff6c0 0 15%, #e8b030 45%, #8a5a10);
+  box-shadow: 0 0 0 1px #050a18;
+}
+.fft .charge {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  gap: 12px;
+  align-items: center;
+  padding: 8px 14px;
+  font-size: var(--fs-sm);
+}
+.fft .charge-name {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.fft .charge-name .gi {
+  width: 22px;
+  height: 22px;
+}
+.fft .charge-cells {
+  display: flex;
+  gap: 3px;
+}
+.fft .charge-cells i {
+  width: 18px;
+  height: 12px;
+  background: var(--well);
+  border: 1px solid #050a18;
+}
+.fft .charge-cells i.on {
+  background: var(--ct);
+}
+.fft .charge-left {
+  color: var(--ink-muted);
+}
+
+/* ---------- lista com rolagem, escolha, valor ---------- */
+.fft .list {
+  width: 360px;
+}
+.fft .list-scroll {
+  display: grid;
+  max-height: 248px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--paper-edge) var(--paper-lo);
+}
+.fft .list .item {
+  min-height: 44px;
+  font-size: var(--fs);
+  padding-left: 40px;
+}
+.fft .list .item.focus::before,
+.fft .list .item:focus-visible::before {
+  left: 12px;
+  font-size: 16px;
+}
+.fft .choice,
+.fft .slider {
+  display: grid;
+  gap: 8px;
+}
+.fft .choice-label {
+  font-size: var(--fs-sm);
+  color: var(--ink-muted);
+}
+.fft .choice-row,
+.fft .slider-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.fft .slider input {
+  flex: 1;
+  accent-color: #4a78d0;
+  height: 24px;
+}
+.fft .slider input:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+.fft .slider-value {
+  width: 3em;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- casas e cursor (MARK de scene.ts) ---------- */
+.fft .board-demo {
+  position: relative;
+  width: 340px;
+  height: 220px;
+  overflow: hidden;
+  background: #3d5a2a;
+  border-radius: 4px;
+}
+.fft .board-grid {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: grid;
+  grid-template-columns: repeat(4, 56px);
+  gap: 3px;
+  transform: translate(-50%, -50%) rotateX(60deg) rotateZ(45deg);
+}
+.fft .tile-mark {
+  height: 56px;
+  background: rgba(0, 0, 0, 0.08);
+  outline: 1px solid rgba(0, 0, 0, 0.2);
+}
+.fft .tile-mark.move {
+  background: color-mix(in srgb, var(--mark-move) 35%, transparent);
+  box-shadow:
+    inset 0 0 0 3px var(--mark-move),
+    0 0 0 1px #050a18;
+}
+.fft .tile-mark.range {
+  background: repeating-linear-gradient(
+    45deg,
+    color-mix(in srgb, var(--mark-range) 55%, transparent) 0 6px,
+    transparent 6px 12px
+  );
+  box-shadow:
+    inset 0 0 0 3px var(--mark-range),
+    0 0 0 1px #050a18;
+}
+.fft .tile-mark.target {
+  background: color-mix(in srgb, var(--mark-threat) 70%, transparent);
+  box-shadow:
+    inset 0 0 0 3px var(--mark-threat),
+    0 0 0 1px #050a18;
+}
+.fft .tile-mark.blocked {
+  background:
+    linear-gradient(45deg, transparent 45%, var(--mark-blocked) 45% 55%, transparent 55%),
+    linear-gradient(-45deg, transparent 45%, var(--mark-blocked) 45% 55%, transparent 55%);
+  box-shadow:
+    inset 0 0 0 3px var(--mark-blocked),
+    0 0 0 1px #050a18;
+}
+.fft .tile-mark.cursor {
+  position: relative;
+  z-index: 1;
+  box-shadow:
+    inset 0 0 0 3px var(--mark-threat),
+    0 0 0 4px var(--focus),
+    0 0 0 5px #050a18;
+}
+/* centro da casa (2,2) depois do rotateX(60) rotateZ(45): 21 px abaixo do meio do tabuleiro */
+.fft .cursor-arrow {
+  position: absolute;
+  left: 50%;
+  top: 78px;
+  margin-left: -10px;
+  color: var(--focus);
+  font-size: 26px;
+  text-shadow:
+    0 0 0 #000,
+    1px 2px 0 #050a18;
+  animation: fft-bob 0.6s steps(2) infinite;
+}
+
+/* ---------- montagem 1920x1080 ---------- */
+.fft-scene {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #000;
+}
+.fft-stage {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1920px;
+  height: 1080px;
+  transform: scale(var(--k, 0.5));
+  transform-origin: 0 0;
+  background: url(/content/design/ia/cena-colina.jpg) center / cover;
+}
+.fft-stage > * {
+  position: absolute;
+}
+.fft-stage > .queue {
+  left: 16px;
+  top: 16px;
+}
+.fft-stage > .unit-panel {
+  left: 16px;
+  bottom: 16px;
+}
+.fft-stage > .strike {
+  left: 712px;
+  bottom: 16px;
+}
+.fft-stage > .fft-cmds {
+  right: 16px;
+  bottom: 16px;
+}
+.fft-stage > .counter {
+  right: 16px;
+  top: 16px;
+}
+
+@keyframes fft-nudge {
+  50% {
+    transform: translateX(3px);
+  }
+}
+@keyframes fft-bob {
+  50% {
+    transform: translateY(4px);
+  }
+}
+@keyframes fft-blink {
+  50% {
+    opacity: 0.45;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fft *,
+  .fft *::before {
+    animation: none !important;
+  }
+}

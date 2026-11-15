@@ -1,0 +1,274 @@
+{
+  "game": "Final Fantasy Tactics: The Ivalice Chronicles",
+  "slug": "fft-ivalice",
+  "year": 2025,
+  "shots": [
+    {
+      "file": "refs/fft-ivalice/01-previa.jpg",
+      "source": "https://store.steampowered.com/app/1004640",
+      "screen": "previa",
+      "title": "Prévia de dano com os dois combatentes lado a lado, antes de confirmar",
+      "layout": "Cena isométrica ocupa a tela toda. Faixa inferior larga (cerca de 20% da altura) com atacante à esquerda, alvo à direita e a prévia no meio. Fila de turnos em coluna na borda esquerda. Altura do tile no canto direito. Dicas de botão no rodapé.",
+      "pieces": [
+        "Faixa de prévia: retrato grande de cada lado, nome, nível, HP e MP em barras, CT, Bravery e Faith, classe. Azul no aliado, vinho no inimigo (etiqueta 'Enemy' no retrato)",
+        "Centro em forma de seta/losango escuro: ícone de mira 100%, ícone de feitiço 100% e o dano em número grande (36) com a palavra 'Damage' embaixo",
+        "Barra de HP do alvo mostra um trecho vermelho no fim: o que será perdido",
+        "Fila de turnos: coluna de retratos pequenos numerados 1 a 9, borda azul para aliado e vermelha para inimigo, o turno atual destacado em amarelo",
+        "Cada unidade em campo tem número de ordem e mini-barra de cor (azul/vermelho) sobre a cabeça",
+        "Balão 'Attack' apontando para o alvo e outro embaixo do atacante",
+        "'Height 0' em número verde grande no canto superior direito",
+        "Rodapé: botões Move Viewpoint, Confirm, Cancel, Zoom, Change Display em fonte serifada"
+      ],
+      "take": "Prévia ao vivo com acerto, dano e HP do alvo na mesma faixa, sem abrir menu; a fila numerada liga cada rosto à unidade no mapa.",
+      "avoid": "Faixa inferior cobre uma parte do mapa e tampa unidades na parte de baixo."
+    },
+    {
+      "file": "refs/fft-ivalice/02-classe.jpg",
+      "source": "https://store.steampowered.com/app/1004640",
+      "screen": "classe",
+      "title": "Tela de classes (jobs) de uma unidade, com o que ainda está bloqueado",
+      "layout": "Cabeçalho no topo com caminho de navegação. Faixa de status da unidade em cima (retrato à esquerda, HP/MP, boneco ao centro, grade de números à direita). Abaixo, grade de bonecos de classe em 3 fileiras. Texto de ajuda e botões no rodapé.",
+      "pieces": [
+        "Caminho 'Units > Status > Jobs' em fonte serifada no topo esquerdo",
+        "Retrato com signo, nome, nível, HP e MP em barras, CT, Bravery, Faith, classe atual, JP",
+        "Pequena grade de ícones com valores (movimento, salto, evasão, defesa em %), dividida em 'Unit' e 'Equipment'",
+        "Grade de bonecos de classe em fundo de pedra escuro, cada um com ícone, nome, 'Lv.' e JP necessário; a classe atual leva uma caixa marcada e uma mão apontando",
+        "Classes ainda não liberadas aparecem como silhuetas pretas, sem nome",
+        "Linha de ajuda 'Change to a different job or learn new abilities.' e botões Job Progress, Job Summary, Job Abilities, Confirm, Back"
+      ],
+      "take": "Silhuetas pretas mostram o que falta liberar e dão objetivo; cada classe mostra nível e custo na própria célula.",
+      "avoid": "Número demais na faixa de stats do topo, com ícones pequenos sem rótulo."
+    },
+    {
+      "file": "refs/fft-ivalice/03-batalha.jpg",
+      "source": "https://www.rpgfan.com/gallery/final-fantasy-tactics-the-ivalice-chronicles-screenshots/",
+      "screen": "batalha",
+      "title": "Escolha de tile para mover, com o alcance em azul",
+      "layout": "Cena isométrica de fundo cheio. Fila de turnos na borda esquerda. Painel de status do ativo no canto inferior esquerdo. Altura no alto à direita. Aviso de instrução em pílula escura no topo central.",
+      "pieces": [
+        "Pílula escura arredondada no topo: 'Select a tile and press X to move.'",
+        "Tiles de movimento em losangos azuis brilhantes com borda clara; o tile escolhido em branco, com marcador em seta dourada em cima",
+        "Painel do ativo: retrato, nome, Lv, EXP, HP verde, MP vermelho, CT, Bravery, Faith, classe, JP",
+        "Fila de turnos em retratos numerados 1 a 9",
+        "'Height 7.5' em número verde grande",
+        "Rodapé com botões Move Here, Cancel, Zoom, Change Display"
+      ],
+      "take": "Alcance como placas azuis brilhantes em cima da cena, mais a instrução escrita numa pílula; o jogador sabe o que fazer sem ler manual.",
+      "avoid": "Texto de botões do rodapé é pequeno e de baixo contraste sobre cenário claro."
+    },
+    {
+      "file": "refs/fft-ivalice/04-batalha-terreno.jpg",
+      "source": "https://www.rpgfan.com/gallery/final-fantasy-tactics-the-ivalice-chronicles-screenshots/",
+      "screen": "batalha",
+      "title": "Visão tática com descrição do terreno no lado direito",
+      "layout": "Cena mais aproximada. Painel do ativo no canto inferior direito dessa vez. Coluna de informação de terreno à direita, com texto vertical 'Tactical View' na borda.",
+      "pieces": [
+        "Grade de tiles azuis cobrindo uma faixa diagonal do campo",
+        "'Height 7.5' no topo direito; abaixo, nome do terreno 'Grassland', descrição curta e tag 'Geomancy'",
+        "Palavras 'Tactical View' em letras grandes e apagadas, na vertical, na borda direita",
+        "Painel do ativo no canto inferior direito com retrato do lado direito",
+        "Números de ordem e mini-barras sobre cada unidade",
+        "Dica 'Marker' no rodapé esquerdo e 'Change Display' no direito"
+      ],
+      "take": "Mostrar terreno e altura ao lado do tile que o cursor toca ajuda a planejar posição.",
+      "avoid": "Painel do ativo troca de lado conforme o quadro; o olho precisa procurar."
+    },
+    {
+      "file": "refs/fft-ivalice/05-mapa.jpg",
+      "source": "https://www.rpgfan.com/gallery/final-fantasy-tactics-the-ivalice-chronicles-screenshots/",
+      "screen": "mapa",
+      "title": "Crônica: mapa do reino com linha do tempo e legendas das pessoas",
+      "layout": "Mapa em pergaminho escuro ocupando a tela. Barra de linha do tempo no alto. Retratos com legendas em balões espalhados no mapa. Texto corrido embaixo. Retrato do personagem no canto superior direito.",
+      "pieces": [
+        "Caminho 'Chronicle > State of the Realm' no topo esquerdo e frase 'The truth may have many facets.' no direito",
+        "Linha do tempo com marcador, rótulos 'Past' e 'Present' e botões L1/R1",
+        "Mapa em tons de sépia com região escurecida onde o foco está",
+        "Retratos pequenos ligados por seta a balões coloridos (roxo, laranja, branco) com texto",
+        "Parágrafo de narração no rodapé em fonte serifada clara",
+        "Botões Zoom e Back no canto inferior direito"
+      ],
+      "take": "Linha do tempo passado-presente em cima de um mapa único conta a história sem trocar de tela.",
+      "avoid": "Parágrafo comprido de rodapé em letra pequena."
+    },
+    {
+      "file": "refs/fft-ivalice/06-classe.jpg",
+      "source": "https://www.rpgfan.com/gallery/final-fantasy-tactics-the-ivalice-chronicles-screenshots/",
+      "screen": "classe",
+      "title": "Árvore de classes com requisitos de nível nas setas",
+      "layout": "Fundo preto de pedra. Árvore de bonecos espalhada pela tela toda, dois grupos (esquerda e direita). Título no topo esquerdo.",
+      "pieces": [
+        "Título 'Job Tree'",
+        "Cada classe é um boneco sobre um disco cinza; a escolhida leva anel amarelo, mão apontando e etiqueta com o nome ('Squire')",
+        "Setas finas ligam as classes; requisitos como 'Lv. 2' em etiqueta verde e 'Lv. 8' em vermelho sobre a seta",
+        "Silhuetas pretas para classes que a unidade ainda não vê",
+        "Caixa azul marcada ao lado da classe atual",
+        "Botões View Job e Back no rodapé"
+      ],
+      "take": "A árvore mostra o caminho: setas coloridas com o nível exigido deixam claro o que liga a quê.",
+      "avoid": "Setas longas se cruzam e o olho se perde nas bordas."
+    },
+    {
+      "file": "refs/fft-ivalice/07-previa.jpg",
+      "source": "https://www.rpgfan.com/gallery/final-fantasy-tactics-the-ivalice-chronicles-screenshots/",
+      "screen": "previa",
+      "title": "Prévia de ataque com acerto físico, acerto mágico e dano",
+      "layout": "Mesma faixa inferior da outra prévia, com cenário rochoso e cachoeira. Fila numerada à esquerda, com o 5 em destaque amarelo.",
+      "pieces": [
+        "Faixa: retrato de Ramza à esquerda, Ingham (Enemy) à direita, nome, Lv, EXP, HP e MP em barras, CT, Bravery, Faith, classe",
+        "Centro com dois ícones e porcentagens: mira 100% e triângulo 100%, e o número 49 grande com 'Damage' embaixo",
+        "Barra de HP do alvo com a parte verde e um trecho vermelho no fim",
+        "Balão 'Attack' perto do alvo e outro 'Attack' acima da faixa",
+        "Etiquetas 'Special' e 'Guest' sobre unidades",
+        "Botões Move Viewpoint, Confirm, Cancel, Zoom, Change Display"
+      ],
+      "take": "A prévia traz duas chances (física e mágica) e o dano no mesmo bloco, com a barra do alvo já mostrando a perda.",
+      "avoid": "Duas porcentagens iguais sem rótulo escrito: só os ícones explicam."
+    },
+    {
+      "file": "refs/fft-ivalice/08-previa-classico.jpg",
+      "source": "https://www.rpgfan.com/gallery/final-fantasy-tactics-the-ivalice-chronicles-screenshots/",
+      "screen": "previa",
+      "title": "Prévia no modo Clássico, com a interface original em pixel",
+      "layout": "Moldura preta nas laterais (tela 4:3 em tela larga). Painéis de status embaixo, esquerda e direita da área central. Número de altura em verde no alto à direita.",
+      "pieces": [
+        "Painel esquerdo: retrato, '-028 Hp  90x', barras Hp, Mp, CT com valores 196/196, 023/023, 100/100",
+        "Seta dourada entre os painéis",
+        "Painel direito: retrato do inimigo, Hp 129/129, Mp 034/034, CT 044/100, com etiqueta 'Enemy' e número 2",
+        "Marcadores 'AT' sobre a unidade ativa",
+        "Altura '9h' em verde sobre a cachoeira",
+        "Fonte e barras estilo original de 1997, valores com zeros à esquerda"
+      ],
+      "take": "A versão clássica mostra o dano esperado (-028) e a chance (90x) no mesmo cantinho, em poucos pixels.",
+      "avoid": "Zeros à esquerda e barras finas dificultam a leitura rápida."
+    },
+    {
+      "file": "refs/fft-ivalice/09-titulo.jpg",
+      "source": "https://www.rpgfan.com/gallery/final-fantasy-tactics-the-ivalice-chronicles-screenshots/",
+      "screen": "titulo",
+      "title": "Título com duas colunas: versão Enhanced e Clássica",
+      "layout": "Fundo de mapa escuro desfocado. Duas colunas lado a lado com logo grande e dois botões cada. Fileira de três botões menores embaixo.",
+      "pieces": [
+        "Logo dourado 'The Ivalice Chronicles' à esquerda e logo prateado clássico à direita",
+        "Subtítulos 'Enhanced' e 'Classic' com ornamento",
+        "Botões 'Start Game' e 'About' em losango de pontas cortadas; o ativo com borda dourada e mão apontando, o inativo apagado",
+        "Fileira inferior: General Options, Credits, Exit Game",
+        "Copyright centralizado no rodapé"
+      ],
+      "take": "Duas entradas lado a lado com a ativa acesa e a outra apagada deixam claro qual modo o jogador está escolhendo.",
+      "avoid": "Botões inativos muito apagados quase somem."
+    },
+    {
+      "file": "refs/fft-ivalice/10-fila.jpg",
+      "source": "https://www.rpgfan.com/gallery/final-fantasy-tactics-the-ivalice-chronicles-screenshots/",
+      "screen": "fila",
+      "title": "Linha de turnos numerada na coluna esquerda, com mover por tiles",
+      "layout": "Coluna de retratos de 9 a 1 na borda esquerda; unidade ativa na base com HP, MP e CT; tiles azuis de movimento no mapa.",
+      "pieces": [
+        "Coluna 'Combat Timeline': retratos numerados, barra azul ou vermelha por lado",
+        "Número do turno sobre cada unidade no mapa",
+        "Cartão da unidade ativa: HP, MP, CT, Bravery, Faith, classe",
+        "Altura do tile em verde no canto",
+        "Aviso 'Select a tile and press X to move'",
+        "Dicas de botão no rodapé"
+      ],
+      "take": "A mesma numeração na fila e sobre a cabeça no mapa liga cada rosto à unidade.",
+      "avoid": "A coluna esquerda cobre parte do mapa."
+    },
+    {
+      "file": "refs/fft-ivalice/11-fila-previa.jpg",
+      "source": "https://www.rpgfan.com/gallery/final-fantasy-tactics-the-ivalice-chronicles-screenshots/",
+      "screen": "fila",
+      "title": "Prévia de dano com a fila de turnos destacando a unidade em foco",
+      "layout": "Faixa inferior com os dois combatentes e o dano no centro; fila de retratos na esquerda com um item em moldura amarela.",
+      "pieces": [
+        "Fila com o turno do alvo em moldura amarela",
+        "Faixa de prévia: acerto, dano (49), HP e CT dos dois",
+        "Balões 'Attack' sobre atacante e alvo",
+        "Dicas de botão no rodapé"
+      ],
+      "take": "Selecionar o alvo acende o turno dele na fila.",
+      "avoid": "A faixa cobre o mapa de baixo."
+    },
+    {
+      "file": "refs/fft-ivalice/12-menu-comandos.jpg",
+      "source": "https://www.youtube.com/watch?v=wVCaeyucLTE",
+      "screen": "batalha",
+      "title": "Menu de comandos: Move, Abilities, Wait, Status em lista",
+      "layout": "Lista vertical em papel no canto inferior direito; fila de retratos à esquerda e cartão da unidade embaixo.",
+      "pieces": [
+        "Título com o nome da unidade",
+        "Linhas com ícone e texto: Move, Abilities, Wait, Status e uma linha ainda bloqueada (???)",
+        "Mão apontando o item ativo",
+        "Fila numerada de 9 a 1",
+        "Cartão com HP, MP, CT, Bravery e Faith"
+      ],
+      "take": "Poucas linhas, com nome e ícone, e uma linha bloqueada que avisa que há mais por vir.",
+      "avoid": "O painel cobre parte do mapa. Quadro de trailer oficial."
+    },
+    {
+      "file": "refs/fft-ivalice/13-menu-comandos.jpg",
+      "source": "https://www.youtube.com/watch?v=wVCaeyucLTE",
+      "screen": "batalha",
+      "title": "Menu de comandos: submenu de habilidades com descrição ao lado",
+      "layout": "Dois painéis lado a lado embaixo: comandos e 'Abilities' (Attack, Holy Sword, Items); painel de descrição no alto à direita.",
+      "pieces": [
+        "Menu principal parcialmente coberto pelo submenu",
+        "Submenu 'Abilities' com ícones vermelhos",
+        "Painel de descrição com nome da classe e texto",
+        "Mão apontando o item"
+      ],
+      "take": "Descrição fixa em outro painel, sem tampar a lista.",
+      "avoid": "Submenus empilhados escondem o menu pai. Quadro de trailer oficial."
+    },
+    {
+      "file": "refs/fft-ivalice/14-ficha.jpg",
+      "source": "https://www.youtube.com/watch?v=wVCaeyucLTE",
+      "screen": "ficha",
+      "title": "Ficha de habilidades: lista com JP, aprendido e descrição",
+      "layout": "Fundo escuro. Cabeçalho com retrato, HP, MP, CT e atributos; lista central com abas; descrição à direita; cartão de classe à esquerda.",
+      "pieces": [
+        "Caminho 'Units > Status > Jobs > Abilities' no topo",
+        "Retrato com nome, nível, EXP, HP, MP, CT, Bravery, Faith",
+        "Blocos de números de movimento e de equipamento em ícones",
+        "Lista 'Action Abilities' com custo em JP e 'Learned'",
+        "Painel de descrição com MP e velocidade de conjuração",
+        "Cartão da classe com nível, EXP e JP"
+      ],
+      "take": "O que já foi aprendido e o custo do que falta ficam na mesma lista; o bloqueado aparece apagado.",
+      "avoid": "Cabeçalho com muitos números pequenos. Quadro de trailer oficial."
+    },
+    {
+      "file": "refs/fft-ivalice/15-opcoes-iniciais.jpg",
+      "source": "https://www.youtube.com/watch?v=ZnTlsHMMH9I",
+      "screen": "opcoes",
+      "title": "Opções iniciais com prévia de brilho ao lado",
+      "layout": "Título centrado no topo pedindo os ajustes. Lista de onze linhas à esquerda, quatro imagens de prévia em grade à direita. Linha de ajuda no rodapé. Mão como cursor na margem esquerda. Quadro da câmera do streamer no canto.",
+      "pieces": [
+        "Linha em foco com faixa cinza clara e cursor de mão.",
+        "Barras com número ao lado: brilho e volumes.",
+        "Seletor de texto com setas: idioma do texto e da voz.",
+        "Liga/desliga em pílula.",
+        "Prévias de cenas para ajustar o brilho.",
+        "Dica de uma frase no rodapé, muda com a linha."
+      ],
+      "take": "Prévia de imagem ao lado da barra de brilho e dica embaixo para cada linha.",
+      "avoid": "Lista única longa sem abas."
+    },
+    {
+      "file": "refs/fft-ivalice/16-opcoes-audio.jpg",
+      "source": "https://www.youtube.com/watch?v=ZnTlsHMMH9I",
+      "screen": "opcoes",
+      "title": "Opções de áudio e legendas numa lista única",
+      "layout": "Mesma tela, foco em Display Speaker Names. Sem prévia de imagem; selo mágico apagado no fundo. A dica do rodapé troca para o texto da linha em foco. Quadro da câmera do streamer no canto.",
+      "pieces": [
+        "Master Volume e, recuados abaixo, música, efeitos e voz.",
+        "Movie Volume separado.",
+        "Legendas de efeitos e Sound Visualization como pílulas liga/desliga.",
+        "Número do valor à esquerda da barra."
+      ],
+      "take": "Recuo para volumes filhos do volume geral e acessibilidade na mesma lista.",
+      "avoid": "Pílula desligada tem pouco contraste com o fundo."
+    }
+  ],
+  "notFound": ["Equipamento em tela própria e loja: não achados em capturas oficiais"]
+}

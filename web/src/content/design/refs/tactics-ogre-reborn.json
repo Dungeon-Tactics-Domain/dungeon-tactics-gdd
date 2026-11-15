@@ -1,0 +1,309 @@
+{
+  "game": "Tactics Ogre: Reborn",
+  "slug": "tactics-ogre-reborn",
+  "year": 2022,
+  "shots": [
+    {
+      "file": "refs/tactics-ogre-reborn/03-previa.jpg",
+      "source": "https://store.steampowered.com/app/1451090",
+      "screen": "previa",
+      "title": "Prévia de ataque com dano esperado e chance, mais a fila de turnos embaixo",
+      "layout": "Cena isométrica ocupando tudo. Faixa translúcida no topo com instrução e arma, retratos grandes nos dois cantos de baixo, faixa de prévia ao centro-baixo, fila de turnos em linha na borda inferior.",
+      "pieces": [
+        "Faixa no topo: ícone '?' e 'Select target.', e abaixo a arma 'Short Sword'",
+        "Retratos grandes (Denam à esquerda, Albin à direita) com bandeira da união ao lado de cada um",
+        "Nome, 'LV.', HP e MP em números grandes com barras finas (azul HP, rosa MP)",
+        "Seta branca translúcida no meio: 'HP -88 PTS' em rosa e ícone de mira '100 %'",
+        "Quatro ícones de arma com chance 25, 30, 35, 40 sob as barras",
+        "Marcadores: 'AT' sobre a unidade ativa, ícone de seta sobre os alvos",
+        "Fila de turnos: fileira de bonecos coloridos (amarelo, azul) na borda inferior com 'AT' no primeiro; contagem '1/15' e 'RT 000' à esquerda",
+        "Caixa 'ELEV 7' no alto à direita e botões '?' e avanço rápido",
+        "Células de ataque em amarelo sobre o chão"
+      ],
+      "take": "A seta no meio mostra dano em pontos e chance antes de confirmar, e a fila em baixo diz quem age depois.",
+      "avoid": "Muita informação junta na borda inferior; retratos grandes cobrem uma boa parte do mapa."
+    },
+    {
+      "file": "refs/tactics-ogre-reborn/07-batalha.jpg",
+      "source": "https://store.steampowered.com/app/1451090",
+      "screen": "batalha",
+      "title": "Turno em andamento com efeito mágico e status do alvo",
+      "layout": "Cena com forte efeito azul. Painel de status do inimigo no canto inferior direito, com retrato grande. Botões pequenos no alto à direita.",
+      "pieces": [
+        "Painel: bandeira em colunas, retrato do réptil, nome 'Khokar Lv.19', HP 796/796 e MP 32/116 em números grandes",
+        "Ícones de estado (escudo, silhueta, escudo azul) em fileira acima do nome",
+        "Ícone de classe/atributo em amarelo ao lado",
+        "Número de dano '133' com sobrescrito sobre o alvo, com mini-barra amarela",
+        "Marcador 'AT' sobre o ativo, ícone de proibido vermelho sobre outro",
+        "Ícone de feitiço no canto e botões '?' e avanço rápido"
+      ],
+      "take": "Ícones de status ficam colados ao nome e ao HP, sem painel separado.",
+      "avoid": "Efeito azul chapa o cenário e tira o contraste dos bonecos."
+    },
+    {
+      "file": "refs/tactics-ogre-reborn/02-ficha.jpg",
+      "source": "https://store.steampowered.com/app/1451090",
+      "screen": "ficha",
+      "title": "Lista da tropa com nível e símbolo de classe em cada boneco",
+      "layout": "Fundo de papel envelhecido. Grade de 10 colunas por 3 fileiras de bonecos ocupa a maior parte. Coluna de ícones redondos à esquerda. Retrato e resumo do selecionado no canto inferior esquerdo; nível da união no canto inferior direito.",
+      "pieces": [
+        "Faixa de dica no topo: 'View unit information and change equipment.' com ícone de informação",
+        "Botão '?' redondo no canto superior direito",
+        "Coluna de botões redondos escuros à esquerda (ordenar, filtros, numerar)",
+        "Cada boneco em losango cinza, com 'LV.' e número embaixo e um símbolo de cor sobre a base (amarelo, verde M, ciano, laranja, rosa) que marca classe ou raça",
+        "Boneco selecionado com caixa dourada",
+        "Resumo embaixo: retrato grande com bandeira, 'Lv.25 Isleton', HP 848/848, MP 0/182",
+        "Direita embaixo: 'UNION LEVEL 25' e bandeira 'Godscale'",
+        "Barra de rolagem vertical à direita"
+      ],
+      "take": "Grade densa em que símbolo e nível leem de relance quem é quem, sem abrir cada ficha.",
+      "avoid": "Símbolos de cor não têm legenda na tela; o jogador precisa decorar."
+    },
+    {
+      "file": "refs/tactics-ogre-reborn/04-mapa.jpg",
+      "source": "https://store.steampowered.com/app/1451090",
+      "screen": "mapa",
+      "title": "Mapa mundial em pergaminho com ordem, nível da união e verba de guerra",
+      "layout": "Mapa de pergaminho de fundo inteiro com pins ilustrados e estradas. Faixa de dica no topo. Coluna de informação alinhada à direita, com 'ORDER' e 'UNION LEVEL' no alto e 'CAMPAIGN' e 'WAR FUNDS' embaixo. Barra de rolagem horizontal no fundo.",
+      "pieces": [
+        "Faixa no topo com ícone de informação e texto de descrição que corre ('This castle was once the seat of power...')",
+        "Locais como pequenos dioramas ilustrados com bandeira azul",
+        "Estrada em linha bege e tracejada para o caminho ainda não aberto",
+        "Boneco do jogador sobre o local atual com pena de asa, e nome do local ('Almorica Castle') em branco",
+        "Coluna direita: 'ORDER Hero of Golyat', 'UNION LEVEL Lv. 25', 'CAMPAIGN 203 DAYS Day 9 of Stormscale', 'WAR FUNDS 38,520 GOTH', números em fonte serifada"
+      ],
+      "take": "O mapa vira o menu: o jogador anda pelo mapa e a coluna da direita guarda os números da campanha.",
+      "avoid": "Rótulos do mapa em escrita inventada dificultam a leitura."
+    },
+    {
+      "file": "refs/tactics-ogre-reborn/05-mapa.jpg",
+      "source": "https://store.steampowered.com/app/1451090",
+      "screen": "mapa",
+      "title": "Mapa mundial aproximado em um local, com título e arte de fundo",
+      "layout": "Arte de montanha nevada de fundo. Local isométrico no meio ligado por linha bege curva. Título do local grande no canto inferior esquerdo. Mesmo bloco de ordem e campanha à direita.",
+      "pieces": [
+        "Faixa de dica cortada no topo com ícone de informação",
+        "Estrada em curva grossa bege ligando locais",
+        "Diorama 'Brigantys South Curtain Wall' com nome em branco embaixo",
+        "Boneco do jogador na estrada",
+        "Título 'Brigantys Castle' em versais serifadas claras no canto inferior esquerdo",
+        "Coluna direita: ordem, nível da união 19, campanha 137 dias, 'WAR FUNDS 60,890 GOTH'"
+      ],
+      "take": "Chegar perto de um local troca a arte de fundo e dá um título grande ao lugar.",
+      "avoid": "Texto da faixa de dica é cortado no topo."
+    },
+    {
+      "file": "refs/tactics-ogre-reborn/01-dialogo.jpg",
+      "source": "https://store.steampowered.com/app/1451090",
+      "screen": "dialogo",
+      "title": "Diálogo com balões grandes e escolha numerada",
+      "layout": "Cena isométrica de fundo. Balão do interlocutor no alto à esquerda com retrato; balão do jogador embaixo à direita com retrato e opções.",
+      "pieces": [
+        "Balão cinza-claro de borda irregular, com setinha apontando para quem fala",
+        "Nome do falante em itálico no alto do balão ('The Holy Knight Lanselot')",
+        "Texto em caixa-alta itálico escuro",
+        "Retrato desenhado grande saindo do canto do balão",
+        "Opções numeradas '1. I'll take you at your word.' e '2. ...', com a escolha atual em faixa amarela clara e pena azul de seleção",
+        "Nome 'Denam' sob o retrato embaixo à direita"
+      ],
+      "take": "Escolha de resposta dentro do balão do personagem, com a opção ativa marcada por faixa clara.",
+      "avoid": "Caixa-alta itálica em bloco longo cansa a leitura."
+    },
+    {
+      "file": "refs/tactics-ogre-reborn/06-dialogo.jpg",
+      "source": "https://store.steampowered.com/app/1451090",
+      "screen": "dialogo",
+      "title": "Diálogo na chuva, com a mesma estrutura de balões e escolhas",
+      "layout": "Cena de chuva escurecida. Balão do falante no alto à direita; balão do jogador embaixo à esquerda com duas opções.",
+      "pieces": [
+        "Balão cinza com ponta apontando para o boneco falante",
+        "Retrato grande de Sir Leonar à direita e de Denam à esquerda",
+        "Opções '1. I UNDERSTAND.' (faixa amarela) e '2. STOP THIS LUNACY!'",
+        "Pena azul de seleção à esquerda das opções",
+        "Nomes em itálico sob/sobre o retrato"
+      ],
+      "take": "Retrato dentro do balão dá voz ao personagem sem tampar o mapa.",
+      "avoid": "Balões grandes cobrem boa parte do campo, mesmo quando o foco está no meio."
+    },
+    {
+      "file": "refs/tactics-ogre-reborn/08-menu-comandos.jpg",
+      "source": "https://www.rpgfan.com/gallery/tactics-ogre-reborn-screenshots/",
+      "screen": "batalha",
+      "title": "Menu de comandos: quatro ícones em fileira sobre a unidade ativa",
+      "layout": "Cena isométrica cheia. Quatro botões quadrados logo acima da unidade. Retrato, nome, HP e MP no canto inferior esquerdo; terreno no direito; fila de retratos na borda de baixo.",
+      "pieces": [
+        "Fileira de 4 ícones sem texto; o selecionado tem moldura mais clara e uma mão apontando",
+        "Barra de dica no topo explica o comando: 'Attack with equipped weapon or cast spells'",
+        "Retrato grande com nome, nível, HP e MP em barras",
+        "Chip do terreno (Stone Wall) com defesa contra golpe e contra flecha",
+        "Fila de turnos: faixa de retratos na borda inferior, o primeiro com marca 'AT'",
+        "Contador de turno (1/22) e RT no canto"
+      ],
+      "take": "Menu enxuto colado na unidade: só ícones, com a explicação do comando numa barra fixa em cima.",
+      "avoid": "Ícones sem nome obrigam a decorar; a dica só aparece com o cursor em cima."
+    },
+    {
+      "file": "refs/tactics-ogre-reborn/09-menu-comandos.jpg",
+      "source": "https://www.rpgfan.com/gallery/tactics-ogre-reborn-screenshots/",
+      "screen": "batalha",
+      "title": "Menu de comandos: fileira de ícones de estratégia da IA, nome em balão",
+      "layout": "Mapa em xadrez. Faixa dourada curta com 5 ícones ao lado da unidade; balão 'Fierce Attacker' acima do ícone em foco.",
+      "pieces": [
+        "Faixa com 'AI' à esquerda e 5 ícones",
+        "Balão com o nome do ícone em foco",
+        "Barra de dica no topo descreve a estratégia",
+        "Retrato e HP/MP embaixo; fila de retratos ao fundo"
+      ],
+      "take": "Nome do comando num balão sobre o ícone em foco, sem abrir lista.",
+      "avoid": "Ícones coloridos parecidos se confundem; mapa fica cheio ao redor."
+    },
+    {
+      "file": "refs/tactics-ogre-reborn/10-menu-comandos.jpg",
+      "source": "https://www.rpgfan.com/gallery/tactics-ogre-reborn-screenshots/",
+      "screen": "batalha",
+      "title": "Menu de comandos: painel aberto com golpes, habilidades e itens em linhas por categoria",
+      "layout": "Painel em losango sobre a unidade. Linha de cima: armas e golpes; abaixo, três linhas de habilidades e itens. Balão 'Double Attack' no ícone em foco.",
+      "pieces": [
+        "Linhas por categoria com ícone de grupo à esquerda",
+        "Ícones de habilidade com custo de MP no canto",
+        "Balão com o nome do ícone em foco",
+        "Barra de dica no topo: 'Attack with both equipped weapons simultaneously'",
+        "Fila de retratos na borda inferior"
+      ],
+      "take": "Categorias em linhas e custo no ícone: muita opção num painel pequeno.",
+      "avoid": "Só ícones, sem lista de nomes; é preciso focar cada um para ler."
+    },
+    {
+      "file": "refs/tactics-ogre-reborn/11-loja.jpg",
+      "source": "https://www.rpgfan.com/gallery/tactics-ogre-reborn-screenshots/",
+      "screen": "loja",
+      "title": "Loja: lista de lanças com preço, equipados e estoque, e quem usa o item",
+      "layout": "Fundo preto. Coluna de ícones à esquerda, filtros de tipo no topo, lista em papel no centro e painel de unidades à direita.",
+      "pieces": [
+        "Coluna de ícones redondos de seção",
+        "Filtros por tipo de arma em fileira",
+        "Lista com nome, preço e coluna 'EQP/STOCK'",
+        "Painel 'Equipped Units' com os rostos de quem usa o item",
+        "'War Funds' com o saldo no canto",
+        "Barra de dica com a descrição do item no topo"
+      ],
+      "take": "Mostra no mesmo item quantos estão equipados e em estoque, e quem os usa.",
+      "avoid": "Não compara com o equipamento atual da unidade na mesma tela."
+    },
+    {
+      "file": "refs/tactics-ogre-reborn/12-loja-criar.jpg",
+      "source": "https://www.rpgfan.com/gallery/tactics-ogre-reborn-screenshots/",
+      "screen": "loja",
+      "title": "Loja: confirmação de criar item, com ingredientes e custo",
+      "layout": "Painel claro central sobre a loja escurecida; balão da vendedora no topo; caixa Sim/Não e quantidade à direita.",
+      "pieces": [
+        "Item resultante com 'EQP/STOCK'",
+        "Lista de ingredientes com 'necessário/em estoque'",
+        "Custo total em Goth",
+        "Balão de fala da personagem oferecendo vender o que falta",
+        "Seletor de quantidade",
+        "Botões Confirm e Cancel com ícone do botão"
+      ],
+      "take": "A receita mostra o que falta por ingrediente e o custo antes de confirmar.",
+      "avoid": "O balão da personagem cobre parte da lista."
+    },
+    {
+      "file": "refs/tactics-ogre-reborn/13-equipamento.jpg",
+      "source": "https://www.rpgfan.com/gallery/tactics-ogre-reborn-screenshots/",
+      "screen": "equipamento",
+      "title": "Ficha com painel de arma aberto: o que ela muda nos atributos",
+      "layout": "Papel envelhecido. Ícones de seção à esquerda, cabeçalho com nome e barras, painel de arma no centro, itens e atributos à direita.",
+      "pieces": [
+        "Cabeçalho: nº, nome, classe, nível, Move, Jump, RT, HP, MP",
+        "Painel da arma: tipo, alcance, área, peso, RT",
+        "Linhas de bônus (STR, DEX, AGI) e de atributos (ATK, DEF...) que o item altera",
+        "Colunas de itens, magias, habilidades e golpes finais",
+        "Coluna de atributos (STR, VIT, DEX...)",
+        "Faixa de unidades embaixo para trocar"
+      ],
+      "take": "O painel do item mostra tudo o que ele muda, dentro da ficha da própria unidade.",
+      "avoid": "Muita informação em fonte pequena."
+    },
+    {
+      "file": "refs/tactics-ogre-reborn/14-ficha.jpg",
+      "source": "https://www.rpgfan.com/gallery/tactics-ogre-reborn-screenshots/",
+      "screen": "ficha",
+      "title": "Ficha completa da unidade: equipamento, itens, magias, habilidades e atributos",
+      "layout": "Papel envelhecido. Cabeçalho largo com nome e barras; retrato grande no centro; equipamento à esquerda e listas à direita.",
+      "pieces": [
+        "Cabeçalho com nº, nome, classe, nível, EXP, Move, Jump, HP e MP",
+        "Equipamento em coluna com ícones",
+        "Retrato grande no centro",
+        "Seções Items, Spells, Skills e Finishing Moves com vagas vazias à mostra",
+        "Seção Stats com números",
+        "Clan e Allegiance embaixo",
+        "Faixa de unidades embaixo"
+      ],
+      "take": "Tudo da unidade numa tela só, com as vagas vazias visíveis.",
+      "avoid": "Densa; o olho não sabe por onde começar."
+    },
+    {
+      "file": "refs/tactics-ogre-reborn/15-fila.jpg",
+      "source": "https://www.rpgfan.com/gallery/tactics-ogre-reborn-screenshots/",
+      "screen": "fila",
+      "title": "Fila de turnos em faixa de retratos na borda inferior, com prévia de dano",
+      "layout": "Prévia em seta no meio: atacante à esquerda, alvo à direita. Faixa de retratos pequenos ocupa toda a borda de baixo.",
+      "pieces": [
+        "Faixa de retratos na ordem de ação; o primeiro com 'AT'",
+        "Cor do retrato (azul, roxo) diferencia os lados",
+        "Prévia: '-115 pts' e '100%'",
+        "Retratos grandes com HP e MP dos dois",
+        "Ícones de elemento e de golpe no centro",
+        "Contador de turno e RT"
+      ],
+      "take": "A faixa horizontal mostra quem age depois sem cobrir o mapa.",
+      "avoid": "Retratos pequenos e parecidos; só a cor diferencia."
+    },
+    {
+      "file": "refs/tactics-ogre-reborn/16-menu-batalha.jpg",
+      "source": "https://www.rpgfan.com/gallery/tactics-ogre-reborn-screenshots/",
+      "screen": "outro",
+      "title": "Menu da batalha: lista de opções do campo (unidades, Chariot Tarot, vitória, câmera, velocidade)",
+      "layout": "Painel claro à direita do mapa com 9 linhas de ícone e texto.",
+      "pieces": [
+        "Linhas: Unit List, Friendly Unit List, Chariot Tarot, Terms of Victory, HP Bars, Camera, Current Speed, System Menu, Focus Active",
+        "Cursor em forma de asa",
+        "Barra de dica no topo",
+        "Clima e elemento no canto"
+      ],
+      "take": "Menu de papel com ícone e texto por linha, com o valor atual na própria linha (velocidade, barras de HP).",
+      "avoid": "Cobre boa parte do mapa."
+    },
+    {
+      "file": "refs/tactics-ogre-reborn/17-ficha.jpg",
+      "source": "https://www.rpgfan.com/gallery/tactics-ogre-reborn-screenshots/",
+      "screen": "ficha",
+      "title": "Ficha com seletor de cartas de bônus aberto e ganhos em azul",
+      "layout": "A mesma ficha com painel de itens claro por cima; valores que sobem aparecem em azul.",
+      "pieces": [
+        "Painel com grade de cartas e quantidades",
+        "Dica no topo ('Grants 400 experience points')",
+        "Ganhos em azul: nível +1, EXP +400, HP e atributos +N",
+        "Balão com o nome do item em foco",
+        "Faixa de unidades embaixo"
+      ],
+      "take": "Prévia do ganho em azul ao lado do valor atual, antes de confirmar.",
+      "avoid": "O painel cobre parte da ficha."
+    },
+    {
+      "file": "refs/tactics-ogre-reborn/18-titulo.jpg",
+      "source": "https://www.youtube.com/watch?v=QhNx48CYJSQ",
+      "screen": "titulo",
+      "title": "Título com logo grande e menu de três itens",
+      "layout": "Arte de fundo cheia, logo grande centralizado na metade de cima. Menu em coluna centralizada embaixo: New Game, Options, Credits. Direitos autorais na linha final.",
+      "pieces": [
+        "Item em foco com faixa dourada e cursor em forma de asa.",
+        "Itens fora de foco em branco com linha fina embaixo.",
+        "Texto de direitos em fonte pequena."
+      ],
+      "take": "Menu curto e centralizado sob o logo, com cursor próprio do jogo.",
+      "avoid": "Sem Continuar visível quando não há save."
+    }
+  ],
+  "notFound": ["Troca de classe não achada nas capturas", "Opções não achadas"]
+}
