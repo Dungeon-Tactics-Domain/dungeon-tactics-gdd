@@ -40,6 +40,8 @@ src/
   features/paginas/       the pages pattern (Paginas component) and its demo at /exemplo-paginas
   features/arquivo/       index of the archived claude.ai artifacts (the copies stay in the old lab)
   features/labs/          route skeleton of labs not migrated yet (links to their page on 5190)
+  content/                one folder per migrated lab (manifest, .mdx pages, .json), registered by registry.tsx
+  components/content/     what every .mdx page gets: Callout, Player, Stars, Gallery, YouTubeEmbed, DataTable
   lib/labs.ts             typed data of every place: name, route, flag colour, accent, map position
   lib/fabrica.ts          parseFabrica (trust boundary) and the board rules (groups, labels, towns)
   lib/useFabrica.ts       the live hook: GET /api/fabrica + SSE /api/fabrica/stream
@@ -81,6 +83,7 @@ one menu button. The bar also falls back to that drawer at any width when the la
 
 ### Not here yet
 
-- Lab content (design, mechanics, narrative, 3D models, music): each lab route is a skeleton pointing to its current
-  page on port 5190. Content will come as MDX + typed JSON per lab; MDX is not installed until the first lab needs it.
+- Lab content (design, mechanics, narrative, music): each lab route is a skeleton pointing to its current page on port
+  5190 until its folder exists in `src/content/` (MDX + typed JSON, guide in `src/content/LEIA-ME.md`). The 3D models
+  lab is migrated.
 - The archived artifact copies stay in the old lab; they include captures that cannot go into a public repository.

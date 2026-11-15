@@ -5,6 +5,7 @@ import { useLayoutEffect, useRef, useState } from 'react';
 import { NavLink } from 'react-router';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetClose, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
+import { CONTEUDO } from '@/content/registry';
 import { useQuadro } from '@/lib/fabrica-context';
 import { stateLabel, type Town, townsOf } from '@/lib/fabrica';
 import { ARCHIVE } from '@/lib/labs';
@@ -25,7 +26,8 @@ const linkCls = ({ isActive }: { isActive: boolean }) =>
   );
 
 function TownLink({ t }: { t: Town }) {
-  const label = t.estado ? stateLabel(t.estado) : 'sem sessão no quadro';
+  const naoMigrado = t.place.antigo && !CONTEUDO[t.place.id] ? ', ainda não migrado' : '';
+  const label = `${t.estado ? stateLabel(t.estado) : 'sem sessão no quadro'}${naoMigrado}`;
   const dot = (
     <i
       className={cn('size-[13px] flex-none rounded-full border-2', DOT[t.estado ?? 'nenhum'])}

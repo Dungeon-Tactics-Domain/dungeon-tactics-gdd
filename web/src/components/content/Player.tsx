@@ -1,0 +1,18 @@
+// Audio of a lab page: native controls, never autoplay. A missing file says so instead of showing a dead player.
+import { useState } from 'react';
+
+export function Player({ src, titulo }: { src?: string; titulo: string }) {
+  const [falhou, setFalhou] = useState(false);
+  if (!src || falhou) return <p className="m-0 text-apagado">Áudio ainda não copiado{src ? ` (${src})` : ''}.</p>;
+  // preload="metadata" surfaces a missing file on open, not only on play
+  return (
+    <audio
+      controls
+      preload="metadata"
+      src={src}
+      aria-label={`Ouvir ${titulo}`}
+      onError={() => setFalhou(true)}
+      className="h-11 w-full max-w-[560px]"
+    />
+  );
+}

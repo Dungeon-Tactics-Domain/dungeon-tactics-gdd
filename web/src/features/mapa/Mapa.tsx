@@ -3,6 +3,7 @@
 import { type CSSProperties, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router';
 import { Badge } from '@/components/ui/badge';
+import { CONTEUDO } from '@/content/registry';
 import { stateLabel, type Town } from '@/lib/fabrica';
 import { PORT } from '@/lib/labs';
 import { cn } from '@/lib/utils';
@@ -127,6 +128,8 @@ function Cidade({ t, mudou }: { t: Town; mudou: boolean }) {
         <span className="linha">{linha}</span>
         {n > 0 && <span className="barcos-txt">⛵ {`${n} subagente${n > 1 ? 's' : ''} rodando`}</span>}
         {!t.place.href && <span className="linha">{t.generic ? 'Lab novo, sem página' : 'Ainda sem página'}</span>}
+        {/* labs still served by the old lab (no folder in src/content yet) */}
+        {t.place.antigo && !CONTEUDO[t.place.id] && <span className="linha">Ainda não migrado</span>}
       </span>
     </>
   );
