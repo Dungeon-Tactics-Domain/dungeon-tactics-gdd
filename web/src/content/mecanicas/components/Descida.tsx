@@ -55,7 +55,14 @@ export function Salas() {
       colunas={['Sala', 'Andar', 'Inimigos', 'Vida somada', 'Turnos de herói', 'O que pede']}
       linhas={descida.salas.map((s) => {
         const vida = vidaDe(s.inimigos);
-        return [s.nome, s.andar, s.inimigos.map((i) => NOME[i]).join(', '), vida, `~${turnosDe(vida).toLocaleString('pt-BR')}`, s.papel];
+        return [
+          s.nome,
+          s.andar,
+          s.inimigos.map((i) => NOME[i]).join(', '),
+          vida,
+          `~${turnosDe(vida).toLocaleString('pt-BR')}`,
+          s.papel,
+        ];
       })}
     />
   );
