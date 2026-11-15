@@ -105,7 +105,7 @@ const CENAS: readonly (readonly [string, readonly Botao[]])[] = [
       ['act:wall', 'Cena: batendo na parede'],
     ],
   ],
-  ['🌊 Água', [['act:swim', 'Cena: nadando na água (de quatro, afundado)']]],
+  ['🌊 Água', [['act:swim', 'Cena: nadando na água']]],
 ];
 const CENA = /^(walk|jump|act):/;
 

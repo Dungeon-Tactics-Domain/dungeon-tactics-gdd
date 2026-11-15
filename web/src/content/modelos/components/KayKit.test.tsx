@@ -102,7 +102,7 @@ describe('KayKit', () => {
     expect(params().get('walk')).toBe('ramp');
     await userEvent.click(screen.getByRole('button', { name: 'Cena: batendo na parede' }));
     expect(params().get('act')).toBe('wall');
-    await userEvent.click(screen.getByRole('button', { name: /nadando/ }));
+    await userEvent.click(screen.getByRole('button', { name: 'Cena: nadando na água' }));
     expect(params().get('act')).toBe('swim');
 
     // back to a clip: the scene leaves the URL and the zoom closes in again
