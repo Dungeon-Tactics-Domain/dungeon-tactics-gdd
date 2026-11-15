@@ -4,42 +4,42 @@
   {
    "canal": 1,
    "programa": 48,
-   "nome": "String Ensemble 1"
+   "nome": "Conjunto de cordas"
   },
   {
    "canal": 2,
    "programa": 48,
-   "nome": "String Ensemble 1"
+   "nome": "Conjunto de cordas"
   },
   {
    "canal": 3,
    "programa": 43,
-   "nome": "Contrabass"
+   "nome": "Cordas"
   },
   {
    "canal": 4,
    "programa": 60,
-   "nome": "French Horn"
+   "nome": "Metais"
   },
   {
    "canal": 5,
    "programa": 52,
-   "nome": "Choir Aahs"
+   "nome": "Conjunto de cordas"
   },
   {
    "canal": 6,
    "programa": 14,
-   "nome": "Tubular Bells"
+   "nome": "Percussão melódica"
   },
   {
    "canal": 7,
    "programa": 47,
-   "nome": "Timpani"
+   "nome": "Cordas"
   },
   {
    "canal": 10,
    "programa": null,
-   "nome": "Drums"
+   "nome": "Bateria"
   }
  ]
 }

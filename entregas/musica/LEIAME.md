@@ -1,7 +1,8 @@
 # battle_dark_tratada.ogg
 
-Tema principal dark (90 bpm, 60 compassos, 160,0 s), versão tratada, loop que volta ao compasso 1.
+Tema principal dark (90 bpm, 60 compassos, 160,0 s; LUFS -17,7), versão tratada, loop que volta ao compasso 1.
 
+- 15/11, 2ª rodada: contrabaixo de volume 70 para 60 (embolava): energia entre 60 e 120 Hz de 28,1% para 20,7% no arquivo do jogo; loop sem salto (passo 0,0053). Medido, não ouvido.
 - Origem: `scripts/music/battle_dark.py` (composição original, MIDI gerado por script) renderizada com fluidsynth e o filtro PS1 de `scripts/music/psx.py`.
 - Tratamento (ffmpeg, o arquivo real, não a aproximação do navegador): highpass 32 Hz, compressor (limiar 0,08, razão 3,5), limitador 0,7, loudnorm I=-18 LUFS TP=-3 (alvo igual ao de `public/music/battle.mp3`, que mede -17,8 LUFS, pico -3,2 dB).
 - Soundfont: SGM-V2.01 (SoundFontGuy / "Shan"). Só o .ogg renderizado vai ao jogo, nunca o .sf2.
