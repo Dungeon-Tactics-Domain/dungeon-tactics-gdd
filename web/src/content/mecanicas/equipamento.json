@@ -18,8 +18,8 @@
     },
     {
       "regra": "Esquiva contra magia",
-      "valor": "magia não é esquivada; contra magia vale a resistência mágica",
-      "origem": "proposta do lab (15/11); estava na opção recomendada da fórmula, a confirmar"
+      "valor": "magia é esquivada igual ao físico, com o mesmo fator de direção (1 / 0,75 / 0,5); os +15/+30 de lado e costas continuam só no físico, como hoje",
+      "origem": "grill de 15/11 com o Fernando (\"igual ao físico\"); manter os +15/+30 só no físico é leitura do lab"
     },
     {
       "regra": "Teto de esquiva",
@@ -633,7 +633,6 @@
     }
   ],
   "perguntas": [
-    "Magia não é esquivada (contra magia só vale a resistência mágica): confirma?",
     "Os números de classes e inimigos (vida, stamina, mana, resistências) servem de ponto de partida para jogar e afinar?"
   ],
   "nota": "Só a vida x5 e as regras de recurso são decisão do grill; stamina, mana, regen e resistências de cada classe e inimigo são proposta do lab, para afinar jogando.",
