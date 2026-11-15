@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useQuadro } from '@/lib/fabrica-context';
+import { DECISOES_ATIVAS } from '@/lib/recursos';
 import {
   COR_ESCOLHA,
   carregarDecisoes,
@@ -19,7 +20,11 @@ import {
 } from '@/lib/decisoes';
 
 /** `id` is the stable asset id, `<lab>/<path>` (e.g. "musica/batalha-c"); `rotulo` names the asset for screen readers. */
-export function DecisaoAsset({ id, rotulo }: { id: string; rotulo: string }) {
+export function DecisaoAsset(props: { id: string; rotulo: string }) {
+  return DECISOES_ATIVAS ? <CaixaDecisao {...props} /> : null;
+}
+
+function CaixaDecisao({ id, rotulo }: { id: string; rotulo: string }) {
   const [salva, setSalva] = useState<Decisao>();
   const [nota, setNota] = useState('');
   const [estado, setEstado] = useState<'carregando' | 'pronto' | 'salvando' | 'fora'>('carregando');

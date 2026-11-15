@@ -4,6 +4,8 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { FichaJogo, Moodboard } from './Narrativa';
 import { CHAVE, lerMarcas } from './marcas';
 
+vi.mock('@/lib/recursos', () => ({ DECISOES_ATIVAS: true }));
+
 // Node's own localStorage global shadows jsdom's in Vitest and has no methods, so each test brings its storage
 beforeEach(() => {
   const m = new Map<string, string>();

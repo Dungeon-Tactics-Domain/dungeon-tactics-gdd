@@ -9,6 +9,7 @@ import { CONTEUDO } from '@/content/registry';
 import { useQuadro } from '@/lib/fabrica-context';
 import { stateLabel, type Town, townsOf } from '@/lib/fabrica';
 import { ARCHIVE } from '@/lib/labs';
+import { DECISOES_ATIVAS } from '@/lib/recursos';
 import { cn } from '@/lib/utils';
 
 const DOT: Record<string, string> = {
@@ -73,9 +74,11 @@ function Links({ towns }: { towns: Town[] }) {
       {towns.map((t) => (
         <TownLink key={t.place.id} t={t} />
       ))}
-      <NavLink to="/decisoes" className={linkCls}>
-        Decisões
-      </NavLink>
+      {DECISOES_ATIVAS && (
+        <NavLink to="/decisoes" className={linkCls}>
+          Decisões
+        </NavLink>
+      )}
       <NavLink to={ARCHIVE.href} className={linkCls}>
         {ARCHIVE.nome}
       </NavLink>

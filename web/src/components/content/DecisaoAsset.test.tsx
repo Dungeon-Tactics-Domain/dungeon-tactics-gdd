@@ -4,6 +4,8 @@ import { describe, expect, it, vi } from 'vitest';
 import { FabricaContext } from '@/lib/fabrica-context';
 import { DecisaoAsset } from './DecisaoAsset';
 
+vi.mock('@/lib/recursos', () => ({ DECISOES_ATIVAS: true }));
+
 const salva = {
   id: 'modelos/carrocas-high/D',
   lab: 'modelos',

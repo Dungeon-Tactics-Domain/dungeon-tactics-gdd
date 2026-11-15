@@ -4,6 +4,7 @@ import * as Dialog from '@radix-ui/react-dialog';
 import { type ReactNode, useRef, useState } from 'react';
 import { Rolagem, TABELA } from '@/components/content/DataTable';
 import { YouTubeEmbed } from '@/components/content/YouTubeEmbed';
+import { DECISOES_ATIVAS } from '@/lib/recursos';
 import { cn } from '@/lib/utils';
 import {
   CAMADAS,
@@ -53,6 +54,7 @@ const BOTAO =
   'min-h-11 cursor-pointer rounded-sm border border-borda bg-folha px-3 text-[14px] text-tinta hover:bg-lab-soft';
 
 function BotoesMarca({ m }: { m: ReturnType<typeof useMarca> }) {
+  if (!DECISOES_ATIVAS) return null;
   return (
     <div className="mt-1 flex flex-wrap items-center gap-1.5">
       <button
@@ -140,7 +142,7 @@ function Figura({ s }: { s: Imagem }) {
     <li
       className={cn(
         'border border-borda bg-folha',
-        m.marca?.v === 'quero' && 'outline-3 -outline-offset-3 outline-run',
+        DECISOES_ATIVAS && m.marca?.v === 'quero' && 'outline-3 -outline-offset-3 outline-run',
       )}
     >
       <figure className="m-0 grid gap-1.5">

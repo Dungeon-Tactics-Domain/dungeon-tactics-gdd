@@ -1,6 +1,7 @@
 // 1 to 5 stars kept in this browser only. Storage can be missing (private tab), so every access is guarded.
 // Clicking the star that is already the rating clears it (same rule as the old music lab).
 import { useState } from 'react';
+import { DECISOES_ATIVAS } from '@/lib/recursos';
 import { cn } from '@/lib/utils';
 
 const ler = (k: string) => {
@@ -21,7 +22,11 @@ const gravar = (k: string, n: number) => {
 };
 
 /** `chave` is the full storage key, e.g. "musica:nota:faixa-1"; `notaSessao` is the rating the lab session recorded. */
-export function Stars({ chave, rotulo, notaSessao }: { chave: string; rotulo: string; notaSessao?: number }) {
+export function Stars(props: { chave: string; rotulo: string; notaSessao?: number }) {
+  return DECISOES_ATIVAS ? <Estrelas {...props} /> : null;
+}
+
+function Estrelas({ chave, rotulo, notaSessao }: { chave: string; rotulo: string; notaSessao?: number }) {
   const [nota, setNota] = useState(() => ler(chave));
   const escolher = (i: number) => {
     const n = nota === i ? 0 : i;

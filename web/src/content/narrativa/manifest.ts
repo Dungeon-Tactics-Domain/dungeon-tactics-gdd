@@ -1,5 +1,6 @@
 // Narrative lab: references of games, anime and books for the story and the loop. Same tree as the old lab after its
 // conversion to pages (dungeon-tactics-lab/narrativa/src/main.ts): the per-work pages come from dados.ts.
+import { DECISOES_ATIVAS } from '@/lib/recursos';
 import type { Manifesto, PaginaManifesto } from '../types';
 import { type Game, IMAGENS, JOGOS, OBRAS, TIPOS, tipoDe } from './dados';
 
@@ -30,11 +31,10 @@ const mood = (slug: string, nome: string): PaginaManifesto => ({
 // old in-page links (#ref-slug, #loop-slug, #decisoes...) still open the right page
 const linksAntigos: Record<string, string> = {
   decisoes: 'decisoes/agora',
-  moodboard: 'moodboard/quero',
+  ...(DECISOES_ATIVAS ? { moodboard: 'moodboard/quero', marcas: 'marcas/minhas' } : {}),
   loops: 'loops/nosso-loop',
   referencias: 'jogos',
   obras: 'animes',
-  marcas: 'marcas/minhas',
   ...Object.fromEntries(OBRAS.map((w) => [`ref-${w.slug}`, `animes/${w.slug}`])),
   ...Object.fromEntries(JOGOS.map((g) => [`ref-${g.slug}`, `jogos/${tipoDe(g.slug)}/${g.slug}`])),
   ...Object.fromEntries(JOGOS.map((g) => [`loop-${g.slug}`, `loops/${tipoDe(g.slug)}/${g.slug}`])),
@@ -73,7 +73,9 @@ export default {
       icone: '🖼️',
       resumo: 'Imagens de cada obra; só ficam neste PC.',
       paginas: [
-        { id: 'quero', titulo: 'O que eu quero', resumo: 'As imagens que você marcou com Quero.' },
+        ...(DECISOES_ATIVAS
+          ? [{ id: 'quero', titulo: 'O que eu quero', resumo: 'As imagens que você marcou com Quero.' }]
+          : []),
         {
           id: 'jogos',
           titulo: 'Jogos',
@@ -116,12 +118,16 @@ export default {
         resumo: `${w.work} · ${w.kind} (${w.year})`,
       })),
     },
-    {
-      id: 'marcas',
-      titulo: 'Minhas marcas',
-      icone: '⭐',
-      resumo: 'O que você marcou com Quero e Não quero.',
-      paginas: [{ id: 'minhas', titulo: 'Minhas marcas' }],
-    },
+    ...(DECISOES_ATIVAS
+      ? [
+          {
+            id: 'marcas',
+            titulo: 'Minhas marcas',
+            icone: '⭐',
+            resumo: 'O que você marcou com Quero e Não quero.',
+            paginas: [{ id: 'minhas', titulo: 'Minhas marcas' }],
+          },
+        ]
+      : []),
   ],
 } satisfies Manifesto;

@@ -11,6 +11,8 @@ import { Player } from './Player';
 import { Stars } from './Stars';
 import { YouTubeEmbed } from './YouTubeEmbed';
 
+vi.mock('@/lib/recursos', () => ({ DECISOES_ATIVAS: true }));
+
 // Node's own localStorage global shadows jsdom's in Vitest and has no methods, so each test brings its storage
 function memoria() {
   const m = new Map<string, string>();

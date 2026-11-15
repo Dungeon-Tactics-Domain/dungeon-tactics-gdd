@@ -3,6 +3,8 @@ import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 import { Checagens, FaixaMusica, Referencias, Texto } from './Musica';
 
+vi.mock('@/lib/recursos', () => ({ DECISOES_ATIVAS: true }));
+
 describe('music lab', () => {
   it('renders the old markdown as text: lists, bold and code, never HTML', () => {
     const { container } = render(<Texto texto={'**Forte** e `<slot_A.mid>` ~80-90\n\n- um\n- dois'} />);
