@@ -639,13 +639,18 @@
   "ouro": [
     {
       "regra": "De onde vem",
-      "valor": "todo ouro e todo item vêm do drop dos monstros; só dropa ouro quem faz sentido carregar (gente armada, magos, o chefe); mortos-vivos simples dropam itens",
+      "valor": "drop dos monstros (ouro só de quem faz sentido carregar; mortos-vivos simples dropam itens) e baús nos nós de tesouro do mapa do andar",
       "origem": "grill do ouro de 15/11 com o Fernando"
     },
     {
       "regra": "Ouro por descida",
-      "valor": "cerca de 500 a 800 numa descida completa (6 salas + chefe), o bastante para 1 melhoria ou 3 a 4 peças comuns",
+      "valor": "cerca de 600 a 1.000 numa descida completa (6 salas + chefe + 1 ou 2 baús), o bastante para 1 melhoria ou 4 a 6 peças comuns",
       "origem": "proposta do lab (15/11); dedução a partir da tabela de drop abaixo e das salas da Descida"
+    },
+    {
+      "regra": "Baús",
+      "valor": "nó de baú no mapa do andar (1 por andar, fora da rota mais curta); abrir dá 80 a 150 de ouro e 30% de chance de uma peça comum (10% rara)",
+      "origem": "grill do ouro de 15/11 com o Fernando (nó de baú); números são proposta do lab (15/11)"
     },
     {
       "regra": "Vender",
@@ -659,8 +664,8 @@
     },
     {
       "regra": "Grupo inteiro caído",
-      "valor": "volta à cidade sem perder ouro nem itens",
-      "origem": "grill do ouro de 15/11 com o Fernando"
+      "valor": "volta à cidade com metade do ouro e dos itens achados nesta descida (arredondado para baixo); o que já estava na cidade fica",
+      "origem": "grill do ouro de 15/11 com o Fernando (refeita a pedido dele: antes era \"não perde nada\")"
     },
     {
       "regra": "Loja",

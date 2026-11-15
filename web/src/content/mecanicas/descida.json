@@ -142,7 +142,7 @@
     },
     {
       "regra": "Grupo inteiro caído",
-      "valor": "a expedição acaba e o grupo volta à cidade sem perder ouro nem itens",
+      "valor": "a expedição acaba e o grupo volta à cidade com metade do ouro e dos itens achados nesta descida",
       "origem": "grill do ouro de 15/11 com o Fernando"
     }
   ],
