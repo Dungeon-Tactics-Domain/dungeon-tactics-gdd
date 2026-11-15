@@ -1,4 +1,5 @@
-//! HTTP side of the labs: serves the factory board as JSON and as a live SSE stream, plus the built web app.
+//! HTTP side of the labs: serves the factory board as JSON and as a live SSE stream, the per-asset decisions
+//! (`data/decisoes.json`), plus the built web app.
 
 use std::convert::Infallible;
 use std::path::{Path, PathBuf};
@@ -7,14 +8,16 @@ use std::sync::mpsc::{self, RecvTimeoutError};
 use std::time::{Duration, Instant};
 
 use axum::Router;
-use axum::extract::State;
+use axum::extract::{Path as UrlPath, State};
+use axum::http::StatusCode;
 use axum::response::sse::{Event, KeepAlive, Sse};
-use axum::response::{IntoResponse, Json};
-use axum::routing::get;
-use labs_core::{Board, Fabrica, Paths};
+use axum::response::{IntoResponse, Json, Response};
+use axum::routing::{get, put};
+use labs_core::{Board, Decisao, ErroDecisao, Escolha, Fabrica, Paths, decisoes, iso};
 use notify_debouncer_mini::notify::RecursiveMode;
 use notify_debouncer_mini::{DebounceEventResult, new_debouncer};
-use tokio::sync::watch;
+use serde::Deserialize;
+use tokio::sync::{Mutex, watch};
 use tokio_stream::{Stream, StreamExt, wrappers::WatchStream};
 use tower_http::services::{ServeDir, ServeFile};
 use tower_http::trace::TraceLayer;
@@ -73,12 +76,19 @@ pub fn start_reader(
     Ok(rx)
 }
 
-/// `/api/fabrica`, `/api/fabrica/stream` and, when `web_dist/index.html` exists, the web app with an SPA fallback.
-pub fn router(board: watch::Receiver<Arc<Fabrica>>, web_dist: &Path) -> Router {
+/// `/api/fabrica`, `/api/fabrica/stream`, `/api/decisoes` and, when `web_dist/index.html` exists, the web app with an
+/// SPA fallback.
+pub fn router(board: watch::Receiver<Arc<Fabrica>>, web_dist: &Path, decisoes: PathBuf) -> Router {
+    // ids have slashes (`musica/batalha-c`), hence the wildcard
+    let decisoes = Router::new()
+        .route("/api/decisoes", get(listar))
+        .route("/api/decisoes/{*id}", put(salvar))
+        .with_state(Arc::new(Mutex::new(decisoes)));
     let mut app = Router::new()
         .route("/api/fabrica", get(fabrica))
         .route("/api/fabrica/stream", get(stream))
-        .with_state(board);
+        .with_state(board)
+        .merge(decisoes);
     let index = web_dist.join("index.html");
     if index.is_file() {
         app = app.fallback_service(ServeDir::new(web_dist).fallback(ServeFile::new(index)));
@@ -109,4 +119,54 @@ async fn stream(
             .interval(PING_EVERY)
             .event(Event::default().event("ping").data("")),
     )
+}
+
+/// The file path behind a lock: one read-modify-write at a time. The file is re-read on each request, so edits by
+/// hand (or by a Claude session) show up without a restart.
+type Decisoes = Arc<Mutex<PathBuf>>;
+
+fn erro(e: ErroDecisao) -> Response {
+    let status = match e {
+        ErroDecisao::Io(_) | ErroDecisao::Json(_) => StatusCode::INTERNAL_SERVER_ERROR,
+        _ => StatusCode::BAD_REQUEST,
+    };
+    if status.is_server_error() {
+        tracing::warn!("decisões: {e}");
+    }
+    (status, e.to_string()).into_response()
+}
+
+async fn listar(State(path): State<Decisoes>) -> Response {
+    let path = path.lock().await;
+    match decisoes::ler(&path) {
+        Ok(todas) => Json(todas).into_response(),
+        Err(e) => erro(e),
+    }
+}
+
+/// Body of `PUT /api/decisoes/{id}`; the id comes from the path and the date from the server clock.
+#[derive(Deserialize)]
+#[serde(deny_unknown_fields)]
+struct Pedido {
+    lab: String,
+    escolha: Escolha,
+    #[serde(default)]
+    nota: String,
+}
+
+async fn salvar(
+    State(path): State<Decisoes>,
+    UrlPath(id): UrlPath<String>,
+    Json(p): Json<Pedido>,
+) -> Response {
+    let decisao = match Decisao::nova(&id, &p.lab, p.escolha, &p.nota, iso(chrono::Local::now())) {
+        Ok(d) => d,
+        Err(e) => return erro(e),
+    };
+    let path = path.lock().await;
+    // ponytail: blocking file IO under an async lock; fine for one person clicking, spawn_blocking if it ever grows
+    match decisoes::gravar(&path, decisao.clone()) {
+        Ok(()) => Json(decisao).into_response(),
+        Err(e) => erro(e),
+    }
 }

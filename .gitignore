@@ -8,6 +8,10 @@ web/dist/
 # Real session ids of the developer; copy config/fabrica.example.toml to config/fabrica.toml
 config/fabrica.toml
 
+# Fernando's per-asset decisions, written by the server; data/decisoes.example.json shows the format
+/data/*
+!/data/decisoes.example.json
+
 # Generated captures and audio (the app icon and favicon are the only images kept)
 *.png
 *.webp

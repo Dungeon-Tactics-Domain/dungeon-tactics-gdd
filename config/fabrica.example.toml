@@ -7,6 +7,8 @@
 grupo = "⚔️ Dungeon Tactics"
 pastas = ['D:\Projetos\my-game']
 horas_sessao_nova = 24
+# Optional: where the per-asset decisions are saved (read once when the server starts).
+# decisoes = 'data/decisoes.json'
 
 [[sessoes]]
 sessao = "local_example-1"

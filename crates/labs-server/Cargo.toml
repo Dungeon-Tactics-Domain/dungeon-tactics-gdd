@@ -12,6 +12,7 @@ chrono = "0.4.45"
 clap = { version = "4.6.7", features = ["derive", "env"] }
 labs-core = { version = "0.1.0", path = "../labs-core" }
 notify-debouncer-mini = "0.7.0"
+serde = { version = "1.0.229", features = ["derive"] }
 tokio = { version = "1.54.1", features = ["rt-multi-thread", "macros", "net", "sync", "time"] }
 tokio-stream = { version = "0.1.19", features = ["sync"] }
 tower-http = { version = "0.7.1", features = ["fs", "trace"] }

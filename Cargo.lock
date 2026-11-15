@@ -535,6 +535,7 @@ dependencies = [
  "clap",
  "labs-core",
  "notify-debouncer-mini",
+ "serde",
  "serde_json",
  "tempfile",
  "tokio",

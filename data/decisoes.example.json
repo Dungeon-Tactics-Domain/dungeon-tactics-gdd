@@ -1,0 +1,16 @@
+{
+  "musica/batalha-c": {
+    "id": "musica/batalha-c",
+    "lab": "musica",
+    "escolha": "refazer",
+    "nota": "A ponte ficou longa; manter o motivo do oboé.",
+    "atualizadoEm": "2026-11-15T10:00:00-03:00"
+  },
+  "modelos/carrocas-high/D": {
+    "id": "modelos/carrocas-high/D",
+    "lab": "modelos",
+    "escolha": "usar",
+    "nota": "",
+    "atualizadoEm": "2026-11-15T10:05:00-03:00"
+  }
+}

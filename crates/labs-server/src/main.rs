@@ -4,10 +4,11 @@ use std::path::PathBuf;
 use anyhow::Context;
 use clap::Parser;
 use labs_core::Paths;
+use labs_core::config::{Config, DECISOES_PADRAO};
 use tracing_subscriber::EnvFilter;
 
-/// Serves the Dungeon Tactics labs: the live factory board (`/api/fabrica`, SSE at `/api/fabrica/stream`)
-/// and the built web app.
+/// Serves the Dungeon Tactics labs: the live factory board (`/api/fabrica`, SSE at `/api/fabrica/stream`),
+/// the per-asset decisions (`/api/decisoes`) and the built web app.
 #[derive(Parser)]
 #[command(version)]
 struct Args {
@@ -55,8 +56,14 @@ async fn main() -> anyhow::Result<()> {
     };
     tracing::info!(?paths, config = %args.config.display(), "reading sessions");
 
+    // the decisions file is read from the config once; a missing or broken config falls back to the default
+    let decisoes = Config::load(&args.config)
+        .map(|c| c.decisoes)
+        .unwrap_or_else(|_| DECISOES_PADRAO.into());
+    tracing::info!(decisoes = %decisoes.display(), "decisions file");
+
     let board = labs_server::start_reader(paths, args.config)?;
-    let app = labs_server::router(board, &args.web_dist);
+    let app = labs_server::router(board, &args.web_dist, decisoes);
     let addr = SocketAddr::new(args.host, args.port);
     let listener = tokio::net::TcpListener::bind(addr)
         .await
