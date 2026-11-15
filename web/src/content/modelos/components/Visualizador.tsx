@@ -3,7 +3,7 @@
 import { type ReactNode, useEffect, useState } from 'react';
 import { DecisaoAsset } from '@/components/content/DecisaoAsset';
 import pecas from '../pecas.json';
-import { BANCADA, BENCH, CLASSE_VIEWER } from './bancada';
+import { BANCADA, BENCH, CLASSE_VIEWER, EM_LOCALHOST } from './bancada';
 
 const ESTILOS = [
   ['psx', 'PSX'],
@@ -87,8 +87,13 @@ function Bancada({ pecas: lista, asset, children }: { pecas: Peca[]; asset: stri
           {!peca.glb && <Botoes rotulo="Estilo" itens={ESTILOS} atual={estilo} escolher={setEstilo} />}
           {foraDoAr && (
             <p className="m-0 border border-dashed border-traco bg-bilhete px-4 py-3 text-apagado">
-              A bancada não respondeu. Ela roda na porta 5205: <code>npx vite --port 5205 --strictPort</code> na
-              worktree do jogo.
+              A bancada 3D não respondeu.
+              {EM_LOCALHOST && (
+                <>
+                  {' '}
+                  Ela roda na porta 5205: <code>npx vite --port 5205 --strictPort</code> na worktree do jogo.
+                </>
+              )}
             </p>
           )}
         </div>
@@ -130,7 +135,7 @@ export function Blender({ modelo, children }: { modelo: string; children?: React
   if (estado === 'falta')
     return (
       <p className="m-0 border border-dashed border-traco bg-folha px-4 py-3 text-apagado">
-        Em andamento: o modelo ainda não está na bancada (ou a bancada da porta 5205 está fora do ar).
+        Em andamento: o modelo ainda não está na bancada (ou a bancada 3D está fora do ar).
       </p>
     );
   return (

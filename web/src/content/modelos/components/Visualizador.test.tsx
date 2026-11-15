@@ -37,7 +37,7 @@ describe('Visualizador', () => {
       vi.fn(() => Promise.reject(new Error('down'))),
     );
     render(<Visualizador conjunto="guerreiro-codigo" />);
-    expect(await screen.findByText(/A bancada não respondeu/)).toBeInTheDocument();
+    expect(await screen.findByText(/A bancada 3D não respondeu/)).toBeInTheDocument();
     expect(screen.queryByRole('group', { name: 'Peça' })).toBeNull();
   });
 });
