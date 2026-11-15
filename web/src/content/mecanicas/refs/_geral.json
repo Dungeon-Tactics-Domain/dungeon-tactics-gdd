@@ -1,0 +1,74 @@
+{
+  "game": "Game feel em geral",
+  "slug": "_geral",
+  "year": 0,
+  "reception": "",
+  "why": "Princípios de resposta, polimento e feedback que valem para qualquer jogo, inclusive um tático por turnos.",
+  "mechanics": [],
+  "feel": [
+    {
+      "name": "Definição de game feel (Steve Swink)",
+      "what": "Swink define como controle em tempo real de objetos virtuais num espaço simulado, com as interações enfatizadas por polimento. Os componentes são entrada, resposta, contexto, polimento, metáfora e regras. Uma resenha do livro cita um ciclo de correção de menos de 100 ms para o jogador ver a reação do jogo sem atraso.",
+      "take": "Em tático por turnos, o polimento (animação, som, câmera) carrega a sensação, já que o controle não é contínuo.",
+      "source": "https://en.wikipedia.org/wiki/Game_feel"
+    },
+    {
+      "name": "Resumo do livro Game Feel",
+      "what": "A resenha descreve três áreas que se cruzam: resposta em tempo real, espaço simulado e polimento. O livro é mais útil para plataforma, ação e tiro, e menos para jogos sem controle de movimento.",
+      "take": "Usar com cautela: boa parte do livro trata de controle contínuo. Aproveitar o que fala de resposta e polimento.",
+      "source": "https://lizengland.com/blog/review-game-feel-by-steve-swink/"
+    },
+    {
+      "name": "A arte do tremor de tela (Vlambeer)",
+      "what": "Na palestra, Jan Willem Nijman mostra um jogo comum e o melhora com 30 pequenos ajustes. Um exemplo citado: a tela treme em sentido oposto ao tiro. Outro: inimigos têm 33% de chance de explodir ao morrer.",
+      "take": "Aplicar um ajuste por vez e comparar. Usar o tremor com moderação no impacto de golpes grandes.",
+      "source": "https://www.gamedeveloper.com/design/vlambeer-co-founder-shares-advice-on-building-better-action-games"
+    },
+    {
+      "name": "Tremor de tela e efeitos de câmera",
+      "what": "A Wikipedia lista o tremor de câmera como efeito visual e cinematográfico. Um tremor depois de uma explosão pode tornar o impacto mais forte.",
+      "take": "Reservar tremor para quedas, empurrões em parede e magias grandes.",
+      "source": "https://en.wikipedia.org/wiki/Game_feel"
+    },
+    {
+      "name": "Juice it or lose it",
+      "what": "Palestra de Martin Jonasson e Petri Purho sobre polimento e feedback. Um comentário de espectador avisa para fazer um jogo divertido antes de adicionar juice.",
+      "take": "Primeiro a regra funcionar, depois o juice.",
+      "source": "https://www.youtube.com/watch?time_continue=3&v=Fy0aCDmgnxg"
+    },
+    {
+      "name": "Aceleração em tático remasterizado",
+      "what": "O Ivalice Chronicles trouxe avance rápido, confirmação da ordem de turnos e salvamento automático em batalha para um ritmo mais ágil.",
+      "take": "Velocidade de animação ajustável é padrão esperado em remaster de tático.",
+      "source": "https://www.inverse.com/gaming/final-fantasy-tactics-the-ivalice-chronicles-interview"
+    }
+  ],
+  "videos": [
+    {
+      "url": "https://www.youtube.com/watch?v=AJdEqssNZ-U",
+      "title": "Jan Willem Nijman - Vlambeer - \"The art of screenshake\" at INDIGO Classes 2013",
+      "note": "A palestra completa sobre tremor de tela e game feel, com cerca de 40 minutos segundo uma listagem."
+    },
+    {
+      "url": "https://www.youtube.com/watch?time_continue=3&v=Fy0aCDmgnxg",
+      "title": "Juice it or lose it - a talk by Martin Jonasson & Petri Purho",
+      "note": "Palestra de 2012 sobre juice."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=216_5nu4aVQ",
+      "title": "Secrets of Game Feel and Juice (Game Maker's Toolkit)",
+      "note": "Vídeo do GMTK sobre game feel e juice. Título confirmado; conteúdo não revisado por mim."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=EDElfx2qo_M",
+      "title": "The Art and Science of Game Feel",
+      "note": "Vídeo sobre game feel com mecânica, ritmo e efeitos. Conteúdo não revisado por mim."
+    }
+  ],
+  "notFound": [
+    "Vídeo do GMTK sobre Into the Breach: a busca não achou.",
+    "Entrevista de desenvolvedor do Tactics Ogre Reborn sobre as mudanças: só achei relato de segunda mão e o vídeo de entrevista, sem conteúdo lido.",
+    "Hit stop: nenhuma fonte aberta o descreve nem dá valores de duração.",
+    "O número de 240 ms atribuído ao livro do Swink só apareceu em post de fórum e foi descartado."
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "game": "Unicorn Overlord",
+  "slug": "unicorn-overlord",
+  "year": 2024,
+  "reception": "Metacritic: PS5 86, Xbox Series 87, Switch 89; OpenCritic 98% de recomendação — https://en.wikipedia.org/wiki/Unicorn_Overlord",
+  "why": "Mostra como tirar o jogador do micro e dar a ele o macro: o combate roda sozinho por regras que ele ordena.",
+  "mechanics": [
+    {
+      "name": "Combate automático por regras de prioridade",
+      "what": "Depois que a luta começa, ela segue sozinha pelas táticas de cada unidade. Cada uma tem uma lista ordenada de habilidades. As de cima têm prioridade e podem ter condição, como curar abaixo de certa vida.",
+      "feel": "A preparação carrega o peso. O jogador vê o plano dele rodar.",
+      "take": "Programar a IA de aliados com condições simples, no estilo Gambit.",
+      "avoid": "Listas longas demais. Ordem de prioridade precisa ser legível.",
+      "source": "https://www.destructoid.com/unicorn-overlord-details-its-gambit-like-tactical-battle-system-and-more-characters/"
+    },
+    {
+      "name": "Posição de unidade no mapa e troca",
+      "what": "Onde as unidades estão no mapa pesa muito. Elas lutam ao chegar perto do inimigo e o jogador pode trocar uma unidade por outra quando estão próximas.",
+      "feel": "A decisão vira de campanha: onde e quando encontrar o inimigo.",
+      "take": "Trocar unidades no meio do combate como escolha com custo.",
+      "avoid": "Trocas sem custo, que removem o risco.",
+      "source": "https://www.destructoid.com/unicorn-overlord-details-its-gambit-like-tactical-battle-system-and-more-characters/"
+    },
+    {
+      "name": "Pontos de ação e recuperação",
+      "what": "As habilidades ativas usam PA e a batalha acaba quando o PA termina. As passivas custam PP e disparam sozinhas. Unidades podem esperar para recuperar fôlego, mas ficam expostas.",
+      "feel": "Cada ataque gasta algo, o que cria ritmo de pressão e pausa.",
+      "take": "Recurso por combate que limita ações fortes.",
+      "avoid": "Pausa tão segura que vira rotina.",
+      "source": "https://www.destructoid.com/unicorn-overlord-details-its-gambit-like-tactical-battle-system-and-more-characters/"
+    },
+    {
+      "name": "Grade de posição das unidades",
+      "what": "As unidades ficam em uma grade e a posição afeta habilidades e eficiência. Os grupos têm até cinco personagens.",
+      "feel": "A formação é uma decisão central antes da luta.",
+      "take": "Formação como decisão de preparação.",
+      "avoid": "Tamanho exato da grade: a fonte não especifica.",
+      "source": "https://en.wikipedia.org/wiki/Unicorn_Overlord"
+    }
+  ],
+  "feel": [
+    {
+      "name": "Tempo real com pausa",
+      "what": "O combate corre em tempo real, mas o jogador pode pausar para mudar a estratégia e checar as unidades.",
+      "take": "Pausa livre para pensar, mesmo em ação contínua, ajuda o público do tático.",
+      "source": "https://en.wikipedia.org/wiki/Unicorn_Overlord"
+    },
+    {
+      "name": "Estratégia fácil de entender",
+      "what": "Um desenvolvedor disse que o sistema nasceu da busca de unir estratégia e facilidade de compreensão.",
+      "take": "Regras que o jogador entende em poucos minutos, com profundidade na combinação.",
+      "source": "https://www.inverse.com/gaming/unicorn-overlord-interview-vanillaware"
+    }
+  ],
+  "videos": [
+    {
+      "url": "https://www.youtube.com/watch?v=Lep784T-Vtw",
+      "title": "Unicorn Overlord: How the \"Automated\" Combat is more TRPG Than Many Think",
+      "note": "Argumenta que o combate automático depende de tempo, posição e ordens. Conteúdo não revisado por mim."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=uiWmFncq9fM",
+      "title": "Unicorn Overlord TACTICS Basics! Expert",
+      "note": "Capítulos listados na busca: ataques corpo a corpo, à distância, efetivos, enfraquecimentos, cura, condicionais e combos."
+    }
+  ],
+  "notFound": [
+    "Entrevista do Kamitani sobre o desenho do combate: as que achei são do produtor Yamamoto.",
+    "Tempos de câmera, animação e pausa no impacto citados por fonte.",
+    "Entrevista da Inverse: só vi o trecho da busca, não abri a página."
+  ]
+}

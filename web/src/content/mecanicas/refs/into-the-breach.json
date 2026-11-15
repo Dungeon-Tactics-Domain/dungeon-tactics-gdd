@@ -1,0 +1,78 @@
+{
+  "game": "Into the Breach",
+  "slug": "into-the-breach",
+  "year": 2018,
+  "reception": "Metacritic 90 (PC), 89 (Switch); melhor PC do ano no Metacritic — https://en.wikipedia.org/wiki/Into_the_Breach",
+  "why": "É o exemplo de informação total: todo ataque inimigo é mostrado antes, e o empurrão vira a ferramenta central.",
+  "mechanics": [
+    {
+      "name": "Ataques inimigos telegrafados",
+      "what": "Cada turno o jogo mostra a direção do ataque de cada inimigo, o movimento restante e a vida. Os inimigos ficam parados enquanto o jogador responde.",
+      "feel": "A derrota sempre parece culpa do jogador. A fase vira um quebra-cabeça.",
+      "take": "Mostrar a intenção do inimigo no mapa. Mesmo em um jogo com sorte, dá para telegrafar as magias carregadas.",
+      "avoid": "Sem sorte nas ações do jogador, a própria equipe diz que o jogo passa a parecer um quebra-cabeça.",
+      "source": "https://gamedeveloper.com/game-platforms/road-to-the-igf-subset-games-i-into-the-breach-i-"
+    },
+    {
+      "name": "Empurrão como ferramenta principal",
+      "what": "Armas empurram, puxam ou atordoam. O jogador desvia o ataque empurrando o inimigo para outro tile ou outro inimigo. Um dev diz que o efeito de empurrar da artilharia é geralmente mais forte que o dano.",
+      "feel": "Resolver o turno é encontrar um empurrão que desfaz o perigo.",
+      "take": "Empurrão, queda e dano de parede como ferramentas de posição, com prévia do resultado.",
+      "avoid": "Empurrão sem prévia, que vira adivinhação.",
+      "source": "https://kotaku.com/into-the-breach-the-kotaku-review-1823365331"
+    },
+    {
+      "name": "Desfazer movimento e refazer o turno",
+      "what": "O jogador pode desfazer movimentos antes de agir e uma vez por rodada reiniciar o turno inteiro.",
+      "feel": "O revisor diz que as opções nunca apagam a lembrança dos erros. O erro continua pesando.",
+      "take": "Desfazer o movimento antes de atacar, que é o nosso desfazer limitado. Dados nunca voltam.",
+      "avoid": "Desfazer depois de ver o resultado de uma ação com sorte.",
+      "source": "https://kotaku.com/into-the-breach-the-kotaku-review-1823365331"
+    },
+    {
+      "name": "Rede de energia e dano colateral",
+      "what": "Os mechs usam a energia dos prédios civis. Prédios destruídos enfraquecem a rede e perdê-la derrota a fase.",
+      "feel": "Há um custo em destruir prédios para um ganho tático. O jogador pondera cada tiro.",
+      "take": "Um segundo objetivo além de matar, como proteger um alvo, tira o jogador da rotina.",
+      "avoid": "Perder a campanha inteira por um erro pequeno.",
+      "source": "https://en.wikipedia.org/wiki/Into_the_Breach"
+    }
+  ],
+  "feel": [
+    {
+      "name": "A maior variável é você",
+      "what": "Como nada fica escondido, o revisor diz que a maior variável é o próprio jogador. As falhas pareciam pessoais, por impaciência ou ameaça ignorada.",
+      "take": "Dar ao jogador toda a informação para que o erro seja ensino.",
+      "source": "https://kotaku.com/into-the-breach-the-kotaku-review-1823365331"
+    },
+    {
+      "name": "Ordem e contagem visíveis",
+      "what": "Dá para ver a ordem dos eventos, o alcance do inimigo e uma contagem para a retirada dos Vek.",
+      "take": "Mostrar a contagem regressiva dos eventos do mapa na interface.",
+      "source": "https://kotaku.com/into-the-breach-the-kotaku-review-1823365331"
+    },
+    {
+      "name": "Cada morte deve parecer culpa do jogador",
+      "what": "A equipe aprendeu com o acaso do FTL e quis regras claras, para que o jogador saiba o motivo da falha.",
+      "take": "Quando houver sorte, mostrar a chance antes de agir.",
+      "source": "https://gamedeveloper.com/game-platforms/road-to-the-igf-subset-games-i-into-the-breach-i-"
+    }
+  ],
+  "videos": [
+    {
+      "url": "https://www.youtube.com/watch?v=s_I07Iq_2XM",
+      "title": "How Subset Games designed Into the Breach (GDC 2019, Matthew Davis)",
+      "note": "Palestra do GDC 2019: do rascunho ao balanceamento final, cortes, sorte e interface."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=_8xiHbKoyNc",
+      "title": "Into the Breach with Justin Ma",
+      "note": "Conversa do D.I.C.E. 2019 entre Robin Hunicke e Justin Ma sobre o jogo."
+    }
+  ],
+  "notFound": [
+    "Vídeo do Game Maker's Toolkit sobre Into the Breach: a busca não achou.",
+    "O termo informação perfeita não aparece nas fontes abertas.",
+    "Tempos de animação ou pausa no impacto citados por fonte."
+  ]
+}

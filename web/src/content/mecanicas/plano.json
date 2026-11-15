@@ -1,0 +1,143 @@
+{
+  "now": null,
+  "nextStep": "Grill do peso pausado por você em 14/11 (\"vamos parar de decidir isso por enquanto\"). Quando voltar: pergunta 2, quanto exagero no corpo (pesado e contido, estilizado ou realista), olhando a área Clipes do jogo.",
+  "decisions": [
+    {
+      "topic": "Por onde o peso começa",
+      "decision": "Corpo primeiro: antecipação e recuperação no pulo, no golpe e na reação do alvo; impacto e câmera depois (14/11)."
+    }
+  ],
+  "phases": [
+    {
+      "id": "Fase 0",
+      "name": "Laboratório local com as 4 áreas (porta 5190, /mecanicas/)",
+      "gate": "sem portão",
+      "status": "feito"
+    },
+    {
+      "id": "Fase 1",
+      "name": "Regras e sensação de hoje lidas do código; referências de 9 jogos com fonte",
+      "gate": "Portão 1: dá para começar o grill?",
+      "status": "feito"
+    },
+    {
+      "id": "Fase 2",
+      "name": "Grill: mecânicas centrais, sensação alvo e backlog priorizado",
+      "gate": "Portão 2: decisões aprovadas",
+      "status": "bloqueado"
+    },
+    {
+      "id": "Fase 3",
+      "name": "Documento mechanics.md (em inglês) com as decisões e o backlog",
+      "gate": "Portão 3: documento aprovado e commit",
+      "status": "aberto"
+    }
+  ],
+  "requests": [
+    {
+      "date": "14/11",
+      "ask": "Sumário em páginas, não um scroll só (pedido via Orquestrador dos Labs): 5 grupos por assunto",
+      "owner": "subagente Opus",
+      "status": "feito",
+      "next": "Decisões, Clipes do jogo, Regras, Sensação e Referências; 81 páginas sem erro, cenas ao vivo testadas em 3 delas"
+    },
+    {
+      "date": "14/11",
+      "ask": "\"quero primeiro fazer o game feel das animações de movimento e pulo e tal e ataque para deixar mais legal com mais peso\"",
+      "owner": "esta sessão",
+      "status": "bloqueado",
+      "next": "Pausado por você em 14/11; volta pela pergunta 2 (exagero no corpo)"
+    },
+    {
+      "date": "14/11",
+      "ask": "\"a plataforma do lab deve mostrar trechos de gameplay do jogo em prod\" (combinar com o Orquestrador)",
+      "owner": "esta sessão + Orquestrador",
+      "status": "fazendo",
+      "next": "Escolha dele: jogo ao vivo em laço (janelinhas com o jogo real), não vídeo. Orquestrador de implementação: sandbox tocar passos e repetir; subagente Opus: janelinhas na área Clipes"
+    },
+    {
+      "date": "14/11",
+      "ask": "Meia casa em produção: \"ficou meio zoado… precisa ter uma prévia dos tiles que as unidades vão ocupar em 2x2\"",
+      "owner": "Orquestrador de implementação",
+      "status": "aberto",
+      "next": "Repassado em 14/11: marcar as 4 meias casas do destino ao mover"
+    },
+    {
+      "date": "14/11",
+      "ask": "Área Mecânicas e cenas ao vivo para a meia casa: esperar o sandbox novo",
+      "owner": "subagente Opus",
+      "status": "feito",
+      "next": "Bancada de game feel no master (4ed1af4, porta 5291): trocou as cenas pelas 14 da bancada, controles de velocidade, pausa e câmera, e a área Mecânicas na meia casa"
+    },
+    {
+      "date": "14/11",
+      "ask": "Esconder a HUD nos clipes, \"só mostrar a animação rolando\"",
+      "owner": "subagente Opus",
+      "status": "feito",
+      "next": "Botão Só a animação no topo das cenas ao vivo (ligado por padrão); falta ver no jogo aberto"
+    },
+    {
+      "date": "14/11",
+      "ask": "\"o sandbox vai precisar ser mais flexível para testarmos coisas de game feel… não precisa ser em mapas de batalha completa\": arena de teste, tempos ao vivo, câmera lenta e quadro a quadro, câmera fixa de estudo",
+      "owner": "Orquestrador de implementação",
+      "status": "feito",
+      "next": "Bancada no master 4ed1af4: arena, tempos ao vivo, velocidade, pausa e quadro a quadro, câmera fixa, laço; npm run bench na porta 5291"
+    },
+    {
+      "date": "14/11",
+      "ask": "\"toda tarefa que eu peço… me pergunte em múltiplas opções de sub agent com justificativa\"",
+      "owner": "esta sessão",
+      "status": "feito",
+      "next": "Regra em vigor (memória perguntar-subagente)"
+    },
+    {
+      "date": "14/11",
+      "ask": "Papéis: jogo = orquestrador de implementação; página de cada lab = o lab; plataforma comum = orquestrador de labs",
+      "owner": "Fernando",
+      "status": "feito",
+      "next": "Memória papeis-labs-e-implementacao"
+    },
+    {
+      "date": "13/11",
+      "ask": "Laboratório de mecânicas e sensação de jogo, irmão dos laboratórios de design (5198) e de narrativa (5199)",
+      "owner": "esta sessão",
+      "status": "fazendo",
+      "next": "Este laboratório (porta 5190, /mecanicas/); referências chegando"
+    },
+    {
+      "date": "13/11",
+      "ask": "Referências: FFT, Tactics Ogre, XCOM, Darkest Dungeon, Into the Breach, Triangle Strategy e outros amados por crítica e jogadores, com fonte",
+      "owner": "subagente Sonnet",
+      "status": "feito",
+      "next": "9 jogos + game feel em geral, cada item com fonte aberta; sem tempos de animação (nenhuma fonte dá)"
+    },
+    {
+      "date": "13/11",
+      "ask": "Grill para decidir as mecânicas centrais, a sensação do jogo e um backlog priorizado",
+      "owner": "esta sessão",
+      "status": "bloqueado",
+      "next": "Pausado por você em 14/11: espera design system, loop e narrativa"
+    },
+    {
+      "date": "14/11",
+      "ask": "\"pause esse por enquanto enquanto decidimos o designs system e o gameplay loop e narrativa\"",
+      "owner": "Fernando",
+      "status": "feito",
+      "next": "Grill parado; laboratório e referências ficam prontos"
+    },
+    {
+      "date": "14/11",
+      "ask": "Retomada dos labs pedida pelo Orquestrador; perguntado, você escolheu \"Continuar pausado\"",
+      "owner": "Fernando",
+      "status": "feito",
+      "next": "Lab atualizado para o master 390a303 (src/content, scene/ dividido); grill volta quando narrativa e design fecharem o loop"
+    },
+    {
+      "date": "13/11",
+      "ask": "Documento docs/game-design/mechanics.md em inglês, commit no branch deste laboratório",
+      "owner": "esta sessão",
+      "status": "aberto",
+      "next": "Fase 3; a sessão principal leva para o master"
+    }
+  ]
+}

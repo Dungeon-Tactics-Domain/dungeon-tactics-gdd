@@ -1,0 +1,325 @@
+{
+  "mechanics": [
+    {
+      "group": "Meia casa (toda batalha do jogo desde 14/11)",
+      "rules": [
+        {
+          "name": "Mapa em células",
+          "now": "Ao abrir a batalha, cada casa do mapa vira 2×2 células (meias casas). O mapa continua escrito em casas inteiras e é dividido na hora; a rampa fica só na célula vizinha à casa mais alta. Só o estudo FFT fica em casa inteira.",
+          "where": "src/shared/battle/half.ts:161",
+          "note": "boot.ts:118 chama halve em toda batalha; a divisão é split, em half.ts:25."
+        },
+        {
+          "name": "Ficha 2×2",
+          "now": "Cada unidade vira uma ficha de 2×2 células que anda 1 célula (meia casa) por passo. O Mover dobra em células (Guerreiro: 4 casas = 8 células), então a distância em casas inteiras é a mesma, mas dá para parar no meio do caminho. O Colosso vira 4×4.",
+          "where": "src/shared/battle/half.ts:18"
+        },
+        {
+          "name": "Habilidades em casas inteiras",
+          "now": "Alcance, área, empurrão e chance continuam escritos em casas inteiras e são convertidos em células entre os dois quadrados (alcance R = 2R−1 células em linha). Em posições de casa inteira, toda resposta é igual à do mapa inteiro (tests/half-tiles.test.ts).",
+          "where": "src/shared/battle/pathing.ts:52"
+        },
+        {
+          "name": "Mirar",
+          "now": "Clicar qualquer célula mira a casa inteira dela: a casa do mapa no chão vazio, ou a casa do quadrado de quem está ali. A área centra no quadrado inteiro do alvo.",
+          "where": "src/shared/battle/pathing.ts:68",
+          "note": "areaOf em pathing.ts:61."
+        },
+        {
+          "name": "Mapa de teste",
+          "now": "?scenario=half: o Bosque das Cinzas em meia casa com árvores de 3 a 5 células e caixas, barris e corpos espalhados. Só para testar; a meia casa em si já é o jogo.",
+          "where": "src/shared/battle/half.ts:173"
+        }
+      ]
+    },
+    {
+      "group": "Ordem dos turnos (CT, como FFT)",
+      "rules": [
+        {
+          "name": "Fila por CT",
+          "now": "Cada unidade ganha CT = velocidade por tique; quem chega a 100 joga. Empate: inimigos primeiro.",
+          "where": "src/shared/battle/turn-queue.ts:10"
+        },
+        {
+          "name": "Custo do turno",
+          "now": "Mover e agir custa 100; só um dos dois, 80; esperar, 60 (volta mais cedo). O CT que sobra é limitado a 60.",
+          "where": "src/shared/battle/turn-queue.ts:13"
+        },
+        {
+          "name": "Ações com carga",
+          "now": "Habilidade forte entra na fila e dispara depois de N tiques (Tiro mirado, Explosão, Rajada, Cura e Salto: 4; Onda sombria: 6). Segue o alvo, ou mira o chão quando é de \"painel\". Pode andar depois de começar a carregar.",
+          "where": "src/shared/battle/battle.ts:123",
+          "note": "A fila mostra quando cada carga dispara (previewOrder em turn-queue.ts:117)."
+        }
+      ]
+    },
+    {
+      "group": "Movimento",
+      "rules": [
+        {
+          "name": "Orçamento de movimento",
+          "now": "Mover, agir e continuar andando com o que sobrou do movimento (Mover 3 a 5 casas por classe, contado em células: 6 a 10).",
+          "where": "src/shared/battle/battle.ts:86"
+        },
+        {
+          "name": "Desfazer o movimento",
+          "now": "Antes de agir, Esc desfaz o movimento de graça; não dá se levou contra-ataque. Depois de agir, Z desfaz até 3 vezes por batalha; os dados nunca voltam.",
+          "where": "src/shared/battle/battle.ts:32",
+          "note": "command.ts:26 (canUndoMove); battle.ts:101 (contra-ataque trava o desfazer)."
+        },
+        {
+          "name": "Aliados e zona de controle",
+          "now": "A ficha atravessa aliados, mas só para onde o quadrado inteiro está livre e sem corpo embaixo; inimigo bloqueia. Sem zona de controle.",
+          "where": "src/shared/battle/pathing.ts:198",
+          "note": "Onde pode parar: pathing.ts:218."
+        },
+        {
+          "name": "Salto por classe",
+          "now": "Sobe ou desce N níveis num passo: Ladino e Lacaio 2, Lanceiro 3, o resto 1. Na meia casa a ficha pode ficar montada num degrau de até N níveis (meio em cima, meio embaixo); a altura dela é a da célula mais alta.",
+          "where": "src/shared/battle/pathing.ts:25",
+          "note": "Ficha: squareMoves em pathing.ts:134. Valores em src/content/units.ts."
+        },
+        {
+          "name": "Pulo de vão",
+          "now": "Voa até ⌊Salto/2⌋ casas (o dobro em células) em linha reta sobre água funda ou casas mais baixas que as duas pontas; parede ou inimigo no meio bloqueia; cai no mesmo nível ou até Salto abaixo, nunca mais alto nem na água funda. Custa 1 por célula voada mais o tamanho da ficha.",
+          "where": "src/shared/battle/pathing.ts:162",
+          "note": "Versão de casa inteira: leaps em pathing.ts:97."
+        },
+        {
+          "name": "Unidade grande",
+          "now": "O Colosso de Ossos ocupa 2×2 casas (4×4 células), não anda e não é empurrado. Alcance e área contra ele contam a casa mirada, uma das quatro.",
+          "where": "src/shared/battle/pathing.ts:33",
+          "note": "footprint em pathing.ts:38; sem empurrão em combat.ts:307."
+        }
+      ]
+    },
+    {
+      "group": "Ataque e dados",
+      "rules": [
+        {
+          "name": "Chance de acerto",
+          "now": "Precisão − 3 por casa além da 1ª + 5 por nível acima do alvo − 20 se o alvo tem cobertura contra tiro, + lado/costas. Sempre entre 5% e 95%. A distância conta casas inteiras.",
+          "where": "src/shared/battle/combat.ts:88",
+          "note": "wholeTiles em pathing.ts:55."
+        },
+        {
+          "name": "Direção (lado e costas)",
+          "now": "Golpe físico de lado +15, pelas costas +30. Magia ignora direção. Quem anda olha para onde foi; no fim do turno escolhe a direção.",
+          "where": "src/shared/battle/combat.ts:54"
+        },
+        {
+          "name": "Contra-ataque",
+          "now": "Quem foi atacado revida com o ataque básico, metade do dano, se o atacante andar depois: corpo a corpo só se ele se afastar; à distância, a qualquer passo. Uma vez por turno.",
+          "where": "src/shared/battle/combat.ts:188",
+          "note": "O afastamento é medido em células: na meia casa, afastar meia casa já dispara o revide corpo a corpo (dedução do código em combat.ts:195; não testado jogando)."
+        },
+        {
+          "name": "Alcance com altura",
+          "now": "Arcos e magias de alcance ganham +1 casa de alcance por nível acima do alvo.",
+          "where": "src/shared/battle/pathing.ts:413"
+        },
+        {
+          "name": "Tiro com trajetória",
+          "now": "O tiro para na primeira unidade ou obstáculo no caminho; atacar casa vazia é permitido; a prévia marca o ponto com X. Na meia casa a linha de visão anda em passos de casa inteira, de canto a canto dos quadrados.",
+          "where": "src/shared/battle/pathing.ts:351",
+          "note": "sightLine em pathing.ts:316."
+        },
+        {
+          "name": "Área",
+          "now": "Área acerta todo mundo, aliados inclusive; o raio conta casas inteiras a partir do quadrado do alvo.",
+          "where": "src/shared/battle/combat.ts:99"
+        }
+      ]
+    },
+    {
+      "group": "Empurrão, queda e terreno",
+      "rules": [
+        {
+          "name": "Empurrão",
+          "now": "Escudada, Rajada e Pancada empurram 2 casas; Rasteira, Tiro de recuo e Derrubar empurram 1. Na meia casa: empurrão × 2 células, conferindo o quadrado inteiro a cada célula; a direção sai do meio dos quadrados.",
+          "where": "src/shared/battle/combat.ts:297",
+          "note": "Valores em src/content/abilities.ts (Escudada na linha 24)."
+        },
+        {
+          "name": "Batida",
+          "now": "Empurrão parado por parede, unidade, borda, água funda ou degrau de mais de 1 nível: 5 de dano.",
+          "where": "src/shared/battle/combat.ts:48"
+        },
+        {
+          "name": "Queda",
+          "now": "1 nível é de graça; 9 de dano por nível a mais.",
+          "where": "src/shared/battle/combat.ts:49"
+        },
+        {
+          "name": "Espinhos",
+          "now": "Ser empurrado para o espinho ou terminar o turno nele: 10 de dano. Andar por cima não fere.",
+          "where": "src/shared/battle/combat.ts:51"
+        },
+        {
+          "name": "Água",
+          "now": "Rasa e funda custam 1 ponto. Na funda dá para entrar e parar, mas só andar ou esperar; quem está nela fica mais baixo (altura − profundidade). Na meia casa, a ficha com um pé na margem ainda age; só não age com o quadrado todo na funda.",
+          "where": "src/shared/battle/grid.ts:108",
+          "note": "inDeep em combat.ts:85 e o bloqueio em combat.ts:142."
+        },
+        {
+          "name": "Cobertura",
+          "now": "Floresta (árvore, não se anda) e entulho dão cobertura contra tiro (−20). Parede bloqueia linha de visão.",
+          "where": "src/shared/battle/grid.ts:7"
+        }
+      ]
+    },
+    {
+      "group": "Classes do grupo",
+      "rules": [
+        {
+          "name": "Guerreiro",
+          "now": "Vida 42, Vel 8, Mover 4, Salto 1. Golpe, Golpe pesado, Escudada (empurra 2), Giro (área 1).",
+          "where": "src/content/units.ts:7"
+        },
+        {
+          "name": "Arqueiro",
+          "now": "Vida 28, Vel 10, Mover 4, Salto 1. Tiro, Tiro mirado (carga 4), Tiro de recuo, Adaga.",
+          "where": "src/content/units.ts:16"
+        },
+        {
+          "name": "Mago",
+          "now": "Vida 24, Vel 7, Mover 3, Salto 1. Raio de fogo, Explosão (área, carga 4), Rajada (empurra 2), Cura (carga 4).",
+          "where": "src/content/units.ts:24"
+        },
+        {
+          "name": "Ladino",
+          "now": "Vida 26, Vel 12, Mover 5, Salto 2. Facada, Faca arremessada, Rasteira, Golpe mortal.",
+          "where": "src/content/units.ts:26"
+        },
+        {
+          "name": "Lanceiro (recruta)",
+          "now": "Vida 38, Vel 9, Mover 4, Salto 3. Estocada longa (alcance 2), Derrubar, Salto (carga 4, cai de cima).",
+          "where": "src/content/units.ts:56"
+        }
+      ]
+    },
+    {
+      "group": "Modos de teste",
+      "rules": [
+        {
+          "name": "Estudo FFT",
+          "now": "?scenario=fft-gariland: fórmulas do FFT com fonte, para comparar, em casa inteira. Não é o jogo.",
+          "where": "src/shared/battle/fft/"
+        }
+      ]
+    }
+  ],
+  "feel": [
+    {
+      "group": "Ritmo (13/11: \"não quero animações rápidas\", tudo ~40% mais lento)",
+      "rules": [
+        {
+          "name": "Andar",
+          "now": "600 ms por casa, caminhando (meia casa em 300, então a casa inteira leva o mesmo); subir ou descer é um pulo em 3 partes: agachar 300, voo 450 (+90 por nível), pouso 300.",
+          "where": "src/client/timing.ts:10"
+        },
+        {
+          "name": "Turno inimigo",
+          "now": "Câmera chega 650; cursor mostra o destino 650; respiro entre inimigos 450.",
+          "where": "src/client/timing.ts:8"
+        },
+        {
+          "name": "Golpe",
+          "now": "Faixa com o nome da habilidade 900; preparo até o impacto 520; projétil 420; investida 380.",
+          "where": "src/client/timing.ts:15"
+        },
+        {
+          "name": "Acelerar",
+          "now": "Segurar Enter, Espaço ou A acelera 3×; no toque, o item Batalha rápida liga e desliga.",
+          "where": "src/client/timing.ts:47"
+        }
+      ]
+    },
+    {
+      "group": "Impacto",
+      "rules": [
+        {
+          "name": "Pausa no impacto",
+          "now": "Tudo para 110 ms; o alvo pisca branco e treme 280 ms.",
+          "where": "src/client/timing.ts:26",
+          "note": "scene/units.ts:374"
+        },
+        {
+          "name": "Golpe grande",
+          "now": "Dano ≥ 25% da vida máxima do alvo treme a câmera e aumenta o número.",
+          "where": "src/client/scene/units.ts:477"
+        },
+        {
+          "name": "Número de dano",
+          "now": "Aparece, fica 1,5 s para ser lido e some; barra de vida esvazia em 450 ms.",
+          "where": "src/client/timing.ts:24"
+        },
+        {
+          "name": "Erro, cura, morte",
+          "now": "Erro: passinho para trás. Cura: brilho verde. Morte: queda de 1 s e 3 piscadas.",
+          "where": "src/client/timing.ts:23"
+        },
+        {
+          "name": "Efeitos por habilidade",
+          "now": "16 tipos (corte, flecha, fogo, explosão, vento, cura…) e aura de carga.",
+          "where": "src/client/fx.ts:6"
+        }
+      ]
+    },
+    {
+      "group": "Câmera",
+      "rules": [
+        {
+          "name": "Câmera de ação",
+          "now": "No golpe, câmera por cima do ombro quando o herói ataca e pelas costas do inimigo quando é ele; opções para comparar com ?camera=.",
+          "where": "src/client/scene/camera.ts:28",
+          "note": "actionCam em scene/camera.ts:98"
+        },
+        {
+          "name": "Começo",
+          "now": "Abre perto e enquadra atacante e alvo; 8 ângulos de rotação.",
+          "where": "src/client/scene/camera.ts:44"
+        }
+      ]
+    },
+    {
+      "group": "Som",
+      "rules": [
+        {
+          "name": "Efeitos",
+          "now": "13 sons: cursor, confirmar, cancelar, passo, golpe, arremesso, acerto, erro, cura, carga, magia, fogo, morte. Passo sincronizado com o pouso.",
+          "where": "src/client/sound.ts:30"
+        },
+        {
+          "name": "Música e falas",
+          "now": "Música CC0 por fase com fade de 0,5 s; blip por voz no texto letra a letra.",
+          "where": "src/client/sound.ts:68"
+        }
+      ]
+    },
+    {
+      "group": "Retorno de interface",
+      "rules": [
+        {
+          "name": "Prévia do golpe",
+          "now": "Faixa estilo Tactics Ogre com dano, chance, lado/costas, empurrão e vida antes → depois; a barra mostra listrado o que vai sair.",
+          "where": "src/client/hud.ts:319"
+        },
+        {
+          "name": "Pequenos detalhes",
+          "now": "Pulinho de quem começa o turno (320 ms), cursor desliza, casas marcadas \"respiram\", menus abrem em 90–120 ms. Movimento reduzido desliga tudo.",
+          "where": "src/client/timing.ts:28"
+        }
+      ]
+    }
+  ],
+  "drift": [
+    "src/shared/CLAUDE.md:26 diz que direção e contra-ataque só existem no estudo FFT; no código há direção em todo mapa e contra-ataque para todos desde 13/11.",
+    "src/shared/CLAUDE.md:22 diz espinho = 6; COMBAT.SPIKE_DAMAGE = 10 desde 13/11 (combat.ts:51, dano ×1,75).",
+    "CLAUDE.md:18 (mapa do código, na raiz) chama half.ts de modo de teste da meia casa; desde 14/11 toda batalha do jogo roda em meia casa (log de decisões, CLAUDE.md:99).",
+    "grid.ts:99 (comentário de isDeep) diz que a água funda custa 2 e pathing.ts:184 diz \"2 em água rasa\"; stepCost é 1 para tudo desde 13/11 (grid.ts:108).",
+    "docs/game-design/pillars.md:10 ainda diz \"celular primeiro\"; o log de decisões trocou para PC primeiro.",
+    "docs/game-design/towns-party-equipment.md:29 fala em ouro por estrela; as estrelas saíram em 13/11 (150 de ouro por vitória).",
+    "timing.ts:3 cita docs/medicoes/fluxo-fft-2026-11-12.md, que não existe mais no repositório."
+  ]
+}

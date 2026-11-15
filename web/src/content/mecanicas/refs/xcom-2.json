@@ -1,0 +1,85 @@
+{
+  "game": "XCOM 2",
+  "slug": "xcom-2",
+  "year": 2016,
+  "reception": "Metacritic: PC 88, PS4 87, Xbox One 87 — https://en.wikipedia.org/wiki/XCOM_2",
+  "why": "É o melhor estudo de como mostrar chance de acerto e cobertura, e de como o jogador sente a sorte.",
+  "mechanics": [
+    {
+      "name": "Cobertura",
+      "what": "Cobertura parcial reduz em 25% a chance de ser atingido e a total reduz em 50%. Granadas destroem cobertura inimiga.",
+      "feel": "O jogador quer sempre achar o tile protegido e flanquear o inimigo para tirar a proteção dele.",
+      "take": "Posição que muda o número da prévia, de modo claro.",
+      "avoid": "A análise nota que a cobertura limita o flanco e torna inimigos protegidos difíceis de tirar do lugar.",
+      "source": "https://www.gamedeveloper.com/design/a-deep-dive-into-xcom-and-xcom-2"
+    },
+    {
+      "name": "Chance de acerto na tela",
+      "what": "A interface mostra a chance de acerto e o dano esperado. Solomon disse que o cálculo interno pode diferir um pouco do número mostrado.",
+      "feel": "Um 85% é lido como quase certo. Errar parece injusto.",
+      "take": "Mostrar o número de forma honesta e testar como o jogador o sente.",
+      "avoid": "Esconder ajustes. Só dá para dizer que existem em níveis mais fáceis, segundo a fonte.",
+      "source": "https://www.gamedeveloper.com/design/jake-solomon-explains-the-careful-use-of-randomness-in-i-xcom-2-i-"
+    },
+    {
+      "name": "Vigilância (overwatch)",
+      "what": "O soldado fica em vigilância e atira em qualquer inimigo que se mova na linha de visão.",
+      "feel": "O jogador pensa em zonas de risco e em quem entra nelas primeiro.",
+      "take": "Ação de espera que pune o movimento do adversário.",
+      "avoid": "Excesso de imunidade a ela. A análise nota que os Escolhidos podem ficar imunes e isso tira a trava do jogador.",
+      "source": "https://en.wikipedia.org/wiki/XCOM_2"
+    },
+    {
+      "name": "Duas ações e ataque encerra o turno",
+      "what": "Cada soldado tem duas ações por turno e atacar encerra o turno dele, salvo exceções. Não dá para atirar e recuar.",
+      "feel": "Cada ação pesa. A crítica vê limitação de opções nesse desenho.",
+      "take": "Regra simples de ações. Decidir por nossa conta se atacar encerra o turno.",
+      "avoid": "Sem a opção de recuar depois de atacar, o jogador se sente preso.",
+      "source": "https://www.gamedeveloper.com/design/a-deep-dive-into-xcom-and-xcom-2"
+    },
+    {
+      "name": "Morte permanente e discrição",
+      "what": "Soldados mortos são perdidos. O esquadrão começa escondido e a emboscada dá bônus. Muitas missões têm limite de turnos.",
+      "feel": "O jogador se apega aos soldados e arrisca com cuidado.",
+      "take": "Emboscada como recompensa por planejar.",
+      "avoid": "Perdas muito duras logo no começo, apontadas como excessivas na análise.",
+      "source": "https://en.wikipedia.org/wiki/XCOM_2"
+    }
+  ],
+  "feel": [
+    {
+      "name": "O jogador lê a porcentagem com emoção",
+      "what": "Solomon diz que o jogador lê o número com emoção, não com matemática. Em 85%, ele não pensa em 15% de errar. Por isso a equipe evitou várias falhas seguidas em tiros de 85%.",
+      "take": "Escolher a faixa de chances mostradas e evitar sequências de erro que pareçam punição.",
+      "source": "https://www.gamedeveloper.com/design/jake-solomon-explains-the-careful-use-of-randomness-in-i-xcom-2-i-"
+    },
+    {
+      "name": "Sensação de lutar contra o sistema",
+      "what": "A análise diz que o jogo pode parecer um combate contra as próprias regras, punindo jogadas boas. Grupos inimigos podem ser duas ou três vezes maiores que o seu.",
+      "take": "Evitar picos de dificuldade por acaso empilhado.",
+      "source": "https://www.gamedeveloper.com/design/a-deep-dive-into-xcom-and-xcom-2"
+    }
+  ],
+  "videos": [
+    {
+      "url": "https://www.youtube.com/watch?v=5jrq5rDI4dk",
+      "title": "Plot and Parcel: Procedural Level Design in XCOM 2",
+      "note": "Palestra do GDC 2018 (Brian Hess) sobre como os mapas são montados com blocos feitos à mão."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=jLrxsJWopY0",
+      "title": "Leading the Resistance: A Talk on XCOM 2 Design and Setting - Firaxicon 2015",
+      "note": "Líderes da equipe falam do desenho de XCOM 2. Conteúdo não revisado por mim."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=1ep2OEsN07w",
+      "title": "Firaxis Mega Panel at PAX Prime",
+      "note": "Painel com as equipes de XCOM 2 e Rising Tide sobre desenho. Conteúdo não revisado por mim."
+    }
+  ],
+  "notFound": [
+    "Palestra do Jake Solomon no GDC sobre acerto: não achei gravação.",
+    "Tempos de câmera, animação de tiro ou pausa no impacto citados por fonte.",
+    "Mecanismo exato que evita sequências de erros: a fonte só cita ajustes por dificuldade."
+  ]
+}

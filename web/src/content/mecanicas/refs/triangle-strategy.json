@@ -1,0 +1,73 @@
+{
+  "game": "Triangle Strategy",
+  "slug": "triangle-strategy",
+  "year": 2022,
+  "reception": "Metacritic: PS5 85, Switch 83, PC 83 — https://en.wikipedia.org/wiki/Triangle_Strategy",
+  "why": "É um tática moderno com altura, ataque pelas costas e terreno elemental, muito próximo do que queremos.",
+  "mechanics": [
+    {
+      "name": "Altura e ataque pelas costas",
+      "what": "Atacar por trás ou de cima causa mais dano. Os campos têm vários níveis e quem ocupa o alto controla o combate. Um guia diz que acertar as costas é crítico e que o alto aumenta o alcance.",
+      "feel": "O jogador sobe para dominar e teme ser flanqueado.",
+      "take": "Bônus de altura e de costas como regras gerais, sem exceção por habilidade.",
+      "avoid": "Números de bônus que não consegui confirmar em fonte oficial.",
+      "source": "https://en.wikipedia.org/wiki/Triangle_Strategy"
+    },
+    {
+      "name": "Terreno elemental",
+      "what": "O jogador pode botar fogo no chão para atrapalhar o movimento, usar terreno molhado para ampliar o raio de um raio e empurrar inimigos de penhascos com vento. Fogo derrete gelo e o raio eletrifica a água que sobra.",
+      "feel": "Feitiços ganham combinações e o mapa reage ao jogador.",
+      "take": "A nossa água pode ligar com raio e frio. Terreno que muda com o elemento.",
+      "avoid": "Combinações demais antes de a base estar clara.",
+      "source": "https://www.nintendo.com/en-ca/whatsnew/tips-for-getting-started-with-triangle-strategy/"
+    },
+    {
+      "name": "Ordem de turnos visível",
+      "what": "A parte de baixo da tela mostra quando aliados e inimigos agem. Segundo um guia, a ordem é por velocidade, sem fases fixas.",
+      "feel": "O jogador consegue planejar vários turnos.",
+      "take": "Barra de ordem sempre visível, como no FFT.",
+      "avoid": "Detalhes de contagem (como o número de turnos exibidos) que só vi em resumo de busca.",
+      "source": "https://www.nintendo.com/en-ca/whatsnew/tips-for-getting-started-with-triangle-strategy/"
+    },
+    {
+      "name": "Pontos de Kudos pelo posicionamento",
+      "what": "Bom posicionamento rende Kudos, trocados por itens de evolução ou por habilidades Quietus, como reviver um aliado.",
+      "feel": "Flanquear dá recompensa, não só dano.",
+      "take": "Recompensa por jogada de posição elegante.",
+      "avoid": "Pontos que forçam o jogador a seguir uma única jogada.",
+      "source": "https://en.wikipedia.org/wiki/Triangle_Strategy"
+    }
+  ],
+  "feel": [
+    {
+      "name": "Cores de perigo no chão",
+      "what": "Casas azuis são seguras. Linhas vermelhas mostram quais inimigos podem atacar o jogador e casas roxas estão no alcance do inimigo.",
+      "take": "Pintar o alcance e a ameaça dos inimigos no chão, antes de o jogador mover.",
+      "source": "https://www.nintendo.com/en-ca/whatsnew/tips-for-getting-started-with-triangle-strategy/"
+    },
+    {
+      "name": "Crítica: excesso de cenas",
+      "what": "Os críticos elogiaram combate, narrativa, trilha e arte, e criticaram o alto volume de cenas.",
+      "take": "Manter o combate no centro e deixar as cenas curtas e puláveis.",
+      "source": "https://en.wikipedia.org/wiki/Triangle_Strategy"
+    }
+  ],
+  "videos": [
+    {
+      "url": "https://www.youtube.com/watch?v=gwXDrq8Y40Y",
+      "title": "Triangle Strategy [GAMEPLAY & IMPRESSIONS] - QuipScope",
+      "note": "Impressões e jogabilidade. Título confirmado em busca; conteúdo não revisado por mim."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=WZRhIrSzY0k",
+      "title": "Square Enix's Project Triangle Strategy Demo Gameplay",
+      "note": "Demo de jogabilidade. Conteúdo não revisado por mim."
+    }
+  ],
+  "notFound": [
+    "Entrevista da Square Enix sobre o desenho do combate: a da Inverse só trata de história.",
+    "Valores numéricos dos bônus de altura e de costas.",
+    "Tempos de animação, câmera e pausa no impacto citados por fonte.",
+    "Guia do Nintendo Life retornou 403."
+  ]
+}

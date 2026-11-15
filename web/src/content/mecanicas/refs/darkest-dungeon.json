@@ -1,0 +1,69 @@
+{
+  "game": "Darkest Dungeon",
+  "slug": "darkest-dungeon",
+  "year": 2016,
+  "reception": "Metacritic: PC 84, PS4 83, Switch 85; IGN 9,1/10 — https://en.wikipedia.org/wiki/Darkest_Dungeon",
+  "why": "Mostra como estresse, posição na fila e morte permanente criam tensão e narrativa dentro de um combate simples.",
+  "mechanics": [
+    {
+      "name": "Fileiras de combate",
+      "what": "O grupo de quatro fica em fileiras. A fileira da frente usa ataques corpo a corpo fortes e leva mais dano. A de trás é mais protegida e limitada a ataques fracos à distância. Ataques inimigos podem tirar o personagem da fileira.",
+      "feel": "Ordem e posição decidem quem pode agir e quem apanha.",
+      "take": "Ataques que deslocam a unidade e quebram a formação, lado a lado com o nosso empurrão.",
+      "avoid": "Detalhes de empurrar, puxar e embaralhar: a fonte que abri não os descreve.",
+      "source": "https://en.wikipedia.org/wiki/Darkest_Dungeon"
+    },
+    {
+      "name": "Estresse e aflições",
+      "what": "O estresse sobe com fome, escuridão, ver aliado ferido ou morto e ataques inimigos. Estresse alto traz aflições que atrapalham, e às vezes virtudes que ajudam. Extremo, causa infarto que deixa o herói quase morto.",
+      "feel": "O combate tem uma segunda barra além do HP. Os heróis passam a ter personalidade e imprevisibilidade.",
+      "take": "Uma segunda pressão emocional ligada a eventos de batalha, como o moral do Battle Brothers.",
+      "avoid": "Perder o controle total do herói. Aflições podem frustrar quem quer planejar tudo.",
+      "source": "https://en.wikipedia.org/wiki/Darkest_Dungeon"
+    },
+    {
+      "name": "Morte permanente",
+      "what": "O herói que morre na masmorra é perdido para sempre. O herói fica numa vila onde se recrutam e treinam outros.",
+      "feel": "Cada expedição pesa. O jogador se apega e sente a perda.",
+      "take": "Um tempo de socorro antes da perda, como o cristal do FFT, ou modo opcional.",
+      "avoid": "Perda sem aviso e sem recurso de reposição.",
+      "source": "https://en.wikipedia.org/wiki/Darkest_Dungeon"
+    }
+  ],
+  "feel": [
+    {
+      "name": "Narrador sarcástico",
+      "what": "Um narrador, com a voz de Wayne June, comenta o jogo com sarcasmo o tempo todo.",
+      "take": "Voz que comenta eventos de batalha dá personalidade e marca o momento de uma crítica ou de uma morte.",
+      "source": "https://en.wikipedia.org/wiki/Darkest_Dungeon"
+    },
+    {
+      "name": "Pressão psicológica visível",
+      "what": "A resenha da IGN o chama de punitivo e incrível, um jogo de levar a sorte ao limite. O estresse mostra o risco para o jogador a cada ação.",
+      "take": "Mostrar a pressão como barra e ícone legíveis.",
+      "source": "https://en.wikipedia.org/wiki/Darkest_Dungeon"
+    }
+  ],
+  "videos": [
+    {
+      "url": "https://www.youtube.com/watch?v=0IUaGQhlPwo",
+      "title": "Darkest Dungeon: A Design Postmortem",
+      "note": "Palestra do GDC 2016 de Tyler Sigman (Red Hook) sobre acertos e erros de desenho."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=k4ETK1C1KNs",
+      "title": "A Torch in the Dark: Using Creative Direction to Light The Darkest Dungeon",
+      "note": "Palestra do GDC 2016 de Chris Bourassa sobre direção criativa, arte e tom."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=UoogT3XOl-8",
+      "title": "Partnership on Darkest Dungeon: The Double-Edged Sword",
+      "note": "Palestra do GDC 2018 de Sigman e Bourassa com lições do desenvolvimento."
+    }
+  ],
+  "notFound": [
+    "Regras de empurrar, puxar e embaralhar posição: a página da wiki.gg retornou 404 e a Wikipedia não as descreve.",
+    "Páginas oficiais do GDC Vault sobre as palestras.",
+    "Tempos de animação ou pausa no impacto citados por fonte."
+  ]
+}
