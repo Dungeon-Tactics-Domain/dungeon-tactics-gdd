@@ -16,6 +16,7 @@ const ROSTOS = [
   'skeleton_rogue',
   'skeleton_warrior',
 ];
+const OFICIAL = new Set(['barbarian', 'knight', 'lancer', 'mage', 'ranger', 'rogue_hooded', 'skeleton_mage']); // 8-frame sheets
 const ICONES = [0, 1, 2, 6, 12, 15, 17, 22, 23]; // strike, heavy strike, shield bash, shot, fire ray, heal, deadly strike, move, wait
 const AZUL = 'linear-gradient(#1c3a78,#0b1a3e)';
 
@@ -76,11 +77,15 @@ export function EmUso() {
       </Bloco>
       <Bloco
         titulo="Rostos dos 10 bonecos"
-        detalhe="4 falam (bárbaro, cavaleiro, lanceiro, maga); os outros 6 ficam parados até haver folha de expressões."
+        detalhe="7 com folha de 8 expressões (versão D oficial); os 3 esqueletos ficam parados até haver cota de IA."
         para="/design/personagens/em-uso"
       >
         {ROSTOS.map((id) => (
-          <Peca key={id} fundo={`url(${ASSETS}/chars/px/${id}.png) 0 0/256px 64px`} />
+          <Peca key={id} fundo={
+              OFICIAL.has(id)
+                ? `url(${ASSETS}/chars/ia-alinhado-rosto/${id}.png) 0 0/512px 64px`
+                : `url(${ASSETS}/chars/px/${id}.png) 0 0/256px 64px`
+            } />
         ))}
       </Bloco>
     </div>

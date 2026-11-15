@@ -81,7 +81,7 @@ export default {
         {
           id: 'em-uso',
           titulo: 'Em uso: rostos',
-          resumo: 'Os 10 bonecos KayKit em pixel art, com 4 quadros de boca; 4 falam.',
+          resumo: 'Os 10 bonecos KayKit em pixel art: 7 com folha oficial de 8 expressões, 3 esqueletos parados.',
         },
         {
           id: 'expressoes',
@@ -96,6 +96,11 @@ export default {
         },
         { id: 'testes', titulo: 'Testes de IA: rostos', resumo: 'Retratos por plataforma e por estilo.' },
         {
+          id: 'pixellab-cavaleiro',
+          titulo: 'PixelLab: Cavaleiro 8 direções',
+          resumo: 'Referências que vão para o PixelLab e espaço para os resultados.',
+        },
+        {
           id: 'sprites',
           titulo: 'Testes de IA: sprites',
           resumo: 'Bonecos andando e atacando (prova de conceito).',
@@ -106,8 +111,13 @@ export default {
       id: 'mapa',
       titulo: 'Mapa',
       icone: '🗺️',
-      resumo: 'Cenas e terreno.',
+      resumo: 'Cidade andável, cenas e terreno.',
       paginas: [
+        {
+          id: 'cidade',
+          titulo: 'Cidade andável (rascunho)',
+          resumo: 'Mapa 40×30 da cidade com 10 lugares e 10 moradores, e o que cada nível (1 a 3) acrescenta.',
+        },
         {
           id: 'testes',
           titulo: 'Testes de IA: cenas e terreno',

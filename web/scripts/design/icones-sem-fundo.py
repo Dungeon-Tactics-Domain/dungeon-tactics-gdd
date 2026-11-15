@@ -10,6 +10,8 @@ SUAVE = len(sys.argv) > 1 and sys.argv[1] == 'suave'
 im = np.asarray(Image.open(f'{D}/atlas-32.png').convert('RGB')).astype(float)
 C, COLS, ROWS = 32, 6, 4
 out = np.zeros((C * ROWS, C * COLS, 4))
+# onda sombria (índice 16): o roxo escuro do interior é parecido com o fundo, então o limite é mais apertado
+APERTA = {16: (24, 48)}  # (distância máxima, azul menos vermelho mínimo)
 for r in range(ROWS):
     for c in range(COLS):
         q = im[r * C:(r + 1) * C, c * C:(c + 1) * C]
@@ -22,7 +24,8 @@ for r in range(ROWS):
         pts = anel & azul
         bg = np.stack([A @ np.linalg.lstsq(A[pts], q.reshape(-1, 3)[pts, k], rcond=None)[0] for k in range(3)], -1).reshape(C, C, 3)
         dist = np.linalg.norm(q - bg, axis=2)
-        lab, n = ndimage.label((dist < 40) & (q[..., 2] - q[..., 0] > 28))
+        dmax, azmin = APERTA.get(r * COLS + c, (40, 28))
+        lab, n = ndimage.label((dist < dmax) & (q[..., 2] - q[..., 0] > azmin))
         borda = set(np.unique(np.concatenate([lab[0], lab[-1], lab[:, 0], lab[:, -1]]))) - {0}
         fundo = np.isin(lab, list(borda))
         # miolo azul-marinho fechado por um traço claro (machado): fundo também, se for grande e bem próximo do degradê
