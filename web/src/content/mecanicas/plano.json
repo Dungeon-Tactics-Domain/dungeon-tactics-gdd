@@ -1,6 +1,37 @@
 {
-  "now": null,
-  "nextStep": "Grill do peso pausado por você em 14/11 (\"vamos parar de decidir isso por enquanto\"). Quando voltar: pergunta 2, quanto exagero no corpo (pesado e contido, estilizado ou realista), olhando a área Clipes do jogo.",
+  "now": {
+    "question": "Sem acampamento no protótipo, como o grupo recupera vida entre um andar e outro?",
+    "why": "A vida persiste entre andares (decisão 1) e o acampamento está pausado (decisão 41); só a Cura do mago (12 a 18) sobra. Em 6 salas seguidas o grupo pode chegar ao chefe sem vida, e o teste mede o desgaste, não o combate.",
+    "example": "Como numa trilha longa sem parada para comer: no terceiro morro ninguém aguenta, e você não descobre se a trilha era boa.",
+    "options": [
+      {
+        "name": "Recupera 50% no fim de cada andar (Recomendada)",
+        "what": "Ao descer de andar, todo herói ganha 50% da vida máxima (sem passar do máximo); ferido a 25% chega a 75%.",
+        "basis": "Faz o papel do acampamento até ele voltar (decisões 4 e 41).",
+        "pros": "A vida ainda pesa dentro do andar; dá para testar 3 andares e o chefe.",
+        "cons": "Regra provisória que some quando o acampamento voltar.",
+        "effect": "Implementação põe 1 linha no fim do andar no F2."
+      },
+      {
+        "name": "Sem cura fora da batalha",
+        "what": "Só a Cura do mago e o que sobrar de vida.",
+        "basis": "Fiel à decisão 31 (sem comida, sem cura).",
+        "pros": "Mede o desgaste puro da descida.",
+        "cons": "Grupo provavelmente chega ao chefe quebrado; o teste vira sobre cura, não sobre salas.",
+        "effect": "Nada a implementar; pode exigir menos salas."
+      },
+      {
+        "name": "Vida cheia a cada andar",
+        "what": "Todo andar começa com vida cheia.",
+        "basis": "A mais simples.",
+        "pros": "Testa só o combate de cada sala.",
+        "cons": "Some o peso da persistência e do ferido dentro da descida.",
+        "effect": "1 linha no fim do andar, igual à primeira."
+      }
+    ],
+    "pick": "Recupera 50% no fim de cada andar"
+  },
+  "nextStep": "Responder a pergunta de cura entre andares; depois Implementação usa a área Descida do loop no F1 (gerador de sala) e no F2 (expedição). Grill do peso segue pausado (volta pela pergunta 2, exagero no corpo).",
   "decisions": [
     {
       "topic": "Por onde o peso começa",
@@ -34,6 +65,20 @@
     }
   ],
   "requests": [
+    {
+      "date": "15/11",
+      "ask": "Números da descida do MVP do loop (pedido via Orquestrador dos Labs; foco só na dungeon, decisão 41)",
+      "owner": "esta sessão",
+      "status": "feito",
+      "next": "Grupo Descida do loop: sala curta, inimigos e chefe, ferido, regras do mapa; 1 pergunta aberta em Agora"
+    },
+    {
+      "date": "15/11",
+      "ask": "\"suba pro meu celular ver\"",
+      "owner": "esta sessão",
+      "status": "feito",
+      "next": "Link na rede local passado (http://192.168.3.10:5191/mecanicas); hoje vale o site público dungeon-tactics-lab.fernandorffdev.com"
+    },
     {
       "date": "14/11",
       "ask": "Sumário em páginas, não um scroll só (pedido via Orquestrador dos Labs): 5 grupos por assunto",

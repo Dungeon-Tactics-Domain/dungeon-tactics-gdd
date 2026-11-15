@@ -2,6 +2,7 @@
 // dungeon-tactics-lab/mecanicas/src/data (plan.ts, rules.ts, scenes.ts as JSON; refs/*.json as they were).
 import cenas from './cenas.json';
 import clipes from './clipes.json';
+import descida from './descida.json';
 import plano from './plano.json';
 import regras from './regras.json';
 
@@ -90,3 +91,10 @@ export const JOGOS: Jogo[] = Object.values(
   import.meta.glob<Jogo>('./refs/*.json', { eager: true, import: 'default' }),
 ).sort((a, b) => a.year - b.year);
 export const jogo = (id: string) => JOGOS.find((g) => slug(g.slug) === id);
+
+// Descent numbers (Nov 15): enemy life per room from the game's units, and the hero turns it takes at the measured pace
+export { descida };
+const VIDA: Record<string, number> = descida.vida;
+// an unknown enemy id gives NaN, so the room test fails instead of counting it as 0
+export const vidaDe = (inimigos: string[]) => inimigos.reduce((s, i) => s + (VIDA[i] ?? NaN), 0);
+export const turnosDe = (vida: number) => Math.round((vida / descida.ritmo.danoPorTurnoDeHeroi) * 10) / 10;

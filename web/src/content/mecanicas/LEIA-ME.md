@@ -19,3 +19,9 @@ where they are and are not copied.
   the game repo, `npm run bench` on `http://localhost:5291`. Without it the page shows the "O jogo não está rodando"
   warning. The bench's Vite allows only localhost origins by CORS, so from the LAN address the scenes do not load.
 - "Só a animação" is kept in this browser (`mecanicas:so-animacao`, same key as the old lab).
+
+## Descent group (Nov 15)
+
+`descida.json` holds the numbers of the dungeon crawler descent (short room, enemies and boss, wounded, room map rules),
+proposed by this lab and not copied from the old one. `dados.ts` sums the enemy life per room; the test keeps every room
+in 5 to 8 hero turns and the boss in 12 to 18.

@@ -73,6 +73,34 @@ export default {
       ],
     },
     {
+      id: 'descida',
+      titulo: 'Descida do loop',
+      icone: '🕳️',
+      resumo:
+        'Números da descida do MVP do dungeon crawler (15/11): sala curta, inimigos e chefe, ferido e regras do mapa.',
+      paginas: [
+        {
+          id: 'sala-curta',
+          titulo: 'Sala curta',
+          icone: '⏱️',
+          resumo: 'Duração alvo, dano por turno e tamanho da descida.',
+        },
+        {
+          id: 'inimigos',
+          titulo: 'Inimigos e chefe',
+          icone: '💀',
+          resumo: '7 salas para os 3 andares e o Colosso no fim.',
+        },
+        { id: 'ferido', titulo: 'Ferido', icone: '🩹', resumo: 'Quem cai volta com 25% da vida.' },
+        {
+          id: 'mapa',
+          titulo: 'Regras do mapa',
+          icone: '🗺️',
+          resumo: 'Tamanho, altura, água, rampas e linha de tiro da sala.',
+        },
+      ],
+    },
+    {
       id: 'clipes',
       titulo: 'Clipes do jogo',
       icone: '🎬',

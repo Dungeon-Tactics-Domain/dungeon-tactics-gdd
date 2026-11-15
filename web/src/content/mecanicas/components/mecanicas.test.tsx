@@ -5,6 +5,7 @@ import manifesto from '../manifest';
 import { Cena } from './Cena';
 import { sceneUrl, type Spec } from './cena-url';
 import { Pedidos } from './Plano';
+import { descida, turnosDe, vidaDe } from '../dados';
 
 const G = 'http://localhost:5291';
 // arena-wall.json as served by the game bench on 14/11; the expected URLs came from the old lab's sceneUrl
@@ -31,16 +32,17 @@ beforeEach(() => {
 afterEach(() => vi.unstubAllGlobals());
 
 describe('mecanicas manifest', () => {
-  it('keeps the old lab tree: 5 groups and 75 pages and subpages (81 routes with the home and groups)', () => {
+  it('keeps the old lab tree plus the descent group: 6 groups and 79 pages and subpages', () => {
     expect(manifesto.grupos.map((g) => `${g.id}:${g.paginas.length}`)).toEqual([
       'decisoes:4',
+      'descida:4',
       'clipes:4',
       'regras:8',
       'sensacao:5',
       'referencias:10',
     ]);
     const n = manifesto.grupos.flatMap((g) => g.paginas.flatMap((p) => [p, ...(p.subpaginas ?? [])])).length;
-    expect(n).toBe(75);
+    expect(n).toBe(79);
     expect((manifesto.linksAntigos as Record<string, string>)['cena-walk']).toBe('clipes/movimento/walk');
     expect((manifesto.linksAntigos as Record<string, string>)._geral).toBe('referencias/geral');
   });
@@ -100,11 +102,23 @@ describe('Cena', () => {
 });
 
 describe('Pedidos', () => {
-  it('splits open and done requests like the old lab (6 open, 9 done)', () => {
+  it('splits open and done requests like the old lab (6 open, 11 done)', () => {
     const { unmount } = render(<Pedidos />);
     expect(screen.getAllByRole('row')).toHaveLength(7);
     unmount();
     render(<Pedidos feitos />);
-    expect(screen.getAllByRole('row')).toHaveLength(10);
+    expect(screen.getAllByRole('row')).toHaveLength(12);
+  });
+});
+
+describe('descida', () => {
+  it('keeps every room in the 5 to 8 hero-turn target and the boss in 12 to 18', () => {
+    const { turnosSala: sala, turnosChefe: chefe } = descida.ritmo;
+    for (const s of descida.salas) {
+      const t = turnosDe(vidaDe(s.inimigos));
+      expect(t >= sala.min && t <= sala.max, `${s.nome}: ${t}`).toBe(true);
+    }
+    const t = turnosDe(vidaDe(['colossus', 'minion', 'minion']));
+    expect(t >= chefe.min && t <= chefe.max, `chefe: ${t}`).toBe(true);
   });
 });
