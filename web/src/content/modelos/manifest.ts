@@ -71,6 +71,20 @@ export default {
       })),
     },
     {
+      id: 'kaykit',
+      titulo: 'KayKit',
+      icone: '🛡️',
+      resumo: 'Os personagens KayKit do jogo por partes, com todas as animações do pacote.',
+      paginas: [
+        {
+          id: 'personagens',
+          titulo: 'Personagens e animações',
+          icone: '🎬',
+          resumo: 'Os 17 gestos do jogo e o pacote completo, em cada personagem.',
+        },
+      ],
+    },
+    {
       id: 'sprites',
       titulo: 'Sprites',
       icone: '🖼️',

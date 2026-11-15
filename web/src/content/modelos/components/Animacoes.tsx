@@ -5,7 +5,7 @@ import { BANCADA, BENCH, CLASSE_VIEWER } from './bancada';
 import { Botoes } from './Visualizador';
 
 // id "clip:<name>" plays one clip; "walk:", "jump:" and "act:" assemble a scene on the bench
-type Botao = readonly [id: string, nome: string];
+export type Botao = readonly [id: string, nome: string];
 const clipe = (c: string, nome = c.replace(/_/g, ' ')): Botao => [`clip:${c}`, nome];
 const SETORES: readonly (readonly [string, readonly Botao[]])[] = [
   [
@@ -67,18 +67,18 @@ const SETORES: readonly (readonly [string, readonly Botao[]])[] = [
   ['🌊 Água', [clipe('Swim', 'Nado'), clipe('Crawling', 'Engatinhar'), ['act:swim', 'Cena: nadando na água']]],
 ];
 // KayKit Fantasy Weapons (CC0), attached to the hand bone, tip down: [file, name]
-const MAO_PRINCIPAL: readonly Botao[] = [
+export const MAO_PRINCIPAL: readonly Botao[] = [
   ['sword_A', 'Espada'],
   ['sword_C', 'Espada longa'],
   ['axe_A', 'Machado'],
   ['hammer_A', 'Martelo'],
   ['dagger_A', 'Adaga'],
 ];
-const MAO_SECUNDARIA: readonly Botao[] = [
+export const MAO_SECUNDARIA: readonly Botao[] = [
   ['shield_A', 'Escudo'],
   ['dagger_B', 'Adaga curta'],
 ];
-const DUAS_MAOS: readonly Botao[] = [
+export const DUAS_MAOS: readonly Botao[] = [
   ['spear_A', 'Lança'],
   ['halberd', 'Alabarda'],
   ['staff_A', 'Cajado'],
@@ -86,7 +86,7 @@ const DUAS_MAOS: readonly Botao[] = [
 ];
 
 /** Bench URL for the chosen clip or scene and weapons. */
-function urlDaAnimacao(
+export function urlDaAnimacao(
   modelo: string,
   glb: string,
   escolha: string,
@@ -105,9 +105,9 @@ function urlDaAnimacao(
   return `${BENCH}?${q}`;
 }
 
-const alterna = (atual: string, id: string) => (atual === id ? '' : id);
+export const alterna = (atual: string, id: string) => (atual === id ? '' : id);
 
-function Grupo({
+export function Grupo({
   titulo,
   botoes,
   atual,
