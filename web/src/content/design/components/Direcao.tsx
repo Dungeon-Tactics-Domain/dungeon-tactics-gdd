@@ -287,3 +287,17 @@ export function Direcao({ id }: { id: string }) {
     </div>
   );
 }
+
+/** the three directions one after the other, a title each (the old interface/alternativas section) */
+export function Alternativas() {
+  return (
+    <div className="grid gap-8">
+      {DIRECOES.map((d) => (
+        <div key={d.id} className="grid gap-3">
+          <h3 className="m-0 mt-1 text-[21px] leading-tight">{d.name}</h3>
+          <Direcao id={d.id} />
+        </div>
+      ))}
+    </div>
+  );
+}

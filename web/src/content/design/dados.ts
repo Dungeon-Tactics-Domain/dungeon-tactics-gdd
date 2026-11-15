@@ -88,10 +88,27 @@ export const IA = iaJson as {
   featured: string[];
   subs: [id: string, titulo: string, resumo: string][];
 };
-export const PLATFORM_IDS = ['gemini', 'pixellab', 'chatgpt', 'copilot', 'craiyon'];
-export const plataforma = (id: string) => IA.platforms[PLATFORM_IDS.indexOf(id)];
-// platforms with many images (Gemini, Copilot) become subpages by kind, each fitting ~a screen and a half
-export const dividida = (p: Platform) => p.tests.length > 8;
+/** the conversation's name, by the first 8 characters of its id (the old ia.ts map); without a name the heading says "Mesma conversa" */
+const ESTILO: Record<string, string> = {
+  '5940caa1': 'Sprites em pixel art dos 10 bonecos',
+  '8481078a': 'Ícones FFT Clássico',
+  '23ab3225': 'Terreno e cena de batalha',
+  '6ef32d77': 'Retratos no traço FFT',
+  c9ac8134: 'Retratos no traço FFT',
+  b80de995: 'Rostos Vitral, moldura dourada (usados no jogo)',
+};
+export const estiloDe = (link: string) => ESTILO[link.split('/').pop()!.slice(0, 8)];
+/** images of the same conversation (same style, same session) go together; the loose ones go in one block */
+export function porConversa(tests: Test[]): { juntas: Test[][]; soltas: Test[] } {
+  const grupos = new Map<string, Test[]>();
+  for (const t of tests) {
+    const k = t.link ?? `solta-${t.file}`;
+    grupos.set(k, [...(grupos.get(k) ?? []), t]);
+  }
+  const todos = [...grupos.values()];
+  return { juntas: todos.filter((g) => g.length > 1), soltas: todos.filter((g) => g.length === 1).flat() };
+}
+/** the AI test kind of an image, from its file name (the old geminiSub, now for every platform) */
 export const iaSub = (t: Test) =>
   t.file.includes('sprite')
     ? 'sprites'
@@ -122,13 +139,17 @@ export interface Direcao {
 }
 export const DIRECOES = direcoesJson as Direcao[];
 
+/** the kit's typeface (Alegreya Sans, OFL), for the pages that draw on .fft */
+export const FONTE_FFT = 'https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@500;700&display=swap';
+
 /** Adds a Google Fonts stylesheet once. Not a React 19 <link precedence>: that suspends the page until the CSS loads. */
 export function carregarFonte(href: string) {
   if (document.querySelector(`link[href="${href}"]`)) return;
   document.head.append(Object.assign(document.createElement('link'), { rel: 'stylesheet', href }));
 }
 
-/** Mouth frame of the FFT kit portraits: still on 0; talking, it steps through the sheet at ~8 Hz. */
-export const MOUTH_HZ = 8;
-export const mouthFrame = (ms: number, talking: boolean, frames = 4, hz = MOUTH_HZ) =>
-  talking ? Math.floor((ms * hz) / 1000) % frames : 0;
+/** Mouth frame of the FFT kit portraits: still on 0; talking, it steps closed, half, open, half at ~5 Hz (8 Hz jumped too fast between 2 and 3). */
+export const MOUTH_HZ = 5;
+const FALA = [1, 2, 3, 2];
+export const mouthFrame = (ms: number, talking: boolean, hz = MOUTH_HZ) =>
+  talking ? FALA[Math.floor((ms * hz) / 1000) % FALA.length]! : 0;

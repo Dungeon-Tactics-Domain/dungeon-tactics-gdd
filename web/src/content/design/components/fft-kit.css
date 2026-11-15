@@ -929,3 +929,10 @@
     animation: none !important;
   }
 }
+/* approved ability icon from the atlas: always 32 px (whole-number scale, sharp pixels) */
+.fft span.gi {
+  display: inline-block;
+  flex: none;
+  width: 32px !important;
+  height: 32px !important;
+}

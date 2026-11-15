@@ -4,14 +4,38 @@
 // on .fft and fft-* classes only, so nothing leaks into the app.
 import './fft-kit.css';
 import { type CSSProperties, type ReactNode, useEffect, useId, useRef, useState } from 'react';
-import { ASSETS, carregarFonte, mouthFrame } from '../dados';
+import { ASSETS, carregarFonte, FONTE_FFT, mouthFrame } from '../dados';
 
-const FONTE = 'https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@500;700&display=swap';
 // the game's sprite (public/icons.svg, game-icons.net CC BY 3.0) copied next to the lab images
 const SPRITE = `${ASSETS}/icons.svg`;
 const css = (v: Record<string, string>) => v as CSSProperties;
 
+// approved ability icons (32 px atlas, 6 columns); what is not in the atlas falls back to the game's game-icons sprite
+const ATLAS: Record<string, number> = {
+  'knife-thrust': 0,
+  flail: 1,
+  'checked-shield': 2,
+  cycle: 3,
+  'on-target': 6,
+  'fire-ray': 12,
+  'chalice-drops': 15,
+  'wind-slap': 14,
+  run: 22,
+  'pocket-watch': 23,
+};
 function Icon({ id }: { id: string }) {
+  const n = ATLAS[id];
+  if (n !== undefined)
+    return (
+      <span
+        className="gi"
+        aria-hidden="true"
+        style={{
+          background: `url(${ASSETS}/ia/icones/atlas-32.png) -${(n % 6) * 32}px -${Math.floor(n / 6) * 32}px/192px 128px no-repeat`,
+          imageRendering: 'pixelated',
+        }}
+      />
+    );
   return (
     <svg className="gi" viewBox="0 0 512 512" aria-hidden="true">
       <use href={`${SPRITE}#${id}`} />
@@ -31,30 +55,14 @@ const Kbd = ({ k }: { k: string }) => (
 
 // ---------- portrait with an animated mouth ----------
 
-// Placeholder portrait: a 4x64 px horizontal sheet (frame 0 = mouth closed, 1 to 3 = opening), the format the
-// public/chars/px/<id>.png portraits will have. Drawn in SVG to prove the animation until the portraits exist.
-function placeholderSheet(skin: string, hair: string, bg: string): string {
-  const mouths = [
-    '<rect x="27" y="44" width="10" height="2"/>',
-    '<rect x="28" y="43" width="8" height="4"/>',
-    '<rect x="27" y="42" width="10" height="6"/>',
-    '<rect x="26" y="41" width="12" height="8"/>',
-  ];
-  const frame = (m: string, i: number) =>
-    `<g transform="translate(${i * 64} 0)"><rect width="64" height="64" fill="${bg}"/>` +
-    `<rect x="14" y="54" width="36" height="10" fill="#33415e"/><rect x="18" y="14" width="28" height="40" fill="${skin}"/>` +
-    `<rect x="16" y="8" width="32" height="12" fill="${hair}"/><rect x="16" y="8" width="6" height="30" fill="${hair}"/>` +
-    `<rect x="24" y="28" width="5" height="5" fill="#1b1b2b"/><rect x="35" y="28" width="5" height="5" fill="#1b1b2b"/>` +
-    `<g fill="#5a1d24">${m}</g></g>`;
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="256" height="64" shape-rendering="crispEdges">${mouths.map(frame).join('')}</svg>`;
-  return `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
-}
+// the game's real faces (chars/px, 4 frames per sheet); the speakers are the mage and the barbarian
+const px = (id: string) => `url(${ASSETS}/chars/px/${id}.png)`;
 const SHEETS = {
-  aria: placeholderSheet('#e8b48a', '#a0522d', '#3a5a8c'),
-  tess: placeholderSheet('#f0c8a0', '#e8c060', '#3a5a8c'),
-  odo: placeholderSheet('#c08860', '#2b2b3b', '#3a5a8c'),
-  lacaio: placeholderSheet('#d8d4c4', '#d8d4c4', '#6a2434'),
-  acolito: placeholderSheet('#a8c0a0', '#3d6b3a', '#6a2434'),
+  aria: px('ranger'),
+  tess: px('mage'),
+  odo: px('barbarian'),
+  lacaio: px('skeleton_minion'),
+  acolito: px('rogue_hooded'),
 };
 type Who = keyof typeof SHEETS;
 
@@ -350,11 +358,11 @@ const Botao = ({ cls, label, k, state = '' }: { cls: string; label: string; k: s
 // story window (talk.ts): portrait with a mouth, name and text letter by letter (28 ms per letter, the game's "Normal")
 const LINES: [Who, string, string][] = [
   [
-    'aria',
-    'Aria',
+    'tess',
+    'Tess',
     'O farol caiu ontem à noite. Se os mortos chegarem à vila antes do amanhecer, ninguém vai sobrar para acendê-lo.',
   ],
-  ['lacaio', 'Lacaio de osso', 'O farol é nosso agora. Volte para casa, guerreira.'],
+  ['odo', 'Odo', 'Então vamos acendê-lo de novo antes que escureça. Peguem as lanças e sigam a estrada.'],
 ];
 function TalkBox() {
   const [i, setI] = useState(0);
@@ -362,7 +370,7 @@ function TalkBox() {
   const [q, setQ] = useState(0);
   const [who, name, s] = LINES[i]!;
   const done = shown >= s.length;
-  // the text types itself; the mouth moves at 8 Hz while it types and stops at the end (reduced motion: still)
+  // the text types itself; the mouth moves at 5 Hz while it types and stops at the end (reduced motion: still)
   useEffect(() => {
     if (done) return;
     const t = window.setInterval(() => setShown((n) => n + 1), 28);
@@ -525,7 +533,7 @@ function Scene() {
 const ESTADOS = ['', 'h', 'f', 'p', 'disabled'];
 
 export function KitFft() {
-  useEffect(() => carregarFonte(FONTE), []);
+  useEffect(() => carregarFonte(FONTE_FFT), []);
   return (
     // min-w-0: as a grid item the kit would grow to its widest piece and scroll the page at 375px
     <div className="fft min-w-0">
@@ -614,13 +622,13 @@ export function KitFft() {
       </Piece>
       <Piece
         title="Janela de história"
-        note="Boca troca de quadro a 8 Hz enquanto o texto digita e para no fim (movimento reduzido: parada). Clique ou Enter: completa, depois segue."
+        note="Boca troca de quadro a 5 Hz enquanto o texto digita e para no fim (movimento reduzido: parada). Clique ou Enter: completa, depois segue."
       >
         <TalkBox />
       </Piece>
       <Piece
         title="Dica, ícones e contadores"
-        note="Dica abre no hover e no foco. Ícones do sprite do jogo (SVG, cor do texto)."
+        note="Dica abre no hover e no foco. Ícones: os aprovados do atlas de 32 px e, no resto, o sprite do jogo (SVG, cor do texto)."
       >
         <div className="panel icons">
           <Tip icone="flail" name="Golpe pesado" text="Golpe pesado: 3 MP, 19 a 26 de dano" open />

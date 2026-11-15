@@ -1,32 +1,39 @@
 # Design lab (migrated from dungeon-tactics-lab/design)
 
-Copied on 2026-11-14 at 23:37:51 (-03:00), recopied (AI tests and images) on 2026-11-15 at 10:47:53 (-03:00) from a snapshot of `D:\Projetos\dungeon-tactics-lab\design` and
+Copied on 2026-11-14 at 23:37:51 (-03:00), recopied twice on 2026-11-15 (AI tests and images at 10:47; the lab's tab reorganisation at 11:07:40, -03:00) from a snapshot of `D:\Projetos\dungeon-tactics-lab\design` and
 `D:\Projetos\dungeon-tactics-lab\public\design`, while the lab's own session was still editing it.
 
 ## Where things are
 
-- `manifest.ts`: the page tree, derived from the data with the old lab's rules (games sorted by screen type in blocks of 2,
-  Gemini and Copilot split by kind when they have more than 8 images).
+- `manifest.ts`: the page tree. Since 15/11 it mirrors the old lab's tabs: each tab is a group and each section a page, with
+  the same ids, so `#/interface/testes`, `#/personagens/em-uso`... open the same page here (`Paginas` turns `#/a/b` into
+  `/design/a/b`). The old "Início" tab is the lab home (`inicio.mdx`: "Em uso agora" and "Agora estamos decidindo").
+  The games under `referencias` keep their `capturas-N` subpages (blocks of 2, as the old lab does).
 - `dados.ts`: typed access to `plano.json` (decisions, phases, requests), `ia.json` (AI tests, prompts already expanded),
   `direcoes.json` (the 3 directions' text) and `refs/*.json` (one file per game, copied as they were).
-- `components/`: `Decisoes`, `Referencias` (overview with filters, game intro, capture blocks), `Ia`, `Cartoes` + `Leitor`
-  (cards and the full-screen reader with zoom, drag, arrows), `Direcao` + `maquetes.css` (the mock-ups, CSS nested under
-  `.dz-maquetes`), `KitFft` + `fft-kit.css` (CSS under `.fft` / `fft-*`), `Rostos`.
-- The `.mdx` pages are one line each (a component call). They were written by a script from the data; when a game gets
-  more captures or an AI platform gets a new kind, add the `.mdx` at the new route: `registry.test.tsx` fails on a page
-  without one and on an orphan file.
+- `components/`: `Decisoes`, `Referencias` (overview with filters, game intro, capture blocks), `Ia` (tests by subject,
+  per platform, grouped by conversation; featured pick; platforms table), `Cartoes` + `Leitor` (cards and the full-screen
+  reader), `Direcao` + `maquetes.css`, `KitFft` + `fft-kit.css`, `Rostos`, `EmUso`, `Icones`, `Expressoes` +
+  `expressoes.css`, `Pixelizar`.
+- The `.mdx` pages are a component call (`plano/tema.mdx` is the plan text itself). A page with a new route needs its
+  `.mdx`: `registry.test.tsx` fails on a page without one and on an orphan file.
+- Old paths of the first copy (`/design/decisoes/...`, `/design/testes-de-ia/...`, `/design/maquetes/...`) no longer
+  exist; only the old anchors (`#fases`, `#maquetes`, `#ia`...) redirect, through `linksAntigos`.
 
 ## Local files (not in git)
 
 `public/content/design/.gitignore` keeps every `.jpg`, `.jpeg` and `.png` out of git: captures of other games stay on
 this PC only (grill decision of 13/11). Copy them from the old lab:
 
-| Folder in `public/content/design/` | From `D:\Projetos\dungeon-tactics-lab\public\design\`                                             | Files |
-| ---------------------------------- | ------------------------------------------------------------------------------------------------- | ----- |
-| `refs/<game>/`                     | `refs/` (captures of 10 games)                                                                    | 112   |
-| `ia/`                              | `ia/`, top-level files only (AI images, `cena-colina.jpg`; not `atlas/`, `icones/`, `pixelizar/`) | 100   |
-| `cenas/`                           | `cenas/` (game captures behind the mock-ups)                                                      | 3     |
-| `chars/px/`                        | `chars/px/` (pixel faces made by the game's script)                                               | 10    |
+| Folder in `public/content/design/` | From `D:\Projetos\dungeon-tactics-lab\public\design\`                                         | Files  |
+| ---------------------------------- | --------------------------------------------------------------------------------------------- | ------ |
+| `refs/<game>/`                     | `refs/` (captures of 10 games)                                                                | 112    |
+| `ia/`                              | `ia/`, top-level files (AI images, `cena-colina.jpg`)                                         | 100    |
+| `ia/icones/`, `ia/atlas/`          | `ia/icones/`, `ia/atlas/` (PNG only; the `.json` files are read by no page)                   | 57, 10 |
+| `ia/pixelizar/<tool>/`             | `ia/pixelizar/` (7 tools, 9 frames each)                                                      | 63     |
+| `chars/ia*/`                       | `chars/ia`, `ia-boca`, `ia-pixel2`, `ia-alinhado`, `ia-alinhado-rosto` (AI expression sheets) | 35     |
+| `cenas/`                           | `cenas/` (game captures behind the mock-ups)                                                  | 3      |
+| `chars/px/`                        | `chars/px/` (pixel faces made by the game's script)                                           | 10     |
 
 `icons.svg` (the game's sprite, game-icons.net CC BY 3.0) is versioned.
 

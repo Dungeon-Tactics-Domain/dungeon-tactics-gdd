@@ -1,19 +1,8 @@
-// Design lab: decisions, references from other games, mock-ups of the directions, AI tests and pieces. Copied from
-// dungeon-tactics-lab/design (src/main.ts, src/ia.ts); the tree is derived from the data with the old lab's own rules.
+// Design lab: the old lab's tabs (design/src/main.ts, 15/11) as groups and their sections as pages, with the same ids, so
+// the old routes (#/interface/testes, #/personagens/em-uso...) open the same page. The tree of the games is derived from the
+// data with the old lab's own rules; the AI tests are listed by subject (the old "por assunto" pages).
 import type { Manifesto, PaginaManifesto } from '../types';
-import {
-  blocos,
-  contagem,
-  DIRECOES,
-  dividida,
-  GAMES,
-  IA,
-  iaSub,
-  PER_PAGE,
-  PLATFORM_IDS,
-  screenName,
-  SHORT,
-} from './dados';
+import { blocos, GAMES, PER_PAGE, screenName, SHORT } from './dados';
 
 const jogos: PaginaManifesto[] = GAMES.map((g) => ({
   id: g.slug,
@@ -26,57 +15,120 @@ const jogos: PaginaManifesto[] = GAMES.map((g) => ({
   })),
 }));
 
-const plataformas: PaginaManifesto[] = IA.platforms.map((p, i) => ({
-  id: PLATFORM_IDS[i]!,
-  titulo: p.name,
-  resumo: `${contagem(p.tests.length)} · ${p.plan}`,
-  subpaginas: dividida(p)
-    ? IA.subs
-        .map(([id, titulo, resumo]) => ({
-          id,
-          titulo,
-          resumo: `${contagem(p.tests.filter((t) => iaSub(t) === id).length)} · ${resumo}`,
-        }))
-        .filter((sp) => !sp.resumo.startsWith('0 '))
-    : undefined,
-}));
-
 export default {
   titulo: 'Laboratório de design',
-  resumo: 'Dungeon Tactics: decisões, referências de outros jogos, maquetes das direções, testes de IA e peças.',
+  resumo: 'Dungeon Tactics: o que o jogo usa agora, interface, personagens, mapa, plano e referências de outros jogos.',
   origem: {
     caminho: '/design/',
-    fonte: 'dungeon-tactics-lab/design: src/main.ts, ia.ts, directions.ts, fft-kit.ts, rostos.ts, data/',
-    copiadoEm: '2026-11-15T10:47:53-03:00',
+    fonte:
+      'dungeon-tactics-lab/design: src/main.ts, ia.ts, inicio.ts, icones.ts, expressoes.ts, pixelizar.ts, fft-kit.ts, rostos.ts, data/',
+    copiadoEm: '2026-11-15T11:07:40-03:00',
   },
-  // old anchors (#maquetes, #ia…) and the single-page anchors from before lead to the new route
+  // old anchors (#maquetes, #ia…) and the old lab's tab-system map lead to the new route; "#/tab/section" routes work as they are
   linksAntigos: {
-    decisoes: 'decisoes',
-    agora: 'decisoes/agora',
-    fases: 'decisoes/fases',
-    pedidos: 'decisoes/pedidos',
-    grill: 'decisoes/as-22-decisoes',
+    agora: '',
+    fases: 'plano/fases',
+    pedidos: 'plano/pedidos',
+    grill: 'plano/decisoes',
+    decisoes: 'plano',
+    'direcao-fft': 'interface',
+    maquetes: 'interface/alternativas',
+    pecas: 'personagens',
+    'testes-de-ia': 'interface/testes',
+    ia: 'interface/testes',
     referencias: 'referencias',
-    maquetes: 'maquetes',
-    ia: 'testes-de-ia',
-    pecas: 'pecas',
   },
   grupos: [
     {
-      id: 'decisoes',
-      titulo: 'Decisões',
-      icone: '🧭',
-      resumo: 'O que está aberto, as fases, os pedidos e o que o grill decidiu.',
+      id: 'interface',
+      titulo: 'Interface',
+      icone: '🟦',
+      resumo: 'O estilo FFT Clássico escolhido, os ícones e as alternativas testadas.',
       paginas: [
         {
-          id: 'agora',
-          titulo: 'Agora estamos decidindo',
-          icone: '❓',
-          resumo: 'A pergunta aberta da vez, ou o próximo passo.',
+          id: 'em-uso',
+          titulo: 'Em uso: kit FFT Clássico',
+          resumo: 'Kit de peças com todos os estados e montagem 1920×1080.',
         },
-        { id: 'fases', titulo: 'Fases e portões', icone: '🚪', resumo: 'As fases do plano e o portão de cada uma.' },
-        { id: 'pedidos', titulo: 'Pedidos', icone: '📋', resumo: 'Todo pedido do Fernando, com dono e estado.' },
-        { id: 'as-22-decisoes', titulo: 'As 22 decisões', icone: '🔥', resumo: 'As decisões do grill de 13/11.' },
+        {
+          id: 'icones',
+          titulo: 'Em uso: ícones 32 px',
+          resumo: 'Atlas de 32 px dos ícones de habilidade, em 1x, 2x e 4x.',
+        },
+        {
+          id: 'alternativas',
+          titulo: 'Alternativas A, B e C',
+          resumo: 'Direções de estilo preteridas, com o mesmo momento da batalha.',
+        },
+        {
+          id: 'testes',
+          titulo: 'Testes de IA: interface',
+          resumo: 'Folhas de elementos e a interface aplicada sobre o jogo.',
+        },
+      ],
+    },
+    {
+      id: 'personagens',
+      titulo: 'Personagens',
+      icone: '🙂',
+      resumo: 'Rostos falando e sprites dos 10 bonecos.',
+      paginas: [
+        {
+          id: 'em-uso',
+          titulo: 'Em uso: rostos',
+          resumo: 'Os 10 bonecos KayKit em pixel art, com 4 quadros de boca; 4 falam.',
+        },
+        {
+          id: 'expressoes',
+          titulo: 'Bancada de expressões (IA)',
+          resumo: 'Rostos de IA em vários momentos: falando, dano, ataque, ferido, vitória.',
+        },
+        {
+          id: 'pixelizar',
+          titulo: 'Pixelizadores locais (teste)',
+          resumo:
+            'Ferramentas que rodam no PC e transformam o pixel art falso da IA em pixel art de grade real; a fala anima em cada uma.',
+        },
+        { id: 'testes', titulo: 'Testes de IA: rostos', resumo: 'Retratos por plataforma e por estilo.' },
+        {
+          id: 'sprites',
+          titulo: 'Testes de IA: sprites',
+          resumo: 'Bonecos andando e atacando (prova de conceito).',
+        },
+      ],
+    },
+    {
+      id: 'mapa',
+      titulo: 'Mapa',
+      icone: '🗺️',
+      resumo: 'Cenas e terreno.',
+      paginas: [
+        {
+          id: 'testes',
+          titulo: 'Testes de IA: cenas e terreno',
+          resumo: 'Ainda sem peça aprovada para o mapa.',
+        },
+      ],
+    },
+    {
+      id: 'plano',
+      titulo: 'Plano',
+      icone: '📋',
+      resumo: 'Plano do tema, fases, pedidos e decisões.',
+      paginas: [
+        {
+          id: 'tema',
+          titulo: 'Plano do tema FFT',
+          resumo: 'As decisões do grill de 15/11 sobre levar o tema ao jogo.',
+        },
+        { id: 'fases', titulo: 'Fases e portões', resumo: 'As fases do plano e o portão de cada uma.' },
+        { id: 'pedidos', titulo: 'Pedidos', resumo: 'Todo pedido do Fernando, com dono e estado.' },
+        { id: 'decisoes', titulo: 'As 22 decisões', resumo: 'As decisões do grill de 13/11.' },
+        {
+          id: 'plataformas',
+          titulo: 'Plataformas de IA',
+          resumo: 'Limites e contas de cada gerador; as imagens ficam nas páginas, por assunto.',
+        },
       ],
     },
     {
@@ -88,55 +140,10 @@ export default {
         {
           id: 'visao-geral',
           titulo: 'Visão geral e filtro',
-          icone: '🔎',
           resumo: 'Todas as capturas, filtradas por tipo de tela e por jogo.',
         },
         ...jogos,
       ],
-    },
-    {
-      id: 'maquetes',
-      titulo: 'Maquetes',
-      icone: '🎨',
-      resumo: 'Amostra de estilo de cada direção, com o mesmo momento da batalha.',
-      paginas: [
-        ...DIRECOES.map((d) => ({ id: `direcao-${d.id}`, titulo: d.name, resumo: d.idea })),
-        {
-          id: 'fft-classico',
-          titulo: 'FFT Clássico',
-          icone: '🟦',
-          resumo: 'Kit de peças com todos os estados e montagem 1920×1080.',
-        },
-        {
-          id: 'rostos-pixel',
-          titulo: 'Rostos em pixel art',
-          icone: '🙂',
-          resumo: 'Os 10 bonecos KayKit em uso, com 4 quadros de boca (script do jogo).',
-        },
-      ],
-    },
-    {
-      id: 'testes-de-ia',
-      titulo: 'Testes de IA',
-      icone: '🤖',
-      resumo: 'Geradores de imagem testados em 14/11, com o prompt de cada imagem.',
-      paginas: [
-        // the image Fernando picked (14/11) comes before the rest
-        {
-          id: 'destaque-fft-classico',
-          titulo: 'Destaque: FFT Clássico',
-          resumo: 'A vibe que o Fernando curtiu: base para a direção do jogo.',
-        },
-        ...plataformas,
-        { id: 'sem-imagem', titulo: 'Ainda sem imagem', resumo: 'Plataformas que faltam testar e por quê.' },
-      ],
-    },
-    {
-      id: 'pecas',
-      titulo: 'Peças',
-      icone: '🧩',
-      resumo: 'Tokens e peças com todos os estados.',
-      paginas: [{ id: 'em-breve', titulo: 'Em breve', resumo: 'Entra depois da direção escolhida.' }],
     },
   ],
 } satisfies Manifesto;

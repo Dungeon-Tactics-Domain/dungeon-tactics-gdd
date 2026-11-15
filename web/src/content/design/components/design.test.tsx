@@ -2,20 +2,22 @@ import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it } from 'vitest';
 import { CONTEUDO } from '../../registry';
-import { blocos, GAMES, IA, iaSub, mouthFrame, PER_PAGE } from '../dados';
+import { blocos, GAMES, IA, iaSub, mouthFrame, PER_PAGE, porConversa, type Test } from '../dados';
 import { CartoesIa } from './Cartoes';
 import { Direcao } from './Direcao';
+import { Expressoes } from './Expressoes';
+import { IaAssunto } from './Ia';
 import { VisaoGeral } from './Referencias';
 
 describe('design lab data', () => {
-  it('keeps the old tree: 5 groups, 112 captures of 10 games, every capture in exactly one block', () => {
+  it('keeps the old lab tabs as groups (same ids as its routes): 5 groups, 112 captures of 10 games, every capture in exactly one block', () => {
     const s = CONTEUDO.design!.sumario;
     expect(s.grupos.map((g) => `${g.id}:${g.paginas.length}`)).toEqual([
-      'decisoes:4',
+      'interface:4',
+      'personagens:5',
+      'mapa:1',
+      'plano:5',
       'referencias:11',
-      'maquetes:5',
-      'testes-de-ia:7',
-      'pecas:1',
     ]);
     expect(GAMES).toHaveLength(10);
     const files = GAMES.flatMap((g) =>
@@ -33,11 +35,18 @@ describe('design lab data', () => {
     for (const p of IA.platforms) expect(p.tests.every((t) => subs.has(iaSub(t)))).toBe(true);
   });
 
-  it('steps the mouth at 8 Hz through 4 frames and keeps it still when silent (old fft-kit.html self-check)', () => {
-    expect([mouthFrame(5000, false), mouthFrame(0, true), mouthFrame(124, true), mouthFrame(125, true)]).toEqual([
-      0, 0, 0, 1,
+  it('steps the mouth at 5 Hz through closed, half, open, half and keeps it still when silent', () => {
+    expect([mouthFrame(5000, false), mouthFrame(0, true), mouthFrame(199, true), mouthFrame(200, true)]).toEqual([
+      0, 1, 1, 2,
     ]);
-    expect([mouthFrame(375, true), mouthFrame(500, true)]).toEqual([3, 0]);
+    expect([mouthFrame(400, true), mouthFrame(600, true), mouthFrame(800, true)]).toEqual([3, 2, 1]);
+  });
+
+  it('groups the images of one conversation and leaves the single ones loose', () => {
+    const t = (file: string, link?: string) => ({ file, link }) as Test;
+    const { juntas, soltas } = porConversa([t('a', 'x'), t('b', 'x'), t('c', 'y'), t('d')]);
+    expect(juntas.map((g) => g.map((i) => i.file))).toEqual([['a', 'b']]);
+    expect(soltas.map((i) => i.file)).toEqual(['c', 'd']);
   });
 });
 
@@ -80,5 +89,27 @@ describe('design lab components', () => {
     );
     await user.keyboard('{Escape}');
     expect(screen.queryByRole('dialog')).toBeNull();
+  });
+
+  it('lists a subject per platform with the conversation heading and its link', () => {
+    render(<IaAssunto ids={['rostos']} />);
+    expect(screen.getAllByRole('heading', { level: 3 }).length).toBeGreaterThan(0);
+    expect(screen.getAllByRole('link', { name: 'abrir conversa' })[0]).toHaveAttribute(
+      'href',
+      expect.stringContaining('http'),
+    );
+    render(<IaAssunto ids={['nada']} />);
+    expect(screen.getByText('Assunto desconhecido: nada')).toBeInTheDocument();
+  });
+
+  it('plays an expression on the bench: damage takes life and shows the hit frame, neutral restores it', async () => {
+    const user = userEvent.setup();
+    render(<Expressoes />);
+    expect(screen.getByText('42/42')).toBeInTheDocument();
+    await user.click(screen.getByRole('button', { name: 'Levar dano' }));
+    expect(screen.getByText('28/42')).toBeInTheDocument();
+    expect(screen.getByText('Tomando dano (−14)')).toBeInTheDocument();
+    await user.click(screen.getByRole('button', { name: 'Neutro (parado)' }));
+    expect(screen.getByText('42/42')).toBeInTheDocument();
   });
 });
