@@ -28,7 +28,10 @@ createServer((req, res) => {
     // Hashed bundles never change; everything else (index.html, lab content) must be revalidated so a rebuild shows without Ctrl+F5.
     const cache = url.startsWith('/assets/') ? 'public, max-age=31536000, immutable' : 'no-cache';
     res.writeHead(200, { 'content-type': types[extname(file)] ?? 'application/octet-stream', 'cache-control': cache });
-    if (req.method === 'HEAD') return res.end(stream.destroy());
+    if (req.method === 'HEAD') {
+      stream.destroy();
+      return res.end();
+    }
     stream.pipe(res);
   });
 }).listen(port, '127.0.0.1', () => console.log(`static ${root} on 127.0.0.1:${port}`));
