@@ -1,6 +1,6 @@
 {
   "titulo": "Tema dark (Dungeon Tactics)",
-  "descricao": "O tema de batalha principal composto pelo subagente Fable 5.2 (esforço máximo): receita do Trisection com o peso do Darkest Dungeon, tocado no soundfont SGM-V2.01.",
+  "descricao": "O tema de batalha principal composto pelo subagente Fable 5.2 (esforço máximo): receita do Trisection com o peso do Darkest Dungeon, tocado no soundfont SGM-V2.01. Versão 2: sem trompete e com a melodia discreta, atmosférica.",
   "referencias": [
     {
       "rotulo": "Trisection no YouTube (receita de estrutura)",
@@ -17,15 +17,15 @@
       "secoes": [
         {
           "titulo": "O que é",
-          "texto": "- **Tom e andamento:** Ré frígio com cadências em menor harmônico, 4/4, 90 bpm, 60 compassos, 160,0 s, em loop.\n- **Forma:** intro (1-4); tema (5-20, grave nos compassos 5-12 e uma oitava acima em 13-20); bloco de metais (21-32, trompas e trompete surdo sobre pulso de trompa grave e tímpano); ponte de tensão (33-40, pedal de Lá, clímax em 39-40 e dois tempos de silêncio); retorno (41-56, grave com trompas em uníssono, depois agudo com baixo em movimento); coda (57-60, volta ao compasso 1 por Lá, Si bemol, Dó sustenido).\n- **Motivo:** quarta descendente e volta, subida do semitom frígio e retorno (Ré-Lá-Ré-Mi bemol-Ré). Volta uma terça acima (7-8), invertido nas chamadas das trompas (21-24), como suspiro de semitom (35-38), com a quarta torcida em trítono (39-40) e pela metade da velocidade no coro (57-60).\n- **Instrumentos (SGM, General MIDI):** violinos, cordas graves, contrabaixo, trompas, trompete surdo, coro, sinos tubulares, tímpano e bateria.\n- **Versão tratada:** só volume subido para cerca de -13 LUFS (medido: -12,8 e -13,3), pico -1,6 e -1,4 dB; as outras faixas do lab ficam em -14."
+          "texto": "- **Tom e andamento:** Ré frígio com cadências em menor harmônico, 4/4, 90 bpm, 60 compassos, 160,0 s, em loop.\n- **Forma:** introdução (1-4); tema (5-20, pedal de Ré até o 16); bloco de metais (21-32, pulso grave de trompas, cordas mais ralas); ponte de tensão (33-40, pedal de Lá, clímax em 39-40 e dois tempos de silêncio no fim do 40); retorno (41-56); coda (57-60, volta ao compasso 1 por Si bemol e Dó sustenido).\n- **Melodia discreta:** a melodia virou só um motivo curto (Ré-Lá-Ré-Mi bemol-Ré) escondido na textura, uns 10 dB abaixo do acompanhamento nos compassos em que aparece (22 dos 60). Aparece em 5, 9, 13, 17, 21, 25, 35, 37, 39-40, 45, 49, 53; sempre em cordas mais trompas uma oitava abaixo.\n- **Instrumentos (SGM, General MIDI):** cordas agudas, cordas graves, contrabaixo, trompas (único metal, **sem trompete**), coro, sino tubular, tímpano e bateria.\n- **Variação:** mesma música, tema principal.\n- **Versão:** tratada: compressor suave, limitador e volume em -14 LUFS como as outras faixas (medido -13,8), pico -2,0 dB."
         },
         {
           "titulo": "Ingredientes sombrios (compassos)",
-          "texto": "- **Frígio e menor harmônico:** Mi bemol na cabeça de cada afirmação (5, 13, 41, 49) e nas respostas das cordas graves; Dó sustenido na dominante (11, 20, 33-40, 47, 55, 60).\n- **Sino grave:** compassos 1, 3, 5, 9, 13, 17, 21, 29, 41, 45, 49, 53, 57, 59; na ponte a cada seis tempos, contra o compasso.\n- **Coro sussurrado:** 2-4, 13-20, 34-38 (aglomerado de semitom), 57-60.\n- **Pedal grave:** Ré em 1-16, Lá em 33-40, Ré em 41-49 e 56-60, ou seja 38 dos 60 compassos.\n- **Silêncio e dissonância, uma vez por volta:** compasso 34 é o mais baixo; aglomerado em 34-38; trítono Lá-Mi bemol sobre as trompas em 39-40; dois tempos de silêncio fechando o 40."
+          "texto": "- **Frígio e menor harmônico:** Mi bemol sobre o pedal de Ré nos compassos 3, 11, 47 e 58; Mi bemol em cada afirmação do motivo; Si bemol-Dó sustenido-Ré nos acordes em 11-12, 47-48 e 55-56; Si bemol para Dó sustenido no 60, voltando ao 1.\n- **Sino grave:** Ré nos compassos 1, 3, 5, 9, 13, 17, 21, 29, 41, 45, 49, 53, 57, 59; na ponte a cada seis tempos, contra o compasso (33 a 39).\n- **Coro sussurrado:** 2-4, 13-20 (só na principal), 34-38 e 57-60.\n- **Pedal grave:** Ré em 1-16, Lá em 33-40, Ré em 41-48 e 57-60, sempre dobrado uma oitava acima para aparecer em caixa pequena.\n- **Silêncio e dissonância:** dois tempos de silêncio no fim do 40; aglomerado Lá-Si bemol e depois Lá-Si bemol-Dó sustenido em 34-38; trítono Dó sustenido-Sol nas trompas e Lá-Mi bemol no motivo em 39-40."
         },
         {
           "titulo": "Dúvidas e limites",
-          "texto": "- **Não ouvido:** o agente não ouve; só conferiu por código (extensão de cada parte, duração, pico, ausência de silêncio).\n- **Baixo sem oitava acima** em 4,2% do tempo do baixo (compassos 4, 6, 8, 12, 16, 44, 60).\n- **Trompete surdo** forçado em velocidade 91-118 e volume 127 porque o som é fraco; pode soar duro.\n- **Sino** em Ré 3 e Ré 4, abaixo da extensão usual do instrumento; **rufos** de tímpano e caixa em fusas, podem soar mecânicos.\n- **Costura do loop** na versão principal: salto de 0,074 da escala, acima do usual; pode haver um clique leve na volta.\n- **Bumbo e tímpano coincidem** 49 vezes; se o papoco da bateria voltar, baixar o volume do tímpano ou da bateria no script.\n- **Codificado duas vezes** em ogg (o `psx.py` normaliza); as duas versões têm andamentos diferentes (90 e 100 bpm), então não dão crossfade."
+          "texto": "- **Não ouvido:** o agente e eu não ouvimos; tudo foi conferido por código e medição (extensão, duração, pico, volume).\n- **Coro na coda (57-60):** sozinho canta o motivo em metade da velocidade; é o único lugar em que uma parte carrega o motivo sozinha.\n- **Graves:** 28% da energia entre 60 e 120 Hz (antes 20%); o volume do contrabaixo (70) pode baixar para 62 (22%) ou 56 (18%) se estourar a caixa.\n- **Bloco de metais (21-32):** o motivo fica 7,5 dB abaixo do resto; sumiram as chamadas e respostas do trompete.\n- **Tímpano:** um dos stems mais fracos em volume médio; fica a 60% quando bate junto com o bumbo (sem papoco de bateria por código).\n- **Costura do loop** depende do silêncio do compasso 40 (conferido por código; salto 0,0055 na principal)."
         }
       ]
     },
@@ -37,55 +37,103 @@
       "secoes": [
         {
           "titulo": "O que é",
-          "texto": "- **Tom e andamento:** Ré frígio com cadências em menor harmônico, 4/4, 90 bpm, 60 compassos, 160,0 s, em loop.\n- **Forma:** intro (1-4); tema (5-20, grave nos compassos 5-12 e uma oitava acima em 13-20); bloco de metais (21-32, trompas e trompete surdo sobre pulso de trompa grave e tímpano); ponte de tensão (33-40, pedal de Lá, clímax em 39-40 e dois tempos de silêncio); retorno (41-56, grave com trompas em uníssono, depois agudo com baixo em movimento); coda (57-60, volta ao compasso 1 por Lá, Si bemol, Dó sustenido).\n- **Motivo:** quarta descendente e volta, subida do semitom frígio e retorno (Ré-Lá-Ré-Mi bemol-Ré). Volta uma terça acima (7-8), invertido nas chamadas das trompas (21-24), como suspiro de semitom (35-38), com a quarta torcida em trítono (39-40) e pela metade da velocidade no coro (57-60).\n- **Instrumentos (SGM, General MIDI):** violinos, cordas graves, contrabaixo, trompas, trompete surdo, coro, sinos tubulares, tímpano e bateria.\n- **Versão sem tratamento:** como o script renderiza (volume baixo, -18,9 LUFS, pico -3,2 dB)."
+          "texto": "- **Tom e andamento:** Ré frígio com cadências em menor harmônico, 4/4, 90 bpm, 60 compassos, 160,0 s, em loop.\n- **Forma:** introdução (1-4); tema (5-20, pedal de Ré até o 16); bloco de metais (21-32, pulso grave de trompas, cordas mais ralas); ponte de tensão (33-40, pedal de Lá, clímax em 39-40 e dois tempos de silêncio no fim do 40); retorno (41-56); coda (57-60, volta ao compasso 1 por Si bemol e Dó sustenido).\n- **Melodia discreta:** a melodia virou só um motivo curto (Ré-Lá-Ré-Mi bemol-Ré) escondido na textura, uns 10 dB abaixo do acompanhamento nos compassos em que aparece (22 dos 60). Aparece em 5, 9, 13, 17, 21, 25, 35, 37, 39-40, 45, 49, 53; sempre em cordas mais trompas uma oitava abaixo.\n- **Instrumentos (SGM, General MIDI):** cordas agudas, cordas graves, contrabaixo, trompas (único metal, **sem trompete**), coro, sino tubular, tímpano e bateria.\n- **Variação:** mesma música, tema principal.\n- **Versão:** como o script renderiza (pico -2,9 dB, volume bem mais baixo que as outras faixas: -17,9 LUFS)."
         },
         {
           "titulo": "Ingredientes sombrios (compassos)",
-          "texto": "- **Frígio e menor harmônico:** Mi bemol na cabeça de cada afirmação (5, 13, 41, 49) e nas respostas das cordas graves; Dó sustenido na dominante (11, 20, 33-40, 47, 55, 60).\n- **Sino grave:** compassos 1, 3, 5, 9, 13, 17, 21, 29, 41, 45, 49, 53, 57, 59; na ponte a cada seis tempos, contra o compasso.\n- **Coro sussurrado:** 2-4, 13-20, 34-38 (aglomerado de semitom), 57-60.\n- **Pedal grave:** Ré em 1-16, Lá em 33-40, Ré em 41-49 e 56-60, ou seja 38 dos 60 compassos.\n- **Silêncio e dissonância, uma vez por volta:** compasso 34 é o mais baixo; aglomerado em 34-38; trítono Lá-Mi bemol sobre as trompas em 39-40; dois tempos de silêncio fechando o 40."
+          "texto": "- **Frígio e menor harmônico:** Mi bemol sobre o pedal de Ré nos compassos 3, 11, 47 e 58; Mi bemol em cada afirmação do motivo; Si bemol-Dó sustenido-Ré nos acordes em 11-12, 47-48 e 55-56; Si bemol para Dó sustenido no 60, voltando ao 1.\n- **Sino grave:** Ré nos compassos 1, 3, 5, 9, 13, 17, 21, 29, 41, 45, 49, 53, 57, 59; na ponte a cada seis tempos, contra o compasso (33 a 39).\n- **Coro sussurrado:** 2-4, 13-20 (só na principal), 34-38 e 57-60.\n- **Pedal grave:** Ré em 1-16, Lá em 33-40, Ré em 41-48 e 57-60, sempre dobrado uma oitava acima para aparecer em caixa pequena.\n- **Silêncio e dissonância:** dois tempos de silêncio no fim do 40; aglomerado Lá-Si bemol e depois Lá-Si bemol-Dó sustenido em 34-38; trítono Dó sustenido-Sol nas trompas e Lá-Mi bemol no motivo em 39-40."
         },
         {
           "titulo": "Dúvidas e limites",
-          "texto": "- **Não ouvido:** o agente não ouve; só conferiu por código (extensão de cada parte, duração, pico, ausência de silêncio).\n- **Baixo sem oitava acima** em 4,2% do tempo do baixo (compassos 4, 6, 8, 12, 16, 44, 60).\n- **Trompete surdo** forçado em velocidade 91-118 e volume 127 porque o som é fraco; pode soar duro.\n- **Sino** em Ré 3 e Ré 4, abaixo da extensão usual do instrumento; **rufos** de tímpano e caixa em fusas, podem soar mecânicos.\n- **Costura do loop** na versão principal: salto de 0,074 da escala, acima do usual; pode haver um clique leve na volta.\n- **Bumbo e tímpano coincidem** 49 vezes; se o papoco da bateria voltar, baixar o volume do tímpano ou da bateria no script.\n- **Codificado duas vezes** em ogg (o `psx.py` normaliza); as duas versões têm andamentos diferentes (90 e 100 bpm), então não dão crossfade."
+          "texto": "- **Não ouvido:** o agente e eu não ouvimos; tudo foi conferido por código e medição (extensão, duração, pico, volume).\n- **Coro na coda (57-60):** sozinho canta o motivo em metade da velocidade; é o único lugar em que uma parte carrega o motivo sozinha.\n- **Graves:** 28% da energia entre 60 e 120 Hz (antes 20%); o volume do contrabaixo (70) pode baixar para 62 (22%) ou 56 (18%) se estourar a caixa.\n- **Bloco de metais (21-32):** o motivo fica 7,5 dB abaixo do resto; sumiram as chamadas e respostas do trompete.\n- **Tímpano:** um dos stems mais fracos em volume médio; fica a 60% quando bate junto com o bumbo (sem papoco de bateria por código).\n- **Costura do loop** depende do silêncio do compasso 40 (conferido por código; salto 0,0055 na principal)."
         }
       ]
     },
     {
       "id": "dark-intenso",
       "letra": "D+",
-      "titulo": "Variação intensa · 100 bpm (tratada)",
+      "titulo": "Tema intenso dark · 100 bpm (tratada)",
       "audio": "audio/tema_dark_intenso_n.ogg",
       "secoes": [
         {
           "titulo": "O que é",
-          "texto": "- **Tom e andamento:** Ré frígio com cadências em menor harmônico, 4/4, 100 bpm, 60 compassos, 144,0 s, em loop.\n- **Forma:** intro (1-4); tema (5-20, grave nos compassos 5-12 e uma oitava acima em 13-20); bloco de metais (21-32, trompas e trompete surdo sobre pulso de trompa grave e tímpano); ponte de tensão (33-40, pedal de Lá, clímax em 39-40 e dois tempos de silêncio); retorno (41-56, grave com trompas em uníssono, depois agudo com baixo em movimento); coda (57-60, volta ao compasso 1 por Lá, Si bemol, Dó sustenido).\n- **Motivo:** quarta descendente e volta, subida do semitom frígio e retorno (Ré-Lá-Ré-Mi bemol-Ré). Volta uma terça acima (7-8), invertido nas chamadas das trompas (21-24), como suspiro de semitom (35-38), com a quarta torcida em trítono (39-40) e pela metade da velocidade no coro (57-60).\n- **Instrumentos (SGM, General MIDI):** violinos, cordas graves, contrabaixo, trompas, trompete surdo, coro, sinos tubulares, tímpano e bateria. A variação mantém os 60 compassos, a harmonia e os motivos, uma oitava acima, com trompete dobrando, bateria em marcha e sem compassos silenciosos (exceto os dois tempos de silêncio do 40).\n- **Versão tratada:** só volume subido para cerca de -13 LUFS (medido: -12,8 e -13,3), pico -1,6 e -1,4 dB; as outras faixas do lab ficam em -14."
+          "texto": "- **Tom e andamento:** Ré frígio com cadências em menor harmônico, 4/4, 100 bpm, 60 compassos, 144,0 s, em loop.\n- **Forma:** introdução (1-4); tema (5-20, pedal de Ré até o 16); bloco de metais (21-32, pulso grave de trompas, cordas mais ralas); ponte de tensão (33-40, pedal de Lá, clímax em 39-40 e dois tempos de silêncio no fim do 40); retorno (41-56); coda (57-60, volta ao compasso 1 por Si bemol e Dó sustenido).\n- **Melodia discreta:** a melodia virou só um motivo curto (Ré-Lá-Ré-Mi bemol-Ré) escondido na textura, uns 10 dB abaixo do acompanhamento nos compassos em que aparece (22 dos 60). Aparece em 5, 9, 13, 17, 21, 25, 35, 37, 39-40, 45, 49, 53; sempre em cordas mais trompas uma oitava abaixo.\n- **Instrumentos (SGM, General MIDI):** cordas agudas, cordas graves, contrabaixo, trompas (único metal, **sem trompete**), coro, sino tubular, tímpano e bateria.\n- **Variação:** mesmos 60 compassos, harmonia e motivo, mas acordes das cordas em colcheias, trompas desde o primeiro tema, cordas graves em semicolcheias, bateria mais cheia (451 contra 276 batidas), sem compasso quieto e trítono das trompas já no 37.\n- **Versão:** tratada: compressor suave, limitador e volume em -14 LUFS como as outras faixas (medido -14,1), pico -2,4 dB."
         },
         {
           "titulo": "Ingredientes sombrios (compassos)",
-          "texto": "- **Frígio e menor harmônico:** Mi bemol na cabeça de cada afirmação (5, 13, 41, 49) e nas respostas das cordas graves; Dó sustenido na dominante (11, 20, 33-40, 47, 55, 60).\n- **Sino grave:** compassos 1, 3, 5, 9, 13, 17, 21, 29, 41, 45, 49, 53, 57, 59; na ponte a cada seis tempos, contra o compasso.\n- **Coro sussurrado:** 2-4, 13-20, 34-38 (aglomerado de semitom), 57-60.\n- **Pedal grave:** Ré em 1-16, Lá em 33-40, Ré em 41-49 e 56-60, ou seja 38 dos 60 compassos.\n- **Silêncio e dissonância, uma vez por volta:** compasso 34 é o mais baixo; aglomerado em 34-38; trítono Lá-Mi bemol sobre as trompas em 39-40; dois tempos de silêncio fechando o 40."
+          "texto": "- **Frígio e menor harmônico:** Mi bemol sobre o pedal de Ré nos compassos 3, 11, 47 e 58; Mi bemol em cada afirmação do motivo; Si bemol-Dó sustenido-Ré nos acordes em 11-12, 47-48 e 55-56; Si bemol para Dó sustenido no 60, voltando ao 1.\n- **Sino grave:** Ré nos compassos 1, 3, 5, 9, 13, 17, 21, 29, 41, 45, 49, 53, 57, 59; na ponte a cada seis tempos, contra o compasso (33 a 39).\n- **Coro sussurrado:** 2-4, 13-20 (só na principal), 34-38 e 57-60.\n- **Pedal grave:** Ré em 1-16, Lá em 33-40, Ré em 41-48 e 57-60, sempre dobrado uma oitava acima para aparecer em caixa pequena.\n- **Silêncio e dissonância:** dois tempos de silêncio no fim do 40; aglomerado Lá-Si bemol e depois Lá-Si bemol-Dó sustenido em 34-38; trítono Dó sustenido-Sol nas trompas e Lá-Mi bemol no motivo em 39-40."
         },
         {
           "titulo": "Dúvidas e limites",
-          "texto": "- **Não ouvido:** o agente não ouve; só conferiu por código (extensão de cada parte, duração, pico, ausência de silêncio).\n- **Baixo sem oitava acima** em 4,2% do tempo do baixo (compassos 4, 6, 8, 12, 16, 44, 60).\n- **Trompete surdo** forçado em velocidade 91-118 e volume 127 porque o som é fraco; pode soar duro.\n- **Sino** em Ré 3 e Ré 4, abaixo da extensão usual do instrumento; **rufos** de tímpano e caixa em fusas, podem soar mecânicos.\n- **Costura do loop** na versão principal: salto de 0,074 da escala, acima do usual; pode haver um clique leve na volta.\n- **Bumbo e tímpano coincidem** 49 vezes; se o papoco da bateria voltar, baixar o volume do tímpano ou da bateria no script.\n- **Codificado duas vezes** em ogg (o `psx.py` normaliza); as duas versões têm andamentos diferentes (90 e 100 bpm), então não dão crossfade."
+          "texto": "- **Não ouvido:** o agente e eu não ouvimos; tudo foi conferido por código e medição (extensão, duração, pico, volume).\n- **Coro na coda (57-60):** sozinho canta o motivo em metade da velocidade; é o único lugar em que uma parte carrega o motivo sozinha.\n- **Graves:** 28% da energia entre 60 e 120 Hz (antes 20%); o volume do contrabaixo (70) pode baixar para 62 (22%) ou 56 (18%) se estourar a caixa.\n- **Bloco de metais (21-32):** o motivo fica 7,5 dB abaixo do resto; sumiram as chamadas e respostas do trompete.\n- **Tímpano:** um dos stems mais fracos em volume médio; fica a 60% quando bate junto com o bumbo (sem papoco de bateria por código).\n- **Costura do loop** depende do silêncio do compasso 40 (conferido por código; salto 0,0055 na principal)."
         }
       ]
     },
     {
       "id": "dark-intenso-cru",
       "letra": "D+-cru",
-      "titulo": "Variação intensa · 100 bpm (sem tratamento)",
+      "titulo": "Tema intenso dark · 100 bpm (sem tratamento)",
       "audio": "audio/tema_dark_intenso.ogg",
       "secoes": [
         {
           "titulo": "O que é",
-          "texto": "- **Tom e andamento:** Ré frígio com cadências em menor harmônico, 4/4, 100 bpm, 60 compassos, 144,0 s, em loop.\n- **Forma:** intro (1-4); tema (5-20, grave nos compassos 5-12 e uma oitava acima em 13-20); bloco de metais (21-32, trompas e trompete surdo sobre pulso de trompa grave e tímpano); ponte de tensão (33-40, pedal de Lá, clímax em 39-40 e dois tempos de silêncio); retorno (41-56, grave com trompas em uníssono, depois agudo com baixo em movimento); coda (57-60, volta ao compasso 1 por Lá, Si bemol, Dó sustenido).\n- **Motivo:** quarta descendente e volta, subida do semitom frígio e retorno (Ré-Lá-Ré-Mi bemol-Ré). Volta uma terça acima (7-8), invertido nas chamadas das trompas (21-24), como suspiro de semitom (35-38), com a quarta torcida em trítono (39-40) e pela metade da velocidade no coro (57-60).\n- **Instrumentos (SGM, General MIDI):** violinos, cordas graves, contrabaixo, trompas, trompete surdo, coro, sinos tubulares, tímpano e bateria. A variação mantém os 60 compassos, a harmonia e os motivos, uma oitava acima, com trompete dobrando, bateria em marcha e sem compassos silenciosos.\n- **Versão sem tratamento:** como o script renderiza (volume baixo, -18,9 LUFS, pico -3,2 dB)."
+          "texto": "- **Tom e andamento:** Ré frígio com cadências em menor harmônico, 4/4, 100 bpm, 60 compassos, 144,0 s, em loop.\n- **Forma:** introdução (1-4); tema (5-20, pedal de Ré até o 16); bloco de metais (21-32, pulso grave de trompas, cordas mais ralas); ponte de tensão (33-40, pedal de Lá, clímax em 39-40 e dois tempos de silêncio no fim do 40); retorno (41-56); coda (57-60, volta ao compasso 1 por Si bemol e Dó sustenido).\n- **Melodia discreta:** a melodia virou só um motivo curto (Ré-Lá-Ré-Mi bemol-Ré) escondido na textura, uns 10 dB abaixo do acompanhamento nos compassos em que aparece (22 dos 60). Aparece em 5, 9, 13, 17, 21, 25, 35, 37, 39-40, 45, 49, 53; sempre em cordas mais trompas uma oitava abaixo.\n- **Instrumentos (SGM, General MIDI):** cordas agudas, cordas graves, contrabaixo, trompas (único metal, **sem trompete**), coro, sino tubular, tímpano e bateria.\n- **Variação:** mesmos 60 compassos, harmonia e motivo, mas acordes das cordas em colcheias, trompas desde o primeiro tema, cordas graves em semicolcheias, bateria mais cheia (451 contra 276 batidas), sem compasso quieto e trítono das trompas já no 37.\n- **Versão:** como o script renderiza (pico -2,9 dB, volume bem mais baixo que as outras faixas: -16,4 LUFS)."
         },
         {
           "titulo": "Ingredientes sombrios (compassos)",
-          "texto": "- **Frígio e menor harmônico:** Mi bemol na cabeça de cada afirmação (5, 13, 41, 49) e nas respostas das cordas graves; Dó sustenido na dominante (11, 20, 33-40, 47, 55, 60).\n- **Sino grave:** compassos 1, 3, 5, 9, 13, 17, 21, 29, 41, 45, 49, 53, 57, 59; na ponte a cada seis tempos, contra o compasso.\n- **Coro sussurrado:** 2-4, 13-20, 34-38 (aglomerado de semitom), 57-60.\n- **Pedal grave:** Ré em 1-16, Lá em 33-40, Ré em 41-49 e 56-60, ou seja 38 dos 60 compassos.\n- **Silêncio e dissonância, uma vez por volta:** compasso 34 é o mais baixo; aglomerado em 34-38; trítono Lá-Mi bemol sobre as trompas em 39-40; dois tempos de silêncio fechando o 40."
+          "texto": "- **Frígio e menor harmônico:** Mi bemol sobre o pedal de Ré nos compassos 3, 11, 47 e 58; Mi bemol em cada afirmação do motivo; Si bemol-Dó sustenido-Ré nos acordes em 11-12, 47-48 e 55-56; Si bemol para Dó sustenido no 60, voltando ao 1.\n- **Sino grave:** Ré nos compassos 1, 3, 5, 9, 13, 17, 21, 29, 41, 45, 49, 53, 57, 59; na ponte a cada seis tempos, contra o compasso (33 a 39).\n- **Coro sussurrado:** 2-4, 13-20 (só na principal), 34-38 e 57-60.\n- **Pedal grave:** Ré em 1-16, Lá em 33-40, Ré em 41-48 e 57-60, sempre dobrado uma oitava acima para aparecer em caixa pequena.\n- **Silêncio e dissonância:** dois tempos de silêncio no fim do 40; aglomerado Lá-Si bemol e depois Lá-Si bemol-Dó sustenido em 34-38; trítono Dó sustenido-Sol nas trompas e Lá-Mi bemol no motivo em 39-40."
         },
         {
           "titulo": "Dúvidas e limites",
-          "texto": "- **Não ouvido:** o agente não ouve; só conferiu por código (extensão de cada parte, duração, pico, ausência de silêncio).\n- **Baixo sem oitava acima** em 4,2% do tempo do baixo (compassos 4, 6, 8, 12, 16, 44, 60).\n- **Trompete surdo** forçado em velocidade 91-118 e volume 127 porque o som é fraco; pode soar duro.\n- **Sino** em Ré 3 e Ré 4, abaixo da extensão usual do instrumento; **rufos** de tímpano e caixa em fusas, podem soar mecânicos.\n- **Costura do loop** na versão principal: salto de 0,074 da escala, acima do usual; pode haver um clique leve na volta.\n- **Bumbo e tímpano coincidem** 49 vezes; se o papoco da bateria voltar, baixar o volume do tímpano ou da bateria no script.\n- **Codificado duas vezes** em ogg (o `psx.py` normaliza); as duas versões têm andamentos diferentes (90 e 100 bpm), então não dão crossfade."
+          "texto": "- **Não ouvido:** o agente e eu não ouvimos; tudo foi conferido por código e medição (extensão, duração, pico, volume).\n- **Coro na coda (57-60):** sozinho canta o motivo em metade da velocidade; é o único lugar em que uma parte carrega o motivo sozinha.\n- **Graves:** 28% da energia entre 60 e 120 Hz (antes 20%); o volume do contrabaixo (70) pode baixar para 62 (22%) ou 56 (18%) se estourar a caixa.\n- **Bloco de metais (21-32):** o motivo fica 7,5 dB abaixo do resto; sumiram as chamadas e respostas do trompete.\n- **Tímpano:** um dos stems mais fracos em volume médio; fica a 60% quando bate junto com o bumbo (sem papoco de bateria por código).\n- **Costura do loop** depende do silêncio do compasso 40 (conferido por código; salto 0,0055 na principal)."
+        }
+      ]
+    },
+    {
+      "id": "dark-v1-principal",
+      "letra": "v1-P",
+      "titulo": "Tema principal dark · 90 bpm · VERSÃO 1 com trompete (tratada)",
+      "audio": "audio/tema_dark_v1_n.ogg",
+      "secoes": [
+        {
+          "titulo": "O que é",
+          "texto": "- **Versão 1, para comparar com a atual:** a primeira entrega do agente, ainda **com o trompete surdo** e com a melodia em primeiro plano (no mesmo nível do acompanhamento). Foi trocada pela versão atual, que não tem trompete e esconde a melodia.\n- **Mesmo esqueleto:** Ré frígio, 60 compassos, mesma forma e mesmo soundfont (SGM); 90 bpm.\n- **Sem piano roll:** o MIDI desta versão não foi guardado.\n- **Não ouvido:** conferido só por código."
+        }
+      ]
+    },
+    {
+      "id": "dark-v1-intenso",
+      "letra": "v1-I",
+      "titulo": "Tema intenso dark · 100 bpm · VERSÃO 1 com trompete (tratada)",
+      "audio": "audio/tema_dark_v1_intenso_n.ogg",
+      "secoes": [
+        {
+          "titulo": "O que é",
+          "texto": "- **Versão 1, para comparar com a atual:** a primeira entrega do agente, ainda **com o trompete surdo** e com a melodia em primeiro plano (no mesmo nível do acompanhamento). Foi trocada pela versão atual, que não tem trompete e esconde a melodia.\n- **Mesmo esqueleto:** Ré frígio, 60 compassos, mesma forma e mesmo soundfont (SGM); 100 bpm.\n- **Sem piano roll:** o MIDI desta versão não foi guardado.\n- **Não ouvido:** conferido só por código."
+        }
+      ]
+    },
+    {
+      "id": "dark-v1-principal-cru",
+      "letra": "v1-P-cru",
+      "titulo": "Tema principal dark · 90 bpm · VERSÃO 1 com trompete (sem tratamento)",
+      "audio": "audio/tema_dark_v1.ogg",
+      "secoes": [
+        {
+          "titulo": "O que é",
+          "texto": "- **Versão 1, para comparar com a atual:** a primeira entrega do agente, ainda **com o trompete surdo** e com a melodia em primeiro plano (no mesmo nível do acompanhamento). Foi trocada pela versão atual, que não tem trompete e esconde a melodia.\n- **Mesmo esqueleto:** Ré frígio, 60 compassos, mesma forma e mesmo soundfont (SGM); 90 bpm.\n- **Sem piano roll:** o MIDI desta versão não foi guardado.\n- **Não ouvido:** conferido só por código."
+        }
+      ]
+    },
+    {
+      "id": "dark-v1-intenso-cru",
+      "letra": "v1-I-cru",
+      "titulo": "Tema intenso dark · 100 bpm · VERSÃO 1 com trompete (sem tratamento)",
+      "audio": "audio/tema_dark_v1_intenso.ogg",
+      "secoes": [
+        {
+          "titulo": "O que é",
+          "texto": "- **Versão 1, para comparar com a atual:** a primeira entrega do agente, ainda **com o trompete surdo** e com a melodia em primeiro plano (no mesmo nível do acompanhamento). Foi trocada pela versão atual, que não tem trompete e esconde a melodia.\n- **Mesmo esqueleto:** Ré frígio, 60 compassos, mesma forma e mesmo soundfont (SGM); 100 bpm.\n- **Sem piano roll:** o MIDI desta versão não foi guardado.\n- **Não ouvido:** conferido só por código."
         }
       ]
     }

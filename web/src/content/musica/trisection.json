@@ -41,7 +41,7 @@
         },
         {
           "titulo": "Dados medidos",
-          "texto": "- **Duração** 157.1 s, **volume** -13.9 LUFS, **pico** -3.2 dB, **crista** (pico menos média) 13.6 dB.\n- **Agudo** acima de 3 kHz: -34.0 dB (referência original: -33,1). **Grave** abaixo de 100 Hz: -28.1 dB.\n- **Notas do MIDI** (sem bateria): mais grave **E1** (nota 28), mais aguda **C6** (nota 84), 2322 notas.\n- **Bateria no MIDI:** velocidade máxima 60, média 59 (escala 0 a 127).\n- **Tratamentos desta versão:** bateria do MIDI a 60% (máximo 80); corte abaixo de 32 Hz; filtro de agudo (shelf -9 dB em 2,5 kHz e corte em 9 kHz); compressor (razão 3,5), limitador e volume igualado em -14 LUFS."
+          "texto": "- **Duração** 157.1 s, **volume** -13.9 LUFS, **pico** -3.2 dB, **crista** (pico menos média) 13.5 dB.\n- **Agudo** acima de 3 kHz: -36.0 dB (referência original: -33,1). **Grave** abaixo de 100 Hz: -27.8 dB.\n- **Notas do MIDI** (sem bateria): mais grave **E1** (nota 28), mais aguda **C6** (nota 84), 2186 notas.\n- **Bateria no MIDI:** velocidade máxima 60, média 59 (escala 0 a 127).\n- **Tratamentos desta versão:** bateria do MIDI a 60% (máximo 80); corte abaixo de 32 Hz; filtro de agudo (shelf -9 dB em 2,5 kHz e corte em 9 kHz); compressor (razão 3,5), limitador e volume igualado em -14 LUFS. Em todas as versões a voz de trompete surdo do MIDI foi removida (15/11)."
         }
       ]
     },
@@ -57,7 +57,7 @@
         },
         {
           "titulo": "Dados medidos",
-          "texto": "- **Duração** 157.0 s, **volume** -9.9 LUFS, **pico** 0.8 dB, **crista** (pico menos média) 14.2 dB.\n- **Agudo** acima de 3 kHz: -25.1 dB (referência original: -33,1). **Grave** abaixo de 100 Hz: -26.1 dB.\n- **Notas do MIDI** (sem bateria): mais grave **E1** (nota 28), mais aguda **C6** (nota 84), 2322 notas.\n- **Bateria no MIDI:** velocidade máxima 100, média 98 (escala 0 a 127).\n- **Tratamentos:** nenhum. Bateria do MIDI na velocidade original; volume, grave e agudo como o soundfont rende."
+          "texto": "- **Duração** 157.0 s, **volume** -10.4 LUFS, **pico** 0.8 dB, **crista** (pico menos média) 14.5 dB.\n- **Agudo** acima de 3 kHz: -28.1 dB (referência original: -33,1). **Grave** abaixo de 100 Hz: -26.1 dB.\n- **Notas do MIDI** (sem bateria): mais grave **E1** (nota 28), mais aguda **C6** (nota 84), 2186 notas.\n- **Bateria no MIDI:** velocidade máxima 100, média 98 (escala 0 a 127).\n- **Tratamentos:** nenhum. Bateria do MIDI na velocidade original; volume, grave e agudo como o soundfont rende. A voz de trompete surdo do MIDI foi removida (15/11)."
         }
       ]
     },
@@ -73,7 +73,7 @@
         },
         {
           "titulo": "Dados medidos",
-          "texto": "- **Duração** 148.7 s, **volume** -13.8 LUFS, **pico** -3.6 dB, **crista** (pico menos média) 12.7 dB.\n- **Agudo** acima de 3 kHz: -36.2 dB (referência original: -33,1). **Grave** abaixo de 100 Hz: -26.3 dB.\n- **Notas do MIDI** (sem bateria): mais grave **E1** (nota 28), mais aguda **C6** (nota 84), 2322 notas.\n- **Bateria no MIDI:** velocidade máxima 60, média 59 (escala 0 a 127).\n- **Tratamentos desta versão:** bateria do MIDI a 60% (máximo 80); corte abaixo de 32 Hz; filtro de agudo (shelf -9 dB em 2,5 kHz e corte em 9 kHz); compressor (razão 3,5), limitador e volume igualado em -14 LUFS."
+          "texto": "- **Duração** 148.7 s, **volume** -13.8 LUFS, **pico** -3.4 dB, **crista** (pico menos média) 12.9 dB.\n- **Agudo** acima de 3 kHz: -37.0 dB (referência original: -33,1). **Grave** abaixo de 100 Hz: -26.2 dB.\n- **Notas do MIDI** (sem bateria): mais grave **E1** (nota 28), mais aguda **C6** (nota 84), 2186 notas.\n- **Bateria no MIDI:** velocidade máxima 60, média 59 (escala 0 a 127).\n- **Tratamentos desta versão:** bateria do MIDI a 60% (máximo 80); corte abaixo de 32 Hz; filtro de agudo (shelf -9 dB em 2,5 kHz e corte em 9 kHz); compressor (razão 3,5), limitador e volume igualado em -14 LUFS. Em todas as versões a voz de trompete surdo do MIDI foi removida (15/11)."
         }
       ]
     },
@@ -89,7 +89,7 @@
         },
         {
           "titulo": "Dados medidos",
-          "texto": "- **Duração** 148.7 s, **volume** -10.7 LUFS, **pico** 0.7 dB, **crista** (pico menos média) 14.3 dB.\n- **Agudo** acima de 3 kHz: -28.1 dB (referência original: -33,1). **Grave** abaixo de 100 Hz: -24.9 dB.\n- **Notas do MIDI** (sem bateria): mais grave **E1** (nota 28), mais aguda **C6** (nota 84), 2322 notas.\n- **Bateria no MIDI:** velocidade máxima 100, média 98 (escala 0 a 127).\n- **Tratamentos:** nenhum. Bateria do MIDI na velocidade original; volume, grave e agudo como o soundfont rende."
+          "texto": "- **Duração** 148.7 s, **volume** -10.8 LUFS, **pico** 0.7 dB, **crista** (pico menos média) 14.4 dB.\n- **Agudo** acima de 3 kHz: -29.3 dB (referência original: -33,1). **Grave** abaixo de 100 Hz: -24.9 dB.\n- **Notas do MIDI** (sem bateria): mais grave **E1** (nota 28), mais aguda **C6** (nota 84), 2186 notas.\n- **Bateria no MIDI:** velocidade máxima 100, média 98 (escala 0 a 127).\n- **Tratamentos:** nenhum. Bateria do MIDI na velocidade original; volume, grave e agudo como o soundfont rende. A voz de trompete surdo do MIDI foi removida (15/11)."
         }
       ]
     },
@@ -105,7 +105,7 @@
         },
         {
           "titulo": "Dados medidos",
-          "texto": "- **Duração** 157.1 s, **volume** -13.9 LUFS, **pico** -3.1 dB, **crista** (pico menos média) 13.7 dB.\n- **Agudo** acima de 3 kHz: -34.4 dB (referência original: -33,1). **Grave** abaixo de 100 Hz: -28.2 dB.\n- **Notas do MIDI** (sem bateria): mais grave **E1** (nota 28), mais aguda **C6** (nota 84), 2322 notas.\n- **Bateria no MIDI:** velocidade máxima 60, média 59 (escala 0 a 127).\n- **Tratamentos desta versão:** bateria do MIDI a 60% (máximo 80); corte abaixo de 32 Hz; filtro de agudo (shelf -9 dB em 2,5 kHz e corte em 9 kHz); compressor (razão 3,5), limitador e volume igualado em -14 LUFS. Antes disso: ganho -2 dB."
+          "texto": "- **Duração** 157.1 s, **volume** -13.9 LUFS, **pico** -3.1 dB, **crista** (pico menos média) 13.7 dB.\n- **Agudo** acima de 3 kHz: -36.1 dB (referência original: -33,1). **Grave** abaixo de 100 Hz: -28.0 dB.\n- **Notas do MIDI** (sem bateria): mais grave **E1** (nota 28), mais aguda **C6** (nota 84), 2186 notas.\n- **Bateria no MIDI:** velocidade máxima 60, média 59 (escala 0 a 127).\n- **Tratamentos desta versão:** bateria do MIDI a 60% (máximo 80); corte abaixo de 32 Hz; filtro de agudo (shelf -9 dB em 2,5 kHz e corte em 9 kHz); compressor (razão 3,5), limitador e volume igualado em -14 LUFS. Em todas as versões a voz de trompete surdo do MIDI foi removida (15/11)."
         }
       ]
     },
@@ -121,7 +121,7 @@
         },
         {
           "titulo": "Dados medidos",
-          "texto": "- **Duração** 157.0 s, **volume** -9.9 LUFS, **pico** -0.3 dB, **crista** (pico menos média) 13.0 dB.\n- **Agudo** acima de 3 kHz: -25.5 dB (referência original: -33,1). **Grave** abaixo de 100 Hz: -26.0 dB.\n- **Notas do MIDI** (sem bateria): mais grave **E1** (nota 28), mais aguda **C6** (nota 84), 2322 notas.\n- **Bateria no MIDI:** velocidade máxima 100, média 98 (escala 0 a 127).\n- **Tratamentos:** ganho -2 dB. Bateria do MIDI na velocidade original; volume, grave e agudo como o soundfont rende."
+          "texto": "- **Duração** 157.0 s, **volume** -8.4 LUFS, **pico** 1.1 dB, **crista** (pico menos média) 12.8 dB.\n- **Agudo** acima de 3 kHz: -25.7 dB (referência original: -33,1). **Grave** abaixo de 100 Hz: -23.9 dB.\n- **Notas do MIDI** (sem bateria): mais grave **E1** (nota 28), mais aguda **C6** (nota 84), 2186 notas.\n- **Bateria no MIDI:** velocidade máxima 100, média 98 (escala 0 a 127).\n- **Tratamentos:** nenhum. Bateria do MIDI na velocidade original; volume, grave e agudo como o soundfont rende. A voz de trompete surdo do MIDI foi removida (15/11)."
         }
       ]
     },
@@ -137,7 +137,7 @@
         },
         {
           "titulo": "Dados medidos",
-          "texto": "- **Duração** 148.3 s, **volume** -13.9 LUFS, **pico** -2.8 dB, **crista** (pico menos média) 13.5 dB.\n- **Agudo** acima de 3 kHz: -32.6 dB (referência original: -33,1). **Grave** abaixo de 100 Hz: -23.4 dB.\n- **Notas do MIDI** (sem bateria): mais grave **E1** (nota 28), mais aguda **C6** (nota 84), 2322 notas.\n- **Bateria no MIDI:** velocidade máxima 60, média 59 (escala 0 a 127).\n- **Tratamentos desta versão:** bateria do MIDI a 60% (máximo 80); corte abaixo de 32 Hz; sem filtro de agudo; compressor (razão 3,5), limitador e volume igualado em -14 LUFS. Antes disso: ganho -2 dB."
+          "texto": "- **Duração** 148.3 s, **volume** -13.9 LUFS, **pico** -2.8 dB, **crista** (pico menos média) 13.5 dB.\n- **Agudo** acima de 3 kHz: -32.9 dB (referência original: -33,1). **Grave** abaixo de 100 Hz: -23.3 dB.\n- **Notas do MIDI** (sem bateria): mais grave **E1** (nota 28), mais aguda **C6** (nota 84), 2186 notas.\n- **Bateria no MIDI:** velocidade máxima 60, média 59 (escala 0 a 127).\n- **Tratamentos desta versão:** bateria do MIDI a 60% (máximo 80); corte abaixo de 32 Hz; sem filtro de agudo; compressor (razão 3,5), limitador e volume igualado em -14 LUFS. Em todas as versões a voz de trompete surdo do MIDI foi removida (15/11)."
         }
       ]
     },
@@ -153,7 +153,7 @@
         },
         {
           "titulo": "Dados medidos",
-          "texto": "- **Duração** 148.3 s, **volume** -14.2 LUFS, **pico** -1.3 dB, **crista** (pico menos média) 15.5 dB.\n- **Agudo** acima de 3 kHz: -31.6 dB (referência original: -33,1). **Grave** abaixo de 100 Hz: -24.0 dB.\n- **Notas do MIDI** (sem bateria): mais grave **E1** (nota 28), mais aguda **C6** (nota 84), 2322 notas.\n- **Bateria no MIDI:** velocidade máxima 100, média 98 (escala 0 a 127).\n- **Tratamentos:** ganho -2 dB. Bateria do MIDI na velocidade original; volume, grave e agudo como o soundfont rende."
+          "texto": "- **Duração** 148.3 s, **volume** -12.2 LUFS, **pico** 0.4 dB, **crista** (pico menos média) 15.2 dB.\n- **Agudo** acima de 3 kHz: -30.1 dB (referência original: -33,1). **Grave** abaixo de 100 Hz: -21.9 dB.\n- **Notas do MIDI** (sem bateria): mais grave **E1** (nota 28), mais aguda **C6** (nota 84), 2186 notas.\n- **Bateria no MIDI:** velocidade máxima 100, média 98 (escala 0 a 127).\n- **Tratamentos:** nenhum. Bateria do MIDI na velocidade original; volume, grave e agudo como o soundfont rende. A voz de trompete surdo do MIDI foi removida (15/11)."
         }
       ]
     },
@@ -169,7 +169,7 @@
         },
         {
           "titulo": "Dados medidos",
-          "texto": "- **Duração** 148.3 s, **volume** -13.7 LUFS, **pico** -3.0 dB, **crista** (pico menos média) 13.6 dB.\n- **Agudo** acima de 3 kHz: -32.3 dB (referência original: -33,1). **Grave** abaixo de 100 Hz: -26.4 dB.\n- **Notas do MIDI** (sem bateria): mais grave **E1** (nota 28), mais aguda **C6** (nota 84), 2322 notas.\n- **Bateria no MIDI:** velocidade máxima 60, média 59 (escala 0 a 127).\n- **Tratamentos desta versão:** bateria do MIDI a 60% (máximo 80); corte abaixo de 32 Hz; filtro de agudo (shelf -9 dB em 2,5 kHz e corte em 9 kHz); compressor (razão 3,5), limitador e volume igualado em -14 LUFS. Antes disso: ganho -2 dB."
+          "texto": "- **Duração** 148.3 s, **volume** -13.7 LUFS, **pico** -2.8 dB, **crista** (pico menos média) 13.7 dB.\n- **Agudo** acima de 3 kHz: -32.7 dB (referência original: -33,1). **Grave** abaixo de 100 Hz: -26.1 dB.\n- **Notas do MIDI** (sem bateria): mais grave **E1** (nota 28), mais aguda **C6** (nota 84), 2186 notas.\n- **Bateria no MIDI:** velocidade máxima 60, média 59 (escala 0 a 127).\n- **Tratamentos desta versão:** bateria do MIDI a 60% (máximo 80); corte abaixo de 32 Hz; filtro de agudo (shelf -9 dB em 2,5 kHz e corte em 9 kHz); compressor (razão 3,5), limitador e volume igualado em -14 LUFS. Em todas as versões a voz de trompete surdo do MIDI foi removida (15/11)."
         }
       ]
     },
@@ -185,7 +185,7 @@
         },
         {
           "titulo": "Dados medidos",
-          "texto": "- **Duração** 148.2 s, **volume** -11.9 LUFS, **pico** -0.1 dB, **crista** (pico menos média) 15.1 dB.\n- **Agudo** acima de 3 kHz: -25.0 dB (referência original: -33,1). **Grave** abaixo de 100 Hz: -25.5 dB.\n- **Notas do MIDI** (sem bateria): mais grave **E1** (nota 28), mais aguda **C6** (nota 84), 2322 notas.\n- **Bateria no MIDI:** velocidade máxima 100, média 98 (escala 0 a 127).\n- **Tratamentos:** ganho -2 dB. Bateria do MIDI na velocidade original; volume, grave e agudo como o soundfont rende."
+          "texto": "- **Duração** 148.2 s, **volume** -10.2 LUFS, **pico** 1.2 dB, **crista** (pico menos média) 14.7 dB.\n- **Agudo** acima de 3 kHz: -24.0 dB (referência original: -33,1). **Grave** abaixo de 100 Hz: -23.4 dB.\n- **Notas do MIDI** (sem bateria): mais grave **E1** (nota 28), mais aguda **C6** (nota 84), 2186 notas.\n- **Bateria no MIDI:** velocidade máxima 100, média 98 (escala 0 a 127).\n- **Tratamentos:** nenhum. Bateria do MIDI na velocidade original; volume, grave e agudo como o soundfont rende. A voz de trompete surdo do MIDI foi removida (15/11)."
         }
       ]
     },
@@ -197,11 +197,11 @@
       "secoes": [
         {
           "titulo": "O que é",
-          "texto": "- O mesmo MIDI de fã, com os instrumentos trocados para o soundfont Tactical Fantasy Guy (SoundFontGuy) e o filtro lo-fi do PS1: é o jeito que as nossas faixas soam.\n- Mapeamento feito por mim (cordas, trompete surdo, trompa, tuba, contrabaixo como cello, sinos, bateria como tímpano e caixa); pode soar diferente do original."
+          "texto": "- O mesmo MIDI de fã, com os instrumentos trocados para o soundfont Tactical Fantasy Guy (SoundFontGuy) e o filtro lo-fi do PS1: é o jeito que as nossas faixas soam.\n- Mapeamento feito por mim (cordas, trompa, tuba, contrabaixo como cello, sinos, bateria como tímpano e caixa); pode soar diferente do original."
         },
         {
           "titulo": "Dados medidos",
-          "texto": "- **Duração** 147.8 s, **volume** -13.9 LUFS, **pico** -4.0 dB, **crista** (pico menos média) 12.7 dB.\n- **Agudo** acima de 3 kHz: -31.5 dB (referência original: -33,1). **Grave** abaixo de 100 Hz: -24.1 dB.\n- **Notas do MIDI** (sem bateria): mais grave **F1** (nota 29), mais aguda **C6** (nota 84), 2299 notas.\n- **Bateria no MIDI:** velocidade máxima 60, média 59 (escala 0 a 127).\n- **Tratamentos desta versão:** bateria do MIDI a 60% (máximo 80); corte abaixo de 32 Hz; sem filtro de agudo; compressor (razão 3,5), limitador e volume igualado em -14 LUFS. Antes disso: filtro lo-fi PS1 (corte em 8,5 kHz, 22 kHz de amostragem, 11 bits); ganho -2 dB."
+          "texto": "- **Duração** 147.8 s, **volume** -13.9 LUFS, **pico** -4.0 dB, **crista** (pico menos média) 12.5 dB.\n- **Agudo** acima de 3 kHz: -33.2 dB (referência original: -33,1). **Grave** abaixo de 100 Hz: -23.7 dB.\n- **Notas do MIDI** (sem bateria): mais grave **F1** (nota 29), mais aguda **C6** (nota 84), 2163 notas.\n- **Bateria no MIDI:** velocidade máxima 60, média 59 (escala 0 a 127).\n- **Tratamentos desta versão:** bateria do MIDI a 60% (máximo 80); corte abaixo de 32 Hz; sem filtro de agudo; compressor (razão 3,5), limitador e volume igualado em -14 LUFS. Em todas as versões a voz de trompete surdo do MIDI foi removida (15/11). Antes disso: filtro lo-fi PS1 (corte em 8,5 kHz, 22 kHz de amostragem, 11 bits)."
         }
       ]
     },
@@ -213,11 +213,11 @@
       "secoes": [
         {
           "titulo": "O que é",
-          "texto": "- O mesmo MIDI de fã, com os instrumentos trocados para o soundfont Tactical Fantasy Guy (SoundFontGuy) e o filtro lo-fi do PS1: é o jeito que as nossas faixas soam.\n- Mapeamento feito por mim (cordas, trompete surdo, trompa, tuba, contrabaixo como cello, sinos, bateria como tímpano e caixa); pode soar diferente do original."
+          "texto": "- O mesmo MIDI de fã, com os instrumentos trocados para o soundfont Tactical Fantasy Guy (SoundFontGuy) e o filtro lo-fi do PS1: é o jeito que as nossas faixas soam.\n- Mapeamento feito por mim (cordas, trompa, tuba, contrabaixo como cello, sinos, bateria como tímpano e caixa); pode soar diferente do original."
         },
         {
           "titulo": "Dados medidos",
-          "texto": "- **Duração** 147.8 s, **volume** -12.7 LUFS, **pico** -0.7 dB, **crista** (pico menos média) 15.1 dB.\n- **Agudo** acima de 3 kHz: -30.4 dB (referência original: -33,1). **Grave** abaixo de 100 Hz: -23.9 dB.\n- **Notas do MIDI** (sem bateria): mais grave **F1** (nota 29), mais aguda **C6** (nota 84), 2299 notas.\n- **Bateria no MIDI:** velocidade máxima 100, média 98 (escala 0 a 127).\n- **Tratamentos:** filtro lo-fi PS1 (corte em 8,5 kHz, 22 kHz de amostragem, 11 bits); ganho -2 dB. Bateria do MIDI na velocidade original; volume, grave e agudo como o soundfont rende."
+          "texto": "- **Duração** 147.8 s, **volume** -11.1 LUFS, **pico** 0.5 dB, **crista** (pico menos média) 14.5 dB.\n- **Agudo** acima de 3 kHz: -30.4 dB (referência original: -33,1). **Grave** abaixo de 100 Hz: -21.8 dB.\n- **Notas do MIDI** (sem bateria): mais grave **F1** (nota 29), mais aguda **C6** (nota 84), 2163 notas.\n- **Bateria no MIDI:** velocidade máxima 100, média 98 (escala 0 a 127).\n- **Tratamentos:** filtro lo-fi PS1 (corte em 8,5 kHz, 22 kHz de amostragem, 11 bits). Bateria do MIDI na velocidade original; volume, grave e agudo como o soundfont rende. A voz de trompete surdo do MIDI foi removida (15/11)."
         }
       ]
     },
@@ -229,11 +229,11 @@
       "secoes": [
         {
           "titulo": "O que é",
-          "texto": "- O mesmo MIDI de fã renderizado com Sonatina Symphonic Orchestra, sem filtro PS1, **com os instrumentos remapeados por mim** (o banco não segue a numeração General MIDI): violinos, cellos, baixos, trompete, trompa, tuba, sinos; bateria como tímpano e prato (sem caixa no banco, então a caixa virou um golpe agudo de tímpano).\n- Licença: Mattias Westlund e Peter Eastman, CC Sampling Plus 1.0 (README do zip). Banco orquestral convertido para SF2 por terceiro, com falhas conhecidas (flautas uma oitava acima, sem pizzicato); 495 MB.\n- Arquivo em `D:/Projetos/_musica-tools/soundfonts/`, fora do repositório."
+          "texto": "- O mesmo MIDI de fã renderizado com Sonatina Symphonic Orchestra, sem filtro PS1, **com os instrumentos remapeados por mim** (o banco não segue a numeração General MIDI): violinos, cellos, baixos, trompa, tuba, sinos; bateria como tímpano e prato (sem caixa no banco, então a caixa virou um golpe agudo de tímpano).\n- Licença: Mattias Westlund e Peter Eastman, CC Sampling Plus 1.0 (README do zip). Banco orquestral convertido para SF2 por terceiro, com falhas conhecidas (flautas uma oitava acima, sem pizzicato); 495 MB.\n- Arquivo em `D:/Projetos/_musica-tools/soundfonts/`, fora do repositório."
         },
         {
           "titulo": "Dados medidos",
-          "texto": "- **Duração** 148.3 s, **volume** -13.5 LUFS, **pico** -2.6 dB, **crista** (pico menos média) 13.9 dB.\n- **Agudo** acima de 3 kHz: -32.4 dB (referência original: -33,1). **Grave** abaixo de 100 Hz: -27.6 dB.\n- **Notas do MIDI** (sem bateria): mais grave **E1** (nota 28), mais aguda **C6** (nota 84), 2322 notas.\n- **Bateria no MIDI:** velocidade máxima 40, média 39 (escala 0 a 127).\n- **Tratamentos desta versão:** bateria do MIDI a 60% (máximo 80); corte abaixo de 32 Hz; sem filtro de agudo; compressor (razão 3,5), limitador e volume igualado em -14 LUFS. Antes disso: instrumentos remapeados por mim; ganho -3 dB."
+          "texto": "- **Duração** 148.3 s, **volume** -13.5 LUFS, **pico** -2.6 dB, **crista** (pico menos média) 13.9 dB.\n- **Agudo** acima de 3 kHz: -32.6 dB (referência original: -33,1). **Grave** abaixo de 100 Hz: -27.5 dB.\n- **Notas do MIDI** (sem bateria): mais grave **E1** (nota 28), mais aguda **C6** (nota 84), 2186 notas.\n- **Bateria no MIDI:** velocidade máxima 40, média 39 (escala 0 a 127).\n- **Tratamentos desta versão:** bateria do MIDI a 60% (máximo 80); corte abaixo de 32 Hz; sem filtro de agudo; compressor (razão 3,5), limitador e volume igualado em -14 LUFS. Em todas as versões a voz de trompete surdo do MIDI foi removida (15/11). Antes disso: instrumentos remapeados por mim."
         }
       ]
     },
@@ -245,11 +245,11 @@
       "secoes": [
         {
           "titulo": "O que é",
-          "texto": "- O mesmo MIDI de fã renderizado com Sonatina Symphonic Orchestra, sem filtro PS1, **com os instrumentos remapeados por mim** (o banco não segue a numeração General MIDI): violinos, cellos, baixos, trompete, trompa, tuba, sinos; bateria como tímpano e prato (sem caixa no banco, então a caixa virou um golpe agudo de tímpano).\n- Licença: Mattias Westlund e Peter Eastman, CC Sampling Plus 1.0 (README do zip). Banco orquestral convertido para SF2 por terceiro, com falhas conhecidas (flautas uma oitava acima, sem pizzicato); 495 MB.\n- Arquivo em `D:/Projetos/_musica-tools/soundfonts/`, fora do repositório."
+          "texto": "- O mesmo MIDI de fã renderizado com Sonatina Symphonic Orchestra, sem filtro PS1, **com os instrumentos remapeados por mim** (o banco não segue a numeração General MIDI): violinos, cellos, baixos, trompa, tuba, sinos; bateria como tímpano e prato (sem caixa no banco, então a caixa virou um golpe agudo de tímpano).\n- Licença: Mattias Westlund e Peter Eastman, CC Sampling Plus 1.0 (README do zip). Banco orquestral convertido para SF2 por terceiro, com falhas conhecidas (flautas uma oitava acima, sem pizzicato); 495 MB.\n- Arquivo em `D:/Projetos/_musica-tools/soundfonts/`, fora do repositório."
         },
         {
           "titulo": "Dados medidos",
-          "texto": "- **Duração** 148.2 s, **volume** -12.6 LUFS, **pico** -1.8 dB, **crista** (pico menos média) 14.2 dB.\n- **Agudo** acima de 3 kHz: -31.9 dB (referência original: -33,1). **Grave** abaixo de 100 Hz: -27.9 dB.\n- **Notas do MIDI** (sem bateria): mais grave **E1** (nota 28), mais aguda **C6** (nota 84), 2322 notas.\n- **Bateria no MIDI:** velocidade máxima 66, média 65 (escala 0 a 127).\n- **Tratamentos:** instrumentos remapeados por mim; ganho -3 dB. Bateria do MIDI na velocidade original; volume, grave e agudo como o soundfont rende."
+          "texto": "- **Duração** 148.2 s, **volume** -9.7 LUFS, **pico** 1.0 dB, **crista** (pico menos média) 14.0 dB.\n- **Agudo** acima de 3 kHz: -29.2 dB (referência original: -33,1). **Grave** abaixo de 100 Hz: -24.8 dB.\n- **Notas do MIDI** (sem bateria): mais grave **E1** (nota 28), mais aguda **C6** (nota 84), 2186 notas.\n- **Bateria no MIDI:** velocidade máxima 66, média 65 (escala 0 a 127).\n- **Tratamentos:** instrumentos remapeados por mim. Bateria do MIDI na velocidade original; volume, grave e agudo como o soundfont rende. A voz de trompete surdo do MIDI foi removida (15/11)."
         }
       ]
     },
