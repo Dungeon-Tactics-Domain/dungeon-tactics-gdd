@@ -137,8 +137,8 @@
     },
     {
       "regra": "Cura dentro da descida",
-      "valor": "só a Cura do mago herói em batalha (12 a 18), até haver outra regra (pergunta aberta em Agora)",
-      "origem": "src/content/abilities.ts (heal) em e49ddb6"
+      "valor": "em batalha, só a Cura do mago herói (12 a 18); ao descer de andar, todo herói recupera 50% da vida máxima, sem passar do máximo (ferido a 25% chega a 75%)",
+      "origem": "src/content/abilities.ts (heal) em e49ddb6; 50% por andar decidido pelo Fernando em 15/11, provisório até o acampamento voltar"
     }
   ],
   "mapa": [
