@@ -25,7 +25,9 @@ createServer((req, res) => {
   const stream = createReadStream(file);
   stream.on('error', () => (res.headersSent ? res.destroy() : res.writeHead(503).end()));
   stream.on('open', () => {
-    res.writeHead(200, { 'content-type': types[extname(file)] ?? 'application/octet-stream' });
+    // Hashed bundles never change; everything else (index.html, lab content) must be revalidated so a rebuild shows without Ctrl+F5.
+    const cache = url.startsWith('/assets/') ? 'public, max-age=31536000, immutable' : 'no-cache';
+    res.writeHead(200, { 'content-type': types[extname(file)] ?? 'application/octet-stream', 'cache-control': cache });
     if (req.method === 'HEAD') return res.end(stream.destroy());
     stream.pipe(res);
   });
