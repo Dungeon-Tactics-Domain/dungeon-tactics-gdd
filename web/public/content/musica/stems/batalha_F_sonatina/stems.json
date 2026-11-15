@@ -1,0 +1,55 @@
+{
+ "duracao": 101.818186,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 32,
+   "nome": "Trombone Section"
+  },
+  {
+   "canal": 2,
+   "programa": 2,
+   "nome": "1st Violins Sustain"
+  },
+  {
+   "canal": 3,
+   "programa": 8,
+   "nome": "Cello Section Sustai"
+  },
+  {
+   "canal": 4,
+   "programa": 11,
+   "nome": "Basses Pizz."
+  },
+  {
+   "canal": 5,
+   "programa": 40,
+   "nome": "Timpani"
+  },
+  {
+   "canal": 6,
+   "programa": 16,
+   "nome": "Oboe Solo"
+  },
+  {
+   "canal": 7,
+   "programa": 30,
+   "nome": "Horn Section"
+  },
+  {
+   "canal": 8,
+   "programa": 1,
+   "nome": "Concert Harp"
+  },
+  {
+   "canal": 15,
+   "programa": 40,
+   "nome": "Timpani"
+  },
+  {
+   "canal": 16,
+   "programa": 38,
+   "nome": "Cymbals"
+  }
+ ]
+}

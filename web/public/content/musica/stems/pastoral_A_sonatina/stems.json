@@ -1,0 +1,35 @@
+{
+ "duracao": 120.0,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 26,
+   "nome": "Alto Flute"
+  },
+  {
+   "canal": 2,
+   "programa": 16,
+   "nome": "Oboe Solo"
+  },
+  {
+   "canal": 3,
+   "programa": 1,
+   "nome": "Concert Harp"
+  },
+  {
+   "canal": 4,
+   "programa": 1,
+   "nome": "Concert Harp"
+  },
+  {
+   "canal": 5,
+   "programa": 11,
+   "nome": "Basses Pizz."
+  },
+  {
+   "canal": 6,
+   "programa": 2,
+   "nome": "1st Violins Sustain"
+  }
+ ]
+}

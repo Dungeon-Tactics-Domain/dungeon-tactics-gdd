@@ -1,0 +1,45 @@
+{
+ "duracao": 101.818186,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 48,
+   "nome": "String Ensemble 1"
+  },
+  {
+   "canal": 2,
+   "programa": 48,
+   "nome": "String Ensemble 1"
+  },
+  {
+   "canal": 3,
+   "programa": 43,
+   "nome": "Contrabass"
+  },
+  {
+   "canal": 4,
+   "programa": 60,
+   "nome": "French Horn"
+  },
+  {
+   "canal": 5,
+   "programa": 61,
+   "nome": "Brass Section"
+  },
+  {
+   "canal": 6,
+   "programa": 47,
+   "nome": "Timpani"
+  },
+  {
+   "canal": 7,
+   "programa": 68,
+   "nome": "Oboe"
+  },
+  {
+   "canal": 10,
+   "programa": null,
+   "nome": "Drums"
+  }
+ ]
+}

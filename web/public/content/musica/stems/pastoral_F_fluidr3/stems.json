@@ -1,0 +1,35 @@
+{
+ "duracao": 132.0,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 24,
+   "nome": "Nylon Guitar"
+  },
+  {
+   "canal": 2,
+   "programa": 73,
+   "nome": "Flute"
+  },
+  {
+   "canal": 3,
+   "programa": 48,
+   "nome": "String Ensemble 1"
+  },
+  {
+   "canal": 4,
+   "programa": 32,
+   "nome": "Acoustic Bass"
+  },
+  {
+   "canal": 5,
+   "programa": 108,
+   "nome": "Kalimba"
+  },
+  {
+   "canal": 10,
+   "programa": null,
+   "nome": "Drums"
+  }
+ ]
+}

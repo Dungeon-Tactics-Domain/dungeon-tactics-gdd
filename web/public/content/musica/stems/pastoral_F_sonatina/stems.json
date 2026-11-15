@@ -1,0 +1,35 @@
+{
+ "duracao": 132.0,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 1,
+   "nome": "Concert Harp"
+  },
+  {
+   "canal": 2,
+   "programa": 14,
+   "nome": "Flute Solo"
+  },
+  {
+   "canal": 3,
+   "programa": 2,
+   "nome": "1st Violins Sustain"
+  },
+  {
+   "canal": 4,
+   "programa": 11,
+   "nome": "Basses Pizz."
+  },
+  {
+   "canal": 5,
+   "programa": 39,
+   "nome": "Glockenspiel"
+  },
+  {
+   "canal": 15,
+   "programa": 40,
+   "nome": "Timpani"
+  }
+ ]
+}
