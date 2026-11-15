@@ -79,6 +79,36 @@ const KK_DUAS: readonly Botao[] = [
   ['crossbow_2handed', 'Besta'],
 ];
 
+// the game's movement and combat scenes, the same the Animações pages use: walk 0.6 s per tile, the 3-part jump, reactions
+const CENAS: readonly (readonly [string, readonly Botao[]])[] = [
+  [
+    '🚶 Andar',
+    [
+      ['walk:flat', 'Andando no plano'],
+      ['walk:ramp', 'Andando numa rampa'],
+    ],
+  ],
+  [
+    '🦘 Saltos',
+    [
+      ['jump:full', 'Salto completo'],
+      ['jump:up', 'Para cima de um obstáculo'],
+      ['jump:down', 'Caindo de um obstáculo'],
+      ['jump:over', 'Por cima de uma casa vazia'],
+    ],
+  ],
+  [
+    '💥 Reações e combate sofrido',
+    [
+      ['act:hit', 'Cena: sendo atacado'],
+      ['act:fall', 'Cena: caindo'],
+      ['act:wall', 'Cena: batendo na parede'],
+    ],
+  ],
+  ['🌊 Água', [['act:swim', 'Cena: nadando na água (engatinhar deitado)']]],
+];
+const CENA = /^(walk|jump|act):/;
+
 interface Clipe {
   name: string;
   dur: number | null;
@@ -90,7 +120,7 @@ export interface ListaDeClipes {
 
 const nome = (c: string) => c.replace(/_/g, ' ');
 
-/** Bench URL: the game's model by parts, at game scale, with the KayKit clips and the chosen weapons. */
+/** Bench URL: the game's model by parts, at game scale, with a KayKit clip or a scene ("walk:flat") and the weapons. */
 export function urlKayKit(
   base: string,
   partes: Partial<Record<Parte, string>>,
@@ -99,12 +129,15 @@ export function urlKayKit(
   secundaria: string,
   duas: string,
 ) {
-  const url = new URL(urlDaAnimacao(base, `/models/${base}.glb`, `clip:${clipe}`, principal, secundaria, duas));
+  const url = new URL(
+    urlDaAnimacao(base, `/models/${base}.glb`, CENA.test(clipe) ? clipe : `clip:${clipe}`, principal, secundaria, duas),
+  );
   const q = url.searchParams;
   q.set('char', base);
   q.set('kaykit', '1');
   q.set('solo', '1');
-  q.set('zoom', '1.2'); // the bench puts them at the game's 0.85 height, smaller than the Animações models
+  // the bench puts them at the game's 0.85 height, smaller than the Animações models; a scene spans 3 to 4 tiles
+  q.set('zoom', CENA.test(clipe) ? '2.6' : '1.2');
   for (const [parte, de] of Object.entries(partes)) if (de) q.set(parte, de);
   return url.toString();
 }
@@ -143,6 +176,7 @@ export function KayKit() {
     ...lista.jogo.map((c) => [c.name, c] as const),
     ...lista.pacote.flatMap((g) => g.clipes.map((c) => [`${g.categoria}/${c.name}`, c] as const)),
   ].find(([id]) => id === clipe)?.[1];
+  const cena = CENAS.flatMap(([, b]) => b).find(([id]) => id === clipe)?.[1];
   return (
     <LadoALado
       viewer={
@@ -153,7 +187,7 @@ export function KayKit() {
             className={CLASSE_VIEWER_LADO}
           />
           <p className="m-0 mt-2 text-apagado">
-            Tocando: {nome(clipe.replace(/^.*\//, ''))}
+            Tocando: {cena ?? nome(clipe.replace(/^.*\//, ''))}
             {tocando?.dur ? ` (${tocando.dur.toLocaleString('pt-BR')} s)` : ''}
           </p>
         </>
@@ -176,6 +210,9 @@ export function KayKit() {
           atual={clipe}
           escolher={setClipe}
         />
+        {CENAS.map(([titulo, botoes]) => (
+          <Grupo key={titulo} titulo={titulo} botoes={botoes} atual={clipe} escolher={setClipe} />
+        ))}
         <div className="mt-2.5 font-bold">📦 Pacote completo de animações KayKit</div>
         <p className="m-0 mb-1 text-apagado">★ marca os que o jogo já usa.</p>
         {lista.pacote.map((g) => (

@@ -70,6 +70,39 @@ describe('KayKit', () => {
     expect([params().get('weapon'), params().get('off')]).toEqual(['sword_2handed', null]);
   });
 
+  it('plays the game scenes (walk, jump, reactions, water) with the parts and weapons', async () => {
+    bancada(Response.json(LISTA));
+    render(<KayKit />);
+    await screen.findByTitle('Personagem KayKit 3D');
+    await userEvent.click(screen.getAllByRole('button', { name: 'Bárbaro' })[0]!); // the base character
+    const cabeca = screen.getByRole('group', { name: '🙂 Cabeça' });
+    await userEvent.click(screen.getAllByRole('button', { name: 'Mago' }).find((b) => cabeca.contains(b))!);
+    await userEvent.click(screen.getByRole('button', { name: 'Machado grande' }));
+
+    await userEvent.click(screen.getByRole('button', { name: 'Por cima de uma casa vazia' }));
+    expect(Object.fromEntries(params())).toMatchObject({
+      glb: '/models/barbarian.glb',
+      kaykit: '1',
+      jump: 'over',
+      zoom: '2.6',
+      head: 'mage',
+      weapon: 'axe_2handed',
+    });
+    expect(params().has('anim')).toBe(false);
+    expect(screen.getByText('Tocando: Por cima de uma casa vazia')).toBeInTheDocument();
+
+    await userEvent.click(screen.getByRole('button', { name: 'Andando numa rampa' }));
+    expect(params().get('walk')).toBe('ramp');
+    await userEvent.click(screen.getByRole('button', { name: 'Cena: batendo na parede' }));
+    expect(params().get('act')).toBe('wall');
+    await userEvent.click(screen.getByRole('button', { name: /nadando/ }));
+    expect(params().get('act')).toBe('swim');
+
+    // back to a clip: the scene leaves the URL and the zoom closes in again
+    await userEvent.click(screen.getByRole('button', { name: 'Idle' }));
+    expect([params().get('anim'), params().has('act'), params().get('zoom')]).toEqual(['Idle', false, '1.2']);
+  });
+
   it('says the bench did not answer when the clip list does not load', async () => {
     bancada(new Response(null, { status: 200 }));
     render(<KayKit />);
