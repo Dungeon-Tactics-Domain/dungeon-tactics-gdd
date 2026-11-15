@@ -1,0 +1,35 @@
+{
+ "duracao": 132.0,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 7,
+   "nome": "String Pizz"
+  },
+  {
+   "canal": 2,
+   "programa": 20,
+   "nome": "Flute"
+  },
+  {
+   "canal": 3,
+   "programa": 6,
+   "nome": "String Ensemble 1"
+  },
+  {
+   "canal": 4,
+   "programa": 5,
+   "nome": "Celli"
+  },
+  {
+   "canal": 5,
+   "programa": 2,
+   "nome": "Marimba"
+  },
+  {
+   "canal": 8,
+   "programa": 9,
+   "nome": "Timpani"
+  }
+ ]
+}

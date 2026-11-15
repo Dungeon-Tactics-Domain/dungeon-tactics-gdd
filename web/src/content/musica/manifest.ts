@@ -7,8 +7,18 @@ import type { GrupoManifesto, Manifesto } from '../types';
 // the TFG versions' full titles do not fit one menu line; the page keeps the full title in its heading
 const curto = (titulo: string) => titulo.replace(' com a soundfont Tactical Fantasy Guy', ' (TFG)');
 
+// one menu line per track: the treated and TFG versions are switches inside the page (their old links still open)
+const noMenu = (grupo: string, faixa: string) =>
+  grupo === 'tema-dark'
+    ? !/-cru$|^dark-v1/.test(faixa) || /^dark-v1-(principal|intenso)$/.test(faixa)
+    : grupo === 'batalha' || grupo === 'pastoral'
+      ? !/-(t|tfg|tfg-t)$/.test(faixa)
+      : grupo === 'trisection'
+        ? !/^ref-trisection-midi-(fa-|transcricao)|-cru$/.test(faixa)
+        : true;
+
 const grupos: GrupoManifesto[] = Object.entries(PAGINAS).map(([id, p]) => {
-  const faixas = faixasDe(p);
+  const faixas = faixasDe(p).filter((t) => noMenu(id, t.id));
   const refs = p.referencias ?? [];
   const pendentes = (p.checagens ?? []).filter((c) => c.estado !== 'feito').length;
   // same card text as the old index: the description, else the references

@@ -1,5 +1,4 @@
 import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 import { Checagens, FaixaMusica, Referencias, Texto } from './Musica';
 
@@ -13,25 +12,22 @@ describe('music lab', () => {
     expect(container.querySelectorAll('li')).toHaveLength(2);
   });
 
-  it('shows a track with its audio, sections and stars under the old key', async () => {
-    // Node's localStorage global has no methods in Vitest: a map stands in
-    const m = new Map<string, string>();
-    vi.stubGlobal('localStorage', {
-      getItem: (k: string) => m.get(k) ?? null,
-      setItem: (k: string, v: string) => void m.set(k, v),
-      removeItem: (k: string) => void m.delete(k),
-    });
+  it('shows a track with its audio and its sections inside the "about" panel, with no rating', () => {
     render(<FaixaMusica pagina="batalha" faixa="batalha-c" />);
-    expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent('CBatalha · C');
-    expect(screen.getByLabelText('Ouvir Batalha · C')).toHaveAttribute('src', '/content/musica/audio/batalha_C.ogg');
+    expect(screen.getByText('Sobre esta faixa')).toBeInTheDocument();
     expect(screen.getAllByRole('heading', { level: 3 }).map((h) => h.textContent)).toEqual([
       'Resumo',
       'Forma e instrumentos',
       'Crítica',
       'Como regenerar',
+      'Mudança do trompete',
     ]);
-    await userEvent.click(screen.getByRole('button', { name: '4 de 5' }));
-    expect(m.get('musica:nota:batalha-c')).toBe('4');
+    expect(screen.queryByRole('button', { name: /de 5/ })).toBeNull();
+  });
+
+  it('keeps the plain audio player for a track without stems', () => {
+    render(<FaixaMusica pagina="trisection" faixa="ref-trisection" />);
+    expect(screen.getByLabelText(/^Ouvir /)).toHaveAttribute('src', '/content/musica/audio/ref_trisection.ogg');
   });
 
   it('says so for an unknown track', () => {

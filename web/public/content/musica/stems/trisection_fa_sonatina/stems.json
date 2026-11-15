@@ -1,0 +1,40 @@
+{
+ "duracao": 148.3,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 2,
+   "nome": "Electric Grand Piano"
+  },
+  {
+   "canal": 2,
+   "programa": 8,
+   "nome": "Celesta"
+  },
+  {
+   "canal": 3,
+   "programa": 10,
+   "nome": "Music Box"
+  },
+  {
+   "canal": 5,
+   "programa": 30,
+   "nome": "Distortion Guitar"
+  },
+  {
+   "canal": 7,
+   "programa": 34,
+   "nome": "Pick Bass"
+  },
+  {
+   "canal": 8,
+   "programa": 43,
+   "nome": "Contrabass"
+  },
+  {
+   "canal": 11,
+   "programa": 40,
+   "nome": "Violin"
+  }
+ ]
+}

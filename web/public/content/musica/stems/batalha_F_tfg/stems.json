@@ -1,0 +1,55 @@
+{
+ "duracao": 101.818186,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 15,
+   "nome": "Brass"
+  },
+  {
+   "canal": 2,
+   "programa": 6,
+   "nome": "String Ensemble 1"
+  },
+  {
+   "canal": 3,
+   "programa": 5,
+   "nome": "Celli"
+  },
+  {
+   "canal": 4,
+   "programa": 5,
+   "nome": "Celli"
+  },
+  {
+   "canal": 5,
+   "programa": 9,
+   "nome": "Timpani"
+  },
+  {
+   "canal": 6,
+   "programa": 19,
+   "nome": "Oboe"
+  },
+  {
+   "canal": 7,
+   "programa": 25,
+   "nome": "French Horn"
+  },
+  {
+   "canal": 8,
+   "programa": 8,
+   "nome": "Harp"
+  },
+  {
+   "canal": 9,
+   "programa": 22,
+   "nome": "Snare"
+  },
+  {
+   "canal": 11,
+   "programa": 23,
+   "nome": "Cymbal"
+  }
+ ]
+}

@@ -1,0 +1,50 @@
+{
+ "duracao": 97.5,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 25,
+   "nome": "French Horn"
+  },
+  {
+   "canal": 2,
+   "programa": 25,
+   "nome": "French Horn"
+  },
+  {
+   "canal": 3,
+   "programa": 6,
+   "nome": "String Ensemble 1"
+  },
+  {
+   "canal": 4,
+   "programa": 5,
+   "nome": "Celli"
+  },
+  {
+   "canal": 5,
+   "programa": 5,
+   "nome": "Celli"
+  },
+  {
+   "canal": 6,
+   "programa": 9,
+   "nome": "Timpani"
+  },
+  {
+   "canal": 8,
+   "programa": 9,
+   "nome": "Timpani"
+  },
+  {
+   "canal": 9,
+   "programa": 22,
+   "nome": "Snare"
+  },
+  {
+   "canal": 11,
+   "programa": 23,
+   "nome": "Cymbal"
+  }
+ ]
+}

@@ -1,0 +1,40 @@
+{
+ "duracao": 126.315782,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 20,
+   "nome": "Flute"
+  },
+  {
+   "canal": 2,
+   "programa": 20,
+   "nome": "Flute"
+  },
+  {
+   "canal": 3,
+   "programa": 7,
+   "nome": "String Pizz"
+  },
+  {
+   "canal": 4,
+   "programa": 8,
+   "nome": "Harp"
+  },
+  {
+   "canal": 5,
+   "programa": 5,
+   "nome": "Celli"
+  },
+  {
+   "canal": 6,
+   "programa": 10,
+   "nome": "String Ens2"
+  },
+  {
+   "canal": 8,
+   "programa": 9,
+   "nome": "Timpani"
+  }
+ ]
+}

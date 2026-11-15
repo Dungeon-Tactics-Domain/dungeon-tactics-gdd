@@ -1,0 +1,40 @@
+{
+ "duracao": 147.8,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 6,
+   "nome": "Harpsichord"
+  },
+  {
+   "canal": 2,
+   "programa": 6,
+   "nome": "Harpsichord"
+  },
+  {
+   "canal": 3,
+   "programa": 5,
+   "nome": "Electric Piano 2"
+  },
+  {
+   "canal": 5,
+   "programa": 25,
+   "nome": "Steel Guitar"
+  },
+  {
+   "canal": 7,
+   "programa": 15,
+   "nome": "Dulcimer"
+  },
+  {
+   "canal": 8,
+   "programa": 1,
+   "nome": "Bright Acoustic Piano"
+  },
+  {
+   "canal": 9,
+   "programa": 22,
+   "nome": "Harmonica"
+  }
+ ]
+}
