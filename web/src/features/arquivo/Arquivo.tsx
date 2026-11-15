@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { ARCHIVE, OLD_LAB } from '@/lib/labs';
+import { ARCHIVE, ehLocal, OLD_LAB } from '@/lib/labs';
 import { useLabAccent } from '@/lib/useLabAccent';
 import { ARQUIVO } from './itens';
 
@@ -27,7 +27,7 @@ export function Arquivo() {
             {sec.itens.map((it) => (
               <li key={it.titulo} className="grid gap-1 border border-l-8 border-borda border-l-lab bg-folha px-4 py-3">
                 <h3 className="m-0 flex flex-wrap items-center gap-2 text-[21px]">
-                  {it.slug ? (
+                  {it.slug && ehLocal() ? (
                     <a
                       href={`${OLD_LAB}/arquivo/${it.slug}/`}
                       target="_blank"

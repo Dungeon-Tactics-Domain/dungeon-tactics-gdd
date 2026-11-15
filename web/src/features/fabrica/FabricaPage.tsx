@@ -115,7 +115,7 @@ export function FabricaPage() {
   useEffect(() => {
     document.title = 'Fábrica de games · Reino dos Laboratórios';
   }, []);
-  const { fabrica, agora } = useQuadro();
+  const { fabrica, agora, conexao } = useQuadro();
   const stations = fabrica?.estacoes ?? [];
   const subs = fabrica?.subagentes ?? [];
   // the bench number comes from the board order, so a subagent always points to the same bench
@@ -134,6 +134,14 @@ export function FabricaPage() {
     ['parado', '⚪ Parado', conta('parado')],
     ['subs', '🤖 Subagentes rodando', live.length],
   ];
+
+  if (conexao === 'sem-api')
+    return (
+      <main className="fabrica mx-auto grid max-w-[1280px] gap-3 px-4 pt-7 pb-16 sm:px-10">
+        <h1 className="m-0 text-[40px] leading-none">Fábrica de games</h1>
+        <Relogio />
+      </main>
+    );
 
   return (
     <main className="fabrica mx-auto grid max-w-[1280px] content-start gap-7 px-4 pt-7 pb-16 sm:px-10">

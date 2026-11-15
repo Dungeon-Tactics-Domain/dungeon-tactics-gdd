@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { useQuadro } from '@/lib/fabrica-context';
 import {
   COR_ESCOLHA,
   carregarDecisoes,
@@ -24,7 +25,10 @@ export function DecisaoAsset({ id, rotulo }: { id: string; rotulo: string }) {
   const [estado, setEstado] = useState<'carregando' | 'pronto' | 'salvando' | 'fora'>('carregando');
   const [aviso, setAviso] = useState('');
 
+  const semApi = useQuadro().conexao === 'sem-api';
+
   useEffect(() => {
+    if (semApi) return;
     let vivo = true;
     carregarDecisoes()
       .then((todas) => {
@@ -38,7 +42,7 @@ export function DecisaoAsset({ id, rotulo }: { id: string; rotulo: string }) {
     return () => {
       vivo = false;
     };
-  }, [id]);
+  }, [id, semApi]);
 
   const salvar = async (escolha: Escolha) => {
     setEstado('salvando');
@@ -54,6 +58,8 @@ export function DecisaoAsset({ id, rotulo }: { id: string; rotulo: string }) {
     }
     setEstado('pronto');
   };
+
+  if (semApi) return <p className="m-0 text-[15px] text-apagado">Decisões só na rede local.</p>;
 
   const parado = estado !== 'pronto';
   const notaMudou = nota.trim() !== (salva?.nota ?? '');

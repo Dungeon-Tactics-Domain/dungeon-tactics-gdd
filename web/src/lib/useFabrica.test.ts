@@ -39,16 +39,22 @@ const board = (over: Partial<Fabrica> = {}): Fabrica => ({
   subagentes: [],
   ...over,
 });
+// the stream opens only after the /api/fabrica probe answers
+const mount = async () => {
+  const r = renderHook(() => useFabrica());
+  await act(async () => {});
+  return r;
+};
 const last = () => FakeEventSource.all[FakeEventSource.all.length - 1]!;
 
 beforeEach(() => {
   vi.useFakeTimers({ now: NOW });
   FakeEventSource.all = [];
   vi.stubGlobal('EventSource', FakeEventSource);
-  // the GET never answers in these tests unless one sets it up: the stream is what is under test
+  // API present by default (any non-404 answer); the stream is what is under test
   vi.stubGlobal(
     'fetch',
-    vi.fn(() => new Promise(() => {})),
+    vi.fn(async () => new Response('null')),
   );
 });
 afterEach(() => {
@@ -57,35 +63,47 @@ afterEach(() => {
 });
 
 describe('useFabrica', () => {
+  it('goes public mode on a 404: no stream, no retry', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async () => new Response('', { status: 404 })),
+    );
+    const { result } = await mount();
+    expect(result.current.conexao).toBe('sem-api');
+    act(() => vi.advanceTimersByTime(60_000));
+    expect(FakeEventSource.all).toHaveLength(0);
+    expect(fetch).toHaveBeenCalledTimes(1);
+  });
+
   it('reads the initial GET and connects to the stream', async () => {
     vi.stubGlobal(
       'fetch',
       vi.fn(async () => new Response(JSON.stringify(board()))),
     );
-    const { result } = renderHook(() => useFabrica());
+    const { result } = await mount();
     await act(async () => {});
     expect(fetch).toHaveBeenCalledWith('/api/fabrica', { cache: 'no-store' });
     expect(last().url).toBe('/api/fabrica/stream');
     expect(result.current.fabrica?.estacoes[0]?.id).toBe('design');
   });
 
-  it('applies each "fabrica" event and goes live on open', () => {
-    const { result } = renderHook(() => useFabrica());
+  it('applies each "fabrica" event and goes live on open', async () => {
+    const { result } = await mount();
     act(() => last().emit('open'));
     expect(result.current.conexao).toBe('ao-vivo');
     act(() => last().emit('fabrica', board({ aviso: 'teste' })));
     expect(result.current.fabrica?.aviso).toBe('teste');
   });
 
-  it('keeps the last good board when an event is malformed', () => {
-    const { result } = renderHook(() => useFabrica());
+  it('keeps the last good board when an event is malformed', async () => {
+    const { result } = await mount();
     act(() => last().emit('fabrica', board()));
     act(() => last().emit('fabrica', 'not a board'));
     expect(result.current.fabrica?.estacoes).toHaveLength(1);
   });
 
-  it('reconnects with backoff when the stream closes for good', () => {
-    const { result } = renderHook(() => useFabrica());
+  it('reconnects with backoff when the stream closes for good', async () => {
+    const { result } = await mount();
     act(() => last().fail());
     expect(result.current.conexao).toBe('caiu');
     expect(FakeEventSource.all).toHaveLength(1);
@@ -101,24 +119,24 @@ describe('useFabrica', () => {
     expect(result.current.conexao).toBe('ao-vivo');
   });
 
-  it('leaves transient errors to the browser retry', () => {
-    const { result } = renderHook(() => useFabrica());
+  it('leaves transient errors to the browser retry', async () => {
+    const { result } = await mount();
     act(() => last().emit('error'));
     expect(result.current.conexao).toBe('conectando');
     act(() => vi.advanceTimersByTime(60_000));
     expect(FakeEventSource.all).toHaveLength(1);
   });
 
-  it('flags a board older than 15 min, also when time passes without new data', () => {
-    const { result } = renderHook(() => useFabrica());
+  it('flags a board older than 15 min, also when time passes without new data', async () => {
+    const { result } = await mount();
     act(() => last().emit('fabrica', board({ atualizado: new Date(NOW - 14 * 60_000).toISOString() })));
     expect(result.current.velho).toBe(false);
     act(() => vi.advanceTimersByTime(2 * 60_000));
     expect(result.current.velho).toBe(true);
   });
 
-  it('frees the stream when the page is hidden and reopens it from the back/forward cache', () => {
-    renderHook(() => useFabrica());
+  it('frees the stream when the page is hidden and reopens it from the back/forward cache', async () => {
+    await mount();
     const es = last();
     act(() => window.dispatchEvent(new Event('pagehide')));
     expect(es.readyState).toBe(FakeEventSource.CLOSED);
@@ -126,8 +144,8 @@ describe('useFabrica', () => {
     expect(FakeEventSource.all).toHaveLength(2);
   });
 
-  it('closes the stream on unmount', () => {
-    const { unmount } = renderHook(() => useFabrica());
+  it('closes the stream on unmount', async () => {
+    const { unmount } = await mount();
     const es = last();
     unmount();
     expect(es.readyState).toBe(FakeEventSource.CLOSED);

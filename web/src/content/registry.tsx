@@ -7,7 +7,7 @@
 import { type ComponentType, lazy, Suspense } from 'react';
 import { MDX_COMPONENTS } from '@/components/content/mdx';
 import type { Pagina, Sumario } from '@/features/paginas/types';
-import { OLD_LAB } from '@/lib/labs';
+import { ehLocal, OLD_LAB } from '@/lib/labs';
 import type { Manifesto, PaginaManifesto } from './types';
 
 type MdxModule = { default: ComponentType<{ components?: typeof MDX_COMPONENTS }> };
@@ -36,14 +36,16 @@ function OrigemAntiga({ origem }: { origem: NonNullable<Manifesto['origem']> }) 
   return (
     <p className="m-0 text-[15px] text-apagado">
       Conteúdo copiado do lab antigo em {quando} ({origem.fonte}).{' '}
-      <a
-        href={`${OLD_LAB}${origem.caminho}`}
-        target="_blank"
-        rel="noreferrer"
-        className="inline-flex min-h-11 items-center text-lab underline underline-offset-2"
-      >
-        Ver no lab antigo ↗
-      </a>
+      {ehLocal() && (
+        <a
+          href={`${OLD_LAB}${origem.caminho}`}
+          target="_blank"
+          rel="noreferrer"
+          className="inline-flex min-h-11 items-center text-lab underline underline-offset-2"
+        >
+          Ver no lab antigo ↗
+        </a>
+      )}
     </p>
   );
 }

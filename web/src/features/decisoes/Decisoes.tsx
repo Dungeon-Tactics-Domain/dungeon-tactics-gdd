@@ -1,6 +1,7 @@
 // Every per-asset decision in one list, filterable by lab and choice. Read-only: decisions are made on each asset's page.
 import { useEffect, useState } from 'react';
 import { Badge } from '@/components/ui/badge';
+import { useQuadro } from '@/lib/fabrica-context';
 import { ARCHIVE, LABS } from '@/lib/labs';
 import {
   COR_ESCOLHA,
@@ -21,12 +22,14 @@ export function Decisoes() {
   const [erro, setErro] = useState('');
   const [lab, setLab] = useState('');
   const [escolha, setEscolha] = useState<Escolha | ''>('');
+  const semApi = useQuadro().conexao === 'sem-api';
   useEffect(() => {
     document.title = 'Decisões · Reino dos Laboratórios';
+    if (semApi) return;
     carregarDecisoes()
       .then(setTodas)
       .catch((e: unknown) => setErro(e instanceof Error ? e.message : String(e)));
-  }, []);
+  }, [semApi]);
   // labs with a decision too, so an id from a lab not in lib/labs.ts still gets a filter
   const labs = [...new Set([...LABS.map((l) => l.id), ...(todas ?? []).map((d) => d.lab)])];
   const nomeLab = (id: string) => LABS.find((l) => l.id === id)?.nome ?? id;
@@ -64,12 +67,15 @@ export function Decisoes() {
           </select>
         </label>
       </div>
+      {semApi && (
+        <p className="m-0 border border-dashed border-traco bg-bilhete px-4 py-3">Decisões só na rede local.</p>
+      )}
       {erro && (
         <p className="m-0 border border-dashed border-traco bg-bilhete px-4 py-3">
           Não consegui ler as decisões: {erro}.
         </p>
       )}
-      {!todas && !erro && <p className="m-0 text-apagado">Carregando…</p>}
+      {!todas && !erro && !semApi && <p className="m-0 text-apagado">Carregando…</p>}
       {todas && (
         <p className="m-0 text-apagado" aria-live="polite">
           {lista.length} de {todas.length} decisões.

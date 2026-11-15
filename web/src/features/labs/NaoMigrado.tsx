@@ -2,7 +2,7 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router';
 import { Button } from '@/components/ui/button';
-import { OLD_LAB, type Place } from '@/lib/labs';
+import { ehLocal, OLD_LAB, type Place } from '@/lib/labs';
 import { useLabAccent } from '@/lib/useLabAccent';
 
 export function NaoMigrado({ lab }: { lab?: Place }) {
@@ -21,11 +21,13 @@ export function NaoMigrado({ lab }: { lab?: Place }) {
             Ainda não migrado para esta plataforma. O conteúdo continua na página atual do lab.
           </p>
           <p className="m-0 flex flex-wrap gap-2">
-            <Button asChild variant="lab">
-              <a href={`${OLD_LAB}${lab.antigo ?? '/'}`} target="_blank" rel="noreferrer">
-                Abrir a página atual ↗
-              </a>
-            </Button>
+            {ehLocal() && (
+              <Button asChild variant="lab">
+                <a href={`${OLD_LAB}${lab.antigo ?? '/'}`} target="_blank" rel="noreferrer">
+                  Abrir a página atual ↗
+                </a>
+              </Button>
+            )}
             <Button asChild variant="outline">
               <Link to="/">Voltar ao mapa</Link>
             </Button>

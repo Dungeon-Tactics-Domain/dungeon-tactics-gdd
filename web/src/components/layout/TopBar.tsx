@@ -26,9 +26,13 @@ const linkCls = ({ isActive }: { isActive: boolean }) =>
   );
 
 function TownLink({ t }: { t: Town }) {
+  // without the board (public site) every dot would read "sem sessão", so the indicator goes away
+  const semApi = useQuadro().conexao === 'sem-api';
   const naoMigrado = t.place.antigo && !CONTEUDO[t.place.id] ? ', ainda não migrado' : '';
-  const label = `${t.estado ? stateLabel(t.estado) : 'sem sessão no quadro'}${naoMigrado}`;
-  const dot = (
+  const label = semApi
+    ? naoMigrado.slice(2) || 'lab'
+    : `${t.estado ? stateLabel(t.estado) : 'sem sessão no quadro'}${naoMigrado}`;
+  const dot = semApi ? null : (
     <i
       className={cn('size-[13px] flex-none rounded-full border-2', DOT[t.estado ?? 'nenhum'])}
       style={{ borderColor: t.place.cor }}

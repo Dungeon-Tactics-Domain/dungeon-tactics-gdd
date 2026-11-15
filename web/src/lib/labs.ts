@@ -18,6 +18,8 @@ export interface Place {
 }
 
 export const OLD_LAB = 'http://localhost:5190';
+/** the old lab only exists on the dev PC; on the public site its links would be dead */
+export const ehLocal = () => ['localhost', '127.0.0.1'].includes(location.hostname);
 
 // the Fábrica is the port; its state comes from the orchestrator sessions (isTower in lib/fabrica.ts)
 export const PORT: Place = {

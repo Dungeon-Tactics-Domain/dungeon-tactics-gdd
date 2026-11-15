@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
+import { FabricaContext } from '@/lib/fabrica-context';
 import { DecisaoAsset } from './DecisaoAsset';
 
 const salva = {
@@ -15,6 +16,20 @@ const json = (body: unknown, status = 200) =>
   Promise.resolve(new Response(JSON.stringify(body), { status, headers: { 'Content-Type': 'application/json' } }));
 
 describe('DecisaoAsset', () => {
+  it('shows a plain message and never calls the API in public mode', () => {
+    const fetch = vi.fn();
+    vi.stubGlobal('fetch', fetch);
+    const quadro = { fabrica: null, conexao: 'sem-api' as const, idadeMs: null, velho: false, lidoEm: null, agora: 0 };
+    render(
+      <FabricaContext value={quadro}>
+        <DecisaoAsset id="musica/a" rotulo="Faixa" />
+      </FabricaContext>,
+    );
+    expect(screen.getByText('Decisões só na rede local.')).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Usar' })).toBeNull();
+    expect(fetch).not.toHaveBeenCalled();
+  });
+
   it('shows the saved decision and saves a new choice with the note', async () => {
     const fetch = vi.fn((_url: string, init?: RequestInit) =>
       init?.method === 'PUT'

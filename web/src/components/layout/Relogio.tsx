@@ -4,6 +4,8 @@ import { since } from '@/lib/fabrica';
 
 export function Relogio() {
   const { fabrica, conexao, idadeMs, velho, lidoEm } = useQuadro();
+  if (conexao === 'sem-api')
+    return <p className="m-0 text-[15px] text-apagado">O quadro da Fábrica está disponível só na rede local.</p>;
   const avisos: string[] = [];
   if (conexao === 'caiu')
     avisos.push(

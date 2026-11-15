@@ -4,7 +4,8 @@ import { useEffect, useState } from 'react';
 import type { Fabrica } from '@/types/fabrica';
 import { parseFabrica, STALE_MS } from './fabrica';
 
-export type Conexao = 'conectando' | 'ao-vivo' | 'caiu';
+// 'sem-api' = the public static site: /api/fabrica answers 404, so there is no stream to open nor to retry
+export type Conexao = 'conectando' | 'ao-vivo' | 'caiu' | 'sem-api';
 
 export interface Quadro {
   fabrica: Fabrica | null;
@@ -86,11 +87,22 @@ export function useFabrica(): Quadro {
     const onShow = (e: PageTransitionEvent) => {
       if (e.persisted) connect();
     };
-    addEventListener('pagehide', onHide);
-    addEventListener('pageshow', onShow);
+    const start = () => {
+      addEventListener('pagehide', onHide);
+      addEventListener('pageshow', onShow);
+      connect();
+    };
 
-    void load();
-    connect();
+    // one probe decides the mode: 404 = no API here; any other answer (or a network error) keeps the live behaviour
+    fetch('/api/fabrica', { cache: 'no-store' }).then(
+      (r) => {
+        if (closed) return;
+        if (r.status === 404) return setConexao('sem-api');
+        if (r.ok) r.json().then(accept, () => {});
+        start();
+      },
+      () => !closed && start(),
+    );
     const clock = setInterval(() => setAgora(Date.now()), CLOCK_MS);
     return () => {
       closed = true;
