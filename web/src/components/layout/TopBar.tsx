@@ -60,7 +60,7 @@ function TownLink({ t }: { t: Town }) {
 }
 
 function Links({ towns }: { towns: Town[] }) {
-  // order: home, the fixed places, then labs the board knows but lib/labs.ts does not, then the archive
+  // order: home, the fixed places, then labs the board knows but lib/labs.ts does not, then decisions and the archive
   return (
     <>
       <NavLink to="/" end className={linkCls}>
@@ -69,6 +69,9 @@ function Links({ towns }: { towns: Town[] }) {
       {towns.map((t) => (
         <TownLink key={t.place.id} t={t} />
       ))}
+      <NavLink to="/decisoes" className={linkCls}>
+        Decisões
+      </NavLink>
       <NavLink to={ARCHIVE.href} className={linkCls}>
         {ARCHIVE.nome}
       </NavLink>

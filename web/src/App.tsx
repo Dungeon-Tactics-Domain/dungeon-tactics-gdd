@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router';
 import { Shell } from '@/components/layout/Shell';
 import { CONTEUDO } from '@/content/registry';
 import { Arquivo } from '@/features/arquivo/Arquivo';
+import { Decisoes } from '@/features/decisoes/Decisoes';
 import { FabricaPage } from '@/features/fabrica/FabricaPage';
 import { LabPagina } from '@/features/labs/LabPagina';
 import { NaoMigrado } from '@/features/labs/NaoMigrado';
@@ -21,6 +22,7 @@ export function App() {
           <Route index element={<Home />} />
           <Route path="fabrica" element={<FabricaPage />} />
           <Route path="arquivo" element={<Arquivo />} />
+          <Route path="decisoes" element={<Decisoes />} />
           <Route path="exemplo-paginas/*" element={<ExemploPaginas />} />
           {LABS.map((lab) => (
             <Route
