@@ -1,7 +1,8 @@
 # labs-core
 
 The factory board contract (`Fabrica`, `Estacao`, `Subagente`, `Estado`) and the reader that builds it from the
-Claude Code desktop app's files. No HTTP here; [`labs-server`](../labs-server/README.md) serves it.
+Claude Code desktop app's files, plus the per-asset decisions (`Decisao`, `Escolha`, module `decisoes`). No HTTP
+here; [`labs-server`](../labs-server/README.md) serves both.
 
 ```rust
 let mut board = labs_core::Board::new(paths, "config/fabrica.toml".into());
@@ -38,6 +39,24 @@ Every file is deserialized into structs that keep only those fields; message tex
 - "rodando" is inferred: a session left mid-turn shows as running for up to 15 min; a tool silent for more than
   15 min shows as idle.
 - A subagent that dies without writing `finished` leaves the board 15 min after its last event.
+
+## Decisions
+
+Fernando's decision per asset, saved by the platform and read by Claude sessions as a file (default
+`data/decisoes.json`, key `decisoes` in `config/fabrica.toml`). The file is a JSON object keyed by asset id, sorted and
+indented; `data/decisoes.example.json` shows it:
+
+```json
+{ "musica/batalha-c": { "id": "musica/batalha-c", "lab": "musica", "escolha": "refazer", "nota": "…", "atualizadoEm": "2026-11-15T10:00:00-03:00" } }
+```
+
+- `id`: `<lab>/<path>`, segments of ASCII letters, digits, `.`, `_`, `-` (no `.` or `..` alone), up to 200 characters.
+  Ids in use: `musica/<track id>` (e.g. `musica/batalha-c`), `modelos/<set in pecas.json>/<piece id>` (e.g.
+  `modelos/carrocas-high/D`) and `modelos/blender/<model>` (e.g. `modelos/blender/opus`).
+- `escolha`: `usar`, `descartar`, `refazer` or `talvez`. `nota`: free text, trimmed, up to 2000 characters.
+- `atualizadoEm`: set by the server when it saves.
+- `decisoes::gravar` writes a temporary file and renames it over the real one. A broken file is an error and is never
+  overwritten. There is no delete: change the choice, or edit the file by hand.
 
 ## Tests
 

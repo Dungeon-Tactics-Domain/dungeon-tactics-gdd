@@ -74,6 +74,7 @@ importing (`src/components/content/mdx.tsx`):
 | `<Gallery imagens={[{ src, alt, legenda? }]} />`           | thumbnails with captions, click opens an accessible lightbox                                 |
 | `<YouTubeEmbed id titulo />`                               | youtube-nocookie player loaded only on click, plus a plain link                              |
 | `<DataTable colunas linhas legenda? />`                    | table from data; scrolls inside its box on a phone                                           |
+| `<DecisaoAsset id rotulo />`                               | Fernando's decision on one asset, saved on the server (`id` = `<lab>/<path>`, see below)     |
 
 Markdown links starting with `/` (e.g. `[Ver](/modelos/carrocas/high)`) stay inside the app without a reload; `http`
 links open in a new tab. Markdown inside a component needs blank lines around it:
@@ -99,6 +100,16 @@ Intro paragraph, rendered above the viewer.
 
 </Visualizador>
 ```
+
+## Decisions per asset
+
+`<DecisaoAsset id="musica/batalha-c" rotulo="Batalha · C" />` shows four buttons (Usar, Descartar, Refazer, Talvez)
+and a note. A click saves at once on the server (`PUT /api/decisoes/<id>`, file `data/decisoes.json`); the note saves
+with its own button. The page "Decisões" (top bar) lists them all, filterable by lab and choice, and lab sessions read
+the file. The `id` starts with the lab id and must never change once used, or old decisions stop matching: base it on
+the id the data already has (track id, piece id), not on a title. The music tracks (`FaixaMusica`) and the 3D pieces
+(`Bancada`, per selected piece) already show it; other labs insert it in their `.mdx` or components. When the server
+does not answer, the box says so and nothing is saved in the browser instead.
 
 ## Typed JSON
 

@@ -39,6 +39,12 @@ Types are in [`docs/CONTRATO-FABRICA.md`](../../docs/CONTRATO-FABRICA.md) and in
   - a `ping` event after 15 s without other events: use it as the liveness signal, since `atualizado` is not
     pushed on its own;
   - `retry: 3000`, so `EventSource` reconnects 3 s after a drop.
+- `GET /api/decisoes` returns every decision (`Decisao[]`, sorted by id; `[]` when the file does not exist yet).
+- `PUT /api/decisoes/{id}` with `{"lab": "musica", "escolha": "usar", "nota": "…"}` saves one decision and returns it.
+  The id keeps its slashes (`/api/decisoes/musica/batalha-c`). The server listens on the LAN, so the body is a trust
+  boundary: unknown fields or an unknown `escolha` give `422`; a bad id, an id that does not start with `lab`, or a
+  note over 2000 characters give `400` with the reason as text; a broken file gives `500` and is left as it was.
+  The file is re-read on every request (hand edits show up at once) and one lock serializes the writes.
 - Any other path serves `web/dist` when `web/dist/index.html` exists, with `index.html` as the fallback for
   client-side routes (missing assets also get `index.html`). Without a build, only the API is served.
 - No CORS headers: in development, proxy `/api` from the Vite dev server to this server.
@@ -61,6 +67,7 @@ The file is the TOML version of the old `fabrica-config.json`:
 grupo = "⚔️ Dungeon Tactics"              # sidebar group whose sessions join the board
 pastas = ['D:\Projetos\dungeon-tactics']  # sessions whose folder starts with this join (case-insensitive prefix)
 horas_sessao_nova = 24                    # unlisted sessions only show while active within this many hours
+decisoes = 'data/decisoes.json'           # optional: per-asset decisions file (read once at start-up)
 
 [[sessoes]]                               # fixed stations, in bench order
 sessao = "local_..."                      # the app's session id
@@ -81,7 +88,8 @@ cargo test -p labs-core export_bindings    # only the TypeScript types, into web
 ```
 
 `tests/api.rs` starts the server on an ephemeral port over synthetic session files and checks `/api/fabrica`,
-the first SSE event, an SSE event after a session file changes, and the SPA fallback.
+the first SSE event, an SSE event after a session file changes, the SPA fallback, and saving, listing and refusing
+decisions.
 
 ## Limits
 

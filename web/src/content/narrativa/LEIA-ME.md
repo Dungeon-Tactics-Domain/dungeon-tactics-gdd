@@ -30,6 +30,11 @@ copied. No file is above 5 MB (the largest is 2.0 MB).
   `slug:i:arquivo`), is kept in this browser's localStorage under `narrativa:marcas`. The narrative session cannot read
   it, and marks made on the old lab do not come along (`marcas.json` was `{}` at copy time). Pending for the main
   session: an API or an export.
+- **Not moved to the decisions API yet** (15/11): the shared `DecisaoAsset` (`data/decisoes.json`) has four choices
+  (usar, descartar, refazer, talvez) and one id per asset, while these marks have two (quero, não quero), keys per
+  lesson as well as per image (`slug:l:lição`), and drive the moodboard and the "O que eu quero" page. Switching means
+  mapping quero/não quero to usar/descartar, turning the keys into ids like `narrativa/<slug>/<file>` and rewriting
+  those two views: a change for the narrative session, not a drop-in swap.
 - **Videos** load on click through the shared `YouTubeEmbed` (the old lab put the iframe in directly), which adds an
   "Abrir no YouTube" link next to the old title link.
 - Section headings ("Lições", "Quero (n)", "Não quero (n)") are `h2` under the page `h1` (the old ones were `h4`/`h3`).

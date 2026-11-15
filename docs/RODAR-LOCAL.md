@@ -17,7 +17,9 @@ $p = Start-Process target\release\labs-server.exe -ArgumentList '--host','0.0.0.
 $p.Id | Set-Content labs-server.pid
 ```
 
-It reads `config/fabrica.toml` (git-ignored, real session ids) and serves `web/dist`.
+It reads `config/fabrica.toml` (git-ignored, real session ids) and serves `web/dist`. Fernando's per-asset decisions
+are saved in `data/decisoes.json` (git-ignored, created on the first save; another path with `decisoes = '...'` in the
+config). The page "Decisões" lists them; Claude sessions read the file.
 PC: http://localhost:5191/ . Phone: http://192.168.3.10:5191/ (needs the Windows Firewall rule for 5191, Private profile).
 
 ## Stop
@@ -36,5 +38,6 @@ Web-only changes need just `npm run build`: `web/dist` is read from disk on each
 ```powershell
 Get-NetTCPConnection -LocalPort 5191 -State Listen
 curl.exe -s http://localhost:5191/api/fabrica
+curl.exe -s http://localhost:5191/api/decisoes
 curl.exe -N --max-time 5 http://localhost:5191/api/fabrica/stream
 ```
