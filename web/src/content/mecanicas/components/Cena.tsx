@@ -46,12 +46,7 @@ function Escolha<T>({
 function Quadro({ src, titulo, legenda }: { src: string; titulo: string; legenda?: string }) {
   return (
     <figure className="m-0 bg-tinta">
-      <iframe
-        src={src}
-        title={titulo}
-        allow="fullscreen"
-        className="block aspect-video w-full border-0"
-      />
+      <iframe src={src} title={titulo} allow="fullscreen" className="block aspect-video w-full border-0" />
       {legenda && <figcaption className="px-2 py-1 text-[14px] text-sobre-tinta">{legenda}</figcaption>}
     </figure>
   );
