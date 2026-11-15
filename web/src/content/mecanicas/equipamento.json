@@ -1,0 +1,640 @@
+{
+  "fonte": "Proposta do lab de Mecânicas para equipamento, atributos e buffs, depois do grill de 15/11 (17 perguntas) com o Fernando. XP e nível ficam fora: todo atributo vem de equipamento e buffs. Números de hoje lidos em dungeon-tactics master (src/content/abilities.ts, units.ts, src/shared/battle/combat.ts). Cada linha diz se é decisão do grill ou proposta do lab.",
+  "formulas": [
+    {
+      "regra": "Escala",
+      "valor": "toda vida, dano e cura x5 (Golpe 10–16 vira 50–80; guerreiro 42 vira 210); empurrão 25, queda 45 por nível, espinhos 50; poder das peças na mesma escala",
+      "origem": "grill de 15/11 com o Fernando: \"aumente todos os números de vida e dano em 5x\""
+    },
+    {
+      "regra": "Acerto",
+      "valor": "como hoje (precisão − 3 por casa além da 1ª + 5 por nível acima − 20 de cobertura + 15 de lado / 30 pelas costas + acerto da peça, de 5% a 95%), depois × (1 − esquiva × direção)",
+      "origem": "grill de 15/11 com o Fernando (combat.ts hitChance)"
+    },
+    {
+      "regra": "Direção da esquiva",
+      "valor": "frente 1, lado 0,75, costas 0,5; os +15 de lado e +30 pelas costas continuam",
+      "origem": "grill de 15/11 com o Fernando"
+    },
+    {
+      "regra": "Esquiva contra magia",
+      "valor": "magia não é esquivada; contra magia vale a resistência mágica",
+      "origem": "proposta do lab (15/11); estava na opção recomendada da fórmula, a confirmar"
+    },
+    {
+      "regra": "Teto de esquiva",
+      "valor": "50%",
+      "origem": "proposta do lab (15/11): com 50% de frente, 90% de acerto vira 45%"
+    },
+    {
+      "regra": "Dano",
+      "valor": "sorteio da faixa da habilidade + poder físico (marcial) ou mágico (magia) nas duas pontas, depois × (1 − resistência física ou mágica) × (1 − resistência do elemento); arredonda para baixo como hoje, mínimo 1; contra-ataque × 0,5",
+      "origem": "grill de 15/11 com o Fernando (resistências em % que multiplicam); arredondar para baixo é o de hoje (combat.ts, Math.floor)"
+    },
+    {
+      "regra": "Limites da resistência",
+      "valor": "de −100% a 60% cada uma (nunca imune; o teto baixo segura empilhar peças)",
+      "origem": "proposta do lab (15/11)"
+    },
+    {
+      "regra": "Carregando",
+      "valor": "enquanto carrega: −50 de resistência física e −25 de mágica (substitui o ×1,5 de hoje)",
+      "origem": "grill de 15/11 com o Fernando"
+    },
+    {
+      "regra": "Elementos",
+      "valor": "fogo, gelo, raio, sombra, vento e luz; física, mágica e elemental podem ser negativas (fraqueza). O % de elemento numa peça, buff ou classe é sempre resistência (defesa); o ataque só ganha elemento pela habilidade ou pelo Óleo de fogo",
+      "origem": "grill de 15/11 com o Fernando"
+    },
+    {
+      "regra": "Poder",
+      "valor": "dividido em poder físico (somado nas habilidades marciais) e poder mágico (nas magias e na cura)",
+      "origem": "grill de 15/11 com o Fernando"
+    },
+    {
+      "regra": "Mana e stamina",
+      "valor": "magia gasta mana, habilidade marcial gasta stamina; o ataque básico (1º da lista) e o contra-ataque não gastam; a carga continua",
+      "origem": "grill de 15/11 com o Fernando"
+    },
+    {
+      "regra": "Regeneração",
+      "valor": "vida e mana: a soma da classe, das peças e dos buffs, no começo de cada turno do personagem; stamina: o regen da classe",
+      "origem": "grill de 15/11 com o Fernando (vida e mana); stamina por turno é proposta do lab (15/11)"
+    },
+    {
+      "regra": "Entre salas",
+      "valor": "stamina volta cheia a cada sala; mana segue a vida: +25% depois de cada sala, +50% ao descer de andar",
+      "origem": "grill de 15/11 com o Fernando"
+    },
+    {
+      "regra": "Duração de buff",
+      "valor": "em turnos do próprio personagem, ou até o fim do andar (altares e comida); o mesmo buff não acumula, renova",
+      "origem": "proposta do lab (15/11)"
+    },
+    {
+      "regra": "Cura",
+      "valor": "cura ignora resistências e fraquezas (a Cura de luz não fere nem cura mais um esqueleto)",
+      "origem": "proposta do lab (15/11)"
+    },
+    {
+      "regra": "Ataque básico do Colosso",
+      "valor": "a Onda Sombria é o 1º da lista dele, então sai de graça; a Explosão custa mana",
+      "origem": "regra do básico grátis aplicada a units.ts"
+    }
+  ],
+  "classes": [
+    {
+      "nome": "Guerreiro",
+      "vida": 210,
+      "stamina": 50,
+      "regenStamina": 5,
+      "mana": 0,
+      "regenMana": 0,
+      "resFisica": 10,
+      "resMagica": 0,
+      "esquiva": 5,
+      "elementos": ""
+    },
+    {
+      "nome": "Arqueiro",
+      "vida": 140,
+      "stamina": 40,
+      "regenStamina": 5,
+      "mana": 0,
+      "regenMana": 0,
+      "resFisica": 0,
+      "resMagica": 0,
+      "esquiva": 10,
+      "elementos": ""
+    },
+    {
+      "nome": "Mago",
+      "vida": 120,
+      "stamina": 0,
+      "regenStamina": 0,
+      "mana": 60,
+      "regenMana": 8,
+      "resFisica": -10,
+      "resMagica": 20,
+      "esquiva": 0,
+      "elementos": ""
+    },
+    {
+      "nome": "Ladino",
+      "vida": 130,
+      "stamina": 50,
+      "regenStamina": 5,
+      "mana": 0,
+      "regenMana": 0,
+      "resFisica": 0,
+      "resMagica": 0,
+      "esquiva": 20,
+      "elementos": ""
+    },
+    {
+      "nome": "Lanceiro",
+      "vida": 190,
+      "stamina": 50,
+      "regenStamina": 5,
+      "mana": 0,
+      "regenMana": 0,
+      "resFisica": 10,
+      "resMagica": 0,
+      "esquiva": 5,
+      "elementos": ""
+    }
+  ],
+  "inimigos": [
+    {
+      "nome": "Lacaio esqueleto",
+      "vida": 120,
+      "stamina": 30,
+      "regenStamina": 5,
+      "mana": 0,
+      "regenMana": 0,
+      "resFisica": 0,
+      "resMagica": 0,
+      "esquiva": 10,
+      "elementos": "luz −50, sombra +50"
+    },
+    {
+      "nome": "Arqueiro esqueleto",
+      "vida": 165,
+      "stamina": 40,
+      "regenStamina": 5,
+      "mana": 0,
+      "regenMana": 0,
+      "resFisica": 0,
+      "resMagica": 0,
+      "esquiva": 5,
+      "elementos": "luz −50, sombra +50"
+    },
+    {
+      "nome": "Mago sombrio",
+      "vida": 150,
+      "stamina": 0,
+      "regenStamina": 0,
+      "mana": 60,
+      "regenMana": 8,
+      "resFisica": -10,
+      "resMagica": 30,
+      "esquiva": 0,
+      "elementos": "sombra +50, luz −25"
+    },
+    {
+      "nome": "Soldado",
+      "vida": 225,
+      "stamina": 40,
+      "regenStamina": 5,
+      "mana": 0,
+      "regenMana": 0,
+      "resFisica": 25,
+      "resMagica": 0,
+      "esquiva": 5,
+      "elementos": ""
+    },
+    {
+      "nome": "Cavaleiro do Véu",
+      "vida": 190,
+      "stamina": 50,
+      "regenStamina": 5,
+      "mana": 0,
+      "regenMana": 0,
+      "resFisica": 30,
+      "resMagica": 0,
+      "esquiva": 0,
+      "elementos": "sombra +25, luz −25"
+    },
+    {
+      "nome": "Acólito do Véu",
+      "vida": 130,
+      "stamina": 0,
+      "regenStamina": 0,
+      "mana": 60,
+      "regenMana": 8,
+      "resFisica": 0,
+      "resMagica": 20,
+      "esquiva": 0,
+      "elementos": "sombra +50, luz −25"
+    },
+    {
+      "nome": "Bruto",
+      "vida": 410,
+      "stamina": 50,
+      "regenStamina": 5,
+      "mana": 0,
+      "regenMana": 0,
+      "resFisica": 20,
+      "resMagica": -10,
+      "esquiva": 0,
+      "elementos": ""
+    },
+    {
+      "nome": "Colosso de Ossos",
+      "vida": 800,
+      "stamina": 0,
+      "regenStamina": 0,
+      "mana": 120,
+      "regenMana": 10,
+      "resFisica": 30,
+      "resMagica": 20,
+      "esquiva": 0,
+      "elementos": "sombra +75, luz −50"
+    }
+  ],
+  "habilidades": [
+    {
+      "habilidade": "Golpe (50–80)",
+      "classe": "Guerreiro, Soldado, Cavaleiro",
+      "tipo": "marcial",
+      "custo": "básico, grátis",
+      "elemento": "—"
+    },
+    {
+      "habilidade": "Golpe pesado (95–130)",
+      "classe": "Guerreiro, Cavaleiro",
+      "tipo": "marcial",
+      "custo": "30 stamina",
+      "elemento": "—"
+    },
+    {
+      "habilidade": "Escudada (20–25, empurra 2)",
+      "classe": "Guerreiro, Soldado",
+      "tipo": "marcial",
+      "custo": "10 stamina",
+      "elemento": "—"
+    },
+    {
+      "habilidade": "Giro (35–50, raio 1)",
+      "classe": "Guerreiro",
+      "tipo": "marcial",
+      "custo": "30 stamina",
+      "elemento": "—"
+    },
+    {
+      "habilidade": "Tiro (45–70)",
+      "classe": "Arqueiro, Arqueiro esqueleto",
+      "tipo": "marcial",
+      "custo": "básico, grátis",
+      "elemento": "—"
+    },
+    {
+      "habilidade": "Tiro mirado (80–105)",
+      "classe": "Arqueiro",
+      "tipo": "marcial",
+      "custo": "25 stamina",
+      "elemento": "—"
+    },
+    {
+      "habilidade": "Tiro de recuo (25–35, empurra)",
+      "classe": "Arqueiro",
+      "tipo": "marcial",
+      "custo": "15 stamina",
+      "elemento": "—"
+    },
+    {
+      "habilidade": "Adaga (25–35)",
+      "classe": "Arqueiro, Arqueiro esqueleto",
+      "tipo": "marcial",
+      "custo": "5 stamina",
+      "elemento": "—"
+    },
+    {
+      "habilidade": "Raio de fogo (50–80)",
+      "classe": "Mago, Mago sombrio, Acólito",
+      "tipo": "magia",
+      "custo": "básico, grátis",
+      "elemento": "fogo"
+    },
+    {
+      "habilidade": "Explosão (45–70, área)",
+      "classe": "Mago, Mago sombrio, Colosso",
+      "tipo": "magia",
+      "custo": "25 mana",
+      "elemento": "fogo"
+    },
+    {
+      "habilidade": "Rajada (10–20, empurra 2)",
+      "classe": "Mago",
+      "tipo": "magia",
+      "custo": "15 mana",
+      "elemento": "vento"
+    },
+    {
+      "habilidade": "Cura (60–90)",
+      "classe": "Mago, Acólito",
+      "tipo": "magia",
+      "custo": "20 mana",
+      "elemento": "luz"
+    },
+    {
+      "habilidade": "Facada (45–60)",
+      "classe": "Ladino, Lacaio",
+      "tipo": "marcial",
+      "custo": "básico, grátis",
+      "elemento": "—"
+    },
+    {
+      "habilidade": "Faca arremessada (35–50)",
+      "classe": "Ladino",
+      "tipo": "marcial",
+      "custo": "10 stamina",
+      "elemento": "—"
+    },
+    {
+      "habilidade": "Rasteira (20–25, empurra 1)",
+      "classe": "Ladino, Lacaio",
+      "tipo": "marcial",
+      "custo": "10 stamina",
+      "elemento": "—"
+    },
+    {
+      "habilidade": "Golpe mortal (105–140)",
+      "classe": "Ladino",
+      "tipo": "marcial",
+      "custo": "30 stamina",
+      "elemento": "—"
+    },
+    {
+      "habilidade": "Machadada (90–120)",
+      "classe": "Bruto",
+      "tipo": "marcial",
+      "custo": "básico, grátis",
+      "elemento": "—"
+    },
+    {
+      "habilidade": "Pancada (35–50, empurra 2)",
+      "classe": "Bruto",
+      "tipo": "marcial",
+      "custo": "15 stamina",
+      "elemento": "—"
+    },
+    {
+      "habilidade": "Estocada longa (55–80)",
+      "classe": "Lanceiro",
+      "tipo": "marcial",
+      "custo": "básico, grátis",
+      "elemento": "—"
+    },
+    {
+      "habilidade": "Derrubar (25–35, empurra 1)",
+      "classe": "Lanceiro",
+      "tipo": "marcial",
+      "custo": "15 stamina",
+      "elemento": "—"
+    },
+    {
+      "habilidade": "Salto (95–130)",
+      "classe": "Lanceiro",
+      "tipo": "marcial",
+      "custo": "30 stamina",
+      "elemento": "—"
+    },
+    {
+      "habilidade": "Onda Sombria (50–80)",
+      "classe": "Colosso",
+      "tipo": "magia",
+      "custo": "básico, grátis",
+      "elemento": "sombra"
+    }
+  ],
+  "raridade": [
+    {
+      "regra": "Orçamento por raridade",
+      "valor": "comum 2 pontos, rara 4, épica 6 (uma épica pode ter 1 atributo negativo, que devolve pontos)",
+      "origem": "proposta do lab (15/11)"
+    },
+    {
+      "regra": "Valor de 1 ponto",
+      "valor": "10 de poder físico ou mágico · 25 de vida · 10% de física ou mágica · 20% de um elemento · 5% de esquiva · 5 de acerto · 20 de mana ou stamina máxima · 5 de regen de vida · 3 de regen de mana; velocidade +1 = 2 pontos, salto +1 = 2, movimento +1 = 3",
+      "origem": "proposta do lab (15/11)"
+    },
+    {
+      "regra": "Onde aparece",
+      "valor": "loja da cidade: comum; sala vencida: 30% de chance de uma comum e 10% de uma rara; chefe: 1 rara garantida, com 25% de chance de virar épica",
+      "origem": "proposta do lab (15/11)"
+    },
+    {
+      "regra": "Preço",
+      "valor": "comum 100 a 150 de ouro, rara 300, épica 600; vender devolve metade; o ouro não muda com a escala x5",
+      "origem": "proposta do lab (15/11); hoje as peças custam de 100 a 240 (items.ts)"
+    }
+  ],
+  "pecas": [
+    {
+      "nome": "Lâmina de ferro",
+      "espaco": "mão principal",
+      "raridade": "comum",
+      "atributos": "+20 poder físico"
+    },
+    {
+      "nome": "Arco de caça",
+      "espaco": "mão principal",
+      "raridade": "comum",
+      "atributos": "+10 poder físico, +5 acerto"
+    },
+    {
+      "nome": "Cajado de freixo",
+      "espaco": "mão principal",
+      "raridade": "comum",
+      "atributos": "+20 poder mágico"
+    },
+    {
+      "nome": "Lança do vigia",
+      "espaco": "mão principal",
+      "raridade": "rara",
+      "atributos": "+30 poder físico, +5 acerto"
+    },
+    {
+      "nome": "Cetro da brasa",
+      "espaco": "mão principal",
+      "raridade": "épica",
+      "atributos": "+40 poder mágico, +40% fogo, +3 regen de mana, −20% gelo"
+    },
+    {
+      "nome": "Broquel",
+      "espaco": "mão secundária",
+      "raridade": "comum",
+      "atributos": "+10% física, +5% esquiva"
+    },
+    {
+      "nome": "Grimório gasto",
+      "espaco": "mão secundária",
+      "raridade": "comum",
+      "atributos": "+20 mana, +3 regen de mana"
+    },
+    {
+      "nome": "Aljava de couro",
+      "espaco": "mão secundária",
+      "raridade": "rara",
+      "atributos": "+20 poder físico, +5 acerto, +20 stamina"
+    },
+    {
+      "nome": "Escudo do Véu",
+      "espaco": "mão secundária",
+      "raridade": "épica",
+      "atributos": "+30% física, +30% mágica, +40% sombra, −1 velocidade"
+    },
+    {
+      "nome": "Capuz",
+      "espaco": "capacete",
+      "raridade": "comum",
+      "atributos": "+5% esquiva, +5 acerto"
+    },
+    {
+      "nome": "Elmo de ferro",
+      "espaco": "capacete",
+      "raridade": "comum",
+      "atributos": "+10% física, +25 vida"
+    },
+    {
+      "nome": "Tiara da aurora",
+      "espaco": "capacete",
+      "raridade": "rara",
+      "atributos": "+10% mágica, +40% luz, +3 regen de mana"
+    },
+    {
+      "nome": "Gibão de couro",
+      "espaco": "corpo",
+      "raridade": "comum",
+      "atributos": "+25 vida, +5% esquiva"
+    },
+    {
+      "nome": "Cota de malha",
+      "espaco": "corpo",
+      "raridade": "rara",
+      "atributos": "+20% física, +50 vida"
+    },
+    {
+      "nome": "Manto guardado",
+      "espaco": "corpo",
+      "raridade": "rara",
+      "atributos": "+20% mágica, +25 vida, +20 mana"
+    },
+    {
+      "nome": "Couraça do colosso",
+      "espaco": "corpo",
+      "raridade": "épica",
+      "atributos": "+30% física, +125 vida, +5 regen de vida, −1 movimento"
+    },
+    {
+      "nome": "Grevas de mola",
+      "espaco": "pernas",
+      "raridade": "comum",
+      "atributos": "+1 salto"
+    },
+    {
+      "nome": "Calças acolchoadas",
+      "espaco": "pernas",
+      "raridade": "comum",
+      "atributos": "+10% física, +25 vida"
+    },
+    {
+      "nome": "Botas ligeiras",
+      "espaco": "pernas",
+      "raridade": "rara",
+      "atributos": "+1 movimento, +5% esquiva"
+    },
+    {
+      "nome": "Anel de brasa",
+      "espaco": "acessório",
+      "raridade": "comum",
+      "atributos": "+20% fogo, +10 poder mágico"
+    },
+    {
+      "nome": "Pedra-do-sono",
+      "espaco": "acessório",
+      "raridade": "comum",
+      "atributos": "+5 regen de vida, +25 vida"
+    },
+    {
+      "nome": "Amuleto ligeiro",
+      "espaco": "acessório",
+      "raridade": "rara",
+      "atributos": "+1 velocidade, +5 acerto, +5% esquiva"
+    },
+    {
+      "nome": "Talismã de osso",
+      "espaco": "acessório",
+      "raridade": "rara",
+      "atributos": "+40% sombra, +20% mágica"
+    }
+  ],
+  "buffs": [
+    {
+      "nome": "Grito de guerra",
+      "fonte": "habilidade nova do Guerreiro",
+      "efeito": "+20 poder físico ao Guerreiro e aos aliados a até 2 casas",
+      "custo": "20 stamina",
+      "duracao": "3 turnos"
+    },
+    {
+      "nome": "Barreira",
+      "fonte": "habilidade nova do Mago",
+      "efeito": "+25% mágica e +25% num elemento escolhido, em 1 aliado",
+      "custo": "20 mana",
+      "duracao": "3 turnos"
+    },
+    {
+      "nome": "Foco",
+      "fonte": "habilidade nova do Arqueiro",
+      "efeito": "+15 acerto e +10 poder físico em si",
+      "custo": "10 stamina",
+      "duracao": "2 turnos"
+    },
+    {
+      "nome": "Poção de vida",
+      "fonte": "consumível (loja, 40 de ouro)",
+      "efeito": "cura 100",
+      "custo": "a ação do turno",
+      "duracao": "na hora"
+    },
+    {
+      "nome": "Éter",
+      "fonte": "consumível (loja, 60 de ouro)",
+      "efeito": "+30 mana",
+      "custo": "a ação do turno",
+      "duracao": "na hora"
+    },
+    {
+      "nome": "Óleo de fogo",
+      "fonte": "consumível (loja, 50 de ouro)",
+      "efeito": "os ataques físicos viram fogo e ganham +10 poder físico",
+      "custo": "a ação do turno",
+      "duracao": "3 turnos"
+    },
+    {
+      "nome": "Poção de pedra",
+      "fonte": "consumível (loja, 50 de ouro)",
+      "efeito": "+30% física, −1 movimento",
+      "custo": "a ação do turno",
+      "duracao": "3 turnos"
+    },
+    {
+      "nome": "Altar da chama",
+      "fonte": "nó de altar no mapa do andar",
+      "efeito": "+20% fogo e +10 poder mágico ao grupo",
+      "custo": "grátis, 1 vez",
+      "duracao": "até o fim do andar"
+    },
+    {
+      "nome": "Fonte clara",
+      "fonte": "nó de altar no mapa do andar",
+      "efeito": "+5 regen de vida ao grupo",
+      "custo": "grátis, 1 vez",
+      "duracao": "até o fim do andar"
+    },
+    {
+      "nome": "Comida",
+      "fonte": "acampamento (pausado)",
+      "efeito": "cura e buff definidos com as receitas",
+      "custo": "ingredientes",
+      "duracao": "o andar inteiro (decidido em 15/11)"
+    }
+  ],
+  "perguntas": [
+    "Magia não é esquivada (contra magia só vale a resistência mágica): confirma?",
+    "Os números de classes e inimigos (vida, stamina, mana, resistências) servem de ponto de partida para jogar e afinar?"
+  ],
+  "nota": "Só a vida x5 e as regras de recurso são decisão do grill; stamina, mana, regen e resistências de cada classe e inimigo são proposta do lab, para afinar jogando."
+}

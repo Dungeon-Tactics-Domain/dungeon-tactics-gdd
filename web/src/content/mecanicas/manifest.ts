@@ -101,6 +101,28 @@ export default {
       ],
     },
     {
+      id: 'equipamento',
+      titulo: 'Equipamento e atributos',
+      icone: '🛡️',
+      resumo: 'Sem XP: fórmulas de acerto e dano, classes e inimigos x5, peças por raridade e buffs (grill de 15/11).',
+      paginas: [
+        {
+          id: 'formulas',
+          titulo: 'Fórmulas',
+          icone: '🧮',
+          resumo: 'Acerto com esquiva, dano com resistências, mana e stamina.',
+        },
+        {
+          id: 'classes',
+          titulo: 'Classes e inimigos',
+          icone: '🧍',
+          resumo: 'Vida, recursos, resistências e o custo de cada habilidade.',
+        },
+        { id: 'pecas', titulo: 'Peças', icone: '🗡️', resumo: '7 espaços, 3 raridades, drop e preço.' },
+        { id: 'buffs', titulo: 'Buffs e consumíveis', icone: '✨', resumo: 'Habilidades, poções, altares e comida.' },
+      ],
+    },
+    {
       id: 'clipes',
       titulo: 'Clipes do jogo',
       icone: '🎬',

@@ -16,7 +16,7 @@ const NOME: Record<string, string> = {
   brute: 'Bruto',
 };
 
-function Tabela({ colunas, linhas }: { colunas: string[]; linhas: ReactNode[][] }) {
+export function Tabela({ colunas, linhas }: { colunas: string[]; linhas: ReactNode[][] }) {
   return (
     <Rolagem>
       <table className={TABELA}>

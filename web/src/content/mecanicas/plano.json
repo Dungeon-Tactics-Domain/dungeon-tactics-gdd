@@ -13,6 +13,10 @@
     {
       "topic": "XP e nível",
       "decision": "Não entra agora: todos os atributos vêm de equipamento e buffs, e o foco passa a ser isso (15/11). Antes de cancelar, o ganho de XP tinha sido escolhido como base por sala mais bônus por ação."
+    },
+    {
+      "topic": "Equipamento e atributos (grill de 15/11)",
+      "decision": "Força vem do loot da descida e da cidade; 7 espaços (mão principal, mão secundária, capacete, corpo, pernas, 2 acessórios); vida e dano x5; resistência física, mágica e de 6 elementos (fogo, gelo, raio, sombra, vento, luz) em %, que multiplicam e podem ser negativas; esquiva multiplica o acerto (frente 1, lado 0,75, costas 0,5, com os +15/+30 de hoje); carregando: −50 física e −25 mágica; magia gasta mana, marcial gasta stamina, básico grátis, carga continua; stamina enche a cada sala, mana persiste como a vida; regen de vida e mana; poder físico e mágico separados; 3 raridades fixas; buffs de habilidade, consumível, altar e comida."
     }
   ],
   "phases": [
@@ -42,6 +46,13 @@
     }
   ],
   "requests": [
+    {
+      "date": "15/11",
+      "ask": "Grill de equipamento e buffs (\"Sim, começa\")",
+      "owner": "esta sessão",
+      "status": "feito",
+      "next": "Grupo Equipamento e atributos com as fórmulas, classes, peças e buffs em equipamento.json; 2 perguntas abertas na página Fórmulas"
+    },
     {
       "date": "15/11",
       "ask": "XP e nível no loop novo (pedido via Implementação)",
