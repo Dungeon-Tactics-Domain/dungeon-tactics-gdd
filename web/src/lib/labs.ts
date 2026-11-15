@@ -97,11 +97,8 @@ export const LABS: Place[] = [
   },
 ];
 
-// the Arquivo is not a town: copies of the claude.ai artifacts; a quiet link in the bar and on the home
-export const ARCHIVE = {
-  nome: 'Arquivo',
-  href: '/arquivo',
-  descricao: 'cópias dos artefatos do claude.ai',
+// the decisions page is not a town: its own quiet accent
+export const DECISOES_COR = {
   cor: '#5e5a48',
   corSuave: '#ecebe3',
 };

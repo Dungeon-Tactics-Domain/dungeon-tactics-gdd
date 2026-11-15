@@ -1,7 +1,6 @@
 import { Route, Routes } from 'react-router';
 import { Shell } from '@/components/layout/Shell';
 import { CONTEUDO } from '@/content/registry';
-import { Arquivo } from '@/features/arquivo/Arquivo';
 import { Decisoes } from '@/features/decisoes/Decisoes';
 import { DECISOES_ATIVAS } from '@/lib/recursos';
 import { FabricaPage } from '@/features/fabrica/FabricaPage';
@@ -22,7 +21,6 @@ export function App() {
         <Route element={<Shell />}>
           <Route index element={<Home />} />
           <Route path="fabrica" element={<FabricaPage />} />
-          <Route path="arquivo" element={<Arquivo />} />
           {DECISOES_ATIVAS && <Route path="decisoes" element={<Decisoes />} />}
           <Route path="exemplo-paginas/*" element={<ExemploPaginas />} />
           {LABS.map((lab) => (

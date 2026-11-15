@@ -7,7 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { useQuadro } from '@/lib/fabrica-context';
 import { askOf, GRUPOS, groupOf, ICONS, isLive, stateLabel, type Town, townsOf } from '@/lib/fabrica';
-import { ARCHIVE, GENERIC_COLOR, PORT } from '@/lib/labs';
+import { GENERIC_COLOR, PORT } from '@/lib/labs';
 import { useLabAccent } from '@/lib/useLabAccent';
 import type { Estacao, Fabrica } from '@/types/fabrica';
 import { Mapa } from './Mapa';
@@ -162,11 +162,6 @@ export function Home() {
         <h1 className="m-0 text-[40px] leading-none max-[700px]:text-[32px]">Reino dos Laboratórios</h1>
         <p className="m-0 text-[17px]">
           Cada lab é uma cidade; a Fábrica é o porto. Escolha uma cidade ou leia o quadro de avisos.
-        </p>
-        <p className="m-0">
-          <Link to={ARCHIVE.href} className="inline-flex min-h-11 items-center">
-            {ARCHIVE.nome}: {ARCHIVE.descricao} →
-          </Link>
         </p>
         <Relogio />
       </header>

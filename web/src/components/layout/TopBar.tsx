@@ -8,7 +8,6 @@ import { Sheet, SheetClose, SheetContent, SheetDescription, SheetTitle, SheetTri
 import { CONTEUDO } from '@/content/registry';
 import { useQuadro } from '@/lib/fabrica-context';
 import { stateLabel, type Town, townsOf } from '@/lib/fabrica';
-import { ARCHIVE } from '@/lib/labs';
 import { DECISOES_ATIVAS } from '@/lib/recursos';
 import { cn } from '@/lib/utils';
 
@@ -79,9 +78,6 @@ function Links({ towns }: { towns: Town[] }) {
           Decisões
         </NavLink>
       )}
-      <NavLink to={ARCHIVE.href} className={linkCls}>
-        {ARCHIVE.nome}
-      </NavLink>
     </>
   );
 }

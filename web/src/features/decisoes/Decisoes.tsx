@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { useQuadro } from '@/lib/fabrica-context';
-import { ARCHIVE, LABS } from '@/lib/labs';
+import { DECISOES_COR, LABS } from '@/lib/labs';
 import {
   COR_ESCOLHA,
   carregarDecisoes,
@@ -17,7 +17,7 @@ import { useLabAccent } from '@/lib/useLabAccent';
 const SELECT = 'min-h-11 rounded-md border-2 border-input bg-white px-3 text-base text-tinta';
 
 export function Decisoes() {
-  useLabAccent(ARCHIVE.cor, ARCHIVE.corSuave);
+  useLabAccent(DECISOES_COR.cor, DECISOES_COR.corSuave);
   const [todas, setTodas] = useState<Decisao[] | null>(null);
   const [erro, setErro] = useState('');
   const [lab, setLab] = useState('');
