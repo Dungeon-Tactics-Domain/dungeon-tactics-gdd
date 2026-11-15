@@ -6,6 +6,8 @@ import { extname, join, normalize, resolve } from 'node:path';
 
 const root = resolve(process.argv[2] ?? 'web/dist');
 const port = Number(process.argv[3] ?? 5207);
+// vite's watch rebuild ignores web/public, so a file copied there is served from the source folder until the next build
+const publicRoot = resolve(root, '..', 'public');
 const types = {
   '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json',
   '.svg': 'image/svg+xml', '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.webp': 'image/webp',
@@ -18,9 +20,12 @@ createServer((req, res) => {
   const url = decodeURIComponent(new URL(req.url, 'http://x').pathname);
   // No API on the public site: /api paths must not fall back to the app shell.
   if (url.startsWith('/api')) return res.writeHead(404).end();
+  const isFile = (f) => existsSync(f) && !statSync(f).isDirectory();
   let file = join(root, normalize(url));
   if (!file.startsWith(root)) return res.writeHead(403).end();
-  if (!existsSync(file) || statSync(file).isDirectory()) file = join(root, 'index.html');
+  const inPublic = join(publicRoot, normalize(url));
+  if (!isFile(file) && inPublic.startsWith(publicRoot) && isFile(inPublic)) file = inPublic;
+  if (!isFile(file)) file = join(root, 'index.html');
   // dist is rewritten by `build:watch`: a file can vanish between the check and the read, so a stream error must not kill the server.
   const stream = createReadStream(file);
   stream.on('error', () => (res.headersSent ? res.destroy() : res.writeHead(503).end()));
