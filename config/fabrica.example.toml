@@ -1,0 +1,66 @@
+# Copy to config/fabrica.toml (git-ignored) and replace the example ids with your own Claude Code session ids.
+# Factory board: which Claude Code sessions are stations. Same content as the old scripts/fabrica-config.json.
+# Re-read on every refresh, no restart needed. The order of [[sessoes]] is the order (and number) of the benches.
+# Ids the page draws: impl, labs, design, narrativa, mecanicas, modelos, musica; any other id is a generic town.
+# `espera` is optional and manual: remove it when the wait is over.
+
+grupo = "⚔️ Dungeon Tactics"
+pastas = ['D:\Projetos\my-game']
+horas_sessao_nova = 24
+
+[[sessoes]]
+sessao = "local_example-1"
+id = "impl"
+nome = "Orquestrador Dungeon Tactics"
+emoji = "🧭"
+papel = "junta commits, roda gates, publica"
+
+[[sessoes]]
+sessao = "local_example-2"
+id = "labs"
+nome = "Orquestrador dos Labs"
+emoji = "🏭"
+papel = "coordena os 5 labs"
+
+[[sessoes]]
+sessao = "local_example-3"
+id = "design"
+nome = "Lab · Design system e UX"
+emoji = "🎨"
+papel = "maquetes da interface"
+
+[[sessoes]]
+sessao = "local_example-4"
+id = "narrativa"
+nome = "Lab · Narrativa e loop"
+emoji = "📜"
+papel = "história e loop de jogo"
+espera = "esperando os fluxos (Portão 1)"
+
+[[sessoes]]
+sessao = "local_example-5"
+id = "mecanicas"
+nome = "Lab · Mecânicas e game feel"
+emoji = "🎮"
+papel = "regras e sensação de jogo"
+
+[[sessoes]]
+sessao = "local_example-6"
+id = "modelos"
+nome = "Lab · Modelos 3D"
+emoji = "🌳"
+papel = "mapas, objetos, árvores"
+
+[[sessoes]]
+sessao = "local_example-7"
+id = "musica"
+nome = "Lab · Música PSX"
+emoji = "🎵"
+papel = "trilha estilo FFT e BoF4"
+
+[[sessoes]]
+sessao = "local_example-8"
+id = "limpeza"
+nome = "Limpeza de sessões"
+emoji = "🧹"
+papel = "arruma as sessões do projeto"

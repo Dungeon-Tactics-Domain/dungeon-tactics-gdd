@@ -1,0 +1,19 @@
+target/
+web/node_modules/
+web/dist/
+*.log
+*.pid
+.env*
+
+# Real session ids of the developer; copy config/fabrica.example.toml to config/fabrica.toml
+config/fabrica.toml
+
+# Generated captures and audio (the app icon and favicon are the only images kept)
+*.png
+*.webp
+*.ogg
+*.mp3
+*.wav
+!web/public/favicon.*
+!web/public/icon*.*
+_notas/
