@@ -384,7 +384,7 @@ export function Paginas({ sumario: s, base }: { sumario: Sumario; base: string }
           {menu}
         </aside>
       )}
-      <main className="grid max-w-[980px] min-w-0 content-start gap-5 px-10 pt-7 pb-16 max-[700px]:px-4 max-[700px]:pt-5">
+      <main className="grid min-w-0 content-start gap-5 px-10 pt-7 pb-16 max-[700px]:px-4 max-[700px]:pt-5">
         {corpo}
       </main>
     </div>

@@ -137,14 +137,14 @@ export function FabricaPage() {
 
   if (conexao === 'sem-api')
     return (
-      <main className="fabrica mx-auto grid max-w-[1280px] gap-3 px-4 pt-7 pb-16 sm:px-10">
+      <main className="fabrica grid gap-3 px-4 pt-7 pb-16 sm:px-10">
         <h1 className="m-0 text-[40px] leading-none">Fábrica de games</h1>
         <Relogio />
       </main>
     );
 
   return (
-    <main className="fabrica mx-auto grid max-w-[1280px] content-start gap-7 px-4 pt-7 pb-16 sm:px-10">
+    <main className="fabrica grid content-start gap-7 px-4 pt-7 pb-16 sm:px-10">
       <header className="grid gap-2">
         <h1 className="m-0 text-[40px] leading-none">Fábrica de games</h1>
         <Relogio />

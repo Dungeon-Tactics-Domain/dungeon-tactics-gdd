@@ -35,7 +35,7 @@ export function Decisoes() {
   const nomeLab = (id: string) => LABS.find((l) => l.id === id)?.nome ?? id;
   const lista = (todas ?? []).filter((d) => (!lab || d.lab === lab) && (!escolha || d.escolha === escolha));
   return (
-    <main className="mx-auto grid max-w-[980px] gap-6 px-4 pt-7 pb-16 sm:px-10">
+    <main className="grid gap-6 px-4 pt-7 pb-16 sm:px-10">
       <header className="grid gap-2">
         <h1 className="m-0 text-[40px] leading-none">Decisões</h1>
         <p className="m-0 max-w-[72ch] text-[17px]">
