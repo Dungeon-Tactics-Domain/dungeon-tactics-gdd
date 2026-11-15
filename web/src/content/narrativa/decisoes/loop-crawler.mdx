@@ -1,0 +1,126 @@
+<Callout tom="aviso" titulo="Origem">
+
+O quadro das fases vem do áudio do Fernando (15/11), resumido por outra IA. As 10 decisões abaixo são dele, tomadas no grill de 15/11. A crítica e o MVP sugerido pela outra IA são sugestão, não decisão. Estado: guardado, ninguém age agora.
+
+</Callout>
+
+## Agora decidido
+
+Grill de 15/11, decisões do Fernando.
+
+<DataTable
+  colunas={['Assunto', 'Escolha', 'Risco registrado']}
+  linhas={[
+    [
+      'Descida',
+      'Andares encadeados: batalhas táticas no motor atual, vida e recursos persistem entre andares, acampamento no meio. Sem campanha linear. O jogo começa já na cidade, com alguns personagens e classes; entra-se na dungeon com recursos até voltar e se preparar. Destinos variados: dungeon, floresta, montanha.',
+      'Revisar a decisão de 12/11 (campanha Beacon Ashes, 7 fases em 2 atos), campaign.ts, o mapa-múndi e a "bifurcação da campanha".',
+    ],
+    [
+      'História',
+      'Cidade que evolui e rumores: NPCs, rumores e eventos destravam destinos e instalações; o objetivo longo é o fundo. Reaproveita rumores, cidades e missões de src/content.',
+      'Nenhum registrado.',
+    ],
+    [
+      'Pressão extra',
+      'Nenhuma por enquanto, só a bag, para validar o combate primeiro. Craftar e cozinhar dentro da dungeon (no acampamento) para se manter.',
+      'Sem segundo eixo, voltar fica sem risco; revisitar depois do combate validado.',
+    ],
+    [
+      'Acampamento',
+      'Ingredientes viram comida e consumíveis. Loot de bichos e plantas ocupa slots; cozinhar dá cura e buffs para o próximo andar; craftar faz poções, munição e reparo rápido. Craft pesado e upgrades ficam na cidade.',
+      'Nenhum registrado.',
+    ],
+    [
+      'Queda em batalha',
+      'O personagem fica caído e volta ferido (pouca vida no próximo andar), precisando de comida ou descanso no acampamento. Sem morte permanente por enquanto.',
+      'Permadeath (pillars.md:24) fica para depois.',
+    ],
+    [
+      'Bag do grupo',
+      'Peso e tamanho: slots compartilhados, itens ocupam mais de um slot (estilo tetris).',
+      'Mais UI e dados por item que a bag simples; validar cedo.',
+    ],
+    [
+      'Destinos',
+      'Procedurais no início: andares gerados por regras. Escolha dele, contra a recomendação de mapas feitos à mão.',
+      'Gerar mapas táticos bons com altura, água e rampas é trabalho grande; começar com gerador simples sobre o motor atual (parseGrid e withRamps em grid.ts).',
+    ],
+    [
+      'Cidade inicial',
+      'Grupo de 4 personagens com 3 a 4 classes existentes e 4 instalações: loja (suprimentos), ferreiro (craft e reparo), taverna (recrutar), cozinha ou boticário (ingredientes). Evolução da cidade depois do MVP.',
+      'Nenhum registrado.',
+    ],
+    [
+      'Campanha atual',
+      'Congelar e começar do zero. Beacon Ashes fica como está; o novo loop é outro modo desde o início.',
+      'Duplica conteúdo e o jogo publicado fica com dois modos; o lab de narrativa precisa de novo escopo.',
+    ],
+    [
+      'Ordem do protótipo',
+      'Descida jogável primeiro: gerador simples de 3 andares, vida e recursos persistindo, acampamento com cozinhar e craftar, bag com peso; cidade como menu mínimo.',
+      'Nenhum registrado.',
+    ],
+  ]}
+/>
+
+## As quatro fases
+
+Descrição do áudio do Fernando. Ponto bom: suprimentos trazidos da cidade e loot disputam os mesmos slots da bag.
+
+<DataTable
+  colunas={['Fase', 'O que rola', 'Decisão do jogador']}
+  linhas={[
+    [
+      'Cidade',
+      'Comprar recursos, recrutar e montar o grupo, craftar, reparar equipamento, upar.',
+      'O que levar, pois ocupa espaço na bag.',
+    ],
+    [
+      'Descida',
+      'Masmorra ou floresta, batalhas táticas, loot dos inimigos.',
+      'Brigar ou evitar? Pegar ou largar o loot?',
+    ],
+    ['Acampamento', 'Dentro da dungeon, gasta recursos para se recuperar.', 'Quanto gastar agora e quanto guardar.'],
+    ['Retorno', 'Bag cheia ou recursos no fim, volta à cidade.', 'Quando voltar.'],
+  ]}
+/>
+
+## Ainda a decidir
+
+Ninguém perguntou ainda no grill:
+
+- Economia (ouro, preços).
+- Classes e inimigos iniciais.
+- Diferenças entre dungeon, floresta e montanha.
+- Evolução da cidade.
+- Tamanho da bag e fórmula de peso.
+- Como "evitar" inimigos (furtividade?).
+
+<Callout tom="simples" titulo="Sugestões da outra IA, não decididas">
+
+- Falta um segundo eixo de risco: voltar custar caro, morte com consequência ou recurso que acaba (luz, comida, stress). A decisão 3 adiou isso.
+- Nome: é "dungeon crawler com hub" (Darkest Dungeon, Etrian Odyssey), não roguelike puro; decidir cedo porque muda o balanceamento.
+- MVP: 3 classes e 4 inimigos; bag de cerca de 12 slots; 1 dungeon de 3 andares com acampamento; cidade mínima (loja, ferreiro, taverna).
+
+</Callout>
+
+## Impacto
+
+<DataTable
+  colunas={['O quê', 'Efeito']}
+  linhas={[
+    [
+      'Campanha Beacon Ashes',
+      'Congelada como está (decisão 9). A decisão de 12/11 (7 fases em 2 atos, CLAUDE.md do jogo), campaign.ts e o mapa-múndi não evoluem.',
+    ],
+    [
+      'Lab de narrativa',
+      'Precisa de novo escopo: a história em fases dá lugar à cidade que evolui com rumores. O lab de narrativa e loop é o dono do loop.',
+    ],
+    [
+      'Sessão da Faxina',
+      'As dúvidas "quanto de Darkest Dungeon e XCOM entra" e "bifurcação da campanha" mudam de forma com esta decisão.',
+    ],
+  ]}
+/>

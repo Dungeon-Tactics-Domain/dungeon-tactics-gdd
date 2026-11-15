@@ -65,6 +65,12 @@ export default {
         },
         { id: 'pedidos', titulo: 'Pedidos', icone: '📋', resumo: 'Cada pedido seu, com dono e estado.' },
         { id: 'grill', titulo: 'Decisões tomadas', icone: '✅', resumo: 'O que o grill já fechou.' },
+        {
+          id: 'loop-crawler',
+          titulo: 'Loop de dungeon crawler',
+          icone: '🏰',
+          resumo: 'As 10 decisões do grill de 15/11, as fases e o que falta decidir.',
+        },
       ],
     },
     {
