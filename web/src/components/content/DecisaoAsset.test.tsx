@@ -37,6 +37,15 @@ describe('DecisaoAsset', () => {
     expect(JSON.parse(String(init!.body))).toEqual({ lab: 'modelos', escolha: 'refazer', nota: 'refazer as rodas' });
     expect(await screen.findByText(/^Salvo às/)).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Refazer' })).toHaveAttribute('aria-pressed', 'true');
+
+    // the note alone saves with the current choice
+    await userEvent.type(nota, ' traseiras');
+    await userEvent.click(screen.getByRole('button', { name: 'Salvar nota' }));
+    expect(JSON.parse(String(fetch.mock.calls.at(-1)![1]!.body))).toEqual({
+      lab: 'modelos',
+      escolha: 'refazer',
+      nota: 'refazer as rodas traseiras',
+    });
   });
 
   it('keeps the note and shows the server message when saving fails', async () => {
