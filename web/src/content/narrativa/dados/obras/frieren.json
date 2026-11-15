@@ -1,0 +1,131 @@
+{
+  "work": "Frieren: Beyond Journey's End",
+  "slug": "frieren",
+  "year": 2023,
+  "kind": "anime",
+  "why": "Mostra o que acontece depois que a aventura acabou: a perda de um companheiro vira motor da história e a memória dos mortos organiza a viagem. É modelo para o luto, para a estátua e o santuário e para um grupo que se forma devagar, de novo.",
+  "axes": {
+    "tom": "Melancólico e calmo, com humor leve. A aventura é pano de fundo e o centro é o tempo, a lembrança e o arrependimento de não ter conhecido bem quem morreu.",
+    "grupo": "O grupo do herói já acabou: ficam as lembranças, e a protagonista monta outro com aprendizes. Os laços se formam em viagens longas e coisas banais; desgastam-se pela diferença de ciclo de vida entre os membros.",
+    "morte": "A morte do herói abre a história, e o luto não é resolvido: é digerido em viagens e em rituais pequenos. Os mortos são lembrados por estátuas, feitos e promessas que os vivos cumprem.",
+    "mundo": "Um mundo pós-guerra, em que o mal maior foi derrotado, mas demônios e magos seguem relevantes. A pressão é o tempo e a memória, mais que a ameaça do dia.",
+    "politica": "Poucas facções em primeiro plano; há uma associação de magos com exames e hierarquia, e demônios que mimetizam a linguagem sem empatia. A política é institucional e menos de traição.",
+    "progressao": "Os personagens crescem em experiência e em vínculo: a mestra aprende a valorizar o que se constrói com outros, e os aprendizes herdam técnicas e valores. O progresso é lento e visível."
+  },
+  "lessons": [
+    {
+      "name": "A morte como ponto de partida",
+      "what": "A história começa depois que o herói do grupo original morre, e a viagem é a forma de processar a perda.",
+      "story": "Frieren percebe, no funeral de Himmel, que passou dez anos de viagem com ele sem o conhecer, e parte para visitar locais que eles percorreram juntos.",
+      "take": "Abrir uma campanha ou uma fase depois da queda de um comandante: o jogador herda as terras, as dívidas e as promessas dele, e rotas já visitadas mostram o que o comandante deixou.",
+      "avoid": "Explicar o luto em texto; funciona melhor em ação e lugares.",
+      "source": "https://en.wikipedia.org/wiki/Frieren"
+    },
+    {
+      "name": "Estátuas e santuários como memória do mundo",
+      "what": "Os feitos de um herói morto aparecem em estátuas e relatos.",
+      "story": "A estátua de Himmel e as histórias que as pessoas contam dele mostram o que ele deixou, mesmo décadas depois: ele já virou \"o Herói\", uma estátua e uma lenda.",
+      "take": "Locais já visitados guardam um monumento ou relíquia da companhia: a cada missão concluída, o mapa ganha uma marca que lembra quem caiu ali, e retornar a esse ponto rende diálogo ou bônus.",
+      "avoid": "Encher o mapa de monumentos sem história; cada um deve ter motivo.",
+      "source": "https://www.japanpowered.com/anime-articles/frieren-death-and-memory"
+    },
+    {
+      "name": "Formar um grupo novo é escolha com custo",
+      "what": "A heroína aceita aprendizes e companheiros mesmo sabendo que viverão menos que ela.",
+      "story": "Fern, órfã criada por Heiter, e Stark, treinado por Eisen, viajam com ela; o laço se forma em tarefas e silêncios.",
+      "take": "Recrutas que herdam de um veterano morto (técnica, arma, apelido) e carregam seu nome: cada veterano deixa um legado concreto no grupo.",
+      "avoid": "Fazer o herdeiro substituto do morto; o legado deve acrescentar, não repor.",
+      "source": "https://en.wikipedia.org/wiki/Frieren"
+    },
+    {
+      "name": "Tempo e ritmo lento como tom",
+      "what": "A série aceita viagens longas e cenas banais para criar peso emocional.",
+      "story": "Os episódios se demoram em magias pequenas (chá quente, tirar ferrugem de estátuas de bronze) e em dias comuns, e o luto aparece pelo acúmulo de detalhes.",
+      "take": "Entre expedições, dar à base momentos de pausa: cenas curtas com recrutas e objetos que ganham sentido só quando alguém morre.",
+      "avoid": "Cenas de pausa sem relação com o resto; precisam voltar no momento da perda.",
+      "source": "https://www.animefeminist.com/frieren-care-and-fantasy-pacing/"
+    },
+    {
+      "name": "Inimigos que imitam sem entender",
+      "what": "Demônios usam a linguagem humana como ferramenta, sem empatia real.",
+      "story": "Demônios falam e enganam com palavras, mas não compartilham os valores de quem escuta; a conversa vira armadilha.",
+      "take": "Uma facção inimiga cuja diplomacia é isca: acordos propostos parecem generosos, mas têm um custo escondido que o jogador pode ler se prestar atenção.",
+      "avoid": "Fazer todo inimigo mentiroso; alguns precisam ser francos.",
+      "source": "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    }
+  ],
+  "shots": [
+    {
+      "file": "refs/frieren/01-grupo-himmel.jpg",
+      "source": "https://myanimelist.net/anime/52991/Sousou_no_Frieren/pics",
+      "theme": "personagem",
+      "title": "O grupo original",
+      "note": "Ilustração com a elfa, um espadachim de cabelo azul, um padre de óculos com livro e um anão de elmo com chifres, em tons claros.",
+      "take": "O grupo-fantasma que a protagonista lembra: retrato de companhia antes da queda."
+    },
+    {
+      "file": "refs/frieren/02-descanso-grupo.jpg",
+      "source": "https://myanimelist.net/anime/52991/Sousou_no_Frieren/pics",
+      "theme": "base",
+      "title": "Descanso do grupo",
+      "note": "Pôster do segundo bloco: os quatro do grupo original descansando sob ruínas e folhagem ao sol.",
+      "take": "Cena de pausa como a tela de acampamento: o momento calmo que se perde depois."
+    },
+    {
+      "file": "refs/frieren/03-jornada-nova.jpg",
+      "source": "https://myanimelist.net/anime/52991/Sousou_no_Frieren/pics",
+      "theme": "campanha",
+      "title": "A jornada nova",
+      "note": "Frieren, Fern e Stark em um campo florido, com um castelo ao fundo e uma mala em primeiro plano.",
+      "take": "Começo de uma nova companhia: pequena, a pé, com bagagem."
+    },
+    {
+      "file": "refs/frieren/04-muralha-estrada.jpg",
+      "source": "https://myanimelist.net/anime/52991/Sousou_no_Frieren/pics",
+      "theme": "mapa",
+      "title": "Vista do mapa",
+      "note": "A protagonista com uma mala sobre uma muralha de pedra, olhando um vale com vila, rio e colinas.",
+      "take": "Estética de mapa de campanha: cidades no horizonte e estrada à frente."
+    },
+    {
+      "file": "refs/frieren/05-noite-exercito.jpg",
+      "source": "https://myanimelist.net/anime/52991/Sousou_no_Frieren/pics",
+      "theme": "tom",
+      "title": "Noite e ameaça",
+      "note": "Pôster em azul escuro: o grupo em silhueta diante de fileiras de seres ao longe, com olhos brilhantes.",
+      "take": "Tom de ameaça coletiva em contraponto ao tom suave do resto."
+    },
+    {
+      "file": "refs/frieren/06-trio.jpg",
+      "source": "https://myanimelist.net/anime/52991/Sousou_no_Frieren/pics",
+      "theme": "personagem",
+      "title": "O trio de viagem",
+      "note": "Frieren, a aprendiz de cabelo roxo e o jovem guerreiro de machado, lado a lado.",
+      "take": "Composição simples de grupo: uma mestra e dois herdeiros."
+    }
+  ],
+  "videos": [
+    {
+      "url": "https://www.youtube.com/watch?v=Iwr1aLEDpe4",
+      "title": "Frieren: Beyond Journey's End | OFFICIAL TRAILER",
+      "kind": "trailer",
+      "note": "Trailer oficial em inglês."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=PnnZc5fmiKI",
+      "title": "What Frieren Teaches Us About Grief",
+      "kind": "análise",
+      "note": "Ensaio sobre luto, útil para o memorial e a morte no jogo."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=91ePf9cCBtU",
+      "title": "Frieren, Grief, and Memorialisation",
+      "kind": "análise",
+      "note": "Foca em como a obra trata monumentos e memória."
+    }
+  ],
+  "notFound": [
+    "Cenas reais de episódio (só encontrei pôsteres e ilustrações do MyAnimeList; o site oficial não carregou).",
+    "Quadros de combate; o tom da obra tem pouco."
+  ]
+}

@@ -1,0 +1,164 @@
+{
+  "game": "XCOM 2",
+  "slug": "xcom-2",
+  "year": 2016,
+  "why": "Acrescenta um relógio contra o jogador (o Projeto Avatar) à estrutura de XCOM: a campanha vira uma corrida em que toda missão custa tempo. Também mostra a base móvel e a personalização que criam apego a soldados.",
+  "loop": {
+    "batalha": "Combate tático por turnos, muitas missões com limite de turnos, soldados com classes e promoções, hacking e inimigos novos.",
+    "corrida": "O jogador escolhe missões no mapa-múndi e contatos de resistência, enquanto o Projeto Avatar avança e eventos sombrios atrapalham.",
+    "base": "A Avenger, uma nave-base móvel, com laboratório, oficina, sala de personalização e ponte.",
+    "arco": "Missões de história desbloqueiam pesquisa e passos até destruir o Projeto Avatar antes do fim do relógio."
+  },
+  "gives": [
+    "missão → base: suprimentos, inteligência e corpos para pesquisa",
+    "base → missão: armas, armaduras, aliados e recrutas para o esquadrão",
+    "relógio do Avatar → mapa: faz a missão de rotina custar tempo e obriga a escolher",
+    "personalização → apego: o jogador investe no rosto e no nome dos soldados que depois pode perder"
+  ],
+  "mechanics": [
+    {
+      "name": "Projeto Avatar: o relógio do inimigo",
+      "what": "Um projeto alien avança enquanto o jogador gerencia a base; se terminar, o jogador perde, e sabotar laboratórios alien o atrasa.",
+      "story": "O inimigo tem objetivo próprio e a campanha vira corrida; o jogador pode adiar o fim, mas não evitá-lo.",
+      "take": "Uma barra de ameaça entre fases que só decisões do jogador atrasam, para dar urgência sem punir de surpresa.",
+      "avoid": "Relógio apertado demais, que torna missão secundária um erro; testar o ritmo.",
+      "source": "https://en.wikipedia.org/wiki/XCOM_2"
+    },
+    {
+      "name": "Inspiração de jogo cooperativo e eventos sombrios",
+      "what": "O diretor criativo cita o jogo de tabuleiro Pandemic como influência; os eventos sombrios são sabotagens do inimigo que o jogador pesa contra o relógio.",
+      "story": "Cada escolha tem um custo à vista, e o jogador sente a corrida em cada decisão.",
+      "take": "Decisões do tipo \"qual custo eu aceito\" em vez de uma única resposta certa.",
+      "avoid": "Eventos aleatórios sem contra-jogo.",
+      "source": "https://gameinformer.com/games/xcom_2/b/pc/archive/2015/12/10/xcom-2s-board-game-influences-and-the-race-against-the-alien-clock"
+    },
+    {
+      "name": "Avenger, base móvel",
+      "what": "A base é uma nave alien capturada com departamentos de pesquisa e engenharia, de onde o mapa-múndi é operado.",
+      "story": "A base é o símbolo da resistência: um refúgio que se move e cresce com a luta.",
+      "take": "Um hub com poucas salas e um papel simbólico claro, como a vila.",
+      "avoid": "Hub que parece só menu; dar rostos e falas aos moradores.",
+      "source": "https://en.wikipedia.org/wiki/XCOM_2"
+    },
+    {
+      "name": "Personalização e promoção de soldados",
+      "what": "Recrutas podem ser renomeados e ter aparência alterada (nome, rosto, nacionalidade); os sobreviventes recebem promoções e escolhem habilidades.",
+      "story": "O jogador cria o personagem que depois sofre; a perda dói porque ele investiu.",
+      "take": "Dar nome e visual a recrutas genéricos, e mostrar a ficha de missões e baixas.",
+      "avoid": "Muitas opções de aparência para um jogo com poucos modelos 3D.",
+      "source": "https://en.wikipedia.org/wiki/XCOM_2"
+    },
+    {
+      "name": "Laços e fadiga (expansão War of the Chosen)",
+      "what": "Missões seguidas deixam soldados cansados; soldados compatíveis formam laços que dão bônus táticos, e a morte do parceiro pode abalar o sobrevivente.",
+      "story": "Pares de soldados ganham uma história própria jogando juntos.",
+      "take": "Laços de pares por co-implantação, com um custo se um morre.",
+      "avoid": "Fonte secundária: os detalhes de fadiga e laços vêm de resumos de imprensa, não de página dos desenvolvedores.",
+      "source": "https://www.pcgamer.com/au/xcom-2s-huge-war-of-the-chosen-expansion-detailed"
+    },
+    {
+      "name": "Ironman: um só salvamento",
+      "what": "No modo Ironman há um único salvamento automático, sem recarregar após uma decisão ruim.",
+      "story": "Cada perda é definitiva, o que cria histórias de \"o dia em que perdemos\".",
+      "take": "Um modo opcional sem recarregar, para quem quer risco real.",
+      "avoid": "Obrigar o modo na campanha principal.",
+      "source": "https://en.wikipedia.org/wiki/XCOM_2"
+    }
+  ],
+  "shots": [
+    {
+      "file": "refs/xcom-2/01-geoscape-avatar.jpg",
+      "source": "https://store.steampowered.com/app/268500/",
+      "theme": "mapa",
+      "title": "Mapa-múndi com o Projeto Avatar",
+      "note": "Mapa da Ásia com barra de segmentos vermelhos do Projeto Avatar no topo, objetivos à esquerda, contatos para fazer e uma atividade de mercado negro; recursos no canto.",
+      "take": "Um mapa com o contador de ameaça à vista e missões e contatos ao mesmo tempo."
+    },
+    {
+      "file": "refs/xcom-2/02-missao-blacksite.jpg",
+      "source": "https://store.steampowered.com/app/268500/",
+      "theme": "campanha",
+      "title": "Missão de história: ADVENT Blacksite",
+      "note": "Tela vermelha com ficha da missão de prioridade, uma imagem com ruído, objetivo escrito e botões de lançar ou cancelar.",
+      "take": "Ficha de missão com objetivo escrito e porquê, antes de aceitar."
+    },
+    {
+      "file": "refs/xcom-2/03-hack-falhou.jpg",
+      "source": "https://store.steampowered.com/app/268500/",
+      "theme": "escolha",
+      "title": "Hack falhou",
+      "note": "Terminal com três opções de recompensa de hacking; a escolhida está marcada como falha, e o texto avisa que reforços inimigos vão chegar.",
+      "take": "Escolha de risco e recompensa com a chance mostrada em números."
+    },
+    {
+      "file": "refs/xcom-2/04-pesquisa.jpg",
+      "source": "https://store.steampowered.com/app/268500/",
+      "theme": "base",
+      "title": "Pesquisa na Avenger",
+      "note": "Cientista ao lado de uma tela de projetos de pesquisa; o projeto \"Hybrid Materials\" com custo, tempo e descrição.",
+      "take": "Pesquisa com custo e descrição, ligada ao que as missões trazem."
+    },
+    {
+      "file": "refs/xcom-2/05-personalizar.jpg",
+      "source": "https://store.steampowered.com/app/268500/",
+      "theme": "personagem",
+      "title": "Personalização de um soldado",
+      "note": "Sargento com bandeira da Noruega e apelido, com listas de capacete, tatuagens, cicatrizes e padrão de arma para ajustar.",
+      "take": "Apelido e visual como forma barata de apego a recrutas."
+    },
+    {
+      "file": "refs/xcom-2/06-ficha-soldado.jpg",
+      "source": "https://store.steampowered.com/app/268500/",
+      "theme": "personagem",
+      "title": "Ficha do soldado",
+      "note": "Sargento com missões, abates, vida, mobilidade, mira e vontade, e o equipamento do traje pesado ao lado.",
+      "take": "Ficha com missões e abates, que mostra a história do soldado."
+    },
+    {
+      "file": "refs/xcom-2/07-tatico-viper.jpg",
+      "source": "https://store.steampowered.com/app/268500/",
+      "theme": "outro",
+      "title": "Combate contra uma Viper",
+      "note": "Soldado mira numa criatura-cobra; painel de acertar e crítico com porcentagens e a ação Fire Weapon.",
+      "take": "Prévia de acerto e crítico escrita em um painel simples."
+    },
+    {
+      "file": "refs/xcom-2/08-tom-resistencia.jpg",
+      "source": "https://store.steampowered.com/app/268500/",
+      "theme": "tom",
+      "title": "Resistência ao pôr do sol",
+      "note": "Soldado encapuzado com rifle em contraluz de um sol laranja, com um alien magro ao fundo sobre um veículo.",
+      "take": "Arte de campanha com um clima claro: guerrilha contra uma ocupação."
+    }
+  ],
+  "videos": [
+    {
+      "url": "https://www.youtube.com/watch?v=bgZ9QUJ9EiM",
+      "title": "Official XCOM 2 Announcement Trailer - \"Moment of Truth\"",
+      "kind": "trailer",
+      "note": "O anúncio pela 2K; estabelece a premissa de que os aliens venceram e a resistência luta."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=hoR7Bnqdkns",
+      "title": "XCOM 2 Strategy Layer Deep Dive with Jake Solomon",
+      "kind": "palestra",
+      "note": "O diretor criativo explica a camada estratégica; o vídeo mais útil para o nosso ciclo mapa, base e missão."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=TPYNmKmph7k",
+      "title": "Exploring Hidden Stories in the World of XCOM 2",
+      "kind": "palestra",
+      "note": "Palestra da GDC sobre contar história pelo ambiente."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=n3bENBYSucQ",
+      "title": "XCOM 2: War of the Chosen Announce Trailer",
+      "kind": "trailer",
+      "note": "Mostra os Escolhidos, os laços e a fadiga da expansão."
+    }
+  ],
+  "notFound": [
+    "Captura do Memorial (Hall da Fama) e da tela de laços: a API da Steam não traz imagens da expansão",
+    "Fonte primária dos desenvolvedores para fadiga e laços da expansão; usei imprensa"
+  ]
+}

@@ -1,0 +1,161 @@
+{
+  "work": "Grimgar: Ashes and Illusions",
+  "slug": "grimgar",
+  "year": 2016,
+  "kind": "anime",
+  "why": "É a referência de como um grupo de novatos sem destino heroico sobrevive, falha e enterra um dos seus: perda real, luto lento e liderança improvisada. Serve de régua de tom para permadeath, onde cada morte precisa mudar o grupo, não só tirar uma ficha da mesa.",
+  "axes": {
+    "tom": "Baixo e contido: poucas músicas altas, muita respiração, tela pintada em aquarela e luz natural. A fantasia é tratada como trabalho duro e medo cotidiano, com humor leve entre os momentos pesados. Nada é espetáculo; a tensão vem de errar um passo.",
+    "grupo": "Seis desconhecidos acordam sem memória e se formam por falta de opção, não por afinidade: Manato (sacerdote e líder), Haruhiro (ladino), Moguzo (guerreiro e tanque), Ranta (cavaleiro das trevas, bocudo), Yume (caçadora, de arco) e Shihoru (maga tímida). O vínculo cresce no ritual diário (comer, dividir o dinheiro, dormir) e se rompe quando falta alguém.",
+    "morte": "A morte do líder Manato, no quinto de doze episódios, é o centro: a cremação vem na hora (o mestre dos sacerdotes confirma que não dá para reviver) e os três episódios seguintes são de luto e culpa. Cada sobrevivente reage de um jeito, e o grupo precisa reorganizar papéis e pedir ajuda para continuar.",
+    "mundo": "A base dos Soldados Voluntários (o Exército da Fronteira de Alterna) e as terras ao redor são apresentadas pelo ponto de vista de quem não sabe nada: o que é um goblin, onde dá para dormir, o que custa uma pedra. O mundo é um trabalho a ser aprendido; as minas e ruínas são o lugar onde o grupo mede o próprio limite.",
+    "politica": "Pano de fundo: os Soldados Voluntários são a Força de Reserva do Exército da Fronteira de Alterna (a Lua Vermelha, comandada por Britney) e vivem de caçar goblins e kobolds; o conflito maior fica fora do campo (não confirmado). A política é a causa do trabalho, não um enredo de intriga.",
+    "progressao": "Cresce o que se pratica: o primeiro goblin sai caro, e só depois de dias de chuva e caçadas falhas o grupo limpa as ruínas de Damuro; cada classe (ladino, mago, caçador, sacerdote, guerreiro, cavaleiro das trevas) ganha técnica por repetição. O novato vira veterano ao aprender a ter medo da coisa certa."
+  },
+  "lessons": [
+    {
+      "name": "Começar sem herói e sem destino",
+      "what": "Os protagonistas acordam sem memória numa torre estranha e viram Soldados Voluntários Aprendizes do Exército da Fronteira, registrados pela chefe Britney; ninguém é eleito e ninguém sabe a história do mundo.",
+      "story": "O grupo entra nas guildas de classe e começa a caçar goblins; a série abre com eles lutando mal e fugindo de um único goblin. O arco é ganhar o direito de ser chamado de aventureiro.",
+      "take": "Campanha que abre com recrutas comuns, sem heróis nem destino especial. As classes vêm de uma escolha com pouca informação, e o jogador descobre o que cada uma faz jogando, o que torna a perda de um membro mais pessoal.",
+      "avoid": "Cuidado com o tutorial longo: a graça é o jogador errar cedo, mas o jogo não pode punir demais antes de ensinar.",
+      "source": "https://en.wikipedia.org/wiki/Grimgar_of_Fantasy_and_Ash"
+    },
+    {
+      "name": "A morte que muda o grupo",
+      "what": "Manato morre com uma flecha de goblin nas costas quando o grupo recua, e a série dedica o que vem depois a luto, culpa e reorganização.",
+      "story": "A cremação vem logo em seguida; nos três episódios seguintes o grupo fica sem curandeiro, Shihoru se fecha, e Haruhiro conversa com Manato na cabeça e carrega o caderno dele. Só depois o grupo consegue seguir em frente.",
+      "take": "Permadeath com pausa obrigatória: ao morrer um membro, a base mostra uma cena de luto e abre decisões (quem assume o papel, quem fica, quem sai). Cada morte altera um vínculo e uma ficha, não só o número de unidades.",
+      "avoid": "Não explicar a dor em texto demais: a série funciona porque deixa silêncio e erros pequenos mostrarem o luto.",
+      "source": "https://www.animenewsnetwork.com/feature/2016-02-24/grimgar-of-fantasy-and-ash-and-the-consequences-of-death/.98975"
+    },
+    {
+      "name": "Liderança forçada",
+      "what": "Haruhiro vira líder porque o título ficou vago, não porque se sente preparado.",
+      "story": "No episódio 10 ele se pergunta o que Manato faria e, ao confrontar Ranta por falta de trabalho em equipe, vê o próprio argumento desmontar pela dúvida. O ponto de virada vem no episódio 12, quando fica para trás para segurar o kobold Death Spots.",
+      "take": "O jogador, ou um NPC, assume o comando por acidente (quem sobrou). A liderança pode ter um atributo de confiança que sobe com decisões acertadas e cai com perdas, e o grupo reage à qualidade dessas decisões.",
+      "avoid": "Evitar que o líder substituto seja só uma versão menor do anterior; ele deve ter fraquezas e um estilo próprio.",
+      "source": "https://yattatachi.com/grimgar-episode-10-review"
+    },
+    {
+      "name": "Sobrevivência como rotina",
+      "what": "A série gasta tempo com custo de vida: dormir, comer, ganhar dinheiro, comprar equipamento.",
+      "story": "Os personagens vendem chifres e garras de goblin por moedas de cobre e prata, compram armas, roupas e comida, e até o funeral de Manato tem preço (50 de cobre pela cremação e 50 pelo túmulo); a primeira metade do episódio 9 é só um dia de folga. A sensação é de ofício, com a fantasia como emprego perigoso.",
+      "take": "Uma economia de base em que a expedição precisa pagar suas contas (pousada, reparo, remédio) e o excedente é escolha, não garantia. O tempo de descanso vira decisão: treinar, curar ou lidar com o estresse do grupo.",
+      "avoid": "Não transformar a economia em planilha chata; o custo precisa aparecer em cenas, não só em números.",
+      "source": "https://en.wikipedia.org/wiki/Grimgar_of_Fantasy_and_Ash"
+    },
+    {
+      "name": "Substituir é difícil",
+      "what": "Mary, sacerdotisa cujo grupo anterior morreu nas minas de Cyrene, entra no lugar de Manato e precisa conquistar um espaço que não é dela.",
+      "story": "O grupo acha Mary fria e distante, e Yume chora dizendo que só eram um grupo de verdade com Manato como líder. A integração leva episódios e é feita de pequenos gestos.",
+      "take": "Recrutas novos que chegam depois de uma perda não preenchem a vaga: eles têm histórico e ressentimentos, e o grupo tem uma reação própria a eles. Recrutar vira cena, não só compra.",
+      "avoid": "Evitar o substituto perfeito que resolve tudo; a tensão da vaga é parte do luto.",
+      "source": "https://yattatachi.com/grimgar-of-fantasy-and-ash-episode-6-review"
+    },
+    {
+      "name": "Minas como prova",
+      "what": "A ida às minas de Cyrene, onde o grupo anterior de Mary morreu, põe o grupo contra Death Spots, um kobold muito mais forte, e quase o rompe.",
+      "story": "Ao fugir de Death Spots, o grupo perde Ranta de vista; Ranta escapa sozinho e, no episódio 12, Haruhiro dá aos outros a chance de recuar e fica para enfrentar o kobold. Os dois sobrevivem, e os outros voltam para buscá-lo. A cena mostra que o crescimento do grupo é medido pelo que ele aguenta decidir.",
+      "take": "Uma masmorra-chave no meio da campanha que exige que o jogador escolha quem arrisca o quê, com a possibilidade de separar o grupo e de uma perda parcial. O fim do arco precisa mostrar o que mudou, não só quem sobreviveu.",
+      "avoid": "Evitar o resgate sempre bem-sucedido: se o jogador sabe que todo mundo volta, a escolha deixa de pesar.",
+      "source": "https://www.animenewsnetwork.com/review/grimgar-of-fantasy-and-ash/episode-12/.100358"
+    }
+  ],
+  "videos": [
+    {
+      "url": "https://www.youtube.com/watch?v=aR0UcWq_JrY",
+      "title": "Grimgar Ashes and Illusions - Official Trailer (Crunchyroll Store Australia)",
+      "kind": "trailer",
+      "note": "1:21 mostra o clima de aquarela e o grupo recém-formado."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=yHCh8ffTZWM",
+      "title": "Grimgar, Ashes and Illusions - Opening Theme Ver 2 - Knew day (Crunchyroll)",
+      "kind": "abertura",
+      "note": "A abertura resume o tom: esperança contida e luz natural."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=fGPRcxXLKag",
+      "title": "Fantasy Lied - Grimgar of Fantasy and Ash (Ayvhel)",
+      "kind": "análise",
+      "note": "Ensaio de 12 min sobre como a série desmonta a fantasia de aventura."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=mheWyK1kmMY",
+      "title": "Why Grimgar's Fights Work - The Importance of Weight in Action (Under The Scope)",
+      "kind": "análise",
+      "note": "Explica por que os combates têm peso e o que isso faz pelo luto."
+    }
+  ],
+  "notFound": [
+    "Site oficial da série fora do ar e sem acesso para baixar imagens",
+    "Mapa oficial de Alterna ou das minas de Cyrene não encontrado"
+  ],
+  "shots": [
+    {
+      "file": "refs/grimgar/01-alterna-sob-a-neve.jpg",
+      "source": "https://yattatachi.com/grimgar-episode-9-review",
+      "theme": "base",
+      "title": "Alterna sob a neve",
+      "note": "Vista alta de uma cidade de pedra cercada de montanhas, com neve nos telhados e duas figuras de costas na mureta.",
+      "take": "Base humana e pequena, enquadrada de longe: a cidade como lugar de trégua."
+    },
+    {
+      "file": "refs/grimgar/02-o-grupo-reunido.jpg",
+      "source": "https://yattatachi.com/grimgar-episode-12-review",
+      "theme": "personagem",
+      "title": "O grupo reunido",
+      "note": "Cinco membros do grupo lado a lado diante de uma construção de madeira, cada um com armadura ou roupa diferente (chapéu de bruxa, armadura pesada, capa de arqueira).",
+      "take": "Silhuetas e classes legíveis de longe: a party é o personagem."
+    },
+    {
+      "file": "refs/grimgar/03-titulo-do-luto.jpg",
+      "source": "https://yattatachi.com/grimgar-episode-5-review",
+      "theme": "morte",
+      "title": "Episódio 5: o luto",
+      "note": "Cartão de título pastel com o rosto de uma personagem e texto japonês sobre chorar não ser sinal de fraqueza.",
+      "take": "O jogo pode anunciar o luto com uma tela própria, sem trilha dramática."
+    },
+    {
+      "file": "refs/grimgar/04-pesames-de-orion.jpg",
+      "source": "https://yattatachi.com/grimgar-episode-5-review",
+      "theme": "morte",
+      "title": "Condolências de Orion",
+      "note": "Um guerreiro loiro de armadura vermelha, à luz de tochas, entrega um presente depois da morte de Manato.",
+      "take": "A comunidade de aventureiros reconhece a perda: o mundo reage à morte."
+    },
+    {
+      "file": "refs/grimgar/05-yume-em-lagrimas.jpg",
+      "source": "https://yattatachi.com/grimgar-episode-5-review",
+      "theme": "morte",
+      "title": "Yume em lágrimas",
+      "note": "Yume de olhos úmidos encosta o rosto em alguém em primeiro plano, num fundo escuro.",
+      "take": "A dor mostrada em close e sem fala: o luto como cena de personagem."
+    },
+    {
+      "file": "refs/grimgar/06-acampamento-na-floresta.jpg",
+      "source": "https://yattatachi.com/grimgar-of-fantasy-and-ash-episode-3",
+      "theme": "campanha",
+      "title": "Acampamento na floresta",
+      "note": "O grupo descansa sob lonas à noite, num acampamento azulado e frio.",
+      "take": "Cena de descanso entre expedições: onde o estresse vira conversa ou briga."
+    },
+    {
+      "file": "refs/grimgar/07-reconhecimento-do-goblin.jpg",
+      "source": "https://yattatachi.com/grimgar-of-fantasy-and-ash-episode-3",
+      "theme": "campanha",
+      "title": "Reconhecimento do goblin",
+      "note": "Os personagens espreitam de dentro de uma ruína de pedra, com um mapa no chão, enquanto avaliam um goblin dormindo.",
+      "take": "O planejamento da caçada como cena: quem entra, quem vigia."
+    },
+    {
+      "file": "refs/grimgar/08-encapuzados.jpg",
+      "source": "https://yattatachi.com/grimgar-of-fantasy-and-ash-episode-11-review",
+      "theme": "tom",
+      "title": "Mortos encapuzados",
+      "note": "Figuras encapuzadas de rosto pálido numa penumbra azul-esverdeada, mortos animados por uma maldição.",
+      "take": "Ameaça sem rosto, tom frio: o inimigo é uma condição do lugar."
+    }
+  ]
+}

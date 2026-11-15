@@ -1,0 +1,177 @@
+{
+  "game": "Fire Emblem: Three Houses",
+  "slug": "fe-three-houses",
+  "year": 2019,
+  "why": "É a melhor referência de como um calendário e uma base (o mosteiro) criam apego a recrutas: o jogador ensina, conversa, almoça e luta com os mesmos alunos por meses, e a escolha da casa decide a rota e quem vira inimigo. Serve para o ritmo entre estágios, os apoios (relacionamentos) e a bifurcação de campanha, e tem permadeath opcional.",
+  "loop": {
+    "batalha": "Tática por turnos em grade com batalhões (grupos de tropas genéricas que acompanham uma unidade), artes de combate e o Divine Pulse, que desfaz um número limitado de ações; a previsão de combate mostra dano, acerto e crítico.",
+    "corrida": "Cada capítulo da Parte I é um mês: nos dias úteis o jogador ensina; nos fins de semana escolhe explorar, seminário, batalha ou descanso; o último fim de semana traz a batalha obrigatória que fecha o mês.",
+    "base": "O mosteiro de Garreg Mach é o hub: sala de aula, refeitório, estufa, pesca, missões e conversas com alunos; a exploração se limita aos terrenos do mosteiro, e o mapa-múndi só serve para escolher capítulos.",
+    "arco": "A Parte I tem 12 capítulos na escola; um salto de cinco anos leva à Parte II, de guerra. A casa escolhida e uma decisão no meio da história definem quatro rotas (Vento Verdejante, Lua Azul, Flor Carmesim e Neve Prateada)."
+  },
+  "gives": [
+    "aula → batalha: o que o jogador ensina e os objetivos de cada aluno decidem as habilidades e as classes disponíveis em campo",
+    "fim de semana → apoio: explorar, comer e conversar sobem os níveis de apoio, que depois rendem conversas e finais",
+    "batalha → calendário: a batalha do último fim de semana fecha o mês e avança a história",
+    "escolha de casa → rota: a casa e uma decisão no meio decidem quem o jogador comanda e contra quem luta",
+    "tempo → apego: meses de convivência antes da guerra fazem o jogador se importar com quem vai lutar na Parte II"
+  ],
+  "mechanics": [
+    {
+      "name": "Calendário do mosteiro",
+      "what": "Cada capítulo cobre um mês: dias úteis são de aula e no fim de semana o jogador escolhe uma só ação (explorar, seminário, batalha ou descansar). A batalha obrigatória fica no último fim de semana do mês, e há feriados e aniversários com atividades extras (segundo guias da comunidade).",
+      "story": "O tempo passa em um ritmo previsível, o que faz cada fim de semana ser uma decisão sobre com quem passar o tempo e o que deixar de fazer.",
+      "take": "Um ritmo de estágio, base e estágio com poucas escolhas por \"semana\", em vez de uma base livre; combina com a cidade entre fases.",
+      "avoid": "Tempo que se repete sem custo; há vídeos de jogadores repetindo meses para ganhar experiência (título visto em busca), sinal de que o calendário precisa de teto.",
+      "source": "https://fireemblemwiki.org/wiki/Fire_Emblem:_Three_Houses"
+    },
+    {
+      "name": "Ensinar e planejar as aulas",
+      "what": "O jogador, como professor, define os objetivos dos alunos e o plano de aula (tutoria, tutoria automática, tarefa em grupo, definir metas) e as ações custam pontos de tempo; há mais atividades do que pontos.",
+      "story": "O desenvolvimento do aluno é consequência de uma decisão do jogador, o que cria posse sobre cada um.",
+      "take": "Ligar o treino à escolha de classe: o recruta evolui na direção que o jogador planejou.",
+      "avoid": "Menus de aula demorados toda semana; manter automático como opção (existe a tutoria automática).",
+      "source": "https://en.wikipedia.org/wiki/Fire_Emblem:_Three_Houses"
+    },
+    {
+      "name": "Apoios e relacionamentos",
+      "what": "Eventos de tempo livre e ações de apoio constroem relações; no menu os níveis vão de C a S e cada passo custa renome (400 pts por personagem na captura). Relacionamentos fortes podem levar a casamento depois do salto no tempo.",
+      "story": "A lista de apoios mostra quanto o jogador investiu em cada pessoa, e cada nível é uma pequena cena de convivência.",
+      "take": "Níveis de apoio entre duas unidades como progresso de relacionamento, desbloqueando cenas e bônus em batalha.",
+      "avoid": "Apoio só por cutscene que dá bônus; no nosso caso, ligar a vínculos que afetam a permadeath.",
+      "source": "https://en.wikipedia.org/wiki/Fire_Emblem:_Three_Houses"
+    },
+    {
+      "name": "Escolha de casa e bifurcação de rota",
+      "what": "A casa escolhida define a rota: Golden Deer vai para Verdant Wind, Blue Lions para Azure Moon e Black Eagles para Crimson Flower, se Byleth ficar com Edelgard, ou Silver Snow, se não. A Parte II tem 9 capítulos em Silver Snow, 10 em Azure Moon e Verdant Wind e 6 em Crimson Flower.",
+      "story": "A decisão do jogador (\"matar ou proteger Edelgard\") muda a guerra inteira e quem são os aliados; a mensagem \"esta decisão mudará drasticamente a história\" aparece na tela.",
+      "take": "Uma única grande decisão no meio da campanha, que muda aliados e finais, depois de a campanha ter criado apego aos dois lados.",
+      "avoid": "Rotas inteiras que o jogador não vê; mais conteúdo para fazer do que cabe em sete fases.",
+      "source": "https://fireemblemwiki.org/wiki/Fire_Emblem:_Three_Houses"
+    },
+    {
+      "name": "Clássico, Casual e Divine Pulse",
+      "what": "No modo Clássico os caídos morrem para sempre; no Casual voltam depois da batalha. O Divine Pulse, liberado a certa altura da história, desfaz um número limitado de ações por batalha.",
+      "story": "A escolha do modo muda o peso emocional de cada baixa, e o Pulse transforma o erro em decisão (voltar ou aceitar a perda).",
+      "take": "Permadeath opcional na escolha do modo e uma recarga limitada de desfazer, em vez de reiniciar a luta.",
+      "avoid": "Desfazer ilimitado; o Pulse tem teto, o que preserva o risco.",
+      "source": "https://en.wikipedia.org/wiki/Fire_Emblem:_Three_Houses"
+    },
+    {
+      "name": "Batalhões e classes",
+      "what": "Unidades equipam batalhões, grupos de tropas genéricas que dão benefícios e habilidades; vários personagens começam como Plebeu ou Nobre e podem mudar de classe a partir do nível 5 sem perder o nível, e as classes já liberadas podem ser trocadas livremente.",
+      "story": "O batalhão dá aos recrutas anônimos uma presença visível em campo e os tutelados mudam de profissão como parte do crescimento.",
+      "take": "Mudança de classe sem reiniciar nível, com exame ou condição, que casa com o nosso sistema de classes da vila.",
+      "avoid": "Exames com chance de falha por porcentagem; o jogador deve ver o requisito claro.",
+      "source": "https://fireemblemwiki.org/wiki/Fire_Emblem:_Three_Houses"
+    }
+  ],
+  "shots": [
+    {
+      "file": "refs/fe-three-houses/01-calendario.jpg",
+      "source": "https://fireemblemwiki.org/wiki/File:Ss_fe16_calendar.png",
+      "theme": "base",
+      "title": "Calendário: Lua da Grande Árvore",
+      "note": "Domingo 27/4 com o calendário do mês, Byleth à esquerda e quatro opções (Explore, Seminar, Battle, Rest); o dia 27 está destacado e há marcadores de evento nos dias 20, 27 e 30.",
+      "take": "Um calendário mensal com um menu de quatro ações no fim de semana e a data de batalha marcada."
+    },
+    {
+      "file": "refs/fe-three-houses/02-plano-de-aula.jpg",
+      "source": "https://fireemblemwiki.org/wiki/File:Ss_fe16_lesson_plan.png",
+      "theme": "base",
+      "title": "Plano de aula",
+      "note": "Byleth diante da mesa na sala de aula, com alunos sentados; menu com Tutoring, Auto-Tutor, Group Task, Set Goals e Start Class, e a dica \"Select someone to train them\".",
+      "take": "Preparar o treino como uma cena no ambiente, não como um menu separado."
+    },
+    {
+      "file": "refs/fe-three-houses/03-escolha-edelgard.jpg",
+      "source": "https://fireemblemwiki.org/wiki/File:Ss_fe16_black_eagle%27s_choice.png",
+      "theme": "escolha",
+      "title": "A escolha que divide a rota",
+      "note": "Rosto de Byleth em fundo verde escuro e o aviso \"This decision will drastically change the story\", com as opções \"I must kill Edelgard\" e \"I must protect Edelgard\".",
+      "take": "Uma escolha de duas linhas com aviso explícito de que muda a história, em tela dedicada."
+    },
+    {
+      "file": "refs/fe-three-houses/04-batalhao-em-campo.jpg",
+      "source": "https://fireemblemwiki.org/wiki/File:Ss_fe16_byleth_with_battalion.png",
+      "theme": "outro",
+      "title": "Byleth e seu batalhão",
+      "note": "Byleth (Nv 3, 28/28 de vida, Espada de Ferro) cercado por soldados genéricos em círculo; minimapa com a grade à direita e a dica de terreno \"Grassland - Neutral terrain\".",
+      "take": "Tropas genéricas ao redor de cada herói, dando presença visual sem novas unidades de controle."
+    },
+    {
+      "file": "refs/fe-three-houses/05-missao-secundaria.jpg",
+      "source": "https://fireemblemwiki.org/wiki/File:Ss_fe16_quests.jpg",
+      "theme": "campanha",
+      "title": "Missão secundária de Seteth",
+      "note": "Cartão de missão \"Maintaining Your Training\" com retrato de Seteth, texto de contexto, recompensas (Peso de Treino, Espada de Aço, Merchant Military e 300 pts de renome) e botões Accept e Decline.",
+      "take": "Pedidos com recompensa visível antes de aceitar, como cartões de missão da cidade."
+    },
+    {
+      "file": "refs/fe-three-houses/06-niveis-de-apoio.jpg",
+      "source": "https://fireemblemwiki.org/wiki/File:Ss_fe16_ng%2B_support_menu.jpg",
+      "theme": "personagem",
+      "title": "Níveis de apoio",
+      "note": "Lista de personagens (Seteth, Flayn, Hanneman, Manuela, Alois, Catherine, Shamir, Cyril) com os níveis C, B, A e S, cada um custando 400 pts de renome; painel de Byleth à direita (menu de Novo Jogo+).",
+      "take": "Lista de relacionamentos com níveis visíveis e custo claro."
+    },
+    {
+      "file": "refs/fe-three-houses/07-refeitorio.jpg",
+      "source": "https://fireemblemwiki.org/wiki/File:Ss_fe16_ashe_dining_hall.png",
+      "theme": "tom",
+      "title": "Almoço no refeitório",
+      "note": "Ashe e outra aluna à mesa, com a fala \"This looks delicious! Let's eat!\"; vitrais ao fundo e outros frequentadores.",
+      "take": "Cenas de convivência cotidiana dentro da base como fonte de apego."
+    },
+    {
+      "file": "refs/fe-three-houses/08-mosteiro-entrada.jpg",
+      "source": "https://fireemblemwiki.org/wiki/File:Ss_fe16_byleth_on_bridge_to_castle.png",
+      "theme": "tom",
+      "title": "Entrada do mosteiro",
+      "note": "Byleth, de costas, sobe em direção à fachada gótica do mosteiro, com estandartes brancos e vermelhos e guardas de armadura ao lado.",
+      "take": "A base como lugar com arquitetura própria e identidade (o mosteiro vira \"casa\")."
+    },
+    {
+      "file": "refs/fe-three-houses/09-previsao-de-combate.jpg",
+      "source": "https://fireemblemwiki.org/wiki/File:Ss_fe16_byleth_vs_hilda_combat_forecast.png",
+      "theme": "outro",
+      "title": "Previsão de combate contra Hilda",
+      "note": "Byleth contra Hilda: HP 20/25 contra 7/15, ataque 8 e 5, acerto 93% e 86%, crítico 6 e 2, com batalhões em campo e minimapa em perspectiva.",
+      "take": "Previsão numérica ao lado dos retratos, no mesmo espírito da previsão do nosso combate."
+    }
+  ],
+  "videos": [
+    {
+      "url": "https://www.youtube.com/watch?v=kymq4y_PGIQ",
+      "title": "Fire Emblem: Three Houses - Officers Academy trailer (Nintendo Switch)",
+      "kind": "trailer",
+      "note": "Trailer da Nintendo sobre a rotina do professor na Academia de Oficiais; título visto em busca."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=C0sxzOnFxfg",
+      "title": "Fire Emblem: Three Houses - Exploring the Garreg Mach Monastery (School Tour)",
+      "kind": "análise",
+      "note": "Passeio pelo mosteiro como hub do jogo; título visto em busca."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=ADaRsEhTB70",
+      "title": "Fire Emblem: Three Houses - Nintendo Switch Trailer - Nintendo E3 2019",
+      "kind": "trailer",
+      "note": "Trailer do E3 2019 que apresenta o mosteiro e a Academia; título visto em busca."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=SJv6-SUY-88",
+      "title": "Fire Emblem - Three Houses - Managing the Monastery",
+      "kind": "análise",
+      "note": "Vídeo de jogador sobre como administrar o calendário e o mosteiro; título visto em busca, conteúdo não conferido por mim."
+    }
+  ],
+  "notFound": [
+    "Fire Emblem: Three Houses não está na Steam; as capturas vêm da Fire Emblem Wiki (fireemblemwiki.org), que reúne capturas oficiais e de revistas; todas estão em inglês",
+    "Captura do mapa-múndi com a escolha de capítulos e da tela de seleção de rota",
+    "Tela de Casual/Clássico e do Divine Pulse: não achei imagem utilizável",
+    "A captura de apoio (06) é do menu de Novo Jogo+, com custo de 400 pts de renome; no jogo normal o menu pode diferir",
+    "Fonte dos mecanismos: fireemblemwiki.org e Wikipedia; não li resenhas completas (a GameSpot bloqueou) nem material oficial da Nintendo",
+    "Não conferi o conteúdo dos vídeos, só os títulos"
+  ]
+}

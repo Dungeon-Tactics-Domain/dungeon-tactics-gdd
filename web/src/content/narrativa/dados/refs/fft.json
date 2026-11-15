@@ -1,0 +1,158 @@
+{
+  "game": "Final Fantasy Tactics",
+  "slug": "fft",
+  "year": 1997,
+  "why": "É a referência de tom e de estrutura do nosso jogo: uma guerra de sucessão contada por um nobre menor, com política de classes, traição da Igreja e uma crônica \"reescrita\" pela história oficial. Mostra como batalhas longas, texto denso e troca de classes sustentam uma campanha séria.",
+  "loop": {
+    "batalha": "Batalhas em grade isométrica com altura, fila de turnos por CT e ações carregadas. Unidades genéricas feitas pelo jogador lutam ao lado de personagens nomeados da trama; um genérico caído vira cristal ou baú e se perde.",
+    "corrida": "Entre batalhas há o mapa-múndi: o grupo anda por rotas, cai em encontros aleatórios e escolhe o próximo destino. Os capítulos fecham com batalhas decisivas da trama.",
+    "base": "Cidades com loja, taverna e recrutamento, onde se gasta ouro, se troca de classe com JP e se equipa o grupo.",
+    "arco": "Quatro capítulos de guerra, intriga e revelação: Ramza começa como cadete, vira fugitivo e herege e descobre quem manipulou a guerra. A história é narrada como relato de um historiador sobre um herói apagado."
+  },
+  "gives": [
+    "batalha → base: ouro e JP para comprar equipamento e trocar de classe",
+    "base → batalha: classes e habilidades novas mudam a composição do grupo",
+    "batalha → arco: cada luta importante empurra a intriga e custa um aliado ou revela um traidor",
+    "arco → batalha: convidados da trama entram e saem do grupo, mudando o time sem aviso",
+    "corrida → base: o mapa decide onde reabastecer e recrutar"
+  ],
+  "mechanics": [
+    {
+      "name": "Sistema de classes (jobs) com JP",
+      "what": "Recrutas começam como Escudeiro ou Químico; novas classes se liberam subindo as anteriores, e JP compra habilidades até a maestria.",
+      "story": "A mesma pessoa pode ser cavaleiro ou mago ao longo da guerra; a evolução do grupo acompanha a escalada do conflito.",
+      "take": "Liberar classes por pré-requisito e mostrar as bloqueadas como silhuetas, para dar objetivo na troca de classe.",
+      "avoid": "Árvore com 20 classes e dezenas de habilidades: o nosso escopo é de 7 fases.",
+      "source": "https://en.wikipedia.org/wiki/Final_Fantasy_Tactics"
+    },
+    {
+      "name": "Conflito de classes como núcleo político",
+      "what": "Nobres contra plebeus: a guerra dos Leões é de sucessão, mas o que move os personagens é a brigada plebeia contra soldados nobres.",
+      "story": "O pano de fundo político dá motivo concreto para cada batalha e para a ruptura entre Ramza e Delita.",
+      "take": "Dar a cada fase um conflito social simples (quem manda, quem paga) além de \"matar os inimigos\".",
+      "avoid": "Excesso de nomes de casas e títulos logo no início.",
+      "source": "https://en.wikipedia.org/wiki/Final_Fantasy_Tactics"
+    },
+    {
+      "name": "História contada como crônica reescrita",
+      "what": "Um historiador apresenta o relato de um herói queimado como herege; o verdadeiro protagonista não consta dos registros oficiais.",
+      "story": "O enquadramento explica por que o mundo ignora quem salvou tudo e dá peso trágico ao final ambíguo.",
+      "take": "Moldura curta de abertura e fim que muda o sentido da campanha; funciona até com um texto de duas linhas.",
+      "avoid": "Depender de moldura para esconder furos de roteiro.",
+      "source": "https://en.wikipedia.org/wiki/Final_Fantasy_Tactics"
+    },
+    {
+      "name": "Genéricos descartáveis, nomeados protegidos",
+      "what": "Unidades criadas pelo jogador podem ser perdidas de vez depois de uma contagem; o protagonista caído encerra a partida.",
+      "story": "A perda é sentida sem quebrar o roteiro, porque os personagens essenciais ficam protegidos.",
+      "take": "Dois níveis de risco: recrutas podem morrer, personagens da história não.",
+      "avoid": "Número exato da contagem: só confirmamos em guia de fã, não em fonte oficial.",
+      "source": "https://game8.co/games/Final-Fantasy-Tactics/archives/543565"
+    },
+    {
+      "name": "Convidados que entram e saem do grupo",
+      "what": "Personagens nomeados se juntam conforme a trama; em certas batalhas são controlados pela IA ou ficam de fora.",
+      "story": "Cada chegada ou partida marca um ponto da história e torna a lealdade um evento, não um número.",
+      "take": "Convidado em fase específica, com perda visível quando sai.",
+      "avoid": "Lista exata de entradas e saídas por capítulo: não confirmada em fonte lida.",
+      "source": "https://en.wikipedia.org/wiki/Final_Fantasy_Tactics"
+    },
+    {
+      "name": "Mapa e crônica na Ivalice Chronicles",
+      "what": "A edição nova traz um menu \"Crônica\" com o estado do reino e das pessoas, uma linha do tempo passado/presente e um resumo do que cada grupo está fazendo.",
+      "story": "Resume a trama para quem retoma depois de dias e mostra onde cada facção está.",
+      "take": "Tela de \"onde estamos\" na campanha: mapa, um parágrafo e quem viaja com o herói.",
+      "avoid": "",
+      "source": "https://www.rpgfan.com/gallery/final-fantasy-tactics-the-ivalice-chronicles-screenshots/"
+    }
+  ],
+  "shots": [
+    {
+      "file": "refs/fft/01-batalha-fila.jpg",
+      "source": "https://store.steampowered.com/app/1004640",
+      "theme": "outro",
+      "title": "Batalha com fila de turnos e prévia de dano",
+      "note": "Cena isométrica com fila numerada em coluna, atacante à esquerda, alvo à direita e dano 36 no centro. Aparecem aliados \"Guest\" na fila, mostrando convidados controlados pela IA.",
+      "take": "Marcar convidados na fila de turnos como \"Convidado\"."
+    },
+    {
+      "file": "refs/fft/02-cripta-tom.jpg",
+      "source": "https://store.steampowered.com/app/1004640",
+      "theme": "tom",
+      "title": "Cripta escura com corpos no chão",
+      "note": "Cena quase toda em sombra, duas figuras iluminadas num círculo de luz e três corpos caídos ao redor. O campo de batalha vira palco de cena.",
+      "take": "Luz focada numa área e o resto no escuro para cenas de perda."
+    },
+    {
+      "file": "refs/fft/03-torre-chuva.jpg",
+      "source": "https://store.steampowered.com/app/1004640",
+      "theme": "tom",
+      "title": "Torre na chuva com chocobo",
+      "note": "Torre de pedra com telhado azul, chuva fina, personagens pequenos e um chocobo amarelo. Tom melancólico num mapa com ponte e água.",
+      "take": "Clima (chuva, noite) para mudar o tom de uma fase sem mudar o mapa."
+    },
+    {
+      "file": "refs/fft/04-cena-pedras.jpg",
+      "source": "https://store.steampowered.com/app/1004640",
+      "theme": "personagem",
+      "title": "Dois personagens sentados entre rochas ao entardecer",
+      "note": "Cena calma: dois personagens pequenos conversam num platô cercado de rochas, céu em degradê laranja e azul, com foco de câmera estreito.",
+      "take": "Cena de diálogo no próprio terreno, sem tela de retrato."
+    },
+    {
+      "file": "refs/fft/05-cristal-morte.jpg",
+      "source": "https://store.steampowered.com/app/1004640",
+      "theme": "morte",
+      "title": "Cristal azul subindo sobre um personagem à noite",
+      "note": "Luz azul em coluna sobre uma figura, chuva e vários aliados e inimigos em penumbra. Lembra o efeito do cristal que surge quando uma unidade cai.",
+      "take": "Efeito visual forte e curto para a perda definitiva de uma unidade."
+    },
+    {
+      "file": "refs/fft/06-mapa-cronica.jpg",
+      "source": "https://www.rpgfan.com/gallery/final-fantasy-tactics-the-ivalice-chronicles-screenshots/",
+      "theme": "mapa",
+      "title": "Menu Crônica: estado do reino",
+      "note": "Mapa envelhecido com regiões, ícones de personagens, uma barra \"passado/presente\" e legenda sobre o grupo que viaja rumo a um castelo.",
+      "take": "Mapa da campanha com ícones de quem está onde e um resumo em texto."
+    },
+    {
+      "file": "refs/fft/07-classes.jpg",
+      "source": "https://store.steampowered.com/app/1004640",
+      "theme": "campanha",
+      "title": "Tela de classes com silhuetas bloqueadas",
+      "note": "Grade de bonecos de classe com nome, nível e custo de JP; as ainda não liberadas aparecem como silhuetas pretas.",
+      "take": "Silhueta preta para classe bloqueada, dando meta clara à troca de classe."
+    }
+  ],
+  "videos": [
+    {
+      "url": "https://www.youtube.com/watch?v=hpBxKcGb49A",
+      "title": "FINAL FANTASY TACTICS - The Ivalice Chronicles | Launch Trailer",
+      "kind": "trailer",
+      "note": "Canal oficial FINAL FANTASY, 1 min; mostra a edição atual."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=N6wAVOtgs-A",
+      "title": "FINAL FANTASY TACTICS - The Ivalice Chronicles | Story Trailer",
+      "kind": "trailer",
+      "note": "Canal oficial, 1:53; resume o tom político e trágico da trama."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=OnqX3AUS0a4",
+      "title": "The Story Behind Final Fantasy Tactics",
+      "kind": "análise",
+      "note": "Behind The Pixels, 19 min; bastidores da história e da equipe."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=WYQiMjxferc",
+      "title": "The Tragedy That Created A Heretic | FFT Story (Part 1)",
+      "kind": "análise",
+      "note": "Ivalice Insider, 42 min; leitura da trama do Ramza."
+    }
+  ],
+  "notFound": [
+    "Lista de capítulos com entradas e saídas de convidados: a fonte lida (Wikipedia) não traz esse detalhe",
+    "Palestra oficial de desenvolvedor (GDC) sobre a história: não achei",
+    "Número oficial da contagem regressiva de unidades caídas: só em guia de fã"
+  ]
+}

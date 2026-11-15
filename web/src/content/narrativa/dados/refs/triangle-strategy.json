@@ -1,0 +1,150 @@
+{
+  "game": "Triangle Strategy",
+  "slug": "triangle-strategy",
+  "year": 2022,
+  "why": "É o melhor exemplo recente de transformar escolha moral em mecânica de grupo: a Balança da Convicção faz o protagonista convencer aliados antes de uma decisão. Mostra como alternar cenas, exploração e batalhas num arco curto com ramos que se reencontram.",
+  "loop": {
+    "batalha": "Batalhas em grade isométrica com altura, fila de turnos e golpes em área; a arte em pixel com efeito de miniatura dá clima de maquete.",
+    "corrida": "Capítulos alternam batalha, exploração sem combate (conversas, itens escondidos, dinheiro e informação) e cenas de decisão.",
+    "base": "Entre capítulos há um acampamento com loja de melhorias de arma e materiais, onde se gasta dinheiro por unidade.",
+    "arco": "Três nações disputam sal e ferro. Em pontos-chave o grupo vota pelas Balanças; os ramos divergem e se reencontram até uma decisão final com quatro finais."
+  },
+  "gives": [
+    "arco → base: dinheiro e materiais vêm de capítulos e escolhas",
+    "base → batalha: melhorias de arma desbloqueiam habilidades novas",
+    "batalha → arco: o resultado e as escolhas em cena empurram a votação seguinte",
+    "exploração → arco: conversas e itens escondidos mudam o que o jogador sabe antes de votar",
+    "arco → batalha: o ramo escolhido define quem entra e quem sai do grupo"
+  ],
+  "mechanics": [
+    {
+      "name": "Balança da Convicção",
+      "what": "Em decisões importantes, os conselheiros votam e vence o lado com maioria; antes da votação o protagonista pode tentar convencer aliados.",
+      "story": "A escolha vira negociação com personagens que o jogador conhece, em vez de um menu sozinho.",
+      "take": "Antes de uma decisão chave, conversar com cada companheiro e saber o que cada um quer.",
+      "avoid": "Votação com tantos passos que cada capítulo vire uma etapa de reuniões.",
+      "source": "https://en.wikipedia.org/wiki/Triangle_Strategy"
+    },
+    {
+      "name": "Três convicções: Utilidade, Moralidade e Liberdade",
+      "what": "As escolhas somam pontos em três eixos; segundo a wiki de fãs, escolher dá mais pontos que votar. Os pontos influenciam recrutas e finais.",
+      "story": "Cada decisão marca o tipo de líder que o herói está virando.",
+      "take": "Eixos simples (por ex. dois) para dar identidade ao herói sem planilha.",
+      "avoid": "Ocultar o efeito: críticos reclamam que algumas escolhas não pesam no fim.",
+      "source": "https://triangle-strategy.fandom.com/wiki/Conviction"
+    },
+    {
+      "name": "Linha do tempo colapsante",
+      "what": "Os ramos divergem por um tempo e depois voltam para a história central, até uma decisão final que leva a quatro finais.",
+      "story": "Preserva escolhas visíveis sem multiplicar conteúdo.",
+      "take": "Ramos curtos que reconvergem; um único ponto final decisivo.",
+      "avoid": "Rotas inteiras novas por escolha.",
+      "source": "https://en.wikipedia.org/wiki/Triangle_Strategy"
+    },
+    {
+      "name": "Recrutas por caminho",
+      "what": "Alguns personagens só podem ser recrutados em certos ramos; quando um plano é rejeitado, o companheiro que o defendia pode sair do grupo.",
+      "story": "A lealdade vira consequência, não só estatística.",
+      "take": "Um aliado que sai se o jogador contraria o plano dele.",
+      "avoid": "Muitos aliados exclusivos: o grupo vira loteria.",
+      "source": "https://en.wikipedia.org/wiki/Triangle_Strategy"
+    },
+    {
+      "name": "Exploração sem combate",
+      "what": "Fases sem luta permitem falar com NPCs, achar itens ocultos, ganhar dinheiro e informação.",
+      "story": "Dá ritmo e respira entre batalhas; o mundo ganha rostos.",
+      "take": "Uma fase de cidade por ato, sem combate.",
+      "avoid": "Cidades grandes: o nosso escopo é pequeno.",
+      "source": "https://en.wikipedia.org/wiki/Triangle_Strategy"
+    },
+    {
+      "name": "Melhoria de arma por materiais",
+      "what": "A tela de melhoria mostra postos de arma em fileiras e pede materiais e dinheiro por posto; algumas melhorias liberam habilidades usáveis em batalha.",
+      "story": "Dá uso concreto ao ouro e aos materiais que a campanha entrega.",
+      "take": "Moeda rara por fase para melhorar uma arma específica.",
+      "avoid": "Árvore longa por unidade.",
+      "source": "https://store.steampowered.com/app/1850510"
+    }
+  ],
+  "shots": [
+    {
+      "file": "refs/triangle-strategy/01-navio-tom.jpg",
+      "source": "https://store.steampowered.com/app/1850510",
+      "theme": "tom",
+      "title": "Navio no porto com o grupo",
+      "note": "Navio de velas azul e amarela com o emblema da casa, o grupo no convés, cais de pedra e madeira e água brilhando.",
+      "take": "Chegada e partida do grupo como cena de mapa, no estilo maquete."
+    },
+    {
+      "file": "refs/triangle-strategy/02-balanca-conviccao.jpg",
+      "source": "https://store.steampowered.com/app/1850510",
+      "theme": "escolha",
+      "title": "Salão da Balança da Convicção",
+      "note": "Salão de madeira com estandartes e uma balança sobre uma chama; o protagonista no palco olha o conselho de costas.",
+      "take": "Cena física para as decisões do herói, com o conselho à vista."
+    },
+    {
+      "file": "refs/triangle-strategy/03-melhoria-arma.jpg",
+      "source": "https://store.steampowered.com/app/1850510",
+      "theme": "base",
+      "title": "Melhoria de armas por postos",
+      "note": "Retrato grande da personagem à esquerda; três fileiras de postos de arma com ícones de habilidade e os materiais exigidos à direita.",
+      "take": "Mostrar o custo em materiais e o ganho antes de confirmar."
+    },
+    {
+      "file": "refs/triangle-strategy/04-cidade-ruinas.jpg",
+      "source": "https://store.steampowered.com/app/1850510",
+      "theme": "tom",
+      "title": "Cidade em ruínas durante a batalha",
+      "note": "Praça destruída com escombros, muitos aliados e inimigos e um clarão de raios amarelos; iluminação quente e escura.",
+      "take": "Mapa da fase contando o dano da guerra com escombros."
+    },
+    {
+      "file": "refs/triangle-strategy/05-batalha-menu.jpg",
+      "source": "https://store.steampowered.com/app/1850510",
+      "theme": "outro",
+      "title": "Menu de habilidade com alcance e fila",
+      "note": "Menu de ações à esquerda com poder e alcance; área vermelha de efeito no mapa e fila de turnos com retratos azuis e vermelhos embaixo.",
+      "take": "Alcance e área em vermelho antes de confirmar a habilidade."
+    },
+    {
+      "file": "refs/triangle-strategy/06-batalha-mina.jpg",
+      "source": "https://store.steampowered.com/app/1850510",
+      "theme": "campanha",
+      "title": "Batalha numa mina com trilhos",
+      "note": "Mapa vertical com trilhos, lanternas e vagonetas, retrato e HP da unidade no canto, e fila de turnos por baixo.",
+      "take": "Cenário que já anuncia o motivo político da guerra (a mina)."
+    }
+  ],
+  "videos": [
+    {
+      "url": "https://www.youtube.com/watch?v=F8f968EyPoE",
+      "title": "Triangle Strategy - Official Trailer",
+      "kind": "trailer",
+      "note": "GameTrailers, 2:52; apresenta mundo e escolhas."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=wqv3Es1oJyE",
+      "title": "Triangle Strategy - Challenge Your Convictions",
+      "kind": "trailer",
+      "note": "Nintendo of America, 2:52; foco na Balança da Convicção."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=pU-XNH3yl48",
+      "title": "Meaningful Mechanics: Triangle Strategy's Scales of Conviction",
+      "kind": "análise",
+      "note": "Tommy Dinh, 26 min; análise de como a Balança carrega a história."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=JVjRWtn2l-Q",
+      "title": "Are the Scales Necessary? Triangle Strategy",
+      "kind": "análise",
+      "note": "Iced Coffee Gaming, 7 min; crítica curta à Balança."
+    }
+  ],
+  "notFound": [
+    "Palestra de desenvolvedor (GDC) sobre a Balança da Convicção: não achei",
+    "Wikipedia não descreve como as batalhas se ligam à cidade entre capítulos: o acampamento vem das telas",
+    "Efeito exato da convicção nos finais: críticos divergem"
+  ]
+}

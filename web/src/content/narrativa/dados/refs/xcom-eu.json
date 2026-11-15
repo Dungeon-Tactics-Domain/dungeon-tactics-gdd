@@ -1,0 +1,151 @@
+{
+  "game": "XCOM: Enemy Unknown",
+  "slug": "xcom-eu",
+  "year": 2012,
+  "why": "Mostra como uma camada estratégica (mapa, pânico, base) dá peso a cada missão tática: o jogador nunca consegue atender tudo, e o custo de ignorar é visível e atrasado. É o modelo de \"corrida entre estágios\" mais limpo do gênero.",
+  "loop": {
+    "batalha": "Combate tático por turnos em mapas com cobertura, dois pontos de ação por soldado e morte permanente.",
+    "corrida": "No Geoscape o jogador escolhe quais invasões atender; cada missão ignorada ou perdida aumenta o pânico da região.",
+    "base": "A base em corte lateral (\"formigueiro\"): construir instalações, pesquisar, fabricar, fazer autópsias e interrogatórios de aliens capturados.",
+    "arco": "A campanha avança por pesquisa e missões fixas da história até o confronto final com o líder alien; cada nação que sai reduz o financiamento."
+  },
+  "gives": [
+    "missão → base: corpos, armas e aliens capturados que liberam pesquisa e fabricação",
+    "base → missão: armas, armaduras, soldados promovidos e satélites que cobrem mais regiões",
+    "mapa → missão: pânico e financiamento decidem qual missão vale o risco",
+    "missão → arco: missões fixas da história aparecem quando a pesquisa chega a certo ponto"
+  ],
+  "mechanics": [
+    {
+      "name": "Pânico e financiamento por nação",
+      "what": "Atender uma atividade alien numa região reduz o pânico; ignorar aumenta, e uma nação em pânico pode sair para sempre, cortando o dinheiro. São 16 países no conselho e o jogo acaba se oito saírem.",
+      "story": "A pressão do mundo vira a história do jogador: ele escolhe quem salvar e quem abandonar.",
+      "take": "Uma barra de \"mundo\" entre fases em que pular uma fase opcional faz o contador avançar, mas sem derrota súbita.",
+      "avoid": "Perder por um contador oculto; mostrar sempre o risco.",
+      "source": "https://en.wikipedia.org/wiki/XCOM:_Enemy_Unknown"
+    },
+    {
+      "name": "Geoscape: o jogador escolhe a missão",
+      "what": "Atividades alien aparecem no globo e o jogador escolhe qual atender com interceptadores e esquadrões; não dá para atender todas.",
+      "story": "Cada escolha é um dilema moral e estratégico, sem cena de corte.",
+      "take": "Um mapa de campanha com mais de uma opção por vez e recompensas diferentes (itens, aliados, reputação).",
+      "avoid": "Mapa com tantas opções que o jogador paralisa; duas ou três bastam.",
+      "source": "https://en.wikipedia.org/wiki/XCOM:_Enemy_Unknown"
+    },
+    {
+      "name": "Base em corte lateral",
+      "what": "A base é montada em um corte lateral (o formigueiro), onde se constroem laboratórios, oficinas e salas de contenção; pesquisa e autópsia dão a trama da invasão.",
+      "story": "O jogador descobre a ameaça por pesquisa: o inimigo ganha nome e história quando é estudado.",
+      "take": "Prédios de uma cidade ligados a recompensas de estágio; descobertas contando história.",
+      "avoid": "Muita microgestão de espaço; o nosso hub é uma vila.",
+      "source": "https://en.wikipedia.org/wiki/XCOM:_Enemy_Unknown"
+    },
+    {
+      "name": "Morte permanente e soldados nomeados",
+      "what": "Um soldado a zero de vida sem ser salvo a tempo morre de vez; o jogador pode nomear e promover quem sobrevive, e os feridos se recuperam na base.",
+      "story": "O apego nasce do investimento do jogador, não de personagens escritos.",
+      "take": "Dar nomes e histórico a recrutas genéricos e mostrar suas estatísticas de missões e baixas.",
+      "avoid": "Morte permanente em tudo; no nosso caso nomeados da história devem ser protegidos.",
+      "source": "https://en.wikipedia.org/wiki/XCOM:_Enemy_Unknown"
+    },
+    {
+      "name": "Missões da história e missões procedurais",
+      "what": "As missões de história são cenas fixas e a maioria das outras usa peças de mapa feitas à mão com inimigos colocados ao acaso; o jogo acaba após derrotar o líder alien.",
+      "story": "O ritmo alterna set pieces de roteiro e missões de recorrência.",
+      "take": "Fases-chave escritas à mão entre fases menores recombináveis.",
+      "avoid": "Fase repetida sem história; sempre ligar a missão a algo do enredo.",
+      "source": "https://en.wikipedia.org/wiki/XCOM:_Enemy_Unknown"
+    }
+  ],
+  "shots": [
+    {
+      "file": "refs/xcom-eu/01-geoscape.jpg",
+      "source": "https://store.steampowered.com/app/200510/",
+      "theme": "mapa",
+      "title": "Geoscape: o globo",
+      "note": "Globo com a América do Norte, satélites, uma base e um sinal de UFO; relógio com data no rodapé e lista de missões no topo.",
+      "take": "Um mapa de mundo com relógio e missões abertas visíveis ao mesmo tempo."
+    },
+    {
+      "file": "refs/xcom-eu/02-tatico.jpg",
+      "source": "https://store.steampowered.com/app/200510/",
+      "theme": "outro",
+      "title": "Combate tático à noite",
+      "note": "Grade azul sobre uma doca com caminhão e carros; soldado com nome embaixo, setas de movimento e ícone de proteção.",
+      "take": "Grade de movimento e cobertura legível por ícones."
+    },
+    {
+      "file": "refs/xcom-eu/03-autopsia.jpg",
+      "source": "https://store.steampowered.com/app/200510/",
+      "theme": "campanha",
+      "title": "Autópsia alien",
+      "note": "Cena em que um cientista de macacão amarelo levanta o corpo de um alien sob uma luz forte numa mesa.",
+      "take": "Cena curta de descoberta que dá peso a uma pesquisa."
+    },
+    {
+      "file": "refs/xcom-eu/04-base-globo.jpg",
+      "source": "https://store.steampowered.com/app/200510/",
+      "theme": "base",
+      "title": "Centro de comando com o globo",
+      "note": "Soldados em armadura laranja passam em frente a um globo holográfico da África no centro de comando; técnicos ao fundo.",
+      "take": "Mostrar o elenco na cidade/base, antes de partir."
+    },
+    {
+      "file": "refs/xcom-eu/05-base-formigueiro.jpg",
+      "source": "https://store.steampowered.com/app/200510/",
+      "theme": "base",
+      "title": "O formigueiro em corte",
+      "note": "Corte lateral da base escavada na rocha, com dezenas de salas pequenas dispostas em andares sobre fundo preto.",
+      "take": "Uma visão de toda a base numa tela só, mostrando o que já foi construído."
+    },
+    {
+      "file": "refs/xcom-eu/06-tatico-granada.jpg",
+      "source": "https://store.steampowered.com/app/200510/",
+      "theme": "outro",
+      "title": "Granada em área",
+      "note": "Mira em arco de uma granada de fragmentação sobre um grupo de aliens, perto de uma viatura; texto explica o dano.",
+      "take": "Prévia de ataque em área com o dano escrito."
+    },
+    {
+      "file": "refs/xcom-eu/07-interceptacao.jpg",
+      "source": "https://store.steampowered.com/app/200510/",
+      "theme": "outro",
+      "title": "Interceptação de um UFO",
+      "note": "Caça e UFO em wireframe sobre a Terra, com um relógio de perda de contato e quatro botões (abortar, rastrear, mirar, esquivar).",
+      "take": "Um minijogo curto na camada estratégica, que dá variedade ao mapa."
+    },
+    {
+      "file": "refs/xcom-eu/08-tatico-cidade.jpg",
+      "source": "https://store.steampowered.com/app/200510/",
+      "theme": "outro",
+      "title": "Combate em uma praça",
+      "note": "Praça noturna com fonte, viatura de polícia e aliens Muton; aviso Your Turn e barra de ações do soldado.",
+      "take": "Mapas que parecem lugares reais, dando contexto à fase."
+    }
+  ],
+  "videos": [
+    {
+      "url": "https://www.youtube.com/watch?v=UNyhyzjYCks",
+      "title": "XCOM: Enemy Unknown \"Last Stand\" E3 2012 Trailer",
+      "kind": "trailer",
+      "note": "Trailer da 2K; mostra o tom de resistência contra uma invasão."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=jrOQIiuFM-o",
+      "title": "XCOM: Enemy Unknown Release Trailer",
+      "kind": "trailer",
+      "note": "Trailer de lançamento publicado pela IGN, com Geoscape e combate."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=yltaXdVE5nI",
+      "title": "XCOM: Single Player Developer Tips",
+      "kind": "análise",
+      "note": "Dicas dos desenvolvedores, pela IGN; revelam como a camada estratégica deve ser lida."
+    }
+  ],
+  "notFound": [
+    "Palestra da GDC especificamente de Enemy Unknown com vídeo verificado (só achei entrevistas sobre a série)",
+    "Captura do Memorial ou do Hall da Fama: não consegui confirmar que a função existe nesta versão",
+    "Captura de seleção de missão no Geoscape com pânico visível"
+  ]
+}

@@ -1,0 +1,162 @@
+{
+  "game": "Slay the Spire",
+  "slug": "slay-the-spire",
+  "year": 2019,
+  "why": "Não tem base nem grupo, mas é a melhor aula de como uma corrida curta carrega história sem cena de corte: o mapa ramificado, os eventos com escolha e a Neow que reage à corrida anterior transformam cada tentativa em uma narrativa própria. Serve para desenhar a estrutura de expedição e o ritmo de decisões entre lutas, não para o grupo.",
+  "loop": {
+    "batalha": "Combate por turnos com cartas: o jogador compra uma mão, gasta energia e vê a intenção do próximo golpe de cada inimigo antes de decidir. Vencer dá ouro e a escolha de uma entre três cartas.",
+    "corrida": "Cada ato é um mapa ramificado que o jogador percorre de baixo para cima escolhendo o caminho: lutas, elites, fogueiras, lojas, eventos \"?\" e baús, sempre terminando em um chefe visível desde o início.",
+    "base": "Não existe base nem cidade. O mais próximo disso é a tela de desbloqueios entre corridas (personagens, cartas, relíquias) e a Neow, que oferece uma bênção ao começar cada corrida.",
+    "arco": "Quatro atos por corrida (o quarto só abre com três chaves coletadas na mesma corrida) e vinte níveis de Ascensão que repetem a mesma subida com regras mais duras; a história é contada em fragmentos de eventos e na fala da Neow."
+  },
+  "gives": [
+    "mapa → batalha: a rota escolhida decide que lutas e que descansos o jogador enfrentará antes do chefe",
+    "batalha → mapa: o HP perdido empurra o jogador para fogueiras, lojas e rotas mais seguras",
+    "evento → batalha: eventos trocam risco por poder (vida máxima por cartas fortes, por exemplo) e mudam a força do baralho",
+    "corrida anterior → próxima: a qualidade da corrida passada define as bênçãos que a Neow oferece",
+    "Ascensão → corrida: a vitória destrava a mesma subida com modificadores acumulados"
+  ],
+  "mechanics": [
+    {
+      "name": "Mapa ramificado com rota escolhida",
+      "what": "Cada ato é um mapa gerado de forma aleatória com sete tipos de sala (luta, elite, fogueira, \"?\", baú, mercador e chefe). Há sempre uma fogueira antes do chefe e um baú na metade dos atos 1 a 3; o jogador escolhe o caminho sabendo onde está o chefe.",
+      "story": "A tensão de \"vale arriscar o elite agora?\" nasce da rota, não de texto: cada nó é uma pequena aposta e a corrida vira a história do que o jogador escolheu enfrentar.",
+      "take": "Um mapa de expedição com poucos tipos de sala e um chefe visível, em que o jogador troca descansos e recompensas por risco; combina com a ideia de expedição do nosso ciclo.",
+      "avoid": "Mapa totalmente aleatório; na campanha de sete estágios com história fixa, o caminho pode ser escolhido, mas as salas precisam ser escritas à mão.",
+      "source": "https://slaythespire.wiki.gg/wiki/Map_Locations"
+    },
+    {
+      "name": "Neow: a bênção que depende da corrida anterior",
+      "what": "No início de cada corrida a Neow oferece bênçãos. Se o jogador nunca chegou ao chefe do ato 1, só há duas opções (vida máxima ou o Lamento); se chegou, há quatro, incluindo trocas de risco por recompensa e a troca da relíquia inicial por uma de chefe.",
+      "story": "A personagem reage ao seu desempenho e ao longo da campanha se revela uma Ancestral exilada que usa os aventureiros para se vingar da Torre; a lore aparece em eventos do ato 2.",
+      "take": "Uma voz de abertura que reage ao desempenho anterior e oferece uma troca no começo de cada expedição, dando continuidade entre tentativas.",
+      "avoid": "Esconder o que cada bênção custa; a graça está em o jogador ver a troca antes de aceitar.",
+      "source": "https://slaythespire.wiki.gg/wiki/Neow"
+    },
+    {
+      "name": "Eventos \"?\" como escolha de risco e poder",
+      "what": "As salas \"?\" podem ser evento, luta, loja ou baú, e a chance de cada tipo sobe quando ele é evitado. Em Conselho dos Fantasmas (ato 2) o jogador aceita 5 Aparições ao custo de 50% da vida máxima, ou recusa e sai sem nada.",
+      "story": "O evento entrega um fragmento de cenário em poucas linhas e uma escolha com preço visível, e a lembrança de ter aceitado ou não vira parte da corrida.",
+      "take": "Encontros curtos fora da batalha, com texto de duas ou três frases e uma escolha em que o custo aparece no botão; bom para eventos de estrada entre estágios.",
+      "avoid": "Eventos longos ou que repetem; o jogo mostra o preço, então o jogador não precisa de aviso extra.",
+      "source": "https://slaythespire.wiki.gg/wiki/Council_of_Ghosts"
+    },
+    {
+      "name": "Fogueira: curar ou melhorar",
+      "what": "Em cada fogueira o jogador escolhe uma só ação: descansar (recupera 30% da vida máxima) ou forjar (melhorar uma carta). Relíquias podem acrescentar outras opções, e há sempre uma fogueira antes do chefe.",
+      "story": "O descanso vira um momento de escolha entre sobrevivência e poder, e a fogueira antes do chefe é o respiro que marca o clímax.",
+      "take": "Um ponto de descanso antes de cada chefe com escolha clara entre curar e fortalecer, ligado à cidade ou ao acampamento do jogador.",
+      "avoid": "Descanso gratuito e ilimitado, que tira o peso da rota.",
+      "source": "https://slaythespire.wiki.gg/wiki/Map_Locations"
+    },
+    {
+      "name": "Atos, chefes e as três chaves",
+      "what": "Cada ato termina em um chefe (nos atos 1 e 2 há três possíveis). O ato 4 só abre se o jogador reunir as chaves Rubi (opção Recall na fogueira), Esmeralda (elite marcado no mapa) e Safira (no baú, em vez da relíquia) na mesma corrida.",
+      "story": "O final verdadeiro exige que o jogador cumpra objetivos paralelos pelo mapa, ou seja, a história mais completa é uma recompensa por jogar de um jeito específico.",
+      "take": "Um final ou capítulo extra liberado por objetivos opcionais cumpridos durante a campanha, não por um menu.",
+      "avoid": "Condições escondidas para o final verdadeiro; o jogador precisa saber o que procurar, senão perde o capítulo sem perceber.",
+      "source": "https://slaythespire.wiki.gg/wiki/Keys"
+    },
+    {
+      "name": "Ascensão: a mesma subida mais difícil",
+      "what": "Vencer o chefe do ato 3 com um personagem libera a Ascensão dele: 20 níveis acumulativos, de elites mais frequentes (nível 1) até dois chefes no fim do ato 3 (nível 20).",
+      "story": "A narrativa não muda; o que muda é o desafio, e o jogador conta a própria história de superação a cada nível.",
+      "take": "Uma segunda volta mais difícil com mais regras, sem novo conteúdo, para o jogador que quer repetir a campanha.",
+      "avoid": "Tantos níveis; para uma campanha curta bastariam dois ou três modos.",
+      "source": "https://slaythespire.wiki.gg/wiki/Ascension"
+    },
+    {
+      "name": "Intenção visível dos inimigos",
+      "what": "Cada inimigo mostra o que fará no próximo turno, e a equipe passou de ícones genéricos para números exatos porque os testadores acharam isso mais envolvente.",
+      "story": "O jogador toma decisões com informação, e a morte vira consequência de um erro que ele reconhece, não de sorte.",
+      "take": "O mesmo princípio da previsão de combate que o jogo já tem: mostrar o risco antes da escolha, principalmente antes de decisões de permadeath e estresse.",
+      "avoid": "Informação escondida que o jogador só descobre ao perder.",
+      "source": "https://en.wikipedia.org/wiki/Slay_the_Spire"
+    }
+  ],
+  "shots": [
+    {
+      "file": "refs/slay-the-spire/01-neow-abertura.jpg",
+      "source": "https://store.steampowered.com/app/646570/",
+      "theme": "escolha",
+      "title": "Neow na abertura da corrida",
+      "note": "O Ironclad com 80/80 de vida e 99 de ouro diante da Neow, uma criatura azul enorme com balão \"Greetings...\" e o botão [Talk]; a barra de cima ainda sem andar.",
+      "take": "Uma abertura curta, só um balão e uma escolha, que apresenta o mundo e a voz que acompanha a corrida."
+    },
+    {
+      "file": "refs/slay-the-spire/02-evento-conselho-fantasmas.jpg",
+      "source": "https://store.steampowered.com/app/646570/",
+      "theme": "escolha",
+      "title": "Evento Conselho dos Fantasmas",
+      "note": "Evento do andar 21: ilustração de três máscaras de fumaça, texto de cenário e duas opções, [Accept] Receive 5 Apparition. Lose 50% Max HP e [Refuse]; o custo está escrito no botão.",
+      "take": "Evento em cena de texto com preço visível no botão, ótimo para o encontro de estrada entre estágios."
+    },
+    {
+      "file": "refs/slay-the-spire/03-loja.jpg",
+      "source": "https://store.steampowered.com/app/646570/",
+      "theme": "base",
+      "title": "Loja do mercador",
+      "note": "O mercador (mão azul gelatinosa) com cartas, relíquias e poções; uma carta em promoção e o serviço de remoção de carta por 75 de ouro; botão Leave à esquerda.",
+      "take": "Uma loja de rota com poucos itens, uma promoção e um serviço de remover o que atrapalha, como parada de cidade dentro da expedição."
+    },
+    {
+      "file": "refs/slay-the-spire/04-historico-da-run.jpg",
+      "source": "https://steamcommunity.com/app/646570/screenshots/",
+      "theme": "mapa",
+      "title": "Histórico de uma corrida: o caminho escolhido",
+      "note": "Tela de histórico (captura de jogador, com interface em russo): três fileiras de ícones mostram cada sala percorrida (luta, elite, fogueira, \"?\", baú, loja), seguidas das relíquias e das cartas finais.",
+      "take": "Um resumo no fim da expedição com a rota e o que o grupo carregou; vira o diário da campanha."
+    },
+    {
+      "file": "refs/slay-the-spire/05-combate-silent.jpg",
+      "source": "https://store.steampowered.com/app/646570/",
+      "theme": "personagem",
+      "title": "Combate com a Silent no andar 29",
+      "note": "A Silent (45/82 de vida, 70 de ouro) enfrenta uma serpente verde acorrentada; no topo a barra com ouro, poções e muitas relíquias e o contador de andar, embaixo a energia 3/3 e as pilhas de cartas.",
+      "take": "Uma barra de estado única com tudo o que o jogador carrega na expedição."
+    },
+    {
+      "file": "refs/slay-the-spire/06-combate-defect.jpg",
+      "source": "https://store.steampowered.com/app/646570/",
+      "theme": "personagem",
+      "title": "Combate com o Defect e a carta Zap",
+      "note": "O Defect, um autômato, ao lado de orbes de energia, lança um raio sobre um inimigo encapuzado; a carta Zap+ está ampliada no centro e a mão aparece embaixo, com o botão End Turn.",
+      "take": "Cada classe tem uma identidade própria de jogo; combina com a ideia de classes bem distintas na mudança de classe."
+    },
+    {
+      "file": "refs/slay-the-spire/07-biblioteca-de-cartas.jpg",
+      "source": "https://store.steampowered.com/app/646570/",
+      "theme": "outro",
+      "title": "Biblioteca de cartas por cor",
+      "note": "Catálogo com abas Vermelho, Verde, Azul, Neutro e Maldições e filtros de raridade, tipo, ordem e custo; mostra cartas como Anger, Barricade, Bash e Battle Trance.",
+      "take": "Uma enciclopédia de habilidades por classe, que serve de memória do que o jogador já viu."
+    }
+  ],
+  "videos": [
+    {
+      "url": "https://www.youtube.com/watch?v=7rqfbvnO_H0",
+      "title": "Slay the Spire: Metrics Driven Design and Balance",
+      "kind": "palestra",
+      "note": "Palestra da GDC 2019 de Anthony Giovannetti, da Mega Crit, sobre como a equipe usou dados e feedback para equilibrar o jogo."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=DnF8Yt3tNMU",
+      "title": "Slay The Spire Game Design Analysis",
+      "kind": "análise",
+      "note": "Análise de design de um canal independente; título visto em busca, conteúdo não conferido por mim."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=r_BPJzNPF6M",
+      "title": "How Slay the Spire's Original Interface Almost Killed the Game",
+      "kind": "análise",
+      "note": "Vídeo sobre a interface original do jogo; título visto em busca, conteúdo não conferido por mim."
+    }
+  ],
+  "notFound": [
+    "Captura do mapa ramificado em si: a API da Steam não traz essa tela e a wiki só tem ícones; a tela de histórico (04) mostra só a rota já percorrida",
+    "Captura da fogueira e dos atos 3 e 4: não achei imagem utilizável",
+    "O histórico (04) é uma captura de jogador (interface em russo), não oficial",
+    "Fontes são wiki.gg e Wikipedia (comunidade); não vi o código nem material oficial da Mega Crit além da palestra listada",
+    "Não conferi o conteúdo dos vídeos de análise; só os títulos"
+  ]
+}

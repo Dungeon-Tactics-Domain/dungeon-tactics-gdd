@@ -1,0 +1,160 @@
+{
+  "work": "Made in Abyss",
+  "slug": "made-in-abyss",
+  "year": 2017,
+  "kind": "anime",
+  "why": "O Abismo é um mundo em camadas onde descer é fácil e voltar cobra um preço no corpo, o que casa direto com expedições de ida e volta, recursos finitos e perdas que não se desfazem. A obra mostra como beleza e crueldade podem andar juntas sem o jogo precisar de um vilão de fachada.",
+  "axes": {
+    "tom": "Aventura infantil por fora e horror por dentro: cores quentes, bichos fofos e música delicada servem de embalagem para mutilação, náusea e perda. O contraste é o motor do desconforto, e a história nunca avisa quando vai virar.",
+    "grupo": "Uma dupla improvável (Riko, a órfã sonhadora, e Reg, o menino-robô sem memória) vira trio com Nanachi, que já perdeu quase tudo na descida. O grupo se forma por necessidade e afeto, e se desgasta pela maldição da subida e pela distância cada vez maior de quem ficou na superfície.",
+    "morte": "A morte quase nunca é limpa: a Maldição do Abismo transforma ferimento, dor e até a possibilidade de morrer em coisas que se negociam. O caso de Mitty e Nanachi trata a morte como misericórdia negada, e o custo é emocional e físico, não um número na tela.",
+    "mundo": "O Abismo é um buraco gigante com camadas de ecologia própria e uma maldição de subida diferente em cada profundidade. Ele atrai por maravilha e recompensa (relíquias, o destino da mãe de Riko) e cobra por isso. A cidade de Orth, na borda, vive dele e finge que não é perigoso.",
+    "politica": "Orth tem o orfanato Belchero e uma hierarquia de Cave Raiders (Delvers) por apitos (vermelho, azul, lua, preto, branco; o sino vem antes, para os novatos). A política é institucional e silenciosa: os órfãos do Belchero precisam entregar o que encontram para pagar as despesas do orfanato, e a cidade tolera experimentos desde que as relíquias voltem à superfície (não confirmado).",
+    "progressao": "Crescer é aprender o que o lugar cobra: o apito de cada Delver marca a profundidade permitida e a experiência, e os heróis ganham habilidade na marra, camada por camada. O nível é quanto você já sobreviveu à subida e quanto abriu mão para descer mais."
+  },
+  "lessons": [
+    {
+      "name": "A subida cobra o que a descida entregou",
+      "what": "Cada camada tem uma maldição que pune quem sobe, com efeitos crescentes (tontura e alucinações já na terceira camada, piores mais fundo). Descer é livre; voltar é a conta.",
+      "story": "Riko decide descer para achar a mãe, mesmo com o aviso de que quem desce muito dificilmente volta, e Reg a acompanha; os dois descobrem, camada a camada, que a maldição da subida muda de natureza e que o efeito só piora. A ideia de que voltar é caro estrutura todo o arco.",
+      "take": "Expedição com mapa de profundidade: quanto mais fundo o grupo vai, mais caro o retorno (estresse, ferimento persistente, itens consumidos). O jogador decide quando não descer mais, e o custo de voltar vira o coração da decisão.",
+      "avoid": "Não esconder a maldição até o jogador cair nela; a graça é ele ver o preço e escolher mesmo assim.",
+      "source": "https://thechuunicorner.com/2018/05/11/made-in-abyss-and-building-a-world"
+    },
+    {
+      "name": "Beleza como isca",
+      "what": "Cada camada oferece uma paisagem deslumbrante e um perigo específico, de modo que o lugar seduz e machuca ao mesmo tempo.",
+      "story": "A floresta verde das primeiras camadas, as árvores gigantes, os lagos e as criaturas curiosas ficam na memória, e logo mostram dentes: a mesma beleza é o que mata quem relaxa.",
+      "take": "Cada região da campanha com identidade visual forte e uma ameaça sistêmica própria (veneno, escuridão, fome), de modo que o jogador queira ir e saiba que vai pagar. O mapa vira promessa e ameaça ao mesmo tempo.",
+      "avoid": "Não deixar as camadas só decorativas: se a beleza não tem consequência mecânica, vira papel de parede.",
+      "source": "https://www.animenewsnetwork.com/review/made-in-abyss/episodes-1-13/.123135"
+    },
+    {
+      "name": "A morte negada como crueldade",
+      "what": "A maldição faz Mitty virar uma criatura que não morre, e Nanachi passa a querer a morte dela como gesto de amor.",
+      "story": "Mitty e Nanachi eram órfãs levadas por Bondrewd ao Abismo; depois dos experimentos, Mitty passa a existir como uma criatura imortal e Nanachi vive ao lado dela por anos. O ponto alto é Nanachi pedir a Reg que use o Incinerador para deixá-la finalmente morrer.",
+      "take": "Um personagem imortal ou cativo de uma condição (amaldiçoado, preso a uma relíquia) cuja salvação é a morte, e a decisão de matar vira a escolha mais difícil da campanha. A permadeath ganha um contrapeso: às vezes morrer é o que o jogador deve a um aliado.",
+      "avoid": "Cuidado com o choque pelo choque: a cena funciona porque a relação foi construída por horas antes; sem esse investimento, é só gore.",
+      "source": "https://animerants.net/2019/06/27/thoughtful-thursday-the-bitter-fulfillment-of-nanachi-made-in-abyss"
+    },
+    {
+      "name": "O vilão benevolente",
+      "what": "Bondrewd é afável, cuida das crianças e as usa como material de experimento, sem nunca se ver como mau.",
+      "story": "Ele trata Prushka, sua filha adotiva, com carinho genuíno enquanto submete crianças órfãs a experimentos cruéis na base Ido Front, no fundo da quinta camada. O verniz de pai torna a cena mais perturbadora que a de um sádico explícito.",
+      "take": "Um antagonista de facção (mestre de guilda, patrono da expedição) cuja motivação é compreensível e cujo método é inaceitável, com decisões ao longo da campanha que obrigam o jogador a cooperar ou romper.",
+      "avoid": "Não pedir ao jogador que goste do vilão; basta que ele entenda por que os outros o seguem.",
+      "source": "https://en.wikipedia.org/wiki/List_of_Made_in_Abyss_characters"
+    },
+    {
+      "name": "A cidade que vive do buraco",
+      "what": "Orth é uma cidade construída em volta da borda do Abismo, com orfanato e uma cultura inteira de Cave Raiders.",
+      "story": "Riko cresce numa cidade que vende relíquias e envia crianças para explorar, e a boca do Abismo é a primeira coisa que se vê no fim da rua. Ficar em casa é opção, e os protagonistas escolhem não ficar.",
+      "take": "Uma base na borda do perigo, que se enriquece e se deforma com o que as expedições trazem de volta (relíquias mudam a cidade, órfãos viram recrutas). A base reflete a campanha em vez de ser só um menu.",
+      "avoid": "Não deixar a base 100% segura e estática; o contraste com a descida é o que dá peso ao regresso.",
+      "source": "https://thechuunicorner.com/2018/05/11/made-in-abyss-and-building-a-world"
+    },
+    {
+      "name": "Hierarquia por apitos",
+      "what": "Cada Delver usa um apito que indica profundidade e experiência, em cinco níveis, de Vermelho (novato) até Branco (lendário).",
+      "story": "Riko sonha em ser apito branco como a mãe, Lyza; cada apito mais alto libera descidas mais profundas e dá status social, e quem desce além do que o apito permite se arrisca sozinho.",
+      "take": "Ranks de veteranos ligados a profundidade permitida e a feitos, que servem de progressão legível para o jogador e de peso narrativo (um apito branco desaparecido é mistério por si só).",
+      "avoid": "Evitar que o rank seja só um número: ligar cada nível a um benefício e a uma regra que o jogador sente.",
+      "source": "https://en.wikipedia.org/wiki/List_of_Made_in_Abyss_characters"
+    }
+  ],
+  "shots": [
+    {
+      "file": "refs/made-in-abyss/01-abismo-visto-de-cima.jpg",
+      "source": "https://lostinanime.com/?p=81898",
+      "theme": "mapa",
+      "title": "A boca do Abismo",
+      "note": "Vista aérea do imenso buraco circular, com as bordas cobertas de vegetação alaranjada pelo pôr do sol e nuvens girando lá dentro.",
+      "take": "Imagem de campanha: o destino único que ordena todo o mapa."
+    },
+    {
+      "file": "refs/made-in-abyss/02-orth-na-borda.jpg",
+      "source": "https://lostinanime.com/?p=81898",
+      "theme": "base",
+      "title": "Orth na borda",
+      "note": "Crianças num mirante de pedra olhando a cidade que desce a encosta, com um prédio de cúpula e as montanhas ao fundo.",
+      "take": "A base vive junto do perigo; a paisagem diz o que a cidade faz."
+    },
+    {
+      "file": "refs/made-in-abyss/03-grupo-key-visual.jpg",
+      "source": "https://www.animenewsnetwork.com/news/2022-04-01/made-in-abyss-anime-season-2-unveils-july-premiere-new-visual/.184294",
+      "theme": "personagem",
+      "title": "Riko, Reg e Nanachi",
+      "note": "Key visual com Riko de capacete, Reg de capa e Nanachi coelha, num cenário claro e esbranquiçado.",
+      "take": "Trio pequeno, formas distintas: cada membro tem silhueta e papel claros."
+    },
+    {
+      "file": "refs/made-in-abyss/04-camada-verde.jpg",
+      "source": "https://lostinanime.com/?p=81898",
+      "theme": "tom",
+      "title": "A camada verde",
+      "note": "Uma forma redonda coberta de vegetação, com buracos como olhos e uma porta, banhada em luz verde intensa.",
+      "take": "Tom de região: cor dominante e luz própria fazem de cada camada um personagem."
+    },
+    {
+      "file": "refs/made-in-abyss/05-equipamento-expedicao.jpg",
+      "source": "https://lostinanime.com/?p=81898",
+      "theme": "base",
+      "title": "Separando o equipamento",
+      "note": "Nanachi, Riko e Reg organizam capacete, cordas e sacos sobre um pano, no abrigo de Nanachi, com a legenda Sorting of Cave-Raiding Equipment.",
+      "take": "Preparação da expedição como cena de vínculo e logística."
+    },
+    {
+      "file": "refs/made-in-abyss/06-orfaos-no-salao.jpg",
+      "source": "https://lostinanime.com/?p=81898",
+      "theme": "campanha",
+      "title": "Silhuetas no salão violeta",
+      "note": "Adultos com mochilas e crianças em silhueta diante de uma coluna de luz num salão de arcos, em tons de violeta.",
+      "take": "Cena de escolha silenciosa: quem entra e quem fica."
+    },
+    {
+      "file": "refs/made-in-abyss/07-orfanato-bondrewd.jpg",
+      "source": "https://lostinanime.com/?p=81898",
+      "theme": "escolha",
+      "title": "O pai dos órfãos",
+      "note": "Uma figura de preto, de costas, com os braços abertos diante de uma multidão de crianças na neve.",
+      "take": "Autoridade benevolente que esconde o custo: a base como armadilha."
+    },
+    {
+      "file": "refs/made-in-abyss/08-morte-de-mitty.jpg",
+      "source": "https://lostinanime.com/?p=81898",
+      "theme": "morte",
+      "title": "A imortalidade que machuca",
+      "note": "Criatura rosada de olhos chorosos caída diante de uma parede manchada de sangue, num cenário dourado.",
+      "take": "A perda explícita: a morte como alívio e o corpo como custo."
+    }
+  ],
+  "videos": [
+    {
+      "url": "https://www.youtube.com/watch?v=kqBNQEUI8dM",
+      "title": "MADE IN ABYSS Official Trailer (Sentai)",
+      "kind": "trailer",
+      "note": "1:34 de contraste entre o tom de aventura e o horror que vem junto."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=yjzbiKnyAv4",
+      "title": "Why You Should Watch Made in Abyss (Super Eyepatch Wolf)",
+      "kind": "análise",
+      "note": "Ensaio de 26 min sobre mundo, camadas e tom da obra."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=u6SRh0Mw57Y",
+      "title": "Made in Abyss and World Building (Manime Matt)",
+      "kind": "análise",
+      "note": "6 min focados no desenho do mundo e da descida."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=pwYe_3_j7ck",
+      "title": "An Analysis of Made in Abyss - The Deeper You Go, The Harder You Cry (darkvioletcloud)",
+      "kind": "análise",
+      "note": "Análise longa (1h14) de temas, perda e estrutura da história."
+    }
+  ],
+  "notFound": [
+    "Mapas oficiais das camadas do Abismo em boa resolução (site oficial bloqueado para download automático)"
+  ]
+}

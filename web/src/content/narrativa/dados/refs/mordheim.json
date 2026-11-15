@@ -1,0 +1,178 @@
+{
+  "game": "Mordheim: City of the Damned",
+  "slug": "mordheim",
+  "year": 2015,
+  "why": "É o exemplo mais cru de um bando que vive entre batalhas: o Warcamp é o hub, os feridos precisam de ouro e dias para tratar, o pagamento é cobrado a cada batalha e quem não recebe vai embora com o equipamento. A narrativa nasce de cicatrizes permanentes e de contas a pagar, não de cutscenes, e isso é útil para as camadas de permadeath e de base.",
+  "loop": {
+    "batalha": "Escaramuças táticas por turnos em ruínas de cidade, em terceira pessoa e com verticalidade; o objetivo principal é coletar wyrdstone, mais um objetivo opcional que rende extras, e a moral do bando pode quebrar.",
+    "corrida": "No mapa de campanha, a cada dia o jogador escolhe entre missões geradas ao acaso (a lista começa com 2 e cresce com rank de veterano ou com batedores pagos); cada missão mostra dificuldade, objetivo opcional e estimativa de pedras.",
+    "base": "O Warcamp reúne Gestão do Bando, Loja, Covil dos Contrabandistas, Sistema de Veteranos, Escaramuça, Campanha e o botão Próximo Dia, que passa o tempo para curar e entregar remessas.",
+    "arco": "Cada bando tem uma campanha própria (segundo a descrição do trailer oficial) e a progressão é a do rank do bando e dos guerreiros; a narrativa que o jogador vive é a do bando que sobrevive, perde gente e se reconstrói."
+  },
+  "gives": [
+    "campanha → batalha: a missão escolhida define dificuldade, objetivo opcional e quanto da pilhagem restante o bando leva",
+    "batalha → warcamp: baixas viram ferimentos que exigem ouro e dias, e a conta de salários e pedras volta para a base",
+    "warcamp → batalha: tratamentos, equipamento e treino liberam guerreiros para a próxima saída",
+    "pedras → covil: as pedras entregues viram ouro e reputação com as facções, que pagam em itens e guerreiros",
+    "tempo → base: o botão Próximo Dia avança curas, entregas e eventos como mercenários novos"
+  ],
+  "mechanics": [
+    {
+      "name": "Warcamp como hub entre missões",
+      "what": "Ao escolher o bando, o jogador cai no Warcamp: contratar, demitir e treinar guerreiros, comprar armas e armaduras e gerenciar as entregas de pedras. A Loja só abre depois de contratar o primeiro guerreiro, o Covil depois da primeira missão, e o Próximo Dia deixa o bando descansar até o dia seguinte.",
+      "story": "O jogador conhece o bando pelos buracos que a batalha deixa e pelas contas que ele precisa pagar; o acampamento é onde essas consequências aparecem.",
+      "take": "Uma base que abre aos poucos (loja depois do primeiro recruta, covil depois da primeira missão) e que tem um botão de passar o dia.",
+      "avoid": "Muitas seções ao mesmo tempo; o original esconde as que ainda não fazem sentido, o que é uma boa ideia.",
+      "source": "https://mordheimcotd.fandom.com/wiki/Warcamp_Introduction"
+    },
+    {
+      "name": "Ferimentos permanentes com tratamento pago",
+      "what": "Quem cai fora de ação rola o resultado: recuperação total, perda de atributo (inclusive do máximo), perda de membro ou morte. Todo ferimento é permanente e exige tratamento: gasta ouro e vários dias antes de o guerreiro voltar. Sem pagar, a cada 3 dias o ferido rola contra morrer por complicações.",
+      "story": "O arqueiro talentoso que perdeu um braço e não pode mais usar arco vira uma história do bando sem nenhuma linha escrita.",
+      "take": "Uma tabela curta de ferimentos permanentes depois de cair, com custo e dias de tratamento; no estilo FFT, só nos recrutas, não nos nomeados.",
+      "avoid": "Rolagem de morte sem aviso; o jogador deve ver o risco antes, como no resto do nosso jogo.",
+      "source": "https://mordheimcotd.fandom.com/wiki/Injuries"
+    },
+    {
+      "name": "Salário e deserção",
+      "what": "Todo guerreiro que luta exige pagamento (upkeep) antes de lutar de novo; o valor cresce com o rank e com a vitória e os objetivos opcionais. Não dá para pagar o salário sem antes pagar o tratamento. Quem fica sem receber acaba saindo para sempre, levando todos os itens equipados.",
+      "story": "O tema \"mercenários cobram\" dá peso à vitória: ganhar também aumenta a conta.",
+      "take": "Um custo contínuo por unidade que cresce com a experiência; liga o ouro às escolhas de quem leva à próxima missão.",
+      "avoid": "Perder itens equipados sem aviso; para um jogo mais leve, uma dívida visível basta.",
+      "source": "https://mordheimcotd.fandom.com/wiki/Warband_Pay"
+    },
+    {
+      "name": "Wyrdstone e Covil dos Contrabandistas",
+      "what": "A wyrdstone vem em fragmento (5 de ouro), estilhaço (25) e aglomerado (75) e é o objetivo principal de cada batalha; pegar pode causar efeitos de distorção, bons ou ruins. No Covil, o bando envia remessas a uma facção primária e duas secundárias por ouro e reputação, e a reputação libera dias extras, guerreiros e itens.",
+      "story": "O mundo é o do mercado de pedra maldita: o bando é um empreendedor sombrio, e as facções viram contatos que retribuem.",
+      "take": "Uma moeda de risco recolhida na missão e vendida na base a várias facções, ligando a campanha a uma reputação.",
+      "avoid": "Efeito aleatório ao pegar a pedra (rolagem de resistência); a chance deveria estar visível.",
+      "source": "https://mordheimcotd.fandom.com/wiki/Smuggler%27s_Den"
+    },
+    {
+      "name": "Mapa de campanha com missões diárias",
+      "what": "A cada dia o bando escolhe entre algumas missões geradas ao acaso; no início são 2, e o número cresce com rank de veterano ou com batedores pagos (limitados por dia). A dificuldade (Normal, Hard, Brutal, Deadly) aumenta o bônus dos inimigos e a fração da pilhagem restante que o bando leva.",
+      "story": "O jogador escolhe quanto risco aceitar em cada dia, e a campanha é uma sequência de decisões de risco e recompensa.",
+      "take": "Duas ou três missões por dia, com dificuldade e recompensa visíveis; se vitória em dificuldade maior rende mais, o jogador escolhe o risco.",
+      "avoid": "Missões geradas sem história; a nossa campanha tem fases escritas e só os extras poderiam variar.",
+      "source": "https://mordheimcotd.fandom.com/wiki/Campaign_Map"
+    },
+    {
+      "name": "Relatório de batalha e guerreiro mais valioso",
+      "what": "Ao fim da luta o relatório mostra objetivos, tesouro, recompensas extras por vitória decisiva, baixas (guerreiros fora de ação por bando) e o guerreiro mais valioso, que ganha um ponto de experiência extra por inimigos derrubados, dano e pedras garantidas.",
+      "story": "Dar um nome e um motivo a quem mais contribuiu cria heróis dentro do bando, sem texto escrito.",
+      "take": "Uma tela de fim de estágio que nomeia o destaque e lista baixas; vira o gancho para o memorial e para o apego aos recrutas.",
+      "avoid": "Placares frios demais; combine com uma frase curta sobre quem caiu.",
+      "source": "https://mordheimcotd.fandom.com/wiki/End_of_Battle_Report"
+    }
+  ],
+  "shots": [
+    {
+      "file": "refs/mordheim/01-warcamp-hub.jpg",
+      "source": "https://mordheimcotd.fandom.com/wiki/File:Warcamp_Introduction_example_01.jpg",
+      "theme": "base",
+      "title": "Warcamp: o hub do bando",
+      "note": "Acampamento com estandarte de Chaos, um combatente com cajado e uma feiticeira ao centro; ícones nos pontos do acampamento para Gestão do Bando, Loja, Covil dos Contrabandistas, Sistema de Veteranos, Campanha e Próximo Dia (vários ainda trancados); data e ouro (750) no canto.",
+      "take": "Um hub com funções que abrem aos poucos e o botão de passar o dia."
+    },
+    {
+      "file": "refs/mordheim/02-mapa-de-campanha.jpg",
+      "source": "https://mordheimcotd.fandom.com/wiki/File:Campaign_Map_example_01.jpg",
+      "theme": "mapa",
+      "title": "Mapa de campanha",
+      "note": "Mapa de pergaminho da cidade, cristais de wyrdstone verdes como marcadores de missão; painel à esquerda com bando, rank, upkeep e batedores, e embaixo a missão Scavengers (Hard, Wyrdstone rush) com texto de cenário; eventos futuros listados.",
+      "take": "Mapa em forma de mesa de comando com a missão, o risco e os próximos eventos do calendário na lateral."
+    },
+    {
+      "file": "refs/mordheim/03-relatorio-de-batalha.jpg",
+      "source": "https://mordheimcotd.fandom.com/wiki/File:End_of_Battle_Report_example_01.jpg",
+      "theme": "morte",
+      "title": "Relatório de batalha: baixas e guerreiro mais valioso",
+      "note": "Tela \"Decisive Victory\": objetivos, tesouro, recompensas extras e, à direita, baixas por bando (1/7 e 4/7 fora de ação) e o guerreiro mais valioso com pontos por dano e pedras.",
+      "take": "Fim de estágio que mostra o custo (baixas) junto da recompensa."
+    },
+    {
+      "file": "refs/mordheim/04-gestao-do-bando.jpg",
+      "source": "https://mordheimcotd.fandom.com/wiki/File:Warband_Management_example_01.jpg",
+      "theme": "base",
+      "title": "Gestão do bando",
+      "note": "Bando Culto dos Possuídos (rank 0) com apenas o líder; slots de líder, herói, capanga e reserva, status (ativos, sem pagamento, em treino, em tratamento, aguardando tratamento) e a regra mínima de 4 guerreiros para iniciar uma missão.",
+      "take": "Uma tela única que mostra quantos estão aptos, feridos, sem pagamento e em treino."
+    },
+    {
+      "file": "refs/mordheim/05-ficha-do-guerreiro.jpg",
+      "source": "https://mordheimcotd.fandom.com/wiki/File:Warrior_Management_example_01.jpg",
+      "theme": "personagem",
+      "title": "Ficha do guerreiro",
+      "note": "Um herói Doomweaver com atributos físicos, mentais e marciais (ex.: Força 3/12), resistências, descrição, equipamentos e perks; abas Descrição, Ferimentos e Histórico, e botões Fire Warrior e Pay.",
+      "take": "Aba de histórico e ferimentos na ficha, para o recruta ganhar uma biografia."
+    },
+    {
+      "file": "refs/mordheim/06-covil-dos-contrabandistas.jpg",
+      "source": "https://mordheimcotd.fandom.com/wiki/File:Smuggler%27s_Den_example_01.jpg",
+      "theme": "campanha",
+      "title": "Covil dos Contrabandistas e reputação",
+      "note": "Facção primária (Murderlord Snikkit, reputação 3) e duas secundárias, preços de fragmentos, estilhaços e aglomerados, botão Send Shipment e lista de bônus de reputação à direita (dias extras, itens, líder grátis).",
+      "take": "Reputação com facções que paga em recompensas escalonadas, uma forma de ligar a economia à trama."
+    },
+    {
+      "file": "refs/mordheim/07-relatorio-de-missao.jpg",
+      "source": "https://mordheimcotd.fandom.com/wiki/File:Mission_Report_example_01.jpg",
+      "theme": "base",
+      "title": "Relatório de missão e butim",
+      "note": "Bando Irmãs de Sigmar (rank 6) diante do carro; lista de itens adquiridos (martelos, escudos, poções, pedras) e painel com 1 ativo, 6 sem pagamento e 2 aguardando tratamento; aviso de mínimo de 4 guerreiros.",
+      "take": "Butim e estado do grupo mostrados juntos na volta à base."
+    },
+    {
+      "file": "refs/mordheim/08-rua-ogro-rato.jpg",
+      "source": "https://store.steampowered.com/app/276810/",
+      "theme": "tom",
+      "title": "Rua com um ogro-rato",
+      "note": "Um corpo pendurado sobre uma porta, tochas com esqueletos, ruínas de madeira e um ogro-rato verde brilhante com cristal de wyrdstone diante dele; um mago com crânio no cajado e guerreiros em volta.",
+      "take": "Cenário com sinais de horror (corpos, tochas, brilho verde) que contam a história do lugar."
+    },
+    {
+      "file": "refs/mordheim/09-andaimes-verticalidade.jpg",
+      "source": "https://store.steampowered.com/app/276810/",
+      "theme": "outro",
+      "title": "Andaimes e verticalidade",
+      "note": "Câmera alta sobre tábuas de andaimes: um guerreiro e uma criatura chifruda no primeiro plano, figuras na rua abaixo e combatentes em passarelas, com tochas acesas.",
+      "take": "Mapas com andares e passarelas, boa referência de verticalidade para o terreno em altura."
+    },
+    {
+      "file": "refs/mordheim/10-irmas-contra-skaven.jpg",
+      "source": "https://store.steampowered.com/app/276810/",
+      "theme": "tom",
+      "title": "Irmãs de Sigmar contra Skaven",
+      "note": "Irmãs de Sigmar com martelos diante de um prédio decorado com larvas e tentáculos sob céu verde, um ogro-rato à esquerda e Skaven com lâmina verde e arma de fogo à direita.",
+      "take": "Facções com silhueta e paleta próprias, legíveis de longe."
+    }
+  ],
+  "videos": [
+    {
+      "url": "https://www.youtube.com/watch?v=a1KXqv4Mma0",
+      "title": "Mordheim: City of the Damned - Official Campaign Trailer",
+      "kind": "trailer",
+      "note": "Trailer oficial da campanha; título visto em busca."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=J6akbox51lY",
+      "title": "Mordheim - City of the Damned - Gameplay Overview Trailer",
+      "kind": "trailer",
+      "note": "Visão geral de jogabilidade; título visto em busca."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=FVBTP02M6hE",
+      "title": "ALL Injuries in Mordheim: City of the Damned",
+      "kind": "análise",
+      "note": "Vídeo de jogador que lista os ferimentos do jogo; título visto em busca, conteúdo não conferido por mim."
+    }
+  ],
+  "notFound": [
+    "Fontes são a wiki da comunidade (fandom, lida pela API) e a Wikipedia; não vi manual nem documento oficial da Rogue Factor ou da Focus",
+    "Tabela exata de ferimentos (probabilidades de cada resultado): a wiki descreve os tipos, não achei os números",
+    "Captura das telas de ferimentos e tratamento (aba Ferimentos): só a ficha do guerreiro",
+    "As telas de interface são de 2016 (acesso antecipado); a versão final pode ter pequenas diferenças",
+    "Não conferi o conteúdo dos vídeos, só os títulos"
+  ]
+}

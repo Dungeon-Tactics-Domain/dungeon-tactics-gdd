@@ -1,0 +1,158 @@
+{
+  "work": "Delicious in Dungeon (Dungeon Meshi)",
+  "slug": "dungeon-meshi",
+  "year": 2024,
+  "kind": "anime",
+  "why": "É a obra que mais trata a masmorra como um sistema vivo com ecologia, economia e regras de ressurreição, e faz do suprimento (comer, dormir, equipar) o centro do drama. É uma referência de tom para um tactics com expedições: leve por fora, rigoroso por dentro, e com a morte tratada como problema logístico e moral.",
+  "axes": {
+    "tom": "Comédia calorosa e aventura gastronômica sobre um fundo de perda: a falta de suprimentos, uma irmã engolida por um dragão e uma masmorra que consome aventureiros. O humor serve para tornar o mundo habitável, não para escapar dele.",
+    "grupo": "Quatro especialistas de raças diferentes (humano, elfa, halfling, anão) formados por emergência e unidos pela comida e pela missão de resgate. O atrito entre métodos e preconceitos (cuidado de um, repulsa de outra) é a base das cenas de grupo.",
+    "morte": "A morte na masmorra é real, mas reversível dentro de regras: um corpo íntegro pode ser ressuscitado, e esse custo (corpo, tempo, dinheiro) pesa na estratégia. O trauma de quem volta e a fome de quem espera são tratados com seriedade (não confirmado).",
+    "mundo": "A masmorra é um ecossistema: monstros vivem em cadeias alimentares e dependem uns dos outros, e aventureiros de todo lugar a exploram. O lugar é isca e antagonista, com um reino perdido (o País de Ouro) no fundo e uma ameaça que não é só um chefe (não confirmado).",
+    "politica": "O rei do País de Ouro, ao chegar à superfície, prometeu seu reino a quem derrotar o Mago Louco, e vários grupos competem pela promessa. Os interesses de quem controla o acesso à masmorra dão a moldura política (não confirmado).",
+    "progressao": "O avanço é de conhecimento: aprender o que come o quê, cozinhar o que antes era veneno, saber onde cada monstro vive. O poder bruto mal muda (não confirmado); o que cresce é a leitura do ambiente e a capacidade de sobreviver mais um andar."
+  },
+  "lessons": [
+    {
+      "name": "A fome como motor",
+      "what": "A premissa é que o grupo ficou sem suprimento e precisa comer monstros para continuar a resgatar a irmã de Laios.",
+      "story": "A solução improvisada vira método: cada refeição ensina uma regra do ecossistema, e o ato de comer une o grupo e define a rotina.",
+      "take": "Suprimento como mecânica central da expedição: comida, água, descanso e moral (estresse) consumidos a cada andar. Preparar refeições vira atividade de base e de acampamento, com efeitos nos personagens.",
+      "avoid": "Não deixar a comida só como item de cura; ela precisa mexer em moral, relações e escolhas.",
+      "source": "https://www.siliconera.com/the-secret-to-delicious-in-dungeon-worldbuilding-is-attention-to-detail/"
+    },
+    {
+      "name": "Masmorra como ecossistema",
+      "what": "Os monstros vivem em cadeias alimentares e biomas, e o grupo precisa entender isso para sobreviver.",
+      "story": "A série mostra que matar demais numa área desequilibra o ecossistema e empurra predadores para outros andares; Senshi tem consciência do equilíbrio e avisa o grupo contra matar sem cuidado. A ecologia é tratada como assunto a estudar, não como pano de fundo.",
+      "take": "Regiões da campanha com populações e comportamentos próprios que reagem ao que o jogador faz (caçar demais, deixar corpos, atrair predadores). O mapa vira um sistema com memória.",
+      "avoid": "Evitar simulação oculta que o jogador não consegue ler: cada efeito precisa ter sinal visível e consequência clara.",
+      "source": "https://inbetweendrafts.com/the-delicious-in-dungeon-guide-to-keeping-ecosystems-alive/"
+    },
+    {
+      "name": "Ressurreição com regras e custo",
+      "what": "Quem morre na masmorra pode ser revivido se o corpo estiver suficientemente íntegro, o que torna a morte um problema de logística.",
+      "story": "Falin é engolida por um dragão e o grupo corre para chegar antes que ela seja digerida. A urgência vem do prazo e do estado do corpo, não de um relógio arbitrário.",
+      "take": "Permadeath com uma janela de resgate: o corpo precisa voltar à superfície em certo tempo e estado, e a ressurreição custa recursos e traz sequelas. A perda vira uma decisão de equipe (arriscar buscar ou deixar).",
+      "avoid": "Não deixar a ressurreição barata e sem consequência; se qualquer morte é consertável, a expedição perde o peso.",
+      "source": "https://en.wikipedia.org/wiki/Delicious_in_Dungeon"
+    },
+    {
+      "name": "Especialistas em atrito",
+      "what": "Cada membro representa um jeito de enxergar o risco e a comida: curiosidade, nojo, cautela e experiência.",
+      "story": "Marcille resiste a comer monstros, Chilchuck desconfia de tudo, Senshi conhece o ofício e Laios é obcecado. As discussões em volta da refeição mostram os valores de cada um.",
+      "take": "Grupos com opiniões sobre o que fazer (comer, roubar, abandonar), em que decisões do jogador mudam o humor e as relações. O conflito leve alimenta as cenas de acampamento.",
+      "avoid": "Evitar brigas que só servem de piada: o conflito precisa de uma escolha com consequência.",
+      "source": "https://inbetweendrafts.com/delicious-in-dungeon-episode-7-review/"
+    },
+    {
+      "name": "Conhecimento como progressão",
+      "what": "O personagem mais valioso do grupo não é o mais forte, mas o que sabe como cada monstro se comporta e o que pode ser feito com ele.",
+      "story": "Senshi sobreviveu anos na masmorra cozinhando monstros e transforma cada criatura em ingrediente. Laios é fascinado pela ecologia e pelas criaturas da masmorra.",
+      "take": "Progressão por catálogo: matar ou observar um monstro revela informações (fraquezas, receitas, rotas) que ficam na base e beneficiam expedições futuras. O veterano é quem sabe, não só quem bate.",
+      "avoid": "Cuidado para o catálogo não virar colecionismo de lista: cada entrada precisa mudar uma decisão.",
+      "source": "https://en.wikipedia.org/wiki/Delicious_in_Dungeon"
+    },
+    {
+      "name": "A promessa no fundo",
+      "what": "Um reino perdido no fundo da masmorra e uma recompensa real atraem aventureiros de todo o continente.",
+      "story": "O rei do País de Ouro prometeu o reino a quem derrotar o Mago Louco; as expedições disputam a descida, e o grupo de Laios descobre que o preço do prêmio é maior do que parecia (não confirmado).",
+      "take": "Um objetivo final distante que ordena a campanha (o País de Ouro) e atrai facções rivais. A promessa política cria prazo e concorrência, e a verdade sobre o prêmio muda o sentido da expedição.",
+      "avoid": "Evitar o prêmio puramente numérico: ele precisa ser um mistério que o jogador quer resolver.",
+      "source": "https://en.wikipedia.org/wiki/Delicious_in_Dungeon"
+    }
+  ],
+  "videos": [
+    {
+      "url": "https://www.youtube.com/watch?v=n5JEoD7keVo",
+      "title": "Delicious in Dungeon | Official Trailer #1 | Netflix (Netflix Anime)",
+      "kind": "trailer",
+      "note": "1:31 que apresenta o tom leve e a premissa de comer monstros."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=NNmnx66dnmc",
+      "title": "The Delicious Ecosystem Of Dungeon Meshi (almostcheesecake)",
+      "kind": "análise",
+      "note": "14 min sobre como a masmorra funciona como ecossistema."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=E47J9931DHo",
+      "title": "How to Cook Delicious Lore (Mother's Basement)",
+      "kind": "análise",
+      "note": "35 min sobre como a série constrói o mundo pela comida."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=CmsnsRadQt0",
+      "title": "How Dungeon Meshi used food to tell a better story (pey talks anime)",
+      "kind": "análise",
+      "note": "Resumo de 10 min de como a comida conduz a narrativa."
+    }
+  ],
+  "notFound": [],
+  "shots": [
+    {
+      "file": "refs/dungeon-meshi/01-vela-na-masmorra.jpg",
+      "source": "https://lostinanime.com/2024/02/dungeon-meshi-delicious-in-dungeon-08/",
+      "theme": "base",
+      "title": "Vela na masmorra",
+      "note": "Senshi, Chilchuck e uma elfa sentados em volta de uma vela, num corredor escuro de pedra com uma escada ao fundo.",
+      "take": "Acampamento mínimo: luz, silêncio e plano na zona de perigo."
+    },
+    {
+      "file": "refs/dungeon-meshi/02-mapa-do-andar.jpg",
+      "source": "https://lostinanime.com/2024/02/dungeon-meshi-delicious-in-dungeon-08/",
+      "theme": "mapa",
+      "title": "Mapa do andar",
+      "note": "Um pergaminho amarelado com a planta de salas e corredores, com um dedo enluvado apontando um ponto.",
+      "take": "O mapa como objeto de planejamento que o jogador consulta."
+    },
+    {
+      "file": "refs/dungeon-meshi/03-carregando-o-corpo.jpg",
+      "source": "https://lostinanime.com/2024/02/dungeon-meshi-delicious-in-dungeon-08/",
+      "theme": "morte",
+      "title": "Carregando o corpo",
+      "note": "Laios e uma companheira carregam, por uma passagem de pedra, uma figura de vestido branco com marcas de sangue.",
+      "take": "A perda como logística: o corpo precisa ser levado de volta."
+    },
+    {
+      "file": "refs/dungeon-meshi/04-refeicao-em-grupo.jpg",
+      "source": "https://inverse.com/entertainment/fantasy-shows-january-2024-delicious-in-dungeon",
+      "theme": "campanha",
+      "title": "A refeição em grupo",
+      "note": "O grupo reunido em volta de um pote fumegante com uma grande refeição, num salão de pedra iluminado por fogo.",
+      "take": "A refeição como cena de base e de vínculo entre expedições."
+    },
+    {
+      "file": "refs/dungeon-meshi/05-slime-no-corredor.jpg",
+      "source": "https://lostinanime.com/2024/02/dungeon-meshi-delicious-in-dungeon-08/",
+      "theme": "mundo",
+      "title": "Slime no corredor",
+      "note": "Marcille num corredor de pedra ao lado de de uma esfera azul translúcida de monstro.",
+      "take": "Monstro como ingrediente e ameaça ao mesmo tempo."
+    },
+    {
+      "file": "refs/dungeon-meshi/06-confronto-na-nevoa.jpg",
+      "source": "https://butwhytho.net/?p=193650",
+      "theme": "tom",
+      "title": "Confronto na névoa",
+      "note": "Um aventureiro de costas encara dois monstros grandes e uma criatura pequena, num fundo azul brumoso.",
+      "take": "Encontro com criaturas em uma área de cor própria."
+    },
+    {
+      "file": "refs/dungeon-meshi/07-a-bandeja-de-senshi.jpg",
+      "source": "https://thegeeklygrind.com/archives/delicious-in-dungeon-episode-1-review",
+      "theme": "tom",
+      "title": "A bandeja de Senshi",
+      "note": "Senshi segura uma bandeja com sopa, arroz e peixe grelhado, em uma sala de pedra.",
+      "take": "O prato pronto como recompensa tangível da expedição."
+    },
+    {
+      "file": "refs/dungeon-meshi/08-clareira-musgosa.jpg",
+      "source": "https://lostinanime.com/2024/02/dungeon-meshi-delicious-in-dungeon-08/",
+      "theme": "mundo",
+      "title": "Clareira de musgo",
+      "note": "Duas jovens, uma delas elfa, numa clareira de musgo e luzes brilhantes, entre paredes rochosas verdes.",
+      "take": "Um bolsão de calma no mundo subterrâneo."
+    }
+  ]
+}

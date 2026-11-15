@@ -1,0 +1,167 @@
+{
+  "game": "Darkest Dungeon II",
+  "slug": "darkest-dungeon-2",
+  "year": 2023,
+  "why": "Troca a vila fixa por uma viagem em regiões e põe a relação entre heróis no centro: é o caso de estudo para uma campanha linear em que o grupo é o personagem e o laço entre dois recrutas vira narrativa.",
+  "loop": {
+    "batalha": "Combates por turnos com quatro heróis em fila, agora com iniciativa por rodada e cenas em 3D entre eles.",
+    "corrida": "A carruagem percorre um mapa de nós; cada nó é uma luta, um evento de estrada, um acampamento ou um descanso, e a Chama (luz) cai com os eventos.",
+    "base": "A Estalagem ao fim de cada região: recrutar, trocar o grupo, melhorar a estalagem com recursos e escolher o próximo caminho.",
+    "arco": "Um caminho fixo de regiões até a montanha, com um chefe por região; a história vem pelos eventos de estrada e pelas relações entre os heróis."
+  },
+  "gives": [
+    "estrada → estalagem: recursos e heróis feridos ou estressados que pedem cuidado",
+    "estalagem → estrada: grupo trocado, melhorias de estalagem e itens para a próxima região",
+    "relações → batalha: laços positivos dão ações extras (interceptar, curar), laços ruins forçam habilidades amaldiçoadas",
+    "escolhas de nó → relações: decisões compartilhadas mudam a afinidade entre os heróis"
+  ],
+  "mechanics": [
+    {
+      "name": "Relações entre heróis",
+      "what": "Cada par de heróis tem uma afinidade oculta que sobe ou desce com ações em combate, itens da estalagem, escolhas e eventos; ao sair da estalagem o par pode formar um laço (Respectful, Hopeful, Hateful e outros).",
+      "story": "A relação vira a trama do grupo: quem gosta de quem muda o que fazem em combate, sem texto escrito para cada par.",
+      "take": "Laços de pares por co-implantação (lutar juntos), que dão pequenos bônus e cenas curtas, terminando quando um morre.",
+      "avoid": "Um sistema tão oculto que o jogador não entende por que dois heróis se odeiam; mostrar a causa.",
+      "source": "https://darkestdungeon.wiki.gg/wiki/Relationships"
+    },
+    {
+      "name": "A viagem de carruagem por regiões",
+      "what": "Um grupo de quatro viaja por regiões até uma montanha; cada região termina em uma Estalagem onde se recruta, melhora e escolhe a rota.",
+      "story": "A campanha vira uma estrada de ida, com sensação de progresso e de perder o que ficou para trás.",
+      "take": "Uma estrutura em regiões com um centro de descanso ao fim de cada uma, a mesma ideia de ato e cidade do nosso mapa.",
+      "avoid": "Abrir mão do mapa livre: no nosso jogo as cidades devem continuar voltando.",
+      "source": "https://darkestdungeon.wiki.gg/wiki/Darkest_Dungeon_II"
+    },
+    {
+      "name": "A Chama e o medidor de luz",
+      "what": "A Chama é um medidor ligado a eventos; se apagar, uma emboscada de cultistas acontece.",
+      "story": "A esperança literal do grupo é um recurso que o jogador vê cair ao longo da viagem.",
+      "take": "Um medidor global simples de tensão da campanha que o jogador sempre vê.",
+      "avoid": "Punição surpresa; sinalizar o risco antes.",
+      "source": "https://darkestdungeon.wiki.gg/wiki/Darkest_Dungeon_II"
+    },
+    {
+      "name": "Estalagem e melhorias",
+      "what": "Na estalagem o jogador gasta recursos em ramos de melhoria (como o Quartel) e troca o grupo antes de seguir.",
+      "story": "O refúgio fica mais forte à medida que a história avança, como a vila do primeiro jogo, mas em formato de árvore.",
+      "take": "Uma árvore curta de melhorias da cidade, com recursos que só vêm de estágios.",
+      "avoid": "Árvores grandes; o nosso jogo tem poucas fases.",
+      "source": "https://darkestdungeon.wiki.gg/wiki/Darkest_Dungeon_II"
+    },
+    {
+      "name": "Colapso por estresse zera as relações",
+      "what": "Quando um herói tem um colapso de estresse, as relações dele são reiniciadas.",
+      "story": "O momento de crise tem uma consequência social, não só numérica.",
+      "take": "Eventos de crise que mexem em laços, com custo narrativo visível.",
+      "avoid": "Perda sem aviso de algo que o jogador construiu com cuidado.",
+      "source": "https://darkestdungeon.wiki.gg/wiki/Darkest_Dungeon_II"
+    }
+  ],
+  "shots": [
+    {
+      "file": "refs/darkest-dungeon-2/01-relacao.jpg",
+      "source": "https://store.steampowered.com/app/1940340/",
+      "theme": "personagem",
+      "title": "Relação: Respectful",
+      "note": "Tela cheia com dois heróis (a pistoleira e o cavaleiro) diante da lua, com a palavra Respectful; marca o momento em que um laço se forma.",
+      "take": "Um momento visual curto quando o laço entre dois recrutas nasce."
+    },
+    {
+      "file": "refs/darkest-dungeon-2/02-tom-pier.jpg",
+      "source": "https://store.steampowered.com/app/1940340/",
+      "theme": "tom",
+      "title": "Local: The Sacred Pier",
+      "note": "Paisagem em preto e branco com torres de madeira e velas azuladas sobre uma névoa; o nome do lugar aparece embaixo.",
+      "take": "Cartão de lugar com nome e ilustração ao chegar numa região nova."
+    },
+    {
+      "file": "refs/darkest-dungeon-2/03-estalagem.jpg",
+      "source": "https://store.steampowered.com/app/1940340/",
+      "theme": "base",
+      "title": "Estalagem The Limping Mule",
+      "note": "Quatro heróis sentados em volta de uma lareira, cada um com HP e barra de estresse; inventário de recursos à direita e barra de ações da estalagem embaixo.",
+      "take": "A base como cena de grupo, com o elenco reunido e as ações do descanso numa barra."
+    },
+    {
+      "file": "refs/darkest-dungeon-2/04-mapa-viagem.jpg",
+      "source": "https://store.steampowered.com/app/1940340/",
+      "theme": "mapa",
+      "title": "Mapa de regiões, dia 6",
+      "note": "Mapa escuro de nós com ícones de acampamentos, casas e paradas; os retratos dos heróis no topo, contador de dias e de estalagens perdidas.",
+      "take": "Um mapa de nós legível com o contador do tempo da campanha sempre no canto."
+    },
+    {
+      "file": "refs/darkest-dungeon-2/05-tom-pilha.jpg",
+      "source": "https://store.steampowered.com/app/1940340/",
+      "theme": "tom",
+      "title": "Local: The Burning Pile",
+      "note": "Ilustração vermelha de uma pilha de livros e ruínas em chamas, com o nome do lugar em letras claras.",
+      "take": "Arte de lugar por região para marcar a mudança de clima da campanha."
+    },
+    {
+      "file": "refs/darkest-dungeon-2/06-acampamento.jpg",
+      "source": "https://store.steampowered.com/app/1940340/",
+      "theme": "base",
+      "title": "Acampamento na estrada",
+      "note": "Quatro heróis ao redor de uma fogueira sob a lua, com HP e estresse sob cada um e inventário à direita.",
+      "take": "Pausa de descanso com poucas ações, entre os nós do mapa."
+    },
+    {
+      "file": "refs/darkest-dungeon-2/07-estrada-regiao.jpg",
+      "source": "https://store.steampowered.com/app/1940340/",
+      "theme": "mapa",
+      "title": "A carruagem na Tundra, com balão de fala",
+      "note": "Carruagem iluminada em um desfiladeiro de neve; à esquerda aparece a árvore de caminhos da região, e um herói fala em balão na estrada.",
+      "take": "Escolha de caminho na própria viagem, com falas curtas dos heróis."
+    },
+    {
+      "file": "refs/darkest-dungeon-2/08-evento.jpg",
+      "source": "https://store.steampowered.com/app/1940340/",
+      "theme": "escolha",
+      "title": "Evento do dia 9: Accidental Innervation",
+      "note": "Janela de evento com ilustração e texto sobre uma poção da milícia, e o efeito mecânico anunciado; botão Close.",
+      "take": "Eventos de texto curtos com o efeito em jogo declarado ao fim."
+    },
+    {
+      "file": "refs/darkest-dungeon-2/09-altar.jpg",
+      "source": "https://store.steampowered.com/app/1940340/",
+      "theme": "campanha",
+      "title": "Local: Altar of Hope",
+      "note": "Altar iluminado cercado por centenas de velas, com o nome em letras douradas.",
+      "take": "Marcos visuais na história, como um lugar-símbolo de uma fase."
+    },
+    {
+      "file": "refs/darkest-dungeon-2/10-melhorias-estalagem.jpg",
+      "source": "https://store.steampowered.com/app/1940340/",
+      "theme": "base",
+      "title": "Melhorias da estalagem: Quartel",
+      "note": "Árvore vertical de melhorias do Quartel com custos em recursos, descrição à direita e o estalajadeiro à esquerda.",
+      "take": "Melhorias de cidade em ramos curtos pagos com recurso de campanha."
+    }
+  ],
+  "videos": [
+    {
+      "url": "https://www.youtube.com/watch?v=fq53pdxY-0U",
+      "title": "Darkest Dungeon II - Launch Trailer",
+      "kind": "trailer",
+      "note": "Trailer de lançamento do canal da Red Hook; resume a viagem de carruagem e as relações."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=pVD0AiNu4xo",
+      "title": "Darkest Dungeon II Q&A w/ Red Hook Cofounders Chris Bourassa and Tyler Sigman",
+      "kind": "palestra",
+      "note": "Os fundadores explicam as escolhas de design do segundo jogo."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=UoogT3XOl-8",
+      "title": "Partnership on Darkest Dungeon: The Double-Edged Sword | GDC Festival of Gaming",
+      "kind": "palestra",
+      "note": "Palestra da GDC dos dois fundadores sobre como o estúdio decide o design; mais sobre processo do que sobre o jogo."
+    }
+  ],
+  "notFound": [
+    "Tela de combate com ações de relação (act-outs) em andamento: a API da Steam só trouxe imagens estáticas de combate",
+    "Palestra da GDC específica sobre o design de Darkest Dungeon II: só encontrei um artigo no Game Developer sobre o tema da viagem, sem vídeo verificado",
+    "Fonte oficial para números das relações; usei a wiki da comunidade"
+  ]
+}

@@ -1,0 +1,161 @@
+{
+  "work": "Mushoku Tensei: Jobless Reincarnation",
+  "slug": "mushoku-tensei",
+  "year": 2021,
+  "kind": "anime",
+  "why": "Mostra um mundo de fantasia com história, raças e preconceitos concretos, e uma campanha longa de formação: escola de magia, mentores, uma catástrofe que dispersa a família e a lenta reconstrução. É útil para pensar progressão ao longo de anos, política de raças e perdas que acontecem fora do campo de batalha.",
+  "axes": {
+    "tom": "Fantasia de escola e viagem com tom de drama pesado: a série alterna cenas de cotidiano e afeto com guerra, preconceito e luto. O tom depende muito da discussão do protagonista, que é construído como falho de propósito e divide o público.",
+    "grupo": "O grupo muda de fase a fase: a família na infância, a pupila Eris e o guerreiro Ruijerd na viagem, depois colegas e esposas na universidade. Os vínculos se formam por mentoria e dívida emocional, e se desfazem por separações forçadas pelo mundo.",
+    "morte": "A morte de entes queridos é frequente e fica na memória: a catástrofe que dispersa famílias, a perda de um pai, mentores que somem. O luto é um tema de longa duração, que altera as decisões do protagonista por temporadas.",
+    "mundo": "O mundo tem continentes, línguas, religião e um passado de guerra contra o Rei Demônio e seu exército. A série é elogiada pelo detalhamento: o preconceito contra raças como os Superd, as regras da magia e a geografia fazem de cada viagem uma aula de mundo.",
+    "politica": "Reinos, a Igreja de Milis, a universidade de Ranoa e linhagens nobres (a casa Boreas) se cruzam: a política aparece como pressão sobre indivíduos, com casamentos, herdeiros, exílios e estigmas raciais.",
+    "progressao": "A progressão é de currículo e tempo: Rudeus estuda magia com Roxy desde criança, vira tutor de magia de Eris, entra na universidade e atravessa anos de vida. O poder cresce, mas o amadurecimento emocional é o que de fato custa."
+  },
+  "lessons": [
+    {
+      "name": "A segunda chance cobra culpa",
+      "what": "Um adulto fracassado reencarna em um novo mundo e decide não repetir seus erros, mas continua carregando o antigo eu.",
+      "story": "Rudeus treina magia desde bebê e fica precoce, mas a série mantém em primeiro plano as falhas de caráter dele (o personagem divide o público); segundo o autor, a mensagem é que todos podem errar.",
+      "take": "Um recruta com um passado que não é totalmente revelado e que carrega um erro que quer corrigir. Cada missão pode ter uma decisão em que o passado do personagem entra, e a redenção é uma meta de longo prazo, não um botão.",
+      "avoid": "O protagonista precisa de limites claros; o debate sobre o comportamento de Rudeus mostra como a promessa de redenção pode irritar quando a narrativa suaviza falhas graves.",
+      "source": "https://en.wikipedia.org/wiki/Mushoku_Tensei"
+    },
+    {
+      "name": "Mundo com camadas de história",
+      "what": "A série constrói raças, línguas, continentes e passado de guerra que afetam decisões do dia a dia.",
+      "story": "Ruijerd, da raça Superd, é temido por causa do estigma de que os Superd são monstros assassinos, herdado da guerra contra Laplace, mesmo sendo protetor. A viagem pelo continente demoníaco mostra como a história pesa sobre indivíduos.",
+      "take": "Raças e facções com um passado que os personagens carregam: certos recrutas são recusados por estalajadeiros, certas cidades cobram taxas diferentes. O preconceito vira regra de campanha que o jogador precisa enfrentar.",
+      "avoid": "Preconceito como cenário decorativo cansa; ele precisa custar algo ao jogador, como preço, acesso ou ajuda.",
+      "source": "https://en.wikipedia.org/wiki/List_of_Mushoku_Tensei_characters"
+    },
+    {
+      "name": "Catástrofe que dispersa",
+      "what": "Um desastre mágico teleporta centenas de milhares de pessoas para longe de casa e separa famílias.",
+      "story": "Rudeus acorda longe de tudo que conhece e precisa atravessar um continente com Eris e Ruijerd para voltar. O evento reorganiza o grupo e o objetivo.",
+      "take": "Um evento de campanha que quebra a base e espalha os recrutas, com cada um acabando em um lugar diferente e a campanha virando uma busca pelo reencontro. A base muda de lugar, e a expedição precisa fazer o caminho de volta.",
+      "avoid": "Evitar o reset total: se tudo some, o jogador perde o investimento; mantenha vínculos e ganhos, mudando o que eles significam.",
+      "source": "https://en.wikipedia.org/wiki/Mushoku_Tensei"
+    },
+    {
+      "name": "Mestres e a escola como progressão",
+      "what": "A progressão mágica e social passa por mestres (Roxy), pelo ensino de magia a Eris e pela universidade de Ranoa.",
+      "story": "Roxy é a mestra de magia de Rudeus na infância, e anos depois ele entra na universidade de Ranoa, onde reencontra Sylphiette; o status e a política escolar fazem parte da trama (não confirmado).",
+      "take": "Uma base que funciona como escola ou guilda: mestres que ensinam habilidades específicas e que têm histórias próprias. Treinar com alguém abre diálogos e cria dívida.",
+      "avoid": "Cuidado com o mestre que só entrega poder: o vínculo precisa trazer custo ou obrigação.",
+      "source": "https://en.wikipedia.org/wiki/Mushoku_Tensei"
+    },
+    {
+      "name": "A perda do pai",
+      "what": "A morte de Paul, o pai de Rudeus, ocorre depois de uma reconciliação difícil e muda a forma como o protagonista encara a família.",
+      "story": "Paul tenta ser o pai que não foi, entra em busca da esposa desaparecida e morre antes de terminar a jornada. A perda empurra Rudeus a procurar apoio em quem sobrou, como Roxy.",
+      "take": "Uma perda que acontece depois de uma reconciliação, não antes, para doer mais. Num jogo, um mentor ou parente de um personagem jogável pode morrer na missão em que ele finalmente se abre, e o grupo reage de formas diferentes.",
+      "avoid": "Não anunciar a morte com música alta e flashbacks em excesso; o peso vem da cena comum interrompida.",
+      "source": "https://www.animenewsnetwork.com/review/mushoku-tensei-jobless-reincarnation-ii/episode-23/.212386"
+    },
+    {
+      "name": "Companheiros de viagem com função clara",
+      "what": "Ruijerd protege, Eris luta e Rudeus dá suporte mágico, cada um com um papel e um traço pessoal.",
+      "story": "Durante a travessia, o grupo se une pela necessidade de sobreviver e pela confiança que vai crescendo; depois da viagem, Eris se separa de Rudeus para treinar esgrima.",
+      "take": "Uma party de viagem em que cada membro tem papel mecânico e uma arco pessoal que pode terminar com a saída do grupo. Quem sai da party não morre, mas a decisão tem custo.",
+      "avoid": "Evitar o NPC que só serve ao protagonista; cada membro precisa ter uma meta que às vezes conflita com a do grupo.",
+      "source": "https://en.wikipedia.org/wiki/Mushoku_Tensei"
+    }
+  ],
+  "videos": [
+    {
+      "url": "https://www.youtube.com/watch?v=k5VxfJpzy1Q",
+      "title": "Mushoku Tensei: Jobless Reincarnation | OFFICIAL TRAILER (Crunchyroll)",
+      "kind": "trailer",
+      "note": "2:00 de trailer oficial: tom, mundo e ritmo da primeira temporada."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=n27qioQTHvY",
+      "title": "The World of Mushoku Tensei - A Deep Dive (Nerd Dive)",
+      "kind": "análise",
+      "note": "Mergulho de mais de uma hora no mundo, nas raças e na história."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=5X3Wy7zGCmI",
+      "title": "The Amazing Worldbuilding of Mushoku Tensei (EchoDecoder)",
+      "kind": "análise",
+      "note": "6 min sobre por que o mundo parece vivido."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=fVPnT99v0JE",
+      "title": "Mushoku Tensei and Morality, and why I love it (Bison Kamuy)",
+      "kind": "análise",
+      "note": "Ensaio de 26 min sobre moral, culpa e redenção do protagonista."
+    }
+  ],
+  "notFound": [
+    "Mapas oficiais dos continentes não encontrados em fontes acessíveis",
+    "Site oficial (mushokutensei.jp) retorna 403 para download automático"
+  ],
+  "shots": [
+    {
+      "file": "refs/mushoku-tensei/01-cartaz-temporada-3.jpg",
+      "source": "https://animecorner.me/mushoku-tensei-season-3-unveils-new-key-visual/",
+      "theme": "personagem",
+      "title": "Cartaz da 3ª temporada",
+      "note": "Arte vertical de divulgação com Rudeus à frente, silhuetas de monstros e personagens ao redor e o título em japonês.",
+      "take": "Key art como contrato de tom: o herói, a família e a ameaça no mesmo quadro."
+    },
+    {
+      "file": "refs/mushoku-tensei/02-ruijerd-sob-as-estrelas.jpg",
+      "source": "https://wherever-i-look.com/tv-series/anime/mushoku-tensei-jobless-reincarnation-season-1-finale-episode-11-children-and-warriors-recap-review-with-spoilers",
+      "theme": "campanha",
+      "title": "Ruijerd e Rudeus sob as estrelas",
+      "note": "O guerreiro de pele esverdeada e marcas no rosto estende a mão ao jovem Rudeus, contra um céu estrelado.",
+      "take": "Mentor e protegido na travessia: o pacto entre dois estranhos."
+    },
+    {
+      "file": "refs/mushoku-tensei/03-viagem-na-tempestade.jpg",
+      "source": "https://wherever-i-look.com/tv-series/anime/mushoku-tensei-jobless-reincarnation-season-1-finale-episode-11-children-and-warriors-recap-review-with-spoilers",
+      "theme": "campanha",
+      "title": "Viagem na tempestade",
+      "note": "Rudeus de varinha em punho, com Ruijerd e Eris ao lado, sob nuvens carregadas e vento forte.",
+      "take": "Expedição em terreno hostil com um trio de papéis distintos."
+    },
+    {
+      "file": "refs/mushoku-tensei/04-grupo-no-navio.jpg",
+      "source": "https://wherever-i-look.com/tv-series/anime/mushoku-tensei-jobless-reincarnation-season-1-finale-episode-11-children-and-warriors-recap-review-with-spoilers",
+      "theme": "campanha",
+      "title": "Grupo no convés",
+      "note": "Aventureiros em armaduras e vestes diferentes (uma maga de chapéu pontudo, um anão) posam no convés de um navio.",
+      "take": "A party reunida para a viagem: cada silhueta diz a classe."
+    },
+    {
+      "file": "refs/mushoku-tensei/05-salao-da-escola.jpg",
+      "source": "https://animecorner.me/rudy-roxy-and-sylphie-return-to-everyday-life-in-mushoku-tensei-season-3-episode-3-preview/",
+      "theme": "base",
+      "title": "Salão da universidade",
+      "note": "Rudeus e colegas em um salão de pedra com luz entrando pelo alto, com uma figura curvada no chão.",
+      "take": "A escola como base social, com espaço para conflito e aliança."
+    },
+    {
+      "file": "refs/mushoku-tensei/06-campus.jpg",
+      "source": "https://animecorner.me/mushoku-tensei-season-3-episode-7-preview-revealed/",
+      "theme": "base",
+      "title": "No campus",
+      "note": "Dois estudantes de uniforme branco e vermelho, um de óculos, ao lado de um edifício de pedra.",
+      "take": "Uniforme e arquitetura marcam o pertencimento a uma instituição."
+    },
+    {
+      "file": "refs/mushoku-tensei/07-diario-manchado.jpg",
+      "source": "https://animecorner.me/mushoku-tensei-jobless-reincarnation-didnt-have-to-be-about-a-predator/amp/",
+      "theme": "outro",
+      "title": "Diário manchado de sangue",
+      "note": "Uma mão segura um caderno de capa de madeira com a palavra Diary, o nome Rudeus Greyrat na capa e manchas de sangue.",
+      "take": "Objeto-memória: o que sobra de alguém pode virar item de campanha."
+    },
+    {
+      "file": "refs/mushoku-tensei/08-o-sorriso-que-esconde.jpg",
+      "source": "https://animecorner.me/mushoku-tensei-jobless-reincarnation-didnt-have-to-be-about-a-predator/amp/",
+      "theme": "tom",
+      "title": "O sorriso que esconde",
+      "note": "Rudeus de rosto contraído e lágrimas, com a legenda dizendo que sorri para não ser odiado.",
+      "take": "A culpa e o medo de rejeição como motor do personagem."
+    }
+  ]
+}

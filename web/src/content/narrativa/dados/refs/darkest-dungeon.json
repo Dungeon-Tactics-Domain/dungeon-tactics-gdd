@@ -1,0 +1,182 @@
+{
+  "game": "Darkest Dungeon",
+  "slug": "darkest-dungeon",
+  "year": 2016,
+  "why": "É o melhor exemplo de como uma vila (base) e expedições curtas formam um ciclo em que a narrativa nasce das mecânicas: estresse, traços e mortes viram a história do grupo. Mostra como dar apego a recrutas genéricos sem cutscenes.",
+  "loop": {
+    "batalha": "Combates por turnos em fila (posição 1 a 4) dentro de salas de uma masmorra; além do HP, cada herói tem uma barra de estresse que muda o comportamento dele.",
+    "corrida": "Expedições curtas, médias ou longas, com suprimentos comprados antes (comida, tochas), luz que diminui e retirada com custo; cada uma tem objetivo e recompensa.",
+    "base": "A vila (Hamlet) com prédios que curam estresse, removem traços, treinam habilidades, forjam equipamento e recrutam heróis; é melhorada com relíquias.",
+    "arco": "Uma série de regiões e chefes revela a história do Ancestral pela narração reativa e pelas Memórias; a campanha termina na Darkest Dungeon, com quatro missões fixas."
+  },
+  "gives": [
+    "expedição → vila: relíquias e ouro para melhorar prédios, e heróis estressados ou marcados que precisam de cuidado",
+    "vila → expedição: heróis aliviados, equipamento novo, habilidades treinadas e recrutas frescos",
+    "batalha → expedição: o estresse acumulado nas lutas decide até onde o grupo ainda pode avançar",
+    "expedição → batalha: luz e suprimentos limitam quantas lutas o grupo aguenta",
+    "mortes → vila: o Cemitério registra cada baixa e o recrutamento repõe o grupo"
+  ],
+  "mechanics": [
+    {
+      "name": "Estresse, aflições e virtudes",
+      "what": "Combate, armadilhas, escuridão e ver aliados quase mortos sobem o estresse; aos 100 o herói vira aflito (mais comum) ou virtuoso (mais raro), e aos 200 sofre um ataque cardíaco.",
+      "story": "O horror do cenário vira recurso tático: o aflito xinga, se recusa a obedecer e estressa os outros, então a loucura aparece como acontecimento da partida.",
+      "take": "Um segundo medidor por unidade (moral ou fadiga) que muda o comportamento e é aliviado na vila, ligando estágio e cidade.",
+      "avoid": "Aleatoriedade demais em quem sofre aflição; no original isso frustra, e para o nosso ritmo FFT convém que o jogador veja o risco antes.",
+      "source": "https://darkestdungeon.wiki.gg/wiki/Stress"
+    },
+    {
+      "name": "Traços (quirks) ganhos jogando",
+      "what": "Heróis ganham traços positivos e negativos depois de expedições ou do alívio de estresse; há limite de cinco de cada e o Sanatório remove ou trava traços por um custo.",
+      "story": "Cada recruta genérico ganha uma personalidade que veio da própria partida, não de um roteiro.",
+      "take": "Uma lista pequena de traços ganhos após um estágio, removíveis na cidade por ouro, como dispositivo barato de apego.",
+      "avoid": "Traços que se acumulam sem limite; o original substitui um aleatoriamente, o que irrita.",
+      "source": "https://darkestdungeon.wiki.gg/wiki/Quirks"
+    },
+    {
+      "name": "Expedição com orçamento",
+      "what": "A missão tem tamanho (curta, média, longa), suprimentos e tochas comprados antes, luz que cai e retirada que custa estresse e pode falhar; heróis acima do nível da missão se recusam a ir.",
+      "story": "A tensão de \"até onde eu vou\" aparece sem texto: o jogador conta tochas e decide arriscar mais uma sala.",
+      "take": "Cada fase como uma viagem com um custo claro (itens, tempo) e a opção de recuar perdendo parte da recompensa.",
+      "avoid": "Esconder o custo da retirada; deixar o jogador adivinhar torna a decisão injusta.",
+      "source": "https://darkestdungeon.wiki.gg/wiki/Expeditions"
+    },
+    {
+      "name": "Vila, relíquias e duas moedas",
+      "what": "O ouro paga o dia a dia (suprimentos, tratamentos) e as relíquias (bustos, retratos, escrituras, brasões) pagam melhorias permanentes dos prédios; Taverna e Abadia aliviam estresse, Guilda treina e Ferreiro forja.",
+      "story": "Reconstruir a propriedade é o arco visível do jogador: cada melhoria é um marco de progresso da família decaída.",
+      "take": "Duas moedas, uma para sobreviver à semana e outra rara para crescer a vila; prédios com vagas limitadas e custo.",
+      "avoid": "Tantos prédios e caminhos de melhoria que o jogador se perde; para sete fases bastam poucos.",
+      "source": "https://darkestdungeon.wiki.gg/wiki/Hamlet"
+    },
+    {
+      "name": "O Ancestral, narrador reativo",
+      "what": "Um narrador comenta golpes críticos, descobertas, recrutamentos, mortes, chefes e melhorias, revelando aos poucos a culpa e a história dele.",
+      "story": "A trama avança em frases curtas sobre eventos de rotina, quase sem cenas de corte.",
+      "take": "Linhas curtas escritas para primeira morte, crítico, recrutamento ou melhoria de prédio, dando voz ao mundo.",
+      "avoid": "Repetir as mesmas frases rápido demais; exige um bom volume de variações.",
+      "source": "https://darkestdungeon.wiki.gg/wiki/The_Ancestor"
+    },
+    {
+      "name": "Morte permanente e Cemitério",
+      "what": "Herói morto na masmorra é perdido para sempre, e o Cemitério registra cada morte com a causa; modos opcionais (Stygian, Bloodmoon) acrescentam um limite de semanas ou de mortes.",
+      "story": "A perda ganha um memorial visível, e o relógio opcional vira \"pressão do fim do mundo\" para quem quer mais risco.",
+      "take": "Um memorial na cidade com nome, classe, causa e fase; limite de tempo ou baixas só em modo opcional.",
+      "avoid": "Permadeath obrigatório sem rede de segurança em campanha curta com protagonista; no estilo FFT, nomeados ficam protegidos.",
+      "source": "https://darkestdungeon.wiki.gg/wiki/Game_Modes"
+    }
+  ],
+  "shots": [
+    {
+      "file": "refs/darkest-dungeon/01-hamlet.jpg",
+      "source": "https://store.steampowered.com/app/262060/",
+      "theme": "base",
+      "title": "A vila da propriedade Redhookjohn",
+      "note": "Tela da vila ao pôr do sol com casas em ruína, carroça e estátua; barra com o elenco de heróis à direita, ouro e relíquias embaixo e o botão Embark.",
+      "take": "A vila como hub único e legível, com o botão de partir sempre visível e o elenco ao lado."
+    },
+    {
+      "file": "refs/darkest-dungeon/02-heroi-quirks.jpg",
+      "source": "https://store.steampowered.com/app/262060/",
+      "theme": "personagem",
+      "title": "Ficha do herói com traços",
+      "note": "Ficha de um bufão veterano: traços positivos à esquerda e negativos em vermelho à direita, status base, equipamento, resistências, doenças e habilidades de combate e de acampamento.",
+      "take": "Traços como lista curta na ficha, dando identidade a um recruta genérico."
+    },
+    {
+      "file": "refs/darkest-dungeon/03-acampamento.jpg",
+      "source": "https://store.steampowered.com/app/262060/",
+      "theme": "tom",
+      "title": "Acampamento na masmorra",
+      "note": "Quatro heróis ao redor de uma fogueira, com balão de fala de um deles e o objetivo da missão no canto; luz vermelha quente contra o escuro.",
+      "take": "Um momento de descanso no meio da fase para recuperar e dar fala aos personagens."
+    },
+    {
+      "file": "refs/darkest-dungeon/04-afliccao.jpg",
+      "source": "https://store.steampowered.com/app/262060/",
+      "theme": "escolha",
+      "title": "Aflição: Hopeless",
+      "note": "Tela cheia mostrando uma heroína gritando dentro de um halo vermelho, com a palavra Hopeless; o resto da cena escurece.",
+      "take": "Um momento dramático em tela cheia quando o estado mental muda, curto e que para o jogo."
+    },
+    {
+      "file": "refs/darkest-dungeon/05-virtude.jpg",
+      "source": "https://store.steampowered.com/app/262060/",
+      "theme": "personagem",
+      "title": "Virtude: Courageous",
+      "note": "O médico da peste em um halo dourado com a palavra Courageous; é o lado positivo do mesmo medidor de estresse.",
+      "take": "O estresse pode resultar em algo bom, o que mantém a tensão interessante e não só punitiva."
+    },
+    {
+      "file": "refs/darkest-dungeon/06-mapa-estate.jpg",
+      "source": "https://store.steampowered.com/app/262060/",
+      "theme": "mapa",
+      "title": "Mapa da propriedade com missões",
+      "note": "Mapa ilustrado com regiões (Ruins, Warrens, Weald, Cove) e três missões cada; painel à esquerda mostra tamanho, nível, objetivo e recompensa; a Darkest Dungeon está bloqueada no topo.",
+      "take": "Mapa de campanha com poucas missões por região e recompensa visível antes de aceitar."
+    },
+    {
+      "file": "refs/darkest-dungeon/07-reliquias.jpg",
+      "source": "https://store.steampowered.com/app/262060/",
+      "theme": "campanha",
+      "title": "Resumo de vitória com relíquias",
+      "note": "Tela Victory com recompensas da missão, tesouro coletado e uma linha separada de relíquias (heirlooms) acumuladas.",
+      "take": "Separar na tela de resultado o ouro do dia e a moeda permanente de melhoria."
+    },
+    {
+      "file": "refs/darkest-dungeon/08-taverna.jpg",
+      "source": "https://store.steampowered.com/app/262060/",
+      "theme": "base",
+      "title": "Taverna: alívio de estresse",
+      "note": "Painel do prédio com o taverneiro, três opções (bar, jogatina, bordel) e vagas por atividade; heróis são colocados nas vagas e pagam ouro.",
+      "take": "Prédio de alívio com vagas limitadas e risco; a cidade como lugar de escolhas de gestão."
+    },
+    {
+      "file": "refs/darkest-dungeon/09-abadia.jpg",
+      "source": "https://store.steampowered.com/app/262060/",
+      "theme": "base",
+      "title": "Abadia: alívio de estresse mais seguro",
+      "note": "Prédio com monge lendo, e atividades (claustro, transepto, penitência) com vagas em arcos; um herói está na vaga com custo em ouro.",
+      "take": "Dois prédios com a mesma função mas risco diferente, para o jogador escolher o custo."
+    },
+    {
+      "file": "refs/darkest-dungeon/10-guilda.jpg",
+      "source": "https://store.steampowered.com/app/262060/",
+      "theme": "base",
+      "title": "Guilda: treino de habilidades",
+      "note": "Árvore de habilidades de um cruzado em fileiras com marcadores dourados e custos em ouro; descrição da classe no centro e lista de heróis à direita.",
+      "take": "Compra de habilidades por classe na cidade, ligada ao sistema de mudança de classe."
+    }
+  ],
+  "videos": [
+    {
+      "url": "https://www.youtube.com/watch?v=h-mXN3akTPU",
+      "title": "Darkest Dungeon - Release Trailer [OFFICIAL]",
+      "kind": "trailer",
+      "note": "Canal da Red Hook Studios; mostra o tom sombrio e a narração em poucos segundos."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=0IUaGQhlPwo",
+      "title": "Darkest Dungeon: A Design Postmortem | GDC Festival of Gaming",
+      "kind": "palestra",
+      "note": "Pós-mortem de design no canal oficial da GDC; útil para estresse, vila e escolhas de dificuldade."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=k4ETK1C1KNs",
+      "title": "A Torch in the Dark: Using Creative Direction to Light The Darkest Dungeon | GDC Festival of Gaming",
+      "kind": "palestra",
+      "note": "Como a direção criativa e o tom do jogo foram definidos."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=RzC7o5T8mnc",
+      "title": "Stress, Darkest Dungeon's Mechanic that Teaches Us About The Human Condition | Game Philosophy",
+      "kind": "análise",
+      "note": "Análise do sistema de estresse como narrativa, de um canal independente."
+    }
+  ],
+  "notFound": [
+    "Captura do Sanatório e do Cemitério da vila: a API da Steam não traz essas telas",
+    "Captura da narração do Ancestral em contexto: só há um balão de fala nas telas",
+    "Fonte oficial da Red Hook para os números exatos de nível e dificuldade; usei a wiki da comunidade (wiki.gg)"
+  ]
+}
