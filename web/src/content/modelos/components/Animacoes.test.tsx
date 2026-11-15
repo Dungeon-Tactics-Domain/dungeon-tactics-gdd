@@ -25,6 +25,10 @@ describe('Animacoes', () => {
       `${B}?${new URLSearchParams({ glb: GLB, zoom: '1.6', anim: 'Idle', fx: '1' })}`,
     );
     expect(screen.getByText('intro')).toBeInTheDocument();
+    // the viewer comes before the options (left column; on top when stacked)
+    expect(
+      iframe.compareDocumentPosition(screen.getByRole('button', { name: 'Soco' })) & Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
 
     await userEvent.click(screen.getByRole('button', { name: 'Soco' }));
     expect(new URL(iframe.getAttribute('src')!).searchParams.get('anim')).toBe('Melee_Unarmed_Attack_Punch_A');

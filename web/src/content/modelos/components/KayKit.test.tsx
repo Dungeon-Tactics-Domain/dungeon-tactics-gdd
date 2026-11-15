@@ -39,6 +39,11 @@ describe('KayKit', () => {
       zoom: '1.2',
     });
     expect(q.has('head')).toBe(false);
+    // the viewer comes before the options (left column; on top when stacked)
+    const opcoes = screen.getByRole('group', { name: '🧍 Personagem' });
+    expect(
+      screen.getByTitle('Personagem KayKit 3D').compareDocumentPosition(opcoes) & Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
   });
 
   it('swaps characters, parts, pack clips and weapons', async () => {
