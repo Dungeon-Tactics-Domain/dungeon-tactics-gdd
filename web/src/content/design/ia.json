@@ -288,7 +288,7 @@
     },
     {
       "name": "Copilot (Microsoft)",
-      "plan": "conta do Fernando, grátis · saída 1536×1024 (3:2, não 16:9) · agente: eu mesmo, pelo Chrome",
+      "plan": "conta do Fernando, grátis · saída 1536×1024 (3:2, não 16:9) · agente: eu mesmo, pelo Chrome · limite mensal de imagens atingido na madrugada de 15/11",
       "tests": [
         {
           "file": "copilot-ui-ouro.png",
@@ -336,6 +336,468 @@
           "bad": "No menu principal a linha em foco não aparece; no submenu o foco cai em Escudada e a desativada (Bola de fogo) é só mais apagada; rótulos numerados dentro da imagem."
         },
         {
+          "file": "copilot-ref-retratos-1-folha.png",
+          "title": "Rostos em pixel art · os 10 bonecos no traço dos retratos do FFT Clássico (sem fotos do KayKit)",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/6ef32d77-3279-46a4-9484-c9ac81343ee8",
+          "attached": "ref-retratos-fft.png (11 retratos recortados das imagens FFT Clássico: fila Aria, Lacaio, Tess, Odo, Acólito; ficha da Aria; Lacaio e atacante/alvo da prévia; retrato da coluna)",
+          "prompt": "Crie uma imagem. A imagem anexada mostra 11 retratos de diálogo em pixel art, recortados de uma interface de jogo tático. Copie EXATAMENTE este traço: pixel art de 16 bits estilo Final Fantasy Tactics de PS1, busto de 3/4 virado para a direita, contorno escuro fino, sombreamento suave em 3 a 4 tons, olhos grandes amendoados com brilho, nariz pequeno, pele pêssego, fundo azul-acinzentado liso dentro de uma moldura fina. NÃO copie os personagens, só o estilo.\n\nFaça uma folha com 10 retratos novos nesse estilo, 2 linhas de 5, com o nome embaixo de cada um:\n1. Bárbaro: homem forte de barba cinza cheia, usando um gorro de pele de urso marrom com orelhas, ombreira de pele.\n2. Cavaleiro: homem de rosto quadrado sob um elmo fechado cinza-aço prateado com viseira levantada, gola de cota de malha.\n3. Lanceiro: jovem com elmo azul-petróleo de crista vermelha, rosto sério, gola alta.\n4. Maga: mulher de cabelo preto liso, chapéu pontudo roxo de bruxa com faixa laranja, olhar confiante.\n5. Arqueira: mulher ruiva de trança, capa vermelha com capuz caído nos ombros.\n6. Ladino: rosto magro meio coberto por um capuz verde, sorriso de canto, lenço no pescoço.\n7. Esqueleto mago: caveira com chapéu pontudo vinho e olhos amarelos brilhando nas órbitas.\n8. Lacaio de osso: caveira simples com lenço laranja no pescoço.\n9. Esqueleto ladino: caveira sob um capuz vinho, órbitas com brilho fraco.\n10. Esqueleto guerreiro: caveira com elmo de chifres e lenço vermelho.\nFundo geral cinza escuro, sem outro texto.",
+          "good": "Primeira no traço pedido: fundo azul-acinzentado, busto de 3/4 para a direita, olhos amendoados e sombreamento dos retratos da Aria; personagens só pela descrição em texto, todos reconhecíveis; nomes certos.",
+          "bad": "Placas de nome bege em vez da moldura fina da referência; saiu 3:2."
+        },
+        {
+          "file": "copilot-ref-retratos-2-barbaro.png",
+          "title": "Expressões · Bárbaro (traço FFT Clássico)",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/6ef32d77-3279-46a4-9484-c9ac81343ee8",
+          "prompt": "Crie uma imagem. Agora faça uma folha de EXPRESSÕES do Bárbaro (homem de barba cinza cheia com gorro de pele de urso marrom), no MESMO traço exato da folha anterior e dos retratos anexados no início: pixel art 16 bits estilo Final Fantasy Tactics, busto de 3/4 virado para a direita, mesmo fundo azul-acinzentado e moldura. Mesmo personagem, mesmo enquadramento, mudando SÓ o rosto. 8 quadros em 2 linhas de 4, rótulo embaixo de cada um: Neutro; Falando (boca entreaberta); Falando (boca bem aberta); Gritando ao atacar (boca escancarada, sobrancelhas franzidas); Tomando dano (olhos fechados apertados, dentes cerrados, cabeça recuando); Ferido (olhos semicerrados, gota de suor); Sorrindo; Bravo. Fundo geral cinza escuro, sem outro texto.",
+          "good": "8 quadros com o mesmo rosto; boca entreaberta, aberta e grito em graus (serve para animar fala); dano com dentes cerrados, ferido com gota de suor, sorriso e bravo distintos.",
+          "bad": "Rótulos sem o detalhe entre parênteses (dois \"Falando\"); placas bege."
+        },
+        {
+          "file": "copilot-ref-retratos-3-cavaleiro.png",
+          "title": "Expressões · Cavaleiro (traço FFT Clássico)",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/6ef32d77-3279-46a4-9484-c9ac81343ee8",
+          "prompt": "Crie uma imagem. Agora faça uma folha de EXPRESSÕES do Cavaleiro (homem de rosto quadrado sob elmo cinza-aço prateado com viseira levantada), no MESMO traço exato da folha anterior e dos retratos anexados no início: pixel art 16 bits estilo Final Fantasy Tactics, busto de 3/4 virado para a direita, mesmo fundo azul-acinzentado e moldura. Mesmo personagem, mesmo enquadramento, mudando SÓ o rosto. 8 quadros em 2 linhas de 4, rótulo embaixo de cada um: Neutro; Falando (boca entreaberta); Falando (boca bem aberta); Gritando ao atacar (boca escancarada, sobrancelhas franzidas); Tomando dano (olhos fechados apertados, dentes cerrados, cabeça recuando); Ferido (olhos semicerrados, gota de suor); Sorrindo; Bravo. Fundo geral cinza escuro, sem outro texto.",
+          "good": "Mesmo rosto e elmo em todos; bocas em graus claros, careta de dano com dentes cerrados, gota de suor no ferido.",
+          "bad": "Rótulos sem o detalhe entre parênteses; placas bege."
+        },
+        {
+          "file": "copilot-ref-retratos-4-lanceiro.png",
+          "title": "Expressões · Lanceiro (traço FFT Clássico)",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/6ef32d77-3279-46a4-9484-c9ac81343ee8",
+          "prompt": "Crie uma imagem. Agora faça uma folha de EXPRESSÕES do Lanceiro (jovem com elmo azul-petróleo de crista vermelha), no MESMO traço exato da folha anterior e dos retratos anexados no início: pixel art 16 bits estilo Final Fantasy Tactics, busto de 3/4 virado para a direita, mesmo fundo azul-acinzentado e moldura. Mesmo personagem, mesmo enquadramento, mudando SÓ o rosto. 8 quadros em 2 linhas de 4, rótulo embaixo de cada um: Neutro; Falando (boca entreaberta); Falando (boca bem aberta); Gritando ao atacar (boca escancarada, sobrancelhas franzidas); Tomando dano (olhos fechados apertados, dentes cerrados, cabeça recuando); Ferido (olhos semicerrados, gota de suor); Sorrindo; Bravo. Fundo geral cinza escuro, sem outro texto.",
+          "good": "Mesmo rosto, elmo e crista em todos; bocas em graus, careta de dano, suor no ferido.",
+          "bad": "Rótulos sem o detalhe entre parênteses; placas bege."
+        },
+        {
+          "file": "copilot-ref-retratos-5-maga.png",
+          "title": "Expressões · Maga (traço FFT Clássico)",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/6ef32d77-3279-46a4-9484-c9ac81343ee8",
+          "prompt": "Crie uma imagem. Agora faça uma folha de EXPRESSÕES do Maga (mulher de cabelo preto liso com chapéu pontudo roxo de bruxa de faixa laranja), no MESMO traço exato da folha anterior e dos retratos anexados no início: pixel art 16 bits estilo Final Fantasy Tactics, busto de 3/4 virado para a direita, mesmo fundo azul-acinzentado e moldura. Mesmo personagem, mesmo enquadramento, mudando SÓ o rosto. 8 quadros em 2 linhas de 4, rótulo embaixo de cada um: Neutro; Falando (boca entreaberta); Falando (boca bem aberta); Gritando ao atacar (boca escancarada, sobrancelhas franzidas); Tomando dano (olhos fechados apertados, dentes cerrados, cabeça recuando); Ferido (olhos semicerrados, gota de suor); Sorrindo; Bravo. Fundo geral cinza escuro, sem outro texto.",
+          "good": "Mesmo rosto e chapéu em todos; bocas em graus, careta de dano com um olho fechado, suor no ferido.",
+          "bad": "Chapéu corta o topo do quadro; rótulos sem o detalhe entre parênteses; placas bege."
+        },
+        {
+          "file": "copilot-ref-retratos-6-arqueira.png",
+          "title": "Expressões · Arqueira (traço FFT Clássico)",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/6ef32d77-3279-46a4-9484-c9ac81343ee8",
+          "prompt": "Crie uma imagem. Agora faça uma folha de EXPRESSÕES do Arqueira (mulher ruiva de trança com capa vermelha), no MESMO traço exato da folha anterior e dos retratos anexados no início: pixel art 16 bits estilo Final Fantasy Tactics, busto de 3/4 virado para a direita, mesmo fundo azul-acinzentado e moldura. Mesmo personagem, mesmo enquadramento, mudando SÓ o rosto. 8 quadros em 2 linhas de 4, rótulo embaixo de cada um: Neutro; Falando (boca entreaberta); Falando (boca bem aberta); Gritando ao atacar (boca escancarada, sobrancelhas franzidas); Tomando dano (olhos fechados apertados, dentes cerrados, cabeça recuando); Ferido (olhos semicerrados, gota de suor); Sorrindo; Bravo. Fundo geral cinza escuro, sem outro texto.",
+          "good": "A mais próxima da Aria da referência; mesmo rosto em todos; bocas em graus, careta de dano, suor no ferido.",
+          "bad": "Rótulos sem o detalhe entre parênteses; placas bege."
+        },
+        {
+          "file": "copilot-ref-retratos-7-ladino.png",
+          "title": "Expressões · Ladino (traço FFT Clássico)",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/6ef32d77-3279-46a4-9484-c9ac81343ee8",
+          "prompt": "Crie uma imagem. Agora faça uma folha de EXPRESSÕES do Ladino (rosto magro sob capuz verde, lenço no pescoço), no MESMO traço exato da folha anterior e dos retratos anexados no início: pixel art 16 bits estilo Final Fantasy Tactics, busto de 3/4 virado para a direita, mesmo fundo azul-acinzentado e moldura. Mesmo personagem, mesmo enquadramento, mudando SÓ o rosto. 8 quadros em 2 linhas de 4, rótulo embaixo de cada um: Neutro; Falando (boca entreaberta); Falando (boca bem aberta); Gritando ao atacar (boca escancarada, sobrancelhas franzidas); Tomando dano (olhos fechados apertados, dentes cerrados, cabeça recuando); Ferido (olhos semicerrados, gota de suor); Sorrindo; Bravo. Fundo geral cinza escuro, sem outro texto.",
+          "good": "Mesmo rosto e capuz em todos; bocas em graus, careta de dano, suor no ferido, sorriso de canto.",
+          "bad": "Rosto saiu feminino e jovem, sem o ar de malandro; rótulos sem parênteses; placas bege."
+        },
+        {
+          "file": "copilot-ref-retratos-8-esqueleto-mago.png",
+          "title": "Expressões · Esqueleto mago (traço FFT Clássico)",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/6ef32d77-3279-46a4-9484-c9ac81343ee8",
+          "prompt": "Crie uma imagem. Agora faça uma folha de EXPRESSÕES do Esqueleto mago (caveira com chapéu pontudo vinho e olhos amarelos brilhando; num rosto de caveira a expressão vem da mandíbula aberta ou fechada, do brilho e do formato dos olhos e da inclinação da cabeça), no MESMO traço exato da folha anterior e dos retratos anexados no início: pixel art 16 bits estilo Final Fantasy Tactics, busto de 3/4 virado para a direita, mesmo fundo azul-acinzentado e moldura. Mesmo personagem, mesmo enquadramento, mudando SÓ o rosto. 8 quadros em 2 linhas de 4, rótulo embaixo de cada um: Neutro; Falando (boca entreaberta); Falando (boca bem aberta); Gritando ao atacar (boca escancarada, sobrancelhas franzidas); Tomando dano (olhos fechados apertados, dentes cerrados, cabeça recuando); Ferido (olhos semicerrados, gota de suor); Sorrindo; Bravo. Fundo geral cinza escuro, sem outro texto.",
+          "good": "Expressão em caveira resolvida: mandíbula em graus, olhos em > < no dano, olhos semicerrados no ferido e bravo; mesmo chapéu em todos.",
+          "bad": "Gota de suor numa caveira; rótulos sem parênteses; placas bege."
+        },
+        {
+          "file": "copilot-ref-retratos-9-lacaio-de-osso.png",
+          "title": "Expressões · Lacaio de osso (traço FFT Clássico)",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/6ef32d77-3279-46a4-9484-c9ac81343ee8",
+          "prompt": "Crie uma imagem. Agora faça uma folha de EXPRESSÕES do Lacaio de osso (caveira simples com lenço laranja; a expressão vem da mandíbula, das órbitas e da inclinação da cabeça), no MESMO traço exato da folha anterior e dos retratos anexados no início: pixel art 16 bits estilo Final Fantasy Tactics, busto de 3/4 virado para a direita, mesmo fundo azul-acinzentado e moldura. Mesmo personagem, mesmo enquadramento, mudando SÓ o rosto. 8 quadros em 2 linhas de 4, rótulo embaixo de cada um: Neutro; Falando (boca entreaberta); Falando (boca bem aberta); Gritando ao atacar (boca escancarada, sobrancelhas franzidas); Tomando dano (olhos fechados apertados, dentes cerrados, cabeça recuando); Ferido (olhos semicerrados, gota de suor); Sorrindo; Bravo. Fundo geral cinza escuro, sem outro texto.",
+          "good": "Mandíbula em graus bem legível; órbitas em > no dano e inclinadas no bravo; mesmo lenço em todos.",
+          "bad": "Brilho amarelo aparece só no Sorrindo (incoerente); gota de suor numa caveira; placas bege."
+        },
+        {
+          "file": "copilot-ref-retratos-10-esqueleto-ladino.png",
+          "title": "Expressões · Esqueleto ladino (traço FFT Clássico)",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/6ef32d77-3279-46a4-9484-c9ac81343ee8",
+          "prompt": "Crie uma imagem. Agora faça uma folha de EXPRESSÕES do Esqueleto ladino (caveira sob capuz vinho com brilho fraco nas órbitas; a expressão vem da mandíbula, do brilho e da inclinação da cabeça), no MESMO traço exato da folha anterior e dos retratos anexados no início: pixel art 16 bits estilo Final Fantasy Tactics, busto de 3/4 virado para a direita, mesmo fundo azul-acinzentado e moldura. Mesmo personagem, mesmo enquadramento, mudando SÓ o rosto. 8 quadros em 2 linhas de 4, rótulo embaixo de cada um: Neutro; Falando (boca entreaberta); Falando (boca bem aberta); Gritando ao atacar (boca escancarada, sobrancelhas franzidas); Tomando dano (olhos fechados apertados, dentes cerrados, cabeça recuando); Ferido (olhos semicerrados, gota de suor); Sorrindo; Bravo. Fundo geral cinza escuro, sem outro texto.",
+          "good": "Mesmo capuz e brilho em todos; mandíbula em graus; olhos em traço no dano e inclinados no bravo.",
+          "bad": "Gota de suor numa caveira; rótulos sem parênteses; placas bege."
+        },
+        {
+          "file": "copilot-ref-retratos-11-esqueleto-guerreiro.png",
+          "title": "Expressões · Esqueleto guerreiro (traço FFT Clássico)",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/6ef32d77-3279-46a4-9484-c9ac81343ee8",
+          "prompt": "Crie uma imagem. Agora faça uma folha de EXPRESSÕES do Esqueleto guerreiro (caveira com elmo de chifres e lenço vermelho; a expressão vem da mandíbula, das órbitas e da inclinação da cabeça), no MESMO traço exato da folha anterior e dos retratos anexados no início: pixel art 16 bits estilo Final Fantasy Tactics, busto de 3/4 virado para a direita, mesmo fundo azul-acinzentado e moldura. Mesmo personagem, mesmo enquadramento, mudando SÓ o rosto. 8 quadros em 2 linhas de 4, rótulo embaixo de cada um: Neutro; Falando (boca entreaberta); Falando (boca bem aberta); Gritando ao atacar (boca escancarada, sobrancelhas franzidas); Tomando dano (olhos fechados apertados, dentes cerrados, cabeça recuando); Ferido (olhos semicerrados, gota de suor); Sorrindo; Bravo. Fundo geral cinza escuro, sem outro texto.",
+          "good": "Mesmo elmo e lenço em todos; mandíbula em graus; olhos em > < no dano.",
+          "bad": "Brilho amarelo só em Sorrindo e Bravo (incoerente); gota de suor numa caveira; placas bege."
+        },
+        {
+          "file": "copilot-sprite-1-cavaleiro.png",
+          "title": "Sprite sheet · Cavaleiro chibi em pixel art (prova de conceito)",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/5940caa1-885d-4eb9-8c91-e75ddd6ae2c5",
+          "prompt": "Crie uma imagem: uma sprite sheet de pixel art para um jogo de tática por turnos isométrico no estilo Final Fantasy Tactics de PlayStation 1.\n\nPersonagem: Cavaleiro chibi (cabeça grande, corpo de 2 cabeças e meia de altura), elmo fechado cinza-aço prateado com viseira, armadura de placas cinza, capa azul-marinho curta, espada longa na mão direita e escudo redondo azul na esquerda.\n\nTodos os quadros com o personagem virado na diagonal para baixo e para a esquerda (visão isométrica de 3/4, como as unidades do FFT), do mesmo tamanho, alinhados pelos pés numa grade regular, sem sobreposição.\nLinha 1: parado respirando, 4 quadros.\nLinha 2: andando, 6 quadros (ciclo completo de passos).\nLinha 3: ataque com espada, 5 quadros (preparo, golpe, seguimento, volta).\nLinha 4: tomando dano (recuo) 2 quadros, ajoelhado ferido 1 quadro, caído no chão 1 quadro.\n\nPixel art limpo de 16 bits, contorno escuro de 1 pixel, paleta limitada, sem anti-aliasing, sem desfoque. Fundo de cor única magenta puro (#FF00FF) liso, sem chão, sem sombra, sem texto, sem números.",
+          "good": "Grade regular com exatamente os quadros pedidos (4 parado, 6 andando, 5 ataque, 4 dano e queda); fundo magenta liso que sai fácil; personagem idêntico em todos os quadros; traço de 16 bits limpo, perto das unidades do FFT.",
+          "bad": "Virado para baixo e para a direita, não para a esquerda; franja rosada em volta do contorno ao tirar o fundo; quadros grandes (~200 px), precisam ser reduzidos para o tamanho do jogo."
+        },
+        {
+          "file": "copilot-sprite-1-cavaleiro-anim.gif",
+          "title": "Animação · Cavaleiro recortado da sprite sheet (prova de conceito)",
+          "size": "1176×242",
+          "link": "https://copilot.com/chat/conversation/5940caa1-885d-4eb9-8c91-e75ddd6ae2c5",
+          "prompt": "Sem prompt: GIF montado por script (fatiar.py) a partir da sprite sheet copilot-sprite-1-cavaleiro.png. Tira o fundo magenta, corta cada quadro pelas faixas vazias, alinha pelo pé e anima as 4 linhas lado a lado a 160 ms por quadro: parado, andando, atacando, dano e queda.",
+          "good": "Prova que a folha vira animação sem retoque: o script cortou os 19 quadros sozinho e o ciclo de andar fecha bem.",
+          "bad": "Parado quase não se mexe; franja rosada no contorno; precisa de redução e de paleta fixa para entrar no jogo."
+        },
+        {
+          "file": "copilot-sprite-2-maga.png",
+          "title": "Sprite sheet · Maga chibi em pixel art (prova de conceito)",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/5940caa1-885d-4eb9-8c91-e75ddd6ae2c5",
+          "prompt": "Crie uma imagem: outra sprite sheet no MESMO estilo, escala e grade da sprite sheet do Cavaleiro que você acabou de fazer (pixel art de 16 bits, chibi estilo Final Fantasy Tactics de PS1, fundo magenta puro #FF00FF liso).\n\nPersonagem: Maga chibi de cabelo preto liso comprido, chapéu pontudo roxo de bruxa com faixa laranja, túnica roxa longa, cajado de madeira com cristal azul na ponta.\n\nTodos os quadros com o personagem virado na diagonal, olhando para o canto inferior ESQUERDO da imagem (visão isométrica de 3/4), do mesmo tamanho, alinhados pelos pés, sem sobreposição e com espaço entre eles.\nLinha 1: parado respirando, 4 quadros.\nLinha 2: andando, 6 quadros (ciclo completo de passos).\nLinha 3: lançando magia com o cajado (ergue o cajado, brilho azul no cristal, aponta para frente, volta), 5 quadros.\nLinha 4: tomando dano (recuo) 2 quadros, ajoelhado ferido 1 quadro, caído no chão 1 quadro.\n\nContorno escuro de 1 pixel, paleta limitada, sem anti-aliasing, sem sombra, sem chão, sem texto, sem números.",
+          "good": "Virada para a esquerda como pedido; mesma escala e grade do Cavaleiro; magia com brilho azul no cristal; queda com o chapéu caindo.",
+          "bad": "Brilho da magia solto do corpo (o script precisou juntar); andar com pouca variação de pernas por causa da túnica."
+        },
+        {
+          "file": "copilot-sprite-2-maga-anim.gif",
+          "title": "Animação · Maga recortada da sprite sheet (prova de conceito)",
+          "size": "1168×227",
+          "link": "https://copilot.com/chat/conversation/5940caa1-885d-4eb9-8c91-e75ddd6ae2c5",
+          "prompt": "Sem prompt: GIF montado por script (fatiar.py) a partir da sprite sheet copilot-sprite-2-maga.png. Tira o fundo magenta, corta cada quadro pelas faixas vazias, alinha pelo pé e anima as 4 linhas lado a lado a 160 ms por quadro: parado, andando, atacando, dano e queda.",
+          "good": "Ciclo de magia legível (ergue, brilha, aponta, volta); escala igual à do Cavaleiro, então os dois podem dividir o mesmo mapa.",
+          "bad": "Franja rosada no contorno; parado quase sem movimento."
+        },
+        {
+          "file": "copilot-sprite-3-esqueleto-guerreiro.png",
+          "title": "Sprite sheet · Esqueleto guerreiro chibi em pixel art (prova de conceito)",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/5940caa1-885d-4eb9-8c91-e75ddd6ae2c5",
+          "prompt": "Crie uma imagem: outra sprite sheet no MESMO estilo, escala e grade da sprite sheet do Cavaleiro que você acabou de fazer (pixel art de 16 bits, chibi estilo Final Fantasy Tactics de PS1, fundo magenta puro #FF00FF liso).\n\nPersonagem: Esqueleto guerreiro chibi: caveira cor de osso com elmo de ferro com dois chifres curvos, lenço vermelho no pescoço, ombreiras de ferro, machado de uma mão e escudo de madeira.\n\nTodos os quadros com o personagem virado na diagonal, olhando para o canto inferior ESQUERDO da imagem (visão isométrica de 3/4), do mesmo tamanho, alinhados pelos pés, sem sobreposição e com espaço entre eles.\nLinha 1: parado respirando, 4 quadros.\nLinha 2: andando, 6 quadros (ciclo completo de passos).\nLinha 3: ataque com o machado (preparo, golpe de cima para baixo, seguimento, volta), 5 quadros.\nLinha 4: tomando dano (recuo) 2 quadros, ajoelhado ferido 1 quadro, caído no chão 1 quadro.\n\nContorno escuro de 1 pixel, paleta limitada, sem anti-aliasing, sem sombra, sem chão, sem texto, sem números.",
+          "good": "Elmo de chifres, lenço vermelho, machado e escudo fiéis à descrição; golpe de cima para baixo bem marcado; queda com o elmo rolando.",
+          "bad": "Capa vermelha que não foi pedida; franja rosada ao tirar o fundo."
+        },
+        {
+          "file": "copilot-sprite-3-esqueleto-guerreiro-anim.gif",
+          "title": "Animação · Esqueleto guerreiro chibi recortado da sprite sheet (prova de conceito)",
+          "size": "1244×251",
+          "link": "https://copilot.com/chat/conversation/5940caa1-885d-4eb9-8c91-e75ddd6ae2c5",
+          "prompt": "Sem prompt: GIF montado por script (fatiar.py) a partir da sprite sheet copilot-sprite-3-esqueleto-guerreiro.png. Tira o fundo magenta, corta cada quadro pelas faixas vazias, alinha pelo pé e anima as 4 linhas lado a lado a 160 ms por quadro: parado, andando, atacando, dano e queda.",
+          "good": "Cortado e animado pelo script sem retoque; mesma escala dos outros bonecos.",
+          "bad": "Franja rosada no contorno; precisa reduzir e fixar a paleta para entrar no jogo."
+        },
+        {
+          "file": "copilot-sprite-4-arqueira.png",
+          "title": "Sprite sheet · Arqueira chibi em pixel art (prova de conceito)",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/5940caa1-885d-4eb9-8c91-e75ddd6ae2c5",
+          "prompt": "Crie uma imagem: outra sprite sheet no MESMO estilo, escala e grade da sprite sheet do Cavaleiro que você acabou de fazer (pixel art de 16 bits, chibi estilo Final Fantasy Tactics de PS1, fundo magenta puro #FF00FF liso).\n\nPersonagem: Arqueira chibi ruiva de trança, capa vermelha com capuz caído, túnica verde-oliva, arco longo de madeira e aljava nas costas.\n\nTodos os quadros com o personagem virado na diagonal, olhando para o canto inferior ESQUERDO da imagem (visão isométrica de 3/4), do mesmo tamanho, alinhados pelos pés, sem sobreposição e com espaço entre eles.\nLinha 1: parado respirando, 4 quadros.\nLinha 2: andando, 6 quadros (ciclo completo de passos).\nLinha 3: atirando com o arco (pega a flecha, puxa a corda, solta, volta), 5 quadros.\nLinha 4: tomando dano (recuo) 2 quadros, ajoelhado ferido 1 quadro, caído no chão 1 quadro.\n\nContorno escuro de 1 pixel, paleta limitada, sem anti-aliasing, sem sombra, sem chão, sem texto, sem números.",
+          "good": "Ruiva de trança, capa vermelha e aljava fiéis; tiro em 5 tempos com a flecha saindo do arco; virada para a esquerda.",
+          "bad": "Flecha do quadro 3 é um pedaço solto (o script junta); franja rosada."
+        },
+        {
+          "file": "copilot-sprite-4-arqueira-anim.gif",
+          "title": "Animação · Arqueira chibi recortado da sprite sheet (prova de conceito)",
+          "size": "1180×244",
+          "link": "https://copilot.com/chat/conversation/5940caa1-885d-4eb9-8c91-e75ddd6ae2c5",
+          "prompt": "Sem prompt: GIF montado por script (fatiar.py) a partir da sprite sheet copilot-sprite-4-arqueira.png. Tira o fundo magenta, corta cada quadro pelas faixas vazias, alinha pelo pé e anima as 4 linhas lado a lado a 160 ms por quadro: parado, andando, atacando, dano e queda.",
+          "good": "Cortado e animado pelo script sem retoque; mesma escala dos outros bonecos.",
+          "bad": "Franja rosada no contorno; precisa reduzir e fixar a paleta para entrar no jogo."
+        },
+        {
+          "file": "copilot-sprite-5-barbaro.png",
+          "title": "Sprite sheet · Bárbaro chibi em pixel art (prova de conceito)",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/5940caa1-885d-4eb9-8c91-e75ddd6ae2c5",
+          "prompt": "Crie uma imagem: outra sprite sheet no MESMO estilo, escala e grade da sprite sheet do Cavaleiro que você acabou de fazer (pixel art de 16 bits, chibi estilo Final Fantasy Tactics de PS1, fundo magenta puro #FF00FF liso).\n\nPersonagem: Bárbaro chibi forte de barba cinza cheia, gorro de pele de urso marrom com orelhas, peito com tiras de couro, machado grande de duas mãos.\n\nTodos os quadros com o personagem virado na diagonal, olhando para o canto inferior ESQUERDO da imagem (visão isométrica de 3/4), do mesmo tamanho, alinhados pelos pés, sem sobreposição e com espaço entre eles.\nLinha 1: parado respirando, 4 quadros.\nLinha 2: andando, 6 quadros (ciclo completo de passos).\nLinha 3: ataque com o machado de duas mãos (ergue acima da cabeça, golpe, impacto, volta), 5 quadros.\nLinha 4: tomando dano (recuo) 2 quadros, ajoelhado ferido 1 quadro, caído no chão 1 quadro.\n\nContorno escuro de 1 pixel, paleta limitada, sem anti-aliasing, sem sombra, sem chão, sem texto, sem números.",
+          "good": "Gorro de urso, barba cinza e machado de duas mãos fiéis; golpe erguido acima da cabeça bem lido; queda com o gorro.",
+          "bad": "Parado com a mesma pose nos 4 quadros; franja rosada."
+        },
+        {
+          "file": "copilot-sprite-5-barbaro-anim.gif",
+          "title": "Animação · Bárbaro chibi recortado da sprite sheet (prova de conceito)",
+          "size": "1332×268",
+          "link": "https://copilot.com/chat/conversation/5940caa1-885d-4eb9-8c91-e75ddd6ae2c5",
+          "prompt": "Sem prompt: GIF montado por script (fatiar.py) a partir da sprite sheet copilot-sprite-5-barbaro.png. Tira o fundo magenta, corta cada quadro pelas faixas vazias, alinha pelo pé e anima as 4 linhas lado a lado a 160 ms por quadro: parado, andando, atacando, dano e queda.",
+          "good": "Cortado e animado pelo script sem retoque; mesma escala dos outros bonecos.",
+          "bad": "Franja rosada no contorno; precisa reduzir e fixar a paleta para entrar no jogo."
+        },
+        {
+          "file": "copilot-sprite-6-lanceiro.png",
+          "title": "Sprite sheet · Lanceiro chibi em pixel art (prova de conceito)",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/5940caa1-885d-4eb9-8c91-e75ddd6ae2c5",
+          "prompt": "Crie uma imagem: outra sprite sheet no MESMO estilo, escala e grade da sprite sheet do Cavaleiro que você acabou de fazer (pixel art de 16 bits, chibi estilo Final Fantasy Tactics de PS1, fundo magenta puro #FF00FF liso).\n\nPersonagem: Lanceiro chibi com elmo azul-petróleo de crista vermelha, armadura azul-petróleo, lança longa com ponta de aço.\n\nTodos os quadros com o personagem virado na diagonal, olhando para o canto inferior ESQUERDO da imagem (visão isométrica de 3/4), do mesmo tamanho, alinhados pelos pés, sem sobreposição e com espaço entre eles.\nLinha 1: parado respirando, 4 quadros.\nLinha 2: andando, 6 quadros (ciclo completo de passos).\nLinha 3: estocada com a lança (recua, avança, estocada, volta), 5 quadros.\nLinha 4: tomando dano (recuo) 2 quadros, ajoelhado ferido 1 quadro, caído no chão 1 quadro.\n\nContorno escuro de 1 pixel, paleta limitada, sem anti-aliasing, sem sombra, sem chão, sem texto, sem números.",
+          "good": "Elmo azul-petróleo com crista vermelha e lança longa fiéis; estocada com a lança toda esticada; queda com a lança no chão.",
+          "bad": "Elmo fechado esconde o rosto (o retrato mostra o rosto); capa vermelha não pedida; lanças quase encostam no quadro vizinho."
+        },
+        {
+          "file": "copilot-sprite-6-lanceiro-anim.gif",
+          "title": "Animação · Lanceiro chibi recortado da sprite sheet (prova de conceito)",
+          "size": "1392×232",
+          "link": "https://copilot.com/chat/conversation/5940caa1-885d-4eb9-8c91-e75ddd6ae2c5",
+          "prompt": "Sem prompt: GIF montado por script (fatiar.py) a partir da sprite sheet copilot-sprite-6-lanceiro.png. Tira o fundo magenta, corta cada quadro pelas faixas vazias, alinha pelo pé e anima as 4 linhas lado a lado a 160 ms por quadro: parado, andando, atacando, dano e queda.",
+          "good": "Cortado e animado pelo script sem retoque; mesma escala dos outros bonecos.",
+          "bad": "Franja rosada no contorno; precisa reduzir e fixar a paleta para entrar no jogo."
+        },
+        {
+          "file": "copilot-sprite-7-ladino.png",
+          "title": "Sprite sheet · Ladino chibi em pixel art (prova de conceito)",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/5940caa1-885d-4eb9-8c91-e75ddd6ae2c5",
+          "prompt": "Crie uma imagem: outra sprite sheet no MESMO estilo, escala e grade da sprite sheet do Cavaleiro que você acabou de fazer (pixel art de 16 bits, chibi estilo Final Fantasy Tactics de PS1, fundo magenta puro #FF00FF liso).\n\nPersonagem: Ladino chibi de capuz verde, lenço escuro no rosto até o nariz, roupa de couro marrom, duas adagas curtas.\n\nTodos os quadros com o personagem virado na diagonal, olhando para o canto inferior ESQUERDO da imagem (visão isométrica de 3/4), do mesmo tamanho, alinhados pelos pés, sem sobreposição e com espaço entre eles.\nLinha 1: parado respirando, 4 quadros.\nLinha 2: andando, 6 quadros (ciclo completo de passos).\nLinha 3: ataque com as adagas (agacha, salta para frente, corte duplo, volta), 5 quadros.\nLinha 4: tomando dano (recuo) 2 quadros, ajoelhado ferido 1 quadro, caído no chão 1 quadro.\n\nContorno escuro de 1 pixel, paleta limitada, sem anti-aliasing, sem sombra, sem chão, sem texto, sem números.",
+          "good": "Capuz verde, lenço no rosto e duas adagas fiéis; salto para frente no ataque dá leitura de agilidade.",
+          "bad": "Agachar do ataque quase igual ao parado; franja rosada."
+        },
+        {
+          "file": "copilot-sprite-7-ladino-anim.gif",
+          "title": "Animação · Ladino chibi recortado da sprite sheet (prova de conceito)",
+          "size": "1328×246",
+          "link": "https://copilot.com/chat/conversation/5940caa1-885d-4eb9-8c91-e75ddd6ae2c5",
+          "prompt": "Sem prompt: GIF montado por script (fatiar.py) a partir da sprite sheet copilot-sprite-7-ladino.png. Tira o fundo magenta, corta cada quadro pelas faixas vazias, alinha pelo pé e anima as 4 linhas lado a lado a 160 ms por quadro: parado, andando, atacando, dano e queda.",
+          "good": "Cortado e animado pelo script sem retoque; mesma escala dos outros bonecos.",
+          "bad": "Franja rosada no contorno; precisa reduzir e fixar a paleta para entrar no jogo."
+        },
+        {
+          "file": "copilot-sprite-8-esqueleto-mago.png",
+          "title": "Sprite sheet · Esqueleto mago chibi em pixel art (prova de conceito)",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/5940caa1-885d-4eb9-8c91-e75ddd6ae2c5",
+          "prompt": "Crie uma imagem: outra sprite sheet no MESMO estilo, escala e grade da sprite sheet do Cavaleiro que você acabou de fazer (pixel art de 16 bits, chibi estilo Final Fantasy Tactics de PS1, fundo magenta puro #FF00FF liso).\n\nPersonagem: Esqueleto mago chibi: caveira com olhos amarelos brilhando, chapéu pontudo vinho de aba larga com faixa laranja, manto vinho, cajado de osso.\n\nTodos os quadros com o personagem virado na diagonal, olhando para o canto inferior ESQUERDO da imagem (visão isométrica de 3/4), do mesmo tamanho, alinhados pelos pés, sem sobreposição e com espaço entre eles.\nLinha 1: parado respirando, 4 quadros.\nLinha 2: andando, 6 quadros (ciclo completo de passos).\nLinha 3: lançando magia sombria (ergue o cajado, brilho roxo, aponta, volta), 5 quadros.\nLinha 4: tomando dano (recuo) 2 quadros, ajoelhado ferido 1 quadro, caído no chão 1 quadro.\n\nContorno escuro de 1 pixel, paleta limitada, sem anti-aliasing, sem sombra, sem chão, sem texto, sem números.",
+          "good": "Chapéu vinho com faixa laranja, olhos amarelos e cajado com caveira; magia com brilho roxo; queda com o chapéu e a caveira separados.",
+          "bad": "Brilho roxo da magia solto do corpo; franja rosada."
+        },
+        {
+          "file": "copilot-sprite-8-esqueleto-mago-anim.gif",
+          "title": "Animação · Esqueleto mago chibi recortado da sprite sheet (prova de conceito)",
+          "size": "1288×262",
+          "link": "https://copilot.com/chat/conversation/5940caa1-885d-4eb9-8c91-e75ddd6ae2c5",
+          "prompt": "Sem prompt: GIF montado por script (fatiar.py) a partir da sprite sheet copilot-sprite-8-esqueleto-mago.png. Tira o fundo magenta, corta cada quadro pelas faixas vazias, alinha pelo pé e anima as 4 linhas lado a lado a 160 ms por quadro: parado, andando, atacando, dano e queda.",
+          "good": "Cortado e animado pelo script sem retoque; mesma escala dos outros bonecos.",
+          "bad": "Franja rosada no contorno; precisa reduzir e fixar a paleta para entrar no jogo."
+        },
+        {
+          "file": "copilot-sprite-9-lacaio-de-osso.png",
+          "title": "Sprite sheet · Lacaio de osso chibi em pixel art (prova de conceito)",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/5940caa1-885d-4eb9-8c91-e75ddd6ae2c5",
+          "prompt": "Crie uma imagem: outra sprite sheet no MESMO estilo, escala e grade da sprite sheet do Cavaleiro que você acabou de fazer (pixel art de 16 bits, chibi estilo Final Fantasy Tactics de PS1, fundo magenta puro #FF00FF liso).\n\nPersonagem: Lacaio de osso chibi: esqueleto simples cor de osso, lenço laranja no pescoço, espada curta enferrujada.\n\nTodos os quadros com o personagem virado na diagonal, olhando para o canto inferior ESQUERDO da imagem (visão isométrica de 3/4), do mesmo tamanho, alinhados pelos pés, sem sobreposição e com espaço entre eles.\nLinha 1: parado respirando, 4 quadros.\nLinha 2: andando, 6 quadros (ciclo completo de passos).\nLinha 3: ataque com a espada curta (preparo, golpe, seguimento, volta), 5 quadros.\nLinha 4: tomando dano (recuo) 2 quadros, ajoelhado ferido 1 quadro, caído no chão 1 quadro.\n\nContorno escuro de 1 pixel, paleta limitada, sem anti-aliasing, sem sombra, sem chão, sem texto, sem números.",
+          "good": "Esqueleto simples com lenço laranja e espada enferrujada fiéis; leitura de inimigo fraco; ataque claro.",
+          "bad": "Lenço vira capa curta; franja rosada."
+        },
+        {
+          "file": "copilot-sprite-9-lacaio-de-osso-anim.gif",
+          "title": "Animação · Lacaio de osso chibi recortado da sprite sheet (prova de conceito)",
+          "size": "1260×235",
+          "link": "https://copilot.com/chat/conversation/5940caa1-885d-4eb9-8c91-e75ddd6ae2c5",
+          "prompt": "Sem prompt: GIF montado por script (fatiar.py) a partir da sprite sheet copilot-sprite-9-lacaio-de-osso.png. Tira o fundo magenta, corta cada quadro pelas faixas vazias, alinha pelo pé e anima as 4 linhas lado a lado a 160 ms por quadro: parado, andando, atacando, dano e queda.",
+          "good": "Cortado e animado pelo script sem retoque; mesma escala dos outros bonecos.",
+          "bad": "Franja rosada no contorno; precisa reduzir e fixar a paleta para entrar no jogo."
+        },
+        {
+          "file": "copilot-sprite-10-esqueleto-ladino.png",
+          "title": "Sprite sheet · Esqueleto ladino chibi em pixel art (prova de conceito)",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/5940caa1-885d-4eb9-8c91-e75ddd6ae2c5",
+          "prompt": "Crie uma imagem: outra sprite sheet no MESMO estilo, escala e grade da sprite sheet do Cavaleiro que você acabou de fazer (pixel art de 16 bits, chibi estilo Final Fantasy Tactics de PS1, fundo magenta puro #FF00FF liso).\n\nPersonagem: Esqueleto ladino chibi: caveira sob capuz vinho, órbitas com brilho amarelo fraco, manto vinho rasgado, adaga curva.\n\nTodos os quadros com o personagem virado na diagonal, olhando para o canto inferior ESQUERDO da imagem (visão isométrica de 3/4), do mesmo tamanho, alinhados pelos pés, sem sobreposição e com espaço entre eles.\nLinha 1: parado respirando, 4 quadros.\nLinha 2: andando, 6 quadros (ciclo completo de passos).\nLinha 3: ataque com a adaga (agacha, avança, corte, volta), 5 quadros.\nLinha 4: tomando dano (recuo) 2 quadros, ajoelhado ferido 1 quadro, caído no chão 1 quadro.\n\nContorno escuro de 1 pixel, paleta limitada, sem anti-aliasing, sem sombra, sem chão, sem texto, sem números.",
+          "good": "Capuz e manto vinho rasgado, brilho amarelo nas órbitas e adaga curva fiéis; avanço do corte bem lido.",
+          "bad": "Franja rosada no manto rasgado."
+        },
+        {
+          "file": "copilot-sprite-10-esqueleto-ladino-anim.gif",
+          "title": "Animação · Esqueleto ladino chibi recortado da sprite sheet (prova de conceito)",
+          "size": "1256×241",
+          "link": "https://copilot.com/chat/conversation/5940caa1-885d-4eb9-8c91-e75ddd6ae2c5",
+          "prompt": "Sem prompt: GIF montado por script (fatiar.py) a partir da sprite sheet copilot-sprite-10-esqueleto-ladino.png. Tira o fundo magenta, corta cada quadro pelas faixas vazias, alinha pelo pé e anima as 4 linhas lado a lado a 160 ms por quadro: parado, andando, atacando, dano e queda.",
+          "good": "Cortado e animado pelo script sem retoque; mesma escala dos outros bonecos.",
+          "bad": "Franja rosada no contorno; precisa reduzir e fixar a paleta para entrar no jogo."
+        },
+        {
+          "file": "copilot-sprite-11-elenco-anim.gif",
+          "title": "Elenco · os 10 bonecos andando e atacando em escala de jogo (prova de conceito)",
+          "size": "900×192",
+          "link": "https://copilot.com/chat/conversation/5940caa1-885d-4eb9-8c91-e75ddd6ae2c5",
+          "prompt": "Sem prompt: GIF montado por script (elenco.py) com as linhas 'andando' (em cima) e 'atacando' (embaixo) das 10 sprite sheets, reduzidas a ~72 px de altura com vizinho mais próximo, sobre um verde de grama, 150 ms por quadro.",
+          "good": "Na escala do mapa os 10 leem bem e parecem do mesmo jogo; silhuetas distintas (chapéu, chifres, capuz, urso, crista).",
+          "bad": "O Cavaleiro olha para a direita e os outros para a esquerda (refazer o Cavaleiro ou espelhar); franja rosada some quase toda nessa escala."
+        },
+        {
+          "file": "copilot-icones-1-habilidades.png",
+          "title": "Ícones · as 22 habilidades do jogo + Mover e Esperar (estilo FFT Clássico)",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/8481078a-b654-4cd1-93dc-6ab6eff01914",
+          "attached": "C:/Tools/pw-mcp/saida/noite/ref-fft-classico-folha.png",
+          "prompt": "Crie uma imagem: uma folha de ÍCONES DE HABILIDADES em pixel art de 16 bits para a interface do jogo tático da imagem anexada. Siga o estilo da interface anexada: ícone quadrado com fundo azul-marinho em degradê, borda fina branca de 1 pixel, cantos levemente arredondados, desenho central com contorno escuro e paleta limitada.\n\nGrade regular de 6 colunas por 4 linhas, todos do mesmo tamanho, com espaço entre eles, e o nome em letras pequenas brancas embaixo de cada um:\nLinha 1: Golpe (espada cortando), Golpe pesado (espada grande descendo com impacto), Escudada (escudo empurrando), Giro (espada girando em círculo), Machadada (machado), Pancada (maça batendo).\nLinha 2: Tiro (flecha reta), Tiro mirado (flecha com alvo), Tiro de recuo (flecha empurrando para trás), Adaga (adaga), Faca arremessada (faca girando no ar), Facada (adaga com gota de sangue).\nLinha 3: Raio de fogo (raio de chamas), Explosão (bola de fogo explodindo), Rajada (vento cortante azul), Cura (cruz verde brilhando), Onda sombria (onda roxa escura), Golpe mortal (caveira com lâmina).\nLinha 4: Rasteira (pé varrendo), Derrubar (seta empurrando um boneco para fora da beira), Estocada longa (lança comprida), Salto (bota saltando com arco de movimento), Mover (pegadas), Esperar (ampulheta).\n\nFundo geral cinza escuro liso. Sem outro texto além dos nomes.",
+          "good": "Os 24 nomes certos e na ordem; mesmo quadro azul-marinho com borda branca da interface FFT Clássico anexada; desenhos claros (fogo, cura, onda sombria, derrubar da beira).",
+          "bad": "Golpe e Adaga parecidos; Giro lê mais como corte que como giro."
+        },
+        {
+          "file": "copilot-icones-1-habilidades-recorte.png",
+          "title": "Ícones recortados em 48 px (prova de conceito)",
+          "size": "344×232",
+          "link": "https://copilot.com/chat/conversation/8481078a-b654-4cd1-93dc-6ab6eff01914",
+          "prompt": "Sem prompt: recorte automático (icones.py) dos 24 ícones de copilot-icones-1-habilidades.png, reduzidos a 48 px (tamanho de botão do menu), lado a lado sobre fundo escuro. Os ícones soltos ficam em C:/Tools/pw-mcp/saida/noite/copilot-icones-1-habilidades/01..24.png.",
+          "good": "O script cortou os 24 sozinho; em 48 px todos continuam legíveis, prontos para o menu de habilidades.",
+          "bad": "Bordas com tamanhos 168 a 176 px no original; precisam de um quadro fixo antes de entrar no jogo."
+        },
+        {
+          "file": "copilot-icones-2-itens-status.png",
+          "title": "Ícones · os 9 equipamentos do jogo, consumíveis, estados e marcas do mapa",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/8481078a-b654-4cd1-93dc-6ab6eff01914",
+          "prompt": "Crie uma imagem: agora uma folha de ÍCONES DE ITENS E ESTADOS, no MESMO estilo exato da folha de habilidades que você acabou de fazer (quadro azul-marinho em degradê, borda fina branca, pixel art de 16 bits, nome pequeno em branco embaixo).\n\nGrade regular de 6 colunas por 4 linhas, todos do mesmo tamanho:\nLinha 1 (armas e armaduras): Lâmina de ferro (espada simples), Arco de caça (arco curto de madeira), Cajado de freixo (cajado de madeira clara), Gibão de couro (colete de couro marrom), Cota de malha (camisa de malha de aço), Manto guardado (manto azul com fivela).\nLinha 2 (acessórios e consumíveis): Botas ligeiras (botas com asinhas), Grevas de mola (caneleiras de metal com mola), Amuleto ligeiro (amuleto com pena), Poção (frasco vermelho), Éter (frasco azul), Ouro (pilha de moedas).\nLinha 3 (estados): Veneno (gota roxa com caveira), Atordoado (estrelas girando), Carregando (relógio com seta circular), Contra-ataque (duas espadas cruzadas com seta de volta), Em água funda (ondas azuis sobre um pé), Nocaute (lápide pequena).\nLinha 4 (mapa e turno): Altura (seta para cima sobre degraus), Alcance (círculo de mira), Pular (pé com seta curva), Vez da unidade (seta amarela apontando para baixo), Inimigo (escudo vermelho), Aliado (escudo azul).\n\nFundo geral cinza escuro liso. Sem outro texto além dos nomes.",
+          "good": "Mesmo estilo da folha de habilidades; os 9 equipamentos reais do jogo reconhecíveis; estados claros (veneno, atordoado, carregando, água funda).",
+          "bad": "Erro de grafia (Manto guardiado); lápide com RIP em inglês; Inimigo e Aliado com flor-de-lis parecem brasões, não marcas de time."
+        },
+        {
+          "file": "copilot-icones-2-itens-status-recorte.png",
+          "title": "Ícones de itens e estados recortados em 48 px (prova de conceito)",
+          "size": "344×232",
+          "link": "https://copilot.com/chat/conversation/8481078a-b654-4cd1-93dc-6ab6eff01914",
+          "prompt": "Sem prompt: recorte automático (icones.py) dos 24 ícones de copilot-icones-2-itens-status.png, reduzidos a 48 px, lado a lado. Os ícones soltos ficam em C:/Tools/pw-mcp/saida/noite/copilot-icones-2-itens-status/01..24.png.",
+          "good": "Recorte automático dos 24 sem erro; legíveis em 48 px.",
+          "bad": "Detalhes finos (molas das grevas, pena do amuleto) somem em 48 px."
+        },
+        {
+          "file": "copilot-terreno-1-blocos.png",
+          "title": "Terreno · 18 blocos isométricos em pixel art (água rasa e funda, rampa, degrau)",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/23ab3225-ca1b-44a3-affe-ee9768867344",
+          "attached": "C:/Tools/pw-mcp/saida/noite/ref-fft-classico-cena.png",
+          "prompt": "Crie uma imagem: uma folha de BLOCOS DE TERRENO ISOMÉTRICOS em pixel art de 16 bits para o jogo tático da imagem anexada, com a mesma paleta e luz da cena anexada (grama verde pintada, terra batida, pedra cinza, estilo Final Fantasy Tactics de PS1).\n\nCada bloco é um losango isométrico 2:1 visto de cima, com a lateral visível embaixo (altura de meio bloco), todos do mesmo tamanho, numa grade regular de 6 colunas por 3 linhas, separados por espaço:\nLinha 1: grama, grama com flores, terra batida, caminho de terra com pedrinhas, areia, cascalho.\nLinha 2: pedra lisa, pedra com musgo, laje de pedra, tijolos, madeira de ponte, neve.\nLinha 3: água rasa (azul clara transparente, com fundo de pedrinhas), água funda (azul escura), lama, lava, rampa de grama subindo para a direita, degrau de pedra (bloco de altura dupla).\n\nContorno escuro de 1 pixel, paleta limitada, sem anti-aliasing. Fundo de cor única magenta puro (#FF00FF) liso, sem texto, sem números.",
+          "good": "Todos os 18 pedidos, mesmo tamanho e mesmo ângulo 2:1; água rasa transparente com pedrinhas e água funda escura distintas como no jogo; fundo magenta sai limpo.",
+          "bad": "Rampa e degrau saíram em escala diferente dos outros; lateral de terra igual em todos os blocos de grama (repetição visível)."
+        },
+        {
+          "file": "copilot-terreno-1-blocos-mapa.png",
+          "title": "Mapa isométrico montado só com os blocos gerados (prova de conceito)",
+          "size": "808×572",
+          "link": "https://copilot.com/chat/conversation/23ab3225-ca1b-44a3-affe-ee9768867344",
+          "prompt": "Sem prompt: mapa 8x8 montado por script (mapa.py) só com blocos recortados de copilot-terreno-1-blocos.png (grama, flores, terra, caminho, pedra, musgo, laje, água rasa, água funda, ponte), reduzidos a 96 px de largura, com 3 alturas empilhando blocos.",
+          "good": "Os blocos encaixam sem retoque: rio com ponte, caminho e platô de pedra em 3 alturas; já parece um mapa de FFT.",
+          "bad": "Emendas finas entre blocos; o jogo de hoje usa terreno 3D pintado, então isso serve para o modo pixel art opcional."
+        },
+        {
+          "file": "copilot-terreno-2-objetos.png",
+          "title": "Objetos do mapa · 18 objetos isométricos (árvores, pedras, baús, fogueira, lápide)",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/23ab3225-ca1b-44a3-affe-ee9768867344",
+          "prompt": "Crie uma imagem: agora uma folha de OBJETOS DO MAPA no MESMO estilo, escala e luz dos blocos de terreno que você acabou de fazer (pixel art de 16 bits isométrico, estilo Final Fantasy Tactics de PS1), cada objeto do tamanho certo para ficar em cima de um bloco.\n\nGrade regular de 6 colunas por 3 linhas, separados por espaço, todos vistos do mesmo ângulo isométrico:\nLinha 1: pinheiro alto, árvore frondosa redonda, arbusto, toco de árvore, pedra grande, pilha de pedras pequenas.\nLinha 2: muro baixo de tijolos (1 bloco), cerca de madeira, barril, caixote de madeira, baú de tesouro fechado, baú aberto com ouro.\nLinha 3: lápide, fogueira acesa, estandarte azul num poste, coluna de pedra quebrada, cogumelos, ossos e caveira no chão.\n\nContorno escuro de 1 pixel, paleta limitada, sem anti-aliasing, sem sombra no chão. Fundo de cor única magenta puro (#FF00FF) liso, sem texto, sem números.",
+          "good": "Os 18 pedidos na ordem, na mesma escala e luz dos blocos; fogueira, baú aberto com ouro e estandarte prontos para cenário.",
+          "bad": "Estandarte com flor-de-lis (lembra brasão real); muro de tijolos pequeno para 1 bloco."
+        },
+        {
+          "file": "copilot-sprite-12-cena-batalha.png",
+          "title": "Cena de batalha montada só com os assets da noite (prova de conceito)",
+          "size": "808×672",
+          "link": "https://copilot.com/chat/conversation/23ab3225-ca1b-44a3-affe-ee9768867344",
+          "prompt": "Sem prompt: cena montada por script (cena.py) só com assets gerados na noite de 14 para 15/11: blocos e objetos (conversa 23ab3225) e os bonecos das sprite sheets (conversa 5940caa1), no quadro parado. Mapa 8x8 com 3 alturas, rio com ponte, aliados à esquerda e esqueletos à direita.",
+          "good": "Terreno, objetos e 9 bonecos de conversas diferentes convivem sem retoque: mesma luz, escala e traço; parece uma tela de FFT.",
+          "bad": "Unidades postas à mão, sem regra de jogo; esqueleto mago meio escondido atrás do ladino; emendas finas entre blocos."
+        },
+        {
+          "file": "copilot-sprite-12-cena-batalha-anim.gif",
+          "title": "Cena de batalha animada (bonecos respirando)",
+          "size": "808×672",
+          "link": "https://copilot.com/chat/conversation/23ab3225-ca1b-44a3-affe-ee9768867344",
+          "prompt": "Sem prompt: cena montada por script (cena.py) só com assets gerados na noite de 14 para 15/11: blocos e objetos (conversa 23ab3225) e os bonecos das sprite sheets (conversa 5940caa1), com os 4 quadros de parado em loop (220 ms). Mapa 8x8 com 3 alturas, rio com ponte, aliados à esquerda e esqueletos à direita.",
+          "good": "Com os 4 quadros de parado a cena ganha vida sem nenhum desenho extra.",
+          "bad": "O parado de alguns bonecos quase não muda; o GIF reduz a paleta."
+        },
+        {
+          "file": "copilot-ref-retratos-12-folha-moldura-fina.png",
+          "title": "Rostos em pixel art · os 10 com a moldura fina da referência FFT Clássico",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/6ef32d77-3279-46a4-9484-c9ac81343ee8",
+          "prompt": "Crie uma imagem: refaça a folha dos 10 retratos, com os MESMOS personagens e o MESMO traço da sua primeira folha nesta conversa, mas com a moldura igual à dos retratos anexados no início: cada retrato num quadrado com borda fina clara de 2 pixels, cantos retos, fundo azul-acinzentado liso, SEM placa bege. O nome vai em letras brancas pequenas embaixo, fora da moldura.\n\nMesma ordem, 2 linhas de 5: Bárbaro, Cavaleiro, Lanceiro, Maga, Arqueira; Ladino, Esqueleto mago, Lacaio de osso, Esqueleto ladino, Esqueleto guerreiro. Retratos quadrados, busto de 3/4 virado para a direita. Fundo geral cinza escuro liso, sem outro texto.",
+          "good": "Moldura fina clara e fundo azul-acinzentado iguais aos retratos da Aria; sem placa bege; mesmos rostos da primeira folha; nomes certos e fora do quadro.",
+          "bad": "Retratos ainda maiores que os da fila do FFT (precisam de redução); Lanceiro e Cavaleiro com o mesmo rosto."
+        },
+        {
+          "file": "copilot-ref-retratos-13-maga-rotulos.png",
+          "title": "Expressões · Maga com moldura fina e rótulos curtos",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/6ef32d77-3279-46a4-9484-c9ac81343ee8",
+          "prompt": "Crie uma imagem: agora a folha de EXPRESSÕES da Maga (mulher de cabelo preto liso com chapéu pontudo roxo de bruxa de faixa laranja), com a MESMA moldura fina da folha que você acabou de fazer (borda fina clara, fundo azul-acinzentado, sem placa bege, nome fora do quadro) e o mesmo traço. Mesmo rosto e enquadramento em todos, mudando só a expressão.\n\n8 retratos em 2 linhas de 4, com estes rótulos curtos exatamente assim, um embaixo de cada: Neutro, Fala baixa, Fala alta, Grito, Dano, Ferida, Sorriso, Brava.\nFala baixa = boca entreaberta. Fala alta = boca bem aberta. Grito = boca escancarada e sobrancelhas franzidas, atacando. Dano = olhos fechados apertados e dentes cerrados. Ferida = olhos semicerrados e cansados. Sorriso = sorriso leve. Brava = sobrancelhas franzidas e boca fechada.\nFundo geral cinza escuro liso, sem outro texto.",
+          "good": "Rótulos certos e únicos (Fala baixa, Fala alta, Grito, Dano, Ferida...); mesma moldura fina da folha nova; fala em 3 graus de boca, pronta para animar diálogo.",
+          "bad": "Moldura um pouco mais alta que larga (342×370); chapéu corta o topo."
+        },
+        {
+          "file": "copilot-ref-retratos-13-maga-rotulos-fala-anim.gif",
+          "title": "Animação · Maga falando e reagindo (prova de conceito)",
+          "size": "157×166",
+          "link": "https://copilot.com/chat/conversation/6ef32d77-3279-46a4-9484-c9ac81343ee8",
+          "prompt": "Sem prompt: GIF montado por script com os 8 retratos recortados de copilot-ref-retratos-13-maga-rotulos.png. Primeiro a boca abrindo e fechando (Neutro, Fala baixa, Fala alta) a 140 ms, como numa fala; depois Grito, Dano, Ferida, Sorriso e Brava a 300 ms.",
+          "good": "Com só 3 bocas a fala já convence; troca para grito e dano mostra como o retrato reage em combate.",
+          "bad": "Sem piscar; troca seca entre quadros (sem interpolação, como no FFT)."
+        },
+        {
+          "file": "copilot-ref-retratos-14-barbaro.png",
+          "title": "Expressões · Bárbaro com moldura fina e rótulos curtos",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/6ef32d77-3279-46a4-9484-c9ac81343ee8",
+          "prompt": "Crie uma imagem: agora a folha de EXPRESSÕES do Bárbaro (homem de barba cinza cheia com gorro de pele de urso marrom), com a MESMA moldura fina da folha que você acabou de fazer (borda fina clara, fundo azul-acinzentado, sem placa bege, nome fora do quadro) e o mesmo traço. Mesmo rosto e enquadramento em todos, mudando só a expressão.\n\n8 retratos em 2 linhas de 4, com estes rótulos curtos exatamente assim, um embaixo de cada: Neutro, Fala baixa, Fala alta, Grito, Dano, Ferido, Sorriso, Bravo.\nFala baixa = boca entreaberta. Fala alta = boca bem aberta. Grito = boca escancarada e sobrancelhas franzidas, atacando. Dano = olhos fechados apertados e dentes cerrados. Ferido = olhos semicerrados e cansados. Sorriso = sorriso leve. Bravo = sobrancelhas franzidas e boca fechada.\nFundo geral cinza escuro liso, sem outro texto.",
+          "good": "Moldura fina e rótulos curtos únicos; mesmo rosto nos 8; fala em 3 graus de boca pronta para animar diálogo; grito e dano bem marcados pela barba.",
+          "bad": "Fala baixa e Fala alta pouco diferentes (a barba esconde a boca)."
+        },
+        {
+          "file": "copilot-ref-retratos-15-cavaleiro.png",
+          "title": "Expressões · Cavaleiro com moldura fina e rótulos curtos",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/6ef32d77-3279-46a4-9484-c9ac81343ee8",
+          "prompt": "Crie uma imagem: agora a folha de EXPRESSÕES do Cavaleiro (homem de rosto quadrado sob elmo cinza-aço prateado com viseira levantada), com a MESMA moldura fina da folha que você acabou de fazer (borda fina clara, fundo azul-acinzentado, sem placa bege, nome fora do quadro) e o mesmo traço. Mesmo rosto e enquadramento em todos, mudando só a expressão.\n\n8 retratos em 2 linhas de 4, com estes rótulos curtos exatamente assim, um embaixo de cada: Neutro, Fala baixa, Fala alta, Grito, Dano, Ferido, Sorriso, Bravo.\nFala baixa = boca entreaberta. Fala alta = boca bem aberta. Grito = boca escancarada e sobrancelhas franzidas, atacando. Dano = olhos fechados apertados e dentes cerrados. Ferido = olhos semicerrados e cansados. Sorriso = sorriso leve. Bravo = sobrancelhas franzidas e boca fechada.\nFundo geral cinza escuro liso, sem outro texto.",
+          "good": "Moldura fina e rótulos curtos únicos; mesmo rosto nos 8; fala em 3 graus de boca pronta para animar diálogo.",
+          "bad": "Rosto quase igual ao do Lanceiro; Sorriso e Neutro parecidos."
+        },
+        {
+          "file": "copilot-ref-retratos-16-lanceiro.png",
+          "title": "Expressões · Lanceiro com moldura fina e rótulos curtos",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/6ef32d77-3279-46a4-9484-c9ac81343ee8",
+          "prompt": "Crie uma imagem: agora a folha de EXPRESSÕES do Lanceiro (jovem com elmo azul-petróleo de crista vermelha), com a MESMA moldura fina da folha que você acabou de fazer (borda fina clara, fundo azul-acinzentado, sem placa bege, nome fora do quadro) e o mesmo traço. Mesmo rosto e enquadramento em todos, mudando só a expressão.\n\n8 retratos em 2 linhas de 4, com estes rótulos curtos exatamente assim, um embaixo de cada: Neutro, Fala baixa, Fala alta, Grito, Dano, Ferido, Sorriso, Bravo.\nFala baixa = boca entreaberta. Fala alta = boca bem aberta. Grito = boca escancarada e sobrancelhas franzidas, atacando. Dano = olhos fechados apertados e dentes cerrados. Ferido = olhos semicerrados e cansados. Sorriso = sorriso leve. Bravo = sobrancelhas franzidas e boca fechada.\nFundo geral cinza escuro liso, sem outro texto.",
+          "good": "Moldura fina e rótulos curtos únicos; mesmo rosto nos 8; fala em 3 graus de boca pronta para animar diálogo; crista vermelha igual em todos.",
+          "bad": "Rosto quase igual ao do Cavaleiro (só o elmo diferencia)."
+        },
+        {
+          "file": "copilot-ref-retratos-17-arqueira.png",
+          "title": "Expressões · Arqueira com moldura fina e rótulos curtos",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/6ef32d77-3279-46a4-9484-c9ac81343ee8",
+          "prompt": "Crie uma imagem: agora a folha de EXPRESSÕES da Arqueira (mulher ruiva de trança com capa vermelha), com a MESMA moldura fina da folha que você acabou de fazer (borda fina clara, fundo azul-acinzentado, sem placa bege, nome fora do quadro) e o mesmo traço. Mesmo rosto e enquadramento em todos, mudando só a expressão.\n\n8 retratos em 2 linhas de 4, com estes rótulos curtos exatamente assim, um embaixo de cada: Neutro, Fala baixa, Fala alta, Grito, Dano, Ferida, Sorriso, Brava.\nFala baixa = boca entreaberta. Fala alta = boca bem aberta. Grito = boca escancarada e sobrancelhas franzidas, atacando. Dano = olhos fechados apertados e dentes cerrados. Ferida = olhos semicerrados e cansados. Sorriso = sorriso leve. Brava = sobrancelhas franzidas e boca fechada.\nFundo geral cinza escuro liso, sem outro texto.",
+          "good": "Moldura fina e rótulos curtos únicos; mesmo rosto nos 8; fala em 3 graus de boca pronta para animar diálogo; femininos certos (Ferida, Brava); a mais próxima da Aria da referência.",
+          "bad": "Nenhum defeito grave; trança corta na borda direita."
+        },
+        {
+          "file": "copilot-ref-retratos-18-ladino.png",
+          "title": "Expressões · Ladino com moldura fina e rótulos curtos",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/6ef32d77-3279-46a4-9484-c9ac81343ee8",
+          "prompt": "Crie uma imagem: agora a folha de EXPRESSÕES do Ladino (homem magro de rosto anguloso sob capuz verde, lenço escuro no pescoço, ar de malandro), com a MESMA moldura fina da folha que você acabou de fazer (borda fina clara, fundo azul-acinzentado, sem placa bege, nome fora do quadro) e o mesmo traço. Mesmo rosto e enquadramento em todos, mudando só a expressão.\n\n8 retratos em 2 linhas de 4, com estes rótulos curtos exatamente assim, um embaixo de cada: Neutro, Fala baixa, Fala alta, Grito, Dano, Ferido, Sorriso, Bravo.\nFala baixa = boca entreaberta. Fala alta = boca bem aberta. Grito = boca escancarada e sobrancelhas franzidas, atacando. Dano = olhos fechados apertados e dentes cerrados. Ferido = olhos semicerrados e cansados. Sorriso = sorriso leve. Bravo = sobrancelhas franzidas e boca fechada.\nFundo geral cinza escuro liso, sem outro texto.",
+          "good": "Moldura fina e rótulos curtos únicos; mesmo rosto nos 8; fala em 3 graus de boca pronta para animar diálogo; agora com rosto masculino e anguloso, como pedido.",
+          "bad": "Rótulo Brava no feminino (pedido era Bravo); suor no Ferido."
+        },
+        {
+          "file": "copilot-ref-retratos-19-esqueleto-mago.png",
+          "title": "Expressões · Esqueleto mago com moldura fina e rótulos curtos",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/6ef32d77-3279-46a4-9484-c9ac81343ee8",
+          "prompt": "Crie uma imagem: agora a folha de EXPRESSÕES do Esqueleto mago (caveira com chapéu pontudo vinho e olhos amarelos brilhando; numa caveira a expressão vem da mandíbula, do brilho e formato dos olhos e da inclinação da cabeça, sem suor), com a MESMA moldura fina da folha que você acabou de fazer (borda fina clara, fundo azul-acinzentado, sem placa bege, nome fora do quadro) e o mesmo traço. Mesmo rosto e enquadramento em todos, mudando só a expressão.\n\n8 retratos em 2 linhas de 4, com estes rótulos curtos exatamente assim, um embaixo de cada: Neutro, Fala baixa, Fala alta, Grito, Dano, Ferido, Sorriso, Bravo.\nFala baixa = boca entreaberta. Fala alta = boca bem aberta. Grito = boca escancarada e sobrancelhas franzidas, atacando. Dano = olhos fechados apertados e dentes cerrados. Ferido = olhos semicerrados e cansados. Sorriso = sorriso leve. Bravo = sobrancelhas franzidas e boca fechada.\nFundo geral cinza escuro liso, sem outro texto.",
+          "good": "Moldura fina e rótulos curtos únicos; mesmo rosto nos 8; fala em 3 graus de boca pronta para animar diálogo; caveira sem suor, como pedido; olhos em traço no Dano e semicerrados no Ferido.",
+          "bad": "Rótulo Brava no feminino; Sorriso e Neutro quase iguais."
+        },
+        {
+          "file": "copilot-sprite-13-atlas.png",
+          "title": "Sprites · 13 Atlas de jogo (64 px, PNG + JSON)",
+          "size": "1256×5928",
+          "link": "https://copilot.microsoft.com/chats/5940caa1-885d-4eb9-8c91-e75ddd6ae2c5",
+          "prompt": "(sem prompt novo: montado localmente com Pillow a partir das 10 sprite sheets copilot-sprite-1 a -10; script C:/Tools/pw-mcp/saida/noite/atlas.py)\nPassos: tira o fundo magenta e a franja rosada; reduz cada boneco a 64 px de altura (mesma escala para todas as animações dele); monta um atlas por boneco com linhas parado, andando, ataque e dano/queda, quadros alinhados pelo pé; grava PNG + JSON com os retângulos de cada quadro (pasta atlas/). A prévia mostra os 10 atlas sobre xadrez, ampliados 2x.",
+          "good": "Fundo transparente sem franja; escala única por boneco; quadros alinhados pelo pé; JSON com retângulos pronto para um leitor de spritesheet",
+          "bad": "Redução LANCZOS suaviza o pixel art (não é pixel exato); tamanho da célula varia por boneco; o Cavaleiro olha para a direita e os outros para a esquerda"
+        },
+        {
           "file": "copilot-vitral-rostos-1-folha.png",
           "title": "Rostos em pixel art · os 10 bonecos no estilo do Reno (Vitral)",
           "size": "1536×1024",
@@ -371,6 +833,15 @@
           "prompt": "Agora, no MESMO estilo exato dos retratos da folha que você acabou de gerar, faça uma folha de EXPRESSÕES só do rosto do Lanceiro (3º retrato: elmo azul-petróleo com crista; abaixe o protetor da boca para mostrar a boca). Mesmo personagem, mesmo enquadramento de busto e mesma moldura, idêntico em tudo, mudando SÓ a expressão do rosto, como os retratos de diálogo do Final Fantasy Tactics. 8 quadros em 2 linhas de 4, fundo liso cinza escuro, com o rótulo embaixo de cada um: Neutro, Falando (boca entreaberta), Falando (boca aberta), Gritando ao atacar, Tomando dano (careta, olhos apertados), Ferido (cansado, suando), Sorrindo, Bravo. Sem outro texto.",
           "good": "Exatamente 8 quadros; elmo azul-petróleo com crista e a lança do boneco; mesmo rosto; boca visível em todos.",
           "bad": "Expressões mais sutis que as do Bárbaro (grito pequeno); rótulos sem o detalhe entre parênteses."
+        },
+        {
+          "file": "copilot-vitral-rostos-5-maga.png",
+          "title": "Expressões · Maga (Copilot, estilo do Reno)",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/b80de995-2084-44f1-bb58-929519a0db93",
+          "prompt": "Agora, no MESMO estilo exato dos retratos da folha que você acabou de gerar, faça uma folha de EXPRESSÕES só do rosto do Maga (4º retrato: chapéu roxo com fivela laranja, cabelo preto). Mesmo personagem, mesmo enquadramento de busto e mesma moldura, idêntico em tudo, mudando SÓ a expressão do rosto, como os retratos de diálogo do Final Fantasy Tactics. 8 quadros em 2 linhas de 4, fundo liso cinza escuro, com o rótulo embaixo de cada um: Neutro, Falando (boca entreaberta), Falando (boca aberta), Gritando ao atacar, Tomando dano (careta, olhos apertados), Ferido (cansado, suando), Sorrindo, Bravo. Sem outro texto.",
+          "good": "Exatamente 8 quadros; chapéu roxo com fivela laranja e cabelo preto do boneco; mesmo rosto; grito, dano e ferido bem claros.",
+          "bad": "O 1º envio ficou sem resposta (precisou repetir); rótulos sem o detalhe entre parênteses; personagem com cara de menino, ambígua para \"Maga\"."
         },
         {
           "file": "copilot-rosto-mage.png",
@@ -482,6 +953,13 @@
     ["folhas", "Folhas de elementos", "Folhas de interface, da carta de campo às estilizadas."],
     ["aplicados", "Aplicados sobre o jogo", "Cada folha estilizada montada sobre a captura."],
     ["fft", "FFT", "Folhas sóbrias nas proporções do FFT e aplicadas."],
-    ["rostos", "Rostos em pixel art", "Retratos dos bonecos KayKit no estilo dos retratos do FFT Clássico."]
+    ["rostos", "Rostos em pixel art", "Retratos dos bonecos KayKit no estilo dos retratos do FFT Clássico."],
+    [
+      "sprites",
+      "Sprite sheets (prova de conceito)",
+      "Bonecos andando, atacando e caindo em pixel art, gerados na noite de 14 para 15/11."
+    ],
+    ["icones", "Ícones", "Ícones de habilidades, itens e status em pixel art."],
+    ["terreno", "Terreno e objetos", "Blocos de terreno isométricos, árvores e objetos do mapa."]
   ]
 }

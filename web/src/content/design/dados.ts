@@ -93,15 +93,21 @@ export const plataforma = (id: string) => IA.platforms[PLATFORM_IDS.indexOf(id)]
 // platforms with many images (Gemini, Copilot) become subpages by kind, each fitting ~a screen and a half
 export const dividida = (p: Platform) => p.tests.length > 8;
 export const iaSub = (t: Test) =>
-  t.file.includes('rosto')
-    ? 'rostos'
-    : t.file.includes('fft')
-      ? 'fft'
-      : t.file.includes('aplicado')
-        ? 'aplicados'
-        : t.file.includes('-ui-')
-          ? 'folhas'
-          : 'cenas';
+  t.file.includes('sprite')
+    ? 'sprites'
+    : t.file.includes('icone')
+      ? 'icones'
+      : t.file.includes('terreno')
+        ? 'terreno'
+        : /rosto|retrato/.test(t.file)
+          ? 'rostos'
+          : t.file.includes('fft')
+            ? 'fft'
+            : t.file.includes('aplicado')
+              ? 'aplicados'
+              : t.file.includes('-ui-')
+                ? 'folhas'
+                : 'cenas';
 export const contagem = (n: number) => `${n} ${n === 1 ? 'imagem' : 'imagens'}`;
 
 export interface Direcao {

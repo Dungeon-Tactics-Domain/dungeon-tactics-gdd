@@ -47,7 +47,7 @@ export default {
   origem: {
     caminho: '/design/',
     fonte: 'dungeon-tactics-lab/design: src/main.ts, ia.ts, directions.ts, fft-kit.ts, rostos.ts, data/',
-    copiadoEm: '2026-11-14T23:37:51-03:00',
+    copiadoEm: '2026-11-15T10:47:53-03:00',
   },
   // old anchors (#maquetes, #ia…) and the single-page anchors from before lead to the new route
   linksAntigos: {

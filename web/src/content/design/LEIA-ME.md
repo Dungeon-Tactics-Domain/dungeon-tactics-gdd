@@ -1,6 +1,6 @@
 # Design lab (migrated from dungeon-tactics-lab/design)
 
-Copied on 2026-11-14 at 23:37:51 (-03:00) from a snapshot of `D:\Projetos\dungeon-tactics-lab\design` and
+Copied on 2026-11-14 at 23:37:51 (-03:00), recopied (AI tests and images) on 2026-11-15 at 10:47:53 (-03:00) from a snapshot of `D:\Projetos\dungeon-tactics-lab\design` and
 `D:\Projetos\dungeon-tactics-lab\public\design`, while the lab's own session was still editing it.
 
 ## Where things are
@@ -21,12 +21,12 @@ Copied on 2026-11-14 at 23:37:51 (-03:00) from a snapshot of `D:\Projetos\dungeo
 `public/content/design/.gitignore` keeps every `.jpg`, `.jpeg` and `.png` out of git: captures of other games stay on
 this PC only (grill decision of 13/11). Copy them from the old lab:
 
-| Folder in `public/content/design/` | From `D:\Projetos\dungeon-tactics-lab\public\design\` | Files |
-| ---------------------------------- | ----------------------------------------------------- | ----- |
-| `refs/<game>/`                     | `refs/` (captures of 10 games)                        | 112   |
-| `ia/`                              | `ia/` (AI images and `cena-colina.jpg`)               | 47    |
-| `cenas/`                           | `cenas/` (game captures behind the mock-ups)          | 3     |
-| `chars/px/`                        | `chars/px/` (pixel faces made by the game's script)   | 10    |
+| Folder in `public/content/design/` | From `D:\Projetos\dungeon-tactics-lab\public\design\`                                             | Files |
+| ---------------------------------- | ------------------------------------------------------------------------------------------------- | ----- |
+| `refs/<game>/`                     | `refs/` (captures of 10 games)                                                                    | 112   |
+| `ia/`                              | `ia/`, top-level files only (AI images, `cena-colina.jpg`; not `atlas/`, `icones/`, `pixelizar/`) | 100   |
+| `cenas/`                           | `cenas/` (game captures behind the mock-ups)                                                      | 3     |
+| `chars/px/`                        | `chars/px/` (pixel faces made by the game's script)                                               | 10    |
 
 `icons.svg` (the game's sprite, game-icons.net CC BY 3.0) is versioned.
 
