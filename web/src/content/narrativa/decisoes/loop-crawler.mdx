@@ -1,64 +1,116 @@
 <Callout tom="aviso" titulo="Origem">
 
-O quadro das fases vem do áudio do Fernando (15/11), resumido por outra IA. As 10 decisões abaixo são dele, tomadas no grill de 15/11. A crítica e o MVP sugerido pela outra IA são sugestão, não decisão. Estado: guardado, ninguém age agora.
+O quadro das fases vem do áudio do Fernando (15/11), resumido por outra IA. As 17 decisões abaixo são dele, tomadas no grill de 15/11 (até 17h). A crítica e o MVP sugerido pela outra IA são sugestão, não decisão. Estado: guardado, ninguém age agora.
 
 </Callout>
 
 ## Agora decidido
 
-Grill de 15/11, decisões do Fernando.
+Grill de 15/11, decisões do Fernando. A decisão 2 foi corrigida pelas decisões 16 e 17: a cidade é fixa e só o grupo evolui.
 
 <DataTable
-  colunas={['Assunto', 'Escolha', 'Risco registrado']}
+  colunas={['#', 'Assunto', 'Escolha', 'Risco registrado']}
   linhas={[
     [
+      '1',
       'Descida',
       'Andares encadeados: batalhas táticas no motor atual, vida e recursos persistem entre andares, acampamento no meio. Sem campanha linear. O jogo começa já na cidade, com alguns personagens e classes; entra-se na dungeon com recursos até voltar e se preparar. Destinos variados: dungeon, floresta, montanha.',
       'Revisar a decisão de 12/11 (campanha Beacon Ashes, 7 fases em 2 atos), campaign.ts, o mapa-múndi e a "bifurcação da campanha".',
     ],
     [
+      '2',
       'História',
-      'Cidade que evolui e rumores: NPCs, rumores e eventos destravam destinos e instalações; o objetivo longo é o fundo. Reaproveita rumores, cidades e missões de src/content.',
-      'Nenhum registrado.',
+      'Rumores e eventos destravam o que vem depois (ver decisão 17); o objetivo longo é o fundo. A cidade em si não evolui (decisão 16). Reaproveita rumores, cidades e missões de src/content.',
+      'Texto original dizia "cidade que evolui"; corrigido pelas decisões 16 e 17.',
     ],
     [
+      '3',
       'Pressão extra',
       'Nenhuma por enquanto, só a bag, para validar o combate primeiro. Craftar e cozinhar dentro da dungeon (no acampamento) para se manter.',
-      'Sem segundo eixo, voltar fica sem risco; revisitar depois do combate validado.',
+      'Sem segundo eixo, voltar fica sem risco; revisitar depois do combate validado. Tensiona a decisão 15.',
     ],
     [
+      '4',
       'Acampamento',
-      'Ingredientes viram comida e consumíveis. Loot de bichos e plantas ocupa slots; cozinhar dá cura e buffs para o próximo andar; craftar faz poções, munição e reparo rápido. Craft pesado e upgrades ficam na cidade.',
+      'Ingredientes viram comida e consumíveis. Loot de bichos e plantas ocupa espaço na bag; cozinhar dá cura e buffs para o próximo andar; craftar faz poções, munição e reparo rápido. Craft pesado e upgrades ficam na cidade.',
       'Nenhum registrado.',
     ],
     [
+      '5',
       'Queda em batalha',
       'O personagem fica caído e volta ferido (pouca vida no próximo andar), precisando de comida ou descanso no acampamento. Sem morte permanente por enquanto.',
       'Permadeath (pillars.md:24) fica para depois.',
     ],
     [
+      '6',
       'Bag do grupo',
-      'Peso e tamanho: slots compartilhados, itens ocupam mais de um slot (estilo tetris).',
-      'Mais UI e dados por item que a bag simples; validar cedo.',
+      'Peso e tamanho, com itens ocupando mais de um slot (estilo tetris). Substituída em parte pela decisão 14 (peso em kg).',
+      'Mais UI e dados por item que a bag simples; conflita com a decisão 14.',
     ],
     [
+      '7',
       'Destinos',
       'Procedurais no início: andares gerados por regras. Escolha dele, contra a recomendação de mapas feitos à mão.',
       'Gerar mapas táticos bons com altura, água e rampas é trabalho grande; começar com gerador simples sobre o motor atual (parseGrid e withRamps em grid.ts).',
     ],
     [
+      '8',
       'Cidade inicial',
-      'Grupo de 4 personagens com 3 a 4 classes existentes e 4 instalações: loja (suprimentos), ferreiro (craft e reparo), taverna (recrutar), cozinha ou boticário (ingredientes). Evolução da cidade depois do MVP.',
+      'Grupo de 4 personagens com 3 a 4 classes existentes e 4 instalações: loja (suprimentos), ferreiro (craft e reparo), taverna (recrutar), cozinha ou boticário (ingredientes). As instalações não evoluem (decisão 16).',
       'Nenhum registrado.',
     ],
     [
+      '9',
       'Campanha atual',
       'Congelar e começar do zero. Beacon Ashes fica como está; o novo loop é outro modo desde o início.',
       'Duplica conteúdo e o jogo publicado fica com dois modos; o lab de narrativa precisa de novo escopo.',
     ],
     [
+      '10',
       'Ordem do protótipo',
       'Descida jogável primeiro: gerador simples de 3 andares, vida e recursos persistindo, acampamento com cozinhar e craftar, bag com peso; cidade como menu mínimo.',
+      'Nenhum registrado.',
+    ],
+    [
+      '11',
+      'Evitar inimigos',
+      'Inimigos visíveis no mapa do andar: o jogador escolhe o caminho e só luta quem encostar; loot opcional.',
+      'Exige uma camada de exploração antes da batalha tática.',
+    ],
+    [
+      '12',
+      'Economia',
+      'Ouro vem de vender loot e ingredientes sobrando na cidade; a loja vende suprimentos e equipamento; o ferreiro cobra para craftar e reparar.',
+      'Precisa de tabela de preços e ritmo.',
+    ],
+    [
+      '13',
+      'Classes iniciais',
+      'Reusar as existentes mais 1 classe de apoio ou craft (ex.: cozinheiro, ou batedor que acha ingredientes); inimigos atuais reagrupados por destino.',
+      'Exige habilidades novas e balanceamento.',
+    ],
+    [
+      '14',
+      'Peso em kg',
+      'Bag por peso numérico com limite: cada item pesa X, o grupo tem limite total, passar do limite deixa lento. Escolha dele, contra a recomendação de slots (1 a 3).',
+      'Não parece "slots" como no áudio original; confirmar na UI.',
+    ],
+    [
+      '15',
+      'Destinos diferentes',
+      'Diferem em terreno, inimigos e ingredientes, e cada um tem uma regra única (ex.: montanha com frio gasta comida rápido, floresta esconde inimigos, dungeon escura).',
+      'Regra única é pressão extra e tensiona a decisão 3; definir quais entram no MVP.',
+    ],
+    [
+      '16',
+      'Cidade fixa',
+      'Instalações não evoluem; só o grupo evolui (nível e equipamento).',
+      'Tensiona a decisão 2 original; resolvido pela 17.',
+    ],
+    [
+      '17',
+      'Rumores e história',
+      'Destravam três coisas: destinos e andares mais fundos, receitas e itens novos (loja e craft), e diálogos de ambientação na cidade. Instalações continuam fixas.',
       'Nenhum registrado.',
     ],
   ]}
@@ -66,7 +118,7 @@ Grill de 15/11, decisões do Fernando.
 
 ## As quatro fases
 
-Descrição do áudio do Fernando. Ponto bom: suprimentos trazidos da cidade e loot disputam os mesmos slots da bag.
+Descrição do áudio do Fernando. Ponto bom: suprimentos trazidos da cidade e loot disputam o mesmo espaço da bag.
 
 <DataTable
   colunas={['Fase', 'O que rola', 'Decisão do jogador']}
@@ -86,22 +138,29 @@ Descrição do áudio do Fernando. Ponto bom: suprimentos trazidos da cidade e l
   ]}
 />
 
+## Pontos a confirmar
+
+Tensões entre decisões, para o Fernando resolver:
+
+- **Pressão extra (3) contra regras únicas por destino (15):** a decisão 3 diz nenhuma pressão além da bag; a 15 dá a cada destino uma regra (frio, escuridão) que já é pressão. Definir quais regras entram no MVP, ou adiar todas.
+- **Cidade que evolui contra cidade fixa (2, 16, 17):** a decisão 2 original dizia que a cidade evolui; as 16 e 17 dizem que só o grupo evolui e os rumores destravam destinos, receitas e diálogos. A decisão 2 já foi reescrita; confirmar que é isso.
+- **Slots contra peso em kg (6, 14):** o áudio e a decisão 6 falam em slots (tetris); a 14 escolheu peso numérico. Decidir se a decisão 6 cai e se a UI mostra slots, kg ou os dois.
+
 ## Ainda a decidir
 
 Ninguém perguntou ainda no grill:
 
-- Economia (ouro, preços).
-- Classes e inimigos iniciais.
-- Diferenças entre dungeon, floresta e montanha.
-- Evolução da cidade.
-- Tamanho da bag e fórmula de peso.
-- Como "evitar" inimigos (furtividade?).
+- Valores: tamanho do limite de peso, preços.
+- Quais regras únicas de destino entram no MVP.
+- Receitas iniciais.
+- Classe de apoio exata.
+- UI da exploração do andar.
 
 <Callout tom="simples" titulo="Sugestões da outra IA, não decididas">
 
 - Falta um segundo eixo de risco: voltar custar caro, morte com consequência ou recurso que acaba (luz, comida, stress). A decisão 3 adiou isso.
 - Nome: é "dungeon crawler com hub" (Darkest Dungeon, Etrian Odyssey), não roguelike puro; decidir cedo porque muda o balanceamento.
-- MVP: 3 classes e 4 inimigos; bag de cerca de 12 slots; 1 dungeon de 3 andares com acampamento; cidade mínima (loja, ferreiro, taverna).
+- MVP: 3 classes e 4 inimigos; bag de cerca de 12 slots; 1 dungeon de 3 andares com acampamento; cidade mínima (loja, ferreiro, taverna). O número de slots já conflita com o peso em kg (decisão 14).
 
 </Callout>
 
@@ -116,11 +175,15 @@ Ninguém perguntou ainda no grill:
     ],
     [
       'Lab de narrativa',
-      'Precisa de novo escopo: a história em fases dá lugar à cidade que evolui com rumores. O lab de narrativa e loop é o dono do loop.',
+      'Precisa de novo escopo: a história em fases dá lugar a rumores que destravam destinos, receitas e diálogos numa cidade fixa (decisões 16 e 17). O lab de narrativa e loop é o dono do loop.',
     ],
     [
       'Sessão da Faxina',
       'As dúvidas "quanto de Darkest Dungeon e XCOM entra" e "bifurcação da campanha" mudam de forma com esta decisão.',
+    ],
+    [
+      'Motor e cliente',
+      'Evitar inimigos (11) pede camada de exploração do andar; peso em kg (14) e gerador procedural (7) são trabalho novo.',
     ],
   ]}
 />
