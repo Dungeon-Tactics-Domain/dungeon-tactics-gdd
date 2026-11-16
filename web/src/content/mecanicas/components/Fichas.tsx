@@ -105,7 +105,7 @@ function Cartao({ f }: { f: Ficha }) {
 
 export function Fichas({ grupo }: { grupo: 'classe' | 'inimigo' }) {
   return (
-    <div className="grid gap-3 md:grid-cols-2 desk:grid-cols-3 ultra:grid-cols-4">
+    <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3 ultra:grid-cols-4">
       {(FICHAS.fichas as Ficha[])
         .filter((f) => f.grupo === grupo)
         .map((f) => (
