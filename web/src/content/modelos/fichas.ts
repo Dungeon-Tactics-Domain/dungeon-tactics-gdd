@@ -121,7 +121,18 @@ const LEVES: Record<string, Ficha> = {
   },
 };
 export const fichaAnimacao = (m: string): Ficha | undefined => {
-  const f = LEVES[m] ?? FICHAS[m];
+  const blender = FICHAS[m];
+  // the full rigged ones keep only the Blender sheet's mesh rows: its skeleton, mesh count and file size are of the
+  // unrigged file
+  const f =
+    LEVES[m] ??
+    (blender && {
+      ...blender,
+      numeros: [
+        ...blender.numeros.filter(([r]) => r === 'Triângulos' || r === 'Textura'),
+        ['Ossos e clipes', '23 e 25', RIG(m)] as const,
+      ],
+    });
   return f && { ...f, arquivo: `eval/anim-${m}/char.glb`, data: '15/11' };
 };
 

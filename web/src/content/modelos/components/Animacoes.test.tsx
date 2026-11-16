@@ -53,6 +53,15 @@ describe('Animacoes', () => {
     expect(screen.getByRole('button', { name: 'Andando numa rampa' })).toHaveAttribute('aria-pressed', 'true');
   });
 
+  it('sheets the rigged character with its skeleton, not the unrigged Blender file', async () => {
+    bancadaNoAr();
+    render(<Animacoes modelo="opus" />);
+    const ficha = (await screen.findByText('📋 Ficha do modelo')).closest('details')!;
+    expect(ficha).toHaveTextContent('Ossos e clipes23 e 25');
+    expect(ficha).toHaveTextContent('19.942');
+    expect(ficha).not.toHaveTextContent('sem esqueleto');
+  });
+
   it('says it is in progress when the file is missing or the server answers with the page', async () => {
     bancadaNoAr({ 'content-type': 'text/html' });
     render(<Animacoes modelo="sonnet">intro</Animacoes>);
