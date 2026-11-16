@@ -180,6 +180,10 @@ Exemplo: o Guerreiro tem 210 de vida; o Mago, só 120. Proteja o Mago.
 
 </Callout>
 
+Alguns mapas têm um Farol, uma torre que não anda nem ataca. Nesses mapas, se o Farol cair, você perde, mesmo com
+heróis de pé. Isso vale só nos mapas que começam com um Farol, como a Colina do Farol, a Cripta Alagada e o
+Coração da Cripta; nos outros, só a queda de todos os heróis conta.
+
 <Callout tom="simples" titulo="Bloco 19 · Empurrão e queda">
   Algumas habilidades empurram o alvo 1 ou 2 casas. Bater numa parede ou noutra unidade tira 25. Ser empurrado do
   alto: 1 nível é de graça, cada nível a mais tira 45. Espinhos tiram 50. Descer andando não machuca.
@@ -267,5 +271,8 @@ Proposta para a sessão de Interface: onde o jogo poderia mostrar cada bloco. Na
 - Revide pela metade, quem revida e quando: `combat.ts:68`, `:245-253`, `:274-293`.
 - Batida 25, queda 45 por nível depois do 1º, espinhos 50: `combat.ts:50-53`, `:445-450`.
 - Vida 0 e derrota: `combat.ts:373-385`, `:514-524`.
+- Farol: perder o Farol é derrota só no mapa que nasce com ele: `combat.ts:518-522`; o Farol é a ficha `beacon`:
+  `src/shared/battle/units.ts:47`, `:53`; mapas com Farol: `src/content/maps/beacon-hill.ts:129`,
+  `flooded-crypt.ts:94`, `crypt-heart.ts:76`, `skirmish.ts:14`.
 - Cores e desenhos das marcas, linha do tiro e seta: `src/client/scene/marks.ts:13-30`, `:154`, `:244`, `:288-292`.
 - Tiques de carga, salto por classe, vida das classes: `regras.json` deste lab. Tiro curvo e círculo: `trajetorias.json`.
