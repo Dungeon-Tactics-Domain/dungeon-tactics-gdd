@@ -57,6 +57,17 @@ describe('Blender', () => {
     expect(screen.queryByRole('group', { name: 'Estilo' })).toBeNull();
   });
 
+  it('shows the sheet of the model beside the viewer, each number with its source', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(() => Promise.resolve(new Response(null, { status: 200 }))),
+    );
+    render(<Blender modelo="fable" />);
+    const ficha = await screen.findByRole('region', { name: 'Ficha do modelo' });
+    expect(ficha).toHaveTextContent('19.396');
+    expect(ficha).toHaveTextContent('medido em blender-fable/char.glb');
+  });
+
   it('says the model is in progress when the file is missing', async () => {
     vi.stubGlobal(
       'fetch',
