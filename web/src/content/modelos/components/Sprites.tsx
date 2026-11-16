@@ -1,7 +1,9 @@
 // Sprites rendered from the Blender character: a sheet with 8 directions (rows) x frames (columns), animated on a
 // canvas. Same actions, rates and files as the old lab (dungeon-tactics-lab/modelos/src/main.ts).
 import { type ReactNode, useEffect, useRef, useState } from 'react';
+import { FICHAS_SPRITES } from '../fichas';
 import { BANCADA } from './bancada';
+import { FichaPreview } from './FichaPreview';
 import { JanelaRedimensionavel } from './JanelaRedimensionavel';
 import { Botoes, LadoALado } from './Visualizador';
 
@@ -56,7 +58,10 @@ export function Sprites({ modelo, children }: { modelo: string; children?: React
       <LadoALado
         viewer={
           // square: on phones no taller than the viewer boxes of the other pages; from 1024 px as wide as the window
-          <JanelaRedimensionavel tipo="sprites">
+          <JanelaRedimensionavel
+            tipo="sprites"
+            ficha={FICHAS_SPRITES[modelo] && <FichaPreview ficha={FICHAS_SPRITES[modelo]} />}
+          >
             <canvas
               ref={canvas}
               aria-label="Sprite animado"

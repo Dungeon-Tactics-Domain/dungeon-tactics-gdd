@@ -74,7 +74,7 @@ export function JanelaRedimensionavel({
   return (
     <div
       style={{ '--janela': `${largura}px` } as CSSProperties}
-      className="max-[1023px]:contents min-[1024px]:w-(--janela) min-[1024px]:max-w-[min(100%,80vh)]"
+      className="max-[1023px]:contents min-[1024px]:grid min-[1024px]:w-(--janela) min-[1024px]:max-w-[min(100%,80vh)] min-[1024px]:gap-2"
     >
       <div
         ref={caixa}

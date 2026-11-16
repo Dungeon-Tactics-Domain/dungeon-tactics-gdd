@@ -1,11 +1,29 @@
 // Remodelled KayKit characters beside the original on the 3D bench (Nov 15, Fernando's request: "is it on the site yet?"):
-// same clip and weapons in both viewers, original on the left and the new proportion on the right.
+// same clip and weapons in every viewer. The models come from the remodel agent's proporcoes.json (original, 3 to 7
+// heads as they appear); compare two or three side by side, each window with its sheet.
 import { useState } from 'react';
+import { type Ficha, fichaKayKit } from '../fichas';
 import { BENCH, CLASSE_OPCOES, CLASSE_VIEWER } from './bancada';
+import { FichaPreview } from './FichaPreview';
 import { JanelaRedimensionavel } from './JanelaRedimensionavel';
-import { Botoes } from './Visualizador';
+import { fichaDaProporcao, useProporcoes } from './proporcoes';
+import { BOTAO, Botoes } from './Visualizador';
 
-const MODELOS = [['knight', 'Cavaleiro · 5 cabeças']] as const;
+// the remodel only exists for the knight; its rest pose, Idle and scale come from char=knight
+const CHAR = 'knight';
+const MAXIMO = 3;
+interface Modelo {
+  id: string;
+  nome: string;
+  arquivo: string;
+  ficha: Ficha | 'medindo';
+}
+// while proporcoes.json is not on the bench: the two files that already exist (knight-5h.md, Nov 15)
+const RESERVA: Modelo[] = [
+  { id: 'original', nome: 'Original (KayKit)', arquivo: `/models/${CHAR}.glb`, ficha: fichaKayKit(CHAR) },
+  { id: '5h', nome: '5 cabeças', arquivo: `/eval/kaykit-remodel/${CHAR}-5h.glb`, ficha: 'medindo' },
+];
+
 const GESTOS = [
   ['Idle', 'Parado'],
   ['Walking_A', 'Andar'],
@@ -31,38 +49,71 @@ const url = (glb: string, char: string, anim: string, principal: string, secunda
 };
 
 export function Remodelagem() {
-  const [modelo, setModelo] = useState<string>(MODELOS[0][0]);
+  const lista = useProporcoes();
+  const [escolhidos, setEscolhidos] = useState<string[] | null>(null);
   const [anim, setAnim] = useState<string>(GESTOS[0][0]);
   const [arma, setArma] = useState<number>(0);
   const [principal, secundaria] = ARMAS[arma] ?? ARMAS[0];
+  if (lista === 'carregando') return <p className="m-0 text-apagado">Carregando…</p>;
+  const modelos: Modelo[] =
+    lista === 'medindo'
+      ? RESERVA
+      : lista.map((p) => ({ id: p.id, nome: p.nome, arquivo: p.arquivo, ficha: fichaDaProporcao(p) }));
+  // the first two until the user picks; ids no longer in the file drop out
+  const ativos = (escolhidos ?? modelos.slice(0, 2).map((m) => m.id)).filter((id) => modelos.some((m) => m.id === id));
+  const alternar = (id: string) =>
+    setEscolhidos(
+      ativos.includes(id)
+        ? ativos.length > 1
+          ? ativos.filter((x) => x !== id)
+          : ativos
+        : [...ativos, id].slice(-MAXIMO),
+    );
   return (
     <div className="grid gap-4">
       <div className={CLASSE_OPCOES}>
-        <Botoes
-          rotulo="Personagem"
-          itens={MODELOS.map(([v, n]) => [v, n] as const)}
-          atual={modelo}
-          escolher={setModelo}
-        />
+        <div className="mb-1 font-bold">Comparar (até {MAXIMO})</div>
+        <div role="group" aria-label="Modelos para comparar" className="mb-2.5 flex flex-wrap gap-1.5">
+          {modelos.map((m) => (
+            <button
+              key={m.id}
+              type="button"
+              aria-pressed={ativos.includes(m.id)}
+              onClick={() => alternar(m.id)}
+              className={BOTAO}
+            >
+              {m.nome}
+            </button>
+          ))}
+        </div>
+        {lista === 'medindo' && (
+          <p className="m-0 mb-2.5 text-apagado">
+            As medidas dos modelos ainda não chegaram à bancada (medindo… ainda não disponível); por enquanto, o
+            original e o de 5 cabeças.
+          </p>
+        )}
         <Botoes rotulo="Gesto" itens={GESTOS} atual={anim} escolher={setAnim} />
         <Botoes rotulo="Arma" itens={ARMAS.map(([, , n], i) => [i, n] as const)} atual={arma} escolher={setArma} />
       </div>
       <div className="flex flex-wrap items-start gap-4">
-        {[
-          ['Original (KayKit)', `/models/${modelo}.glb`],
-          ['5 cabeças', `/eval/kaykit-remodel/${modelo}-5h.glb`],
-        ].map(([titulo, glb]) => (
-          <figure key={titulo} className="m-0 grid max-w-full gap-1 max-[1023px]:w-full">
-            <figcaption className="font-bold">{titulo}</figcaption>
-            <JanelaRedimensionavel tipo="remodelagem" rotulo={`Tamanho da janela: ${titulo}`}>
-              <iframe
-                src={url(glb!, modelo, anim, principal, secundaria)}
-                title={`${titulo}`}
-                className={CLASSE_VIEWER}
-              />
-            </JanelaRedimensionavel>
-          </figure>
-        ))}
+        {modelos
+          .filter((m) => ativos.includes(m.id))
+          .map((m) => (
+            <figure key={m.id} className="m-0 grid max-w-full gap-1 max-[1023px]:w-full">
+              <figcaption className="font-bold">{m.nome}</figcaption>
+              <JanelaRedimensionavel
+                tipo="remodelagem"
+                rotulo={`Tamanho da janela: ${m.nome}`}
+                ficha={<FichaPreview ficha={m.ficha} titulo={`Ficha: ${m.nome}`} />}
+              >
+                <iframe
+                  src={url(m.arquivo, CHAR, anim, principal, secundaria)}
+                  title={m.nome}
+                  className={CLASSE_VIEWER}
+                />
+              </JanelaRedimensionavel>
+            </figure>
+          ))}
       </div>
     </div>
   );

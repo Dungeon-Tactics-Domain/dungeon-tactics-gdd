@@ -57,14 +57,18 @@ describe('Blender', () => {
     expect(screen.queryByRole('group', { name: 'Estilo' })).toBeNull();
   });
 
-  it('shows the sheet of the model beside the viewer, each number with its source', async () => {
+  it('shows the collapsed sheet of the model under the viewer, each number with its source', async () => {
     vi.stubGlobal(
       'fetch',
       vi.fn(() => Promise.resolve(new Response(null, { status: 200 }))),
     );
     render(<Blender modelo="fable" />);
-    const ficha = await screen.findByRole('region', { name: 'Ficha do modelo' });
+    const resumo = await screen.findByText('📋 Ficha do modelo');
+    const ficha = resumo.closest('details')!;
+    expect(ficha).not.toHaveAttribute('open');
     expect(ficha).toHaveTextContent('19.396');
+    expect(ficha).toHaveTextContent('Cabeçasnão medido');
+    expect(ficha).toHaveTextContent('eval/blender-fable/char.glb');
     expect(ficha).toHaveTextContent('medido em blender-fable/char.glb');
   });
 

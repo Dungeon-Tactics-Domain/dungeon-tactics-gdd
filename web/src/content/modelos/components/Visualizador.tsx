@@ -2,9 +2,10 @@
 // the game's worktree (see bancada.ts). Same URLs and behaviour as the old lab (dungeon-tactics-lab/modelos/src/main.ts).
 import { type ReactNode, useEffect, useState } from 'react';
 import { DecisaoAsset } from '@/components/content/DecisaoAsset';
-import { FICHAS, type Ficha as DadosDaFicha } from '../fichas';
+import { type Ficha, fichaBlender, fichaPeca } from '../fichas';
 import pecas from '../pecas.json';
 import { BANCADA, BENCH, CLASSE_VIEWER, EM_LOCALHOST } from './bancada';
+import { FichaPreview } from './FichaPreview';
 import { JanelaRedimensionavel } from './JanelaRedimensionavel';
 
 const ESTILOS = [
@@ -43,7 +44,7 @@ function urlDaPeca(p: Peca, estilo: Estilo) {
   return `${BENCH}?${q}`;
 }
 
-const BOTAO =
+export const BOTAO =
   'min-h-11 min-w-11 cursor-pointer rounded-md border border-borda bg-folha px-3 text-[15px] text-tinta hover:bg-lab-soft aria-pressed:border-lab aria-pressed:bg-lab aria-pressed:text-white';
 
 export function Botoes<T>({
@@ -89,52 +90,19 @@ export function LadoALado({ viewer, children }: { viewer: ReactNode; children: R
   );
 }
 
-/** Sheet of a Blender character beside its viewer: measured numbers and the notes' method and defects, each with its source. */
-function Ficha({ numeros, metodo, origemMetodo, defeitos, origemDefeitos }: DadosDaFicha) {
-  return (
-    <section
-      aria-label="Ficha do modelo"
-      className="grid gap-3 border border-t-[6px] border-borda border-t-lab bg-folha px-5 py-4"
-    >
-      <h2 className="m-0 text-[21px] leading-tight">Ficha do modelo</h2>
-      <dl className="m-0 grid gap-2">
-        {numeros.map(([rotulo, valor, origem]) => (
-          <div key={rotulo}>
-            <dt className="font-bold">{rotulo}</dt>
-            <dd className="m-0">
-              {valor} <span className="text-[15px] text-apagado">({origem})</span>
-            </dd>
-          </div>
-        ))}
-      </dl>
-      <h3 className="m-0 text-[18px] leading-tight">Método</h3>
-      <p className="m-0">
-        {metodo} <span className="text-[15px] text-apagado">({origemMetodo})</span>
-      </p>
-      <h3 className="m-0 text-[18px] leading-tight">Defeitos conhecidos</h3>
-      <ul className="m-0 grid list-disc gap-1 pl-6">
-        {defeitos.map((d) => (
-          <li key={d}>{d}</li>
-        ))}
-      </ul>
-      <p className="m-0 text-[15px] text-apagado">Origem: {origemDefeitos}.</p>
-    </section>
-  );
-}
-
-/** `asset` prefixes the piece id into the decision's asset id (`modelos/<set>/<piece>`); `lado` goes under the options. */
+/** `asset` prefixes the piece id into the decision's asset id (`modelos/<set>/<piece>`); `ficha` replaces the piece's own. */
 function Bancada({
   pecas: lista,
   asset,
   tipo,
-  lado,
+  ficha,
   children,
 }: {
   pecas: Peca[];
   asset: string;
   /** remembers the window size per kind of page */
   tipo: string;
-  lado?: ReactNode;
+  ficha?: Ficha;
   children?: ReactNode;
 }) {
   const [peca, setPeca] = useState(lista[0]!);
@@ -150,7 +118,7 @@ function Bancada({
       {children}
       <LadoALado
         viewer={
-          <JanelaRedimensionavel tipo={tipo}>
+          <JanelaRedimensionavel tipo={tipo} ficha={<FichaPreview ficha={ficha ?? fichaPeca(peca.m, peca.nome)} />}>
             <iframe src={urlDaPeca(peca, estilo)} title="Visualizador 3D" className={CLASSE_VIEWER} />
           </JanelaRedimensionavel>
         }
@@ -174,7 +142,6 @@ function Bancada({
             )}
           </div>
         )}
-        {lado}
         <DecisaoAsset key={peca.id} id={`${asset}/${peca.id}`} rotulo={peca.nome} />
       </LadoALado>
     </>
@@ -220,7 +187,7 @@ export function Blender({ modelo, children }: { modelo: string; children?: React
       pecas={[{ id: modelo, nome: 'Guerreiro', glb, zoom: 1.6 }]}
       asset="modelos/blender"
       tipo="blender"
-      lado={FICHAS[modelo] && <Ficha {...FICHAS[modelo]} />}
+      ficha={fichaBlender(modelo)}
     >
       {children}
     </Bancada>

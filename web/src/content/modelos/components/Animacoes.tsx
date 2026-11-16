@@ -1,7 +1,9 @@
 // Game clips (animations.glb plus the knight Idle) and extras (reactions, water) playing on each model's rigged
 // character, on the 3D bench. Same buttons, scenes and URLs as the old lab (dungeon-tactics-lab/modelos/src/main.ts).
 import { type ReactNode, useEffect, useState } from 'react';
+import { fichaAnimacao } from '../fichas';
 import { BANCADA, BENCH, CLASSE_OPCOES, CLASSE_VIEWER } from './bancada';
+import { FichaPreview } from './FichaPreview';
 import { JanelaRedimensionavel } from './JanelaRedimensionavel';
 import { Botoes, LadoALado } from './Visualizador';
 
@@ -148,6 +150,7 @@ export function Animacoes({ modelo, children }: { modelo: string; children?: Rea
       vivo = false;
     };
   }, [glb]);
+  const ficha = fichaAnimacao(modelo);
   if (estado === 'carregando') return <p className="m-0 text-apagado">Carregando…</p>;
   if (estado === 'falta')
     return (
@@ -160,7 +163,7 @@ export function Animacoes({ modelo, children }: { modelo: string; children?: Rea
       {children}
       <LadoALado
         viewer={
-          <JanelaRedimensionavel tipo="animacoes">
+          <JanelaRedimensionavel tipo="animacoes" ficha={ficha && <FichaPreview ficha={ficha} />}>
             <iframe
               src={urlDaAnimacao(modelo, glb, escolha, principal, secundaria, duas)}
               title="Animação 3D"

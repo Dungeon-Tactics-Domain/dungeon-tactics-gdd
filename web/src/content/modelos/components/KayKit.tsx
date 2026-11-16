@@ -3,7 +3,9 @@
 // (listed by the bench's clips.json) and put weapons in each hand like the Animações pages.
 import { useEffect, useState } from 'react';
 import { alterna, type Botao, DUAS_MAOS, Grupo, MAO_PRINCIPAL, MAO_SECUNDARIA, urlDaAnimacao } from './Animacoes';
+import { fichaKayKit } from '../fichas';
 import { BANCADA, CLASSE_OPCOES, CLASSE_VIEWER } from './bancada';
+import { FichaPreview } from './FichaPreview';
 import { JanelaRedimensionavel } from './JanelaRedimensionavel';
 import { Botoes, LadoALado } from './Visualizador';
 
@@ -177,10 +179,18 @@ export function KayKit() {
         <JanelaRedimensionavel
           tipo="kaykit"
           ficha={
-            <p className="m-0 mt-2 text-apagado">
-              Tocando: {cena ?? nome(clipe.replace(/^.*\//, ''))}
-              {tocando?.dur ? ` (${tocando.dur.toLocaleString('pt-BR')} s)` : ''}
-            </p>
+            <>
+              <p className="m-0 text-apagado">
+                Tocando: {cena ?? nome(clipe.replace(/^.*\//, ''))}
+                {tocando?.dur ? ` (${tocando.dur.toLocaleString('pt-BR')} s)` : ''}
+              </p>
+              <FichaPreview
+                ficha={fichaKayKit(base, {
+                  jogo: lista.jogo.length,
+                  pacote: lista.pacote.reduce((n, g) => n + g.clipes.length, 0),
+                })}
+              />
+            </>
           }
         >
           <iframe
