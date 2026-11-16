@@ -1,14 +1,8 @@
 import { render, screen } from '@testing-library/react';
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { contraste, cor, CORES, FAIXAS_TOKENS, MAPA, PARES, tokensEm } from '../ouro-e-couro';
 import { OuroECouro } from './OuroECouro';
 import { FAIXAS } from './Responsivo';
-
-// Vitest turns every .css import into an empty string (test.css is off), ?raw included: read the real file instead
-vi.mock('../ouro-e-couro.tokens.css?raw', async () => {
-  const fs = await vi.importActual<{ readFileSync: (arquivo: string, codificacao: 'utf8') => string }>('node:fs');
-  return { default: fs.readFileSync('src/content/design/ouro-e-couro.tokens.css', 'utf8') };
-});
 
 describe('ouro e couro tokens', () => {
   it('computes WCAG contrast and every pair of the page reaches its minimum', () => {
