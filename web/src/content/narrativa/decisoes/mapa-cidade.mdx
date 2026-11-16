@@ -459,6 +459,57 @@ Não é decisão; é o ponto de partida para quando o lab for liberado.
 - **Estudo na bancada, longe do jogo** (decisão do Fernando de 16/11); nada em `src/content` antes da aprovação.
 - **Escolha de peças** (KayKit/licenciadas × novas): depois da aprovação das referências.
 
+## Como a cidade vira dado (matriz de números → mapa)
+
+Ideia de produção, sem geometria nem código: o mapa é **dado em `src/content`** e o cliente o transforma em 3D. O jogo já faz isso para a cidade de hoje (`src/content/crawl/town.ts`: uma grade de letras, uma grade de alturas e uma tabela que diz o que cada letra é; origem: leitura do arquivo em 16/11). A cidade maior estende o mesmo caminho.
+
+<div className="max-w-[110ch]">
+  <DataTable
+    colunas={[
+      'Camada',
+      'O que guarda',
+      'Como a engine usa',
+      'Como Unity e Godot fazem (conhecimento geral, sem conferir na documentação)',
+    ]}
+    linhas={[
+      [
+        'Altura',
+        'Um número por célula (nível 0 a 6, por exemplo).',
+        'Define o degrau; diferença de 1 entre vizinhas vira rampa ou escada; 2 ou mais vira muro ou penhasco.',
+        'Mapa de altura; no Godot, o eixo Y do GridMap.',
+      ],
+      [
+        'Terreno',
+        'Um id por célula (grama, areia, pedra, estrada, água).',
+        'Uma tabela id → peça e aparência, como o `TOWN_KEY` de hoje.',
+        'Tilemap (Unity) e GridMap com biblioteca de peças (Godot).',
+      ],
+      [
+        'Borda (autotile)',
+        'Calculada pelos vizinhos, não guardada.',
+        'Escolhe a peça de canto, curva ou borda ao olhar as quatro ou oito células em volta; é o que dá bordas onduladas e praia natural sem desenhar peça por peça.',
+        'Rule Tiles (Unity) e terrenos com autotile (Godot).',
+      ],
+      [
+        'Objetos',
+        'Lista com tipo, posição, giro e lote (prédio 3x3, barco, lanterna, árvore).',
+        'Camada à parte por cima da grade, como os prédios de hoje.',
+        'Props e prefabs (Unity); cenas instanciadas (Godot).',
+      ],
+      [
+        'Ligações',
+        'Onde há escada e onde há rampa, lado a lado.',
+        'O motor só deixa o herói cruzar onde há ligação; o 2x2 sobe degrau por elas.',
+        'Navegação (NavMesh) ou regras de custo por célula.',
+      ],
+    ]}
+  />
+</div>
+
+**O que o motor atual ainda não faz para essa cidade** (achados da sessão de Interface, 16/11; não conferi no código): aceitar passo de 2 células em degrau ou rampa, bloquear o mar fundo, e a câmera subir junto com o terraço. Hoje o herói 2x2 só cruza uma porta de seis.
+
+**Ordem sugerida:** (1) escolher o conceito de relevo (o Fernando); (2) o Modelos 3D desenha a grade de altura e terreno na bancada, longe do jogo; (3) a Interface ensina o motor a andar nela; (4) só então a narrativa fixa onde cada morador fica. Nenhum passo começa sem o Fernando liberar.
+
 ## Pontos para o Modelos 3D decidir (fora deste layout)
 
 Medidas e número de degraus por terraço; silhueta e estilo de cada prédio (KayKit e pintado); onde ficam o poço, a capela e a torre; como a floresta e a montanha aparecem; o porto (tamanho do cais, barcos); câmera e clique para o herói andar.
