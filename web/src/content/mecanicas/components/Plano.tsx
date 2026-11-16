@@ -25,10 +25,10 @@ export function Agora() {
   if (!now)
     return (
       <Callout>
-        <p className="m-0">
+        <p className="m-0 max-w-[72ch]">
           <strong>Nenhuma decisão pendente.</strong>
         </p>
-        <p className="m-0">
+        <p className="m-0 max-w-[72ch]">
           <strong>Próximo passo: </strong>
           {PLANO.nextStep}
         </p>
@@ -36,11 +36,11 @@ export function Agora() {
     );
   return (
     <Callout>
-      <p className="m-0">
+      <p className="m-0 max-w-[72ch]">
         <strong>{now.question}</strong>
       </p>
-      <p className="m-0">{now.why}</p>
-      <p className="m-0 text-apagado">{now.example}</p>
+      <p className="m-0 max-w-[72ch]">{now.why}</p>
+      <p className="m-0 max-w-[72ch] text-apagado">{now.example}</p>
       {now.options.map((o, i) => (
         <div
           key={o.name}
@@ -50,8 +50,8 @@ export function Agora() {
             {o.name}
             {i === 0 ? ' (recomendada)' : ''}
           </strong>
-          <p className="m-0">{o.what}</p>
-          <p className="m-0 text-apagado">Embasamento: {o.basis}</p>
+          <p className="m-0 max-w-[72ch]">{o.what}</p>
+          <p className="m-0 max-w-[72ch] text-apagado">Embasamento: {o.basis}</p>
           <div className="grid grid-cols-2 gap-3 max-[900px]:grid-cols-1">
             <div>
               <b className="block text-sucesso">Prós</b>
@@ -62,13 +62,13 @@ export function Agora() {
               {o.cons}
             </div>
           </div>
-          <p className="m-0">
+          <p className="m-0 max-w-[72ch]">
             <b>Consequência: </b>
             {o.effect}
           </p>
         </div>
       ))}
-      <p className="m-0">
+      <p className="m-0 max-w-[72ch]">
         <strong>Recomendação: </strong>
         {now.pick}
       </p>
