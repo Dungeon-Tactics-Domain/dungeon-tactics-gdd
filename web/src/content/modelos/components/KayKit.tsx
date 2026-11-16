@@ -5,9 +5,10 @@ import { useEffect, useState } from 'react';
 import { alterna, type Botao, DUAS_MAOS, Grupo, MAO_PRINCIPAL, MAO_SECUNDARIA, urlDaAnimacao } from './Animacoes';
 import { fichaKayKit } from '../fichas';
 import { BANCADA, CLASSE_OPCOES, CLASSE_VIEWER } from './bancada';
+import { AcoesDoJogo, type Categoria, PainelDeClipes, Sequencias, useSequencia } from './Clipes';
 import { FichaPreview } from './FichaPreview';
 import { JanelaRedimensionavel } from './JanelaRedimensionavel';
-import { Botoes, LadoALado } from './Visualizador';
+import { LadoALado } from './Visualizador';
 
 export const PERSONAGENS: readonly Botao[] = [
   ['knight', 'Cavaleiro'],
@@ -113,6 +114,11 @@ export interface ListaDeClipes {
 }
 
 const nome = (c: string) => c.replace(/_/g, ' ');
+/** every clip by the id the bench takes: game clips by name, pack clips as "<category>/<clip>" */
+const clipesPorId = (l: ListaDeClipes) => [
+  ...l.jogo.map((c) => [c.name, c] as const),
+  ...l.pacote.flatMap((g) => g.clipes.map((c) => [`${g.categoria}/${c.name}`, c] as const)),
+];
 
 /** Bench URL: the game's model by parts, at game scale, with a KayKit clip or a scene ("walk:flat") and the weapons. */
 export function urlKayKit(
@@ -147,6 +153,12 @@ export function KayKit() {
   const [principal, setPrincipal] = useState('');
   const [secundaria, setSecundaria] = useState('');
   const [duas, setDuas] = useState('');
+  const todos = lista === 'carregando' || lista === 'falta' ? [] : clipesPorId(lista);
+  const sequencia = useSequencia(setClipe, (id) => todos.find(([i]) => i === id)?.[1].dur);
+  const escolher = (id: string) => {
+    sequencia.parar();
+    setClipe(id);
+  };
   useEffect(() => {
     let vivo = true;
     fetch(`${BANCADA}/eval/kaykit-anim/clips.json`)
@@ -168,11 +180,25 @@ export function KayKit() {
       </p>
     );
   const doJogo = new Set(lista.jogo.map((c) => c.name));
-  const tocando = [
-    ...lista.jogo.map((c) => [c.name, c] as const),
-    ...lista.pacote.flatMap((g) => g.clipes.map((c) => [`${g.categoria}/${c.name}`, c] as const)),
-  ].find(([id]) => id === clipe)?.[1];
+  const tocando = todos.find(([id]) => id === clipe)?.[1];
   const cena = CENAS.flatMap(([, b]) => b).find(([id]) => id === clipe)?.[1];
+  const nomeDe = (id: string) =>
+    CENAS.flatMap(([, b]) => b).find(([i]) => i === id)?.[1] ?? nome(id.replace(/^.*\//, ''));
+  const categorias: Categoria[] = [
+    {
+      titulo: '⭐ Os 17 gestos que o jogo usa',
+      itens: lista.jogo.map((c) => [c.name, nome(c.name)] as const),
+      aberta: true,
+    },
+    ...CENAS.map(([titulo, itens]) => ({ titulo, itens })),
+    // the full pack; ★ marks the clips the game already uses
+    ...lista.pacote.map((g) => ({
+      titulo: `📦 ${CATEGORIAS[g.categoria] ?? g.categoria}`,
+      itens: g.clipes.map(
+        (c) => [`${g.categoria}/${c.name}`, `${nome(c.name)}${doJogo.has(c.name) ? ' ★' : ''}`] as const,
+      ),
+    })),
+  ];
   return (
     <LadoALado
       viewer={
@@ -194,9 +220,11 @@ export function KayKit() {
           }
         >
           <iframe
+            key={sequencia.chave}
             src={urlKayKit(base, partes, clipe, principal, secundaria, duas)}
             title="Personagem KayKit 3D"
             className={CLASSE_VIEWER}
+            onLoad={sequencia.aoCarregar}
           />
         </JanelaRedimensionavel>
       }
@@ -212,32 +240,7 @@ export function KayKit() {
             escolher={(de) => setPartes({ ...partes, [parte]: de })}
           />
         ))}
-        <Grupo
-          titulo="⭐ Os 17 gestos que o jogo usa"
-          botoes={lista.jogo.map((c) => [c.name, nome(c.name)] as const)}
-          atual={clipe}
-          escolher={setClipe}
-        />
-        {CENAS.map(([titulo, botoes]) => (
-          <Grupo key={titulo} titulo={titulo} botoes={botoes} atual={clipe} escolher={setClipe} />
-        ))}
-        <div className="mt-2.5 font-bold">📦 Pacote completo de animações KayKit</div>
-        <p className="m-0 mb-1 text-apagado">★ marca os que o jogo já usa.</p>
-        {lista.pacote.map((g) => (
-          <details key={g.categoria} className="mt-1">
-            <summary className="cursor-pointer py-2.5">
-              {CATEGORIAS[g.categoria] ?? g.categoria} ({g.clipes.length})
-            </summary>
-            <Botoes
-              rotulo={CATEGORIAS[g.categoria] ?? g.categoria}
-              itens={g.clipes.map(
-                (c) => [`${g.categoria}/${c.name}`, `${nome(c.name)}${doJogo.has(c.name) ? ' ★' : ''}`] as const,
-              )}
-              atual={clipe}
-              escolher={setClipe}
-            />
-          </details>
-        ))}
+        <PainelDeClipes tipo="kaykit" categorias={categorias} atual={clipe} escolher={escolher} />
         <Grupo
           titulo="🗡️ Mão principal (direita)"
           botoes={[...MAO_PRINCIPAL, ...KK_PRINCIPAL]}
@@ -267,6 +270,15 @@ export function KayKit() {
           }}
         />
       </div>
+      <AcoesDoJogo
+        personagem={base}
+        nomePersonagem={PERSONAGENS.find(([id]) => id === base)?.[1] ?? base}
+        atual={clipe}
+        prefixo=""
+        nomeDe={nomeDe}
+        escolher={escolher}
+      />
+      <Sequencias atual={clipe} prefixo="" nomeDe={nomeDe} sequencia={sequencia} />
     </LadoALado>
   );
 }

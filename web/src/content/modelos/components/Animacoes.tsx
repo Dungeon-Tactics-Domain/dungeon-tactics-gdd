@@ -3,6 +3,7 @@
 import { type ReactNode, useEffect, useState } from 'react';
 import { fichaAnimacao } from '../fichas';
 import { BANCADA, BENCH, CLASSE_OPCOES, CLASSE_VIEWER } from './bancada';
+import { AcoesDoJogo, PainelDeClipes, Sequencias, useSequencia } from './Clipes';
 import { FichaPreview } from './FichaPreview';
 import { JanelaRedimensionavel } from './JanelaRedimensionavel';
 import { Botoes, LadoALado } from './Visualizador';
@@ -108,6 +109,9 @@ export function urlDaAnimacao(
   return `${BENCH}?${q}`;
 }
 
+const NOMES = new Map(SETORES.flatMap(([, b]) => b));
+const nomeDe = (id: string) => NOMES.get(id) ?? id.replace(/^clip:/, '').replace(/_/g, ' ');
+
 export const alterna = (atual: string, id: string) => (atual === id ? '' : id);
 
 export function Grupo({
@@ -137,6 +141,26 @@ export function Animacoes({ modelo, children }: { modelo: string; children?: Rea
   const [principal, setPrincipal] = useState('');
   const [secundaria, setSecundaria] = useState('');
   const [duas, setDuas] = useState('');
+  // clip lengths for the sequences: the same game clips as the KayKit bench's clips.json (the rigged characters
+  // were retargeted at the same lengths, notes anim-*.md); a missing list falls back to a fixed step
+  const [duracoes, setDuracoes] = useState<Map<string, number>>(new Map());
+  const sequencia = useSequencia(setEscolha, (id) => duracoes.get(id.replace(/^clip:/, '')));
+  const escolher = (id: string) => {
+    sequencia.parar();
+    setEscolha(id);
+  };
+  useEffect(() => {
+    fetch(`${BANCADA}/eval/kaykit-anim/clips.json`)
+      .then((r) => r.json() as Promise<{ jogo?: unknown }>)
+      .then((j) => {
+        if (!Array.isArray(j?.jogo)) return;
+        const m = new Map<string, number>();
+        for (const c of j.jogo as { name?: unknown; dur?: unknown }[])
+          if (typeof c?.name === 'string' && typeof c.dur === 'number') m.set(c.name, c.dur);
+        setDuracoes(m);
+      })
+      .catch(() => {});
+  }, []);
   useEffect(() => {
     let vivo = true;
     // the dev server answers 200 with the page for a missing file: HTML means "not there"
@@ -165,17 +189,22 @@ export function Animacoes({ modelo, children }: { modelo: string; children?: Rea
         viewer={
           <JanelaRedimensionavel tipo="animacoes" ficha={ficha && <FichaPreview ficha={ficha} />}>
             <iframe
+              key={sequencia.chave}
               src={urlDaAnimacao(modelo, glb, escolha, principal, secundaria, duas)}
               title="Animação 3D"
               className={CLASSE_VIEWER}
+              onLoad={sequencia.aoCarregar}
             />
           </JanelaRedimensionavel>
         }
       >
         <div className={CLASSE_OPCOES}>
-          {SETORES.map(([titulo, botoes]) => (
-            <Grupo key={titulo} titulo={titulo} botoes={botoes} atual={escolha} escolher={setEscolha} />
-          ))}
+          <PainelDeClipes
+            tipo="animacoes"
+            categorias={SETORES.map(([titulo, itens], i) => ({ titulo, itens, aberta: i === 0 }))}
+            atual={escolha}
+            escolher={escolher}
+          />
           {/* a weapon in one hand, the other hand or both: two hands clears the others and the reverse; clicking the active one removes it */}
           <Grupo
             titulo="🗡️ Mão principal (direita)"
@@ -206,6 +235,15 @@ export function Animacoes({ modelo, children }: { modelo: string; children?: Rea
             }}
           />
         </div>
+        <AcoesDoJogo
+          personagem={`anim-${modelo}`}
+          nomePersonagem={modelo}
+          atual={escolha}
+          prefixo="clip:"
+          nomeDe={nomeDe}
+          escolher={escolher}
+        />
+        <Sequencias atual={escolha} prefixo="clip:" nomeDe={nomeDe} sequencia={sequencia} />
       </LadoALado>
     </>
   );
