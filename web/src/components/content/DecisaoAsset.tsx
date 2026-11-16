@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { useQuadro } from '@/lib/fabrica-context';
+import { ehLocal } from '@/lib/labs';
 import { DECISOES_ATIVAS } from '@/lib/recursos';
 import {
   COR_ESCOLHA,
@@ -30,7 +30,8 @@ function CaixaDecisao({ id, rotulo }: { id: string; rotulo: string }) {
   const [estado, setEstado] = useState<'carregando' | 'pronto' | 'salvando' | 'fora'>('carregando');
   const [aviso, setAviso] = useState('');
 
-  const semApi = useQuadro().conexao === 'sem-api';
+  // the decisions live in the local API; the public site has none
+  const semApi = !ehLocal();
 
   useEffect(() => {
     if (semApi) return;

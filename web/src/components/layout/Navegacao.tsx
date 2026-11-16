@@ -1,24 +1,13 @@
 // The labs' navigation per band (design lab, 15/11): from 1024 px a sidebar (an icon rail below 1440, open above it, and
-// from 1440 dragged wider or narrower by its edge); below 1024 the 5 labs in a bottom menu. The links list (home, places,
-// decisions, one dot per place: border = lab flag, fill = state) is the same in the sidebar and the phone sheet.
-import { type KeyboardEvent, type PointerEvent, type ReactNode, useState } from 'react';
+// from 1440 dragged wider or narrower by its edge); below 1024 the 5 labs in a bottom menu. The links list (home, labs, decisions) is the same in the sidebar and the phone sheet.
+import { type KeyboardEvent, type PointerEvent, useState } from 'react';
 import { NavLink } from 'react-router';
 import { CONTEUDO } from '@/content/registry';
-import { useQuadro } from '@/lib/fabrica-context';
-import { stateLabel, type Town, townsOf } from '@/lib/fabrica';
-import { LABS } from '@/lib/labs';
+import { LABS, type Place } from '@/lib/labs';
 import { DECISOES_ATIVAS } from '@/lib/recursos';
 import { SEM_DESKTOP, SEM_ULTRA, useMediaQuery } from '@/lib/useMediaQuery';
 import { cn, gravar, ler } from '@/lib/utils';
 import { Icone } from './Icone';
-
-const DOT: Record<string, string> = {
-  rodando: 'bg-[#5fc283]',
-  'aguardando-voce': 'bg-ouro-claro motion-safe:animate-[ping-dot_1.6s_ease-out_infinite]',
-  espera: 'bg-[#8fb8d8]',
-  parado: 'bg-[#8c877a]',
-  nenhum: 'bg-transparent',
-};
 
 const linkCls =
   (recolhida: boolean) =>
@@ -29,26 +18,23 @@ const linkCls =
       isActive && 'bg-casca-topo-texto text-casca-topo hover:bg-casca-topo-texto',
     );
 
-/** A link's face: the full name, or in the rail a 2-letter seal in the place's colour with the dot on its corner. */
+/** A link's face: the full name, or in the rail a 2-letter seal in the place's colour . */
 function Face({
   nome,
   icone,
   sinal,
   cor,
-  dot,
   recolhida,
 }: {
   nome: string;
   icone: string;
   sinal: string;
   cor?: string;
-  dot?: ReactNode;
   recolhida: boolean;
 }) {
   if (!recolhida)
     return (
       <>
-        {dot}
         <Icone id={icone} />
         {/* between 1024 and 1199 px the bar has no room for 7 names: icon only, the name stays as tooltip and for readers */}
         <span className="max-w-60 truncate min-[1024px]:max-[1199px]:sr-only">{nome}</span>
@@ -67,61 +53,41 @@ function Face({
       >
         {sinal}
       </span>
-      {dot && <span className="absolute -top-1 -right-1 flex">{dot}</span>}
       <span className="sr-only">{nome}</span>
     </span>
   );
 }
 
-function TownLink({ t, recolhida }: { t: Town; recolhida: boolean }) {
-  // without the board (public site) every dot would read "sem sessão", so the indicator goes away
-  const semApi = useQuadro().conexao === 'sem-api';
-  const naoMigrado = t.place.antigo && !CONTEUDO[t.place.id] ? ', ainda não migrado' : '';
-  const label = semApi
-    ? naoMigrado.slice(2) || 'lab'
-    : `${t.estado ? stateLabel(t.estado) : 'sem sessão no quadro'}${naoMigrado}`;
-  const dot = semApi ? null : (
-    <i
-      className={cn('size-[13px] flex-none rounded-full border-2', DOT[t.estado ?? 'nenhum'])}
-      style={{ borderColor: t.place.cor }}
-    />
-  );
-  const face = (
-    <Face nome={t.place.curto} icone={t.place.id} sinal={t.place.curto.slice(0, 2)} cor={t.place.cor} dot={dot} recolhida={recolhida} />
-  );
-  if (!t.place.href)
+function LabLink({ p, recolhida }: { p: Place; recolhida: boolean }) {
+  const naoMigrado = p.antigo && !CONTEUDO[p.id] ? ', ainda não migrado' : '';
+  const face = <Face nome={p.curto} icone={p.id} sinal={p.curto.slice(0, 2)} cor={p.cor} recolhida={recolhida} />;
+  if (!p.href)
     return (
       <span
         className={cn(linkCls(recolhida)({ isActive: false }), 'opacity-70 hover:bg-transparent')}
-        title={`${t.place.nome}: ${label} (ainda sem página)`}
+        title={`${p.nome} (ainda sem página)`}
       >
         {face}
-        <span className="sr-only">: {label}, ainda sem página</span>
+        <span className="sr-only">: ainda sem página</span>
       </span>
     );
   return (
-    <NavLink
-      to={t.place.href}
-      className={linkCls(recolhida)}
-      title={`${t.place.nome}: ${label}`}
-      data-estado={t.estado ?? 'nenhum'}
-    >
+    <NavLink to={p.href} className={linkCls(recolhida)} title={p.nome}>
       {face}
-      <span className="sr-only">: {label}</span>
+      {naoMigrado && <span className="sr-only">{naoMigrado.slice(1)}</span>}
     </NavLink>
   );
 }
 
-/** Home, the fixed places, labs the board knows but lib/labs.ts does not, then decisions. */
+/** Home, the labs, then decisions. */
 export function Links({ recolhida = false }: { recolhida?: boolean }) {
-  const towns = townsOf(useQuadro().fabrica);
   return (
     <>
       <NavLink to="/" end className={linkCls(recolhida)} title="Início">
         <Face nome="Início" icone="inicio" sinal="◆" recolhida={recolhida} />
       </NavLink>
-      {towns.map((t) => (
-        <TownLink key={t.place.id} t={t} recolhida={recolhida} />
+      {LABS.map((p) => (
+        <LabLink key={p.id} p={p} recolhida={recolhida} />
       ))}
       {DECISOES_ATIVAS && (
         <NavLink to="/decisoes" className={linkCls(recolhida)} title="Decisões">
@@ -239,7 +205,11 @@ export function MenuInferior() {
           // the active mark is gold: the labs' own colours fall under 3:1 on the leather bar
           className="flex min-h-11 min-w-0 flex-col items-center justify-center gap-0.5 border-t-4 border-transparent text-[14px] text-creme no-underline aria-[current=page]:border-casca-titulo aria-[current=page]:font-bold"
         >
-          <span aria-hidden="true" className="flex size-7 items-center justify-center rounded-md text-white" style={{ background: l.cor }}>
+          <span
+            aria-hidden="true"
+            className="flex size-7 items-center justify-center rounded-md text-white"
+            style={{ background: l.cor }}
+          >
             <Icone id={l.id} className="size-[18px]" />
           </span>
           <span className="max-w-full truncate">{l.curto}</span>

@@ -26,7 +26,7 @@ const page = await ctx.newPage();
 
 // the routes come from the links the app itself renders: the shell lists every page of a lab in its sidebar
 async function rotas() {
-  const set = new Set(['/', '/fabrica']);
+  const set = new Set(['/']);
   await page.setViewportSize({ width: 1920, height: 1080 });
   for (const lab of LABS) {
     await page.goto(`${BASE}/${lab}`, { waitUntil: 'networkidle' });

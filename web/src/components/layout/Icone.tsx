@@ -3,7 +3,6 @@ import type { SVGProps } from 'react';
 
 const TRACOS: Record<string, string> = {
   inicio: 'M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10',
-  fabrica: 'M3 21V9l6 4V9l6 4V4h6v17zM8 17h1M13 17h1M18 17h1',
   design:
     'M12 3a9 9 0 100 18c1.5 0 2-1 1.5-2s0-2.5 1.5-2.5H17a4 4 0 004-4c0-5-4-9.5-9-9.5zM7.5 11h.01M10 7.5h.01M14.5 7.5h.01',
   mecanicas:

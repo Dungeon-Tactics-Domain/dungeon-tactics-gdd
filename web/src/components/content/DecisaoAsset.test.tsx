@@ -1,7 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, expect, it, vi } from 'vitest';
-import { FabricaContext } from '@/lib/fabrica-context';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { DecisaoAsset } from './DecisaoAsset';
 
 vi.mock('@/lib/recursos', () => ({ DECISOES_ATIVAS: true }));
@@ -18,15 +17,13 @@ const json = (body: unknown, status = 200) =>
   Promise.resolve(new Response(JSON.stringify(body), { status, headers: { 'Content-Type': 'application/json' } }));
 
 describe('DecisaoAsset', () => {
+  afterEach(() => vi.unstubAllGlobals());
+
   it('shows a plain message and never calls the API in public mode', () => {
     const fetch = vi.fn();
     vi.stubGlobal('fetch', fetch);
-    const quadro = { fabrica: null, conexao: 'sem-api' as const, idadeMs: null, velho: false, lidoEm: null, agora: 0 };
-    render(
-      <FabricaContext value={quadro}>
-        <DecisaoAsset id="musica/a" rotulo="Faixa" />
-      </FabricaContext>,
-    );
+    vi.stubGlobal('location', { hostname: 'dungeon-tactics-lab.example.com' });
+    render(<DecisaoAsset id="musica/a" rotulo="Faixa" />);
     expect(screen.getByText('Decisões só na rede local.')).toBeInTheDocument();
     expect(screen.queryByRole('button', { name: 'Usar' })).toBeNull();
     expect(fetch).not.toHaveBeenCalled();

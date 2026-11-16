@@ -1,8 +1,7 @@
 // Every per-asset decision in one list, filterable by lab and choice. Read-only: decisions are made on each asset's page.
 import { useEffect, useState } from 'react';
 import { Badge } from '@/components/ui/badge';
-import { useQuadro } from '@/lib/fabrica-context';
-import { DECISOES_COR, LABS, SITE } from '@/lib/labs';
+import { DECISOES_COR, ehLocal, LABS, SITE } from '@/lib/labs';
 import {
   COR_ESCOLHA,
   carregarDecisoes,
@@ -22,7 +21,8 @@ export function Decisoes() {
   const [erro, setErro] = useState('');
   const [lab, setLab] = useState('');
   const [escolha, setEscolha] = useState<Escolha | ''>('');
-  const semApi = useQuadro().conexao === 'sem-api';
+  // the decisions live in the local API; the public site has none
+  const semApi = !ehLocal();
   useEffect(() => {
     document.title = `Decisões · ${SITE}`;
     if (semApi) return;

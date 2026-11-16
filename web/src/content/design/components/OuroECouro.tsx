@@ -3,7 +3,7 @@
 // so every example below runs on the new tokens while the shell around it keeps the current ones.
 import './ouro-e-couro.css';
 import { type ReactNode, useEffect, useState } from 'react';
-import { DECISOES_COR, LABS, PORT } from '@/lib/labs';
+import { DECISOES_COR, LABS } from '@/lib/labs';
 import { ASSETS, carregarFonte } from '../dados';
 import {
   contraste,
@@ -519,7 +519,7 @@ export function OuroECouro() {
             </thead>
             <tbody>
               {[
-                ...[PORT, ...LABS].map((l) => [l.curto, l.cor, l.corSuave]),
+                ...LABS.map((l) => [l.curto, l.cor, l.corSuave]),
                 ['Decisões', DECISOES_COR.cor, DECISOES_COR.corSuave],
               ].map(([nome, c, suave]) => (
                 <tr key={nome}>

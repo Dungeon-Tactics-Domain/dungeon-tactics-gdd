@@ -4,8 +4,6 @@
 import { NavLink } from 'react-router';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetClose, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
-import { useQuadro } from '@/lib/fabrica-context';
-import { townsOf } from '@/lib/fabrica';
 import { SITE } from '@/lib/labs';
 import { Links } from './Navegacao';
 
@@ -20,7 +18,6 @@ export function TopBar({
   onOpenChange: (o: boolean) => void;
   setSlot: (el: HTMLElement | null) => void;
 }) {
-  const calling = townsOf(useQuadro().fabrica).filter((t) => t.estado === 'aguardando-voce');
   return (
     <header className="sticky top-0 z-50 flex h-(--reino-h) items-center gap-1 bg-casca-topo px-4 text-[15px] font-bold text-casca-topo-texto shadow-[0_2px_0_rgba(43,42,34,.25)] max-sm:px-2">
       <NavLink
@@ -39,16 +36,6 @@ export function TopBar({
         </nav>
       )}
       <div className="ml-auto flex items-center gap-1">
-        {calling.length > 0 && (
-          <NavLink
-            to="/#avisos"
-            className="flex min-h-11 shrink-0 items-center bg-ouro-claro px-3.5 whitespace-nowrap text-tinta no-underline hover:bg-ouro-brilho max-[520px]:px-2.5"
-          >
-            {/* at phone width only the bell and the name fit; the rest stays for screen readers */}
-            🔔 {calling.length === 1 ? calling[0]!.place.curto : `${calling.length} labs`}
-            <span className="max-[520px]:sr-only">&nbsp;{calling.length === 1 ? 'chama você' : 'chamam você'}</span>
-          </NavLink>
-        )}
         {estreito && (
           <Sheet open={open} onOpenChange={onOpenChange}>
             <SheetTrigger asChild>
@@ -56,7 +43,7 @@ export function TopBar({
                 variant="ghost"
                 icone="menu"
                 className="shrink-0 border-2 border-casca-topo-texto/50"
-                aria-label={calling.length ? 'Menu, alguém chama você' : 'Menu'}
+                aria-label="Menu"
               >
                 Menu
               </Button>

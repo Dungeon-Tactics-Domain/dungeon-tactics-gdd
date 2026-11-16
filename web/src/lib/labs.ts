@@ -24,18 +24,8 @@ export const OLD_LAB = 'http://localhost:5190';
 /** the old lab only exists on the dev PC; on the public site its links would be dead */
 export const ehLocal = () => ['localhost', '127.0.0.1'].includes(location.hostname);
 
-// the Fábrica is the port; its state comes from the orchestrator sessions (isTower in lib/fabrica.ts)
-export const PORT: Place = {
-  id: 'fabrica',
-  nome: 'Fábrica de games',
-  curto: 'Fábrica',
-  href: '/fabrica',
-  cor: '#7a4a12',
-  corSuave: '#f6ead8',
-  x: 50,
-  y: 78,
-  descricao: 'Sessões e subagentes ao vivo',
-};
+// where the kingdom map's roads start (the harbour) and the home's accent; not a lab
+export const HUB = { cor: '#7a4a12', corSuave: '#f6ead8', x: 50, y: 78 };
 
 export const LABS: Place[] = [
   {
@@ -105,13 +95,3 @@ export const DECISOES_COR = {
   cor: '#5e5a48',
   corSuave: '#ecebe3',
 };
-
-// where towns go for stations the board knows but this list does not; only the first spot is fully clear of the fixed
-// towns, the next ones overlap a neighbour's corner (measured with the real board on 14/11, two unknown labs)
-export const SPARE_SLOTS = [
-  { x: 62, y: 42 },
-  { x: 63, y: 99 },
-  { x: 32, y: 99 },
-  { x: 94, y: 62 },
-];
-export const GENERIC_COLOR = '#5e5a48';
