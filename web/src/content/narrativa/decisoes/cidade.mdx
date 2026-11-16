@@ -19,13 +19,16 @@ Grill da narrativa da cidade, 15/11, decisões do Fernando. Nomes e falas são *
     ],
     [
       'A pena',
-      'Cota de descidas quitada por 4 marcos; cada marco muda o tratamento e destrava lugares, pessoas e falas. Números vêm de Mecânicas.',
+      'Cota de descidas (cada vitória sobre o chefe) quitada por 4 marcos; cada marco muda o tratamento e destrava lugares, pessoas e falas. Números vêm de Mecânicas.',
     ],
     [
       'Protagonista',
-      'Criado pelo jogador, no estilo Dragon Age (decisão de 15/11); o jogador escolhe nome, aparência (modelos KayKit), e classe inicial. Sem escolha de crime por ora: todo protagonista foi condenado por uma dívida que não pôde pagar, e a pena é pagá-la com trabalho (16/11). O grupo inicial é o protagonista mais 3 companheiros: o companheiro da classe escolhida não aparece, e o grupo continua com 4 (16/11).',
+      'Criado pelo jogador, no estilo Dragon Age (decisão de 15/11); o jogador escolhe nome, aparência (modelos KayKit), e classe inicial. Sem escolha de crime por ora: todo protagonista foi condenado por uma dívida que não pôde pagar, e a pena é pagá-la com trabalho (16/11). O grupo de 4 é montado como no Darkest Dungeon; só o protagonista é fixo.',
     ],
-    ['Companheiros', 'Em branco no começo; revelados depois.'],
+    [
+      'Companheiros',
+      'Prólogo com 1 ou 2 personagens; depois o grupo de 4 sai do elenco de recrutas. Só o protagonista é fixo.',
+    ],
     ['A vila', 'Pequena, nome e passado fixos, 8 a 12 moradores, as 4 instalações no centro.'],
     ['Como a história chega', 'Mural de pedidos, conversa com cada morador (rumores) e eventos ao voltar.'],
     ['O que destrava', 'Destinos, receitas e itens, falas e cenas, e bônus pequenos (trinket, desconto, vaga).'],
@@ -46,17 +49,17 @@ Grill da narrativa da cidade, 15/11, decisões do Fernando. Nomes e falas são *
     [
       '1. Acorrentado',
       'Escoltado da cela até a entrada; só o carcereiro e a cozinha falam com ele.',
-      'A dungeon (primeiros andares); cozinha e loja a preço de prisioneiro.',
+      'A dungeon; todas as instalações já abertas, a preço de prisioneiro.',
     ],
     [
       '2. Com sino no tornozelo',
       'Anda livre pela vila entre descidas. Os moradores começam a falar com ele.',
-      'O mural de pedidos, a taverna e a floresta.',
+      'Os moradores falam com ele; a floresta como destino.',
     ],
     [
       '3. Com soldo',
       'Fica com parte do que traz e gasta por conta própria.',
-      'O ferreiro completo, a montanha e os bônus das histórias dos moradores.',
+      'A montanha e os bônus das histórias dos moradores.',
     ],
     [
       '4. Livre',
@@ -186,62 +189,32 @@ Grill da narrativa da cidade, 15/11, decisões do Fernando. Nomes e falas são *
   ]}
 />
 
-## Conflitos e lacunas contra o que já foi decidido
+## Conflitos resolvidos em 16/11
 
-Conferido em 16/11 contra os pilares, o log de decisões do jogo e as 43 decisões do loop. Nada está resolvido: cada linha é uma pergunta para o Fernando (em `PENDENCIAS-GRILL.md`), com o padrão assumido neste rascunho.
+Conferido contra os pilares, o log de decisões do jogo e as decisões do loop; o Fernando decidiu cada linha na manhã de 16/11.
 
 <DataTable
-  colunas={['Onde', 'Conflito ou lacuna', 'Padrão neste rascunho']}
+  colunas={['Assunto', 'Decisão do Fernando']}
   linhas={[
+    ['Pilar 6 ("sombrio")', 'Só acolhedor com sombra por baixo, em todo o jogo; o pilar 6 será reescrito assim.'],
     [
-      'Pilar 6 ("sombrio")',
-      'O grill escolheu acolhedor com sombra por baixo.',
-      'Tom acolhedor; o pilar 6 precisa ser reescrito.',
+      'Instalações da cidade',
+      'Todas abertas desde o início. Os marcos da pena mudam preço, falas e rumores, não liberam instalações.',
+    ],
+    ['O que é uma "descida" para a pena', 'Vitória sobre o chefe da descida.'],
+    ['Pedidos do mural', 'No MVP são só rumores falados pelos moradores; a janela Mural vem depois.'],
+    [
+      'Grupo inicial e o companheiro substituído',
+      'Haverá um prólogo com 1 ou 2 personagens (o protagonista e um prisioneiro, numa primeira descida curta) e depois desce-se com 4, como no Darkest Dungeon. Só o protagonista é fixo no MVP; os outros viram elenco de recrutas.',
     ],
     [
-      'Decisão 8 do loop e as janelas da cidade',
-      'A tabela de marcos prende instalações (cozinha, loja, taverna e ferreiro só depois).',
-      'Instalações abertas desde o início; marcos mudam só preço, falas e o mural.',
+      'Wren e a classe batedor-cozinheiro',
+      'A Wren vende ingredientes e ensina receitas; a classe cozinha no acampamento.',
     ],
+    ['Quando viram dados', 'Já: 3 falas por morador-chave em `src/content/crawl/residents.ts`, sem tela nova.'],
     [
-      'Decisão 16 (cidade fixa)',
-      'Marcos "abrem" lugares e receitas, o que parece a cidade evoluindo.',
-      'Tratar como destravamento de conteúdo, não de instalação.',
-    ],
-    [
-      'Decisão 32 (voltar perde a descida)',
-      'A pena conta "descidas", mas não há definição de descida.',
-      'Em aberto: vitória sobre o chefe, um andar ou um retorno seguro.',
-    ],
-    [
-      'Taverna no código e recrutas',
-      'Recrutas "aventureiros" só no marco 4; o mural de pedidos não existe na taverna.',
-      'Mural como janela nova; recrutar continua como hoje.',
-    ],
-    [
-      'party.ts (os 4 nunca saem)',
-      'O protagonista criado substitui o companheiro da classe escolhida.',
-      'O substituído nunca aparece (não vira recruta).',
-    ],
-    [
-      'Decisão 20 (classe batedor-cozinheiro) e a cozinha',
-      'Wren e a classe "cozinham" os dois.',
-      'Wren vende ingredientes e ensina receitas; a classe cozinha no acampamento.',
-    ],
-    [
-      'Decisão 39 (regras únicas fora do MVP)',
-      'Os rumores apontam a floresta e a montanha como lugares a destravar.',
-      'Destinos diferem só por visual e inimigos.',
-    ],
-    [
-      'Decisão 41 (foco na dungeon)',
-      'Este rascunho é conteúdo de cidade.',
-      'Nada entra em src/content até a descida jogar.',
-    ],
-    [
-      'Decisão 33 (economia)',
-      'Pedidos pagam trinkets, receitas e descontos; os preços não existem.',
-      'Recompensa é item ou receita, nunca ouro, até haver preços.',
+      'Nomes',
+      'Todos aprovados como propostos: vila Vauclair; Hesk, Marta Penhale, Garrick Ode, Sela, Wren, Pip, Ysolde, Tobin; os outros prisioneiros Dace, Rook e Nell.',
     ],
   ]}
 />
@@ -250,3 +223,4 @@ Conferido em 16/11 contra os pilares, o log de decisões do jogo e as 43 decisõ
 
 - Quanto custa cada marco e se expedição fracassada conta.
 - O que há no fundo e por que a vila parou de descer.
+- O prólogo: quantas salas, quem é o segundo prisioneiro e como o jogador chega à cidade e ao elenco de recrutas.
