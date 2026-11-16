@@ -31,19 +31,14 @@ export function Shell() {
       }}
     >
       <TopBar estreito={estreito} open={isOpen} onOpenChange={onOpenChange} setSlot={setSlot} />
-      {estreito ? (
-        <div className="pb-(--nav-h)">
+      {/* one tree at every size: turning the tablet must not remount the page (scroll, state, exit hooks) */}
+      <div className={estreito ? 'pb-(--nav-h)' : 'flex'}>
+        {!estreito && <Lateral recolhida={recolhida} alternar={() => setRecolher(!recolhida)} setSlot={setSlot} />}
+        <div className="min-w-0 flex-1">
           <Outlet />
-          <MenuInferior />
         </div>
-      ) : (
-        <div className="flex">
-          <Lateral recolhida={recolhida} alternar={() => setRecolher(!recolhida)} setSlot={setSlot} />
-          <div className="min-w-0 flex-1">
-            <Outlet />
-          </div>
-        </div>
-      )}
+        {estreito && <MenuInferior />}
+      </div>
     </GavetaContext>
   );
 }

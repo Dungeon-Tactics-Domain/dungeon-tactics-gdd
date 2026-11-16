@@ -1,0 +1,371 @@
+/* "Ouro e couro" tokens page (OuroECouro.tsx). Every value comes from the tokens file, injected scoped to .oc, so this
+   file only lays the examples out. Text never below 14px, targets 44px. */
+
+.oc {
+  min-width: 0;
+  display: grid;
+  gap: calc(var(--respiro) * 2);
+  padding: var(--margem);
+  background: var(--color-pergaminho);
+  color: var(--color-tinta);
+  font-family: var(--font-sans);
+  font-size: var(--texto);
+  line-height: 1.5;
+  border: var(--borda-dupla);
+}
+.oc h2,
+.oc h3 {
+  margin: 0;
+  color: var(--color-ouro-escuro);
+  font-family: var(--font-serif);
+  line-height: 1.2;
+}
+.oc h2 {
+  font-size: var(--h2);
+  padding-bottom: 6px;
+  border-bottom: var(--borda-fina);
+}
+.oc h3 {
+  font-size: var(--h3);
+}
+.oc p {
+  margin: 0;
+  max-width: 72ch;
+}
+.oc a {
+  color: var(--color-link);
+}
+.oc section {
+  display: grid;
+  gap: var(--respiro);
+  min-width: 0;
+}
+.oc code {
+  font-size: 0.92em;
+}
+.oc-apagado {
+  color: var(--color-apagado);
+  font-size: var(--legenda);
+}
+.oc-grade {
+  display: grid;
+  gap: var(--respiro);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
+}
+.oc-rolar {
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+/* ---------- tables (also the live table example) ---------- */
+.oc-tabela {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: var(--legenda);
+  background: var(--color-folha);
+  border: var(--borda-fina);
+}
+.oc-tabela th,
+.oc-tabela td {
+  padding: 8px 12px;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--color-pergaminho-escuro);
+}
+.oc-tabela thead th {
+  background: var(--color-couro-escuro);
+  color: var(--color-ouro-claro);
+  font-family: var(--font-serif);
+  font-weight: 600;
+  border-bottom: var(--borda-fina);
+}
+.oc-tabela tbody tr:nth-child(even) {
+  background: var(--color-pergaminho-escuro);
+}
+.oc-amostra {
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  vertical-align: middle;
+  margin-right: 8px;
+  border: 1px solid var(--color-tinta);
+}
+.oc-passa {
+  color: var(--color-sucesso);
+  font-weight: 700;
+}
+.oc-falha {
+  color: var(--color-erro);
+  font-weight: 700;
+}
+
+/* ---------- swatches ---------- */
+.oc-cor {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 4px 12px;
+  align-items: center;
+  padding: 8px;
+  background: var(--color-folha);
+  border: var(--borda-fina);
+}
+.oc-cor > span:first-child {
+  grid-row: span 2;
+  height: 56px;
+  border: 1px solid var(--color-tinta);
+}
+
+/* ---------- panels, borders, shadows ---------- */
+.oc-folha {
+  padding: 16px;
+  background: var(--color-folha);
+  border: var(--borda-fina);
+  box-shadow: var(--shadow-folha);
+}
+.oc-couro {
+  padding: 16px;
+  background: var(--cantos), var(--color-couro);
+  color: var(--color-creme);
+  border: var(--borda-fina);
+  box-shadow: var(--shadow-couro);
+}
+.oc-couro h3 {
+  color: var(--color-ouro-claro);
+}
+.oc-couro .oc-apagado {
+  color: var(--color-creme-apagado);
+}
+.oc-dupla {
+  border: var(--borda-dupla);
+}
+.oc-brilho {
+  box-shadow: var(--shadow-brilho);
+}
+/* the real focus comes from the tokens file's base rule; this draws it at rest for the example */
+.oc .oc-foco {
+  outline: var(--foco-contorno);
+  outline-offset: 2px;
+  box-shadow: var(--foco-anel);
+}
+
+/* ---------- typography specimen ---------- */
+.oc-t1 {
+  font-family: var(--font-serif);
+  font-size: var(--h1);
+  font-weight: 700;
+  color: var(--color-ouro-escuro);
+  line-height: 1.15;
+}
+
+/* ---------- buttons: normal, hover, pressed, disabled ---------- */
+.oc-botao {
+  min-height: 44px;
+  padding: 0 18px;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  color: var(--color-creme);
+  background: var(--color-couro);
+  border: var(--borda-fina);
+  border-radius: var(--radius);
+}
+.oc-botao:hover,
+.oc-botao.oc-hover {
+  color: var(--color-ouro-claro);
+  background: var(--color-couro-claro);
+  border-color: var(--color-ouro-claro);
+}
+.oc-botao[aria-pressed='true'] {
+  color: var(--color-couro-escuro);
+  background: linear-gradient(var(--color-ouro-brilho), var(--color-ouro-claro));
+  border-color: var(--color-ouro-brilho);
+  box-shadow: var(--shadow-brilho);
+}
+.oc-botao[aria-disabled='true'] {
+  cursor: not-allowed;
+  color: var(--color-apagado);
+  background: var(--color-pergaminho-escuro);
+  border: 1px dashed var(--color-apagado);
+  box-shadow: none;
+}
+.oc-fila {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+/* ---------- field ---------- */
+.oc-campo {
+  display: grid;
+  gap: 6px;
+  max-width: 420px;
+}
+.oc-campo label {
+  font-weight: 700;
+}
+.oc-campo input {
+  min-height: 44px;
+  padding: 0 12px;
+  font: inherit;
+  color: var(--color-tinta);
+  background: var(--color-folha);
+  border: var(--borda-fina);
+  border-radius: var(--radius);
+}
+.oc-campo input[aria-invalid='true'] {
+  border: 2px solid var(--color-erro);
+}
+.oc-campo .oc-erro {
+  color: var(--color-erro);
+  font-size: var(--legenda);
+}
+
+/* ---------- tabs ---------- */
+.oc-abas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  border-bottom: var(--borda-fina);
+}
+.oc-abas button {
+  min-height: 44px;
+  padding: 0 16px;
+  font: inherit;
+  cursor: pointer;
+  color: var(--color-apagado);
+  background: transparent;
+  border: 0;
+  border-bottom: 3px solid transparent;
+}
+.oc-abas button[aria-selected='true'] {
+  color: var(--color-tinta);
+  font-weight: 700;
+  border-bottom-color: var(--color-ouro);
+}
+
+/* ---------- notices ---------- */
+.oc-aviso {
+  padding: 12px 16px;
+  border-left: 6px solid;
+}
+.oc-aviso strong {
+  display: block;
+}
+
+/* ---------- the mini shell: leather header and sidebar on parchment ---------- */
+.oc-casca {
+  container-type: inline-size;
+  border: var(--borda-dupla);
+  box-shadow: var(--shadow-folha);
+}
+.oc-cab {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  align-items: center;
+  min-height: var(--reino-h);
+  padding: 0 16px;
+  background: var(--color-couro-escuro);
+  color: var(--color-creme);
+  border-bottom: var(--borda-dupla);
+}
+.oc-cab strong {
+  font-family: var(--font-serif);
+  color: var(--color-ouro-claro);
+  font-size: 20px;
+}
+.oc-cab a {
+  color: var(--color-creme);
+}
+.oc-corpo {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+}
+.oc-lado {
+  display: grid;
+  align-content: start;
+  gap: 2px;
+  padding: 12px 8px;
+  background: var(--color-couro);
+  border-right: var(--borda-fina);
+}
+.oc-lado a {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 12px;
+  color: var(--color-creme);
+  text-decoration: none;
+  border: 1px solid transparent;
+}
+.oc-lado a:hover {
+  background: var(--color-couro-claro);
+  color: var(--color-ouro-claro);
+}
+.oc-lado a[aria-current='page'] {
+  color: var(--color-couro-escuro);
+  font-weight: 700;
+  background: linear-gradient(var(--color-ouro-brilho), var(--color-ouro-claro));
+  border-color: var(--color-ouro-brilho);
+}
+.oc-lado .oc-apagado {
+  padding: 8px 12px 0;
+  color: var(--color-creme-apagado);
+}
+.oc-meio {
+  display: grid;
+  align-content: start;
+  gap: 12px;
+  padding: 16px;
+  background: var(--color-pergaminho);
+  min-width: 0;
+}
+@container (width < 560px) {
+  .oc-corpo {
+    grid-template-columns: 1fr;
+  }
+  .oc-lado {
+    display: flex;
+    overflow-x: auto;
+    border-right: 0;
+    border-bottom: var(--borda-fina);
+  }
+  .oc-lado a {
+    white-space: nowrap;
+  }
+  .oc-lado .oc-apagado {
+    display: none;
+  }
+}
+
+/* ---------- icon card (the "Em uso: ícones 32 px" card in the new look) ---------- */
+.oc-icone {
+  display: grid;
+  gap: 8px;
+  width: min(100%, 220px);
+  padding: 12px;
+  background: var(--color-folha);
+  border: var(--borda-fina);
+  box-shadow: var(--shadow-folha);
+}
+.oc-icone > div {
+  display: flex;
+  gap: 12px;
+  align-items: end;
+  padding: 8px;
+  background: var(--cantos), var(--color-couro);
+  border: var(--borda-fina);
+}
+
+/* ---------- the paste-ready block ---------- */
+.oc pre {
+  max-width: 100%;
+  max-height: 520px;
+  overflow: auto;
+  margin: 0;
+  padding: 12px;
+  font-size: 14px;
+  background: var(--color-folha);
+  border: var(--borda-fina);
+}

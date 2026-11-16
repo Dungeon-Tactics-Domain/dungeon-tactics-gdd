@@ -66,9 +66,25 @@ export default {
           resumo: 'Direções de estilo preteridas, com o mesmo momento da batalha.',
         },
         {
+          id: 'ui-ouro-couro',
+          titulo: 'Ouro e couro: assets (Gemini e PixelLab)',
+          resumo: 'Todos os elementos de interface no estilo escolhido, em lotes, com o que foi enviado e o que saiu.',
+        },
+        {
           id: 'testes',
           titulo: 'Testes de IA: interface',
           resumo: 'Folhas de elementos e a interface aplicada sobre o jogo.',
+        },
+        {
+          id: 'redesign-responsivo',
+          titulo: 'Redesign responsivo (maquetes)',
+          resumo: 'Navegação, 3 painéis no ultrawide, página densa e tipografia, do celular ao ultrawide.',
+        },
+        {
+          id: 'ouro-e-couro',
+          titulo: 'Ouro e couro (tokens do lab)',
+          resumo:
+            'Paleta medida na referência, tokens com contraste calculado, exemplos vivos e o bloco pronto para colar.',
         },
       ],
     },
