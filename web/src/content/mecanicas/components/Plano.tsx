@@ -6,10 +6,10 @@ import { cn } from '@/lib/utils';
 import { PLANO } from '../dados';
 
 const COR_ESTADO: Record<string, string> = {
-  feito: 'bg-run/10 text-run',
+  feito: 'bg-sucesso/10 text-sucesso',
   fazendo: 'bg-lab-soft text-lab',
-  aberto: 'bg-warn-soft text-warn',
-  bloqueado: 'bg-stop-soft text-stop',
+  aberto: 'bg-aviso-suave text-aviso',
+  bloqueado: 'bg-erro-suave text-erro',
 };
 
 export function Estado({ de }: { de: string }) {
@@ -44,7 +44,7 @@ export function Agora() {
       {now.options.map((o, i) => (
         <div
           key={o.name}
-          className={cn('grid gap-1.5 border border-borda px-3.5 py-3', i === 0 && 'border-2 border-run')}
+          className={cn('grid gap-1.5 border border-borda px-3.5 py-3', i === 0 && 'border-2 border-sucesso')}
         >
           <strong>
             {o.name}
@@ -54,11 +54,11 @@ export function Agora() {
           <p className="m-0 text-apagado">Embasamento: {o.basis}</p>
           <div className="grid grid-cols-2 gap-3 max-[900px]:grid-cols-1">
             <div>
-              <b className="block text-run">Prós</b>
+              <b className="block text-sucesso">Prós</b>
               {o.pros}
             </div>
             <div>
-              <b className="block text-stop">Contras</b>
+              <b className="block text-erro">Contras</b>
               {o.cons}
             </div>
           </div>

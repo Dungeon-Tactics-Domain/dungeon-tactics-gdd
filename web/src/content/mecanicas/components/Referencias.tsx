@@ -12,7 +12,7 @@ const Fonte = ({ href, children = 'Fonte' }: { href: string; children?: ReactNod
 const Caixa = ({ children }: { children: ReactNode }) => (
   <div className="grid gap-2 border border-borda bg-folha px-5 py-4 [overflow-wrap:anywhere]">{children}</div>
 );
-const Desconhecido = ({ id }: { id: string }) => <p className="m-0 text-stop">Ficha desconhecida: {id}</p>;
+const Desconhecido = ({ id }: { id: string }) => <p className="m-0 text-erro">Ficha desconhecida: {id}</p>;
 
 export function Ficha({ jogo: id }: { jogo: string }) {
   const g = jogo(id);
@@ -30,8 +30,8 @@ const Linha = ({ i }: { i: Item }) => (
   <li>
     <strong>{i.name}</strong>: {i.what}
     {i.feel && <span className="mt-1 block text-[14px] text-apagado">Provoca: {i.feel}</span>}
-    {i.take && <span className="block text-[14px] text-run">Aproveitar: {i.take}</span>}
-    {i.avoid && <span className="block text-[14px] text-stop">Evitar: {i.avoid}</span>} <Fonte href={i.source} />
+    {i.take && <span className="block text-[14px] text-sucesso">Aproveitar: {i.take}</span>}
+    {i.avoid && <span className="block text-[14px] text-erro">Evitar: {i.avoid}</span>} <Fonte href={i.source} />
   </li>
 );
 

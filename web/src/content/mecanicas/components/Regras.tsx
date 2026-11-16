@@ -6,7 +6,7 @@ import { DRIFT, REGRAS } from '../dados';
 
 export function Regras({ de, grupo }: { de: keyof typeof REGRAS; grupo: string }) {
   const g = REGRAS[de]?.find((x) => x.id === grupo);
-  if (!g) return <p className="m-0 text-stop">Grupo de regras desconhecido: {grupo}</p>;
+  if (!g) return <p className="m-0 text-erro">Grupo de regras desconhecido: {grupo}</p>;
   return (
     <Rolagem>
       <table className={TABELA}>
@@ -30,7 +30,7 @@ export function Regras({ de, grupo }: { de: keyof typeof REGRAS; grupo: string }
                 {r.note && <span className="mt-1 block text-[14px] text-apagado">{r.note}</span>}
               </td>
               <td>
-                <code className="bg-terra px-1 text-[14px] [overflow-wrap:anywhere]">{r.where}</code>
+                <code className="bg-pergaminho-escuro px-1 text-[14px] [overflow-wrap:anywhere]">{r.where}</code>
               </td>
             </tr>
           ))}

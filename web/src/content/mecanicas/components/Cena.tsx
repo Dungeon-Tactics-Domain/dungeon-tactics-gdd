@@ -78,7 +78,7 @@ export function Cena({ nome }: { nome: string }) {
     return () => removeEventListener('message', ouvir);
   }, [spec]);
 
-  if (!s) return <p className="m-0 text-stop">Cena desconhecida: {nome}</p>;
+  if (!s) return <p className="m-0 text-erro">Cena desconhecida: {nome}</p>;
   const host = GAME.replace('http://', '');
 
   // speed, camera and "Só a animação" only apply when the game page loads: the iframe is rebuilt (the scene reloads)
@@ -182,7 +182,7 @@ export function Cena({ nome }: { nome: string }) {
         </>
       )}
       {erro && (
-        <p role="alert" className="m-0 bg-warn-soft px-3 py-2 text-warn">
+        <p role="alert" className="m-0 bg-aviso-suave px-3 py-2 text-aviso">
           O jogo não está rodando em {host}. Suba a bancada do jogo (npm run bench) e tente de novo.
         </p>
       )}
