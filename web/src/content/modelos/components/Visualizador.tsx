@@ -86,7 +86,7 @@ function Bancada({ pecas: lista, asset, children }: { pecas: Peca[]; asset: stri
           )}
           {!peca.glb && <Botoes rotulo="Estilo" itens={ESTILOS} atual={estilo} escolher={setEstilo} />}
           {foraDoAr && (
-            <p className="m-0 border border-dashed border-traco bg-bilhete px-4 py-3 text-apagado">
+            <p className="m-0 border border-dashed border-traco bg-folha px-4 py-3 text-apagado">
               A bancada 3D não respondeu.
               {EM_LOCALHOST && (
                 <>
@@ -107,7 +107,7 @@ function Bancada({ pecas: lista, asset, children }: { pecas: Peca[]; asset: stri
 /** Viewer of a set of pieces from pecas.json; the children are the intro shown above it. */
 export function Visualizador({ conjunto, children }: { conjunto: Conjunto; children?: ReactNode }) {
   const lista = CONJUNTOS[conjunto];
-  if (!lista?.length) return <p className="m-0 text-stop">Conjunto de peças desconhecido: {conjunto}.</p>;
+  if (!lista?.length) return <p className="m-0 text-erro">Conjunto de peças desconhecido: {conjunto}.</p>;
   return (
     <Bancada pecas={lista} asset={`modelos/${conjunto}`}>
       {children}
