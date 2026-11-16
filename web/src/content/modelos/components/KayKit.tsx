@@ -210,7 +210,7 @@ export function KayKit() {
         <p className="m-0 mb-1 text-apagado">★ marca os que o jogo já usa.</p>
         {lista.pacote.map((g) => (
           <details key={g.categoria} className="mt-1">
-            <summary className="cursor-pointer">
+            <summary className="cursor-pointer py-2.5">
               {CATEGORIAS[g.categoria] ?? g.categoria} ({g.clipes.length})
             </summary>
             <Botoes

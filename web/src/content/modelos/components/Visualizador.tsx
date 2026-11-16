@@ -42,7 +42,7 @@ function urlDaPeca(p: Peca, estilo: Estilo) {
 }
 
 const BOTAO =
-  'min-h-11 cursor-pointer rounded-md border border-borda bg-folha px-3 text-[15px] text-tinta hover:bg-lab-soft aria-pressed:border-lab aria-pressed:bg-lab aria-pressed:text-white';
+  'min-h-11 min-w-11 cursor-pointer rounded-md border border-borda bg-folha px-3 text-[15px] text-tinta hover:bg-lab-soft aria-pressed:border-lab aria-pressed:bg-lab aria-pressed:text-white';
 
 export function Botoes<T>({
   rotulo,
