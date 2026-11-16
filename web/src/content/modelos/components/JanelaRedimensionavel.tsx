@@ -14,10 +14,11 @@ function larguraGuardada(tipo: string) {
 }
 
 /**
- * The stored width is a wish: CSS caps it at the column (`max-w-full`) and at 80% of the screen height (or the square
- * would leave the screen), so a size saved on an ultrawide never overflows a laptop. Below 1024 px the window is
- * full width and the handle is gone (phones keep the pinned viewer of LadoALado); the wrapper and the box dissolve
- * (`contents`) so only the viewer box is pinned and the ficha scrolls with the options.
+ * The stored width is a wish: CSS caps it at 80% of the screen height (or the square would leave the screen) and at
+ * the column (`max-w-full`, kept out of the `min()` so the grid sizes its track by the capped width), so a size saved
+ * on an ultrawide never overflows a laptop; a drag or a key that hits the cap stores what is on screen. Below 1024 px
+ * the window is full width and the handle is gone (phones keep the pinned viewer of LadoALado); the wrapper and the
+ * box dissolve (`contents`) so only the viewer box is pinned and the ficha scrolls with the options.
  */
 export function JanelaRedimensionavel({
   tipo,
@@ -64,17 +65,27 @@ export function JanelaRedimensionavel({
   };
   const teclado = (e: KeyboardEvent<HTMLDivElement>) => {
     const delta = { ArrowRight: PASSO, ArrowUp: PASSO, ArrowLeft: -PASSO, ArrowDown: -PASSO }[e.key];
-    if (e.key === 'Home') mudar(LARGURA_MINIMA);
-    else if (e.key === 'End') mudar(window.innerWidth);
-    else if (delta) mudar(Math.min(naTela(), largura) + delta);
-    else return;
+    const alvo =
+      e.key === 'Home'
+        ? LARGURA_MINIMA
+        : e.key === 'End'
+          ? window.innerWidth
+          : delta && Math.min(naTela(), largura) + delta;
+    if (!alvo) return;
     e.preventDefault();
+    mudar(alvo);
+    // past the cap the box stops growing: keep the width it reached, not the key's (jsdom measures 0 and skips); a
+    // timeout, not requestAnimationFrame, which a background tab never runs
+    setTimeout(() => {
+      const visto = caixa.current?.offsetWidth;
+      if (visto && visto < alvo) mudar(visto);
+    });
   };
 
   return (
     <div
       style={{ '--janela': `${largura}px` } as CSSProperties}
-      className="max-[1023px]:contents min-[1024px]:grid min-[1024px]:w-(--janela) min-[1024px]:max-w-[min(100%,80vh)] min-[1024px]:gap-2"
+      className="max-[1023px]:contents min-[1024px]:grid min-[1024px]:w-[min(var(--janela),80vh)] min-[1024px]:max-w-full min-[1024px]:gap-2"
     >
       <div
         ref={caixa}
