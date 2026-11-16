@@ -232,8 +232,8 @@ export function MenuInferior() {
           key={l.id}
           to={l.href ?? '/'}
           title={l.nome}
-          className="flex min-h-11 min-w-0 flex-col items-center justify-center gap-0.5 border-t-4 border-transparent text-[14px] text-creme no-underline aria-[current=page]:font-bold"
-          style={({ isActive }) => (isActive ? { borderTopColor: l.cor } : undefined)}
+          // the active mark is gold: the labs' own colours fall under 3:1 on the leather bar
+          className="flex min-h-11 min-w-0 flex-col items-center justify-center gap-0.5 border-t-4 border-transparent text-[14px] text-creme no-underline aria-[current=page]:border-casca-titulo aria-[current=page]:font-bold"
         >
           <span aria-hidden="true" className="size-4 rounded-full" style={{ background: l.cor }} />
           <span className="max-w-full truncate">{l.curto}</span>
