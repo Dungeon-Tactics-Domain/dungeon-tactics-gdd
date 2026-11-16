@@ -226,7 +226,8 @@
         particulas = [],
         numeros = [],
         tremorCam = null,
-        ocupado = false;
+        ocupado = false,
+        zoomBase = 1;
       const anim = (ms, fn) => new Promise((ok) => tarefas.push({ t: 0, ms, fn, ok }));
       const hitStop = (ms) => (pausaAte = performance.now() + ms);
       const tremer = (u, forca, ms) => anim(ms, (k) => (u.jit = k < 1 ? Math.sin(k * ms * 0.09) * forca * (1 - k) : 0));
@@ -303,9 +304,9 @@
           u.g.quaternion.identity();
           u.mat.color.set(u.cor);
         }
-        camera.position.copy(CAM);
+        // keeps the orbit the viewer chose; only the death zoom is undone
         controls.target.copy(ALVO_CAM);
-        camera.zoom = 1;
+        camera.zoom = zoomBase;
         camera.updateProjectionMatrix();
       }
       const levar = (u, x, z) => u.pos.copy(centro(x, z));
@@ -332,7 +333,7 @@
             fim = peito(u);
           anim(180, (k) => {
             controls.target.lerpVectors(t0, fim, suave(k));
-            camera.zoom = 1 + 1.2 * suave(k);
+            camera.zoom = zoomBase * (1 + 1.2 * suave(k));
             camera.updateProjectionMatrix();
           });
         }
@@ -373,7 +374,7 @@
           const t0 = controls.target.clone();
           await anim(450, (k) => {
             controls.target.lerpVectors(t0, ALVO_CAM, suave(k));
-            camera.zoom = 2.2 - 1.2 * suave(k);
+            camera.zoom = zoomBase * (2.2 - 1.2 * suave(k));
             camera.updateProjectionMatrix();
           });
         }
@@ -451,12 +452,22 @@
       };
       lenta.onchange = () => estado(textoLenta());
 
+      // short frames (the phone iframe is about 360x200, with 3 rows of controls): fit the board between the controls
+      // and the status line by pulling the camera back and shifting the picture down
+      const elBarra = document.getElementById('barra');
       function tamanho() {
         renderer.setSize(innerWidth, innerHeight);
         camera.aspect = innerWidth / innerHeight;
+        const cima = elBarra.getBoundingClientRect().bottom,
+          baixo = elEstado.getBoundingClientRect().top;
+        zoomBase = Math.min(1, ((baixo - cima) / innerHeight) * 1.3);
+        camera.zoom = zoomBase;
+        const meio = (cima + baixo) / 2 - innerHeight / 2;
+        camera.setViewOffset(innerWidth, innerHeight, 0, -meio, innerWidth, innerHeight);
         camera.updateProjectionMatrix();
       }
       addEventListener('resize', tamanho);
+      camera.position.copy(CAM);
       tamanho();
       arrumar();
       estado(`Escolha um efeito. ${textoLenta()}`);
