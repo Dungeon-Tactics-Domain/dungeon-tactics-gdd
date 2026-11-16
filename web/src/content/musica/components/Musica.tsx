@@ -74,7 +74,7 @@ function inline(texto: string): ReactNode[] {
     ) : p.startsWith('*') && p.endsWith('*') && p.length > 2 ? (
       <em key={i}>{p.slice(1, -1)}</em>
     ) : p.startsWith('`') && p.endsWith('`') && p.length > 2 ? (
-      <code key={i} className="bg-terra px-1 text-[15px] break-words">
+      <code key={i} className="bg-pergaminho-escuro px-1 text-[15px] break-words">
         {p.slice(1, -1)}
       </code>
     ) : (
@@ -178,7 +178,7 @@ const versoesDe = (id: string) => {
 };
 
 const pagina = (id: string) => PAGINAS[id as IdPagina] as PaginaMusica | undefined;
-const Desconhecida = ({ id }: { id: string }) => <p className="m-0 text-stop">Página de música desconhecida: {id}.</p>;
+const Desconhecida = ({ id }: { id: string }) => <p className="m-0 text-erro">Página de música desconhecida: {id}.</p>;
 
 export function Referencias({ pagina: id }: { pagina: IdPagina }) {
   const p = pagina(id);
@@ -231,7 +231,7 @@ export function Referencias({ pagina: id }: { pagina: IdPagina }) {
 export function FaixaMusica({ pagina: id, faixa }: { pagina: IdPagina; faixa: string }) {
   const t = pagina(id)?.faixas?.find((f) => f.id === faixa);
   const [versao, setVersao] = useState(() => versoesDe(faixa)?.atual ?? 0);
-  if (!t) return <p className="m-0 text-stop">Faixa desconhecida: {faixa}.</p>;
+  if (!t) return <p className="m-0 text-erro">Faixa desconhecida: {faixa}.</p>;
   // one track, several sounds: the page switches in place (batalha-a and batalha-a-tfg; the Trisection fan MIDI per soundfont)
   const grupo = versoesDe(t.id);
   const alvo = grupo ? (pagina(id)?.faixas?.find((f) => f.id === grupo.opcoes[versao]?.faixa) ?? t) : t;
@@ -312,7 +312,7 @@ export function Checagens({ pagina: id }: { pagina: IdPagina }) {
     <ul className="m-0 grid max-w-[72ch] list-none gap-2 p-0">
       {p.checagens.map((c) => (
         <li key={c.texto} className="flex flex-wrap gap-x-3">
-          <span className={c.estado === 'feito' ? 'font-bold text-run' : 'font-bold text-warn'}>
+          <span className={c.estado === 'feito' ? 'font-bold text-sucesso' : 'font-bold text-aviso'}>
             {c.estado === 'feito' ? '✓ Feito' : '○ Pendente'}
           </span>
           <span>

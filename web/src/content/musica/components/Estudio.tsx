@@ -15,7 +15,7 @@ interface Info {
 }
 
 // one colour per lane, picked to stay readable on the light panel and apart from each other
-const CORES = ['#3b5bdb', '#7048e8', '#0c8599', '#2b8a3e', '#e8590c', '#c2255c', '#9c6b00', '#495057'];
+const CORES = ['#7a5523', '#7048e8', '#0c8599', '#2b8a3e', '#e8590c', '#c2255c', '#9c6b00', '#495057'];
 const LARGURA_ROTULOS = 230;
 const ALTURA_LINHA = 58;
 const ALTURA_REGUA = 26;
@@ -286,26 +286,26 @@ export function Estudio({
       g.setTransform(dpr, 0, 0, dpr, 0, 0);
       g.clearRect(0, 0, w, H);
       // ruler: bar numbers (one every 4 bars when the lanes are packed) and beat ticks
-      g.fillStyle = '#f6f8fa';
+      g.fillStyle = '#fbf5e6';
       g.fillRect(0, 0, w, ALTURA_REGUA);
       g.font = '12px Karla, system-ui, sans-serif';
       g.textBaseline = 'middle';
       const primeiro = Math.floor(ini / seg);
       for (let b = primeiro; b * seg < ini + JANELA + seg; b++) {
         const x = px(b * seg);
-        g.fillStyle = b % 4 === 0 ? '#9aa5b4' : '#d5dbe3';
+        g.fillStyle = b % 4 === 0 ? '#99713d' : '#e0cfa8';
         g.fillRect(x, b % 4 === 0 ? 0 : ALTURA_REGUA - 8, 1, b % 4 === 0 ? H : 8);
         if (b % 2 === 0) {
-          g.fillStyle = '#5b6675';
+          g.fillStyle = '#5f4e3a';
           g.fillText(String(b + 1), x + 4, 13);
         }
       }
       canais.forEach((ch, i) => {
         const y0 = ALTURA_REGUA + i * ALTURA_LINHA;
         const calado = m.has(ch) || (so.size > 0 && !so.has(ch)) || (v[ch] ?? 1) === 0;
-        g.fillStyle = i % 2 ? '#f1f4f7' : '#f7f9fb';
+        g.fillStyle = i % 2 ? '#e9dab8' : '#fbf5e6';
         g.fillRect(0, y0, w, ALTURA_LINHA);
-        g.fillStyle = '#e1e6ec';
+        g.fillStyle = '#d8c8a0';
         g.fillRect(0, y0 + ALTURA_LINHA - 1, w, 1);
         const [pMin, pMax] = limites.get(ch)!;
         const span = Math.max(12, pMax - pMin + 2);
@@ -321,7 +321,7 @@ export function Estudio({
         g.globalAlpha = 1;
       });
       // playhead
-      g.fillStyle = '#e03131';
+      g.fillStyle = '#a3262a';
       g.fillRect(px(t) - 1, 0, 2, H);
       g.beginPath();
       g.moveTo(px(t) - 6, 0);
@@ -331,7 +331,7 @@ export function Estudio({
       // overview strip
       gr.setTransform(dpr, 0, 0, dpr, 0, 0);
       gr.clearRect(0, 0, rw, ALTURA_RESUMO);
-      gr.fillStyle = '#f1f4f7';
+      gr.fillStyle = '#e9dab8';
       gr.fillRect(0, 0, rw, ALTURA_RESUMO);
       const rx = (x: number) => (x / total) * rw;
       canais.forEach((ch, i) => {
@@ -346,10 +346,10 @@ export function Estudio({
         }
       });
       gr.globalAlpha = 1;
-      gr.strokeStyle = '#3b5bdb';
+      gr.strokeStyle = '#7a5523';
       gr.lineWidth = 1.5;
       gr.strokeRect(rx(ini) + 0.5, 0.5, rx(JANELA) - 1, ALTURA_RESUMO - 1);
-      gr.fillStyle = '#e03131';
+      gr.fillStyle = '#a3262a';
       gr.fillRect(rx(t) - 1, 0, 2, ALTURA_RESUMO);
       if (Math.floor(t * 4) !== ultimoTexto) {
         ultimoTexto = Math.floor(t * 4);
@@ -381,24 +381,24 @@ export function Estudio({
   return (
     <section
       aria-label="Estúdio"
-      className="grid gap-0 overflow-hidden rounded-md border border-[#c9d1db] bg-[#eef1f4] text-[#1c2430] shadow-[0_1px_0_#fff_inset]"
+      className="grid gap-0 overflow-hidden rounded-md border border-ouro bg-pergaminho text-tinta"
     >
-      <div className="flex flex-wrap items-center gap-4 border-b border-[#c9d1db] bg-[#f7f9fb] px-4 py-3">
+      <div className="flex flex-wrap items-center gap-4 border-b border-ouro bg-folha px-4 py-3">
         <button
           onClick={estado === 'tocando' ? pausar : tocar}
           disabled={estado === 'carregando'}
-          className="h-10 min-w-28 rounded bg-[#1c2430] px-4 font-bold text-white disabled:opacity-60"
+          className="h-10 min-w-28 rounded bg-couro px-4 font-bold text-creme disabled:opacity-60"
         >
           {estado === 'tocando' ? 'Pausar' : estado === 'carregando' ? 'Carregando…' : 'Tocar'}
         </button>
         <span className="tabular-nums" aria-live="off">
-          <b>{mmss(agora)}</b> <span className="text-[#5b6675]">/ {mmss(total)}</span>
+          <b>{mmss(agora)}</b> <span className="text-apagado">/ {mmss(total)}</span>
         </span>
-        <span className="tabular-nums text-[#5b6675]">
+        <span className="tabular-nums text-apagado">
           compasso {Math.min(Math.floor(agora / seg) + 1, Math.round(total / seg))} de {Math.round(total / seg)}
         </span>
-        <span className="tabular-nums text-[#5b6675]">{Math.round(bpm)} bpm</span>
-        <label className="ml-auto flex items-center gap-2 text-[#5b6675]">
+        <span className="tabular-nums text-apagado">{Math.round(bpm)} bpm</span>
+        <label className="flex items-center gap-2 text-apagado sm:ml-auto">
           Volume geral
           <input
             type="range"
@@ -407,11 +407,11 @@ export function Estudio({
             step={0.05}
             value={geral}
             onChange={(ev) => setGeral(Number(ev.target.value))}
-            className="w-32 accent-[#1c2430]"
+            className="w-32 accent-couro"
           />
           <span className="w-10 tabular-nums">{Math.round(geral * 100)}%</span>
         </label>
-        <div className="flex overflow-hidden rounded border border-[#c9d1db]" role="group" aria-label="Versão do som">
+        <div className="flex overflow-hidden rounded border border-ouro" role="group" aria-label="Versão do som">
           {(
             [
               [false, 'Original'],
@@ -422,29 +422,26 @@ export function Estudio({
               key={rotulo}
               aria-pressed={tratada === v}
               onClick={() => setTratada(v)}
-              className={`h-10 px-4 ${tratada === v ? 'bg-[#3b5bdb] font-bold text-white' : 'bg-white'}`}
+              className={`h-10 px-4 ${tratada === v ? 'bg-couro font-bold text-creme' : 'bg-folha'}`}
             >
               {rotulo}
             </button>
           ))}
         </div>
-        {estado === 'erro' && <span className="text-[#c92a2a]">Não consegui carregar os instrumentos.</span>}
+        {estado === 'erro' && <span className="text-erro">Não consegui carregar os instrumentos.</span>}
       </div>
-      <div className="grid" style={{ gridTemplateColumns: `${LARGURA_ROTULOS}px 1fr` }}>
-        <div className="flex items-center border-b border-r border-[#c9d1db] bg-[#f7f9fb] px-3 text-[13px] text-[#5b6675]">
+      <div className="grid" style={{ gridTemplateColumns: `clamp(150px, 28vw, ${LARGURA_ROTULOS}px) 1fr` }}>
+        <div className="flex items-center border-b border-r border-ouro bg-folha px-3 text-[13px] text-apagado">
           Visão geral
         </div>
         <canvas
           ref={resumo}
           onClick={(e) => clicar(e, 'resumo')}
-          className="block w-full cursor-pointer border-b border-[#c9d1db]"
+          className="block w-full cursor-pointer border-b border-ouro"
           style={{ height: ALTURA_RESUMO }}
           aria-label="Visão geral da música: clique para ir a esse ponto"
         />
-        <div
-          className="border-r border-[#c9d1db] bg-[#f7f9fb]"
-          style={{ height: ALTURA_REGUA, gridColumn: 1, gridRow: 2 }}
-        />
+        <div className="border-r border-ouro bg-folha" style={{ height: ALTURA_REGUA, gridColumn: 1, gridRow: 2 }} />
         <div className="relative row-span-1" style={{ gridColumn: 2, gridRow: '2 / span 2' }}>
           <canvas
             ref={tela}
@@ -461,7 +458,7 @@ export function Estudio({
             return (
               <div
                 key={ch}
-                className={`grid content-center gap-1 border-b border-r border-[#c9d1db] px-3 ${i % 2 ? 'bg-[#f1f4f7]' : 'bg-[#f7f9fb]'}`}
+                className={`grid content-center gap-1 border-b border-r border-ouro px-3 ${i % 2 ? 'bg-pergaminho-escuro' : 'bg-folha'}`}
                 style={{ height: ALTURA_LINHA, opacity: calado ? 0.55 : 1 }}
               >
                 <div className="flex items-center gap-2">
@@ -469,7 +466,9 @@ export function Estudio({
                   <span className="truncate text-[14px] font-bold" title={rotuloCanal(ch, s.programa ?? undefined)}>
                     {s.nome}
                   </span>
-                  <span className="ml-auto truncate text-[12px] tabular-nums text-[#5b6675]">{ativas(ch)}</span>
+                  <span className="ml-auto hidden truncate text-[12px] tabular-nums text-apagado sm:inline">
+                    {ativas(ch)}
+                  </span>
                 </div>
                 <div className="flex items-center gap-2">
                   <input
@@ -480,13 +479,13 @@ export function Estudio({
                     value={vol[ch] ?? 1}
                     aria-label={`Volume: ${s.nome}`}
                     onChange={(e) => setVol({ ...vol, [ch]: Number(e.target.value) })}
-                    className="h-4 min-w-0 flex-1 accent-[#3b5bdb]"
+                    className="h-4 w-0 min-w-0 flex-1 accent-ouro"
                   />
                   <button
                     onClick={() => setMudo(alterna(mudo, ch))}
                     aria-pressed={mudo.has(ch)}
                     title="Mudo"
-                    className={`size-7 rounded text-[12px] font-bold ${mudo.has(ch) ? 'bg-[#c92a2a] text-white' : 'border border-[#c9d1db] bg-white'}`}
+                    className={`size-7 rounded text-[12px] font-bold ${mudo.has(ch) ? 'bg-erro text-white' : 'border border-ouro bg-folha'}`}
                   >
                     M
                   </button>
@@ -494,7 +493,7 @@ export function Estudio({
                     onClick={() => setSolo(alterna(solo, ch))}
                     aria-pressed={solo.has(ch)}
                     title="Solo"
-                    className={`size-7 rounded text-[12px] font-bold ${solo.has(ch) ? 'bg-[#e8a400] text-[#1c2430]' : 'border border-[#c9d1db] bg-white'}`}
+                    className={`size-7 rounded text-[12px] font-bold ${solo.has(ch) ? 'bg-ouro-claro text-tinta' : 'border border-ouro bg-folha'}`}
                   >
                     S
                   </button>
@@ -504,7 +503,7 @@ export function Estudio({
           })}
         </div>
       </div>
-      <p className="m-0 border-t border-[#c9d1db] bg-[#f7f9fb] px-4 py-2 text-[13px] text-[#5b6675]">
+      <p className="m-0 border-t border-ouro bg-folha px-4 py-2 text-[13px] text-apagado">
         M silencia, S toca só aquele instrumento, espaço toca e pausa, clique nas notas ou na visão geral para ir a um
         ponto. Tratada é uma aproximação feita no navegador, não o arquivo do ffmpeg.
       </p>

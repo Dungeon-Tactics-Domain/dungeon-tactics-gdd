@@ -7,7 +7,7 @@ import type { GrupoManifesto, Manifesto } from '../types';
 // the TFG versions' full titles do not fit one menu line; the page keeps the full title in its heading
 const curto = (titulo: string) => titulo.replace(' com a soundfont Tactical Fantasy Guy', ' (TFG)');
 
-// one menu line per track: the treated and TFG versions are switches inside the page (their old links still open)
+// one menu line per track: the treated, TFG and other-soundfont versions are switches inside the page (no page of their own)
 const noMenu = (grupo: string, faixa: string) =>
   grupo === 'tema-dark'
     ? !/-cru$|^dark-v1/.test(faixa) || /^dark-v1-(principal|intenso)$/.test(faixa)
