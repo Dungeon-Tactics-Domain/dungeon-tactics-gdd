@@ -311,7 +311,7 @@ export function Paginas({ sumario: s, base }: { sumario: Sumario; base: string }
           {atual.pagina.titulo}
         </Titulo>
         <Resumo texto={atual.pagina.resumo} />
-        <div className="grid min-w-0 content-start gap-4">
+        <div className="grid min-w-0 grid-cols-[minmax(0,1fr)] content-start gap-4">
           {atual.pagina.conteudo?.()}
           {subs.length > 0 && (
             <Cartoes
