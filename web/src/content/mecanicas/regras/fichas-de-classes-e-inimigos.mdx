@@ -1,0 +1,40 @@
+import { Diferencas, Fichas } from '../components/Fichas';
+import FICHAS from '../fichas.json';
+
+Uma ficha por classe e por inimigo, para quem está começando: o papel na batalha, até onde chega, no que é forte,
+no que é fraco e como enfrentar. Tudo vem dos dados do jogo (master <code>{FICHAS.fonte.commit.slice(0, 7)}</code>),
+gerado por um script; nada foi digitado à mão.
+
+<Callout tom="simples" titulo="Como ler a ficha">
+  O papel, os pontos fortes, os fracos e o "como enfrentar" saem de regras fixas sobre os números. Cada frase
+  mostra a regra que a gerou. Quando nenhuma regra serve, o item fica de fora em vez de ser um palpite.
+
+"Dano recebido" mostra a resistência: −25% quer dizer que leva 25% menos dano; +10%, que leva 10% mais. O
+jogo não dá arma inicial a nenhuma classe, por isso a ficha não tem arma.
+
+</Callout>
+
+## Classes
+
+<Fichas grupo="classe" />
+
+## Inimigos
+
+<Fichas grupo="inimigo" />
+
+## Diferenças com o lab
+
+Onde a tabela do lab (Equipamento e atributos, Classes e inimigos) e o jogo discordam, as fichas usam o valor do
+jogo.
+
+<Diferencas />
+
+## De onde saiu cada dado
+
+- Vida, velocidade, movimento, pulo, tamanho, resistências e esquiva: `src/content/units.ts`; pulo padrão
+  `MAX_JUMP` em `src/shared/battle/pathing.ts`.
+- Habilidades (alcance, dano, cura, área, carga, empurrão): `src/content/abilities.ts`.
+- Quem é classe: `JOBS` em `src/content/party.ts`; o resto é inimigo, menos o Farol (`OBJECTIVE_DEF`).
+- Perda de resistência ao carregar, esquiva de lado e de costas, cura no morto-vivo: `COMBAT` em
+  `src/shared/battle/combat.ts`.
+- O script: `web/scripts/mecanicas/fichas.mjs`; como rodar está no `LEIA-ME.md` deste lab.

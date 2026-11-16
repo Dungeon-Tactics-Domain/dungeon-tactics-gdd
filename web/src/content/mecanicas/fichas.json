@@ -1,0 +1,634 @@
+{
+  "fonte": {
+    "repositorio": "dungeon-tactics",
+    "commit": "7ccdadc1ca9a9457ae4f6807415adff415371bc0",
+    "arquivos": [
+      "src/content/units.ts",
+      "src/content/abilities.ts",
+      "src/content/party.ts",
+      "src/shared/battle/units.ts",
+      "src/shared/battle/pathing.ts",
+      "src/shared/battle/combat.ts"
+    ],
+    "semArmaInicial": "o jogo não dá arma inicial a nenhuma classe; a ficha não tem esse campo"
+  },
+  "fichas": [
+    {
+      "id": "warrior",
+      "nome": "Guerreiro",
+      "grupo": "classe",
+      "vida": 210,
+      "velocidade": 8,
+      "movimento": 4,
+      "pulo": 1,
+      "tamanho": 1,
+      "esquiva": 5,
+      "resistencias": { "phys": 10 },
+      "alcanceBasico": { "habilidade": "Golpe", "casas": "1" },
+      "alcanceMaximo": { "habilidade": "Golpe", "casas": 1, "sobeComAltura": false },
+      "habilidades": [
+        { "nome": "Golpe", "alcance": "1", "dano": "50–80", "acerto": 90 },
+        { "nome": "Golpe pesado", "alcance": "1", "dano": "95–130", "acerto": 75 },
+        { "nome": "Escudada", "alcance": "1", "dano": "20–25", "acerto": 95, "empurra": 2 },
+        { "nome": "Giro", "alcance": "0", "dano": "35–50", "acerto": 85, "raio": 1 }
+      ],
+      "papel": { "texto": "Corpo a corpo", "regra": "ataque básico de 1 casa, sem outro destaque" },
+      "forcas": [
+        { "texto": "Muita vida: 210", "regra": "vida 200 ou mais" },
+        { "texto": "Golpe forte: Golpe pesado tira até 130", "regra": "uma habilidade com dano máximo 120 ou mais" },
+        { "texto": "Ataque em área: Giro (raio 1)", "regra": "habilidade de dano com raio 1 ou mais" },
+        { "texto": "Empurra: Escudada (2)", "regra": "habilidade com empurrão" }
+      ],
+      "fraquezas": [
+        { "texto": "Só ataca de perto: até 1 casa", "regra": "nenhuma habilidade de dano passa de 2 casas" }
+      ],
+      "comoEnfrentar": [
+        {
+          "texto": "Ataque de longe: na vez dele chega a 5 casas (anda 4 + alcance 1, em terreno plano)",
+          "regra": "nenhuma habilidade de dano passa de 2 casas; movimento + alcance"
+        }
+      ]
+    },
+    {
+      "id": "archer",
+      "nome": "Arqueiro",
+      "grupo": "classe",
+      "vida": 140,
+      "velocidade": 10,
+      "movimento": 4,
+      "pulo": 1,
+      "tamanho": 1,
+      "esquiva": 10,
+      "resistencias": {},
+      "alcanceBasico": { "habilidade": "Tiro", "casas": "2–6" },
+      "alcanceMaximo": { "habilidade": "Tiro", "casas": 6, "sobeComAltura": true },
+      "habilidades": [
+        { "nome": "Tiro", "alcance": "2–6", "dano": "45–70", "acerto": 85 },
+        { "nome": "Tiro mirado", "alcance": "2–6", "dano": "80–105", "acerto": 90, "carga": 4 },
+        { "nome": "Tiro de recuo", "alcance": "2–4", "dano": "25–35", "acerto": 85, "empurra": 1 },
+        { "nome": "Adaga", "alcance": "1", "dano": "25–35", "acerto": 90 }
+      ],
+      "papel": { "texto": "Atirador", "regra": "ataque básico físico com alcance 4 ou mais" },
+      "forcas": [
+        { "texto": "Rápido: velocidade 10, joga mais vezes", "regra": "velocidade 10 ou mais" },
+        {
+          "texto": "Ataca de longe: até 6 casas (Tiro), +1 por nível acima do alvo",
+          "regra": "alcance máximo 5 ou mais"
+        },
+        { "texto": "Empurra: Tiro de recuo (1)", "regra": "habilidade com empurrão" }
+      ],
+      "fraquezas": [
+        {
+          "texto": "Carrega: Tiro mirado (4 tiques); enquanto isso perde 50% de resistência física e 25% de mágica",
+          "regra": "habilidade com carga"
+        }
+      ],
+      "comoEnfrentar": [
+        {
+          "texto": "Chegue perto: na casa ao lado ele só usa Adaga (25–35)",
+          "regra": "ataque básico de 4+ casas; o melhor golpe de 1 casa tira menos que ele"
+        },
+        { "texto": "Quando ele carregar, bata nele: carregando, defende pior", "regra": "habilidade com carga" }
+      ]
+    },
+    {
+      "id": "mage",
+      "nome": "Mago",
+      "grupo": "classe",
+      "vida": 120,
+      "velocidade": 7,
+      "movimento": 3,
+      "pulo": 1,
+      "tamanho": 1,
+      "esquiva": 0,
+      "resistencias": { "phys": -10, "mag": 20 },
+      "alcanceBasico": { "habilidade": "Raio de fogo", "casas": "2–5" },
+      "alcanceMaximo": { "habilidade": "Raio de fogo", "casas": 5, "sobeComAltura": true },
+      "habilidades": [
+        { "nome": "Raio de fogo", "alcance": "2–5", "dano": "50–80", "acerto": 90, "magia": true, "elemento": "fogo" },
+        {
+          "nome": "Explosão",
+          "alcance": "2–5",
+          "dano": "45–70",
+          "acerto": 85,
+          "raio": 1,
+          "carga": 4,
+          "magia": true,
+          "elemento": "fogo"
+        },
+        {
+          "nome": "Rajada",
+          "alcance": "1–4",
+          "dano": "10–20",
+          "acerto": 85,
+          "empurra": 2,
+          "carga": 4,
+          "magia": true,
+          "elemento": "vento"
+        },
+        {
+          "nome": "Cura",
+          "alcance": "1–4",
+          "cura": "60–90",
+          "acerto": 100,
+          "carga": 4,
+          "magia": true,
+          "elemento": "luz"
+        }
+      ],
+      "papel": { "texto": "Conjurador frágil que cura", "regra": "tem cura e o ataque básico é magia; vida ≤ 130" },
+      "forcas": [
+        { "texto": "Aguenta magia: −20% de dano", "regra": "resistência mágica 20% ou mais" },
+        { "texto": "Ataque em área: Explosão (raio 1)", "regra": "habilidade de dano com raio 1 ou mais" },
+        { "texto": "Cura aliados: Cura recupera 60–90", "regra": "tem habilidade de cura" },
+        {
+          "texto": "Ataca de longe: até 5 casas (Raio de fogo), +1 por nível acima do alvo",
+          "regra": "alcance máximo 5 ou mais"
+        },
+        { "texto": "Empurra: Rajada (2)", "regra": "habilidade com empurrão" }
+      ],
+      "fraquezas": [
+        { "texto": "Pouca vida: 120", "regra": "vida 130 ou menos" },
+        { "texto": "Anda pouco: 3 casas", "regra": "movimento 3 ou menos" },
+        { "texto": "Sofre mais com dano de golpe físico: +10%", "regra": "resistência negativa" },
+        {
+          "texto": "Carrega: Explosão (4 tiques), Rajada (4 tiques), Cura (4 tiques); enquanto isso perde 50% de resistência física e 25% de mágica",
+          "regra": "habilidade com carga"
+        }
+      ],
+      "comoEnfrentar": [
+        { "texto": "Derrube primeiro: ele cura os aliados", "regra": "tem habilidade de cura" },
+        { "texto": "Poucos golpes derrubam: 120 de vida", "regra": "vida 130 ou menos" },
+        {
+          "texto": "Chegue perto: na casa ao lado ele só usa Rajada (10–20)",
+          "regra": "ataque básico de 4+ casas; o melhor golpe de 1 casa tira menos que ele"
+        },
+        { "texto": "Quando ele carregar, bata nele: carregando, defende pior", "regra": "habilidade com carga" },
+        { "texto": "Prefira golpes físicos: +10% de dano", "regra": "resistência física negativa" }
+      ]
+    },
+    {
+      "id": "rogue",
+      "nome": "Ladino",
+      "grupo": "classe",
+      "vida": 130,
+      "velocidade": 12,
+      "movimento": 5,
+      "pulo": 2,
+      "tamanho": 1,
+      "esquiva": 20,
+      "resistencias": {},
+      "alcanceBasico": { "habilidade": "Facada", "casas": "1" },
+      "alcanceMaximo": { "habilidade": "Faca arremessada", "casas": 4, "sobeComAltura": true },
+      "habilidades": [
+        { "nome": "Facada", "alcance": "1", "dano": "45–60", "acerto": 95 },
+        { "nome": "Faca arremessada", "alcance": "2–4", "dano": "35–50", "acerto": 85 },
+        { "nome": "Rasteira", "alcance": "1", "dano": "20–25", "acerto": 90, "empurra": 1 },
+        { "nome": "Golpe mortal", "alcance": "1", "dano": "105–140", "acerto": 70 }
+      ],
+      "papel": {
+        "texto": "Corpo a corpo rápido frágil",
+        "regra": "corpo a corpo com velocidade 11 ou mais; vida ≤ 130"
+      },
+      "forcas": [
+        { "texto": "Rápido: velocidade 12, joga mais vezes", "regra": "velocidade 10 ou mais" },
+        { "texto": "Sobe 2 níveis por passo", "regra": "pulo 2 ou mais (o padrão é 1)" },
+        { "texto": "Esquiva 20% dos golpes de frente", "regra": "esquiva 15% ou mais" },
+        { "texto": "Golpe forte: Golpe mortal tira até 140", "regra": "uma habilidade com dano máximo 120 ou mais" },
+        { "texto": "Empurra: Rasteira (1)", "regra": "habilidade com empurrão" }
+      ],
+      "fraquezas": [{ "texto": "Pouca vida: 130", "regra": "vida 130 ou menos" }],
+      "comoEnfrentar": [
+        { "texto": "Poucos golpes derrubam: 130 de vida", "regra": "vida 130 ou menos" },
+        {
+          "texto": "Bata de lado ou por trás: lá só 75% e 50% da esquiva contam",
+          "regra": "esquiva 15% ou mais; a esquiva conta menos de lado e de costas"
+        }
+      ]
+    },
+    {
+      "id": "soldier",
+      "nome": "Soldado",
+      "grupo": "inimigo",
+      "vida": 225,
+      "velocidade": 8,
+      "movimento": 4,
+      "pulo": 1,
+      "tamanho": 1,
+      "esquiva": 5,
+      "resistencias": { "phys": 25 },
+      "alcanceBasico": { "habilidade": "Golpe", "casas": "1" },
+      "alcanceMaximo": { "habilidade": "Golpe", "casas": 1, "sobeComAltura": false },
+      "habilidades": [
+        { "nome": "Golpe", "alcance": "1", "dano": "50–80", "acerto": 90 },
+        { "nome": "Escudada", "alcance": "1", "dano": "20–25", "acerto": 95, "empurra": 2 }
+      ],
+      "papel": { "texto": "Linha de frente blindada", "regra": "corpo a corpo com resistência física 25% ou mais" },
+      "forcas": [
+        { "texto": "Muita vida: 225", "regra": "vida 200 ou mais" },
+        { "texto": "Aguenta golpes físicos: −25% de dano", "regra": "resistência física 20% ou mais" },
+        { "texto": "Empurra: Escudada (2)", "regra": "habilidade com empurrão" }
+      ],
+      "fraquezas": [
+        { "texto": "Só ataca de perto: até 1 casa", "regra": "nenhuma habilidade de dano passa de 2 casas" }
+      ],
+      "comoEnfrentar": [
+        {
+          "texto": "Ataque de longe: na vez dele chega a 5 casas (anda 4 + alcance 1, em terreno plano)",
+          "regra": "nenhuma habilidade de dano passa de 2 casas; movimento + alcance"
+        },
+        {
+          "texto": "Prefira magia: dano físico −25%, dano mágico 0%",
+          "regra": "resistência física 20%+ e maior que a mágica, ou mágica negativa"
+        }
+      ]
+    },
+    {
+      "id": "skeleton_archer",
+      "nome": "Arqueiro esqueleto",
+      "grupo": "inimigo",
+      "vida": 165,
+      "velocidade": 10,
+      "movimento": 4,
+      "pulo": 1,
+      "tamanho": 1,
+      "esquiva": 5,
+      "resistencias": { "shadow": 50, "light": -50 },
+      "mortoVivo": true,
+      "alcanceBasico": { "habilidade": "Tiro", "casas": "2–6" },
+      "alcanceMaximo": { "habilidade": "Tiro", "casas": 6, "sobeComAltura": true },
+      "habilidades": [
+        { "nome": "Tiro", "alcance": "2–6", "dano": "45–70", "acerto": 85 },
+        { "nome": "Adaga", "alcance": "1", "dano": "25–35", "acerto": 90 }
+      ],
+      "papel": { "texto": "Atirador", "regra": "ataque básico físico com alcance 4 ou mais" },
+      "forcas": [
+        { "texto": "Rápido: velocidade 10, joga mais vezes", "regra": "velocidade 10 ou mais" },
+        { "texto": "Resiste a sombra: −50% de dano", "regra": "resistência a um elemento 25% ou mais" },
+        {
+          "texto": "Ataca de longe: até 6 casas (Tiro), +1 por nível acima do alvo",
+          "regra": "alcance máximo 5 ou mais"
+        }
+      ],
+      "fraquezas": [
+        { "texto": "Sofre mais com luz: +50%", "regra": "resistência negativa" },
+        { "texto": "Morto-vivo: a cura fere em vez de curar (50% do valor)", "regra": "morto-vivo (undead) no jogo" }
+      ],
+      "comoEnfrentar": [
+        {
+          "texto": "Chegue perto: na casa ao lado ele só usa Adaga (25–35)",
+          "regra": "ataque básico de 4+ casas; o melhor golpe de 1 casa tira menos que ele"
+        }
+      ]
+    },
+    {
+      "id": "dark_mage",
+      "nome": "Mago sombrio",
+      "grupo": "inimigo",
+      "vida": 150,
+      "velocidade": 7,
+      "movimento": 3,
+      "pulo": 1,
+      "tamanho": 1,
+      "esquiva": 0,
+      "resistencias": { "phys": -10, "mag": 30, "shadow": 50, "light": -25 },
+      "alcanceBasico": { "habilidade": "Raio de fogo", "casas": "2–5" },
+      "alcanceMaximo": { "habilidade": "Raio de fogo", "casas": 5, "sobeComAltura": true },
+      "habilidades": [
+        { "nome": "Raio de fogo", "alcance": "2–5", "dano": "50–80", "acerto": 90, "magia": true, "elemento": "fogo" },
+        {
+          "nome": "Explosão",
+          "alcance": "2–5",
+          "dano": "45–70",
+          "acerto": 85,
+          "raio": 1,
+          "carga": 4,
+          "magia": true,
+          "elemento": "fogo"
+        }
+      ],
+      "papel": { "texto": "Conjurador à distância", "regra": "ataque básico é magia com alcance 4 ou mais" },
+      "forcas": [
+        { "texto": "Aguenta magia: −30% de dano", "regra": "resistência mágica 20% ou mais" },
+        { "texto": "Resiste a sombra: −50% de dano", "regra": "resistência a um elemento 25% ou mais" },
+        { "texto": "Ataque em área: Explosão (raio 1)", "regra": "habilidade de dano com raio 1 ou mais" },
+        {
+          "texto": "Ataca de longe: até 5 casas (Raio de fogo), +1 por nível acima do alvo",
+          "regra": "alcance máximo 5 ou mais"
+        }
+      ],
+      "fraquezas": [
+        { "texto": "Anda pouco: 3 casas", "regra": "movimento 3 ou menos" },
+        { "texto": "Sofre mais com dano de golpe físico: +10%", "regra": "resistência negativa" },
+        { "texto": "Sofre mais com luz: +25%", "regra": "resistência negativa" },
+        {
+          "texto": "Não ataca a casa ao lado: alcance mínimo 2",
+          "regra": "toda habilidade de dano começa em 2 casas ou mais"
+        },
+        {
+          "texto": "Carrega: Explosão (4 tiques); enquanto isso perde 50% de resistência física e 25% de mágica",
+          "regra": "habilidade com carga"
+        }
+      ],
+      "comoEnfrentar": [
+        {
+          "texto": "Chegue colado: na vez dele, nenhum ataque alcança a casa ao lado",
+          "regra": "toda habilidade de dano começa em 2+"
+        },
+        { "texto": "Quando ele carregar, bata nele: carregando, defende pior", "regra": "habilidade com carga" },
+        { "texto": "Prefira golpes físicos: +10% de dano", "regra": "resistência física negativa" }
+      ]
+    },
+    {
+      "id": "lancer",
+      "nome": "Lanceiro",
+      "grupo": "classe",
+      "vida": 190,
+      "velocidade": 9,
+      "movimento": 4,
+      "pulo": 3,
+      "tamanho": 1,
+      "esquiva": 5,
+      "resistencias": { "phys": 10 },
+      "alcanceBasico": { "habilidade": "Estocada longa", "casas": "1–2" },
+      "alcanceMaximo": { "habilidade": "Salto", "casas": 4, "sobeComAltura": false },
+      "habilidades": [
+        { "nome": "Estocada longa", "alcance": "1–2", "dano": "55–80", "acerto": 90 },
+        { "nome": "Derrubar", "alcance": "1–2", "dano": "25–35", "acerto": 85, "empurra": 1 },
+        { "nome": "Salto", "alcance": "2–4", "dano": "95–130", "acerto": 85, "carga": 4 }
+      ],
+      "papel": { "texto": "Corpo a corpo com alcance 2", "regra": "ataque básico chega a 2 casas" },
+      "forcas": [
+        { "texto": "Sobe 3 níveis por passo", "regra": "pulo 2 ou mais (o padrão é 1)" },
+        { "texto": "Golpe forte: Salto tira até 130", "regra": "uma habilidade com dano máximo 120 ou mais" },
+        { "texto": "Empurra: Derrubar (1)", "regra": "habilidade com empurrão" }
+      ],
+      "fraquezas": [
+        {
+          "texto": "Carrega: Salto (4 tiques); enquanto isso perde 50% de resistência física e 25% de mágica",
+          "regra": "habilidade com carga"
+        }
+      ],
+      "comoEnfrentar": [
+        { "texto": "Quando ele carregar, bata nele: carregando, defende pior", "regra": "habilidade com carga" }
+      ]
+    },
+    {
+      "id": "brute",
+      "nome": "Bruto",
+      "grupo": "inimigo",
+      "vida": 410,
+      "velocidade": 5,
+      "movimento": 3,
+      "pulo": 1,
+      "tamanho": 1,
+      "esquiva": 0,
+      "resistencias": { "phys": 20, "mag": -10 },
+      "alcanceBasico": { "habilidade": "Machadada", "casas": "1" },
+      "alcanceMaximo": { "habilidade": "Machadada", "casas": 1, "sobeComAltura": false },
+      "habilidades": [
+        { "nome": "Machadada", "alcance": "1", "dano": "90–120", "acerto": 80 },
+        { "nome": "Pancada", "alcance": "1", "dano": "35–50", "acerto": 85, "empurra": 2 }
+      ],
+      "papel": { "texto": "Brutamontes", "regra": "corpo a corpo com vida 300 ou mais" },
+      "forcas": [
+        { "texto": "Muita vida: 410", "regra": "vida 200 ou mais" },
+        { "texto": "Aguenta golpes físicos: −20% de dano", "regra": "resistência física 20% ou mais" },
+        { "texto": "Golpe forte: Machadada tira até 120", "regra": "uma habilidade com dano máximo 120 ou mais" },
+        { "texto": "Empurra: Pancada (2)", "regra": "habilidade com empurrão" }
+      ],
+      "fraquezas": [
+        { "texto": "Lento: velocidade 5, joga menos vezes", "regra": "velocidade 6 ou menos" },
+        { "texto": "Anda pouco: 3 casas", "regra": "movimento 3 ou menos" },
+        { "texto": "Sofre mais com dano de magia: +10%", "regra": "resistência negativa" },
+        { "texto": "Só ataca de perto: até 1 casa", "regra": "nenhuma habilidade de dano passa de 2 casas" }
+      ],
+      "comoEnfrentar": [
+        {
+          "texto": "Ataque de longe: na vez dele chega a 4 casas (anda 3 + alcance 1, em terreno plano)",
+          "regra": "nenhuma habilidade de dano passa de 2 casas; movimento + alcance"
+        },
+        {
+          "texto": "Prefira magia: dano físico −20%, dano mágico +10%",
+          "regra": "resistência física 20%+ e maior que a mágica, ou mágica negativa"
+        }
+      ]
+    },
+    {
+      "id": "minion",
+      "nome": "Lacaio esqueleto",
+      "grupo": "inimigo",
+      "vida": 120,
+      "velocidade": 11,
+      "movimento": 5,
+      "pulo": 2,
+      "tamanho": 1,
+      "esquiva": 10,
+      "resistencias": { "shadow": 50, "light": -50 },
+      "mortoVivo": true,
+      "alcanceBasico": { "habilidade": "Facada", "casas": "1" },
+      "alcanceMaximo": { "habilidade": "Facada", "casas": 1, "sobeComAltura": false },
+      "habilidades": [
+        { "nome": "Facada", "alcance": "1", "dano": "45–60", "acerto": 95 },
+        { "nome": "Rasteira", "alcance": "1", "dano": "20–25", "acerto": 90, "empurra": 1 }
+      ],
+      "papel": {
+        "texto": "Corpo a corpo rápido frágil",
+        "regra": "corpo a corpo com velocidade 11 ou mais; vida ≤ 130"
+      },
+      "forcas": [
+        { "texto": "Rápido: velocidade 11, joga mais vezes", "regra": "velocidade 10 ou mais" },
+        { "texto": "Sobe 2 níveis por passo", "regra": "pulo 2 ou mais (o padrão é 1)" },
+        { "texto": "Resiste a sombra: −50% de dano", "regra": "resistência a um elemento 25% ou mais" },
+        { "texto": "Empurra: Rasteira (1)", "regra": "habilidade com empurrão" }
+      ],
+      "fraquezas": [
+        { "texto": "Pouca vida: 120", "regra": "vida 130 ou menos" },
+        { "texto": "Sofre mais com luz: +50%", "regra": "resistência negativa" },
+        { "texto": "Morto-vivo: a cura fere em vez de curar (50% do valor)", "regra": "morto-vivo (undead) no jogo" },
+        { "texto": "Só ataca de perto: até 1 casa", "regra": "nenhuma habilidade de dano passa de 2 casas" }
+      ],
+      "comoEnfrentar": [
+        { "texto": "Poucos golpes derrubam: 120 de vida", "regra": "vida 130 ou menos" },
+        {
+          "texto": "Ataque de longe: na vez dele chega a 6 casas (anda 5 + alcance 1, em terreno plano)",
+          "regra": "nenhuma habilidade de dano passa de 2 casas; movimento + alcance"
+        }
+      ]
+    },
+    {
+      "id": "acolyte",
+      "nome": "Acólito do Véu",
+      "grupo": "inimigo",
+      "vida": 130,
+      "velocidade": 9,
+      "movimento": 3,
+      "pulo": 1,
+      "tamanho": 1,
+      "esquiva": 0,
+      "resistencias": { "mag": 20, "shadow": 50, "light": -25 },
+      "alcanceBasico": { "habilidade": "Raio de fogo", "casas": "2–5" },
+      "alcanceMaximo": { "habilidade": "Raio de fogo", "casas": 5, "sobeComAltura": true },
+      "habilidades": [
+        { "nome": "Raio de fogo", "alcance": "2–5", "dano": "50–80", "acerto": 90, "magia": true, "elemento": "fogo" },
+        {
+          "nome": "Cura",
+          "alcance": "1–4",
+          "cura": "60–90",
+          "acerto": 100,
+          "carga": 4,
+          "magia": true,
+          "elemento": "luz"
+        }
+      ],
+      "papel": { "texto": "Conjurador frágil que cura", "regra": "tem cura e o ataque básico é magia; vida ≤ 130" },
+      "forcas": [
+        { "texto": "Aguenta magia: −20% de dano", "regra": "resistência mágica 20% ou mais" },
+        { "texto": "Resiste a sombra: −50% de dano", "regra": "resistência a um elemento 25% ou mais" },
+        { "texto": "Cura aliados: Cura recupera 60–90", "regra": "tem habilidade de cura" },
+        {
+          "texto": "Ataca de longe: até 5 casas (Raio de fogo), +1 por nível acima do alvo",
+          "regra": "alcance máximo 5 ou mais"
+        }
+      ],
+      "fraquezas": [
+        { "texto": "Pouca vida: 130", "regra": "vida 130 ou menos" },
+        { "texto": "Anda pouco: 3 casas", "regra": "movimento 3 ou menos" },
+        { "texto": "Sofre mais com luz: +25%", "regra": "resistência negativa" },
+        {
+          "texto": "Não ataca a casa ao lado: alcance mínimo 2",
+          "regra": "toda habilidade de dano começa em 2 casas ou mais"
+        },
+        {
+          "texto": "Carrega: Cura (4 tiques); enquanto isso perde 50% de resistência física e 25% de mágica",
+          "regra": "habilidade com carga"
+        }
+      ],
+      "comoEnfrentar": [
+        { "texto": "Derrube primeiro: ele cura os aliados", "regra": "tem habilidade de cura" },
+        { "texto": "Poucos golpes derrubam: 130 de vida", "regra": "vida 130 ou menos" },
+        {
+          "texto": "Chegue colado: na vez dele, nenhum ataque alcança a casa ao lado",
+          "regra": "toda habilidade de dano começa em 2+"
+        },
+        { "texto": "Quando ele carregar, bata nele: carregando, defende pior", "regra": "habilidade com carga" }
+      ]
+    },
+    {
+      "id": "veil_knight",
+      "nome": "Cavaleiro do Véu",
+      "grupo": "inimigo",
+      "vida": 190,
+      "velocidade": 8,
+      "movimento": 4,
+      "pulo": 1,
+      "tamanho": 1,
+      "esquiva": 0,
+      "resistencias": { "phys": 30, "shadow": 25, "light": -25 },
+      "alcanceBasico": { "habilidade": "Golpe", "casas": "1" },
+      "alcanceMaximo": { "habilidade": "Golpe", "casas": 1, "sobeComAltura": false },
+      "habilidades": [
+        { "nome": "Golpe", "alcance": "1", "dano": "50–80", "acerto": 90 },
+        { "nome": "Golpe pesado", "alcance": "1", "dano": "95–130", "acerto": 75 }
+      ],
+      "papel": { "texto": "Linha de frente blindada", "regra": "corpo a corpo com resistência física 25% ou mais" },
+      "forcas": [
+        { "texto": "Aguenta golpes físicos: −30% de dano", "regra": "resistência física 20% ou mais" },
+        { "texto": "Resiste a sombra: −25% de dano", "regra": "resistência a um elemento 25% ou mais" },
+        { "texto": "Golpe forte: Golpe pesado tira até 130", "regra": "uma habilidade com dano máximo 120 ou mais" }
+      ],
+      "fraquezas": [
+        { "texto": "Sofre mais com luz: +25%", "regra": "resistência negativa" },
+        { "texto": "Só ataca de perto: até 1 casa", "regra": "nenhuma habilidade de dano passa de 2 casas" }
+      ],
+      "comoEnfrentar": [
+        {
+          "texto": "Ataque de longe: na vez dele chega a 5 casas (anda 4 + alcance 1, em terreno plano)",
+          "regra": "nenhuma habilidade de dano passa de 2 casas; movimento + alcance"
+        },
+        {
+          "texto": "Prefira magia: dano físico −30%, dano mágico 0%",
+          "regra": "resistência física 20%+ e maior que a mágica, ou mágica negativa"
+        }
+      ]
+    },
+    {
+      "id": "colossus",
+      "nome": "Colosso de Ossos",
+      "grupo": "inimigo",
+      "vida": 800,
+      "velocidade": 6,
+      "movimento": 0,
+      "pulo": 1,
+      "tamanho": 2,
+      "esquiva": 0,
+      "resistencias": { "phys": 30, "mag": 20, "shadow": 60, "light": -50 },
+      "mortoVivo": true,
+      "alcanceBasico": { "habilidade": "Onda sombria", "casas": "2–5" },
+      "alcanceMaximo": { "habilidade": "Onda sombria", "casas": 5, "sobeComAltura": true },
+      "habilidades": [
+        {
+          "nome": "Onda sombria",
+          "alcance": "2–5",
+          "dano": "50–80",
+          "acerto": 85,
+          "raio": 2,
+          "carga": 6,
+          "magia": true,
+          "elemento": "sombra"
+        },
+        {
+          "nome": "Explosão",
+          "alcance": "2–5",
+          "dano": "45–70",
+          "acerto": 85,
+          "raio": 1,
+          "carga": 4,
+          "magia": true,
+          "elemento": "fogo"
+        }
+      ],
+      "papel": { "texto": "Chefe gigante que não anda", "regra": "movimento 0 e tamanho 2x2" },
+      "forcas": [
+        { "texto": "Muita vida: 800", "regra": "vida 200 ou mais" },
+        { "texto": "Aguenta golpes físicos: −30% de dano", "regra": "resistência física 20% ou mais" },
+        { "texto": "Aguenta magia: −20% de dano", "regra": "resistência mágica 20% ou mais" },
+        { "texto": "Resiste a sombra: −60% de dano", "regra": "resistência a um elemento 25% ou mais" },
+        {
+          "texto": "Ataque em área: Onda sombria (raio 2), Explosão (raio 1)",
+          "regra": "habilidade de dano com raio 1 ou mais"
+        },
+        {
+          "texto": "Ataca de longe: até 5 casas (Onda sombria), +1 por nível acima do alvo",
+          "regra": "alcance máximo 5 ou mais"
+        }
+      ],
+      "fraquezas": [
+        { "texto": "Lento: velocidade 6, joga menos vezes", "regra": "velocidade 6 ou menos" },
+        { "texto": "Não anda", "regra": "movimento 0" },
+        { "texto": "Sofre mais com luz: +50%", "regra": "resistência negativa" },
+        { "texto": "Morto-vivo: a cura fere em vez de curar (50% do valor)", "regra": "morto-vivo (undead) no jogo" },
+        {
+          "texto": "Não ataca a casa ao lado: alcance mínimo 2",
+          "regra": "toda habilidade de dano começa em 2 casas ou mais"
+        },
+        {
+          "texto": "Carrega: Onda sombria (6 tiques), Explosão (4 tiques); enquanto isso perde 50% de resistência física e 25% de mágica",
+          "regra": "habilidade com carga"
+        }
+      ],
+      "comoEnfrentar": [
+        {
+          "texto": "Chegue colado: na vez dele, nenhum ataque alcança a casa ao lado",
+          "regra": "toda habilidade de dano começa em 2+"
+        },
+        { "texto": "Quando ele carregar, bata nele: carregando, defende pior", "regra": "habilidade com carga" },
+        {
+          "texto": "Prefira magia: dano físico −30%, dano mágico −20%",
+          "regra": "resistência física 20%+ e maior que a mágica, ou mágica negativa"
+        }
+      ]
+    }
+  ],
+  "diferencas": [{ "onde": "Colosso de Ossos", "campo": "resistência a sombra", "lab": 75, "jogo": 60 }]
+}

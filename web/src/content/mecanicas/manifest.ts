@@ -160,6 +160,12 @@ export default {
           icone: '🎓',
           resumo: 'As regras em palavras simples, com exemplos, e onde cada bloco caberia como ajuda no jogo.',
         },
+        {
+          id: 'fichas-de-classes-e-inimigos',
+          titulo: 'Fichas de classes e inimigos',
+          icone: '🃏',
+          resumo: 'Uma ficha por classe e inimigo: papel, alcance, forças, fraquezas e como enfrentar, gerada do jogo.',
+        },
         ...paginasDeRegra(REGRAS.mechanics),
         { id: 'divergencias', titulo: 'Divergências', icone: '⚠️', resumo: 'Onde a documentação diverge do código.' },
       ],

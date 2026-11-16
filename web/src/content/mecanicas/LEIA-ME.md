@@ -36,3 +36,9 @@ scene uses real scale (half a tile = 1 m, level = 1 m, shots from the tile centr
 
 `sensacao/impacto.mdx` embeds `public/content/mecanicas/peso/index.html` (same isolated Three.js setup) on top of today's
 rules and shows `peso.json`, the 6 visual-only decisions of the weight grill (hit-stop, fall, wall, death, damage number).
+
+## Class and enemy sheets (Nov 16)
+
+`fichas.json` is generated, never edited by hand: from `web/`, run `git -C D:/Projetos/dungeon-tactics fetch origin`,
+`node scripts/mecanicas/fichas.mjs D:/Projetos/dungeon-tactics` and `npx prettier --write src/content/mecanicas/fichas.json`.
+The script reads the game's origin/master (its header says how) and writes the commit it used into the file.

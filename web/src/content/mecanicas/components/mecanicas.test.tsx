@@ -6,6 +6,8 @@ import { Cena } from './Cena';
 import { sceneUrl, type Spec } from './cena-url';
 import { Pedidos } from './Plano';
 import { descida, PESO, TRAJETORIAS, turnosDe, vidaDe } from '../dados';
+import equipamento from '../equipamento.json';
+import fichas from '../fichas.json';
 
 const G = 'http://localhost:5291';
 // arena-wall.json as served by the game bench on 14/11; the expected URLs came from the old lab's sceneUrl
@@ -38,12 +40,12 @@ describe('mecanicas manifest', () => {
       'descida:4',
       'equipamento:5',
       'clipes:4',
-      'regras:9',
+      'regras:10',
       'sensacao:6',
       'referencias:10',
     ]);
     const n = manifesto.grupos.flatMap((g) => g.paginas.flatMap((p) => [p, ...(p.subpaginas ?? [])])).length;
-    expect(n).toBe(86);
+    expect(n).toBe(87);
     expect((manifesto.linksAntigos as Record<string, string>)['cena-walk']).toBe('clipes/movimento/walk');
     expect((manifesto.linksAntigos as Record<string, string>)._geral).toBe('referencias/geral');
   });
@@ -138,5 +140,16 @@ describe('peso', () => {
   it('keeps the 6 decisions of the weight grill, each with its origin', () => {
     expect(PESO).toHaveLength(6);
     for (const r of PESO) expect(r.origem).toBe('grill do peso de 15/11 com o Fernando');
+  });
+});
+
+describe('fichas.json', () => {
+  it('has one sheet for every class and enemy of equipamento.json, in the right group', () => {
+    const lab = [
+      ...equipamento.classes.map((c) => `classe:${c.nome}`),
+      ...equipamento.inimigos.map((c) => `inimigo:${c.nome}`),
+    ];
+    expect(fichas.fichas.map((f) => `${f.grupo}:${f.nome}`).sort()).toEqual(lab.sort());
+    expect(fichas.fonte.commit).toMatch(/^[0-9a-f]{40}$/);
   });
 });
