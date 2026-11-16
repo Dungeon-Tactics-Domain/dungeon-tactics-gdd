@@ -16,7 +16,7 @@ describe('design lab data', () => {
   it('keeps the old lab tabs as groups (same ids as its routes): 5 groups, 112 captures of 10 games, every capture in exactly one block', () => {
     const s = CONTEUDO.design!.sumario;
     expect(s.grupos.map((g) => `${g.id}:${g.paginas.length}`)).toEqual([
-      'interface:8',
+      'interface:10',
       'personagens:6',
       'mapa:2',
       'plano:5',

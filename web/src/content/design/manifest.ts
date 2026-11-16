@@ -71,6 +71,16 @@ export default {
           resumo: 'Todos os elementos de interface no estilo escolhido, em lotes, com o que foi enviado e o que saiu.',
         },
         {
+          id: 'hud-3d',
+          titulo: 'HUD em 3D (Three.js)',
+          resumo: 'A barra de combate no estilo FFT feita em 3D por cima da cena do jogo, minimalista e translúcida.',
+        },
+        {
+          id: 'menu-3d',
+          titulo: 'Menu de ações em 3D (no jogo)',
+          resumo: 'O menu Mover/Agir/Esperar/Status do FFT em 3D dentro do sandbox do jogo, com ícones low poly.',
+        },
+        {
           id: 'testes',
           titulo: 'Testes de IA: interface',
           resumo: 'Folhas de elementos e a interface aplicada sobre o jogo.',

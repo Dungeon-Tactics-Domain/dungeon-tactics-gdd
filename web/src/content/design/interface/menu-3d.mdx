@@ -1,0 +1,17 @@
+import { MenuJogo } from '../components/MenuJogo';
+
+Menu de ações do Final Fantasy Tactics (Mover, Agir, Esperar, Status) **recriado em 3D dentro do jogo**: um segundo canvas Three.js transparente por cima do jogo, com painéis em shader (degradê, borda, brilho, sombra), ícones low poly com filtro pixelado ativável e luva com mola. O estado vem do mesmo `command.ts` do jogo, então teclado e mouse funcionam de verdade.
+
+<MenuJogo />
+
+## Fase 1 (o que já existe)
+
+- Coluna Mover / Agir / Esperar / Status em 3D, atrás de `?menu3d` (`?menu3d=pixel` liga o filtro pixelado).
+- Luva com mola, linha em foco que levanta, ícone que gira e flash ao confirmar.
+- Submenu de habilidades, confirmação e descrição ainda são HTML; toque e gamepad passam pelo HTML.
+
+## Próximas fases
+
+- 2: cascata, submenu de habilidades e painel de descrição com página 1/3.
+- 3: confirmação de alvo e prévia do golpe.
+- 4: reserva e itens, toque e gamepad.
