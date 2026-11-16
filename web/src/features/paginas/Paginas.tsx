@@ -1,13 +1,13 @@
 // Pages pattern (Fernando, 14/11: "a well subdivided table of contents with different pages, not one long scrolling menu").
 // group > page > subpage on real routes under `base`; collapsible menu with search, breadcrumbs, previous/next and keyboard.
-// Below the shell breakpoint the menu is portalled into the single "☰ Labs" drawer (lib/gaveta-context).
+// The menu is portalled into the shell's sidebar, or its sheet below 1024 px (lib/gaveta-context); in the icon rail it
+// shrinks to one icon per group.
 import { type KeyboardEvent, type ReactNode, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Link, useLocation, useNavigate, useParams } from 'react-router';
 import { Input } from '@/components/ui/input';
 import { useGaveta } from '@/lib/gaveta-context';
-import { COMPACT, useMediaQuery } from '@/lib/useMediaQuery';
-import { cn } from '@/lib/utils';
+import { cn, gravar, ler } from '@/lib/utils';
 import { Cartoes, Icone, Migalhas, Resumo, Titulo } from './parts';
 import type { Grupo, Pagina, Sumario } from './types';
 
@@ -20,20 +20,6 @@ interface Entrada {
 
 // search ignores accents and case: "decisao" finds "Decisões"
 const normal = (s: string) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
-const ler = (k: string) => {
-  try {
-    return localStorage.getItem(k);
-  } catch {
-    return null;
-  }
-};
-const gravar = (k: string, v: string) => {
-  try {
-    localStorage.setItem(k, v);
-  } catch {
-    // no storage: the choice lasts until reload
-  }
-};
 
 /** Every page in reading order: the order of previous/next and of search. */
 function entradas(s: Sumario): Entrada[] {
@@ -54,8 +40,7 @@ export function Paginas({ sumario: s, base }: { sumario: Sumario; base: string }
   const rota = (useParams()['*'] ?? '').replace(/\/$/, '');
   const location = useLocation();
   const navigate = useNavigate();
-  const { slot, fechar } = useGaveta();
-  const compact = useMediaQuery(COMPACT);
+  const { slot, recolhida, fechar } = useGaveta();
   const chave = `paginas:${s.lab}:grupo`;
   const href = (r: string) => `${base}/${r}`;
 
@@ -375,18 +360,34 @@ export function Paginas({ sumario: s, base }: { sumario: Sumario; base: string }
     );
   }
 
+  // the icon rail: one icon per group, to the group's page (search and pages come back when the sidebar opens)
+  const trilho = (
+    <nav aria-label={`Sumário: ${s.titulo}`} className="grid gap-1 px-1.5 py-3">
+      {s.grupos.map((g) => (
+        <Link
+          key={g.id}
+          to={href(g.id)}
+          title={g.titulo}
+          aria-label={g.titulo}
+          aria-current={grupoDaRota === g.id ? 'page' : undefined}
+          className={cn(LINK, 'justify-center px-0 text-[20px]')}
+        >
+          <span aria-hidden="true">{g.icone ?? '▸'}</span>
+        </Link>
+      ))}
+    </nav>
+  );
+
   return (
-    <div className="grid min-h-[calc(100vh-var(--reino-h))] grid-cols-1 desk:grid-cols-[280px_minmax(0,1fr)]">
-      {compact ? (
-        slot && createPortal(<div className="border-t-4 border-lab bg-folha">{menu}</div>, slot)
-      ) : (
-        <aside className="sticky top-(--reino-h) h-[calc(100dvh-var(--reino-h))] self-start overflow-y-auto overscroll-contain border-r-[6px] border-lab bg-folha">
-          {menu}
-        </aside>
-      )}
-      <main className="grid min-w-0 content-start gap-5 px-10 pt-7 pb-16 max-[700px]:px-4 max-[700px]:pt-5">
-        {corpo}
-      </main>
-    </div>
+    <>
+      {slot === undefined
+        ? menu
+        : slot &&
+          createPortal(
+            <div className="border-t-4 border-casca-borda bg-casca-lateral">{recolhida ? trilho : menu}</div>,
+            slot,
+          )}
+      <main className="grid min-w-0 content-start gap-5 px-(--margem) pt-7 pb-16 max-sm:pt-5">{corpo}</main>
+    </>
   );
 }

@@ -35,9 +35,9 @@ export function Decisoes() {
   const nomeLab = (id: string) => LABS.find((l) => l.id === id)?.nome ?? id;
   const lista = (todas ?? []).filter((d) => (!lab || d.lab === lab) && (!escolha || d.escolha === escolha));
   return (
-    <main className="grid gap-6 px-4 pt-7 pb-16 sm:px-10">
+    <main className="grid gap-6 px-(--margem) pt-7 pb-16">
       <header className="grid gap-2">
-        <h1 className="m-0 text-[40px] leading-none">Decisões</h1>
+        <h1 className="m-0 text-(length:--h1) leading-none">Decisões</h1>
         <p className="m-0 max-w-[72ch] text-[17px]">
           O que você decidiu sobre cada faixa, modelo ou imagem dos labs. Para decidir, abra o item na página do lab. As
           sessões leem estas decisões no arquivo <code className="bg-terra px-1 text-[15px]">data/decisoes.json</code>.

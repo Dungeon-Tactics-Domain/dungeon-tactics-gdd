@@ -157,9 +157,9 @@ export function Home() {
   const { fabrica } = useQuadro();
   const towns = townsOf(fabrica);
   return (
-    <main className="mx-auto grid max-w-[1440px] content-start gap-6 px-4 pt-6 pb-16">
+    <main className="mx-auto grid max-w-[1440px] content-start gap-6 px-(--margem) pt-6 pb-16">
       <header className="grid gap-1.5">
-        <h1 className="m-0 text-[40px] leading-none max-[700px]:text-[32px]">Reino dos Laboratórios</h1>
+        <h1 className="m-0 text-(length:--h1) leading-none">Reino dos Laboratórios</h1>
         <p className="m-0 text-[17px]">
           Cada lab é uma cidade; a Fábrica é o porto. Escolha uma cidade ou leia o quadro de avisos.
         </p>

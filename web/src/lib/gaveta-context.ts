@@ -1,9 +1,14 @@
 import { createContext, useContext } from 'react';
 
-/** The "☰ Labs" drawer: a lab page portals its own menu into `slot` on small screens, so there is one menu button only. */
+/**
+ * Where a lab page puts its own menu: the sidebar from 1024 px, the sheet below it. `slot` null = hidden right now
+ * (sheet closed); undefined = no shell around the page (tests), so the menu renders in place. `recolhida` = the sidebar
+ * is an icon rail.
+ */
 export interface Gaveta {
-  slot: HTMLElement | null;
+  slot: HTMLElement | null | undefined;
+  recolhida: boolean;
   fechar: () => void;
 }
-export const GavetaContext = createContext<Gaveta>({ slot: null, fechar: () => {} });
+export const GavetaContext = createContext<Gaveta>({ slot: undefined, recolhida: false, fechar: () => {} });
 export const useGaveta = () => useContext(GavetaContext);

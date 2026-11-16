@@ -27,9 +27,13 @@
   --font-serif: 'Cormorant Garamond', Georgia, serif;
   --font-sans: 'Karla', system-ui, sans-serif;
 
-  /* the shell's only breakpoint: below it, one "☰ Labs" drawer holds the lab links and the lab's own menu */
+  /* screen bands of the responsive redesign (design lab, 15/11): sm 640 and lg 1024 are Tailwind's own, plus 1440 and
+     2560. Below lg the labs sit in a bottom menu; from lg up, in the sidebar. desk (1100) stays for the labs' content. */
   --breakpoint-desk: 1100px;
+  --breakpoint-wide: 90rem;
+  --breakpoint-ultra: 160rem;
   --reino-h: 52px;
+  --nav-h: 64px;
 }
 
 /* shadcn/ui variables mapped onto the kingdom palette */
@@ -52,7 +56,40 @@
   /* lab accent: set per page from lib/labs.ts (cor, corSuave) */
   --lab: #5e5a48;
   --lab-soft: #ecebe3;
+  /* the shell's own colours, named apart so the design lab can retheme the header and sidebar by swapping these only */
+  --casca-topo: var(--color-tinta);
+  --casca-topo-texto: var(--color-sobre-tinta);
+  --casca-lateral: var(--color-folha);
+  --casca-borda: var(--lab);
+  --casca-titulo: var(--color-tinta);
+  /* page margin and title size per band (design lab, section 4) */
+  --margem: 16px;
+  --h1: 26px;
   scroll-padding-top: calc(var(--reino-h) + 8px);
+}
+@media (min-width: 640px) {
+  :root {
+    --margem: 24px;
+    --h1: 30px;
+  }
+}
+@media (min-width: 1024px) {
+  :root {
+    --margem: 32px;
+    --h1: 32px;
+  }
+}
+@media (min-width: 1440px) {
+  :root {
+    --margem: 40px;
+    --h1: 34px;
+  }
+}
+@media (min-width: 2560px) {
+  :root {
+    --margem: 48px;
+    --h1: 40px;
+  }
 }
 
 @theme inline {
@@ -71,6 +108,11 @@
   --color-ring: var(--ring);
   --color-lab: var(--lab);
   --color-lab-soft: var(--lab-soft);
+  --color-casca-topo: var(--casca-topo);
+  --color-casca-topo-texto: var(--casca-topo-texto);
+  --color-casca-lateral: var(--casca-lateral);
+  --color-casca-borda: var(--casca-borda);
+  --color-casca-titulo: var(--casca-titulo);
   --radius-sm: var(--radius);
   --radius-md: var(--radius);
   --radius-lg: var(--radius);
@@ -82,6 +124,17 @@
     font-size: 16px;
     line-height: 1.5;
     margin: 0;
+  }
+  /* body text 16 px up to the tablet, 17 from 1024, 18 on the ultrawide */
+  @media (min-width: 1024px) {
+    body {
+      font-size: 17px;
+    }
+  }
+  @media (min-width: 2560px) {
+    body {
+      font-size: 18px;
+    }
   }
   h1,
   h2,
@@ -108,6 +161,11 @@
 @keyframes gaveta {
   from {
     transform: translateX(-100%);
+  }
+}
+@keyframes sobe {
+  from {
+    transform: translateY(100%);
   }
 }
 @keyframes ping-dot {

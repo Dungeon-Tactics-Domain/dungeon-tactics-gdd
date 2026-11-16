@@ -48,7 +48,7 @@ export function Titulo({
     <h1
       ref={ref}
       tabIndex={-1}
-      className="m-0 flex items-baseline gap-3 text-[34px] leading-tight text-balance focus:outline-none max-[700px]:text-[28px]"
+      className="m-0 flex items-baseline gap-3 text-(length:--h1) leading-tight text-balance focus:outline-none"
     >
       <Icone i={icone} />
       {children}
