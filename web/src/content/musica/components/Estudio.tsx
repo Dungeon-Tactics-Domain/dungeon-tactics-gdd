@@ -1,7 +1,9 @@
 // Studio view of a track: one lane per instrument (controls on the left, that instrument's notes on the right), a bar ruler,
 // an overview strip to seek, and the live mixer. The sound is the pre-rendered stems (one .ogg per instrument) played together,
 // so it is the real render; "Tratada" puts a filter chain in the browser that approximates the ffmpeg treatment.
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { type ReactNode, useCallback, useEffect, useRef, useState } from 'react';
+import { Icone } from '@/components/layout/Icone';
+import { DICAS_SOM, DICAS_UI, funcaoDe } from './dicas';
 import { lerMidi, nomeNota, rotuloCanal, type Midi } from './midi';
 
 interface Stem {
@@ -18,10 +20,24 @@ interface Info {
 const CORES = ['#7a5523', '#7048e8', '#0c8599', '#2b8a3e', '#e8590c', '#c2255c', '#9c6b00', '#495057'];
 const LARGURA_ROTULOS = 230;
 const ALTURA_LINHA = 58;
+const ALTURA_LINHA_ESTREITA = 124; // a third row for the per-instrument sound menu on a phone
 const ALTURA_REGUA = 26;
 const JANELA = 24; // seconds visible in the lanes
 const BEATS_POR_COMPASSO = 4;
 const ALTURA_RESUMO = 34;
+
+const CHAVE_PRESETS = 'dt:lab:presets-som';
+// saved presets: name -> (instrument key -> sound name). The key is the General MIDI program ("drums" for the kit), so a preset
+// made on one piece applies to any other that uses the same instruments.
+const lerPresets = (): Record<string, Record<string, string>> => {
+  try {
+    const v: unknown = JSON.parse(localStorage.getItem(CHAVE_PRESETS) ?? '{}');
+    return v && typeof v === 'object' && !Array.isArray(v) ? (v as Record<string, Record<string, string>>) : {};
+  } catch {
+    return {};
+  }
+};
+const chaveInstr = (s: Stem) => (s.canal === 10 ? 'drums' : String(s.programa));
 
 const mmss = (s: number) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
 
@@ -38,11 +54,23 @@ export function Estudio({
   midiSrc,
   tratadaInicial,
   chave,
+  musica,
+  sfs,
+  descricao,
+  papeis,
 }: {
   base: string;
   midiSrc: string;
   tratadaInicial: boolean;
   chave: string; // same for every sound version of one track
+  musica?: {
+    opcoes: { valor: string; rotulo: string; familia: string; dica?: string }[];
+    atual: string;
+    aoTrocar: (v: string) => void;
+  };
+  sfs?: { rotulo: string; stems: string }[]; // the sounds (soundfonts) the piece has stems for; the first is the default
+  descricao?: ReactNode; // the text about the selected piece, shown inside the studio
+  papeis?: Partial<Record<string, string>>; // why each instrument is in this piece, by channel number (1-based)
 }) {
   const retomada = useRef<Retomada>(undefined); // read once the previous version's cleanup has run
   const dir = `/content/musica/stems/${base}`;
@@ -54,6 +82,23 @@ export function Estudio({
   const [solo, setSolo] = useState<Set<number>>(new Set());
   const [tratada, setTratada] = useState(tratadaInicial);
   const [geral, setGeral] = useState(1);
+  const consulta =
+    typeof window !== 'undefined' && typeof window.matchMedia === 'function'
+      ? window.matchMedia('(max-width: 639px)')
+      : null;
+  const [estreito, setEstreito] = useState(consulta?.matches ?? false);
+  useEffect(() => {
+    const f = () => setEstreito(consulta?.matches ?? false);
+    consulta?.addEventListener('change', f);
+    return () => consulta?.removeEventListener('change', f);
+  }, [consulta]);
+  const linha = sfs && sfs.length > 1 && estreito ? ALTURA_LINHA_ESTREITA : ALTURA_LINHA;
+  const [preset, setPreset] = useState('sf:0'); // 'sf:<i>' (one soundfont everywhere), 'u:<name>' (saved) or 'custom'
+  const [atrib, setAtrib] = useState<Record<number, number>>({}); // channel -> index in sfs
+  const [disp, setDisp] = useState<Set<number>[]>([]); // channels each sound has stems for
+  const [usuario, setUsuario] = useState<Record<string, Record<string, string>>>(lerPresets);
+  const cache = useRef(new Map<string, AudioBuffer>());
+  const carregado = useRef<number[]>([]); // which sound each playing stem was loaded from
   const [agora, setAgora] = useState(0);
   const ctx = useRef<AudioContext | null>(null);
   const buffers = useRef<AudioBuffer[]>([]);
@@ -76,6 +121,14 @@ export function Estudio({
       .then((r) => (r.ok ? (r.json() as Promise<Info>) : Promise.reject(new Error(String(r.status)))))
       .then((i) => vivo && setInfo(i))
       .catch(() => vivo && setInfo(null));
+    Promise.all(
+      (sfs ?? []).map((sf) =>
+        fetch(`/content/musica/stems/${sf.stems}/stems.json`)
+          .then((r) => (r.ok ? (r.json() as Promise<Info>) : Promise.reject(new Error(String(r.status)))))
+          .then((i) => new Set(i.stems.map((x) => x.canal)))
+          .catch(() => new Set<number>()),
+      ),
+    ).then((d) => vivo && setDisp(d));
     fetch(midiSrc)
       .then((r) => (r.ok ? r.arrayBuffer() : Promise.reject(new Error(String(r.status)))))
       .then((b) => vivo && setMidi(lerMidi(b)))
@@ -92,7 +145,7 @@ export function Estudio({
         });
       void c?.close();
     };
-  }, [dir, midiSrc, chave]);
+  }, [dir, midiSrc, chave]); // eslint-disable-line react-hooks/exhaustive-deps -- sfs is rebuilt every render; its stems follow base
 
   const posicao = useCallback(() => {
     const c = ctx.current;
@@ -156,6 +209,51 @@ export function Estudio({
     inicio.current = t0 - de;
   }, []);
 
+  const atribRef = useRef(atrib);
+  useEffect(() => {
+    atribRef.current = atrib;
+  });
+  const buf = useCallback(
+    async (c: AudioContext, sf: number, canal: number) => {
+      const k = `${sf}:${canal}`;
+      const feito = cache.current.get(k);
+      if (feito) return feito;
+      const d = `/content/musica/stems/${sfs?.[sf]?.stems ?? base}`;
+      const b = await c.decodeAudioData(await (await fetch(`${d}/${canal - 1}.ogg`)).arrayBuffer());
+      cache.current.set(k, b);
+      return b;
+    },
+    [sfs, base],
+  );
+
+  // a channel changed sound while playing: load that stem and swap only its source, at the current position
+  useEffect(() => {
+    const c = ctx.current;
+    const stems = live.current.info?.stems;
+    if (!c || !stems) return;
+    stems.forEach((s, i) => {
+      const quer = atrib[s.canal] ?? 0;
+      if (carregado.current[i] === undefined || carregado.current[i] === quer) return;
+      carregado.current[i] = quer;
+      void buf(c, quer, s.canal).then((b) => {
+        buffers.current[i] = b;
+        const velha = fontes.current[i];
+        if (!velha) return;
+        try {
+          velha.stop();
+        } catch {
+          /* already stopped */
+        }
+        const src = c.createBufferSource();
+        src.buffer = b;
+        src.loop = true;
+        src.connect(ganhos.current.get(s.canal - 1)!);
+        src.start(c.currentTime + 0.03, posicao());
+        fontes.current[i] = src;
+      });
+    });
+  }, [atrib, buf, posicao]);
+
   const tocar = async () => {
     if (estado === 'carregando') return;
     try {
@@ -167,9 +265,8 @@ export function Estudio({
       if (!info) return;
       setEstado('carregando');
       const c = new AudioContext();
-      buffers.current = await Promise.all(
-        info.stems.map(async (s) => c.decodeAudioData(await (await fetch(`${dir}/${s.canal - 1}.ogg`)).arrayBuffer())),
-      );
+      carregado.current = info.stems.map((s) => atribRef.current[s.canal] ?? 0);
+      buffers.current = await Promise.all(info.stems.map((s, i) => buf(c, carregado.current[i]!, s.canal)));
       const entrada = c.createGain();
       const hp = c.createBiquadFilter();
       hp.type = 'highpass';
@@ -219,6 +316,47 @@ export function Estudio({
     return n;
   };
 
+  const usaSom = (i: number, canal: number) => (i === 0 ? 0 : disp[i]?.has(canal) ? i : 0);
+  const aplicar = (v: string) => {
+    setPreset(v);
+    if (v === 'custom' || !info) return;
+    const n: Record<number, number> = {};
+    for (const st of info.stems) {
+      if (v.startsWith('sf:')) n[st.canal] = usaSom(Number(v.slice(3)), st.canal);
+      else {
+        const nome = usuario[v.slice(2)]?.[chaveInstr(st)];
+        n[st.canal] = usaSom(Math.max(0, sfs?.findIndex((x) => x.rotulo === nome) ?? 0), st.canal);
+      }
+    }
+    setAtrib(n);
+  };
+  const trocarCanal = (canal: number, i: number) => {
+    setAtrib({ ...atrib, [canal]: i });
+    setPreset('custom');
+  };
+  const gravarPresets = (novo: Record<string, Record<string, string>>) => {
+    setUsuario(novo);
+    try {
+      localStorage.setItem(CHAVE_PRESETS, JSON.stringify(novo));
+    } catch {
+      /* private window: the preset lasts until the page closes */
+    }
+  };
+  const salvarPreset = () => {
+    const nome = window.prompt('Nome do novo preset de som (guarda o som de cada instrumento):')?.trim();
+    if (!nome || !info || !sfs) return;
+    const mapa: Record<string, string> = {};
+    for (const st of info.stems) mapa[chaveInstr(st)] = sfs[atrib[st.canal] ?? 0]?.rotulo ?? '';
+    gravarPresets({ ...usuario, [nome]: mapa });
+    setPreset(`u:${nome}`);
+  };
+  const excluirPreset = () => {
+    const resto = { ...usuario };
+    delete resto[preset.slice(2)];
+    gravarPresets(resto);
+    aplicar('sf:0');
+  };
+
   const retomou = useRef(false);
   useEffect(() => {
     if (!info || retomou.current) return;
@@ -258,7 +396,7 @@ export function Estudio({
     const gr = r.getContext('2d')!;
     const dpr = window.devicePixelRatio || 1;
     const nL = canais.length;
-    const H = ALTURA_REGUA + nL * ALTURA_LINHA;
+    const H = ALTURA_REGUA + nL * linha;
     const ps = midi.notas.map((n) => n.p);
     const faixa = (ch: number) => {
       const p = midi.notas.filter((n) => n.ch === ch).map((n) => n.p);
@@ -301,16 +439,16 @@ export function Estudio({
         }
       }
       canais.forEach((ch, i) => {
-        const y0 = ALTURA_REGUA + i * ALTURA_LINHA;
+        const y0 = ALTURA_REGUA + i * linha;
         const calado = m.has(ch) || (so.size > 0 && !so.has(ch)) || (v[ch] ?? 1) === 0;
         g.fillStyle = i % 2 ? '#e9dab8' : '#fbf5e6';
-        g.fillRect(0, y0, w, ALTURA_LINHA);
+        g.fillRect(0, y0, w, linha);
         g.fillStyle = '#d8c8a0';
-        g.fillRect(0, y0 + ALTURA_LINHA - 1, w, 1);
+        g.fillRect(0, y0 + linha - 1, w, 1);
         const [pMin, pMax] = limites.get(ch)!;
         const span = Math.max(12, pMax - pMin + 2);
-        const alt = Math.max(3, Math.min(8, (ALTURA_LINHA - 10) / span));
-        const py = (p: number) => y0 + ALTURA_LINHA - 5 - ((p - pMin + 1) / span) * (ALTURA_LINHA - 10);
+        const alt = Math.max(3, Math.min(8, (linha - 10) / span));
+        const py = (p: number) => y0 + linha - 5 - ((p - pMin + 1) / span) * (linha - 10);
         g.fillStyle = CORES[i % CORES.length]!;
         for (const n of midi.notas) {
           if (n.ch !== ch || n.fim < ini || n.t > ini + JANELA) continue;
@@ -360,9 +498,8 @@ export function Estudio({
     raf = requestAnimationFrame(quadro);
     return () => cancelAnimationFrame(raf);
     // canais is derived from info; the loop reads everything else from refs
-  }, [info, midi, posicao, seg, total]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [info, midi, posicao, seg, total, linha]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  if (!info) return null;
   const ativas = (ch: number) => {
     if (!midi) return '';
     const vivas = midi.notas.filter((n) => n.ch === ch && n.t <= agora && agora < n.fim).map((n) => nomeNota(n.p));
@@ -383,12 +520,99 @@ export function Estudio({
       aria-label="Estúdio"
       className="grid gap-0 overflow-hidden rounded-md border border-ouro bg-pergaminho text-tinta"
     >
+      <div className="flex flex-wrap items-center gap-x-6 gap-y-2 border-b border-ouro bg-pergaminho-escuro px-4 py-2">
+        {musica && (
+          <label className="flex flex-wrap items-center gap-2" title={DICAS_UI.musica}>
+            <span className="text-apagado">Música:</span>
+            <select
+              value={musica.atual}
+              onChange={(e) => musica.aoTrocar(e.target.value)}
+              className="min-h-11 max-w-full rounded border border-ouro bg-folha px-2"
+            >
+              {[...new Set(musica.opcoes.map((o) => o.familia))].map((f) => (
+                <optgroup key={f} label={f}>
+                  {musica.opcoes
+                    .filter((o) => o.familia === f)
+                    .map((o) => (
+                      <option key={o.valor} value={o.valor} title={o.dica}>
+                        {o.rotulo}
+                      </option>
+                    ))}
+                </optgroup>
+              ))}
+            </select>
+          </label>
+        )}
+        {sfs && sfs.length > 1 && (
+          <div className="flex flex-wrap items-center gap-2">
+            <label className="flex flex-wrap items-center gap-2" title={DICAS_UI.som}>
+              <span className="text-apagado">Som:</span>
+              <select
+                value={preset}
+                onChange={(e) => aplicar(e.target.value)}
+                className="min-h-11 rounded border border-ouro bg-folha px-2"
+              >
+                <optgroup label="Um som em todos os instrumentos">
+                  {sfs.map((sf, i) => (
+                    <option key={sf.rotulo} value={`sf:${i}`} title={DICAS_SOM[sf.rotulo]}>
+                      {sf.rotulo}
+                    </option>
+                  ))}
+                </optgroup>
+                {Object.keys(usuario).length > 0 && (
+                  <optgroup label="Meus presets">
+                    {Object.keys(usuario).map((n) => (
+                      <option key={n} value={`u:${n}`}>
+                        {n}
+                      </option>
+                    ))}
+                  </optgroup>
+                )}
+                {preset === 'custom' && <option value="custom">Personalizado</option>}
+              </select>
+            </label>
+            <button
+              onClick={salvarPreset}
+              title={DICAS_UI.salvar}
+              className="inline-flex min-h-11 items-center gap-2 rounded border border-ouro bg-folha px-3"
+            >
+              <Icone id="salvar" /> Salvar preset
+            </button>
+            {preset.startsWith('u:') && (
+              <button
+                onClick={excluirPreset}
+                title={DICAS_UI.excluir}
+                className="inline-flex min-h-11 items-center gap-2 rounded border border-ouro bg-folha px-3"
+              >
+                <Icone id="excluir" /> Excluir
+              </button>
+            )}
+          </div>
+        )}
+        <label className="flex flex-wrap items-center gap-2" title={DICAS_UI.acabamento}>
+          <span className="text-apagado">Acabamento:</span>
+          <select
+            value={tratada ? 'tratada' : 'original'}
+            onChange={(e) => setTratada(e.target.value === 'tratada')}
+            className="min-h-11 rounded border border-ouro bg-folha px-2"
+          >
+            <option value="tratada" title={DICAS_UI.tratada}>
+              Tratada
+            </option>
+            <option value="original" title={DICAS_UI.original}>
+              Original
+            </option>
+          </select>
+        </label>
+      </div>
       <div className="flex flex-wrap items-center gap-4 border-b border-ouro bg-folha px-4 py-3">
         <button
+          title={DICAS_UI.tocar}
           onClick={estado === 'tocando' ? pausar : tocar}
           disabled={estado === 'carregando'}
-          className="h-11 min-w-28 rounded bg-couro px-4 font-bold text-creme disabled:opacity-60"
+          className="inline-flex h-11 min-w-28 items-center justify-center gap-2 rounded bg-couro px-4 font-bold text-creme disabled:opacity-60"
         >
+          {estado !== 'carregando' && <Icone id={estado === 'tocando' ? 'pausar' : 'tocar'} />}
           {estado === 'tocando' ? 'Pausar' : estado === 'carregando' ? 'Carregando…' : 'Tocar'}
         </button>
         <span className="tabular-nums" aria-live="off">
@@ -398,7 +622,7 @@ export function Estudio({
           compasso {Math.min(Math.floor(agora / seg) + 1, Math.round(total / seg))} de {Math.round(total / seg)}
         </span>
         <span className="tabular-nums text-apagado">{Math.round(bpm)} bpm</span>
-        <label className="flex items-center gap-2 text-apagado sm:ml-auto">
+        <label className="flex items-center gap-2 text-apagado sm:ml-auto" title={DICAS_UI.geral}>
           Volume geral
           <input
             type="range"
@@ -411,102 +635,134 @@ export function Estudio({
           />
           <span className="w-10 tabular-nums">{Math.round(geral * 100)}%</span>
         </label>
-        <div className="flex overflow-hidden rounded border border-ouro" role="group" aria-label="Versão do som">
-          {(
-            [
-              [false, 'Original'],
-              [true, 'Tratada'],
-            ] as const
-          ).map(([v, rotulo]) => (
-            <button
-              key={rotulo}
-              aria-pressed={tratada === v}
-              onClick={() => setTratada(v)}
-              className={`h-11 px-4 ${tratada === v ? 'bg-couro font-bold text-creme' : 'bg-folha'}`}
-            >
-              {rotulo}
-            </button>
-          ))}
-        </div>
         {estado === 'erro' && <span className="text-erro">Não consegui carregar os instrumentos.</span>}
       </div>
-      <div className="grid" style={{ gridTemplateColumns: `clamp(150px, 28vw, ${LARGURA_ROTULOS}px) 1fr` }}>
-        <div className="flex items-center border-b border-r border-ouro bg-folha px-3 text-[13px] text-apagado">
-          Visão geral
-        </div>
-        <canvas
-          ref={resumo}
-          onClick={(e) => clicar(e, 'resumo')}
-          className="block w-full cursor-pointer border-b border-ouro"
-          style={{ height: ALTURA_RESUMO }}
-          aria-label="Visão geral da música: clique para ir a esse ponto"
-        />
-        <div className="border-r border-ouro bg-folha" style={{ height: ALTURA_REGUA, gridColumn: 1, gridRow: 2 }} />
-        <div className="relative row-span-1" style={{ gridColumn: 2, gridRow: '2 / span 2' }}>
-          <canvas
-            ref={tela}
-            onClick={(e) => clicar(e, 'lanes')}
-            className="block w-full cursor-pointer"
-            style={{ height: ALTURA_REGUA + canais.length * ALTURA_LINHA }}
-            aria-label="Notas de cada instrumento: clique para ir a esse ponto"
-          />
-        </div>
-        <div style={{ gridColumn: 1, gridRow: 3 }}>
-          {info.stems.map((s, i) => {
-            const ch = s.canal - 1;
-            const calado = mudo.has(ch) || (solo.size > 0 && !solo.has(ch));
-            return (
-              <div
-                key={ch}
-                className={`grid content-center gap-1 border-b border-r border-ouro px-3 ${i % 2 ? 'bg-pergaminho-escuro' : 'bg-folha'}`}
-                style={{ height: ALTURA_LINHA, opacity: calado ? 0.55 : 1 }}
-              >
-                <div className="flex items-center gap-2">
-                  <span className="size-3 shrink-0 rounded-sm" style={{ background: CORES[i % CORES.length] }} />
-                  <span className="truncate text-[14px] font-bold" title={rotuloCanal(ch, s.programa ?? undefined)}>
-                    {s.nome}
-                  </span>
-                  <span className="ml-auto hidden truncate text-[12px] tabular-nums text-apagado sm:inline">
-                    {ativas(ch)}
-                  </span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <input
-                    type="range"
-                    min={0}
-                    max={1.5}
-                    step={0.05}
-                    value={vol[ch] ?? 1}
-                    aria-label={`Volume: ${s.nome}`}
-                    onChange={(e) => setVol({ ...vol, [ch]: Number(e.target.value) })}
-                    className="h-11 w-0 min-w-0 flex-1 accent-ouro sm:h-4"
-                  />
-                  <button
-                    onClick={() => setMudo(alterna(mudo, ch))}
-                    aria-pressed={mudo.has(ch)}
-                    title="Mudo"
-                    className={`size-11 rounded text-[12px] font-bold sm:size-7 ${mudo.has(ch) ? 'bg-erro text-white' : 'border border-ouro bg-folha'}`}
+      {info && (
+        <>
+          <div className="grid" style={{ gridTemplateColumns: `clamp(150px, 28vw, ${LARGURA_ROTULOS}px) 1fr` }}>
+            <div
+              className="flex items-center border-b border-r border-ouro bg-folha px-3 text-[13px] text-apagado"
+              title={DICAS_UI.visao}
+            >
+              Visão geral
+            </div>
+            <canvas
+              ref={resumo}
+              onClick={(e) => clicar(e, 'resumo')}
+              className="block w-full cursor-pointer border-b border-ouro"
+              style={{ height: ALTURA_RESUMO }}
+              aria-label="Visão geral da música: clique para ir a esse ponto"
+            />
+            <div
+              className="border-r border-ouro bg-folha"
+              style={{ height: ALTURA_REGUA, gridColumn: 1, gridRow: 2 }}
+            />
+            <div className="relative row-span-1" style={{ gridColumn: 2, gridRow: '2 / span 2' }}>
+              <canvas
+                ref={tela}
+                onClick={(e) => clicar(e, 'lanes')}
+                className="block w-full cursor-pointer"
+                style={{ height: ALTURA_REGUA + canais.length * linha }}
+                aria-label="Notas de cada instrumento: clique para ir a esse ponto"
+              />
+            </div>
+            <div style={{ gridColumn: 1, gridRow: 3 }}>
+              {info.stems.map((s, i) => {
+                const ch = s.canal - 1;
+                const calado = mudo.has(ch) || (solo.size > 0 && !solo.has(ch));
+                return (
+                  <div
+                    key={ch}
+                    className={`grid content-center gap-1 border-b border-r border-ouro px-3 ${i % 2 ? 'bg-pergaminho-escuro' : 'bg-folha'}`}
+                    style={{ height: linha, opacity: calado ? 0.55 : 1 }}
                   >
-                    M
-                  </button>
-                  <button
-                    onClick={() => setSolo(alterna(solo, ch))}
-                    aria-pressed={solo.has(ch)}
-                    title="Solo"
-                    className={`size-11 rounded text-[12px] font-bold sm:size-7 ${solo.has(ch) ? 'bg-ouro-claro text-tinta' : 'border border-ouro bg-folha'}`}
-                  >
-                    S
-                  </button>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-      <p className="m-0 border-t border-ouro bg-folha px-4 py-2 text-[13px] text-apagado">
-        M silencia, S toca só aquele instrumento, espaço toca e pausa, clique nas notas ou na visão geral para ir a um
-        ponto. Tratada é uma aproximação feita no navegador, não o arquivo do ffmpeg.
-      </p>
+                    <div className="flex items-center gap-2">
+                      <span className="size-3 shrink-0 rounded-sm" style={{ background: CORES[i % CORES.length] }} />
+                      <span
+                        className="truncate text-[14px] font-bold"
+                        title={`${rotuloCanal(ch, s.programa ?? undefined)}. ${funcaoDe(s.programa, s.canal)}${papeis?.[String(s.canal)] ? ` Nesta faixa: ${papeis[String(s.canal)]}` : ''}`}
+                      >
+                        {s.nome}
+                      </span>
+                      <span className="ml-auto hidden truncate text-[12px] tabular-nums text-apagado lg:inline">
+                        {ativas(ch)}
+                      </span>
+                      {sfs && sfs.length > 1 && (
+                        <select
+                          aria-label={`Som de ${s.nome}`}
+                          title={DICAS_UI.somInstrumento}
+                          value={atrib[s.canal] ?? 0}
+                          onChange={(e) => trocarCanal(s.canal, Number(e.target.value))}
+                          className="hidden h-6 max-w-[112px] rounded border border-ouro bg-folha px-1 text-[12px] sm:ml-auto sm:block lg:ml-0"
+                        >
+                          {sfs.map((sf, i) =>
+                            i === 0 || disp[i]?.has(s.canal) ? (
+                              <option key={sf.rotulo} value={i}>
+                                {sf.rotulo}
+                              </option>
+                            ) : null,
+                          )}
+                        </select>
+                      )}
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="range"
+                        min={0}
+                        max={1.5}
+                        step={0.05}
+                        value={vol[ch] ?? 1}
+                        aria-label={`Volume: ${s.nome}`}
+                        title={DICAS_UI.volume}
+                        onChange={(e) => setVol({ ...vol, [ch]: Number(e.target.value) })}
+                        className="h-11 w-0 min-w-0 flex-1 accent-ouro sm:h-4"
+                      />
+                      <button
+                        onClick={() => setMudo(alterna(mudo, ch))}
+                        aria-pressed={mudo.has(ch)}
+                        title={DICAS_UI.mudo}
+                        className={`flex size-11 items-center justify-center rounded text-[12px] font-bold sm:size-7 ${mudo.has(ch) ? 'bg-erro text-white' : 'border border-ouro bg-folha'}`}
+                      >
+                        <Icone id="mudo" className="size-4 flex-none" aria-label="Mudo" />
+                      </button>
+                      <button
+                        onClick={() => setSolo(alterna(solo, ch))}
+                        aria-pressed={solo.has(ch)}
+                        title={DICAS_UI.solo}
+                        className={`flex size-11 items-center justify-center rounded text-[12px] font-bold sm:size-7 ${solo.has(ch) ? 'bg-ouro-claro text-tinta' : 'border border-ouro bg-folha'}`}
+                      >
+                        <Icone id="solo" className="size-4 flex-none" aria-label="Solo" />
+                      </button>
+                    </div>
+                    {sfs && sfs.length > 1 && (
+                      <select
+                        aria-label={`Som de ${s.nome}`}
+                        title={DICAS_UI.somInstrumento}
+                        value={atrib[s.canal] ?? 0}
+                        onChange={(e) => trocarCanal(s.canal, Number(e.target.value))}
+                        className="h-11 w-full rounded border border-ouro bg-folha px-1 text-[13px] sm:hidden"
+                      >
+                        {sfs.map((sf, i) =>
+                          i === 0 || disp[i]?.has(s.canal) ? (
+                            <option key={sf.rotulo} value={i}>
+                              {sf.rotulo}
+                            </option>
+                          ) : null,
+                        )}
+                      </select>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+          <p className="m-0 border-t border-ouro bg-folha px-4 py-2 text-[13px] text-apagado">
+            M silencia, S toca só aquele instrumento, espaço toca e pausa, clique nas notas ou na visão geral para ir a
+            um ponto. Tratada é uma aproximação feita no navegador, não o arquivo do ffmpeg.
+          </p>
+        </>
+      )}
+      {descricao && <div className="grid gap-4 border-t border-ouro bg-folha px-4 py-4">{descricao}</div>}
     </section>
   );
 }

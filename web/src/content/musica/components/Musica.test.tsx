@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
-import { Checagens, FaixaMusica, Referencias, Texto } from './Musica';
+import { Checagens, EstiloMusica, FaixaMusica, Referencias, Texto } from './Musica';
 
 vi.mock('@/lib/recursos', () => ({ DECISOES_ATIVAS: true }));
 
@@ -12,9 +12,8 @@ describe('music lab', () => {
     expect(container.querySelectorAll('li')).toHaveLength(2);
   });
 
-  it('shows a track with its audio and its sections inside the "about" panel, with no rating', () => {
+  it('shows a track with its sections inside the studio, with no rating', () => {
     render(<FaixaMusica pagina="batalha" faixa="batalha-c" />);
-    expect(screen.getByText('Sobre esta faixa')).toBeInTheDocument();
     expect(screen.getAllByRole('heading', { level: 3 }).map((h) => h.textContent)).toEqual([
       'Quem fez',
       'Resumo',
@@ -47,5 +46,13 @@ describe('music lab', () => {
     expect(screen.getByRole('link', { name: /busca por outras faixas/ })).toHaveAttribute('target', '_blank');
     expect(screen.getAllByText('○ Pendente')).toHaveLength(3);
     expect(screen.getAllByText('✓ Feito')).toHaveLength(4);
+  });
+
+  it('gathers a style in one page: a Música menu with every family and the description of the chosen piece', () => {
+    render(<EstiloMusica estilo="cidade" />);
+    const menu = screen.getByRole('combobox', { name: /Música/ });
+    const grupos = [...menu.querySelectorAll('optgroup')].map((g) => g.getAttribute('label'));
+    expect(grupos.length).toBeGreaterThanOrEqual(3);
+    expect(menu.querySelectorAll('option').length).toBeGreaterThan(8);
   });
 });

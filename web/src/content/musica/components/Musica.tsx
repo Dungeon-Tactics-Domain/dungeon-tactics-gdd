@@ -35,6 +35,7 @@ export interface Faixa {
   critica?: string;
   secoes?: Secao[];
   exemplo?: boolean;
+  papeis?: Partial<Record<string, string>>; // channel number (1-based) -> why that instrument is in this piece
 }
 interface Checagem {
   texto: string;
@@ -49,7 +50,10 @@ export interface PaginaMusica {
   checagens?: Checagem[];
 }
 
-export const PAGINAS: Record<'batalha' | 'pastoral' | 'trisection' | 'tema-dark' | 'jingles' | 'bof4' | 'pastoral-rica', PaginaMusica> = {
+export const PAGINAS: Record<
+  'batalha' | 'pastoral' | 'trisection' | 'tema-dark' | 'jingles' | 'bof4' | 'pastoral-rica',
+  PaginaMusica
+> = {
   batalha,
   pastoral,
   trisection,
@@ -305,46 +309,159 @@ export function Referencias({ pagina: id }: { pagina: IdPagina }) {
   );
 }
 
-export function FaixaMusica({ pagina: id, faixa }: { pagina: IdPagina; faixa: string }) {
+// one entry of the Música menu: a piece of one of the data pages, grouped by family
+export interface ItemMusica {
+  valor: string;
+  pagina: IdPagina;
+  faixa: string;
+  rotulo: string;
+  familia: string;
+}
+export interface SeletorMusica {
+  opcoes: ItemMusica[];
+  atual: string;
+  aoTrocar: (v: string) => void;
+}
+
+// the tracks one data page offers in its menu: the "-t", "-tfg" and "-cru" twins are the same notes in another render
+const noMenu = (grupo: string, faixa: string) =>
+  grupo === 'tema-dark'
+    ? !/-cru$|^dark-v1/.test(faixa) || /^dark-v1-(principal|intenso)$/.test(faixa)
+    : grupo === 'batalha' || grupo === 'pastoral'
+      ? !/-(t|tfg|tfg-t)$/.test(faixa)
+      : grupo === 'trisection'
+        ? !/^ref-trisection-midi-(fa-|transcricao)|-cru$/.test(faixa)
+        : true;
+
+// menu line: letter, invented name and who composed it (read from the "Quem fez" section), e.g. "F · Cantiga do Moinho · Haiku low"
+const rotuloFaixa = (grupo: string, t: Faixa) => {
+  const quem = t.secoes?.[0]?.texto.match(/Modelo e esforço:\*\* (\w+) [\d.]+ · esforço \*\*(\w+)\*\*/);
+  const partes = t.titulo.split(' · ');
+  const nome =
+    grupo === 'jingles'
+      ? t.titulo.replace(/ \(.*\)$/, '')
+      : grupo === 'tema-dark'
+        ? partes[0] + (t.id.includes('-v1-') ? ' (v1)' : '')
+        : partes.slice(1, 3).join(' · ');
+  return quem && (grupo === 'tema-dark' || grupo === 'batalha' || grupo === 'pastoral' || grupo === 'jingles')
+    ? `${nome} · ${quem[1]} ${quem[2]}`
+    : t.titulo.replace(' com a soundfont Tactical Fantasy Guy', ' (TFG)');
+};
+
+// the three style pages: each gathers several data pages into one studio with a Música menu
+export type Estilo = 'cidade' | 'batalha' | 'jingles';
+const ESTILOS: Record<Estilo, { pagina: IdPagina; familia: string }[]> = {
+  cidade: [
+    { pagina: 'pastoral', familia: 'Pastoral A–F' },
+    { pagina: 'pastoral-rica', familia: 'Pastoral rica (a da cidade no jogo é a B)' },
+    { pagina: 'bof4', familia: 'Referências de estudo (BoF4 e Chrono Cross)' },
+  ],
+  batalha: [
+    { pagina: 'batalha', familia: 'Batalha A–F' },
+    { pagina: 'tema-dark', familia: 'Tema dark (batalha do jogo)' },
+    { pagina: 'trisection', familia: 'Referências' },
+  ],
+  jingles: [{ pagina: 'jingles', familia: 'Jingles' }],
+};
+export const itensDe = (estilo: Estilo): ItemMusica[] =>
+  ESTILOS[estilo].flatMap(({ pagina: pg, familia }) =>
+    faixasDe(PAGINAS[pg])
+      .filter((t) => noMenu(pg, t.id))
+      .map((t) => ({ valor: `${pg}/${t.id}`, pagina: pg, faixa: t.id, rotulo: rotuloFaixa(pg, t), familia })),
+  );
+
+export function EstiloMusica({ estilo }: { estilo: Estilo }) {
+  const itens = itensDe(estilo);
+  const [valor, setValor] = useState(() => {
+    const pedido = new URLSearchParams(window.location.search).get('m');
+    return itens.some((i) => i.valor === pedido) ? pedido! : itens[0]!.valor;
+  });
+  const item = itens.find((i) => i.valor === valor) ?? itens[0]!;
+  const trocar = (v: string) => {
+    setValor(v);
+    try {
+      window.history.replaceState(null, '', `${window.location.pathname}?m=${encodeURIComponent(v)}`);
+    } catch {
+      /* the address is only a convenience */
+    }
+  };
+  return (
+    <FaixaMusica
+      key={item.valor}
+      pagina={item.pagina}
+      faixa={item.faixa}
+      musica={{ opcoes: itens, atual: item.valor, aoTrocar: trocar }}
+    />
+  );
+}
+
+export function FaixaMusica({
+  pagina: id,
+  faixa,
+  musica,
+}: {
+  pagina: IdPagina;
+  faixa: string;
+  musica?: SeletorMusica;
+}) {
   const t = pagina(id)?.faixas?.find((f) => f.id === faixa);
-  const [versao, setVersao] = useState(() => versoesDe(faixa)?.atual ?? 0);
   if (!t) return <p className="m-0 text-erro">Faixa desconhecida: {faixa}.</p>;
-  // one track, several sounds: the page switches in place (batalha-a and batalha-a-tfg; the Trisection fan MIDI per soundfont)
+  // one piece, several sounds: the studio switches them in place (the "-t" and "-tfg" pages are only other sounds of the same notes)
   const grupo = versoesDe(t.id);
-  const alvo = grupo ? (pagina(id)?.faixas?.find((f) => f.id === grupo.opcoes[versao]?.faixa) ?? t) : t;
-  const stems = grupo ? grupo.opcoes[versao]?.stems : stemsDe(t.id);
+  const sfs = grupo?.opcoes.flatMap((o) =>
+    o.stems && o.rotulo !== 'Transcrição do áudio' ? [{ rotulo: o.rotulo, stems: o.stems }] : [],
+  );
+  const stems = grupo ? grupo.opcoes[0]?.stems : stemsDe(t.id);
   const midi = stems ?? midiDe(t.id);
-  const secoes = secoesDe(alvo);
+  const secoes = secoesDe(t);
+  const descricao =
+    secoes.length > 0
+      ? secoes.map((sc) => (
+          <section key={sc.titulo} className="grid gap-2">
+            <h3 className="m-0 text-[19px] leading-tight">{sc.titulo}</h3>
+            <Texto texto={sc.texto} />
+          </section>
+        ))
+      : undefined;
   return (
     <>
       <Selo ligado={t.exemplo} />
-      {grupo && (
-        <div className="flex flex-wrap items-center gap-3" role="group" aria-label="Som">
-          <span className="text-apagado">Som:</span>
-          {grupo.opcoes.map((o, k) => (
-            <button
-              key={o.rotulo}
-              aria-pressed={versao === k}
-              onClick={() => setVersao(k)}
-              className={`min-h-11 rounded border border-traco px-3 ${versao === k ? 'bg-lab font-bold text-white' : 'bg-white'}`}
-            >
-              {o.rotulo}
-            </button>
-          ))}
-        </div>
-      )}
       {stems && midi ? (
         <Estudio
           key={stems}
           base={stems}
           midiSrc={`/content/musica/midi/${midi}.mid`}
-          tratadaInicial={
-            t.id.startsWith('ref-trisection') ? !t.id.endsWith('-cru') : /-t$|^dark-(principal|intenso)$|^pastoral-rica-/.test(t.id)
-          }
-          chave={grupo?.raiz ?? t.id}
+          tratadaInicial={!t.id.endsWith('-cru')}
+          chave={t.id}
+          musica={musica}
+          sfs={sfs}
+          descricao={descricao}
+          papeis={t.papeis}
         />
       ) : (
         <>
+          {musica && (
+            <label className="flex flex-wrap items-center gap-2">
+              <span className="text-apagado">Música:</span>
+              <select
+                value={musica.atual}
+                onChange={(e) => musica.aoTrocar(e.target.value)}
+                className="min-h-11 max-w-full rounded border border-ouro bg-folha px-2"
+              >
+                {[...new Set(musica.opcoes.map((o) => o.familia))].map((f) => (
+                  <optgroup key={f} label={f}>
+                    {musica.opcoes
+                      .filter((o) => o.familia === f)
+                      .map((o) => (
+                        <option key={o.valor} value={o.valor}>
+                          {o.rotulo}
+                        </option>
+                      ))}
+                  </optgroup>
+                ))}
+              </select>
+            </label>
+          )}
           <Player src={t.audio && `/content/musica/${t.audio}`} titulo={t.titulo} />
           {midi && (
             <>
@@ -363,20 +480,13 @@ export function FaixaMusica({ pagina: id, faixa }: { pagina: IdPagina; faixa: st
               </details>
             </>
           )}
+          {descricao && (
+            <details open className="rounded-md border border-traco bg-white/40 px-4 py-2">
+              <summary className="min-h-11 cursor-pointer py-2 font-bold">Sobre esta faixa</summary>
+              <div className="grid gap-4 pb-3">{descricao}</div>
+            </details>
+          )}
         </>
-      )}
-      {secoes.length > 0 && (
-        <details open className="rounded-md border border-traco bg-white/40 px-4 py-2">
-          <summary className="min-h-11 cursor-pointer py-2 font-bold">Sobre esta faixa</summary>
-          <div className="grid gap-4 pb-3">
-            {secoes.map((s) => (
-              <section key={s.titulo} className="grid gap-2">
-                <h3 className="m-0 text-[19px] leading-tight">{s.titulo}</h3>
-                <Texto texto={s.texto} />
-              </section>
-            ))}
-          </div>
-        </details>
       )}
     </>
   );

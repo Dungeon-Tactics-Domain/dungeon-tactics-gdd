@@ -6,7 +6,7 @@
     {
       "id": "pastoral-rica-a",
       "letra": "RA",
-      "titulo": "Pastoral rica · A · Opus xhigh",
+      "titulo": "Pastoral rica · A · Farol ao Entardecer",
       "audio": "audio/pastoral_rica_A.ogg",
       "secoes": [
         {
@@ -29,12 +29,25 @@
           "titulo": "Ficha",
           "texto": "- **O que é:** versão A da Pastoral D (Praça do Farol) estendida, mesma melodia e tom, com mais camadas, harmonia, forma e percussão.\n- **Onde usar:** música da cidade (hoje a Pastoral D atual, `city_pastoral_d`); só entraria no lugar dela se você escolher.\n- **Licença:** composição e MIDI nossos (script Python, sem nota copiada); timbres da soundfont MuseScore General (licença MIT segundo a memória, conferir antes de publicar).\n- **Volume:** -18,1 LUFS, igual à outra versão e à atual (-17,2)."
         }
-      ]
+      ],
+      "papeis": {
+        "1": "canta o tema nos compassos 5-20 e no clímax; é a voz da melodia original.",
+        "2": "responde à flauta e a acompanha em terças no clímax; lidera a seção B em Sol maior.",
+        "3": "arpejos no começo e acordes sincopados na seção B; mantém a base pastoral.",
+        "4": "arpejos da intro e brilho nas frases; glissando que leva ao clímax (compasso 44).",
+        "5": "colchão de cordas a 4 vozes que cresce até o clímax.",
+        "6": "baixo andando (Mi-Ré-Dó#-Dó) que dá a harmonia nova; sempre dobrado na oitava.",
+        "7": "contracanto na seção B e solo que canta o tema nos compassos 37-40.",
+        "8": "voz da ponte em Lá menor e contralinha de mínimas no retorno.",
+        "9": "ostinato em pizzicato da ponte (groove 3+3+2).",
+        "10": "congas, pandeiro e cabasa: o groove muda por seção, com viradas nos finais de frase.",
+        "11": "ecos de celesta no compasso 8 e no retorno; pontua os finais."
+      }
     },
     {
       "id": "pastoral-rica-b",
       "letra": "RB",
-      "titulo": "Pastoral rica · B · Fable alto",
+      "titulo": "Pastoral rica · B · Festa no Farol",
       "audio": "audio/pastoral_rica_B.ogg",
       "secoes": [
         {
@@ -57,7 +70,21 @@
           "titulo": "Ficha",
           "texto": "- **O que é:** versão B da Pastoral D (Praça do Farol) estendida, mesma melodia e tom, com mais camadas, harmonia, forma e percussão.\n- **Onde usar:** música da cidade (hoje a Pastoral D atual, `city_pastoral_d`); só entraria no lugar dela se você escolher.\n- **Licença:** composição e MIDI nossos (script Python, sem nota copiada); timbres da soundfont MuseScore General (licença MIT segundo a memória, conferir antes de publicar).\n- **Volume:** -18,1 LUFS, igual à outra versão e à atual (-17,2)."
         }
-      ]
+      ],
+      "papeis": {
+        "1": "tema nos compassos 5-20 (trocando frases com o oboé), em terças com o oboé e uma oitava acima no clímax.",
+        "2": "troca o tema com a flauta e toma o contracanto; dobra em terças.",
+        "3": "arpejos e, na seção B, acordes; base harmônica.",
+        "4": "arpejos e tercinas na ponte; brilha nos finais de frase.",
+        "5": "colchão de cordas que cresce no clímax.",
+        "6": "baixo descendo Mi-Ré-Dó#-Dó-Si e andando no clímax; dobrado na oitava.",
+        "7": "contracanto desde o compasso 9; solo com o motivo aumentado nos compassos 37-44.",
+        "8": "lidera a seção B em Sol maior e dialoga com a flauta (preparação 41-44).",
+        "9": "pings de celesta na intro e nos finais; textura aguda.",
+        "10": "congas e pandeiro: padrões diferentes por seção, hemíola 3+3+2 no retorno, viradas nos finais.",
+        "11": "pizzicato em tercinas na ponte e ostinato leve no retorno.",
+        "12": "trompa só nos compassos 45-56: peso do clímax e da picardia."
+      }
     }
   ],
   "checagens": []
