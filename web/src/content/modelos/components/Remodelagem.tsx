@@ -41,10 +41,17 @@ const ARMAS = [
   ['', '', 'Sem arma'],
 ] as const;
 
-const url = (glb: string, char: string, anim: string, principal: string, secundaria: string) => {
+// rest pose of the two-handed sword (Nov 16): low guard by default, or the sword on the shoulder (bench `idle2h=ombro`)
+const REPOUSOS = [
+  ['', 'Guarda baixa'],
+  ['ombro', 'Espada no ombro'],
+] as const;
+
+const url = (glb: string, char: string, anim: string, principal: string, secundaria: string, repouso: string) => {
   const q = new URLSearchParams({ glb, char, kaykit: '1', solo: '1', anim, zoom: '1.2', fy: '0.42', fx0: '0' });
   if (principal) q.set('weapon', principal);
   if (secundaria) q.set('off', secundaria);
+  if (repouso) q.set('idle2h', repouso);
   return `${BENCH}?${q}`;
 };
 
@@ -53,6 +60,7 @@ export function Remodelagem() {
   const [escolhidos, setEscolhidos] = useState<string[] | null>(null);
   const [anim, setAnim] = useState<string>(GESTOS[0][0]);
   const [arma, setArma] = useState<number>(0);
+  const [repouso, setRepouso] = useState<string>(REPOUSOS[0][0]);
   const [principal, secundaria] = ARMAS[arma] ?? ARMAS[0];
   if (lista === 'carregando') return <p className="m-0 text-apagado">Carregando…</p>;
   const modelos: Modelo[] =
@@ -97,6 +105,9 @@ export function Remodelagem() {
         )}
         <Botoes rotulo="Gesto" itens={GESTOS} atual={anim} escolher={setAnim} />
         <Botoes rotulo="Arma" itens={ARMAS.map(([, , n], i) => [i, n] as const)} atual={arma} escolher={setArma} />
+        {principal === 'sword_2handed' && anim === 'Idle' && (
+          <Botoes rotulo="Repouso de duas mãos" itens={REPOUSOS} atual={repouso} escolher={setRepouso} />
+        )}
       </div>
       <div className="flex flex-wrap items-start gap-4">
         {modelos
@@ -110,7 +121,7 @@ export function Remodelagem() {
                 ficha={<FichaPreview ficha={m.ficha} titulo={`Ficha: ${m.nome}`} />}
               >
                 <iframe
-                  src={url(m.arquivo, CHAR, anim, principal, secundaria)}
+                  src={url(m.arquivo, CHAR, anim, principal, secundaria, repouso)}
                   title={m.nome}
                   className={CLASSE_VIEWER}
                 />
