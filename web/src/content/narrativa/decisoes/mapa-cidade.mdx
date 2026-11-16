@@ -158,6 +158,13 @@ Levantamento de 16/11 em fontes abertas (wikis, guias, resenhas). Quase nenhuma 
 - **O que NÃO se aproveita:** não há planta de cidade em nenhum dos dois; **não são modelo de layout**.
 - **Origem:** [Caves of Narshe, Outfitters](https://www.cavesofnarshe.com/fft/maps/outfitters.php?phase=9) e [Gematsu, Tactics Ogre: Reborn](https://gematsu.com/2022/10/tactics-ogre-reborn-details-unit-development-charms-battle-updates-balance-adjustments-shop-improvements-classes-and-characters) (só a parte de lojas e treino).
 
+### 5. Vilas costeiras em terraços (fora do gênero tático: só para o desenho da praia e do porto)
+
+- **O que é:** nenhum dos quatro jogos acima tem praia e porto, então esta parte vem de fontes gerais de desenho de cidades, não de um jogo tático.
+- **O que se aproveita:** (a) uma vila costeira em **três níveis básicos**, com cais e praia embaixo, penhasco no meio e crista no alto, descrita num fórum de mapas de fantasia; é a mesma ideia dos nossos terraços, só que o nosso portão (a boca da dungeon) fica em cima; (b) **terrenos em terraços cortados na encosta, com o mar visível lá embaixo**, de um conceito de vila em declive; (c) o costume dos RPGs de porto de **prender o avanço atrás de algo** (em vários Dragon Quest só se embarca depois de uma tarefa), que casa com o porto como futura abertura da história, sem janela no MVP; (d) pensar primeiro em **de que vive a vila** (aqui: do que sobe da mina e do que chega pelo mar) antes de desenhar o mapa.
+- **O que NÃO se aproveita:** nada disso é planta de jogo; são ideias de apoio. O porto continua cenário.
+- **Origem:** fórum ProFantasy, [Fantasy Coastal Fishing Town](https://forum.profantasy.com/discussion/comment/76134) (mapa de fã, não de jogo); [Port Town no TV Tropes/Tropedia](https://tropedia.fandom.com/wiki/Port_Town) (exemplos de Dragon Quest); [guia do RPG Maker sobre cidades](https://www.rpgmaker.net/articles/326). Lidos só pelo resumo da busca de 16/11; não abri as páginas. Não encontrei material sobre Gondolia (Dragon Quest XI) nem sobre as cidades de Triangle Strategy.
+
 ### Resumo: o que cada referência dá ao nosso mapa
 
 <div className="max-w-[110ch]">
@@ -176,13 +183,75 @@ Levantamento de 16/11 em fontes abertas (wikis, guias, resenhas). Quase nenhuma 
         'Darkest Dungeon, FFT, Tactics Ogre',
       ],
       ['Áreas que só se alcançam em certo momento', 'Fire Emblem: Three Houses (terceiro andar com permissão)', ''],
-      ['Praia e porto', 'nenhuma das quatro (proposta nossa, dedução)', 'todas'],
+      [
+        'Praia e porto, terraços até o mar',
+        'só fontes gerais (fórum ProFantasy, RPGs de porto); nenhum dos quatro jogos',
+        'todos os quatro',
+      ],
       ['Exploração curta, sem virar jogo à parte', 'Triangle Strategy', 'Fire Emblem (hub grande demais)'],
     ]}
   />
 </div>
 
-**Lacuna honesta:** nenhuma das quatro oferece uma planta de vila com praia e porto; terraços, praia e porto são **proposta nossa** (dedução). Se o Fernando quiser uma referência de vila costeira em terraços, ela virá de fora do gênero (cidade portuária real ou de outro jogo), e peço licença para pesquisar isso numa próxima rodada.
+**Lacuna honesta:** nenhum dos quatro jogos oferece praia e porto; a parte costeira vem de fontes gerais (referência 5), lidas só pelo resumo da busca. Os terraços, a praia e o porto continuam **proposta nossa** (dedução).
+
+## Pacotes de peças: candidatos (sem decidir)
+
+Só candidatos para o Modelos 3D escolher depois que o Fernando aprovar as referências. Primeiro o que **já está no repositório** (conferido na pasta `assets/kaykit/`, 16/11), depois o que existe fora. Regra do jogo: o novo modelo precisa ser KayKit ou do mesmo estilo, com licença que permita uso e redistribuição, e entrar em `public/CREDITS.txt` e `docs/ASSETS.md`.
+
+<div className="max-w-[110ch]">
+  <DataTable
+    colunas={['Pacote', 'Licença', 'Serve para', 'O que NÃO tem (conferido)', 'Origem']}
+    linhas={[
+      [
+        'KayKit Medieval Hexagon (no repo, `assets/kaykit/medieval-hexagon`, 221 modelos)',
+        'CC0',
+        "Casas, taverna, mercado, igreja, torres, poço, moinho d'água, pontes, cercas, barris; peças de costa (`hex_coast_A` a `E`) e de rio, com versão sem água.",
+        'Não achei doca, cais nem navio na versão gratuita do repo (a listagem paga da Unity cita docas e estaleiro); não achei escada de terraço nem rampa de rua.',
+        'Pasta do repo e [página do pacote no itch.io](https://kaylousberg.itch.io/kaykit-medieval-hexagon).',
+      ],
+      [
+        'KayKit Dungeon (no repo, `assets/kaykit/dungeon`, 211 modelos)',
+        'CC0',
+        'Escadas: `stairs`, `stairs_long`, `stairs_wide`, `stairs_narrow`, `stairs_wood`, módulos esquerda, centro e direita; barris, baús, pilares. Escadaria de pedra para L1 e L3 em estilo de masmorra.',
+        'Estilo de masmorra (pedra escura), não de vila; precisaria de repintar.',
+        'Pasta do repo.',
+      ],
+      [
+        'KayKit Medieval Builder legado (no repo, `legacy-medieval-builder`, 226 modelos)',
+        'CC0 (pacote antigo)',
+        "Peças de areia e estrada de areia (`hex_sand`, `hex_sand_road*`), pontes (`bridge`, `bridge_roofed`), floresta e rocha junto d'água.",
+        'Estilo antigo; já marcado como `legacy` no repo.',
+        'Pasta do repo.',
+      ],
+      [
+        'KayKit Blocks / Board Game (no repo)',
+        'CC0',
+        'Blocos de terreno em camadas: areia (`sand_A`, `sand_B`, `sand_with_grass`) e água (`water`); servem aos degraus dos terraços e à praia.',
+        'Não são prédios; rampas não achadas pelo nome.',
+        'Pasta do repo.',
+      ],
+      [
+        'Kenney: Pirate Kit, Fantasy Town Kit, Castle Kit',
+        'CC0',
+        'Navios, cais e peças de porto (Pirate Kit, 70 modelos); peças modulares de vila e muralha (Fantasy Town Kit e Castle Kit, cerca de 75 modelos). Seriam as candidatas para o porto.',
+        'Não abri as listas de arquivos; não confirmei se há escada ou rampa; estilo de cor diferente do KayKit, exige repintar para o nosso visual pintado.',
+        '[Castle Kit](https://kenney-assets.itch.io/castle-kit), [Fantasy Town Kit (OpenGameArt)](https://opengameart.org/content/fantasy-town-kit), [Pirate Kit](https://opengameart.org/node/88264).',
+      ],
+    ]}
+  />
+</div>
+
+Hoje o jogo usa as peças do KayKit `town` (`building_barracks`, `market`, `tavern`, `blacksmith`, `tower_A`, `home_A`, `well`, muralha) (pasta `models/town`, segundo `docs/ASSETS.md`); a cidade maior poderia reaproveitar esse conjunto. Fica em aberto, para o Fernando e o Modelos 3D, escolher entre **só peças já licenciadas** e **peças novas modeladas por código** (decisão dele de 16/11: só depois de aprovar estas referências).
+
+## Padrão sugerido para o Modelos 3D confirmar
+
+Não é decisão; é o ponto de partida para quando o lab for liberado.
+
+- **Planta em casas inteiras**, como o mapa de hoje (`town.ts` fala em casas inteiras, divididas em meias casas pelo cliente); uma casa = duas meias casas.
+- **Cada terraço um degrau de meia casa** acima ou abaixo do vizinho; as nossas zonas A (+2), B (0), C (-1) e D (-2) cabem como mostrado na tabela de níveis.
+- **Estudo na bancada, longe do jogo** (decisão do Fernando de 16/11); nada em `src/content` antes da aprovação.
+- **Escolha de peças** (KayKit/licenciadas × novas): depois da aprovação das referências.
 
 ## Pontos para o Modelos 3D decidir (fora deste layout)
 
