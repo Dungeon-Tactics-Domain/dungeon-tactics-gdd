@@ -1,5 +1,8 @@
-// Places of the Reino dos Laboratórios (direction B, the kingdom map, chosen by Fernando on 14/11). The top bar, the map
-// and each lab's accent colour read only from here: a new lab is one new line. x and y are the flag's foot on the map, in %.
+// Places of the labs app (direction B, the kingdom map, chosen by Fernando on 14/11). The navigation, the map and each
+// lab's accent colour read only from here: a new lab is one new line. x and y are the flag's foot on the map, in %.
+
+/** The site's name (Fernando, 15/11): the header and every tab title. */
+export const SITE = 'Dungeon Tactics Lab';
 
 export interface Place {
   id: string;

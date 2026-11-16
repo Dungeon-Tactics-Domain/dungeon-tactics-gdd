@@ -7,7 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { useQuadro } from '@/lib/fabrica-context';
 import { askOf, GRUPOS, groupOf, ICONS, isLive, stateLabel, type Town, townsOf } from '@/lib/fabrica';
-import { GENERIC_COLOR, PORT } from '@/lib/labs';
+import { GENERIC_COLOR, PORT, SITE } from '@/lib/labs';
 import { useLabAccent } from '@/lib/useLabAccent';
 import type { Estacao, Fabrica } from '@/types/fabrica';
 import { Mapa } from './Mapa';
@@ -147,7 +147,7 @@ function Sessoes({ fabrica, towns }: { fabrica: Fabrica | null; towns: Town[] })
 export function Home() {
   useLabAccent(PORT.cor, PORT.corSuave);
   useEffect(() => {
-    document.title = 'Reino dos Laboratórios';
+    document.title = SITE;
   }, []);
   // the bar's "chama você" link points to /#avisos; client-side navigation does not scroll to a hash by itself
   const { hash, key } = useLocation();
@@ -159,7 +159,7 @@ export function Home() {
   return (
     <main className="mx-auto grid max-w-[1440px] content-start gap-6 px-(--margem) pt-6 pb-16">
       <header className="grid gap-1.5">
-        <h1 className="m-0 text-(length:--h1) leading-none">Reino dos Laboratórios</h1>
+        <h1 className="m-0 text-(length:--h1) leading-none">{SITE}</h1>
         <p className="m-0 text-[17px]">
           Cada lab é uma cidade; a Fábrica é o porto. Escolha uma cidade ou leia o quadro de avisos.
         </p>

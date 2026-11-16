@@ -1,4 +1,4 @@
-# Reino dos Laboratórios — web
+# Dungeon Tactics Lab — web
 
 The front end of the Dungeon Tactics labs platform: a React app that shows every lab as a town on a painted kingdom map,
 the live state of the agent sessions (the "Fábrica") and a shared pages pattern each lab uses for its content.

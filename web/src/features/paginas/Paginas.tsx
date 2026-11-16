@@ -7,6 +7,7 @@ import { createPortal } from 'react-dom';
 import { Link, useLocation, useNavigate, useParams } from 'react-router';
 import { Input } from '@/components/ui/input';
 import { useGaveta } from '@/lib/gaveta-context';
+import { SITE } from '@/lib/labs';
 import { cn, gravar, ler } from '@/lib/utils';
 import { Cartoes, Icone, Migalhas, Resumo, Titulo } from './parts';
 import type { Grupo, Pagina, Sumario } from './types';
@@ -109,7 +110,7 @@ export function Paginas({ sumario: s, base }: { sumario: Sumario; base: string }
 
   const nome = atual?.pagina.titulo ?? grupo?.titulo ?? (rota ? 'Página não encontrada' : s.titulo);
   useEffect(() => {
-    document.title = `${nome === s.titulo ? '' : `${nome} · `}${s.titulo}`;
+    document.title = `${nome === s.titulo ? '' : `${nome} · `}${s.titulo} · ${SITE}`;
   }, [nome, s.titulo]);
 
   // ---------- menu ----------

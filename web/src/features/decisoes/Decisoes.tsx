@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { useQuadro } from '@/lib/fabrica-context';
-import { DECISOES_COR, LABS } from '@/lib/labs';
+import { DECISOES_COR, LABS, SITE } from '@/lib/labs';
 import {
   COR_ESCOLHA,
   carregarDecisoes,
@@ -24,7 +24,7 @@ export function Decisoes() {
   const [escolha, setEscolha] = useState<Escolha | ''>('');
   const semApi = useQuadro().conexao === 'sem-api';
   useEffect(() => {
-    document.title = 'Decisões · Reino dos Laboratórios';
+    document.title = `Decisões · ${SITE}`;
     if (semApi) return;
     carregarDecisoes()
       .then(setTodas)

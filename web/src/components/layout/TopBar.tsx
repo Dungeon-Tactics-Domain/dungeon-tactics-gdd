@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Sheet, SheetClose, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { useQuadro } from '@/lib/fabrica-context';
 import { townsOf } from '@/lib/fabrica';
+import { SITE } from '@/lib/labs';
 import { Links } from './Navegacao';
 
 export function TopBar({
@@ -25,11 +26,11 @@ export function TopBar({
         to="/"
         className="mr-3 flex min-h-11 shrink-0 items-center font-serif text-[21px] whitespace-nowrap no-underline max-[520px]:mr-0 max-[520px]:text-lg"
       >
-        <span className="max-[420px]:hidden">Reino dos Laboratórios</span>
+        <span className="max-[420px]:hidden">{SITE}</span>
         <span className="hidden max-[420px]:inline" aria-hidden="true">
-          ◆ Reino
+          ◆ DT Lab
         </span>
-        <span className="sr-only min-[421px]:hidden">Reino dos Laboratórios</span>
+        <span className="sr-only min-[421px]:hidden">{SITE}</span>
       </NavLink>
       <div className="ml-auto flex items-center gap-1">
         {calling.length > 0 && (

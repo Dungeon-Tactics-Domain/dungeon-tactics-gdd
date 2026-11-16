@@ -2,14 +2,14 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router';
 import { Button } from '@/components/ui/button';
-import { ehLocal, OLD_LAB, type Place } from '@/lib/labs';
+import { ehLocal, OLD_LAB, type Place, SITE } from '@/lib/labs';
 import { useLabAccent } from '@/lib/useLabAccent';
 
 export function NaoMigrado({ lab }: { lab?: Place }) {
   useLabAccent(lab?.cor ?? '#5e5a48', lab?.corSuave ?? '#ecebe3');
   const titulo = lab?.nome ?? 'Página não encontrada';
   useEffect(() => {
-    document.title = `${titulo} · Reino dos Laboratórios`;
+    document.title = `${titulo} · ${SITE}`;
   }, [titulo]);
   return (
     <main className="mx-auto grid max-w-[760px] gap-4 px-4 py-10">

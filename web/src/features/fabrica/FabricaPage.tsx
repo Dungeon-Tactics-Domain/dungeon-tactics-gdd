@@ -5,7 +5,7 @@ import { type CSSProperties, useEffect } from 'react';
 import { Relogio } from '@/components/layout/Relogio';
 import { useQuadro } from '@/lib/fabrica-context';
 import { GRUPOS, type Grupo, groupOf, ICONS, isLive, isTower, since, stateLabel } from '@/lib/fabrica';
-import { GENERIC_COLOR, LABS, PORT } from '@/lib/labs';
+import { GENERIC_COLOR, LABS, PORT, SITE } from '@/lib/labs';
 import { useLabAccent } from '@/lib/useLabAccent';
 import { cn } from '@/lib/utils';
 import type { Estacao, Subagente } from '@/types/fabrica';
@@ -113,7 +113,7 @@ function Linha({ s, n, subs, agora }: { s: Estacao; n: number; subs: Subagente[]
 export function FabricaPage() {
   useLabAccent(PORT.cor, PORT.corSuave);
   useEffect(() => {
-    document.title = 'Fábrica de games · Reino dos Laboratórios';
+    document.title = `Fábrica de games · ${SITE}`;
   }, []);
   const { fabrica, agora, conexao } = useQuadro();
   const stations = fabrica?.estacoes ?? [];
