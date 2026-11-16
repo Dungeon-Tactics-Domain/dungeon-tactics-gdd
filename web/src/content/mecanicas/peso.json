@@ -16,8 +16,8 @@
   },
   {
     "regra": "Morte",
-    "valor": "Câmera lenta com zoom no golpe que mata, em TODA morte. Uma opção no menu Opções desliga. A unidade cai e fica como cadáver (o cadáver já existe nas regras, em grid.ts).",
-    "origem": "grill do peso de 15/11 com o Fernando"
+    "valor": "Câmera lenta com zoom no golpe que mata, em TODA morte. Uma opção no menu Opções desliga. A unidade cai e deixa um corpo com regra: ninguém para em cima (noStop), 4 casas no Colosso; decidido, ainda não no jogo (exige o corpo no estado da batalha, no save e na IA).",
+    "origem": "grill do peso de 15/11 com o Fernando; grill da sessão Mecânicas de 16/11 com o Fernando"
   },
   {
     "regra": "Número de dano",
@@ -26,7 +26,42 @@
   },
   {
     "regra": "Alcance da mudança",
-    "valor": "Só visual: nenhuma regra de combate muda.",
-    "origem": "grill do peso de 15/11 com o Fernando"
+    "valor": "Só visual, menos a morte: o corpo que fica tem regra (ver Morte).",
+    "origem": "grill do peso de 15/11 com o Fernando; grill da sessão Mecânicas de 16/11 com o Fernando"
+  },
+  {
+    "regra": "Ritmo do golpe no toque",
+    "valor": "Sem mouse, a espera \"morta\" encurta: faixa do nome 900 → 600 ms e golpe 480 → 360 ms (o corte vai de 3,0 para 2,6 s). Decidido, ainda não no jogo.",
+    "origem": "grill da sessão Mecânicas de 16/11 com o Fernando"
+  },
+  {
+    "regra": "Tamanho do número de dano",
+    "valor": "24 + 20 × min(1, dano ÷ metade da vida) px; crítico × 1,25 com contorno dourado; abaixo de 600 px de largura × 0,85; cores branco (físico), roxo (mágico), verde (cura) e cinza (Errou); contorno de 8 sombras. Decidido, ainda não no jogo.",
+    "origem": "grill da sessão Mecânicas de 16/11 com o Fernando"
+  },
+  {
+    "regra": "Números soltos",
+    "valor": "Seguem o peito da unidade e empilham; cada um fica 1,5 s no relógio real. Decidido, ainda não no jogo.",
+    "origem": "grill da sessão Mecânicas de 16/11 com o Fernando"
+  },
+  {
+    "regra": "Hit-stop e tremor",
+    "valor": "Pausa de 70 ms, 140 ms no golpe forte; tremor de 0,08 por 280 ms. Decidido, ainda não no jogo.",
+    "origem": "grill da sessão Mecânicas de 16/11 com o Fernando"
+  },
+  {
+    "regra": "Reduzir movimento",
+    "valor": "Perfil automático pela preferência do sistema mais um item em Opções (Sim, Não ou Do sistema), que também liga e desliga a câmera lenta da morte. Decidido, ainda não no jogo.",
+    "origem": "grill da sessão Mecânicas de 16/11 com o Fernando"
+  },
+  {
+    "regra": "Som no toque",
+    "valor": "O áudio destrava também em pointerup e touchend, chamando resume(); um som grave no golpe forte e na morte (arquivo novo, com licença em CREDITS.txt e ASSETS.md). Decidido, ainda não no jogo.",
+    "origem": "grill da sessão Mecânicas de 16/11 com o Fernando"
+  },
+  {
+    "regra": "Vibração",
+    "valor": "Só no que pesa: golpe forte 35 ms e morte [40, 30, 40], com item em Opções, escondido onde não existe (iOS). Decidido, ainda não no jogo.",
+    "origem": "grill da sessão Mecânicas de 16/11 com o Fernando"
   }
 ]

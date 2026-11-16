@@ -33,17 +33,17 @@
     },
     {
       "regra": "Limites da resistência",
-      "valor": "de −100% a 60% cada uma (nunca imune; o teto baixo segura empilhar peças). decisão pendente do Fernando (16/11): a penalidade de carga entra antes ou depois do teto de 60? Hoje o jogo soma o −50 à ficha e corta uma vez só (units.ts:40-41)",
-      "origem": "proposta do lab (15/11)"
+      "valor": "de −100% a 60% cada uma, para todos, chefe incluído (nunca imune; o teto baixo segura empilhar peças). A penalidade de carga soma à ficha e corta uma vez só no teto, como o jogo já faz (units.ts:40-41): decidido. Teto de defesa mantido; testar o chefe com o tanque encantado: se a Onda Sombria contra ele cair abaixo de cerca de 20, adotar piso de 30%",
+      "origem": "proposta do lab (15/11); grill da sessão Mecânicas de 16/11 com o Fernando"
     },
     {
       "regra": "Carregando",
-      "valor": "enquanto carrega: −50 de resistência física e −25 de mágica (substitui o ×1,5 de hoje). decisão pendente do Fernando (16/11): somar antes ou depois do teto de 60 (ver Limites da resistência)",
-      "origem": "grill de 15/11 com o Fernando"
+      "valor": "enquanto carrega: −50 de resistência física e −25 de mágica (substitui o ×1,5 de hoje); soma à ficha e corta uma vez só no teto de 60, como o jogo faz (ver Limites da resistência)",
+      "origem": "grill de 15/11 com o Fernando; grill da sessão Mecânicas de 16/11 com o Fernando"
     },
     {
       "regra": "Elementos",
-      "valor": "fogo, gelo, raio, sombra, vento e luz; física, mágica e elemental podem ser negativas (fraqueza). O % de elemento numa peça, buff ou classe é sempre resistência (defesa); o ataque só ganha elemento pela habilidade ou pelo Óleo de fogo",
+      "valor": "fogo, gelo, raio, sombra, vento e luz; física, mágica e elemental podem ser negativas (fraqueza). O elemento age sobre o que sobra depois da resistência mágica (já é a fórmula do jogo, combat.ts:140-150), com teto de 60 para todos (decidido em 16/11). O % de elemento numa peça, buff ou classe é sempre resistência (defesa); o ataque só ganha elemento pela habilidade ou pelo Óleo de fogo",
       "origem": "grill de 15/11 com o Fernando"
     },
     {
@@ -53,13 +53,13 @@
     },
     {
       "regra": "Mana e stamina",
-      "valor": "magia gasta mana, habilidade marcial gasta stamina; o ataque básico (1º da lista) e o contra-ataque não gastam; a carga continua. Hoje o jogo paga o custo ao declarar a carga (battle.ts:143). decisão pendente do Fernando (16/11): devolver ou não a mana ou stamina de uma carga que não dispara (conjurador morto ou carga trocada por outra)",
-      "origem": "grill de 15/11 com o Fernando"
+      "valor": "magia gasta mana, habilidade marcial gasta stamina; o ataque básico (1º da lista) e o contra-ataque não gastam; a carga continua. O custo é pago ao declarar a carga (battle.ts:143) e não volta se a carga não dispara (conjurador morto ou carga trocada por outra)",
+      "origem": "grill de 15/11 com o Fernando; grill da sessão Mecânicas de 16/11 com o Fernando"
     },
     {
       "regra": "Regeneração",
-      "valor": "vida e mana: a soma da classe, das peças e dos buffs, no começo de cada turno do personagem; stamina: o regen da classe",
-      "origem": "grill de 15/11 com o Fernando (vida e mana); stamina por turno é proposta do lab (15/11)"
+      "valor": "vida e mana: a soma da classe, das peças e dos buffs, no começo de cada turno do personagem; stamina: o regen da classe. Regen de vida vale 10 por ponto (Pedra-do-sono, Couraça do colosso e Fonte clara dão +10); stamina 5 e mana como estão",
+      "origem": "grill de 15/11 com o Fernando (vida e mana); stamina por turno é proposta do lab (15/11); grill da sessão Mecânicas de 16/11 com o Fernando"
     },
     {
       "regra": "Entre salas",
@@ -112,7 +112,7 @@
       "vida": 120,
       "stamina": 0,
       "regenStamina": 0,
-      "mana": 60,
+      "mana": 30,
       "regenMana": 8,
       "resFisica": -10,
       "resMagica": 20,
@@ -231,15 +231,15 @@
     },
     {
       "nome": "Colosso de Ossos",
-      "vida": 800,
+      "vida": 680,
       "stamina": 0,
       "regenStamina": 0,
-      "mana": 120,
+      "mana": 50,
       "regenMana": 10,
       "resFisica": 30,
       "resMagica": 20,
       "esquiva": 0,
-      "elementos": "sombra +75 (decisão pendente do Fernando (16/11): 75 da ficha ou o teto de 60; o jogo usa 60, units.ts:160-161), luz −50"
+      "elementos": "sombra +60 (teto de 60 para todos, decidido em 16/11; o jogo já usa 60, units.ts:160-161), luz −50"
     }
   ],
   "habilidades": [
@@ -401,12 +401,12 @@
   "raridade": [
     {
       "regra": "Orçamento por raridade",
-      "valor": "comum 2 pontos, rara 4, épica 6 (uma épica pode ter 1 atributo negativo, que devolve pontos)",
-      "origem": "proposta do lab (15/11)"
+      "valor": "comum 2 pontos, rara 4, épica 6 (uma épica pode ter 1 atributo negativo, que devolve pontos); mantido em 16/11",
+      "origem": "proposta do lab (15/11); grill da sessão Mecânicas de 16/11 com o Fernando"
     },
     {
       "regra": "Valor de 1 ponto",
-      "valor": "10 de poder físico ou mágico · 25 de vida · 10% de física ou mágica · 20% de um elemento · 5% de esquiva · 5 de acerto · 20 de mana ou stamina máxima · 5 de regen de vida · 3 de regen de mana; velocidade +1 = 2 pontos, salto +1 = 2, movimento +1 = 3",
+      "valor": "10 de poder físico ou mágico · 25 de vida · 10% de física ou mágica · 20% de um elemento · 5% de esquiva · 5 de acerto · 20 de mana ou stamina máxima · 10 de regen de vida · 3 de regen de mana; velocidade +1 = 2 pontos, salto +1 = 2, movimento +1 = 3",
       "origem": "proposta do lab (15/11)"
     },
     {
@@ -515,7 +515,7 @@
       "nome": "Couraça do colosso",
       "espaco": "corpo",
       "raridade": "épica",
-      "atributos": "+30% física, +125 vida, +5 regen de vida, −1 movimento"
+      "atributos": "+30% física, +125 vida, +10 regen de vida, −1 movimento"
     },
     {
       "nome": "Grevas de mola",
@@ -545,7 +545,7 @@
       "nome": "Pedra-do-sono",
       "espaco": "acessório",
       "raridade": "comum",
-      "atributos": "+5 regen de vida, +25 vida"
+      "atributos": "+10 regen de vida, +25 vida"
     },
     {
       "nome": "Amuleto ligeiro",
@@ -620,7 +620,7 @@
     {
       "nome": "Fonte clara",
       "fonte": "nó de altar no mapa do andar",
-      "efeito": "+5 regen de vida ao grupo",
+      "efeito": "+10 regen de vida ao grupo",
       "custo": "grátis, 1 vez",
       "duracao": "até o fim do andar"
     },
@@ -637,18 +637,18 @@
   "ouro": [
     {
       "regra": "De onde vem",
-      "valor": "drop dos monstros (ouro só de quem faz sentido carregar; mortos-vivos simples dropam itens) e baús nos nós de tesouro do mapa do andar",
-      "origem": "grill do ouro de 15/11 com o Fernando"
+      "valor": "só drop dos monstros (ouro só de quem faz sentido carregar; mortos-vivos simples dropam itens) e baús nos nós de tesouro do mapa do andar; vencer uma sala não dá ouro (os 150 de ouro por vitória de 13/11 saíram)",
+      "origem": "grill do ouro de 15/11 com o Fernando; grill da sessão Mecânicas de 16/11 com o Fernando"
     },
     {
       "regra": "Ouro por descida",
-      "valor": "cerca de 600 a 1.000 numa descida completa (6 salas + chefe + 1 ou 2 baús), o bastante para 1 melhoria ou 4 a 6 peças comuns",
-      "origem": "proposta do lab (15/11); dedução a partir da tabela de drop abaixo e das salas da Descida"
+      "valor": "cerca de 1.000 numa descida completa (6 salas + chefe + 3 baús: 668 de drop + cerca de 115 por baú), o bastante para 1 melhoria ou 4 a 6 peças comuns",
+      "origem": "proposta do lab (15/11); dedução a partir da tabela de drop abaixo e das salas da Descida; grill da sessão Mecânicas de 16/11 com o Fernando"
     },
     {
       "regra": "Baús",
-      "valor": "nó de baú no mapa do andar (1 por andar, fora da rota mais curta); abrir dá 80 a 150 de ouro e 30% de chance de uma peça comum (10% rara)",
-      "origem": "grill do ouro de 15/11 com o Fernando (nó de baú); números são proposta do lab (15/11)"
+      "valor": "nó de baú no mapa do andar: 1 por andar, 3 por descida, fora da rota mais curta; abrir dá 80 a 150 de ouro, 30% de chance de uma peça comum e, à parte, 10% de chance de uma rara",
+      "origem": "grill do ouro de 15/11 com o Fernando (nó de baú); números são proposta do lab (15/11); grill da sessão Mecânicas de 16/11 com o Fernando"
     },
     {
       "regra": "Vender",
@@ -672,8 +672,8 @@
     },
     {
       "regra": "Ferreiro: melhorar",
-      "valor": "peça +1, +2, +3; cada nível soma 50% dos atributos positivos da peça, arredondado para baixo; custo +1 = 100, +2 = 250, +3 = 500, vezes 2 na rara e 3 na épica",
-      "origem": "grill do ouro de 15/11 com o Fernando (ferreiro); números são proposta do lab (15/11)"
+      "valor": "peça +1, +2, +3 sobre o orçamento 2/4/6; cada nível soma 50% dos atributos numéricos da peça, arredondado para baixo, e cresce pela soma líquida (positivos menos negativos), para a épica com atributo negativo não passar à frente; salto, movimento e velocidade não crescem (peça só com eles não vai ao ferreiro). Preço por degrau: +1 = 100, +2 = 250, +3 = 500 (850 do +0 ao +3 numa comum), vezes 2 na rara e 3 na épica",
+      "origem": "grill do ouro de 15/11 com o Fernando (ferreiro); números são proposta do lab (15/11); grill da sessão Mecânicas de 16/11 com o Fernando"
     },
     {
       "regra": "Ferreiro: consertar",

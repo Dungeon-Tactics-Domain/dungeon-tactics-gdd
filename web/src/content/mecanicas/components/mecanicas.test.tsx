@@ -140,9 +140,22 @@ describe('trajetorias', () => {
 });
 
 describe('peso', () => {
-  it('keeps the 6 decisions of the weight grill, each with its origin', () => {
-    expect(PESO).toHaveLength(6);
-    for (const r of PESO) expect(r.origem).toBe('grill do peso de 15/11 com o Fernando');
+  it('keeps the 6 decisions of the weight grill plus the 7 game-feel ones of 16/11, each with its origin', () => {
+    expect(PESO).toHaveLength(13);
+    for (const r of PESO)
+      expect(r.origem).toMatch(
+        /grill do peso de 15\/11 com o Fernando|grill da sessão Mecânicas de 16\/11 com o Fernando/,
+      );
+  });
+});
+
+describe('decisions of 16/11', () => {
+  it('has the Colosso at 680 and no pending-decision marker left', () => {
+    expect(equipamento.inimigos.find((c) => c.nome === 'Colosso de Ossos')?.vida).toBe(680);
+    const textos = import.meta.glob('../**/*.{json,mdx}', { query: '?raw', import: 'default', eager: true });
+    expect(Object.keys(textos).length).toBeGreaterThan(20);
+    for (const [arq, t] of Object.entries(textos))
+      expect(String(t).toLowerCase(), arq).not.toContain('decisão pendente do fernando (16/11)');
   });
 });
 

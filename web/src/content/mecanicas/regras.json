@@ -112,7 +112,7 @@
           "name": "Contra-ataque",
           "now": "Regra de 15/11: quem foi atacado neste turno revida com o ataque básico, metade do dano, em cada ordem de movimento do atacante que começa no alcance desse básico e termina fora dele; o revide sai antes de ele deixar a casa. Atirador que estava colado no atacante revida no ponto de parada, se alcançar. Três exceções: ataque em área não revida (só o básico de alvo único revida), ataque com carga não provoca revide, e o erro também provoca (acerto ou erro).",
           "where": "src/shared/battle/combat.ts:268-293",
-          "note": "decisão pendente do Fernando (16/11): uma vez por turno ou a cada saída? Hoje o jogo não limita: sair, voltar e sair de novo pode dar dois revides no mesmo turno (dedução do código, não testado jogando). auditoria lab × jogo de 16/11; jogo: src/shared/battle/combat.ts:239, :245-253, :268-293; battle.ts:157-162."
+          "note": "Decidido, ainda não no jogo: um revide por inimigo por turno (grill da sessão Mecânicas de 16/11 com o Fernando). Hoje o jogo não limita: sair, voltar e sair de novo pode dar dois revides no mesmo turno (dedução do código, não testado jogando). auditoria lab × jogo de 16/11; jogo: src/shared/battle/combat.ts:239, :245-253, :268-293; battle.ts:157-162."
         },
         {
           "name": "Alcance com altura",
@@ -140,7 +140,7 @@
           "name": "Empurrão",
           "now": "Escudada, Rajada e Pancada empurram 2 casas; Rasteira, Tiro de recuo e Derrubar empurram 1. Na meia casa: empurrão × 2 células, conferindo o quadrado inteiro a cada célula; a direção sai do meio dos quadrados.",
           "where": "src/shared/battle/combat.ts:297",
-          "note": "Valores em src/content/abilities.ts (Escudada na linha 24)."
+          "note": "Valores em src/content/abilities.ts (Escudada na linha 24). Decidido, ainda não no jogo: o empurrão passa por cima de um corpo do mapa e só não termina nele (grill da sessão Mecânicas de 16/11 com o Fernando)."
         },
         {
           "name": "Batida",
@@ -267,7 +267,8 @@
         {
           "name": "Erro, cura, morte",
           "now": "Erro: passinho para trás. Cura: brilho verde. Morte: queda de 1 s e 3 piscadas.",
-          "where": "src/client/timing.ts:23"
+          "where": "src/client/timing.ts:23",
+          "note": "Decidido, ainda não no jogo: a morte deixa um corpo com regra (ninguém para em cima, noStop; 4 casas no Colosso), no estado da batalha, no save e na IA (grill da sessão Mecânicas de 16/11 com o Fernando)."
         },
         {
           "name": "Efeitos por habilidade",
@@ -329,7 +330,7 @@
     "CLAUDE.md:18 (mapa do código, na raiz) chama half.ts de modo de teste da meia casa; desde 14/11 toda batalha do jogo roda em meia casa (log de decisões, CLAUDE.md:99).",
     "grid.ts:99 (comentário de isDeep) diz que a água funda custa 2 e pathing.ts:184 diz \"2 em água rasa\"; stepCost é 1 para tudo desde 13/11 (grid.ts:108).",
     "docs/game-design/pillars.md:10 ainda diz \"celular primeiro\"; o log de decisões trocou para PC primeiro.",
-    "docs/game-design/towns-party-equipment.md:29 fala em ouro por estrela; as estrelas saíram em 13/11 (150 de ouro por vitória).",
+    "docs/game-design/towns-party-equipment.md:29 fala em ouro por estrela; as estrelas saíram em 13/11 (a regra dos 150 de ouro por vitória foi substituída: o ouro vem só de drops e baús, grill do ouro de 15/11 e grill da sessão Mecânicas de 16/11).",
     "timing.ts:3 cita docs/medicoes/fluxo-fft-2026-11-12.md, que não existe mais no repositório."
   ]
 }

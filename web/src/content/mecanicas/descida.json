@@ -19,13 +19,13 @@
     "veil_knight": 38,
     "soldier": 45,
     "brute": 82,
-    "colossus": 160
+    "colossus": 136
   },
   "sala": [
     {
       "regra": "Duração alvo da sala curta",
       "valor": "5 a 8 turnos de herói (cerca de 9 a 15 turnos no total, 3 a 5 min)",
-      "origem": "decisão 27; conta em duracao-combate.md (seção Salas em 30 a 40 min)"
+      "origem": "decisão 27; conta em duracao-combate.md (seção Salas em 30 a 40 min); mantido no grill da sessão Mecânicas de 16/11 com o Fernando: medir jogando uma sala de 24x24"
     },
     {
       "regra": "Quanto dano o grupo tira por turno de herói",
@@ -34,8 +34,8 @@
     },
     {
       "regra": "Vida inimiga somada por sala",
-      "valor": "64 a 102 (5 a 8 turnos x 12,8); vida na escala antiga; o jogo usa x5 (minion 120): 320 a 510",
-      "origem": "dedução da linha acima; auditoria lab × jogo de 16/11; jogo: src/content/units.ts:12, :112, :154"
+      "valor": "64 a 102 (5 a 8 turnos x 12,8); vida na escala antiga; o jogo usa x5 (minion 120): 320 a 512 (8 × 64; o 102 é 102,4 arredondado)",
+      "origem": "dedução da linha acima; grill da sessão Mecânicas de 16/11 com o Fernando; auditoria lab × jogo de 16/11; jogo: src/content/units.ts:12, :112, :154"
     },
     {
       "regra": "Inimigos por sala",
@@ -44,8 +44,8 @@
     },
     {
       "regra": "Tamanho da descida",
-      "valor": "3 andares com 2 salas de batalha cada e o chefe no fim do 3º (6 salas + chefe, cerca de 25 a 40 min)",
-      "origem": "proposta; quem decide é Implementação no F2 (mapa de nós, decisão 21)"
+      "valor": "3 andares com 2 salas de batalha cada e o chefe no fim do 3º (6 salas + chefe, cerca de 25 a 40 min (só combate; com exploração são cerca de 50 a 80 minutos))",
+      "origem": "proposta; quem decide é Implementação no F2 (mapa de nós, decisão 21); grill da sessão Mecânicas de 16/11 com o Fernando"
     },
     {
       "regra": "Dificuldade por andar",
@@ -105,13 +105,13 @@
   "chefe": [
     {
       "regra": "Chefe do MVP",
-      "valor": "Colosso de Ossos (160 de vida; vida na escala antiga; o jogo usa x5 (minion 120): 800; ocupa 4x4 meias casas, não anda, Onda Sombria e Explosão) + 1 lacaio",
+      "valor": "Colosso de Ossos (136 de vida; vida na escala antiga; o jogo usa x5 (minion 120): 680, decidido em 16/11 (era 800); ocupa 4x4 meias casas, não anda, Onda Sombria e Explosão) + 1 lacaio",
       "origem": "src/content/units.ts (colossus e minion) em e49ddb6; já existe no jogo, sem motor novo; auditoria lab × jogo de 16/11; jogo: src/content/units.ts:112, :154"
     },
     {
       "regra": "Duração alvo",
-      "valor": "12 a 18 turnos de herói: 184 de vida, cerca de 14 turnos, mais 2 a 3 de aproximação (vida na escala antiga; o jogo usa x5 (minion 120): 920 de vida, os mesmos turnos)",
-      "origem": "proposta (cerca de 2 salas); 184 ÷ 12,8 é dedução. Com 2 lacaios e o mapa maior passaria de 18; auditoria lab × jogo de 16/11; jogo: src/content/units.ts:112, :154"
+      "valor": "alvo de 12 a 18 turnos de herói. Com o Colosso de 680 a luta soma 680 + 120 = 800 de vida; contando as resistências dele, 680 ÷ 0,725 = 938 + 120 do lacaio = cerca de 1.058 de vida efetiva, de 14,7 a 20,3 turnos com a aproximação: a estimativa fica um pouco acima do alvo; medir jogando",
+      "origem": "proposta (cerca de 2 salas); grill da sessão Mecânicas de 16/11 com o Fernando; a conta é dedução. Com 2 lacaios e o mapa maior passaria de 18; auditoria lab × jogo de 16/11; jogo: src/content/units.ts:112, :154"
     },
     {
       "regra": "Sala do chefe",
