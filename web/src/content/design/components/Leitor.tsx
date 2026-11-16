@@ -1,6 +1,7 @@
 // Full-screen image reader of the old design lab (leitor.ts): zoom (wheel, buttons, pinch), drag, arrows walk the
 // page's list, Esc closes. Mounted only while open, so each opening starts fitted on the clicked image. Radix Dialog gives the focus trap, Esc and focus back to the card that opened it.
 import * as Dialog from '@radix-ui/react-dialog';
+import { Icone } from '../../../components/layout/Icone';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 export interface ImagemLeitor {
@@ -9,7 +10,7 @@ export interface ImagemLeitor {
 }
 
 const BOTAO =
-  'min-h-11 min-w-11 cursor-pointer rounded-[4px] border border-borda bg-pergaminho px-3 text-tinta hover:border-lab focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lab';
+  'inline-flex min-h-11 min-w-11 cursor-pointer items-center justify-center gap-1.5 rounded-[4px] border border-borda bg-pergaminho px-3 text-tinta hover:border-lab focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lab';
 
 export function Leitor({ lista, inicio, onFechar }: { lista: ImagemLeitor[]; inicio: number; onFechar: () => void }) {
   const [i, setI] = useState(inicio);
@@ -153,26 +154,29 @@ export function Leitor({ lista, inicio, onFechar }: { lista: ImagemLeitor[]; ini
             {lista.length > 1 && (
               <>
                 <button type="button" className={BOTAO} aria-label="Imagem anterior" onClick={() => mostrar(i - 1)}>
-                  ←
+                  <Icone id="voltar" />
                 </button>
                 <button type="button" className={BOTAO} aria-label="Próxima imagem" onClick={() => mostrar(i + 1)}>
-                  →
+                  <Icone id="avancar" />
                 </button>
               </>
             )}
             <button type="button" className={BOTAO} aria-label="Reduzir" onClick={() => mais(0.8)}>
-              −
+              <Icone id="menos" />
             </button>
             <button type="button" className={BOTAO} aria-label="Ampliar" onClick={() => mais(1.25)}>
-              +
+              <Icone id="mais" />
             </button>
             <button type="button" className={BOTAO} aria-label="Tamanho real" onClick={() => centro(1)}>
+              <Icone id="tamanhoreal" />
               100%
             </button>
             <button type="button" className={BOTAO} aria-label="Ajustar à tela" onClick={ajustar}>
+              <Icone id="ajustar" />
               Ajustar
             </button>
             <Dialog.Close className={BOTAO} aria-label="Fechar (Esc)">
+              <Icone id="fechar" />
               Fechar
             </Dialog.Close>
           </div>

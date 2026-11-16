@@ -3,6 +3,7 @@ import { Outlet, useLocation } from 'react-router';
 import { LABS } from '@/lib/labs';
 import { GavetaContext } from '@/lib/gaveta-context';
 import { ESTREITO, SEM_DESKTOP, useMediaQuery } from '@/lib/useMediaQuery';
+import { ImagensAmpliaveis } from './ImagensAmpliaveis';
 import { Lateral, MenuInferior } from './Navegacao';
 import { TopBar } from './TopBar';
 
@@ -38,7 +39,9 @@ export function Shell() {
       <div className={estreito ? 'pb-(--nav-h)' : 'flex'}>
         {!estreito && noLab && <Lateral recolhida={recolhida} alternar={() => setRecolher(!recolhida)} setSlot={setSlot} />}
         <div className="min-w-0 flex-1">
-          <Outlet />
+          <ImagensAmpliaveis>
+            <Outlet />
+          </ImagensAmpliaveis>
         </div>
         {estreito && <MenuInferior />}
       </div>
