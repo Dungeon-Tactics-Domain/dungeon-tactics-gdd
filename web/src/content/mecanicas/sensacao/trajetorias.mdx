@@ -1,0 +1,20 @@
+import { Tabela } from '../components/Descida';
+import { TRAJETORIAS } from '../dados';
+
+Protótipo das trajetórias decididas no grill de 15/11: cada arma tem a sua (curva ou reta), e a magia conjurada não
+precisa de linha de visão. A cena é isolada do jogo; a Implementação leva para o jogo depois.
+
+Escolha a arma ou a magia, clique numa casa para mover o alvo (vermelho) e aperte Disparar. Arraste para girar a câmera.
+O alvo começa atrás do muro baixo, com uma unidade no caminho: o Arco passa por cima, a Besta para no muro.
+
+<figure className="m-0 bg-tinta">
+  <iframe
+    src="/content/mecanicas/trajetorias/index.html"
+    title="Protótipo de trajetórias"
+    className="mx-auto block aspect-video w-full max-w-[160vh] border-0"
+  />
+</figure>
+
+## Decisões
+
+<Tabela colunas={['Regra', 'Valor', 'Origem']} linhas={TRAJETORIAS.map((r) => [r.regra, r.valor, r.origem])} />

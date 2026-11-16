@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Trajetórias</title>
+    <link rel="icon" href="data:," />
+    <!-- Isolated prototype of the trajectory grill (15/11); Implementação ports it to the game later -->
+    <style>
+      :root {
+        color-scheme: light;
+        --fundo: #f3ede0;
+        --tinta: #2b2116;
+        --borda: #b9a888;
+        --ativo: #7a4e1d;
+      }
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        overflow: hidden;
+        background: var(--fundo);
+        color: var(--tinta);
+        font:
+          14px/1.35 system-ui,
+          sans-serif;
+      }
+      canvas {
+        display: block;
+      }
+      #barra {
+        position: absolute;
+        top: 8px;
+        left: 8px;
+        right: 8px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        pointer-events: none;
+      }
+      #barra button {
+        pointer-events: auto;
+        min-height: 32px;
+        padding: 0 10px;
+        border: 1px solid var(--borda);
+        border-radius: 3px;
+        background: #fffaf0;
+        color: var(--tinta);
+        font: inherit;
+        cursor: pointer;
+      }
+      #barra button[aria-pressed='true'] {
+        background: var(--ativo);
+        border-color: var(--ativo);
+        color: #fff;
+      }
+      #disparar {
+        font-weight: 700;
+      }
+      #estado {
+        position: absolute;
+        left: 8px;
+        right: 8px;
+        bottom: 8px;
+        margin: 0;
+        padding: 6px 10px;
+        background: #fffaf0e6;
+        border: 1px solid var(--borda);
+      }
+    </style>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div id="barra" role="group" aria-label="Arma ou magia"></div>
+    <p id="estado" role="status">Carregando…</p>
+    <script type="module">
+      import * as THREE from 'three';
+      import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+      // Game numbers (dungeon-tactics master): 1 level = 0.5 m (space.ts STEP), unit 0.85 m tall (markers.ts), range in
+      // Manhattan tiles (grid.ts dist). Chest at 0.45 m: the KayKit body is short under a big head, and it keeps a straight
+      // shot from clearing a 1-level wall by a centimetre.
+      const STEP = 0.5,
+        ALTURA = 0.85,
+        PEITO = 0.45,
+        RAIO = 0.28;
+      const W = 10,
+        H = 8;
+
+      // tile heights in levels; obstacles are tiles nobody stands on
+      const nivel = Array.from({ length: W }, () => Array(H).fill(0));
+      const obst = {};
+      for (let z = 5; z < 8; z++) {
+        nivel[7][z] = 1;
+        nivel[8][z] = 2;
+        nivel[9][z] = 2;
+      }
+      for (let z = 3; z < 6; z++) {
+        nivel[4][z] = 1;
+        obst[`4,${z}`] = 'muro baixo';
+      }
+      nivel[5][1] = 5;
+      obst['5,1'] = 'pilar alto';
+
+      const ARMAS = [
+        { id: 'arco', nome: 'Arco', tipo: 'curva', vel: 8, cor: '#8a6a44' },
+        { id: 'besta', nome: 'Besta', tipo: 'reta', vel: 18, cor: '#5b4a3a' },
+        { id: 'machado', nome: 'Machado', tipo: 'curva', vel: 7, cor: '#6d6d6d' },
+        { id: 'adaga', nome: 'Adaga', tipo: 'reta', vel: 16, cor: '#9aa3ad' },
+        { id: 'raio', nome: 'Raio de fogo', tipo: 'reta', vel: 12, cor: '#ff7a1a' },
+        { id: 'explosao', nome: 'Explosão', tipo: 'conjurada', cor: '#e0352b', raio: 1.2 },
+        { id: 'cura', nome: 'Cura', tipo: 'conjurada', cor: '#2fa84f', raio: 0.6 },
+      ];
+      let arma = ARMAS[0];
+
+      const topo = (x, z) => (nivel[x][z] + 1) * STEP;
+      const centro = (x, z) => new THREE.Vector3(x - W / 2 + 0.5, topo(x, z), z - H / 2 + 0.5);
+
+      // ---------- scene ----------
+      const renderer = new THREE.WebGLRenderer({ antialias: true });
+      renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+      document.body.prepend(renderer.domElement);
+      const scene = new THREE.Scene();
+      scene.background = new THREE.Color('#f3ede0');
+      const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 100);
+      camera.position.set(-2, 9, 10);
+      const controls = new OrbitControls(camera, renderer.domElement);
+      controls.target.set(0.5, 0.5, 0);
+      controls.enableDamping = true;
+      scene.add(new THREE.HemisphereLight('#ffffff', '#b8a07a', 1.6));
+      const sol = new THREE.DirectionalLight('#ffffff', 1.4);
+      sol.position.set(4, 10, 6);
+      scene.add(sol);
+
+      const tiles = [];
+      const caixa = new THREE.BoxGeometry(0.98, 1, 0.98);
+      for (let x = 0; x < W; x++)
+        for (let z = 0; z < H; z++) {
+          const o = obst[`${x},${z}`];
+          const cor = o ? (o === 'pilar alto' ? '#7d7466' : '#a39684') : (x + z) % 2 ? '#9cbf73' : '#a9c97f';
+          const m = new THREE.Mesh(
+            caixa,
+            new THREE.MeshLambertMaterial({ color: nivel[x][z] && !o ? '#c9b78f' : cor }),
+          );
+          const t = topo(x, z);
+          m.scale.y = t;
+          m.position.copy(centro(x, z)).setY(t / 2);
+          m.userData = { x, z };
+          scene.add(m);
+          tiles.push(m);
+        }
+
+      const corpo = new THREE.CapsuleGeometry(RAIO, ALTURA - 2 * RAIO, 4, 12);
+      function unidade(cor, x, z) {
+        const g = new THREE.Group();
+        const c = new THREE.Mesh(corpo, new THREE.MeshLambertMaterial({ color: cor }));
+        c.position.y = ALTURA / 2;
+        // chest band: where every shot starts and ends
+        const b = new THREE.Mesh(
+          new THREE.TorusGeometry(RAIO + 0.01, 0.025, 6, 20).rotateX(Math.PI / 2),
+          new THREE.MeshBasicMaterial({ color: '#f2c230' }),
+        );
+        b.position.y = PEITO;
+        g.add(c, b);
+        const u = { g, x, z };
+        por(u, x, z);
+        scene.add(g);
+        return u;
+      }
+      function por(u, x, z) {
+        u.x = x;
+        u.z = z;
+        u.g.position.copy(centro(x, z));
+      }
+      const atacante = unidade('#3569b5', 1, 4);
+      const meio = unidade('#8c8c8c', 6, 4);
+      const alvo = unidade('#c23b30', 8, 4);
+      meio.nome = 'unidade no caminho';
+      alvo.nome = 'alvo';
+      const unidades = [atacante, meio, alvo];
+      const peito = (u) => centro(u.x, u.z).setY(topo(u.x, u.z) + PEITO);
+
+      // ---------- path math: one function for preview, collision and flight ----------
+      // Curve: the apex is 1 level per 3 Manhattan tiles (min 1, max 3) above the higher chest, and the parabola in k has
+      // exactly that maximum even when the two chests differ in height: y = ya + B k - A k^2 with D = top - ya, E = top - yb,
+      // B = 2(D + sqrt(D E)), A = B^2 / (4 D). Straight: the line chest to chest.
+      function caminho(a, b, curva, dist) {
+        const niveis = curva ? Math.min(3, Math.max(1, Math.floor(dist / 3))) : 0;
+        let B = b.y - a.y,
+          A = 0;
+        if (curva) {
+          const top = Math.max(a.y, b.y) + niveis * STEP;
+          const D = top - a.y,
+            E = top - b.y;
+          B = 2 * (D + Math.sqrt(D * E));
+          A = (B * B) / (4 * D);
+        }
+        return {
+          niveis,
+          em: (k, v = new THREE.Vector3()) =>
+            v.set(a.x + (b.x - a.x) * k, a.y + B * k - A * k * k, a.z + (b.z - a.z) * k),
+          tangente: (k) => new THREE.Vector3(b.x - a.x, B - 2 * A * k, b.z - a.z).normalize(),
+        };
+      }
+
+      // A sample is blocked inside a tile's column or inside another unit's body; the shooter and the target never block.
+      const AMOSTRAS = 240;
+      function bloqueio(c) {
+        const p = new THREE.Vector3();
+        for (let i = 1; i < AMOSTRAS; i++) {
+          const k = i / AMOSTRAS;
+          c.em(k, p);
+          const x = Math.floor(p.x + W / 2),
+            z = Math.floor(p.z + H / 2);
+          if (x < 0 || z < 0 || x >= W || z >= H) continue;
+          for (const u of unidades) {
+            if (u === atacante || u === alvo) continue;
+            const base = topo(u.x, u.z),
+              q = centro(u.x, u.z);
+            if (Math.hypot(p.x - q.x, p.z - q.z) < RAIO && p.y > base && p.y < base + ALTURA)
+              return { k, p: p.clone(), oque: u.nome, u };
+          }
+          if (p.y < topo(x, z)) return { k, p: p.clone(), oque: obst[`${x},${z}`] ?? 'degrau do terreno' };
+        }
+        return null;
+      }
+
+      // ---------- preview ----------
+      const CIANO = '#22b8f0',
+        VERMELHO = '#e0352b';
+      const prev = new THREE.Group();
+      scene.add(prev);
+      const bola = new THREE.SphereGeometry(0.05, 8, 6);
+      const matC = new THREE.MeshBasicMaterial({ color: CIANO, depthTest: false });
+      const matR = new THREE.MeshBasicMaterial({ color: VERMELHO, depthTest: false });
+      const pontos = Array.from({ length: 80 }, () => {
+        const m = new THREE.Mesh(bola, matC);
+        m.renderOrder = 10;
+        prev.add(m);
+        return m;
+      });
+      const anel = new THREE.Mesh(
+        new THREE.RingGeometry(0.3, 0.4, 32).rotateX(-Math.PI / 2),
+        new THREE.MeshBasicMaterial({ color: CIANO, transparent: true, opacity: 0.9, depthTest: false }),
+      );
+      anel.renderOrder = 10;
+      prev.add(anel);
+      const xis = new THREE.Group();
+      const barraX = new THREE.BoxGeometry(0.42, 0.07, 0.02);
+      for (const r of [1, -1]) {
+        const m = new THREE.Mesh(barraX, new THREE.MeshBasicMaterial({ color: VERMELHO, depthTest: false }));
+        m.rotation.z = (r * Math.PI) / 4;
+        m.renderOrder = 11;
+        xis.add(m);
+      }
+      prev.add(xis);
+      // conjured: a pulsing circle over the area and a thin static dashed line, no dots and no X
+      const area = new THREE.Mesh(
+        new THREE.RingGeometry(0.85, 1, 48).rotateX(-Math.PI / 2),
+        new THREE.MeshBasicMaterial({ transparent: true, opacity: 0.85, depthTest: false }),
+      );
+      area.renderOrder = 10;
+      const tracejado = new THREE.Line(
+        new THREE.BufferGeometry(),
+        new THREE.LineDashedMaterial({ color: '#555', dashSize: 0.18, gapSize: 0.12, depthTest: false }),
+      );
+      tracejado.renderOrder = 10;
+      scene.add(area, tracejado);
+
+      let atual = null; // { c, blk, len, n } of the projectile in aim
+      const distancia = () => Math.abs(alvo.x - atacante.x) + Math.abs(alvo.z - atacante.z);
+      function mirar() {
+        const a = peito(atacante),
+          b = peito(alvo),
+          d = distancia();
+        const conj = arma.tipo === 'conjurada';
+        prev.visible = !conj;
+        area.visible = tracejado.visible = conj;
+        if (conj) {
+          atual = null;
+          area.material.color.set(arma.cor);
+          area.position.copy(centro(alvo.x, alvo.z)).y += 0.02;
+          tracejado.geometry.setFromPoints([a, b]);
+          tracejado.computeLineDistances();
+          estado(
+            `${arma.nome}: conjurada no alvo, sem linha de visão (${d} casas). ` +
+              (arma.id === 'cura' ? 'Círculo verde: cura.' : 'Círculo vermelho: dano.'),
+          );
+          return;
+        }
+        const c = caminho(a, b, arma.tipo === 'curva', d);
+        const blk = bloqueio(c);
+        let len = 0;
+        const p = a.clone(),
+          q = new THREE.Vector3();
+        for (let i = 1; i <= 60; i++) {
+          c.em(i / 60, q);
+          len += p.distanceTo(q);
+          p.copy(q);
+        }
+        atual = { c, blk, len, n: Math.min(pontos.length, Math.max(8, Math.round(len * 5))) };
+        anel.position.copy(centro(alvo.x, alvo.z)).y += 0.02;
+        xis.visible = !!blk;
+        if (blk) xis.position.copy(blk.p);
+        const tipo =
+          arma.tipo === 'curva'
+            ? `curva, topo ${c.niveis} ${c.niveis > 1 ? 'níveis' : 'nível'} acima do peito mais alto`
+            : 'reta';
+        estado(
+          `${arma.nome} (${tipo}, ${d} casas): ` +
+            (blk
+              ? `bloqueado por: ${blk.oque}.`
+              : arma.tipo === 'curva'
+                ? 'passa por cima e acerta o alvo.'
+                : 'linha livre, acerta o alvo.'),
+        );
+      }
+      const elEstado = document.getElementById('estado');
+      const estado = (t) => (elEstado.textContent = t);
+
+      // ---------- flight ----------
+      let voo = null;
+      const trilha = new THREE.Line(
+        new THREE.BufferGeometry().setAttribute('position', new THREE.BufferAttribute(new Float32Array(14 * 3), 3)),
+        new THREE.LineBasicMaterial({ color: '#ffffff', transparent: true, opacity: 0.8 }),
+      );
+      trilha.frustumCulled = false;
+      trilha.visible = false;
+      scene.add(trilha);
+      function projetil(a) {
+        let geo;
+        if (a.id === 'raio') geo = new THREE.SphereGeometry(0.12, 12, 8);
+        else if (a.id === 'machado') geo = new THREE.BoxGeometry(0.06, 0.24, 0.3);
+        else geo = new THREE.ConeGeometry(0.035, a.id === 'adaga' ? 0.28 : 0.5, 6).rotateX(Math.PI / 2);
+        const m = new THREE.Mesh(
+          geo,
+          new THREE.MeshLambertMaterial({ color: a.cor, emissive: a.id === 'raio' ? a.cor : '#000' }),
+        );
+        scene.add(m);
+        return m;
+      }
+      const faiscas = [];
+      function faisca(p, cor) {
+        const m = new THREE.Mesh(
+          new THREE.SphereGeometry(0.12, 10, 8),
+          new THREE.MeshBasicMaterial({ color: cor, transparent: true }),
+        );
+        m.position.copy(p);
+        scene.add(m);
+        faiscas.push({ m, t: 0 });
+      }
+      const tremores = [];
+      const tremer = (u) => tremores.push({ u, t: 0 });
+      function disparar() {
+        if (voo) return;
+        if (arma.tipo === 'conjurada') {
+          const p = centro(alvo.x, alvo.z);
+          p.y += 0.4;
+          faisca(p, arma.cor);
+          tremer(alvo);
+          return;
+        }
+        const { c, blk, len } = atual;
+        const fim = blk ? blk.k : 1;
+        voo = { c, fim, ms: ((len * fim) / arma.vel) * 1000, t0: performance.now(), m: projetil(arma), blk, hist: [] };
+        trilha.material.color.set(arma.id === 'raio' ? '#ff9a3c' : '#ffffff');
+        trilha.visible = true;
+      }
+
+      // ---------- input ----------
+      const barra = document.getElementById('barra');
+      for (const a of ARMAS) {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.textContent = a.nome;
+        b.dataset.id = a.id;
+        b.onclick = () => {
+          arma = a;
+          for (const o of barra.querySelectorAll('[data-id]'))
+            o.setAttribute('aria-pressed', String(o.dataset.id === a.id));
+          mirar();
+        };
+        barra.append(b);
+      }
+      const bDisp = document.createElement('button');
+      bDisp.type = 'button';
+      bDisp.id = 'disparar';
+      bDisp.textContent = 'Disparar';
+      bDisp.onclick = disparar;
+      barra.append(bDisp);
+      barra.querySelector('[data-id="arco"]').setAttribute('aria-pressed', 'true');
+
+      // a click (not an orbit drag) on a tile moves the target there
+      const ray = new THREE.Raycaster(),
+        mouse = new THREE.Vector2();
+      let down = null;
+      renderer.domElement.addEventListener('pointerdown', (e) => (down = [e.clientX, e.clientY]));
+      renderer.domElement.addEventListener('pointerup', (e) => {
+        if (!down || Math.hypot(e.clientX - down[0], e.clientY - down[1]) > 5 || voo) return;
+        mouse.set((e.clientX / innerWidth) * 2 - 1, -(e.clientY / innerHeight) * 2 + 1);
+        ray.setFromCamera(mouse, camera);
+        const hit = ray.intersectObjects(tiles)[0];
+        if (!hit) return;
+        const { x, z } = hit.object.userData;
+        if (obst[`${x},${z}`] || unidades.some((u) => u !== alvo && u.x === x && u.z === z))
+          return estado('Essa casa está ocupada: escolha outra para o alvo.');
+        por(alvo, x, z);
+        mirar();
+      });
+
+      function tamanho() {
+        renderer.setSize(innerWidth, innerHeight);
+        camera.aspect = innerWidth / innerHeight;
+        camera.updateProjectionMatrix();
+      }
+      addEventListener('resize', tamanho);
+      tamanho();
+      mirar();
+
+      // ---------- loop ----------
+      const tmp = new THREE.Vector3();
+      let antes = performance.now();
+      renderer.setAnimationLoop((agora) => {
+        const dt = (agora - antes) / 1000;
+        antes = agora;
+        controls.update();
+        // dots flow from the chest to the target along the same k the flight uses; red past the block
+        if (atual) {
+          const fase = (agora / 1000) * 0.6;
+          for (let i = 0; i < pontos.length; i++) {
+            const m = pontos[i];
+            m.visible = i < atual.n;
+            if (!m.visible) continue;
+            const k = ((i + fase * atual.n) % atual.n) / atual.n;
+            atual.c.em(k, m.position);
+            m.material = atual.blk && k > atual.blk.k ? matR : matC;
+          }
+          xis.quaternion.copy(camera.quaternion);
+        }
+        if (area.visible) area.scale.setScalar(arma.raio * (1 + 0.08 * Math.sin(agora / 180)));
+        if (voo) {
+          const k = Math.min(voo.fim, ((agora - voo.t0) / Math.max(voo.ms, 1)) * voo.fim);
+          voo.c.em(k, voo.m.position);
+          // tip along the tangent: nose up on the way out, down on the way in
+          voo.m.lookAt(tmp.copy(voo.m.position).add(voo.c.tangente(k)));
+          voo.hist.unshift(voo.m.position.clone());
+          voo.hist.length = Math.min(voo.hist.length, 14);
+          const pos = trilha.geometry.attributes.position;
+          for (let i = 0; i < 14; i++) pos.setXYZ(i, ...voo.hist[Math.min(i, voo.hist.length - 1)].toArray());
+          pos.needsUpdate = true;
+          if (k >= voo.fim) {
+            faisca(voo.m.position, '#fff2a8');
+            if (!voo.blk) tremer(alvo);
+            else if (voo.blk.u) tremer(voo.blk.u);
+            scene.remove(voo.m);
+            voo.m.geometry.dispose();
+            trilha.visible = false;
+            voo = null;
+          }
+        }
+        for (let i = faiscas.length - 1; i >= 0; i--) {
+          const f = faiscas[i];
+          f.t += dt;
+          f.m.scale.setScalar(1 + f.t * 8);
+          f.m.material.opacity = Math.max(0, 1 - f.t / 0.3);
+          if (f.t > 0.3) {
+            scene.remove(f.m);
+            f.m.geometry.dispose();
+            faiscas.splice(i, 1);
+          }
+        }
+        for (let i = tremores.length - 1; i >= 0; i--) {
+          const s = tremores[i];
+          s.t += dt;
+          const base = centro(s.u.x, s.u.z);
+          s.u.g.position.copy(base);
+          if (s.t < 0.25) s.u.g.position.x += Math.sin(s.t * 90) * 0.05 * (1 - s.t / 0.25);
+          else tremores.splice(i, 1);
+        }
+        renderer.render(scene, camera);
+      });
+    </script>
+  </body>
+</html>

@@ -163,7 +163,15 @@ export default {
       titulo: 'Sensação',
       icone: '✨',
       resumo: 'Tempos, impacto, câmera, som e retorno da interface como estão hoje.',
-      paginas: paginasDeRegra(REGRAS.feel),
+      paginas: [
+        ...paginasDeRegra(REGRAS.feel),
+        {
+          id: 'trajetorias',
+          titulo: 'Trajetórias',
+          icone: '🏹',
+          resumo: 'Tiro curvo e reto, magia conjurada: protótipo em Three.js e as decisões do grill de 15/11.',
+        },
+      ],
     },
     {
       id: 'referencias',

@@ -25,3 +25,8 @@ where they are and are not copied.
 `descida.json` holds the numbers of the dungeon crawler descent (short room, enemies and boss, wounded, room map rules),
 proposed by this lab and not copied from the old one. `dados.ts` sums the enemy life per room; the test keeps every room
 in 5 to 8 hero turns and the boss in 12 to 18.
+
+## Trajectories (Nov 15)
+
+`sensacao/trajetorias.mdx` embeds `public/content/mecanicas/trajetorias/index.html` (an isolated Three.js 0.160.0 scene from
+jsDelivr, no game code) and shows `trajetorias.json`, the 10 decisions of the trajectory grill.

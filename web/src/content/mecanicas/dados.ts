@@ -5,6 +5,7 @@ import clipes from './clipes.json';
 import descida from './descida.json';
 import plano from './plano.json';
 import regras from './regras.json';
+import trajetorias from './trajetorias.json';
 
 export interface Opcao {
   name: string;
@@ -98,3 +99,6 @@ const VIDA: Record<string, number> = descida.vida;
 // an unknown enemy id gives NaN, so the room test fails instead of counting it as 0
 export const vidaDe = (inimigos: string[]) => inimigos.reduce((s, i) => s + (VIDA[i] ?? NaN), 0);
 export const turnosDe = (vida: number) => Math.round((vida / descida.ritmo.danoPorTurnoDeHeroi) * 10) / 10;
+
+// Trajectory grill (Nov 15): one {regra, valor, origem} row per decision, shown next to the Three.js prototype
+export const TRAJETORIAS: { regra: string; valor: string; origem: string }[] = trajetorias;

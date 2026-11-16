@@ -1,0 +1,52 @@
+[
+  {
+    "regra": "O tipo de trajetória é da arma",
+    "valor": "Curva: arco e machado arremessado. Reta: besta, arma de fogo e adaga arremessada.",
+    "origem": "grill de trajetórias de 15/11 com o Fernando"
+  },
+  {
+    "regra": "O que bloqueia cada tipo",
+    "valor": "A curva só é bloqueada pelo que sobe acima do topo dela: passa por cima de unidades e muros baixos. A reta para na primeira unidade ou obstáculo (regra de hoje).",
+    "origem": "grill de trajetórias de 15/11 com o Fernando"
+  },
+  {
+    "regra": "Magia conjurada",
+    "valor": "Não precisa de linha de visão (como no FFT).",
+    "origem": "grill de trajetórias de 15/11 com o Fernando"
+  },
+  {
+    "regra": "Quais magias voam e quais são conjuradas",
+    "valor": "Raio de fogo e Rajada voam retos como projétil. Explosão, Cura e Onda Sombria são conjuradas no alvo.",
+    "origem": "grill de trajetórias de 15/11 com o Fernando"
+  },
+  {
+    "regra": "Dano e alcance",
+    "valor": "Vêm dos números de cada arma, sem regra especial no motor. Diretriz ao criar itens: arma reta com mais poder (cerca de +30% de poder físico), arma curva com +1 de alcance.",
+    "origem": "proposta do lab (15/11)"
+  },
+  {
+    "regra": "Prévia do projétil",
+    "valor": "Arco de pontos animado que segue o caminho real (curva ou reta) do PEITO do atacante ao PEITO do alvo, com a mesma conta do voo, terminando num anel de pouso. Pontos depois do bloqueio ficam vermelhos, com um X vermelho no impacto.",
+    "origem": "grill de trajetórias de 15/11 com o Fernando"
+  },
+  {
+    "regra": "Altura do topo da curva",
+    "valor": "1 nível a cada 3 casas de distância, mínimo 1 e máximo 3 (3 casas: 1, 6: 2, 9 ou mais: 3), medido acima do mais alto dos dois peitos.",
+    "origem": "grill de trajetórias de 15/11 com o Fernando"
+  },
+  {
+    "regra": "Mira da magia conjurada",
+    "valor": "Círculo pulsando sobre a área (vermelho para dano, verde para cura) e uma linha fina tracejada e parada saindo do conjurador. Sem pontos animados e sem X, para não parecer projétil.",
+    "origem": "grill de trajetórias de 15/11 com o Fernando"
+  },
+  {
+    "regra": "Voo do projétil",
+    "valor": "Segue exatamente a curva da prévia, a ponta aponta na direção do caminho (sobe de nariz e desce de nariz), deixa um rastro curto, e o alvo treme com uma faísca pequena no impacto. Tiro reto é mais rápido que o curvo.",
+    "origem": "grill de trajetórias de 15/11 com o Fernando"
+  },
+  {
+    "regra": "Como prototipar",
+    "valor": "Cena Three.js isolada numa página do lab (esta); a Implementação leva para o jogo depois.",
+    "origem": "grill de trajetórias de 15/11 com o Fernando"
+  }
+]

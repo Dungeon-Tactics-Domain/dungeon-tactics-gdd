@@ -5,7 +5,7 @@ import manifesto from '../manifest';
 import { Cena } from './Cena';
 import { sceneUrl, type Spec } from './cena-url';
 import { Pedidos } from './Plano';
-import { descida, turnosDe, vidaDe } from '../dados';
+import { descida, TRAJETORIAS, turnosDe, vidaDe } from '../dados';
 
 const G = 'http://localhost:5291';
 // arena-wall.json as served by the game bench on 14/11; the expected URLs came from the old lab's sceneUrl
@@ -32,18 +32,18 @@ beforeEach(() => {
 afterEach(() => vi.unstubAllGlobals());
 
 describe('mecanicas manifest', () => {
-  it('keeps the old lab tree plus the descent and equipment groups: 7 groups and 84 pages and subpages', () => {
+  it('keeps the old lab tree plus the descent and equipment groups: 7 groups and 85 pages and subpages', () => {
     expect(manifesto.grupos.map((g) => `${g.id}:${g.paginas.length}`)).toEqual([
       'decisoes:4',
       'descida:4',
       'equipamento:5',
       'clipes:4',
       'regras:8',
-      'sensacao:5',
+      'sensacao:6',
       'referencias:10',
     ]);
     const n = manifesto.grupos.flatMap((g) => g.paginas.flatMap((p) => [p, ...(p.subpaginas ?? [])])).length;
-    expect(n).toBe(84);
+    expect(n).toBe(85);
     expect((manifesto.linksAntigos as Record<string, string>)['cena-walk']).toBe('clipes/movimento/walk');
     expect((manifesto.linksAntigos as Record<string, string>)._geral).toBe('referencias/geral');
   });
@@ -121,5 +121,12 @@ describe('descida', () => {
     }
     const t = turnosDe(vidaDe(descida.chefeInimigos));
     expect(t >= chefe.min && t <= chefe.max, `chefe: ${t}`).toBe(true);
+  });
+});
+
+describe('trajetorias', () => {
+  it('keeps the 10 decisions of the trajectory grill, each with its origin', () => {
+    expect(TRAJETORIAS).toHaveLength(10);
+    for (const r of TRAJETORIAS) expect(r.origem).toMatch(/grill de trajetórias de 15\/11|proposta do lab \(15\/11\)/);
   });
 });
