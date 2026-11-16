@@ -1,0 +1,32 @@
+[
+  {
+    "regra": "Golpe",
+    "valor": "Pausa de 60 a 80 ms no quadro do impacto (hit-stop), o alvo recua meia casa e treme de leve. Golpe forte e crítico: pausa dobrada e a câmera treme.",
+    "origem": "grill do peso de 15/11 com o Fernando"
+  },
+  {
+    "regra": "Queda de altura",
+    "valor": "Arco de gravidade de verdade, um quique curto e poeira no pouso. O número do dano aparece quando o corpo toca o chão.",
+    "origem": "grill do peso de 15/11 com o Fernando"
+  },
+  {
+    "regra": "Empurrão contra a parede",
+    "valor": "O corpo para seco, volta um palmo, com tremor e faísca de pedra.",
+    "origem": "grill do peso de 15/11 com o Fernando"
+  },
+  {
+    "regra": "Morte",
+    "valor": "Câmera lenta com zoom no golpe que mata, em TODA morte. Uma opção no menu Opções desliga. A unidade cai e fica como cadáver (o cadáver já existe nas regras, em grid.ts).",
+    "origem": "grill do peso de 15/11 com o Fernando"
+  },
+  {
+    "regra": "Número de dano",
+    "valor": "Salta do peito no quadro exato do impacto. O tamanho cresce com o dano; o crítico é maior e tem contorno dourado. Cor por tipo: branco físico, roxo mágico, verde cura, cinza \"Errou\".",
+    "origem": "grill do peso de 15/11 com o Fernando"
+  },
+  {
+    "regra": "Alcance da mudança",
+    "valor": "Só visual: nenhuma regra de combate muda.",
+    "origem": "grill do peso de 15/11 com o Fernando"
+  }
+]

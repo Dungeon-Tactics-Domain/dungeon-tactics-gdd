@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Peso dos golpes</title>
+    <link rel="icon" href="data:," />
+    <!-- Isolated prototype of the weight grill (15/11): visual only, no rule changes; Implementação ports it later -->
+    <style>
+      :root {
+        color-scheme: light;
+        --fundo: #f3ede0;
+        --tinta: #2b2116;
+        --borda: #b9a888;
+        --ativo: #7a4e1d;
+        --ouro: #e2b23a;
+      }
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        overflow: hidden;
+        background: var(--fundo);
+        color: var(--tinta);
+        font:
+          14px/1.35 system-ui,
+          sans-serif;
+      }
+      canvas {
+        display: block;
+      }
+      #barra {
+        position: absolute;
+        top: 8px;
+        left: 8px;
+        right: 8px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 4px;
+        pointer-events: none;
+      }
+      #barra button,
+      #barra label {
+        pointer-events: auto;
+        min-height: 32px;
+        padding: 0 10px;
+        border: 1px solid var(--borda);
+        border-radius: 3px;
+        background: #fffaf0;
+        color: var(--tinta);
+        font: inherit;
+        cursor: pointer;
+      }
+      #barra label {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        box-sizing: border-box;
+      }
+      #repetir {
+        font-weight: 700;
+      }
+      #estado {
+        position: absolute;
+        left: 8px;
+        right: 8px;
+        bottom: 8px;
+        margin: 0;
+        padding: 6px 10px;
+        background: #fffaf0e6;
+        border: 1px solid var(--borda);
+      }
+      #numeros {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        overflow: hidden;
+      }
+      /* dark outline so the white number reads on the parchment; the crit adds a gold stroke inside it */
+      .num {
+        position: absolute;
+        left: 0;
+        top: 0;
+        font-weight: 900;
+        white-space: nowrap;
+        color: #fff;
+        text-shadow:
+          2px 0 #2b2116,
+          -2px 0 #2b2116,
+          0 2px #2b2116,
+          0 -2px #2b2116,
+          2px 2px #2b2116,
+          -2px -2px #2b2116,
+          2px -2px #2b2116,
+          -2px 2px #2b2116;
+      }
+      .num.critico {
+        -webkit-text-stroke: 2px var(--ouro);
+      }
+      /* phone: the iframe is about 360x200, so the controls shrink to keep the board visible */
+      @media (max-width: 480px) {
+        #barra {
+          top: 4px;
+          left: 4px;
+          right: 4px;
+          gap: 3px;
+        }
+        #barra button,
+        #barra label {
+          min-height: 26px;
+          padding: 0 6px;
+          font-size: 12px;
+        }
+        #estado {
+          left: 4px;
+          right: 4px;
+          bottom: 4px;
+          padding: 2px 6px;
+          font-size: 12px;
+        }
+      }
+    </style>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div id="numeros"></div>
+    <div id="barra" role="group" aria-label="Efeitos de peso">
+      <button type="button" data-acao="golpe">Golpe</button>
+      <button type="button" data-acao="forte">Golpe forte (crítico)</button>
+      <button type="button" data-acao="queda">Empurrão para queda</button>
+      <button type="button" data-acao="parede">Empurrão na parede</button>
+      <button type="button" data-acao="mortal">Golpe mortal</button>
+      <button type="button" id="repetir">Repetir</button>
+      <label><input type="checkbox" id="lenta" checked /> Câmera lenta na morte</label>
+    </div>
+    <p id="estado" role="status">Carregando…</p>
+    <script type="module">
+      import * as THREE from 'three';
+      import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+      // Same numbers as the trajectory scene: 1 level = 0.5 m, unit 0.85 m tall, chest at 0.6 m (decided 15/11)
+      const STEP = 0.5,
+        ALTURA = 0.85,
+        PEITO = 0.6,
+        RAIO = 0.28;
+      const W = 8,
+        H = 6;
+
+      // a 2-level ledge at the back right and a 2-level stone wall on the left edge
+      const nivel = Array.from({ length: W }, () => Array(H).fill(0));
+      const parede = new Set();
+      for (let z = 0; z < 3; z++) {
+        for (let x = 5; x < 8; x++) nivel[x][z] = 2;
+        nivel[0][z] = 2;
+        parede.add(`0,${z}`);
+      }
+      const topo = (x, z) => (nivel[x][z] + 1) * STEP;
+      const centro = (x, z) => new THREE.Vector3(x - W / 2 + 0.5, topo(x, z), z - H / 2 + 0.5);
+
+      // ---------- scene ----------
+      const renderer = new THREE.WebGLRenderer({ antialias: true });
+      renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+      document.body.prepend(renderer.domElement);
+      const scene = new THREE.Scene();
+      scene.background = new THREE.Color('#f3ede0');
+      const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 100);
+      const CAM = new THREE.Vector3(-1.5, 7, 8),
+        ALVO_CAM = new THREE.Vector3(0.3, 0.6, 0);
+      const controls = new OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+      scene.add(new THREE.HemisphereLight('#ffffff', '#b8a07a', 1.6));
+      const sol = new THREE.DirectionalLight('#ffffff', 1.4);
+      sol.position.set(4, 10, 6);
+      scene.add(sol);
+
+      const caixa = new THREE.BoxGeometry(0.98, 1, 0.98);
+      for (let x = 0; x < W; x++)
+        for (let z = 0; z < H; z++) {
+          const cor = parede.has(`${x},${z}`)
+            ? '#8a8174'
+            : nivel[x][z]
+              ? '#c9b78f'
+              : (x + z) % 2
+                ? '#9cbf73'
+                : '#a9c97f';
+          const m = new THREE.Mesh(caixa, new THREE.MeshLambertMaterial({ color: cor }));
+          const t = topo(x, z);
+          m.scale.y = t;
+          m.position.copy(centro(x, z)).setY(t / 2);
+          scene.add(m);
+        }
+
+      const corpo = new THREE.CapsuleGeometry(RAIO, ALTURA - 2 * RAIO, 4, 12);
+      const faixa = new THREE.TorusGeometry(RAIO + 0.01, 0.025, 6, 20).rotateX(Math.PI / 2);
+      function unidade(cor, x, z) {
+        const g = new THREE.Group();
+        const mat = new THREE.MeshLambertMaterial({ color: cor });
+        const c = new THREE.Mesh(corpo, mat);
+        c.position.y = ALTURA / 2;
+        // chest band: where the damage number pops from
+        const b = new THREE.Mesh(faixa, new THREE.MeshBasicMaterial({ color: '#f2c230' }));
+        b.position.y = PEITO;
+        g.add(c, b);
+        scene.add(g);
+        return { g, mat, cor, casa: [x, z], pos: new THREE.Vector3(), jit: 0 };
+      }
+      const atacante = unidade('#3569b5', 2, 4);
+      const golpeado = unidade('#c23b30', 3, 4);
+      const naBeira = unidade('#c23b30', 5, 1);
+      const naParede = unidade('#c23b30', 1, 1);
+      const unidades = [atacante, golpeado, naBeira, naParede];
+      const peito = (u) => u.pos.clone().setY(u.pos.y + PEITO);
+
+      // ---------- one simulation clock: hit-stop holds it, the death slow motion scales it ----------
+      let escala = 1,
+        pausaAte = 0,
+        tarefas = [],
+        particulas = [],
+        numeros = [],
+        tremorCam = null,
+        ocupado = false;
+      const anim = (ms, fn) => new Promise((ok) => tarefas.push({ t: 0, ms, fn, ok }));
+      const hitStop = (ms) => (pausaAte = performance.now() + ms);
+      const tremer = (u, forca, ms) => anim(ms, (k) => (u.jit = k < 1 ? Math.sin(k * ms * 0.09) * forca * (1 - k) : 0));
+      const tremerCamera = (forca, ms) => (tremorCam = { forca, ate: performance.now() + ms, ms });
+      const suave = (k) => 1 - (1 - k) * (1 - k);
+
+      // the number pops from the chest; size grows with damage, the crit is bigger with a gold stroke
+      const elNumeros = document.getElementById('numeros');
+      function numero(u, dano, critico = false) {
+        const el = document.createElement('div');
+        el.className = critico ? 'num critico' : 'num';
+        el.textContent = dano;
+        const px = Math.min(56, 16 + dano * 0.75) * (critico ? 1.4 : 1);
+        const n = { el, de: peito(u), px, s: 1.6, sobe: 0, a: 1 };
+        elNumeros.append(el);
+        numeros.push(n);
+        anim(1100, (k) => {
+          n.s = 1 + 0.6 * Math.max(0, 1 - k * 8);
+          n.sobe = 0.5 * suave(k);
+          n.a = k < 0.75 ? 1 : 1 - (k - 0.75) / 0.25;
+        }).then(() => {
+          el.remove();
+          numeros = numeros.filter((x) => x !== n);
+        });
+      }
+
+      const bolinha = new THREE.SphereGeometry(1, 8, 6),
+        lasca = new THREE.BoxGeometry(1, 1, 1);
+      function soltar(geo, cor, p, v, tam, vida, grav) {
+        const m = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ color: cor, transparent: true }));
+        m.position.copy(p);
+        m.scale.setScalar(tam);
+        scene.add(m);
+        particulas.push({ m, v, t: 0, vida, grav, tam });
+      }
+      const faisca = (p) => soltar(bolinha, '#fff2a8', p, new THREE.Vector3(), 0.12, 0.25, 0);
+      function poeira(p) {
+        for (let i = 0; i < 10; i++) {
+          const a = (i / 10) * Math.PI * 2;
+          soltar(bolinha, '#b9a888', p, new THREE.Vector3(Math.cos(a) * 1.2, 0.4, Math.sin(a) * 1.2), 0.09, 0.6, 0);
+        }
+      }
+      function faiscaDePedra(p, dir) {
+        for (let i = 0; i < 10; i++) {
+          const v = new THREE.Vector3(
+            dir.x * -2 + (i % 3) - 1,
+            1.5 + (i % 4) * 0.5,
+            dir.z * -2 + ((i * 7) % 5) / 2 - 1,
+          );
+          soltar(lasca, i % 2 ? '#ffb340' : '#8a8174', p, v, 0.05, 0.4, 9.8);
+        }
+      }
+
+      const elEstado = document.getElementById('estado');
+      const lenta = document.getElementById('lenta');
+      const estado = (t) => (elEstado.textContent = t);
+      const textoLenta = () => `Câmera lenta na morte: ${lenta.checked ? 'ligada' : 'desligada'}.`;
+
+      // ---------- board reset ----------
+      function arrumar() {
+        for (const t of tarefas) t.ok = null;
+        tarefas = [];
+        for (const p of particulas) scene.remove(p.m);
+        particulas = [];
+        for (const n of numeros) n.el.remove();
+        numeros = [];
+        escala = 1;
+        pausaAte = 0;
+        tremorCam = null;
+        ocupado = false;
+        for (const u of unidades) {
+          u.pos.copy(centro(...u.casa));
+          u.jit = 0;
+          u.g.quaternion.identity();
+          u.mat.color.set(u.cor);
+        }
+        camera.position.copy(CAM);
+        controls.target.copy(ALVO_CAM);
+        camera.zoom = 1;
+        camera.updateProjectionMatrix();
+      }
+      const levar = (u, x, z) => u.pos.copy(centro(x, z));
+      const direcao = (de, para) => para.pos.clone().sub(de.pos).setY(0).normalize();
+
+      // the attacker leans into the target; resolves on the impact frame
+      async function investida(alvo, ms = 160) {
+        const ini = atacante.pos.clone(),
+          dir = direcao(atacante, alvo);
+        await anim(ms, (k) => atacante.pos.copy(ini).addScaledVector(dir, 0.3 * k * k));
+        anim(220, (k) => atacante.pos.copy(ini).addScaledVector(dir, 0.3 * (1 - k)));
+        return dir;
+      }
+
+      // ---------- the five effects ----------
+      async function golpe(forte, mortal) {
+        levar(atacante, 2, 4);
+        const u = golpeado,
+          lento = mortal && lenta.checked;
+        if (lento) {
+          // slow motion and zoom on the killing blow, on every death unless Options turns it off
+          escala = 0.3;
+          const t0 = controls.target.clone(),
+            fim = peito(u);
+          anim(180, (k) => {
+            controls.target.lerpVectors(t0, fim, suave(k));
+            camera.zoom = 1 + 1.2 * suave(k);
+            camera.updateProjectionMatrix();
+          });
+        }
+        const dir = await investida(u);
+        const dano = mortal ? 48 : forte ? 36 : 18;
+        numero(u, dano, forte);
+        faisca(peito(u));
+        // hit-stop on the impact frame: 70 ms, doubled for strong hits and crits, which also shake the camera
+        hitStop(forte || mortal ? 140 : 70);
+        if (forte || mortal) tremerCamera(0.08, 280);
+        tremer(u, 0.04, 260);
+        const b0 = u.pos.clone();
+        await anim(110, (k) => u.pos.copy(b0).addScaledVector(dir, 0.5 * suave(k)));
+        if (mortal) return morrer(u, dir, lento);
+        await anim(260, (k) => u.pos.copy(b0).addScaledVector(dir, 0.5 * (1 - suave(k))));
+        estado(
+          forte
+            ? 'Golpe forte (crítico): pausa dobrada (140 ms), número maior com contorno dourado, câmera treme.'
+            : 'Golpe: pausa de 70 ms no impacto, o alvo recua meia casa e treme de leve.',
+        );
+      }
+
+      async function morrer(u, dir, lento) {
+        // falls away from the blow and stays as a corpse
+        const eixo = new THREE.Vector3(dir.z, 0, -dir.x),
+          y0 = u.pos.y,
+          q = new THREE.Quaternion(),
+          cinza = new THREE.Color('#6b5f55'),
+          cor = new THREE.Color(u.cor);
+        await anim(520, (k) => {
+          u.g.quaternion.copy(q.setFromAxisAngle(eixo, (Math.PI / 2) * k * k));
+          u.pos.y = y0 + RAIO * k;
+          u.mat.color.lerpColors(cor, cinza, k);
+        });
+        tremerCamera(0.03, 150);
+        escala = 1;
+        if (lento) {
+          const t0 = controls.target.clone();
+          await anim(450, (k) => {
+            controls.target.lerpVectors(t0, ALVO_CAM, suave(k));
+            camera.zoom = 2.2 - 1.2 * suave(k);
+            camera.updateProjectionMatrix();
+          });
+        }
+        estado(`Golpe mortal: a unidade cai e fica como cadáver. ${textoLenta()}`);
+      }
+
+      async function queda() {
+        levar(atacante, 6, 1);
+        const u = naBeira,
+          dir = await investida(u, 140);
+        hitStop(70);
+        tremer(u, 0.03, 200);
+        // real gravity arc off the 2-level ledge to the tile below, a short bounce, dust, and the number on touchdown
+        const p0 = u.pos.clone(),
+          yFim = topo(4, 1),
+          G = 9.8,
+          vy = 1.4;
+        const T = (vy + Math.sqrt(vy * vy + 2 * G * (p0.y - yFim))) / G;
+        await anim(T * 1000, (k) => {
+          const t = k * T;
+          u.pos.copy(p0).addScaledVector(dir, t / T);
+          u.pos.y = p0.y + vy * t - (G * t * t) / 2;
+        });
+        u.pos.y = yFim;
+        numero(u, 14);
+        poeira(u.pos.clone().setY(yFim + 0.05));
+        hitStop(70);
+        tremerCamera(0.04, 180);
+        const b = u.pos.clone();
+        await anim(240, (k) => (u.pos.y = b.y + 0.14 * 4 * k * (1 - k)));
+        estado('Empurrão para queda: arco de gravidade, quique curto, poeira; o número sai no pouso.');
+      }
+
+      async function empurraoNaParede() {
+        levar(atacante, 2, 1);
+        const u = naParede,
+          dir = await investida(u, 140);
+        // slides until the body touches the wall face, then stops dead
+        const p0 = u.pos.clone(),
+          ate = 0.5 - RAIO - 0.02;
+        await anim(70, (k) => u.pos.copy(p0).addScaledVector(dir, ate * k));
+        numero(u, 12);
+        faiscaDePedra(peito(u).addScaledVector(dir, RAIO), dir);
+        hitStop(70);
+        tremer(u, 0.04, 260);
+        tremerCamera(0.04, 200);
+        const b = u.pos.clone();
+        // bounces back a hand's width (about 10 cm)
+        await anim(160, (k) => u.pos.copy(b).addScaledVector(dir, -0.1 * suave(k)));
+        estado('Empurrão na parede: para seco, volta um palmo, tremor e faísca de pedra.');
+      }
+
+      const ACOES = {
+        golpe: () => golpe(false, false),
+        forte: () => golpe(true, false),
+        mortal: () => golpe(false, true),
+        queda,
+        parede: empurraoNaParede,
+      };
+
+      // ---------- input ----------
+      // every button starts from a clean board and ignores clicks while an effect plays
+      for (const b of document.querySelectorAll('[data-acao]'))
+        b.onclick = async () => {
+          if (ocupado) return;
+          arrumar();
+          ocupado = true;
+          estado(`${b.textContent}… ${b.dataset.acao === 'mortal' ? textoLenta() : ''}`);
+          await ACOES[b.dataset.acao]();
+          ocupado = false;
+        };
+      document.getElementById('repetir').onclick = () => {
+        arrumar();
+        estado(`Tabuleiro arrumado. ${textoLenta()}`);
+      };
+      lenta.onchange = () => estado(textoLenta());
+
+      function tamanho() {
+        renderer.setSize(innerWidth, innerHeight);
+        camera.aspect = innerWidth / innerHeight;
+        camera.updateProjectionMatrix();
+      }
+      addEventListener('resize', tamanho);
+      tamanho();
+      arrumar();
+      estado(`Escolha um efeito. ${textoLenta()}`);
+
+      // ---------- loop ----------
+      const v = new THREE.Vector3(),
+        sacode = new THREE.Vector3();
+      let antes = performance.now();
+      renderer.setAnimationLoop((agora) => {
+        const dt = Math.min(0.05, (agora - antes) / 1000);
+        antes = agora;
+        const sdt = agora < pausaAte ? 0 : dt * escala;
+        for (const t of [...tarefas]) {
+          t.t += sdt * 1000;
+          const k = Math.min(1, t.t / t.ms);
+          t.fn(k);
+          if (k >= 1) {
+            tarefas = tarefas.filter((x) => x !== t);
+            t.ok?.();
+          }
+        }
+        for (const p of [...particulas]) {
+          p.t += sdt;
+          p.v.y -= p.grav * sdt;
+          p.m.position.addScaledVector(p.v, sdt);
+          p.m.material.opacity = Math.max(0, 1 - p.t / p.vida);
+          if (!p.grav) p.m.scale.setScalar(p.tam * (1 + p.t * 4));
+          if (p.t > p.vida) {
+            scene.remove(p.m);
+            particulas = particulas.filter((x) => x !== p);
+          }
+        }
+        for (const u of unidades) {
+          u.g.position.copy(u.pos);
+          u.g.position.x += u.jit;
+        }
+        controls.update();
+        // camera shake runs on real time, so it also plays during the hit-stop; removed after the render
+        sacode.set(0, 0, 0);
+        if (tremorCam && agora < tremorCam.ate) {
+          const f = tremorCam.forca * ((tremorCam.ate - agora) / tremorCam.ms);
+          sacode.set(Math.sin(agora * 0.11) * f, Math.cos(agora * 0.13) * f, 0);
+          camera.position.add(sacode);
+        }
+        const escalaTela = Math.max(0.6, Math.min(1, innerHeight / 500));
+        for (const n of numeros) {
+          v.copy(n.de)
+            .setY(n.de.y + n.sobe)
+            .project(camera);
+          n.el.style.fontSize = `${n.px * escalaTela}px`;
+          n.el.style.opacity = n.a;
+          n.el.style.transform = `translate(${((v.x + 1) / 2) * innerWidth}px, ${((1 - v.y) / 2) * innerHeight}px) translate(-50%, -100%) scale(${n.s})`;
+        }
+        renderer.render(scene, camera);
+        camera.position.sub(sacode);
+      });
+    </script>
+  </body>
+</html>

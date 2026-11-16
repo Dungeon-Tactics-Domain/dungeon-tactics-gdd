@@ -1,4 +1,24 @@
+import { Tabela } from '../components/Descida';
 import { Regras } from '../components/Regras';
+import { PESO } from '../dados';
+
+## Decidido em 15/11
+
+Decisões do grill do peso: só visual, sem mudar regra. Elas substituem os números de hoje (logo abaixo) quando a
+Implementação levar para o jogo. Aperte um botão para ver cada efeito; Repetir arruma o tabuleiro. Arraste para girar a
+câmera.
+
+<figure className="m-0 bg-tinta">
+  <iframe
+    src="/content/mecanicas/peso/index.html"
+    title="Protótipo do peso dos golpes"
+    className="mx-auto block aspect-video w-full max-w-[160vh] border-0"
+  />
+</figure>
+
+<Tabela colunas={['Regra', 'Valor', 'Origem']} linhas={PESO.map((r) => [r.regra, r.valor, r.origem])} />
+
+## Como está hoje
 
 Como está no código hoje. Os tempos ficam todos em src/client/timing.ts.
 

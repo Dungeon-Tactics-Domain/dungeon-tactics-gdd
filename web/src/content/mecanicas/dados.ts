@@ -6,6 +6,7 @@ import descida from './descida.json';
 import plano from './plano.json';
 import regras from './regras.json';
 import trajetorias from './trajetorias.json';
+import peso from './peso.json';
 
 export interface Opcao {
   name: string;
@@ -102,3 +103,6 @@ export const turnosDe = (vida: number) => Math.round((vida / descida.ritmo.danoP
 
 // Trajectory grill (Nov 15): one {regra, valor, origem} row per decision, shown next to the Three.js prototype
 export const TRAJETORIAS: { regra: string; valor: string; origem: string }[] = trajetorias;
+
+// Weight grill (Nov 15): visual-only game-feel decisions, shown next to the Three.js prototype on the impact page
+export const PESO: { regra: string; valor: string; origem: string }[] = peso;

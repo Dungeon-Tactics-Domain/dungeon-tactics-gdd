@@ -5,7 +5,7 @@ import manifesto from '../manifest';
 import { Cena } from './Cena';
 import { sceneUrl, type Spec } from './cena-url';
 import { Pedidos } from './Plano';
-import { descida, TRAJETORIAS, turnosDe, vidaDe } from '../dados';
+import { descida, PESO, TRAJETORIAS, turnosDe, vidaDe } from '../dados';
 
 const G = 'http://localhost:5291';
 // arena-wall.json as served by the game bench on 14/11; the expected URLs came from the old lab's sceneUrl
@@ -128,5 +128,12 @@ describe('trajetorias', () => {
   it('keeps the 12 decisions of the trajectory grill, each with its origin', () => {
     expect(TRAJETORIAS).toHaveLength(12);
     for (const r of TRAJETORIAS) expect(r.origem).toMatch(/grill de trajetórias de 15\/11|proposta do lab \(15\/11\)/);
+  });
+});
+
+describe('peso', () => {
+  it('keeps the 6 decisions of the weight grill, each with its origin', () => {
+    expect(PESO).toHaveLength(6);
+    for (const r of PESO) expect(r.origem).toBe('grill do peso de 15/11 com o Fernando');
   });
 });
