@@ -62,33 +62,38 @@
   --casca-lateral: var(--color-folha);
   --casca-borda: var(--lab);
   --casca-titulo: var(--color-tinta);
-  /* page margin and title size per band (design lab, section 4) */
+  /* page margin and title sizes per band (design lab, section 4) */
   --margem: 16px;
   --h1: 26px;
+  --h2: 21px;
   scroll-padding-top: calc(var(--reino-h) + 8px);
 }
 @media (min-width: 640px) {
   :root {
     --margem: 24px;
     --h1: 30px;
+    --h2: 22px;
   }
 }
 @media (min-width: 1024px) {
   :root {
     --margem: 32px;
     --h1: 32px;
+    --h2: 24px;
   }
 }
 @media (min-width: 1440px) {
   :root {
     --margem: 40px;
     --h1: 34px;
+    --h2: 26px;
   }
 }
 @media (min-width: 2560px) {
   :root {
     --margem: 48px;
     --h1: 40px;
+    --h2: 28px;
   }
 }
 

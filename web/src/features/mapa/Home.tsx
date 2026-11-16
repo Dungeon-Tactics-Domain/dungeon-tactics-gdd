@@ -26,7 +26,7 @@ function Avisos({ fabrica, towns }: { fabrica: Fabrica | null; towns: Town[] }) 
       aria-labelledby="avisos-titulo"
       className="grid gap-3 border-2 border-tinta bg-cortica p-[18px] shadow-[5px_5px_0_rgba(43,42,34,.3)]"
     >
-      <h2 id="avisos-titulo" className="m-0 text-[30px]">
+      <h2 id="avisos-titulo" className="m-0 text-(length:--h2)">
         Quadro de avisos
       </h2>
       {calling.length > 0 && (
@@ -91,7 +91,7 @@ function Sessoes({ fabrica, towns }: { fabrica: Fabrica | null; towns: Town[] })
   return (
     <section id="sessoes" aria-labelledby="sessoes-titulo" className="grid gap-3">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h2 id="sessoes-titulo" className="m-0 text-[30px]">
+        <h2 id="sessoes-titulo" className="m-0 text-(length:--h2)">
           Todas as sessões
         </h2>
         <Button asChild>
