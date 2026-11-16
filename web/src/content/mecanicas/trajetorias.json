@@ -48,5 +48,15 @@
     "regra": "Como prototipar",
     "valor": "Cena Three.js isolada numa página do lab (esta); a Implementação leva para o jogo depois.",
     "origem": "grill de trajetórias de 15/11 com o Fernando"
+  },
+  {
+    "regra": "Altura do peito",
+    "valor": "Cerca de 0,6 m acima do chão da casa, como a prévia do jogo hoje (0,7 × 0,85). O caminho sai de dentro do peito do atacante e termina dentro do peito do alvo, então um muro de 1 nível (0,5 m) não para o tiro reto; só 2 níveis ou mais param.",
+    "origem": "grill de trajetórias de 15/11 com o Fernando"
+  },
+  {
+    "regra": "Casas vizinhas na curva",
+    "valor": "Na trajetória curva, a casa ao lado do atacante e a casa ao lado do alvo nunca bloqueiam: o arqueiro colado num muro atira por cima dele. A regra fica na mesma função de caminho e colisão da prévia e do voo.",
+    "origem": "grill de trajetórias de 15/11 com o Fernando"
   }
 ]

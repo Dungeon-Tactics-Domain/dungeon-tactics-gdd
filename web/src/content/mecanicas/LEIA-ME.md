@@ -29,4 +29,4 @@ in 5 to 8 hero turns and the boss in 12 to 18.
 ## Trajectories (Nov 15)
 
 `sensacao/trajetorias.mdx` embeds `public/content/mecanicas/trajetorias/index.html` (an isolated Three.js 0.160.0 scene from
-jsDelivr, no game code) and shows `trajetorias.json`, the 10 decisions of the trajectory grill.
+jsDelivr, no game code) and shows `trajetorias.json`, the 12 decisions of the trajectory grill.

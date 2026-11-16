@@ -125,8 +125,8 @@ describe('descida', () => {
 });
 
 describe('trajetorias', () => {
-  it('keeps the 10 decisions of the trajectory grill, each with its origin', () => {
-    expect(TRAJETORIAS).toHaveLength(10);
+  it('keeps the 12 decisions of the trajectory grill, each with its origin', () => {
+    expect(TRAJETORIAS).toHaveLength(12);
     for (const r of TRAJETORIAS) expect(r.origem).toMatch(/grill de trajetórias de 15\/11|proposta do lab \(15\/11\)/);
   });
 });

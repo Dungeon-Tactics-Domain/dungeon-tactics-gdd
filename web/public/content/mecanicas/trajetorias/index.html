@@ -106,11 +106,11 @@
       import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
       // Game numbers (dungeon-tactics master): 1 level = 0.5 m (space.ts STEP), unit 0.85 m tall (markers.ts), range in
-      // Manhattan tiles (grid.ts dist). Chest at 0.45 m: the KayKit body is short under a big head, and it keeps a straight
-      // shot from clearing a 1-level wall by a centimetre.
+      // Manhattan tiles (grid.ts dist). Chest at 0.6 m, as the game's preview starts today (0.7 x 0.85), decided on 15/11:
+      // a straight shot clears a 1-level wall (0.5 m) and only 2+ levels stop it.
       const STEP = 0.5,
         ALTURA = 0.85,
-        PEITO = 0.45,
+        PEITO = 0.6,
         RAIO = 0.28;
       const W = 10,
         H = 8;
@@ -118,14 +118,18 @@
       // tile heights in levels; obstacles are tiles nobody stands on
       const nivel = Array.from({ length: W }, () => Array(H).fill(0));
       const obst = {};
-      for (let z = 5; z < 8; z++) {
+      for (let z = 6; z < 8; z++) {
         nivel[7][z] = 1;
         nivel[8][z] = 2;
         nivel[9][z] = 2;
       }
+      // low wall right next to the shooter (every shot clears it), tall wall right next to the target (only the curve,
+      // thanks to the neighbour-tile rule)
       for (let z = 3; z < 6; z++) {
-        nivel[4][z] = 1;
-        obst[`4,${z}`] = 'muro baixo';
+        nivel[2][z] = 1;
+        obst[`2,${z}`] = 'muro baixo';
+        nivel[7][z] = 2;
+        obst[`7,${z}`] = 'muro alto';
       }
       nivel[5][1] = 5;
       obst['5,1'] = 'pilar alto';
@@ -201,7 +205,7 @@
         u.g.position.copy(centro(x, z));
       }
       const atacante = unidade('#3569b5', 1, 4);
-      const meio = unidade('#8c8c8c', 6, 4);
+      const meio = unidade('#8c8c8c', 5, 5);
       const alvo = unidade('#c23b30', 8, 4);
       meio.nome = 'unidade no caminho';
       alvo.nome = 'alvo';
@@ -224,6 +228,7 @@
           A = (B * B) / (4 * D);
         }
         return {
+          curva,
           niveis,
           em: (k, v = new THREE.Vector3()) =>
             v.set(a.x + (b.x - a.x) * k, a.y + B * k - A * k * k, a.z + (b.z - a.z) * k),
@@ -232,15 +237,23 @@
       }
 
       // A sample is blocked inside a tile's column or inside another unit's body; the shooter and the target never block.
+      // A curve also ignores the tiles next to the shooter and next to the target (15/11): an archer right behind a wall
+      // shoots over it. c.isento tells the status when that rule let the shot through.
       const AMOSTRAS = 240;
+      const vizinha = (x, z, u) => Math.max(Math.abs(x - u.x), Math.abs(z - u.z)) <= 1;
       function bloqueio(c) {
         const p = new THREE.Vector3();
+        c.isento = null;
         for (let i = 1; i < AMOSTRAS; i++) {
           const k = i / AMOSTRAS;
           c.em(k, p);
           const x = Math.floor(p.x + W / 2),
             z = Math.floor(p.z + H / 2);
           if (x < 0 || z < 0 || x >= W || z >= H) continue;
+          if (c.curva && (vizinha(x, z, atacante) || vizinha(x, z, alvo))) {
+            if (!c.isento && p.y < topo(x, z)) c.isento = obst[`${x},${z}`] ?? 'degrau do terreno';
+            continue;
+          }
           for (const u of unidades) {
             if (u === atacante || u === alvo) continue;
             const base = topo(u.x, u.z),
@@ -339,7 +352,8 @@
             (blk
               ? `bloqueado por: ${blk.oque}.`
               : arma.tipo === 'curva'
-                ? 'passa por cima e acerta o alvo.'
+                ? 'passa por cima e acerta o alvo.' +
+                  (c.isento ? ` O ${c.isento} fica na casa vizinha, que não bloqueia a curva.` : '')
                 : 'linha livre, acerta o alvo.'),
         );
       }
