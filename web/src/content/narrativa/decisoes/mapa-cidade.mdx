@@ -1,0 +1,172 @@
+<Callout tom="aviso" titulo="Layout da cidade maior (proposta, nível de planta)">
+
+Para o **⚔️🌳 Lab · Modelos 3D** transformar em geometria e modelos. Aqui só há **zonas, níveis, ligações, circulação e a posição de cada instalação e morador**; nada de malha, medida em metros ou silhueta. Parte do [brief de lugares](/narrativa/decisoes/lugares) (quem mora onde, o que se faz). Proposta para o Fernando aprovar; o que for dedução está marcado.
+
+</Callout>
+
+## Ideia em uma frase
+
+Vauclair é uma **vila em terraços** que desce da boca da dungeon até o mar: **em cima o portão e a cela** (o chão se abre), **no meio a praça** (loja, taverna, poço, guilda), **embaixo a praia e o porto** (o que vem de fora). A floresta fica atrás e a montanha acima, só vistas ao longe. A vila é o pano de fundo da descida: o herói anda de ponta a ponta em poucos passos.
+
+## Níveis e ligações
+
+<div className="max-w-[110ch]">
+  <DataTable
+    colunas={['Nível', 'Zona', 'Altura relativa', 'O que tem']}
+    linhas={[
+      [
+        'A. Alto',
+        'Boca da dungeon',
+        '+2 degraus de terraço',
+        'Portão, celas, Hesk, trilha estreita para a floresta (só vista; sem entrada).',
+      ],
+      [
+        'B. Meio',
+        'Praça e ruas',
+        '0 (nível de referência)',
+        'Poço, Ysolde, Pip, loja, taverna, guilda, mural (quadro de avisos), capela e torre do Tobin.',
+      ],
+      [
+        'C. Médio-baixo',
+        'Ferreiro e cozinha/boticário',
+        '-1 degrau',
+        'Forja (barulho, fumaça) de um lado; horta e ervas da Wren do outro.',
+      ],
+      [
+        'D. Baixo',
+        'Praia e porto',
+        '-2 degraus',
+        'Praia de pedras, cais, barcos e depósito; é de onde chega o que não vem de baixo (cenário do conselho e da Marta).',
+      ],
+    ]}
+  />
+</div>
+
+<div className="max-w-[110ch]">
+  <DataTable
+    colunas={['Ligação', 'De → para', 'Tipo', 'Por quê']}
+    linhas={[
+      [
+        'L1',
+        'A → B',
+        'Escadaria larga de pedra',
+        'O caminho principal: portão → praça. É o palco do Pip e do Tobin; precisa ser legível e curto.',
+      ],
+      ['L2', 'B → C (ferreiro)', 'Rampa suave', 'Carrinho de ferro e carvão; o jogador anda sem escada.'],
+      ['L3', 'B → C (cozinha)', 'Escada curta com muro de horta', 'Fica do lado da floresta; a Wren desce às ervas.'],
+      ['L4', 'C → D', 'Rampa longa até o cais', 'A vila abre para o mar; passa por um portão baixo do conselho.'],
+      [
+        'L5',
+        'A → floresta',
+        'Trilha fechada por cerca',
+        'Só vista; o rumor do marco 2 aponta para ela. Sem entrada (por ora).',
+      ],
+      [
+        'L6',
+        'B → montanha',
+        'Escada de capela que sobe à torre',
+        'A torre do Tobin é o ponto mais alto da vila; a montanha só aparece além dela.',
+      ],
+    ]}
+  />
+</div>
+
+## Planta em blocos (esquema, não é a malha)
+
+```
+                [ floresta ]        [ montanha ]
+        ┌───────────────────── A. ALTO ─────────────────────┐
+        │  celas + PORTÃO (Hesk)        trilha (só vista)    │
+        └────────────────────────┬───────────────────────────┘
+                                 │ L1 escadaria
+        ┌─────────────────────── B. MEIO ────────────────────┐
+        │  guilda     loja     [ PRAÇA + poço ]    taverna   │
+        │ (grupo)   (Marta)     Ysolde · Pip       (Sela)    │
+        │  mural         capela + torre (Tobin)              │
+        └───────┬────────────────────────────┬───────────────┘
+           L2 rampa                      L3 escada
+        ┌───────┴──── C. MÉDIO-BAIXO ───────┴────────────────┐
+        │  ferreiro (Garrick)         cozinha e boticário    │
+        │                             (Wren), horta          │
+        └───────────────────────┬────────────────────────────┘
+                                │ L4 rampa
+        ┌───────────────────── D. BAIXO ─────────────────────┐
+        │            praia · cais · barcos · depósito        │
+        └────────────────────────────────────────────────────┘
+                              (mar)
+```
+
+## Onde fica cada instalação e cada morador
+
+<div className="max-w-[110ch]">
+  <DataTable
+    colunas={['Quem / o quê', 'Zona', 'Porta voltada para', 'Vizinho mais próximo']}
+    linhas={[
+      ['Portão e celas (Hesk)', 'A', 'a escadaria L1', 'nada; é o primeiro e o último ponto do dia'],
+      ['Loja (Marta)', 'B', 'a praça', 'guilda e poço'],
+      ['Taverna (Sela)', 'B', 'a praça', 'poço; capela atrás'],
+      ['Guilda / grupo', 'B', 'a praça', 'loja'],
+      ['Mural (quadro de avisos)', 'B', 'a praça', 'junto à taverna; só cenário no MVP'],
+      ['Poço (Ysolde) e praça (Pip)', 'B', 'centro', 'todos de B'],
+      ['Capela e torre (Tobin)', 'B (fundos)', 'a praça, por trás', 'taverna; sobe à torre (L6)'],
+      ['Ferreiro (Garrick)', 'C', 'a rampa L2', 'afastado de propósito (barulho)'],
+      ['Cozinha e boticário (Wren)', 'C', 'a escada L3', 'horta; lado da floresta'],
+      ['Cais e depósito', 'D', 'o mar', 'a rampa L4; cenário do conselho'],
+      ['Encantadora (se continuar)', 'B ou C', 'a decidir', 'depende da decisão pendente'],
+    ]}
+  />
+</div>
+
+## Circulação (como o herói e as cenas se movem)
+
+- **Primeiro dia (marco 1, acorrentado):** cela → L1 → praça só de passagem, escoltado, rumo à dungeon. O mapa precisa deixar ver a praça sem poder parar.
+- **Depois de uma descida:** portão → L1 → praça; Tobin toca o sino; Sela com a sopa. É o caminho que mais se repete: curto e sem desvio.
+- **Do marco 2 em diante:** o herói anda livre; as ruas de B ligam todos os prédios de B sem passar por outros; C só se alcança por L2 ou L3.
+- **Pip** segue o grupo de B até o portão (A), então L1 precisa deixar um NPC acompanhar.
+- **Praia e porto (D):** passeio e atmosfera no MVP; sem janela. Servem ao que vem de fora (conselho, mercadorias) e a futuras histórias.
+- **Tom:** acolhedor com sombra; o contraste é a luz de B (taverna, praça) contra a boca escura da dungeon em A.
+
+## Referências (o que se aproveita)
+
+<div className="max-w-[110ch]">
+  <DataTable
+    colunas={['Referência', 'O que tem', 'O que se aproveita', 'Origem']}
+    linhas={[
+      [
+        'Darkest Dungeon: Hamlet',
+        'Vila com prédios fixos que se melhoram, cada um com um papel (Abadia, Taverna, Ferreiro, Sanatório, Guilda e outros), mais locais especiais.',
+        'Poucos prédios, cada um com função clara e legível de longe; a vila é o centro do jogo e a dungeon fica fora dela.',
+        'Wiki do jogo: Districts (darkestdungeon.wiki.gg/wiki/Districts) e Locations (darkestdungeon.wiki.gg/wiki/Locations_(Darkest_Dungeon)), lidos em 16/11 só pela lista de prédios; a planta física é dedução.',
+      ],
+      [
+        'Final Fantasy Tactics',
+        'Cidades e vilas em menu: o jogador não anda por elas, escolhe lojas e serviços por um nome.',
+        'Hierarquia por tipo de assentamento (vila, cidade comercial, castelo) e lojas que variam por fase; NÃO tem planta de cidade.',
+        'Caves of Narshe, Outfitters (cavesofnarshe.com/fft/maps/outfitters.php?phase=9), lido em 16/11.',
+      ],
+      [
+        'Tactics Ogre: Reborn',
+        'Cidades como lugares do mapa-múndi, com lojas e treino em locais específicos.',
+        'Mesma conclusão: não há planta andável; sem modelo de layout aqui.',
+        'Gematsu, detalhes de loja e treino (gematsu.com/2022/10/tactics-ogre-reborn-details-unit-development-charms-battle-updates-balance-adjustments-shop-improvements-classes-and-characters); só a parte de lojas, a cidade não foi achada.',
+      ],
+    ]}
+  />
+</div>
+
+**Lacuna honesta:** as referências pedidas (FFT e Tactics Ogre) **não têm vila andável**: são menus. Quem tem vila física é Darkest Dungeon, e só conferi a lista de prédios, não a planta. Por isso os terraços, a praia e o porto são **proposta** (dedução), não cópia.
+
+## Pontos para o Modelos 3D decidir (fora deste layout)
+
+Medidas e número de degraus por terraço; silhueta e estilo de cada prédio (KayKit e pintado); onde ficam o poço, a capela e a torre; como a floresta e a montanha aparecem; o porto (tamanho do cais, barcos); câmera e clique para o herói andar.
+
+## Decidido pelo Fernando (16/11)
+
+- A cidade **tem níveis em terraços**: zonas A a D, com escadas e rampas L1 a L6, como neste layout.
+- A **cela do prisioneiro fica no portão** (zona A).
+
+## Em aberto (não bloqueia o desenho)
+
+- Encantadora: continua, vira parte do ferreiro ou da cozinha/boticário.
+- Guilda × taverna × grupo: quem faz o quê.
+- Número de salas do prólogo e se expedição fracassada conta para os marcos.

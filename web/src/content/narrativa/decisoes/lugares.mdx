@@ -1,0 +1,113 @@
+<Callout tom="aviso" titulo="Brief para o mapa da cidade">
+
+Para o **⚔️🌳 Lab · Modelos 3D** desenhar o mapa e o **⚔️📱 Implementador · Interface e toque** montar depois. Decisão do Fernando (16/11): a **cidade maior vem antes dos interiores**. Este brief diz **quem mora onde, o que se faz em cada lugar e como as pessoas circulam**; não desenha geometria (níveis, escadas, rampas, praia e porto são do Modelos 3D). A narrativa lidera; a Mecânicas balanceia números e regras ao redor dela (16/11). Origem: `docs/game-design/narrative.md`, `src/content/crawl/residents.ts` e `src/content/crawl/town.ts` (lido em 16/11).
+
+</Callout>
+
+## Como a cidade se comporta
+
+- **Vauclair** fica na borda das velhas escavações: o chão se abre para a dungeon, a **floresta fica atrás** e a **montanha acima**. O tom é acolhedor com sombra por baixo.
+- **Todas as instalações abrem desde o início** (decidido 16/11); os marcos da pena só mudam preço, falas e rumores. O mapa não pode prender nenhum prédio atrás de marco.
+- O jogador começa **acorrentado** (marco 1: escoltado da cela à entrada), depois **anda livre** com sino no tornozelo (marco 2), depois com soldo (3) e **livre** (4). O mapa deve servir aos quatro: o trajeto cela → portão é o primeiro que se vê.
+- O jogo tem uma **cidade andável** (herói que anda, janela abre no prédio certo). Hoje são 14x14 casas de chão plano (`town.ts`); a cidade maior substitui isso.
+
+## Lugares e instalações
+
+<div className="max-w-[110ch]">
+  <DataTable
+    colunas={['Lugar', 'Quem mora', 'O que se faz', 'Observação para o mapa']}
+    linhas={[
+      [
+        'Portão da dungeon e celas',
+        'Hesk, o carcereiro (ponto fixo; a cela é a primeira cena do prólogo)',
+        'Sair para a descida; voltar da descida. Hesk conta quem entra e sai.',
+        'Ponto mais ligado à abertura do chão (a dungeon). Cela e portão juntos ou muito próximos: é por onde o prisioneiro é escoltado.',
+      ],
+      [
+        'Loja',
+        'Marta Penhale',
+        'Comprar suprimentos e equipamento; vender loot.',
+        'Prédio de rua movimentada, perto da praça. Ela depende do que vem de baixo, então fica a meio caminho do portão.',
+      ],
+      [
+        'Ferreiro',
+        'Garrick Ode',
+        'Melhorar e consertar equipamento.',
+        'Forja com fumaça e barulho; pode ficar mais afastada. Hoje a janela diz "a forja espera o ferro" (vem numa versão futura).',
+      ],
+      [
+        'Taverna',
+        'Sela',
+        'Recrutar companheiros (Rook é o primeiro), ouvir rumores, sopa. Prateleira de canecas dos que desceram (atmosfera).',
+        'Calorosa e com luz; perto da praça. É onde o jogador mais volta depois de uma descida.',
+      ],
+      [
+        'Cozinha e boticário',
+        'Wren, cozinheira e herbalista',
+        'Vender ingredientes e ensinar receitas (decidido 16/11). Cozinhar em campo é da classe batedor-cozinheiro, no acampamento, não aqui.',
+        'Ainda sem janela no jogo. Prédio pequeno, com horta ou ervas; precisa de um ponto próximo à floresta ("o que cresce lá embaixo").',
+      ],
+      [
+        'Grupo (guilda)',
+        'sem morador fixo; recrutas aparecem na taverna',
+        'Montar o grupo de 4 do elenco de recrutas, equipar e ver fichas.',
+        'No jogo hoje é a Guilda dos Aventureiros. Nome e dono ainda a decidir (ver pendências abaixo).',
+      ],
+      [
+        'Mural',
+        'ninguém (no MVP os pedidos são rumores falados)',
+        'Ler o que a vila pede. A janela vem depois do MVP (decidido 16/11).',
+        'Se couber, um quadro de avisos na praça ou junto à taverna, só como cenário até a janela existir.',
+      ],
+    ]}
+  />
+</div>
+
+## Moradores sem instalação
+
+<div className="max-w-[110ch]">
+  <DataTable
+    colunas={['Morador', 'Onde fica', 'Papel', 'Por que o lugar importa']}
+    linhas={[
+      [
+        'Pip, criança',
+        'a praça',
+        'Admira os prisioneiros; segue o grupo até a entrada.',
+        'Precisa de caminho livre entre a praça e o portão.',
+      ],
+      [
+        'Velha Ysolde',
+        'o poço',
+        'Memória da vila; as histórias dela são os primeiros rumores (floresta e montanha).',
+        'Poço em lugar de passagem, com banco. Vista para a floresta ou a montanha ajuda.',
+      ],
+      [
+        'Tobin, sineiro',
+        'a torre da capela',
+        'Toca o sino a cada grupo que desce e a cada um que volta.',
+        'A torre é o ponto mais alto da vila; o sino se ouve no mapa inteiro.',
+      ],
+    ]}
+  />
+</div>
+
+## Circulação e vizinhança
+
+- **Eixo principal: portão → praça** (a praça tem o poço). Do portão saem as ruas para loja, taverna, ferreiro e guilda; ninguém passa por um prédio para chegar a outro.
+- **Loja e taverna** ficam ao redor da praça (movimento e conversa). **Ferreiro** é um pouco à parte (barulho). **Cozinha e boticário** ficam do lado da floresta.
+- **Capela e torre** dominam a vila e se veem de longe; **a floresta fica atrás** e **a montanha acima** (rumores do marco 2 apontam para elas); o jogador não entra nesses destinos pela cidade, só os vê ao longe.
+- **Trajeto do prólogo:** cela → portão, numa primeira descida curta com o protagonista e Rook. O trajeto precisa ser curto e legível.
+- **Pip** corre atrás do grupo até o portão e **Tobin** toca o sino ao sair e ao voltar: o caminho portão → praça é o palco dessas cenas de volta.
+- O grupo de 4 sai da guilda ou da taverna e vai ao portão sem pular a praça; a volta passa por Hesk, depois a sopa da Sela.
+
+## O que o Modelos 3D decide (não está aqui)
+
+Níveis, escadas, rampas, praia e porto; distâncias; cada prédio e sua silhueta; onde ficam o poço, a capela e a torre; como a vista da floresta e da montanha aparece. Ficam fora deste brief também as janelas dos interiores, que vêm depois da cidade maior.
+
+## Pendências que mexem no mapa
+
+- **Encantadora:** o jogo já tem o prédio "Encantadora" (sem janela e sem morador nesta narrativa). Decidir se continua, vira parte do ferreiro ou da cozinha/boticário.
+- **Guilda × taverna × grupo:** o jogo tem Guilda; a narrativa tem o recrutamento na taverna. Decidir quem faz o quê.
+- **Cozinha e boticário:** não existe prédio no mapa de hoje (`town.ts`); entra no desenho novo.
+- **Cela e portão:** hoje só há o portão; a cela precisa de um lugar (pode ser parte do portão).
+- **Escala:** o mapa novo tem de caber no foco de dungeon: a cidade é pano de fundo da descida, não o jogo principal.

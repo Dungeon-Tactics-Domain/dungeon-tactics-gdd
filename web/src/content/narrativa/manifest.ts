@@ -77,6 +77,18 @@ export default {
           icone: '🏘️',
           resumo: 'Rascunho de 15/11: a vila, a pena do prisioneiro, os moradores e os primeiros textos, para aprovar.',
         },
+        {
+          id: 'mapa-cidade',
+          titulo: 'Mapa da cidade (layout)',
+          icone: '🏘️',
+          resumo: 'Zonas, níveis, escadas, rampas, praia e porto; onde fica cada instalação e morador; referências.',
+        },
+        {
+          id: 'lugares',
+          titulo: 'Lugares da cidade',
+          icone: '🗺️',
+          resumo: 'Brief para o mapa: instalações, moradores, o que se faz em cada lugar e a circulação.',
+        },
       ],
     },
     {
