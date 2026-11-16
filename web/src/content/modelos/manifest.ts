@@ -82,6 +82,12 @@ export default {
           icone: '🎬',
           resumo: 'Os 17 gestos do jogo e o pacote completo, em cada personagem.',
         },
+        {
+          id: 'remodelagem',
+          titulo: 'Cavaleiro em 5 cabeças',
+          icone: '📐',
+          resumo: 'O Cavaleiro KayKit com proporção menos chibi, ao lado do original.',
+        },
       ],
     },
     {
