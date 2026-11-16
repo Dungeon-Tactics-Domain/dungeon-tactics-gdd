@@ -147,15 +147,19 @@ export function lerMapa(v: unknown): MapaDeAcoes {
 }
 
 /** Copies to the clipboard; without it (http, old browser, denied) selects the text so Ctrl+C works. */
-async function copiar(texto: string, campo: HTMLTextAreaElement | null) {
+async function copiar(texto: string, campo: () => HTMLTextAreaElement | null) {
+  // asked inside the click, before any await: browsers drop the permission once the gesture is over
   try {
     await navigator.clipboard.writeText(texto);
     return 'Copiado para a área de transferência.';
   } catch {
-    campo?.focus();
-    campo?.select();
-    return 'Texto selecionado: use Ctrl+C para copiar.';
+    // denied or unavailable: fall through to the selection
   }
+  // the textarea must hold the text before it is selected
+  await new Promise((r) => setTimeout(r));
+  campo()?.focus();
+  campo()?.select();
+  return 'Texto selecionado: use Ctrl+C para copiar.';
 }
 
 export function AcoesDoJogo({
@@ -258,9 +262,7 @@ export function AcoesDoJogo({
               onClick={async () => {
                 const json = JSON.stringify(mapa, null, 2);
                 setTexto(json);
-                // the textarea must hold the text before the fallback selects it
-                await new Promise((r) => setTimeout(r));
-                setAviso(await copiar(json, campo.current));
+                setAviso(await copiar(json, () => campo.current));
               }}
             >
               Exportar e copiar
