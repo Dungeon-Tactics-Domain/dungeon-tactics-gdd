@@ -34,7 +34,7 @@ function mdxPagina(carregar: Carregar) {
 function OrigemAntiga({ origem }: { origem: NonNullable<Manifesto['origem']> }) {
   const quando = new Date(origem.copiadoEm).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' });
   return (
-    <p className="m-0 text-[15px] text-apagado">
+    <p className="m-0 max-w-[110ch] text-[15px] text-apagado">
       Conteúdo copiado do lab antigo em {quando} ({origem.fonte}).{' '}
       {ehLocal() && (
         <a
