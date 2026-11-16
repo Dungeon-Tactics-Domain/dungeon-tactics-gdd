@@ -77,7 +77,7 @@ export const LABS: Place[] = [
   {
     id: 'modelos',
     nome: 'Modelos 3D',
-    curto: '3D',
+    curto: 'Modelos',
     href: '/modelos',
     cor: '#6b4a9a',
     corSuave: '#ece4f6',

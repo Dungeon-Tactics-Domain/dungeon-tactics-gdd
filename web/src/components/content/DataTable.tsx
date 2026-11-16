@@ -7,7 +7,7 @@ export const TABELA =
 export function Rolagem({ children }: { children: ReactNode }) {
   // focusable so keyboard users can scroll a table wider than the screen
   return (
-    <div tabIndex={0} role="region" aria-label="Tabela" className="max-w-[1400px] overflow-x-auto">
+    <div tabIndex={0} role="region" aria-label="Tabela" className="max-w-[min(100%,1400px)] overflow-x-auto">
       {children}
     </div>
   );

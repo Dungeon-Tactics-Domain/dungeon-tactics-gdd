@@ -388,7 +388,7 @@ export function Paginas({ sumario: s, base }: { sumario: Sumario; base: string }
             <div className="border-t-4 border-casca-borda bg-casca-lateral">{recolhida ? trilho : menu}</div>,
             slot,
           )}
-      <main className="grid min-w-0 content-start gap-5 px-(--margem) pt-7 pb-16 max-sm:pt-5">{corpo}</main>
+      <main className="mx-auto grid w-full min-w-0 max-w-[1800px] grid-cols-[minmax(0,1fr)] content-start gap-5 px-(--margem) pt-7 pb-16 max-sm:pt-5">{corpo}</main>
     </>
   );
 }

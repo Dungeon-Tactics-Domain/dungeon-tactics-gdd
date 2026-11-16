@@ -154,7 +154,9 @@ export function Home() {
   useEffect(() => {
     if (hash) document.getElementById(hash.slice(1))?.scrollIntoView();
   }, [hash, key]);
-  const { fabrica } = useQuadro();
+  const { fabrica, conexao } = useQuadro();
+  // the public site has no API: the board and the session list would only say "nothing", so they are left out
+  const semApi = conexao === 'sem-api';
   const towns = townsOf(fabrica);
   return (
     <main className="mx-auto grid max-w-[1440px] content-start gap-6 px-(--margem) pt-6 pb-16">
@@ -165,16 +167,16 @@ export function Home() {
         </p>
         <Relogio />
       </header>
-      <div className="grid items-start gap-6 desk:grid-cols-[minmax(0,1fr)_420px]">
+      <div className={`grid items-start gap-6 ${semApi ? '' : 'desk:grid-cols-[minmax(0,1fr)_420px]'}`}>
         <section aria-labelledby="mapa-titulo">
           <h2 id="mapa-titulo" className="sr-only">
             Mapa do reino
           </h2>
           <Mapa towns={towns} />
         </section>
-        <Avisos fabrica={fabrica} towns={towns} />
+        {!semApi && <Avisos fabrica={fabrica} towns={towns} />}
       </div>
-      <Sessoes fabrica={fabrica} towns={towns} />
+      {!semApi && <Sessoes fabrica={fabrica} towns={towns} />}
     </main>
   );
 }
