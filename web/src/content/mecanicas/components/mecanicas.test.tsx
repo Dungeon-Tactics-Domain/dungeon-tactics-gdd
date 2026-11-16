@@ -8,6 +8,9 @@ import { Pedidos } from './Plano';
 import { descida, PESO, TRAJETORIAS, turnosDe, vidaDe } from '../dados';
 import equipamento from '../equipamento.json';
 import fichas from '../fichas.json';
+import habilidades from '../habilidades.json';
+import itens from '../itens.json';
+import { Habilidades, Itens } from './HabilidadesItens';
 
 const G = 'http://localhost:5291';
 // arena-wall.json as served by the game bench on 14/11; the expected URLs came from the old lab's sceneUrl
@@ -34,18 +37,18 @@ beforeEach(() => {
 afterEach(() => vi.unstubAllGlobals());
 
 describe('mecanicas manifest', () => {
-  it('keeps the old lab tree plus the descent and equipment groups: 7 groups and 86 pages and subpages', () => {
+  it('keeps the old lab tree plus the descent and equipment groups: 7 groups and 89 pages and subpages', () => {
     expect(manifesto.grupos.map((g) => `${g.id}:${g.paginas.length}`)).toEqual([
       'decisoes:4',
       'descida:4',
-      'equipamento:5',
+      'equipamento:6',
       'clipes:4',
-      'regras:10',
+      'regras:11',
       'sensacao:6',
       'referencias:10',
     ]);
     const n = manifesto.grupos.flatMap((g) => g.paginas.flatMap((p) => [p, ...(p.subpaginas ?? [])])).length;
-    expect(n).toBe(87);
+    expect(n).toBe(89);
     expect((manifesto.linksAntigos as Record<string, string>)['cena-walk']).toBe('clipes/movimento/walk');
     expect((manifesto.linksAntigos as Record<string, string>)._geral).toBe('referencias/geral');
   });
@@ -151,5 +154,46 @@ describe('fichas.json', () => {
     ];
     expect(fichas.fichas.map((f) => `${f.grupo}:${f.nome}`).sort()).toEqual(lab.sort());
     expect(fichas.fonte.commit).toMatch(/^[0-9a-f]{40}$/);
+  });
+});
+
+describe('habilidades.json and itens.json', () => {
+  it('render one card per ability of the game, and every ability of every unit has one', () => {
+    const { container } = render(<Habilidades />);
+    const cartoes = [...container.querySelectorAll('article')].map((a) => a.id);
+    expect(cartoes).toEqual(habilidades.habilidades.map((h) => h.id));
+    for (const id of Object.values(habilidades.unidades).flat()) expect(cartoes).toContain(id);
+    expect(habilidades.fonte.commit).toMatch(/^[0-9a-f]{40}$/);
+  });
+
+  it('match each ability of the lab table to one game ability', () => {
+    for (const l of equipamento.habilidades) {
+      const nome = l.habilidade.slice(0, l.habilidade.indexOf(' (')).toLowerCase();
+      expect(
+        habilidades.habilidades.filter((h) => h.nome.toLowerCase() === nome),
+        l.habilidade,
+      ).toHaveLength(1);
+    }
+  });
+
+  it('render one card per game item and put every lab piece either in the game or in Só no lab', () => {
+    const { container } = render(<Itens />);
+    expect([...container.querySelectorAll('article')].map((a) => a.id)).toEqual(itens.itens.map((i) => i.id));
+    const nomes = [...itens.itens.map((i) => i.nome), ...itens.soNoLab.map((p) => p.nome)];
+    expect(nomes.sort()).toEqual(equipamento.pecas.map((p) => p.nome).sort());
+  });
+
+  it('filters by class chip and by search, and says so when nothing matches', async () => {
+    const { container } = render(<Habilidades />);
+    await userEvent.click(screen.getByRole('button', { name: 'Mago' }));
+    expect(screen.getByRole('button', { name: 'Mago' })).toHaveAttribute('aria-pressed', 'true');
+    const mago = habilidades.habilidades.filter((h) => h.quem.some((q) => q.nome === 'Mago'));
+    expect(container.querySelectorAll('article')).toHaveLength(mago.length);
+    await userEvent.click(screen.getByRole('button', { name: 'Todas' }));
+    await userEvent.type(screen.getByLabelText('Buscar por nome ou por quem usa'), 'explosao');
+    expect([...container.querySelectorAll('article')].map((a) => a.id)).toEqual(['blast']);
+    await userEvent.type(screen.getByLabelText('Buscar por nome ou por quem usa'), 'zzz');
+    expect(container.querySelectorAll('article')).toHaveLength(0);
+    expect(screen.getByText(/Nenhuma habilidade com esse nome/)).toBeInTheDocument();
   });
 });

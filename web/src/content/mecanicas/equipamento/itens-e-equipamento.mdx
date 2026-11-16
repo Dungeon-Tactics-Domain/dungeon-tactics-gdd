@@ -1,0 +1,40 @@
+import { Diferencas, Itens, SoNoLab } from '../components/HabilidadesItens';
+import ITENS from '../itens.json';
+
+Uma ficha por peça que o jogo tem hoje: espaço, preço, o que ela dá e quem pode usar. Tudo vem dos dados do jogo
+(master <code>{ITENS.fonte.commit.slice(0, 7)}</code>), gerado por um script; nada foi digitado à mão.
+
+<Callout tom="simples" titulo="O que o jogo ainda não tem">
+  O jogo tem {ITENS.fonte.espacos.length} espaços ({ITENS.fonte.espacos.join(', ')}). Ainda não tem raridade, resistência em %, esquiva,
+  mana, stamina, regeneração nem os outros espaços do lab, então a ficha não mostra esses campos.
+
+O jogo não prende peça a classe: qualquer classe veste qualquer peça. Por isso os botões de classe mostram
+sempre todos os itens.
+
+</Callout>
+
+## Itens do jogo
+
+<Itens />
+
+## Só no lab (ainda não entrou no jogo)
+
+Peças propostas na tabela do lab (Equipamento e atributos, Peças) que o jogo ainda não tem. Os valores são os do
+lab, não do jogo.
+
+<SoNoLab />
+
+## Diferenças com o lab
+
+Onde a tabela de peças do lab e o jogo discordam, as fichas usam o valor do jogo. Só entram os campos que o jogo
+tem; um campo que só o lab tem (esquiva, resistência, mana) não conta como diferença.
+
+<Diferencas de="itens" />
+
+## De onde saiu cada dado
+
+- Nome, espaço, preço e atributos: `src/content/items.ts`; os espaços: `SLOTS` em
+  `src/shared/battle/equipment.ts`.
+- Quem usa: o jogo confere só o espaço e o baú (`src/client/chest.ts` e `src/client/town-ui.ts`); as classes
+  vêm de `JOBS` em `src/content/party.ts`.
+- O script: `web/scripts/mecanicas/habilidades-itens.mjs`; como rodar está no `LEIA-ME.md` deste lab.

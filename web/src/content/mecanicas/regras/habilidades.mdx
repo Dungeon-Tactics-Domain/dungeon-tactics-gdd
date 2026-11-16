@@ -1,0 +1,34 @@
+import { Diferencas, Habilidades } from '../components/HabilidadesItens';
+import HAB from '../habilidades.json';
+
+Uma ficha por habilidade do jogo: alcance, dano ou cura, área, empurrão, carga, elemento e quem usa. Tudo vem
+dos dados do jogo (master <code>{HAB.fonte.commit.slice(0, 7)}</code>), gerado por um script; nada foi digitado
+à mão.
+
+<Callout tom="simples" titulo="Como ler a ficha">
+  "À distância" é o teste do próprio jogo: a habilidade chega a mais de 1 casa. "Carga" é quantos tiques ela
+  espera antes de sair. O jogo ainda não tem custo de mana nem de stamina, por isso toda ficha diz "nenhum".
+
+Os botões filtram pelas classes do grupo. Para achar o que um inimigo usa, digite o nome dele na busca.
+
+</Callout>
+
+## Habilidades
+
+<Habilidades />
+
+## Diferenças com o lab
+
+Onde a tabela de habilidades do lab (Equipamento e atributos, Classes e inimigos) e o jogo discordam, as
+fichas usam o valor do jogo. O custo em mana ou stamina do lab fica de fora: o jogo ainda não tem.
+
+<Diferencas de="habilidades" />
+
+## De onde saiu cada dado
+
+- Nome, alcance, dano, cura, acerto, área, empurrão, carga, linha de visão, magia e elemento:
+  `src/content/abilities.ts`.
+- Quem usa: a lista de habilidades de cada unidade em `src/content/units.ts`; quem é classe vem de `JOBS` em
+  `src/content/party.ts`.
+- À distância ou corpo a corpo: `isRanged` em `src/shared/battle/combat.ts`.
+- O script: `web/scripts/mecanicas/habilidades-itens.mjs`; como rodar está no `LEIA-ME.md` deste lab.

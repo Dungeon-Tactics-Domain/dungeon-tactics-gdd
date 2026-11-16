@@ -119,6 +119,12 @@ export default {
           resumo: 'Vida, recursos, resistências e o custo de cada habilidade.',
         },
         { id: 'pecas', titulo: 'Peças', icone: '🗡️', resumo: '7 espaços, 3 raridades, drop e preço.' },
+        {
+          id: 'itens-e-equipamento',
+          titulo: 'Itens e equipamento',
+          icone: '🎒',
+          resumo: 'As peças que o jogo tem hoje, com preço e atributos, e as que só o lab propõe.',
+        },
         { id: 'buffs', titulo: 'Buffs e consumíveis', icone: '✨', resumo: 'Habilidades, poções, altares e comida.' },
         {
           id: 'ouro',
@@ -165,6 +171,12 @@ export default {
           titulo: 'Fichas de classes e inimigos',
           icone: '🃏',
           resumo: 'Uma ficha por classe e inimigo: papel, alcance, forças, fraquezas e como enfrentar, gerada do jogo.',
+        },
+        {
+          id: 'habilidades',
+          titulo: 'Habilidades',
+          icone: '✴️',
+          resumo: 'Uma ficha por habilidade: alcance, dano, área, carga, elemento e quem usa, gerada do jogo.',
         },
         ...paginasDeRegra(REGRAS.mechanics),
         { id: 'divergencias', titulo: 'Divergências', icone: '⚠️', resumo: 'Onde a documentação diverge do código.' },
