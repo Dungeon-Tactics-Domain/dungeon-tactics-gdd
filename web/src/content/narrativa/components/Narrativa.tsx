@@ -33,6 +33,13 @@ const Tag = ({ s }: { s: string }) => (
     {s}
   </span>
 );
+// Wide screens: a table row must not run past ~110 characters (the shared Rolagem allows 1400px)
+const Estreita = ({ children }: { children: ReactNode }) => (
+  <div className="max-w-[110ch]">
+    <Rolagem>{children}</Rolagem>
+  </div>
+);
+
 const Lede = ({ children }: { children: ReactNode }) => <p className="m-0 max-w-[72ch] text-apagado">{children}</p>;
 const Vazio = ({ children }: { children: ReactNode }) => <p className="m-0 text-apagado italic">{children}</p>;
 const Fonte = ({ href }: { href: string }) => (
@@ -321,7 +328,7 @@ export function MinhasMarcas() {
   const lista = (v: Marca['v']) => linhas.filter(([, m]) => m.v === v);
   const tabela = (v: Marca['v']) =>
     lista(v).length ? (
-      <Rolagem>
+      <Estreita>
         <table className={TABELA}>
           <tbody>
             {lista(v).map(([k, m]) => (
@@ -332,7 +339,7 @@ export function MinhasMarcas() {
             ))}
           </tbody>
         </table>
-      </Rolagem>
+      </Estreita>
     ) : (
       <Vazio>Nada ainda.</Vazio>
     );
@@ -408,7 +415,7 @@ export function Fases() {
 
 export function Pedidos() {
   return (
-    <Rolagem>
+    <Estreita>
       <table className={TABELA}>
         <thead>
           <tr>
@@ -433,13 +440,13 @@ export function Pedidos() {
           ))}
         </tbody>
       </table>
-    </Rolagem>
+    </Estreita>
   );
 }
 
 export function DecisoesTomadas() {
   return PLANO.decisoes.length ? (
-    <Rolagem>
+    <Estreita>
       <table className={TABELA}>
         <tbody>
           {PLANO.decisoes.map((d, i) => (
@@ -453,7 +460,7 @@ export function DecisoesTomadas() {
           ))}
         </tbody>
       </table>
-    </Rolagem>
+    </Estreita>
   ) : (
     <Vazio>Nenhuma ainda.</Vazio>
   );
