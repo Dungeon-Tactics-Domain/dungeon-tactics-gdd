@@ -144,18 +144,21 @@
         },
         {
           "name": "Batida",
-          "now": "Empurrão parado por parede, unidade, borda, água funda ou degrau de mais de 1 nível: 5 de dano.",
-          "where": "src/shared/battle/combat.ts:48"
+          "now": "Empurrão parado por parede, unidade, borda, água funda ou degrau de mais de 1 nível: 25 de dano.",
+          "where": "src/shared/battle/combat.ts:50",
+          "note": "auditoria lab × jogo de 16/11; jogo: src/shared/battle/combat.ts:50 (BUMP_DAMAGE 25; era 5 antes da escala ×5 de 15/11)."
         },
         {
           "name": "Queda",
-          "now": "1 nível é de graça; 9 de dano por nível a mais.",
-          "where": "src/shared/battle/combat.ts:49"
+          "now": "1 nível é de graça; 45 de dano por nível a mais.",
+          "where": "src/shared/battle/combat.ts:52",
+          "note": "auditoria lab × jogo de 16/11; jogo: src/shared/battle/combat.ts:51-52 (FALL_FREE 1, FALL_DAMAGE 45; era 9 antes da escala ×5 de 15/11)."
         },
         {
           "name": "Espinhos",
-          "now": "Ser empurrado para o espinho ou terminar o turno nele: 10 de dano. Andar por cima não fere.",
-          "where": "src/shared/battle/combat.ts:51"
+          "now": "Ser empurrado para o espinho ou terminar o turno nele: 50 de dano. Andar por cima não fere.",
+          "where": "src/shared/battle/combat.ts:53",
+          "note": "auditoria lab × jogo de 16/11; jogo: src/shared/battle/combat.ts:53 (SPIKE_DAMAGE 50; era 10 antes da escala ×5 de 15/11)."
         },
         {
           "name": "Água",
@@ -175,28 +178,33 @@
       "rules": [
         {
           "name": "Guerreiro",
-          "now": "Vida 42, Vel 8, Mover 4, Salto 1. Golpe, Golpe pesado, Escudada (empurra 2), Giro (área 1).",
-          "where": "src/content/units.ts:7"
+          "now": "Vida 210, Vel 8, Mover 4, Salto 1. Golpe, Golpe pesado, Escudada (empurra 2), Giro (área 1).",
+          "where": "src/content/units.ts:12",
+          "note": "auditoria lab × jogo de 16/11; jogo: src/content/units.ts:12 (vida 210; era vida 42 antes da escala ×5 de 15/11)."
         },
         {
           "name": "Arqueiro",
-          "now": "Vida 28, Vel 10, Mover 4, Salto 1. Tiro, Tiro mirado (carga 4), Tiro de recuo, Adaga.",
-          "where": "src/content/units.ts:16"
+          "now": "Vida 140, Vel 10, Mover 4, Salto 1. Tiro, Tiro mirado (carga 4), Tiro de recuo, Adaga.",
+          "where": "src/content/units.ts:23",
+          "note": "auditoria lab × jogo de 16/11; jogo: src/content/units.ts:23 (vida 140; era vida 28 antes da escala ×5 de 15/11)."
         },
         {
           "name": "Mago",
-          "now": "Vida 24, Vel 7, Mover 3, Salto 1. Raio de fogo, Explosão (área, carga 4), Rajada (empurra 2), Cura (carga 4).",
-          "where": "src/content/units.ts:24"
+          "now": "Vida 120, Vel 7, Mover 3, Salto 1. Raio de fogo, Explosão (área, carga 4), Rajada (empurra 2), Cura (carga 4).",
+          "where": "src/content/units.ts:33",
+          "note": "auditoria lab × jogo de 16/11; jogo: src/content/units.ts:33 (vida 120; era vida 24 antes da escala ×5 de 15/11)."
         },
         {
           "name": "Ladino",
-          "now": "Vida 26, Vel 12, Mover 5, Salto 2. Facada, Faca arremessada, Rasteira, Golpe mortal.",
-          "where": "src/content/units.ts:26"
+          "now": "Vida 130, Vel 12, Mover 5, Salto 2. Facada, Faca arremessada, Rasteira, Golpe mortal.",
+          "where": "src/content/units.ts:43",
+          "note": "auditoria lab × jogo de 16/11; jogo: src/content/units.ts:43 (vida 130; era vida 26 antes da escala ×5 de 15/11)."
         },
         {
           "name": "Lanceiro (recruta)",
-          "now": "Vida 38, Vel 9, Mover 4, Salto 3. Estocada longa (alcance 2), Derrubar, Salto (carga 4, cai de cima).",
-          "where": "src/content/units.ts:56"
+          "now": "Vida 190, Vel 9, Mover 4, Salto 3. Estocada longa (alcance 2), Derrubar, Salto (carga 4, cai de cima).",
+          "where": "src/content/units.ts:88",
+          "note": "auditoria lab × jogo de 16/11; jogo: src/content/units.ts:88 (vida 190; era vida 38 antes da escala ×5 de 15/11)."
         }
       ]
     },
@@ -317,7 +325,7 @@
   ],
   "drift": [
     "src/shared/CLAUDE.md:26 diz que direção e contra-ataque só existem no estudo FFT; no código há direção em todo mapa e contra-ataque para todos desde 13/11.",
-    "src/shared/CLAUDE.md:22 diz espinho = 6; COMBAT.SPIKE_DAMAGE = 10 desde 13/11 (combat.ts:51, dano ×1,75).",
+    "src/shared/CLAUDE.md:22 diz espinho = 6; COMBAT.SPIKE_DAMAGE = 50 (combat.ts:53; 6 → 10 em 13/11 com o dano ×1,75, 10 → 50 em 15/11 com a escala ×5).",
     "CLAUDE.md:18 (mapa do código, na raiz) chama half.ts de modo de teste da meia casa; desde 14/11 toda batalha do jogo roda em meia casa (log de decisões, CLAUDE.md:99).",
     "grid.ts:99 (comentário de isDeep) diz que a água funda custa 2 e pathing.ts:184 diz \"2 em água rasa\"; stepCost é 1 para tudo desde 13/11 (grid.ts:108).",
     "docs/game-design/pillars.md:10 ainda diz \"celular primeiro\"; o log de decisões trocou para PC primeiro.",
