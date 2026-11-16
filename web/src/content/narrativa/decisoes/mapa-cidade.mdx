@@ -8,6 +8,110 @@ Para o **⚔️🌳 Lab · Modelos 3D** transformar em geometria e modelos. Aqui
 
 Vauclair é uma **vila em terraços** que desce da boca da dungeon até o mar: **em cima o portão e a cela** (o chão se abre), **no meio a praça** (loja, taverna, poço, guilda), **embaixo a praia e o porto** (o que vem de fora). A floresta fica atrás e a montanha acima, só vistas ao longe. A vila é o pano de fundo da descida: o herói anda de ponta a ponta em poucos passos.
 
+## Relevo natural: ideias geradas no Gemini
+
+O Fernando rejeitou o primeiro layout (terraços retos) e pediu **mais dinamismo e naturalidade** (16/11). A sessão de Interface gerou imagens de relevo no Gemini; abaixo estão as 8 imagens (clique para ampliar, arrastar e dar zoom). **Leia como ideias, não como medidas:** o Gemini desenha grades que não casam com o relevo. Processo completo e prompts: `docs/game-design/town-relief-process.md` na branch `worktree-agent-a60392da833eb59be` do jogo. O Fernando ainda **não escolheu o conceito**; o 07 é o recomendado pela sessão de Interface.
+
+<div className="grid grid-cols-[repeat(auto-fill,minmax(260px,1fr))] gap-3.5">
+  <figure className="m-0 grid gap-1.5 border border-borda bg-folha p-2">
+    <img
+      src="/content/narrativa/cidade-relevo/01-r1-hill.webp"
+      alt="Conceito A: colina rochosa com caminho em S, escadas e praia ao sul"
+      loading="lazy"
+      className="block aspect-square w-full object-cover"
+    />
+    <figcaption className="text-[15px]">
+      <strong>01 · A, colina sinuosa.</strong> O melhor chão: faixas largas e planas, caminho que troca de lado a cada
+      nível. Ruim: rochas ocupam um terço do mapa.
+    </figcaption>
+  </figure>
+  <figure className="m-0 grid gap-1.5 border border-borda bg-folha p-2">
+    <img
+      src="/content/narrativa/cidade-relevo/02-r1-hill-contour.webp"
+      alt="Conceito A em vista de cima, com faixas de cor por nível"
+      loading="lazy"
+      className="block aspect-square w-full object-cover"
+    />
+    <figcaption className="text-[15px]">
+      <strong>02 · A, vista de cima.</strong> A leitura mais limpa de "terraços que seguem as curvas"; a grade não casa
+      com as faixas.
+    </figcaption>
+  </figure>
+  <figure className="m-0 grid gap-1.5 border border-borda bg-folha p-2">
+    <img
+      src="/content/narrativa/cidade-relevo/03-r1-cove.webp"
+      alt="Conceito B: enseada com cais em degraus, farol e penhascos"
+      loading="lazy"
+      className="block aspect-square w-full object-cover"
+    />
+    <figcaption className="text-[15px]">
+      <strong>03 · B, enseada.</strong> O porto mais marcante: cais em degraus e farol. Ruim: plataformas finas demais
+      para um herói 2x2.
+    </figcaption>
+  </figure>
+  <figure className="m-0 grid gap-1.5 border border-borda bg-folha p-2">
+    <img
+      src="/content/narrativa/cidade-relevo/04-r1-cove-contour.webp"
+      alt="Conceito B em vista de cima, com porto em L"
+      loading="lazy"
+      className="block aspect-square w-full object-cover"
+    />
+    <figcaption className="text-[15px]">
+      <strong>04 · B, vista de cima.</strong> Mostra onde caberia um porto interno; o mar toma uns 40% do quadrado.
+    </figcaption>
+  </figure>
+  <figure className="m-0 grid gap-1.5 border border-borda bg-folha p-2">
+    <img
+      src="/content/narrativa/cidade-relevo/05-r1-river.webp"
+      alt="Conceito C: vila cortada por um rio com cachoeira, pontes e moinho"
+      loading="lazy"
+      className="block aspect-square w-full object-cover"
+    />
+    <figcaption className="text-[15px]">
+      <strong>05 · C, rio.</strong> A mais viva (cachoeira, roda d'água, moinho); ruim: o rio parte a vila e toda
+      caminhada atravessa ponte.
+    </figcaption>
+  </figure>
+  <figure className="m-0 grid gap-1.5 border border-borda bg-folha p-2">
+    <img
+      src="/content/narrativa/cidade-relevo/06-r1-river-contour.webp"
+      alt="Conceito C em vista de cima, com o rio do portão ao mar"
+      loading="lazy"
+      className="block aspect-square w-full object-cover"
+    />
+    <figcaption className="text-[15px]">
+      <strong>06 · C, vista de cima.</strong> Margens em alturas diferentes leem bem; o rio e as margens comem o terço
+      do meio.
+    </figcaption>
+  </figure>
+  <figure className="m-0 grid gap-1.5 border border-borda bg-folha p-2">
+    <img
+      src="/content/narrativa/cidade-relevo/07-r2-fusion.webp"
+      alt="Fusão colina e enseada: terraços planos com borda ondulante, estrada em S e cais em degraus"
+      loading="lazy"
+      className="block aspect-square w-full object-cover"
+    />
+    <figcaption className="text-[15px]">
+      <strong>07 · Fusão A + B (recomendada).</strong> Terraços planos com borda ondulante, estrada em S que troca de
+      lado a cada nível, cais em degraus e enseada com praia.
+    </figcaption>
+  </figure>
+  <figure className="m-0 grid gap-1.5 border border-borda bg-folha p-2">
+    <img
+      src="/content/narrativa/cidade-relevo/08-r2-fusion-levels.webp"
+      alt="A fusão pintada por nível: laranja no alto, amarelo, verde, areia e mar"
+      loading="lazy"
+      className="block aspect-square w-full object-cover"
+    />
+    <figcaption className="text-[15px]">
+      <strong>08 · Fusão por nível.</strong> Confirma a ordem dos níveis (laranja no alto, depois amarelo, verde, areia,
+      mar); mostra ordem, não posições.
+    </figcaption>
+  </figure>
+</div>
+
+**O que isso significa para o nosso layout:** as zonas A a D e as posições dos lugares continuam valendo como **ordem** (portão no alto, praça no meio, porto embaixo). A **forma** (bordas retas ou onduladas, onde a estrada troca de lado) vem do conceito que o Fernando escolher; a sessão de Interface já achou no motor que o 2x2 hoje só cruza uma porta de seis, então a escolha também mexe no código.
+
 ## Níveis e ligações
 
 <div className="max-w-[110ch]">
