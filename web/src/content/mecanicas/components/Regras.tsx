@@ -3,40 +3,43 @@
 import { Callout } from '@/components/content/Callout';
 import { Rolagem, TABELA } from '@/components/content/DataTable';
 import { DRIFT, REGRAS } from '../dados';
+import { LIMITE_TEXTO } from './Descida';
 
 export function Regras({ de, grupo }: { de: keyof typeof REGRAS; grupo: string }) {
   const g = REGRAS[de]?.find((x) => x.id === grupo);
   if (!g) return <p className="m-0 text-erro">Grupo de regras desconhecido: {grupo}</p>;
   return (
-    <Rolagem>
-      <table className={TABELA}>
-        <thead>
-          <tr>
-            {['Regra', 'Como está hoje', 'Onde no código'].map((h) => (
-              <th key={h} scope="col">
-                {h}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {g.regras.map((r) => (
-            <tr key={r.name}>
-              <td>
-                <strong>{r.name}</strong>
-              </td>
-              <td>
-                {r.now}
-                {r.note && <span className="mt-1 block text-[14px] text-apagado">{r.note}</span>}
-              </td>
-              <td>
-                <code className="bg-pergaminho-escuro px-1 text-[14px] [overflow-wrap:anywhere]">{r.where}</code>
-              </td>
+    <div className={LIMITE_TEXTO}>
+      <Rolagem>
+        <table className={TABELA}>
+          <thead>
+            <tr>
+              {['Regra', 'Como está hoje', 'Onde no código'].map((h) => (
+                <th key={h} scope="col">
+                  {h}
+                </th>
+              ))}
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </Rolagem>
+          </thead>
+          <tbody>
+            {g.regras.map((r) => (
+              <tr key={r.name}>
+                <td>
+                  <strong>{r.name}</strong>
+                </td>
+                <td>
+                  {r.now}
+                  {r.note && <span className="mt-1 block text-[14px] text-apagado">{r.note}</span>}
+                </td>
+                <td>
+                  <code className="bg-pergaminho-escuro px-1 text-[14px] [overflow-wrap:anywhere]">{r.where}</code>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </Rolagem>
+    </div>
   );
 }
 

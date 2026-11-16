@@ -16,30 +16,35 @@ const NOME: Record<string, string> = {
   brute: 'Bruto',
 };
 
+// Few columns on an ultrawide screen would stretch each text cell past 200 characters per line; wide tables keep the full width.
+export const LIMITE_TEXTO = 'max-w-[150ch]';
+
 export function Tabela({ colunas, linhas }: { colunas: string[]; linhas: ReactNode[][] }) {
   return (
-    <Rolagem>
-      <table className={TABELA}>
-        <thead>
-          <tr>
-            {colunas.map((h) => (
-              <th key={h} scope="col">
-                {h}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {linhas.map((l, i) => (
-            <tr key={i}>
-              {l.map((c, j) => (
-                <td key={j}>{j === 0 ? <strong>{c}</strong> : c}</td>
+    <div className={colunas.length <= 5 ? LIMITE_TEXTO : undefined}>
+      <Rolagem>
+        <table className={TABELA}>
+          <thead>
+            <tr>
+              {colunas.map((h) => (
+                <th key={h} scope="col">
+                  {h}
+                </th>
               ))}
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </Rolagem>
+          </thead>
+          <tbody>
+            {linhas.map((l, i) => (
+              <tr key={i}>
+                {l.map((c, j) => (
+                  <td key={j}>{j === 0 ? <strong>{c}</strong> : c}</td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </Rolagem>
+    </div>
   );
 }
 
