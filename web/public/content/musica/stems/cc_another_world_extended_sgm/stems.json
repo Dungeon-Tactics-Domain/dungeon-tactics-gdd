@@ -1,0 +1,75 @@
+{
+ "duracao": 128.0,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 122,
+   "nome": "Seashore"
+  },
+  {
+   "canal": 2,
+   "programa": 123,
+   "nome": "Bird Tweet"
+  },
+  {
+   "canal": 3,
+   "programa": 52,
+   "nome": "Choir Aahs"
+  },
+  {
+   "canal": 4,
+   "programa": 99,
+   "nome": "Atmosphere"
+  },
+  {
+   "canal": 5,
+   "programa": 35,
+   "nome": "Fretless Bass"
+  },
+  {
+   "canal": 6,
+   "programa": 49,
+   "nome": "String Ensemble 2"
+  },
+  {
+   "canal": 7,
+   "programa": 100,
+   "nome": "Brightness"
+  },
+  {
+   "canal": 8,
+   "programa": 55,
+   "nome": "Orchestra Hit"
+  },
+  {
+   "canal": 9,
+   "programa": 14,
+   "nome": "Tubular Bells"
+  },
+  {
+   "canal": 10,
+   "programa": 0,
+   "nome": "Acoustic Grand Piano"
+  },
+  {
+   "canal": 11,
+   "programa": 117,
+   "nome": "Melodic Tom"
+  },
+  {
+   "canal": 12,
+   "programa": 29,
+   "nome": "Overdriven Guitar"
+  },
+  {
+   "canal": 13,
+   "programa": 30,
+   "nome": "Distortion Guitar"
+  },
+  {
+   "canal": 14,
+   "programa": 127,
+   "nome": "Gunshot"
+  }
+ ]
+}

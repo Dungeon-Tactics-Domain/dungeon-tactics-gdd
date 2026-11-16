@@ -1,0 +1,97 @@
+{
+  "titulo": "Referências de estudo (BoF4 e Chrono Cross)",
+  "descricao": "MIDIs de fãs de Breath of Fire IV e de Chrono Cross tocados em vários soundfonts, para ouvir o estilo e medir a complexidade contra as nossas músicas. Não vão ao jogo.",
+  "referencias": [
+    {
+      "rotulo": "Midi Shrine: Breath of Fire 4 (a faixa vem daqui)",
+      "href": "https://www.midishrine.com/index.php?id=79"
+    },
+    {
+      "rotulo": "VGMusic: Chrono Cross (Sony PlayStation)",
+      "href": "https://vgmusic.com/music/console/sony/ps1/"
+    }
+  ],
+  "faixas": [
+    {
+      "id": "ref-bof4-fim",
+      "letra": "A",
+      "titulo": "The End and the Beginning (MIDI de fã)",
+      "audio": "",
+      "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Autoria:** MIDI de terceiros (Midi Shrine, sequenciador não informado) de uma música de Breath of Fire IV (Capcom). Referência de estudo, **não vai ao jogo** e não foi composto por modelo.\n- **O que fizemos:** só tocamos o arquivo em cada soundfont (a melodia é a dele). O arquivo vem cru: sem dinâmica (todas as notas na velocidade 100) e sem bateria."
+        },
+        {
+          "titulo": "Complexidade medida contra a Pastoral D",
+          "texto": "| Medida | Esta faixa | Pastoral D |\n|---|---|---|\n| Duração (s) | 181,4 | 126,3 |\n| Compassos | 69 | 41 |\n| Vozes (canais) | 6 | 7 |\n| Instrumentos distintos | 5 | 6 |\n| Notas | 622 | 1176 |\n| Notas por segundo | 3,43 | 9,31 |\n| Polifonia média (notas juntas) | 3,92 | 9,29 |\n| Polifonia máxima | 10 | 16 |\n| Alcance (semitons) | 48 | 57 |\n| Velocidades distintas (dinâmica) | 1 | 62 |\n| Mudanças de andamento | 1 | 1 |\n| Durações de nota distintas | 14 | 13 |\n| Notas usadas (de 12) | 9 | 8 |\n| Compassos que mudam de notas (%) | 87 | 92 |\n\n- **Leitura:** Pelos números, **não é mais complexa** que a Pastoral D: o que parece rico vem da duração longa, do timbre e do contraste entre cordas, harpa e apito, e a dinâmica é plana (todas as notas na velocidade 100)."
+        },
+        {
+          "titulo": "Como foi medido",
+          "texto": "- **Origem dos números:** medido agora com `analise/compara_complexidade.py` nos dois .mid (notas ligadas, polifonia por semicolcheia, conjuntos de notas por compasso); sem ouvir."
+        }
+      ]
+    },
+    {
+      "id": "ref-cc-another-world",
+      "letra": "B",
+      "titulo": "Chrono Cross · Another World (Akira Minaduki)",
+      "audio": "",
+      "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Autoria:** MIDI de fã de uma música de Chrono Cross (Square, trilha de Yasunori Mitsuda), sequenciado por **Akira Minaduki** e publicado no VGMusic (35 KB). Referência de estudo, **não vai ao jogo** e não foi composto por modelo.\n- **O que fizemos:** só tocamos o arquivo em 5 soundfonts General MIDI (MuseScore, GeneralUser, FluidR3, SGM, Neo). Tactical Fantasy Guy e Sonatina ficaram de fora: o arquivo usa instrumentos (koto, étnicos, sintetizador) que não existem nesses dois bancos."
+        },
+        {
+          "titulo": "Complexidade medida contra a Pastoral D",
+          "texto": "| Medida | Esta faixa | Pastoral D |\n|---|---|---|\n| Duração (s) | 203,4 | 126,3 |\n| Compassos | 75 | 41 |\n| Vozes (canais) | 7 | 7 |\n| Instrumentos distintos | 6 | 6 |\n| Notas | 1930 | 1176 |\n| Notas por segundo | 9,49 | 9,31 |\n| Polifonia média (notas juntas) | 7,61 | 9,29 |\n| Polifonia máxima | 10 | 16 |\n| Alcance (semitons) | 57 | 57 |\n| Velocidades distintas (dinâmica) | 2 | 62 |\n| Mudanças de andamento | 7 | 1 |\n| Durações de nota distintas | 15 | 13 |\n| Notas usadas (de 12) | 9 | 8 |\n| Compassos que mudam de notas (%) | 97 | 92 |\n\n- **Leitura:** Densidade parecida com a nossa, forma bem mais longa e andamento que respira (7 mudanças); dinâmica plana."
+        },
+        {
+          "titulo": "Como foi medido",
+          "texto": "- **Origem dos números:** medido agora com `analise/compara_complexidade.py` (notas ligadas, polifonia por semicolcheia, conjuntos de notas por compasso); sem ouvir. Todos os MIDIs de fã vêm sem dinâmica por parte de quem sequenciou, só o que o arquivo traz."
+        }
+      ]
+    },
+    {
+      "id": "ref-cc-another-termina",
+      "letra": "C",
+      "titulo": "Chrono Cross · Another Termina (Raist3)",
+      "audio": "",
+      "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Autoria:** MIDI de fã de uma música de Chrono Cross (Square, trilha de Yasunori Mitsuda), sequenciado por **Raist3** e publicado no VGMusic (27 KB). Referência de estudo, **não vai ao jogo** e não foi composto por modelo.\n- **O que fizemos:** só tocamos o arquivo em 5 soundfonts General MIDI (MuseScore, GeneralUser, FluidR3, SGM, Neo). Tactical Fantasy Guy e Sonatina ficaram de fora: o arquivo usa instrumentos (koto, étnicos, sintetizador) que não existem nesses dois bancos."
+        },
+        {
+          "titulo": "Complexidade medida contra a Pastoral D",
+          "texto": "| Medida | Esta faixa | Pastoral D |\n|---|---|---|\n| Duração (s) | 140,4 | 126,3 |\n| Compassos | 134 | 41 |\n| Vozes (canais) | 9 | 7 |\n| Instrumentos distintos | 7 | 6 |\n| Notas | 4418 | 1176 |\n| Notas por segundo | 31,46 | 9,31 |\n| Polifonia média (notas juntas) | 7,33 | 9,29 |\n| Polifonia máxima | 18 | 16 |\n| Alcance (semitons) | 53 | 57 |\n| Velocidades distintas (dinâmica) | 11 | 62 |\n| Mudanças de andamento | 1 | 1 |\n| Durações de nota distintas | 22 | 13 |\n| Notas usadas (de 12) | 10 | 8 |\n| Compassos que mudam de notas (%) | 86 | 92 |\n\n- **Leitura:** A mais densa das referências, ~3,4 vezes a Pastoral D; boa parte da densidade vem da bateria (1951 das 4418 notas)."
+        },
+        {
+          "titulo": "Como foi medido",
+          "texto": "- **Origem dos números:** medido agora com `analise/compara_complexidade.py` (notas ligadas, polifonia por semicolcheia, conjuntos de notas por compasso); sem ouvir. Todos os MIDIs de fã vêm sem dinâmica por parte de quem sequenciou, só o que o arquivo traz."
+        }
+      ]
+    },
+    {
+      "id": "ref-cc-another-world-extended",
+      "letra": "D",
+      "titulo": "Chrono Cross · Another World, estendida (Cathcart/Lothario)",
+      "audio": "",
+      "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Autoria:** MIDI de fã de uma música de Chrono Cross (Square, trilha de Yasunori Mitsuda), sequenciado por **Ahmad Cathcart e Asa Lothario** e publicado no VGMusic (26 KB). Referência de estudo, **não vai ao jogo** e não foi composto por modelo.\n- **O que fizemos:** só tocamos o arquivo em 5 soundfonts General MIDI (MuseScore, GeneralUser, FluidR3, SGM, Neo). Tactical Fantasy Guy e Sonatina ficaram de fora: o arquivo usa instrumentos (koto, étnicos, sintetizador) que não existem nesses dois bancos."
+        },
+        {
+          "titulo": "Complexidade medida contra a Pastoral D",
+          "texto": "| Medida | Esta faixa | Pastoral D |\n|---|---|---|\n| Duração (s) | 128,0 | 126,3 |\n| Compassos | 49 | 41 |\n| Vozes (canais) | 14 | 7 |\n| Instrumentos distintos | 14 | 6 |\n| Notas | 2536 | 1176 |\n| Notas por segundo | 19,81 | 9,31 |\n| Polifonia média (notas juntas) | 5,53 | 9,29 |\n| Polifonia máxima | 10 | 16 |\n| Alcance (semitons) | 77 | 57 |\n| Velocidades distintas (dinâmica) | 18 | 62 |\n| Mudanças de andamento | 1 | 1 |\n| Durações de nota distintas | 14 | 13 |\n| Notas usadas (de 12) | 10 | 8 |\n| Compassos que mudam de notas (%) | 96 | 92 |\n\n- **Leitura:** A de maior variedade de timbres e de registro (14 instrumentos, mais de 6 oitavas); tem instrumentos de efeito que mudam bastante de um banco para outro."
+        },
+        {
+          "titulo": "Como foi medido",
+          "texto": "- **Origem dos números:** medido agora com `analise/compara_complexidade.py` (notas ligadas, polifonia por semicolcheia, conjuntos de notas por compasso); sem ouvir. Todos os MIDIs de fã vêm sem dinâmica por parte de quem sequenciou, só o que o arquivo traz."
+        }
+      ]
+    }
+  ],
+  "checagens": []
+}

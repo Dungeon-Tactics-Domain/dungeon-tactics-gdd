@@ -1,0 +1,35 @@
+{
+ "duracao": 181.366,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 14,
+   "nome": "Flute Solo"
+  },
+  {
+   "canal": 2,
+   "programa": 14,
+   "nome": "Flute Solo"
+  },
+  {
+   "canal": 3,
+   "programa": 4,
+   "nome": "2nd Violins Sustain"
+  },
+  {
+   "canal": 4,
+   "programa": 5,
+   "nome": "2nd Violins Pizz."
+  },
+  {
+   "canal": 5,
+   "programa": 1,
+   "nome": "Concert Harp"
+  },
+  {
+   "canal": 6,
+   "programa": 16,
+   "nome": "Oboe Solo"
+  }
+ ]
+}

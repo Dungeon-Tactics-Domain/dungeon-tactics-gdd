@@ -1,0 +1,50 @@
+{
+ "duracao": 140.439,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 107,
+   "nome": "Koto"
+  },
+  {
+   "canal": 2,
+   "programa": 33,
+   "nome": "Finger Bass"
+  },
+  {
+   "canal": 3,
+   "programa": 109,
+   "nome": "Bag Pipe"
+  },
+  {
+   "canal": 4,
+   "programa": 24,
+   "nome": "Nylon Guitar"
+  },
+  {
+   "canal": 5,
+   "programa": 117,
+   "nome": "Melodic Tom"
+  },
+  {
+   "canal": 6,
+   "programa": 21,
+   "nome": "Accordion"
+  },
+  {
+   "canal": 7,
+   "programa": 69,
+   "nome": "English Horn"
+  },
+  {
+   "canal": 8,
+   "programa": 109,
+   "nome": "Bag Pipe"
+  },
+  {
+   "canal": 10,
+   "programa": null,
+   "nome": "Bateria"
+  }
+ ]
+}

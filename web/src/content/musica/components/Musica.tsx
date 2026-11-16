@@ -9,7 +9,9 @@ import { Estudio } from './Estudio';
 import { MidiVisual } from './MidiVisual';
 import batalha from '../batalha.json';
 import pastoral from '../pastoral.json';
+import bof4 from '../bof4.json';
 import jingles from '../jingles.json';
+import pastoralRica from '../pastoral-rica.json';
 import temaDark from '../tema-dark.json';
 import trisection from '../trisection.json';
 
@@ -47,12 +49,14 @@ export interface PaginaMusica {
   checagens?: Checagem[];
 }
 
-export const PAGINAS: Record<'batalha' | 'pastoral' | 'trisection' | 'tema-dark' | 'jingles', PaginaMusica> = {
+export const PAGINAS: Record<'batalha' | 'pastoral' | 'trisection' | 'tema-dark' | 'jingles' | 'bof4' | 'pastoral-rica', PaginaMusica> = {
   batalha,
   pastoral,
   trisection,
   'tema-dark': temaDark,
   jingles,
+  bof4,
+  'pastoral-rica': pastoralRica,
 };
 export type IdPagina = keyof typeof PAGINAS;
 
@@ -93,6 +97,41 @@ export function Texto({ texto }: { texto: string }) {
         .split(/\n\s*\n/)
         .map((bloco, i) => {
           const linhas = bloco.split('\n');
+          if (linhas.every((l) => l.startsWith('|'))) {
+            // a table: the first row is the head, the second ("|---|") only separates it
+            const celulas = (l: string) =>
+              l
+                .replace(/^\||\|$/g, '')
+                .split('|')
+                .map((c) => c.trim());
+            const [cab, , ...corpo] = linhas;
+            return (
+              <div key={i} className="overflow-x-auto">
+                <table className="w-full border-collapse border border-ouro bg-folha text-[15px]">
+                  <thead>
+                    <tr className="bg-pergaminho-escuro text-left">
+                      {celulas(cab!).map((c, j) => (
+                        <th key={j} className={`border border-ouro px-3 py-1.5 ${j ? 'text-right' : ''}`}>
+                          {c}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {corpo.map((l, j) => (
+                      <tr key={j}>
+                        {celulas(l).map((c, k) => (
+                          <td key={k} className={`border border-ouro px-3 py-1 ${k ? 'text-right tabular-nums' : ''}`}>
+                            {c}
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            );
+          }
           return linhas.every((l) => /^\s*- /.test(l)) ? (
             <ul key={i} className="m-0 grid list-disc gap-1 pl-6">
               {linhas.map((l, j) => (
@@ -109,10 +148,20 @@ export function Texto({ texto }: { texto: string }) {
   );
 }
 
+// study references (BoF4 and Chrono Cross fan MIDIs): the folder name of their stems, from the page id
+const estudoDe = (id: string) => {
+  const m = /^ref-(bof4|cc)-(.+)$/.exec(id);
+  return m ? `${m[1]}_${m[2]!.replace(/-/g, '_')}` : undefined;
+};
+
 // which .mid holds the notes of a track (the "-t", "-tfg" and "-cru" twins are the same notes in another render)
 const midiDe = (id: string) => {
+  const e = estudoDe(id);
+  if (e) return e;
   const j = /^jingle-([a-z])-(\w+)$/.exec(id);
   if (j) return `jingle_${j[1]!.toUpperCase()}_${j[2]}`;
+  const r = /^pastoral-rica-([a-z])$/.exec(id);
+  if (r) return `pastoral_rica_${r[1]!.toUpperCase()}`;
   const m = /^(batalha|pastoral)-([a-f])/.exec(id);
   if (m) return `${m[1]}_${m[2]!.toUpperCase()}`;
   if (id.startsWith('ref-trisection-midi-transcricao')) return 'trisection_transcricao';
@@ -122,7 +171,9 @@ const midiDe = (id: string) => {
 
 // tracks with one rendered .ogg per instrument (public/content/musica/stems/<name>/); the rest use the synthesizer mixer
 const stemsDe = (id: string) => {
-  if (id.startsWith('jingle-')) return midiDe(id);
+  const e = estudoDe(id);
+  if (e) return e;
+  if (id.startsWith('jingle-') || id.startsWith('pastoral-rica-')) return midiDe(id);
   if (/^dark-(intenso|principal)(-cru)?$/.test(id)) return id.includes('intenso') ? 'dark_intenso' : 'dark';
   const tri = /^ref-trisection-midi-(fa(?:-\w+?)?|transcricao)(-cru)?$/.exec(id);
   if (tri) return `trisection_${tri[1]!.replace('-', '_')}`;
@@ -152,6 +203,20 @@ const SONS_JOGO = [
   ['sonatina', 'Sonatina'],
 ] as const;
 const versoesDe = (id: string) => {
+  const e = estudoDe(id);
+  if (e)
+    return {
+      raiz: id,
+      atual: 0,
+      // the Chrono Cross files use instruments the TFG and Sonatina banks do not have
+      opcoes: SONS_JOGO.filter(([k]) => !e.startsWith('cc_') || (k !== 'tfg' && k !== 'sonatina')).map(
+        ([k, rotulo]) => ({
+          rotulo,
+          faixa: id,
+          stems: `${e}${k ? `_${k}` : ''}`,
+        }),
+      ),
+    };
   const f = /^(batalha|pastoral)-[a-f](-tfg)?(-t)?$/.exec(id);
   if (f) {
     const raiz = id.replace(/(-tfg)?(-t)?$/, '');

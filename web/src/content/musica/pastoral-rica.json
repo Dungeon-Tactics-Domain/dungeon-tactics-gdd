@@ -1,0 +1,64 @@
+{
+  "titulo": "Pastoral D rica",
+  "descricao": "A Pastoral D (Praça do Farol) estendida com mais camadas, harmonia, forma e percussão, para comparar com a atual. Cada versão (letra) parte do mesmo MIDI e foi composta por um agente, sem ouvir.",
+  "referencias": [],
+  "faixas": [
+    {
+      "id": "pastoral-rica-a",
+      "letra": "RA",
+      "titulo": "Pastoral rica · A · Opus xhigh",
+      "audio": "audio/pastoral_rica_A.ogg",
+      "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Opus 5.5 · esforço **xhigh** (subagente, sem ouvir).\n- **Como foi feita:** o agente partiu do `slot_D.py` (a Pastoral D atual) e escreveu a extensão como script Python (`scripts/music/pastoral_rica_A.py`); MIDI e áudio saem do script."
+        },
+        {
+          "titulo": "Forma e instrumentos",
+          "texto": "- **Tom e andamento:** Mi menor, 76 bpm fixo, 70 compassos (3 min 41 s).\n- **1-4 (intro):** igual à atual.\n- **5-12 (A) e 13-20 (A'):** flauta nota por nota como na atual; oboé, violão, cordas; baixo descendo Mi-Ré-Dó#-Dó.\n- **21-28 (B):** Sol maior, oboé lidera, flauta responde com a sexta maior; contracanto de cello; termina em cadência de engano.\n- **29-36 (ponte):** modula para Lá menor e volta por acorde-pivô; clarinetes, pizzicato em ostinato, groove 3+3+2 com sensação de 6/8.\n- **37-40 (pausa):** cello solo canta o tema com o violão no baixo.\n- **41-44 (crescendo):** baixo cromático subindo, glissando de harpa.\n- **45-54 (clímax):** tema uma oitava acima, oboé em terças, cordas a 4 vozes, engano e suspensão.\n- **55-62 (retorno):** meio-tempo, pedal de Mi, terça de picardia no 62.\n- **63-70 (coda):** oboé com o motivo aumentado, Fá napolitano, Bsus4-B7 volta ao compasso 1.\n- **Instrumentos:** harpa, flauta, oboé, clarinete, violão, cello, cordas, pizzicato, celesta, baixo e percussão de mão."
+        },
+        {
+          "titulo": "Números contra a Pastoral D atual",
+          "texto": "| Medida | Rica A | Pastoral D atual |\n|---|---|---|\n| Duração | 221,1 s | 126,3 s |\n| Compassos | 71 | 41 |\n| Vozes | 11 | 7 |\n| Instrumentos | 10 | 6 |\n| Notas | 2209 | 1176 |\n| Notas por segundo | 9,99 | 9,31 |\n| Polifonia média | 9,96 | 9,29 |\n| Alcance (semitons) | 59 | 57 |\n| Velocidades distintas | 92 | 62 |\n| Classes de nota | 11 | 8 |\n| Volume | -18,1 LUFS | -17,2 dB |\n\nSem as 176 notas do baixo dobrado, a densidade é cerca de 9,2 notas/s, igual à atual: o ganho está em camadas, harmonia, velocidades e forma."
+        },
+        {
+          "titulo": "Dúvidas do agente",
+          "texto": "- **Tamanho:** 70 compassos a 76 bpm dão 3:41, acima dos 2,5 a 3,2 min do brief.\n- **Graves do clímax:** só 7,9% da energia abaixo de 150 Hz (atual 23,7% no trecho equivalente); pode soar leve de graves.\n- **Equilíbrio entre instrumentos:** não medido nem ouvido.\n- **Identidade:** flauta em A e A' e motivo da harpa na intro nota por nota; alguns acordes por baixo mudaram.\n- **Emenda do loop:** 2,81 dB de diferença espectral (atual 3,4), sem clique."
+        },
+        {
+          "titulo": "Ficha",
+          "texto": "- **O que é:** versão A da Pastoral D (Praça do Farol) estendida, mesma melodia e tom, com mais camadas, harmonia, forma e percussão.\n- **Onde usar:** música da cidade (hoje a Pastoral D atual, `city_pastoral_d`); só entraria no lugar dela se você escolher.\n- **Licença:** composição e MIDI nossos (script Python, sem nota copiada); timbres da soundfont MuseScore General (licença MIT segundo a memória, conferir antes de publicar).\n- **Volume:** -18,1 LUFS, igual à outra versão e à atual (-17,2)."
+        }
+      ]
+    },
+    {
+      "id": "pastoral-rica-b",
+      "letra": "RB",
+      "titulo": "Pastoral rica · B · Fable alto",
+      "audio": "audio/pastoral_rica_B.ogg",
+      "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Fable 5.2 · esforço **high** (subagente, sem ouvir).\n- **Como foi feita:** o agente partiu do `slot_D.py` (a Pastoral D atual) e escreveu a extensão como script Python (`scripts/music/pastoral_rica_B.py`); MIDI e áudio saem do script."
+        },
+        {
+          "titulo": "Forma e instrumentos",
+          "texto": "- **Tom e andamento:** Mi menor, 76 bpm fixo, 72 compassos (3 min 47 s), loop sem emenda audível na medição.\n- **Compassos 1-4 (intro):** como a atual, com pings de celesta.\n- **5-12 (A) e 13-20 (A'):** tema e harmonia originais; entra contracanto de cello e pizzicato; oboé e flauta trocam o tema; baixo descendo Mi-Ré-Dó#-Dó-Si.\n- **21-28 (B):** Sol maior com clarinete, dominantes secundárias.\n- **29-36 (ponte):** Lá menor em tercinas (balanço de siciliana), círculo de quintas.\n- **37-44:** solo de cello com o motivo aumentado, depois flauta e clarinete dialogam (napolitana).\n- **45-52 (clímax):** tema uma oitava acima, trompa, cordas, percussão completa; cadência de engano.\n- **53-56:** picardia (Dó-Ré-Mi maior) e volta ao menor.\n- **57-64:** retorno em meio-tempo com hemíola 3+3+2.\n- **65-72 (coda):** lembrança do B, motivo aumentado, Bsus4-B7 cai no compasso 1.\n- **Instrumentos:** harpa, flauta, oboé, clarinete, violão, cello, cordas, pizzicato, celesta, trompa, baixo e percussão de mão."
+        },
+        {
+          "titulo": "Números contra a Pastoral D atual",
+          "texto": "| Medida | Rica B | Pastoral D atual |\n|---|---|---|\n| Duração | 227,4 s | 126,3 s |\n| Compassos | 73 | 41 |\n| Vozes | 12 | 7 |\n| Instrumentos | 11 | 6 |\n| Notas | 2994 | 1176 |\n| Notas por segundo | 13,17 | 9,31 |\n| Polifonia média | 12,54 | 9,29 |\n| Alcance (semitons) | 59 | 57 |\n| Velocidades distintas | 77 | 62 |\n| Classes de nota | 11 | 8 |\n| Volume | -18,1 LUFS | -17,2 dB |"
+        },
+        {
+          "titulo": "Dúvidas do agente",
+          "texto": "- **Tamanho:** o brief pedia 72 a 88 compassos e 2,5 a 3,2 min; a 76 bpm os 72 compassos dão 3,8 min.\n- **Trecho 41-44:** é o mais brilhante (6,9% da energia em 2-5 kHz), com pouca base.\n- **Trompa e celesta:** timbres do MuseScore General escolhidos sem escuta.\n- **Emenda do loop:** diferença espectral de 6,9 dB entre o fim e o começo (a atual tem 3,4).\n- **Revisão independente:** não rodou; só as checagens do próprio script."
+        },
+        {
+          "titulo": "Ficha",
+          "texto": "- **O que é:** versão B da Pastoral D (Praça do Farol) estendida, mesma melodia e tom, com mais camadas, harmonia, forma e percussão.\n- **Onde usar:** música da cidade (hoje a Pastoral D atual, `city_pastoral_d`); só entraria no lugar dela se você escolher.\n- **Licença:** composição e MIDI nossos (script Python, sem nota copiada); timbres da soundfont MuseScore General (licença MIT segundo a memória, conferir antes de publicar).\n- **Volume:** -18,1 LUFS, igual à outra versão e à atual (-17,2)."
+        }
+      ]
+    }
+  ],
+  "checagens": []
+}

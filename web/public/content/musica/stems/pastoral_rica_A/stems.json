@@ -1,0 +1,60 @@
+{
+ "duracao": 221.053,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 73,
+   "nome": "Flautas"
+  },
+  {
+   "canal": 2,
+   "programa": 68,
+   "nome": "Palhetas"
+  },
+  {
+   "canal": 3,
+   "programa": 24,
+   "nome": "Violão/guitarra"
+  },
+  {
+   "canal": 4,
+   "programa": 46,
+   "nome": "Cordas"
+  },
+  {
+   "canal": 5,
+   "programa": 49,
+   "nome": "Conjunto de cordas"
+  },
+  {
+   "canal": 6,
+   "programa": 32,
+   "nome": "Baixo"
+  },
+  {
+   "canal": 7,
+   "programa": 42,
+   "nome": "Cordas"
+  },
+  {
+   "canal": 8,
+   "programa": 71,
+   "nome": "Palhetas"
+  },
+  {
+   "canal": 9,
+   "programa": 45,
+   "nome": "Cordas"
+  },
+  {
+   "canal": 10,
+   "programa": null,
+   "nome": "Bateria"
+  },
+  {
+   "canal": 11,
+   "programa": 8,
+   "nome": "Percussão melódica"
+  }
+ ]
+}

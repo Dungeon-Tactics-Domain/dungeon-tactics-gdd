@@ -1,0 +1,35 @@
+{
+ "duracao": 181.366,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 20,
+   "nome": "Flute PSX"
+  },
+  {
+   "canal": 2,
+   "programa": 20,
+   "nome": "Flute PSX"
+  },
+  {
+   "canal": 3,
+   "programa": 10,
+   "nome": "String Ens2 PSX"
+  },
+  {
+   "canal": 4,
+   "programa": 10,
+   "nome": "String Ens2 PSX"
+  },
+  {
+   "canal": 5,
+   "programa": 8,
+   "nome": "Harp PSX"
+  },
+  {
+   "canal": 6,
+   "programa": 19,
+   "nome": "Oboe PSX"
+  }
+ ]
+}
