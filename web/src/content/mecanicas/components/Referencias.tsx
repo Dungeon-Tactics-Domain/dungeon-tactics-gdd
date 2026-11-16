@@ -1,11 +1,13 @@
 // Reference sheets (refs/*.json): the sheet page shows the reception and what was not found; mechanics, feel and videos
 // are subpages because a whole sheet passed 1,500px on the old lab (FFT 2,000px).
 import type { ReactNode } from 'react';
+import { Icone } from '@/components/layout/Icone';
 import { type Item, jogo } from '../dados';
 
-const LINK = 'text-lab underline underline-offset-2';
+const LINK = 'inline-flex items-center gap-1 text-lab underline underline-offset-2';
 const Fonte = ({ href, children = 'Fonte' }: { href: string; children?: ReactNode }) => (
   <a href={href} target="_blank" rel="noreferrer" className={LINK}>
+    <Icone id="abrir" className="size-4 flex-none" />
     {children}
   </a>
 );

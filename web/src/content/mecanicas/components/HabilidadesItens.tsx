@@ -1,6 +1,7 @@
 // Ability and item cards, rendered from habilidades.json and itens.json, which scripts/mecanicas/habilidades-itens.mjs
 // generates from the game's origin/master: nothing here is typed by hand, so the cards cannot drift from the game.
 import { useId, useState, type ReactNode } from 'react';
+import { Icone } from '@/components/layout/Icone';
 import { Tabela } from './Descida';
 import HAB from '../habilidades.json';
 import ITENS from '../itens.json';
@@ -18,7 +19,7 @@ type Habilidade = (typeof HAB.habilidades)[number] & {
 type Item = (typeof ITENS.itens)[number];
 
 const CHIP =
-  'min-h-11 cursor-pointer rounded-[3px] border border-ouro bg-folha px-3 text-[15px] text-tinta hover:bg-pergaminho-escuro aria-pressed:border-ouro-escuro aria-pressed:bg-ouro-claro aria-pressed:text-couro-escuro';
+  'inline-flex min-h-11 cursor-pointer items-center gap-1.5 rounded-[3px] border border-ouro bg-folha px-3 text-[15px] text-tinta hover:bg-pergaminho-escuro aria-pressed:border-ouro-escuro aria-pressed:bg-ouro-claro aria-pressed:text-couro-escuro';
 const GRADE = 'grid gap-3 md:grid-cols-2 lg:grid-cols-3 ultra:grid-cols-4';
 const TODAS = 'Todas';
 // accents and case do not matter in the search: "explosao" finds "Explosão"
@@ -54,7 +55,8 @@ function Filtro<T>({
   return (
     <div className="grid gap-3">
       <div className="grid gap-1">
-        <label htmlFor={id} className="font-bold">
+        <label htmlFor={id} className="inline-flex items-center gap-1.5 font-bold">
+          <Icone id="lupa" />
           Buscar por nome ou por quem usa
         </label>
         <input
@@ -69,6 +71,7 @@ function Filtro<T>({
         <span className="text-apagado">Classe:</span>
         {[TODAS, ...classes].map((c) => (
           <button key={c} type="button" aria-pressed={c === classe} onClick={() => setClasse(c)} className={CHIP}>
+            <Icone id="filtrar" />
             {c}
           </button>
         ))}

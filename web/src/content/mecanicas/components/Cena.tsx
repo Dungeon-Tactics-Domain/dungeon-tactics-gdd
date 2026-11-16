@@ -3,6 +3,7 @@
 // data/scenes.ts): the game never starts by itself, one live iframe at a time (each is the whole WebGL game), and leaving
 // the page unmounts the iframe, which unloads the game.
 import { useEffect, useState } from 'react';
+import { Icone } from '@/components/layout/Icone';
 import { cn } from '@/lib/utils';
 import { CENAS } from '../dados';
 import { benchSpec, type Camera, GAME, PROPOSAL, sceneUrl, type Spec, type View } from './cena-url';
@@ -18,15 +19,17 @@ try {
 }
 
 const BOTAO =
-  'min-h-11 cursor-pointer rounded-[3px] border border-borda bg-folha px-3 text-[15px] text-tinta hover:bg-lab-soft aria-pressed:border-lab aria-pressed:bg-lab aria-pressed:text-white';
+  'inline-flex min-h-11 cursor-pointer items-center gap-1.5 rounded-[3px] border border-borda bg-folha px-3 text-[15px] text-tinta hover:bg-lab-soft aria-pressed:border-lab aria-pressed:bg-lab aria-pressed:text-white';
 
 function Escolha<T>({
   rotulo,
+  icone,
   opcoes,
   atual,
   escolher,
 }: {
   rotulo: string;
+  icone: string;
   opcoes: [T, string][];
   atual: T;
   escolher: (v: T) => void;
@@ -36,6 +39,7 @@ function Escolha<T>({
       <span className="text-apagado">{rotulo}</span>
       {opcoes.map(([v, t]) => (
         <button key={t} type="button" aria-pressed={v === atual} onClick={() => escolher(v)} className={BOTAO}>
+          <Icone id={icone} />
           {t}
         </button>
       ))}
@@ -121,6 +125,7 @@ export function Cena({ nome }: { nome: string }) {
       </p>
       <div className="flex flex-wrap items-center gap-1.5">
         <button type="button" aria-pressed={view.bare} onClick={() => mudar({ bare: !view.bare })} className={BOTAO}>
+          <Icone id="filtrar" />
           Só a animação
         </button>
         <span className="text-apagado">
@@ -148,6 +153,7 @@ export function Cena({ nome }: { nome: string }) {
           <div className="grid gap-2.5">
             <Escolha
               rotulo="Velocidade"
+              icone="avancar"
               opcoes={[
                 [0.25, '0,25x'],
                 [0.5, '0,5x'],
@@ -159,17 +165,21 @@ export function Cena({ nome }: { nome: string }) {
             />
             <div role="group" aria-label="Relógio da batalha" className="flex flex-wrap gap-1.5">
               <button type="button" aria-pressed={pausado} onClick={() => enviar('pause')} className={BOTAO}>
+                <Icone id="pausar" />
                 Pausar
               </button>
               <button type="button" onClick={() => enviar('step')} className={BOTAO}>
+                <Icone id="avancar" />
                 Avançar um quadro
               </button>
               <button type="button" onClick={() => enviar('resume')} className={BOTAO}>
+                <Icone id="tocar" />
                 Continuar
               </button>
             </div>
             <Escolha<Camera>
               rotulo="Câmera"
+              icone="recarregar"
               opcoes={[
                 ['acao', 'ação'],
                 ['side', 'lado'],
@@ -191,6 +201,7 @@ export function Cena({ nome }: { nome: string }) {
         onClick={() => (spec ? setSpec(null) : void ver())}
         className={cn(BOTAO, 'justify-self-start')}
       >
+        <Icone id={spec ? 'fechar' : 'tocar'} />
         {spec ? 'Parar' : 'Ver ao vivo'}
       </button>
     </article>
