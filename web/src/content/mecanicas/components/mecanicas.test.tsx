@@ -125,9 +125,12 @@ describe('descida', () => {
 });
 
 describe('trajetorias', () => {
-  it('keeps the 12 decisions of the trajectory grill, each with its origin', () => {
+  it('keeps the 12 decisions of the trajectory grill, each with its origin, with no tile exception', () => {
     expect(TRAJETORIAS).toHaveLength(12);
     for (const r of TRAJETORIAS) expect(r.origem).toMatch(/grill de trajetórias de 15\/11|proposta do lab \(15\/11\)/);
+    const regras = TRAJETORIAS.map((r) => r.regra);
+    expect(regras).toContain('Bloqueio realista');
+    expect(regras).not.toContain('Casas vizinhas na curva');
   });
 });
 

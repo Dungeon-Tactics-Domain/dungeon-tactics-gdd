@@ -105,12 +105,13 @@
       import * as THREE from 'three';
       import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
-      // Game numbers (dungeon-tactics master): 1 level = 0.5 m (space.ts STEP), unit 0.85 m tall (markers.ts), range in
-      // Manhattan tiles (grid.ts dist). Chest at 0.6 m, as the game's preview starts today (0.7 x 0.85), decided on 15/11:
-      // a straight shot clears a 1-level wall (0.5 m) and only 2+ levels stop it.
-      const STEP = 0.5,
-        ALTURA = 0.85,
-        PEITO = 0.6,
+      // Real scale decided on 15/11: half a tile = 1 m, so a full tile (1 scene unit) is 2 m, and 1 level = 1 m. M converts
+      // metres to scene units on both axes. Every shot leaves the centre of the tile at 1.5 m (middle of the second level)
+      // and units are 1.8 m tall, so a straight shot clears a 1 m wall and a 2 m wall stops it.
+      const M = 0.5,
+        STEP = 1 * M,
+        ALTURA = 1.8 * M,
+        SAIDA = 1.5 * M,
         RAIO = 0.28;
       const W = 10,
         H = 8;
@@ -123,16 +124,16 @@
         nivel[8][z] = 2;
         nivel[9][z] = 2;
       }
-      // low wall right next to the shooter (every shot clears it), tall wall right next to the target (only the curve,
-      // thanks to the neighbour-tile rule)
+      // default view: a 1 m wall next to the shooter (every shot clears it) and a 2 m wall before the target (the straight
+      // shot stops, the bow's apex clears it); a 5 m pillar next to the shooter stops even the highest curve
       for (let z = 3; z < 6; z++) {
         nivel[2][z] = 1;
         obst[`2,${z}`] = 'muro baixo';
-        nivel[7][z] = 2;
-        obst[`7,${z}`] = 'muro alto';
+        nivel[6][z] = 2;
+        obst[`6,${z}`] = 'muro alto';
       }
-      nivel[5][1] = 5;
-      obst['5,1'] = 'pilar alto';
+      nivel[1][3] = 5;
+      obst['1,3'] = 'pilar alto';
 
       const ARMAS = [
         { id: 'arco', nome: 'Arco', tipo: 'curva', vel: 8, cor: '#8a6a44' },
@@ -146,6 +147,8 @@
       let arma = ARMAS[0];
 
       const topo = (x, z) => (nivel[x][z] + 1) * STEP;
+      // metres above the level-0 ground (every tile stands on a 1-level base slab), for the status line
+      const metros = (y) => ((y - STEP) / M).toLocaleString('pt-BR', { maximumFractionDigits: 1 }) + ' m';
       const centro = (x, z) => new THREE.Vector3(x - W / 2 + 0.5, topo(x, z), z - H / 2 + 0.5);
 
       // ---------- scene ----------
@@ -187,12 +190,12 @@
         const g = new THREE.Group();
         const c = new THREE.Mesh(corpo, new THREE.MeshLambertMaterial({ color: cor }));
         c.position.y = ALTURA / 2;
-        // chest band: where every shot starts and ends
+        // band at 1.5 m: where every shot starts and ends
         const b = new THREE.Mesh(
           new THREE.TorusGeometry(RAIO + 0.01, 0.025, 6, 20).rotateX(Math.PI / 2),
           new THREE.MeshBasicMaterial({ color: '#f2c230' }),
         );
-        b.position.y = PEITO;
+        b.position.y = SAIDA;
         g.add(c, b);
         const u = { g, x, z };
         por(u, x, z);
@@ -210,12 +213,12 @@
       meio.nome = 'unidade no caminho';
       alvo.nome = 'alvo';
       const unidades = [atacante, meio, alvo];
-      const peito = (u) => centro(u.x, u.z).setY(topo(u.x, u.z) + PEITO);
+      const saida = (u) => centro(u.x, u.z).setY(topo(u.x, u.z) + SAIDA);
 
       // ---------- path math: one function for preview, collision and flight ----------
-      // Curve: the apex is 1 level per 3 Manhattan tiles (min 1, max 3) above the higher chest, and the parabola in k has
-      // exactly that maximum even when the two chests differ in height: y = ya + B k - A k^2 with D = top - ya, E = top - yb,
-      // B = 2(D + sqrt(D E)), A = B^2 / (4 D). Straight: the line chest to chest.
+      // Curve: the apex is 1 level (1 m) per 3 Manhattan tiles (min 1, max 3) above the higher 1.5 m point, and the parabola
+      // in k has exactly that maximum even when the two points differ in height: y = ya + B k - A k^2 with D = top - ya,
+      // E = top - yb, B = 2(D + sqrt(D E)), A = B^2 / (4 D). Straight: the line between the two 1.5 m points.
       function caminho(a, b, curva, dist) {
         const niveis = curva ? Math.min(3, Math.max(1, Math.floor(dist / 3))) : 0;
         let B = b.y - a.y,
@@ -230,38 +233,40 @@
         return {
           curva,
           niveis,
+          topo: Math.max(a.y, b.y) + niveis * STEP,
           em: (k, v = new THREE.Vector3()) =>
             v.set(a.x + (b.x - a.x) * k, a.y + B * k - A * k * k, a.z + (b.z - a.z) * k),
           tangente: (k) => new THREE.Vector3(b.x - a.x, B - 2 * A * k, b.z - a.z).normalize(),
         };
       }
 
-      // A sample is blocked inside a tile's column or inside another unit's body; the shooter and the target never block.
-      // A curve also ignores the tiles next to the shooter and next to the target (15/11): an archer right behind a wall
-      // shoots over it. c.isento tells the status when that rule let the shot through.
+      // Purely geometric (15/11, no tile exceptions, same for straight and curved): a sample is blocked inside a tile's
+      // column or inside another unit's body; only the shooter's and the target's own bodies are ignored. c.folga keeps
+      // the closest pass over a named obstacle or unit, so the status can show it in metres.
       const AMOSTRAS = 240;
-      const vizinha = (x, z, u) => Math.max(Math.abs(x - u.x), Math.abs(z - u.z)) <= 1;
       function bloqueio(c) {
         const p = new THREE.Vector3();
-        c.isento = null;
+        c.folga = null;
+        const perto = (oque, cima) => {
+          if (!c.folga || p.y - cima < c.folga.y - c.folga.cima) c.folga = { oque, cima, y: p.y };
+        };
         for (let i = 1; i < AMOSTRAS; i++) {
           const k = i / AMOSTRAS;
           c.em(k, p);
           const x = Math.floor(p.x + W / 2),
             z = Math.floor(p.z + H / 2);
           if (x < 0 || z < 0 || x >= W || z >= H) continue;
-          if (c.curva && (vizinha(x, z, atacante) || vizinha(x, z, alvo))) {
-            if (!c.isento && p.y < topo(x, z)) c.isento = obst[`${x},${z}`] ?? 'degrau do terreno';
-            continue;
-          }
           for (const u of unidades) {
             if (u === atacante || u === alvo) continue;
             const base = topo(u.x, u.z),
               q = centro(u.x, u.z);
-            if (Math.hypot(p.x - q.x, p.z - q.z) < RAIO && p.y > base && p.y < base + ALTURA)
-              return { k, p: p.clone(), oque: u.nome, u };
+            if (Math.hypot(p.x - q.x, p.z - q.z) >= RAIO) continue;
+            if (p.y > base && p.y < base + ALTURA) return { k, p: p.clone(), oque: u.nome, cima: base + ALTURA, u };
+            perto(u.nome, base + ALTURA);
           }
-          if (p.y < topo(x, z)) return { k, p: p.clone(), oque: obst[`${x},${z}`] ?? 'degrau do terreno' };
+          const oque = obst[`${x},${z}`] ?? 'degrau do terreno';
+          if (p.y < topo(x, z)) return { k, p: p.clone(), oque, cima: topo(x, z) };
+          if (obst[`${x},${z}`]) perto(oque, topo(x, z));
         }
         return null;
       }
@@ -311,8 +316,8 @@
       let atual = null; // { c, blk, len, n } of the projectile in aim
       const distancia = () => Math.abs(alvo.x - atacante.x) + Math.abs(alvo.z - atacante.z);
       function mirar() {
-        const a = peito(atacante),
-          b = peito(alvo),
+        const a = saida(atacante),
+          b = saida(alvo),
           d = distancia();
         const conj = arma.tipo === 'conjurada';
         prev.visible = !conj;
@@ -345,16 +350,16 @@
         if (blk) xis.position.copy(blk.p);
         const tipo =
           arma.tipo === 'curva'
-            ? `curva, topo ${c.niveis} ${c.niveis > 1 ? 'níveis' : 'nível'} acima do peito mais alto`
-            : 'reta';
+            ? `curva, sai a ${metros(a.y)}, topo a ${metros(c.topo)}`
+            : `reta, sai a ${metros(a.y)}`;
         estado(
           `${arma.nome} (${tipo}, ${d} casas): ` +
             (blk
-              ? `bloqueado por: ${blk.oque}.`
-              : arma.tipo === 'curva'
-                ? 'passa por cima e acerta o alvo.' +
-                  (c.isento ? ` O ${c.isento} fica na casa vizinha, que não bloqueia a curva.` : '')
-                : 'linha livre, acerta o alvo.'),
+              ? `bloqueado por: ${blk.oque} (até ${metros(blk.cima)}; o tiro passa ali a ${metros(blk.p.y)}).`
+              : (arma.tipo === 'curva' ? 'passa por cima e acerta o alvo.' : 'linha livre, acerta o alvo.') +
+                (c.folga
+                  ? ` Sobre o ${c.folga.oque} (até ${metros(c.folga.cima)}), passa a ${metros(c.folga.y)}.`
+                  : '')),
         );
       }
       const elEstado = document.getElementById('estado');
