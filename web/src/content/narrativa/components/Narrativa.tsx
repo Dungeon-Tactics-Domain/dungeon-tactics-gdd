@@ -23,10 +23,10 @@ import {
 import { lerMarcas, type Marca, useMarca } from './marcas';
 
 const TAG: Record<string, string> = {
-  feito: 'border-run text-run',
+  feito: 'border-sucesso text-sucesso',
   fazendo: 'border-lab bg-lab-soft text-lab',
-  aberto: 'border-warn bg-warn-soft text-warn',
-  bloqueado: 'border-stop bg-stop-soft text-stop',
+  aberto: 'border-aviso bg-aviso-suave text-aviso',
+  bloqueado: 'border-erro bg-erro-suave text-erro',
 };
 const Tag = ({ s }: { s: string }) => (
   <span className={cn('inline-block rounded-sm border bg-folha px-2 text-[14px] font-bold whitespace-nowrap', TAG[s])}>
@@ -61,7 +61,7 @@ function BotoesMarca({ m }: { m: ReturnType<typeof useMarca> }) {
         type="button"
         aria-pressed={m.marca?.v === 'quero'}
         onClick={() => m.alternar('quero')}
-        className={cn(BOTAO, 'aria-pressed:border-run aria-pressed:bg-run aria-pressed:text-white')}
+        className={cn(BOTAO, 'aria-pressed:border-sucesso aria-pressed:bg-sucesso aria-pressed:text-white')}
       >
         Quero
       </button>
@@ -69,7 +69,7 @@ function BotoesMarca({ m }: { m: ReturnType<typeof useMarca> }) {
         type="button"
         aria-pressed={m.marca?.v === 'nao'}
         onClick={() => m.alternar('nao')}
-        className={cn(BOTAO, 'aria-pressed:border-stop aria-pressed:bg-stop aria-pressed:text-white')}
+        className={cn(BOTAO, 'aria-pressed:border-erro aria-pressed:bg-erro aria-pressed:text-white')}
       >
         Não quero
       </button>
@@ -142,7 +142,7 @@ function Figura({ s }: { s: Imagem }) {
     <li
       className={cn(
         'border border-borda bg-folha',
-        DECISOES_ATIVAS && m.marca?.v === 'quero' && 'outline-3 -outline-offset-3 outline-run',
+        DECISOES_ATIVAS && m.marca?.v === 'quero' && 'outline-3 -outline-offset-3 outline-sucesso',
       )}
     >
       <figure className="m-0 grid gap-1.5">
@@ -162,7 +162,7 @@ function Figura({ s }: { s: Imagem }) {
 export function Moodboard({ slug }: { slug: string }) {
   const [marcas] = useState(lerMarcas);
   if (slug !== 'quero' && !IMAGENS.some((s) => s.slug === slug))
-    return <p className="m-0 text-stop">Slug desconhecido no moodboard: {slug}.</p>;
+    return <p className="m-0 text-erro">Slug desconhecido no moodboard: {slug}.</p>;
   const lista = IMAGENS.filter((s) => (slug === 'quero' ? marcas[chaveImagem(s)]?.v === 'quero' : s.slug === slug));
   return lista.length ? (
     <ul className={GRADE}>
@@ -196,8 +196,8 @@ function Ficha({ e, nome, licoes, extra }: { e: Game | Work; nome: string; licoe
                 {l.story}
               </span>
             )}
-            {l.take && <span className="text-run">Aproveitar: {l.take}</span>}
-            {l.avoid && <span className="text-stop">Evitar: {l.avoid}</span>}
+            {l.take && <span className="text-sucesso">Aproveitar: {l.take}</span>}
+            {l.avoid && <span className="text-erro">Evitar: {l.avoid}</span>}
             <Fonte href={l.source} />
             <MarcaSolta chave={`${e.slug}:l:${l.name}`} label={`${nome} · ${l.name}`} />
           </li>
@@ -249,7 +249,7 @@ function Ficha({ e, nome, licoes, extra }: { e: Game | Work; nome: string; licoe
                   <span className="font-bold text-lab">{TEMAS[s.theme] ?? s.theme}</span>
                   <strong>{s.title}</strong>
                   <span>{s.note}</span>
-                  {s.take && <span className="text-run">Aproveitar: {s.take}</span>}
+                  {s.take && <span className="text-sucesso">Aproveitar: {s.take}</span>}
                   <Fonte href={s.source} />
                   <MarcaSolta chave={`${e.slug}:i:${s.file}`} label={`${nome} · ${s.title}`} />
                 </div>
@@ -264,7 +264,7 @@ function Ficha({ e, nome, licoes, extra }: { e: Game | Work; nome: string; licoe
 }
 
 const jogo = (slug: string) => JOGOS.find((g) => g.slug === slug);
-const Desconhecido = ({ slug }: { slug: string }) => <p className="m-0 text-stop">Slug desconhecido: {slug}.</p>;
+const Desconhecido = ({ slug }: { slug: string }) => <p className="m-0 text-erro">Slug desconhecido: {slug}.</p>;
 
 export function FichaJogo({ slug }: { slug: string }) {
   const g = jogo(slug);
