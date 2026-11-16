@@ -5,6 +5,7 @@ import { DecisaoAsset } from '@/components/content/DecisaoAsset';
 import { FICHAS, type Ficha as DadosDaFicha } from '../fichas';
 import pecas from '../pecas.json';
 import { BANCADA, BENCH, CLASSE_VIEWER, EM_LOCALHOST } from './bancada';
+import { JanelaRedimensionavel } from './JanelaRedimensionavel';
 
 const ESTILOS = [
   ['psx', 'PSX'],
@@ -69,14 +70,15 @@ export function Botoes<T>({
 
 /**
  * The 3D viewer on the left, sticky while the options on the right scroll (Nov 15, Fernando's request). The viewer
- * column is 58% of the width but never wider than the screen is tall, or ultrawide screens get a wide, low strip;
- * below 1024 px (the shell's two-panel band) they stack, viewer first and pinned under the header, on a page-coloured
- * band so the options scroll under it.
+ * column hugs its JanelaRedimensionavel (dragged by the user) and the options keep at least 320 px; the column scrolls
+ * on its own when the window plus its ficha are taller than the screen. Below 1024 px (the shell's two-panel band)
+ * they stack: the column dissolves so only the window's viewer box is pinned under the header, on a page-coloured
+ * band, and the ficha scrolls with the options.
  */
 export function LadoALado({ viewer, children }: { viewer: ReactNode; children: ReactNode }) {
   return (
-    <div className="grid items-start gap-4 min-[1024px]:grid-cols-[minmax(0,min(58%,100vh))_minmax(0,1fr)]">
-      <div className="sticky top-(--reino-h) z-10 min-w-0 bg-pergaminho pb-2 min-[1024px]:top-[calc(var(--reino-h)+1rem)] min-[1024px]:pb-0">
+    <div className="grid items-start gap-4 min-[1024px]:grid-cols-[minmax(0,max-content)_minmax(320px,1fr)]">
+      <div className="grid min-w-0 gap-2 max-[1023px]:contents min-[1024px]:sticky min-[1024px]:top-[calc(var(--reino-h)+1rem)] min-[1024px]:max-h-[calc(100dvh-var(--reino-h)-2rem)] min-[1024px]:overflow-y-auto">
         {viewer}
       </div>
       {/* keyboard focus and scrollIntoView must stop below the pinned viewer, not under it (at most 50vh + its caption) */}
@@ -124,11 +126,14 @@ function Ficha({ numeros, metodo, origemMetodo, defeitos, origemDefeitos }: Dado
 function Bancada({
   pecas: lista,
   asset,
+  tipo,
   lado,
   children,
 }: {
   pecas: Peca[];
   asset: string;
+  /** remembers the window size per kind of page */
+  tipo: string;
   lado?: ReactNode;
   children?: ReactNode;
 }) {
@@ -143,7 +148,13 @@ function Bancada({
   return (
     <>
       {children}
-      <LadoALado viewer={<iframe src={urlDaPeca(peca, estilo)} title="Visualizador 3D" className={CLASSE_VIEWER} />}>
+      <LadoALado
+        viewer={
+          <JanelaRedimensionavel tipo={tipo}>
+            <iframe src={urlDaPeca(peca, estilo)} title="Visualizador 3D" className={CLASSE_VIEWER} />
+          </JanelaRedimensionavel>
+        }
+      >
         {!semCaixa && (
           <div className="grid gap-2 border border-t-[6px] border-borda border-t-lab bg-folha px-5 py-4">
             {lista.length > 1 && (
@@ -175,7 +186,7 @@ export function Visualizador({ conjunto, children }: { conjunto: Conjunto; child
   const lista = CONJUNTOS[conjunto];
   if (!lista?.length) return <p className="m-0 text-erro">Conjunto de peças desconhecido: {conjunto}.</p>;
   return (
-    <Bancada pecas={lista} asset={`modelos/${conjunto}`}>
+    <Bancada pecas={lista} asset={`modelos/${conjunto}`} tipo="visualizador">
       {children}
     </Bancada>
   );
@@ -208,6 +219,7 @@ export function Blender({ modelo, children }: { modelo: string; children?: React
     <Bancada
       pecas={[{ id: modelo, nome: 'Guerreiro', glb, zoom: 1.6 }]}
       asset="modelos/blender"
+      tipo="blender"
       lado={FICHAS[modelo] && <Ficha {...FICHAS[modelo]} />}
     >
       {children}

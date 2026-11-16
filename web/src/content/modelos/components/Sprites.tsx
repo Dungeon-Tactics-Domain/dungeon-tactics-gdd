@@ -2,6 +2,7 @@
 // canvas. Same actions, rates and files as the old lab (dungeon-tactics-lab/modelos/src/main.ts).
 import { type ReactNode, useEffect, useRef, useState } from 'react';
 import { BANCADA } from './bancada';
+import { JanelaRedimensionavel } from './JanelaRedimensionavel';
 import { Botoes, LadoALado } from './Visualizador';
 
 const DIRS = ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW'] as const;
@@ -54,12 +55,14 @@ export function Sprites({ modelo, children }: { modelo: string; children?: React
       {children}
       <LadoALado
         viewer={
-          // square: as wide as the column, no taller than the viewer boxes of the other pages
-          <canvas
-            ref={canvas}
-            aria-label="Sprite animado"
-            className="block aspect-square h-auto w-[min(100%,50vh)] rounded-lg bg-pergaminho-escuro [image-rendering:pixelated] min-[1024px]:w-[min(100%,80vh)]"
-          />
+          // square: on phones no taller than the viewer boxes of the other pages; from 1024 px as wide as the window
+          <JanelaRedimensionavel tipo="sprites">
+            <canvas
+              ref={canvas}
+              aria-label="Sprite animado"
+              className="block aspect-square h-auto w-[min(100%,50vh)] rounded-lg bg-pergaminho-escuro [image-rendering:pixelated] min-[1024px]:w-full"
+            />
+          </JanelaRedimensionavel>
         }
       >
         <div className="grid gap-2 border border-t-[6px] border-borda border-t-lab bg-folha px-5 py-4">

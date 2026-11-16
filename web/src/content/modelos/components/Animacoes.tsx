@@ -2,6 +2,7 @@
 // character, on the 3D bench. Same buttons, scenes and URLs as the old lab (dungeon-tactics-lab/modelos/src/main.ts).
 import { type ReactNode, useEffect, useState } from 'react';
 import { BANCADA, BENCH, CLASSE_OPCOES, CLASSE_VIEWER } from './bancada';
+import { JanelaRedimensionavel } from './JanelaRedimensionavel';
 import { Botoes, LadoALado } from './Visualizador';
 
 // id "clip:<name>" plays one clip; "walk:", "jump:" and "act:" assemble a scene on the bench
@@ -159,11 +160,13 @@ export function Animacoes({ modelo, children }: { modelo: string; children?: Rea
       {children}
       <LadoALado
         viewer={
-          <iframe
-            src={urlDaAnimacao(modelo, glb, escolha, principal, secundaria, duas)}
-            title="Animação 3D"
-            className={CLASSE_VIEWER}
-          />
+          <JanelaRedimensionavel tipo="animacoes">
+            <iframe
+              src={urlDaAnimacao(modelo, glb, escolha, principal, secundaria, duas)}
+              title="Animação 3D"
+              className={CLASSE_VIEWER}
+            />
+          </JanelaRedimensionavel>
         }
       >
         <div className={CLASSE_OPCOES}>

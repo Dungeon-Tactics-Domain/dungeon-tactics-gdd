@@ -4,6 +4,7 @@
 import { useEffect, useState } from 'react';
 import { alterna, type Botao, DUAS_MAOS, Grupo, MAO_PRINCIPAL, MAO_SECUNDARIA, urlDaAnimacao } from './Animacoes';
 import { BANCADA, CLASSE_OPCOES, CLASSE_VIEWER } from './bancada';
+import { JanelaRedimensionavel } from './JanelaRedimensionavel';
 import { Botoes, LadoALado } from './Visualizador';
 
 export const PERSONAGENS: readonly Botao[] = [
@@ -173,17 +174,21 @@ export function KayKit() {
   return (
     <LadoALado
       viewer={
-        <>
+        <JanelaRedimensionavel
+          tipo="kaykit"
+          ficha={
+            <p className="m-0 mt-2 text-apagado">
+              Tocando: {cena ?? nome(clipe.replace(/^.*\//, ''))}
+              {tocando?.dur ? ` (${tocando.dur.toLocaleString('pt-BR')} s)` : ''}
+            </p>
+          }
+        >
           <iframe
             src={urlKayKit(base, partes, clipe, principal, secundaria, duas)}
             title="Personagem KayKit 3D"
             className={CLASSE_VIEWER}
           />
-          <p className="m-0 mt-2 text-apagado">
-            Tocando: {cena ?? nome(clipe.replace(/^.*\//, ''))}
-            {tocando?.dur ? ` (${tocando.dur.toLocaleString('pt-BR')} s)` : ''}
-          </p>
-        </>
+        </JanelaRedimensionavel>
       }
     >
       <div className={CLASSE_OPCOES}>
