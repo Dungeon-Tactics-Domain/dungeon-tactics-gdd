@@ -126,35 +126,63 @@ Vauclair é uma **vila em terraços** que desce da boca da dungeon até o mar: *
 - **Praia e porto (D):** passeio e atmosfera no MVP; sem janela. Servem ao que vem de fora (conselho, mercadorias) e a futuras histórias.
 - **Tom:** acolhedor com sombra; o contraste é a luz de B (taverna, praça) contra a boca escura da dungeon em A.
 
-## Referências (o que se aproveita)
+## Referências (o que se aproveita de cada uma)
+
+Levantamento de 16/11 em fontes abertas (wikis, guias, resenhas). Quase nenhuma fonte descreve a planta física; onde só achei a lista de prédios ou uma resenha, digo. O que não está na fonte é **dedução** e vem marcado.
+
+### 1. Darkest Dungeon: o Hamlet (a mais próxima do nosso loop)
+
+- **O que é:** a vila-base onde se prepara a descida, se recrutam heróis e se melhoram equipamento e habilidades. Prédios fixos, cada um com um papel: Abadia e Taverna (aliviam stress), Ferreiro, Sanatório, Guilda, Diligência, Sobrevivente, Vagão do Nômade, mais locais especiais.
+- **O que se aproveita:** (a) poucos prédios, cada um com função legível de longe, que é o que o nosso brief de lugares faz; (b) **a vila muda de cara com o progresso**: as melhorias deixam os prédios de um aspecto gasto e sombrio para um mais claro e acolhedor, que é a nossa ideia de marcos da pena (o tratamento e o clima mudam, mesmo com as instalações já abertas); (c) a dungeon fica fora da vila e a vila é o centro do jogo.
+- **O que NÃO se aproveita:** melhorar prédio com moeda e stress (decisão do Fernando: sem stress nem aflições); o Hamlet é um menu com ilustração, **não é andável**.
+- **Origem:** wiki do jogo, [Districts](https://darkestdungeon.wiki.gg/wiki/Districts) e [Locations](<https://darkestdungeon.wiki.gg/wiki/Locations_(Darkest_Dungeon)>) (lista de prédios); guia [SegmentNext](https://segmentnext.com/darkest-dungeon-building-upgrades) (papel dos prédios e mudança de aspecto com as melhorias). Sem fala oficial dos desenvolvedores sobre a arte do Hamlet.
+
+### 2. Fire Emblem: Three Houses, o mosteiro de Garreg Mach (a mais próxima de uma vila andável)
+
+- **O que é:** o centro do jogo, **explorável em 3D**, com vários prédios de dois ou mais andares; o terceiro andar de um deles só se alcança com permissão. Cada capítulo gira em volta dele (treinar, conversar, missões).
+- **O que se aproveita:** (a) **vila andável com andares e zonas por tipo de uso** (igreja, escola, mercado), o que sustenta os nossos terraços A a D; (b) **áreas que o jogador só alcança com permissão**, útil para marcos (a trilha da floresta e a montanha só vistas até o marco certo); (c) conversar com moradores como motor da história, que é o nosso canal de rumores.
+- **O que NÃO se aproveita:** o tamanho (é grande demais para o nosso pano de fundo da descida) e os sistemas de aulas e relacionamento.
+- **Origem:** [guia SegmentNext do mosteiro](https://segmentnext.com/fire-emblem-three-houses-garreg-mach-monastery-guide/) e [mapa e lista de instalações](https://samurai-gamers.com/fire-emblem-three-houses/map-facility-list/) (lidos em 16/11, só o resumo; sem planta detalhada na busca).
+
+### 3. Triangle Strategy (o mais próximo do nosso olhar: tático isométrico com exploração)
+
+- **O que é:** cada capítulo tem história, uma fase de exploração e a batalha. A exploração acontece **nos mesmos mapas das batalhas**, com altura e terreno, e o jogador percorre a área antes de lutar.
+- **O que se aproveita:** (a) **a cidade e a batalha usam a mesma linguagem de mapa** (altura, degraus), o que combina com o nosso FFT-like e com os terraços; (b) exploração curta, para conversar e achar itens, não para virar um jogo à parte; (c) a câmera giratória foi um desafio de arte para o HD-2D: avisa que a nossa vila isométrica precisa ler bem de cada ângulo que a câmera tiver.
+- **O que NÃO se aproveita:** o sistema de votos e a divisão em capítulos.
+- **Origem:** [resenha Gamer Social Club](https://gamersocialclub.ca/2025/09/09/triangle-strategy-review/) (exploração nos mapas de batalha) e [The Outer Haven](https://theouterhaven.net/2022/05/triangle-strategy-had-challenges-in-making-hd-2d-art-style-work) (câmera giratória e arte). Não achei a planta das cidades.
+
+### 4. Final Fantasy Tactics e Tactics Ogre: Reborn (o contraponto: cidade em menu)
+
+- **O que é:** cidades e vilas escolhidas num mapa-múndi; o jogador não anda por elas, escolhe lojas e serviços por um nome. Em FFT as lojas mudam por fase; em Tactics Ogre: Reborn há locais específicos de treino.
+- **O que se aproveita:** a **hierarquia de assentamento** (vila, cidade comercial, castelo) e a ideia de que o estoque da loja muda com o progresso. É o argumento a favor de nossos marcos mudarem preço e falas.
+- **O que NÃO se aproveita:** não há planta de cidade em nenhum dos dois; **não são modelo de layout**.
+- **Origem:** [Caves of Narshe, Outfitters](https://www.cavesofnarshe.com/fft/maps/outfitters.php?phase=9) e [Gematsu, Tactics Ogre: Reborn](https://gematsu.com/2022/10/tactics-ogre-reborn-details-unit-development-charms-battle-updates-balance-adjustments-shop-improvements-classes-and-characters) (só a parte de lojas e treino).
+
+### Resumo: o que cada referência dá ao nosso mapa
 
 <div className="max-w-[110ch]">
   <DataTable
-    colunas={['Referência', 'O que tem', 'O que se aproveita', 'Origem']}
+    colunas={['Decisão do layout', 'Quem sustenta', 'Quem NÃO sustenta']}
     linhas={[
+      ['Poucos prédios, cada um com um papel claro', 'Darkest Dungeon', 'FFT e Tactics Ogre (só menu)'],
       [
-        'Darkest Dungeon: Hamlet',
-        'Vila com prédios fixos que se melhoram, cada um com um papel (Abadia, Taverna, Ferreiro, Sanatório, Guilda e outros), mais locais especiais.',
-        'Poucos prédios, cada um com função clara e legível de longe; a vila é o centro do jogo e a dungeon fica fora dela.',
-        'Wiki do jogo: Districts (darkestdungeon.wiki.gg/wiki/Districts) e Locations (darkestdungeon.wiki.gg/wiki/Locations_(Darkest_Dungeon)), lidos em 16/11 só pela lista de prédios; a planta física é dedução.',
+        'A vila muda de clima com o progresso',
+        'Darkest Dungeon (melhorias mudam o aspecto)',
+        'FFT (muda o estoque, não o aspecto)',
       ],
       [
-        'Final Fantasy Tactics',
-        'Cidades e vilas em menu: o jogador não anda por elas, escolhe lojas e serviços por um nome.',
-        'Hierarquia por tipo de assentamento (vila, cidade comercial, castelo) e lojas que variam por fase; NÃO tem planta de cidade.',
-        'Caves of Narshe, Outfitters (cavesofnarshe.com/fft/maps/outfitters.php?phase=9), lido em 16/11.',
+        'Vila andável com zonas em andares ou terraços',
+        'Fire Emblem: Three Houses; Triangle Strategy (altura)',
+        'Darkest Dungeon, FFT, Tactics Ogre',
       ],
-      [
-        'Tactics Ogre: Reborn',
-        'Cidades como lugares do mapa-múndi, com lojas e treino em locais específicos.',
-        'Mesma conclusão: não há planta andável; sem modelo de layout aqui.',
-        'Gematsu, detalhes de loja e treino (gematsu.com/2022/10/tactics-ogre-reborn-details-unit-development-charms-battle-updates-balance-adjustments-shop-improvements-classes-and-characters); só a parte de lojas, a cidade não foi achada.',
-      ],
+      ['Áreas que só se alcançam em certo momento', 'Fire Emblem: Three Houses (terceiro andar com permissão)', ''],
+      ['Praia e porto', 'nenhuma das quatro (proposta nossa, dedução)', 'todas'],
+      ['Exploração curta, sem virar jogo à parte', 'Triangle Strategy', 'Fire Emblem (hub grande demais)'],
     ]}
   />
 </div>
 
-**Lacuna honesta:** as referências pedidas (FFT e Tactics Ogre) **não têm vila andável**: são menus. Quem tem vila física é Darkest Dungeon, e só conferi a lista de prédios, não a planta. Por isso os terraços, a praia e o porto são **proposta** (dedução), não cópia.
+**Lacuna honesta:** nenhuma das quatro oferece uma planta de vila com praia e porto; terraços, praia e porto são **proposta nossa** (dedução). Se o Fernando quiser uma referência de vila costeira em terraços, ela virá de fora do gênero (cidade portuária real ou de outro jogo), e peço licença para pesquisar isso numa próxima rodada.
 
 ## Pontos para o Modelos 3D decidir (fora deste layout)
 
