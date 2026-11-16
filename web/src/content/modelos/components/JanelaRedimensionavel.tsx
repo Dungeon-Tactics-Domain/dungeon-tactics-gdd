@@ -1,12 +1,22 @@
 // A 3D preview that grows and shrinks from a handle on its bottom-right corner (Nov 15, Fernando's request: the previews
 // were too big). Square, so dragging keeps the proportion; the width is remembered per kind of page.
-import { type CSSProperties, type KeyboardEvent, type PointerEvent, type ReactNode, useRef, useState } from 'react';
+import {
+  type CSSProperties,
+  type KeyboardEvent,
+  type PointerEvent,
+  type ReactNode,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { gravar, ler } from '@/lib/utils';
 
 export const LARGURA_PADRAO = 420;
 export const LARGURA_MINIMA = 240;
 const PASSO = 20;
 const chave = (tipo: string) => `modelos:janela:${tipo}`;
+// windows of the same kind on one page (the remodel comparison) follow the one the user resized
+const EVENTO = 'modelos:janela';
 
 function larguraGuardada(tipo: string) {
   const n = Number(ler(chave(tipo)));
@@ -42,7 +52,16 @@ export function JanelaRedimensionavel({
     const nova = Math.max(LARGURA_MINIMA, Math.round(n));
     setLargura(nova);
     gravar(chave(tipo), String(nova));
+    window.dispatchEvent(new CustomEvent(EVENTO, { detail: { tipo, largura: nova } }));
   };
+  useEffect(() => {
+    const seguir = (e: Event) => {
+      const { detail } = e as CustomEvent<{ tipo: string; largura: number }>;
+      if (detail.tipo === tipo) setLargura(detail.largura);
+    };
+    window.addEventListener(EVENTO, seguir);
+    return () => window.removeEventListener(EVENTO, seguir);
+  }, [tipo]);
 
   const comecar = (e: PointerEvent<HTMLDivElement>) => {
     e.preventDefault();

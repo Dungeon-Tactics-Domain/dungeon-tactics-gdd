@@ -37,6 +37,22 @@ describe('JanelaRedimensionavel', () => {
     expect(screen.getByRole('slider')).toHaveAttribute('aria-valuenow', String(LARGURA_PADRAO + 40));
   });
 
+  it('makes the other windows of the same kind follow', async () => {
+    render(
+      <>
+        <JanelaRedimensionavel tipo="par" rotulo="A">
+          <iframe title="A" />
+        </JanelaRedimensionavel>
+        <JanelaRedimensionavel tipo="par" rotulo="B">
+          <iframe title="B" />
+        </JanelaRedimensionavel>
+      </>,
+    );
+    screen.getByRole('slider', { name: 'A' }).focus();
+    await userEvent.keyboard('{ArrowLeft}');
+    expect(screen.getByRole('slider', { name: 'B' })).toHaveAttribute('aria-valuenow', String(LARGURA_PADRAO - 20));
+  });
+
   it('never goes under the minimum and ignores a broken stored value', async () => {
     localStorage.setItem('modelos:janela:outra', 'banana');
     janela('outra');
