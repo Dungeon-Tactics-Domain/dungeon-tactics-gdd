@@ -76,11 +76,6 @@ function Arte({ labs }: { labs: Place[] }) {
         <rect className="galpao" x="476" y="470" width="48" height="30" />
         <path className="telhado" d="M470 472 l30 -20 30 20z" />
         <rect className="chamine" x="512" y="446" width="8" height="18" />
-        <g className="fumaca">
-          <circle cx="516" cy="438" r="6" />
-          <circle cx="520" cy="430" r="8" style={{ animationDelay: '.8s' }} />
-          <circle cx="514" cy="424" r="7" style={{ animationDelay: '1.6s' }} />
-        </g>
       </g>
     </svg>
   );
