@@ -22,8 +22,12 @@ const rotulo = (grupo: string, t: Faixa) => {
   const quem = t.secoes?.[0]?.texto.match(/Modelo e esforço:\*\* (\w+) [\d.]+ · esforço \*\*(\w+)\*\*/);
   const partes = t.titulo.split(' · ');
   const nome =
-    grupo === 'tema-dark' ? partes[0] + (t.id.includes('-v1-') ? ' (v1)' : '') : partes.slice(1, 3).join(' · ');
-  return quem && (grupo === 'tema-dark' || grupo === 'batalha' || grupo === 'pastoral')
+    grupo === 'jingles'
+      ? t.titulo.replace(/ \(.*\)$/, '')
+      : grupo === 'tema-dark'
+        ? partes[0] + (t.id.includes('-v1-') ? ' (v1)' : '')
+        : partes.slice(1, 3).join(' · ');
+  return quem && (grupo === 'tema-dark' || grupo === 'batalha' || grupo === 'pastoral' || grupo === 'jingles')
     ? `${nome} · ${quem[1]} ${quem[2]}`
     : curto(t.titulo);
 };

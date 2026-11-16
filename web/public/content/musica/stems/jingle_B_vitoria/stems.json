@@ -1,0 +1,40 @@
+{
+ "duracao": 7.109,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 48,
+   "nome": "Conjunto de cordas"
+  },
+  {
+   "canal": 2,
+   "programa": 48,
+   "nome": "Conjunto de cordas"
+  },
+  {
+   "canal": 3,
+   "programa": 48,
+   "nome": "Conjunto de cordas"
+  },
+  {
+   "canal": 4,
+   "programa": 43,
+   "nome": "Cordas"
+  },
+  {
+   "canal": 5,
+   "programa": 60,
+   "nome": "Metais"
+  },
+  {
+   "canal": 6,
+   "programa": 52,
+   "nome": "Conjunto de cordas"
+  },
+  {
+   "canal": 7,
+   "programa": 47,
+   "nome": "Cordas"
+  }
+ ]
+}

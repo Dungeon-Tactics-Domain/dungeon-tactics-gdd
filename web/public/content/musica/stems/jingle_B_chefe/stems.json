@@ -1,0 +1,50 @@
+{
+ "duracao": 13.977,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 56,
+   "nome": "Metais"
+  },
+  {
+   "canal": 2,
+   "programa": 48,
+   "nome": "Conjunto de cordas"
+  },
+  {
+   "canal": 3,
+   "programa": 60,
+   "nome": "Metais"
+  },
+  {
+   "canal": 4,
+   "programa": 48,
+   "nome": "Conjunto de cordas"
+  },
+  {
+   "canal": 5,
+   "programa": 43,
+   "nome": "Cordas"
+  },
+  {
+   "canal": 6,
+   "programa": 52,
+   "nome": "Conjunto de cordas"
+  },
+  {
+   "canal": 7,
+   "programa": 14,
+   "nome": "Percussão melódica"
+  },
+  {
+   "canal": 8,
+   "programa": 47,
+   "nome": "Cordas"
+  },
+  {
+   "canal": 10,
+   "programa": null,
+   "nome": "Bateria"
+  }
+ ]
+}

@@ -1,0 +1,30 @@
+{
+ "duracao": 10.85,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 0,
+   "nome": "Piano"
+  },
+  {
+   "canal": 2,
+   "programa": 42,
+   "nome": "Cordas"
+  },
+  {
+   "canal": 3,
+   "programa": 10,
+   "nome": "Percussão melódica"
+  },
+  {
+   "canal": 4,
+   "programa": 89,
+   "nome": "Pad"
+  },
+  {
+   "canal": 10,
+   "programa": null,
+   "nome": "Bateria"
+  }
+ ]
+}

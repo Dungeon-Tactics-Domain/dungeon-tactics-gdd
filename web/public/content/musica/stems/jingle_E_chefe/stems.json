@@ -1,0 +1,40 @@
+{
+ "duracao": 13.5,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 73,
+   "nome": "Flautas"
+  },
+  {
+   "canal": 2,
+   "programa": 24,
+   "nome": "Violão/guitarra"
+  },
+  {
+   "canal": 3,
+   "programa": 46,
+   "nome": "Cordas"
+  },
+  {
+   "canal": 4,
+   "programa": 89,
+   "nome": "Pad"
+  },
+  {
+   "canal": 5,
+   "programa": 42,
+   "nome": "Cordas"
+  },
+  {
+   "canal": 6,
+   "programa": 42,
+   "nome": "Cordas"
+  },
+  {
+   "canal": 10,
+   "programa": null,
+   "nome": "Bateria"
+  }
+ ]
+}

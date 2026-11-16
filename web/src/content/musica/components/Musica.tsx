@@ -9,6 +9,7 @@ import { Estudio } from './Estudio';
 import { MidiVisual } from './MidiVisual';
 import batalha from '../batalha.json';
 import pastoral from '../pastoral.json';
+import jingles from '../jingles.json';
 import temaDark from '../tema-dark.json';
 import trisection from '../trisection.json';
 
@@ -46,11 +47,12 @@ export interface PaginaMusica {
   checagens?: Checagem[];
 }
 
-export const PAGINAS: Record<'batalha' | 'pastoral' | 'trisection' | 'tema-dark', PaginaMusica> = {
+export const PAGINAS: Record<'batalha' | 'pastoral' | 'trisection' | 'tema-dark' | 'jingles', PaginaMusica> = {
   batalha,
   pastoral,
   trisection,
   'tema-dark': temaDark,
+  jingles,
 };
 export type IdPagina = keyof typeof PAGINAS;
 
@@ -109,6 +111,8 @@ export function Texto({ texto }: { texto: string }) {
 
 // which .mid holds the notes of a track (the "-t", "-tfg" and "-cru" twins are the same notes in another render)
 const midiDe = (id: string) => {
+  const j = /^jingle-([a-z])-(\w+)$/.exec(id);
+  if (j) return `jingle_${j[1]!.toUpperCase()}_${j[2]}`;
   const m = /^(batalha|pastoral)-([a-f])/.exec(id);
   if (m) return `${m[1]}_${m[2]!.toUpperCase()}`;
   if (id.startsWith('ref-trisection-midi-transcricao')) return 'trisection_transcricao';
@@ -118,6 +122,7 @@ const midiDe = (id: string) => {
 
 // tracks with one rendered .ogg per instrument (public/content/musica/stems/<name>/); the rest use the synthesizer mixer
 const stemsDe = (id: string) => {
+  if (id.startsWith('jingle-')) return midiDe(id);
   if (/^dark-(intenso|principal)(-cru)?$/.test(id)) return id.includes('intenso') ? 'dark_intenso' : 'dark';
   const tri = /^ref-trisection-midi-(fa(?:-\w+?)?|transcricao)(-cru)?$/.exec(id);
   if (tri) return `trisection_${tri[1]!.replace('-', '_')}`;

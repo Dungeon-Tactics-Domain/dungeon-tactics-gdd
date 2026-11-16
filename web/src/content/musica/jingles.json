@@ -1,0 +1,296 @@
+{
+  "titulo": "Jingles",
+  "descricao": "Trechos curtos que tocam uma vez: sala vencida, grupo caiu e chefe caiu. Cada versão (letra) foi composta por um agente Opus 5.5 em esforço xhigh, sem ouvir; as versões A a C seguem o clima dark orquestral e D a F o dark lo-fi no estilo Breath of Fire IV.",
+  "referencias": [],
+  "faixas": [
+    {
+      "id": "jingle-a-chefe",
+      "letra": "A2",
+      "titulo": "A · Chefe caiu (fim da expedição)",
+      "audio": "audio/jingle_A_chefe.ogg",
+      "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Opus 5.5 · esforço **xhigh** (subagente, sem ouvir).\n- **Como foi feita:** o agente recebeu o briefing dos jingles (clima dark orquestral do tema de batalha) e escreveu os três como script Python; MIDI e áudio saem do script.\n- **Ajustes de mistura:** medidos (volume -16 LUFS, pico abaixo de -2 dB), sem ouvir."
+        },
+        {
+          "titulo": "O que é",
+          "texto": "- **Ideia:** o motivo, como na batalha, chamado por trompas graves e tímpano (compasso 1), respondido pelas cordas em Fá (compasso 2), e no fim todos tocam com Mi natural e chegam em Fá# sobre Ré maior; rufar de tímpano e de caixa, prato e sino sob a chegada.\n- **Cuidado:** começa uns 7 dB abaixo do clímax; pico de -2,5 dB, só 0,5 dB de folga.\n- **Andamento e duração:** 84 bpm, 4 compassos, 13,3 s."
+        }
+      ]
+    },
+    {
+      "id": "jingle-a-derrota",
+      "letra": "A1",
+      "titulo": "A · Derrota (grupo caiu)",
+      "audio": "audio/jingle_A_derrota.ogg",
+      "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Opus 5.5 · esforço **xhigh** (subagente, sem ouvir).\n- **Como foi feita:** o agente recebeu o briefing dos jingles (clima dark orquestral do tema de batalha) e escreveu os três como script Python; MIDI e áudio saem do script.\n- **Ajustes de mistura:** medidos (volume -16 LUFS, pico abaixo de -2 dB), sem ouvir."
+        },
+        {
+          "titulo": "O que é",
+          "texto": "- **Ideia:** cordas começam o motivo (Ré-Lá-Dó-Si bemol) e afundam Lá-Sol-Fá-Mi sobre baixo descendo Ré-Dó-Si bemol-Lá; trompas em décimas com o baixo; tímpano enfraquecendo; sino toca em Ré e em Lá.\n- **Final:** termina em Lá maior, sem resolver.\n- **Andamento e duração:** 62 bpm, 9,7 s."
+        }
+      ]
+    },
+    {
+      "id": "jingle-a-vitoria",
+      "letra": "A0",
+      "titulo": "A · Vitória (sala vencida)",
+      "audio": "audio/jingle_A_vitoria.ogg",
+      "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Opus 5.5 · esforço **xhigh** (subagente, sem ouvir).\n- **Como foi feita:** o agente recebeu o briefing dos jingles (clima dark orquestral do tema de batalha) e escreveu os três como script Python; MIDI e áudio saem do script.\n- **Ajustes de mistura:** medidos (volume -16 LUFS, pico abaixo de -2 dB), sem ouvir."
+        },
+        {
+          "titulo": "O que é",
+          "texto": "- **Ideia:** o motivo da batalha (Ré-Lá-Ré-Mi bemol-Ré) volta com o Mi bemol virando Mi natural: a nota escura se abre e o motivo chega em casa. Trompas tocam o motivo; violinos sobem Lá-Si-Dó#-Ré por cima.\n- **Harmonia:** Ré menor → Sol (a subida dórica) → Lá7 → Ré maior baixinho; baixo Ré-Si-Lá-Ré; rufar leve de tímpano em Lá e um toque suave de sino no acorde final.\n- **Andamento e duração:** 76 bpm, 2 compassos, 8,0 s."
+        }
+      ]
+    },
+    {
+      "id": "jingle-b-chefe",
+      "letra": "B2",
+      "titulo": "B · Chefe caiu (fim da expedição)",
+      "audio": "audio/jingle_B_chefe.ogg",
+      "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Opus 5.5 · esforço **xhigh** (subagente, sem ouvir).\n- **Como foi feita:** o agente recebeu o briefing dos jingles (clima dark orquestral do tema de batalha) e escreveu os três como script Python; MIDI e áudio saem do script.\n- **Ajustes de mistura:** medidos (volume -16 LUFS, pico abaixo de -2 dB), sem ouvir."
+        },
+        {
+          "titulo": "O que é",
+          "texto": "- **Ideia:** trompas chamam o motivo da batalha sobre um pedal de Ré (compassos 1-2); a virada passa por Si bemol e Lá7, e trompetes e violinos respondem em Ré maior: o Mi bemol vira Dó# e leva para casa.\n- **Final:** cadência completa em Ré maior, com sino, prato e rufar de tímpano que se apaga.\n- **Cuidado:** pico de -2,5 dB, só 0,5 dB de folga; o trompete chega a Fá#5.\n- **Andamento e duração:** 96 bpm, 14,0 s."
+        }
+      ]
+    },
+    {
+      "id": "jingle-b-derrota",
+      "letra": "B1",
+      "titulo": "B · Derrota (grupo caiu)",
+      "audio": "audio/jingle_B_derrota.ogg",
+      "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Opus 5.5 · esforço **xhigh** (subagente, sem ouvir).\n- **Como foi feita:** o agente recebeu o briefing dos jingles (clima dark orquestral do tema de batalha) e escreveu os três como script Python; MIDI e áudio saem do script.\n- **Ajustes de mistura:** medidos (volume -16 LUFS, pico abaixo de -2 dB), sem ouvir."
+        },
+        {
+          "titulo": "O que é",
+          "texto": "- **Ideia:** o próprio motivo da batalha (Ré-Lá-Ré-Mi bemol) que nunca volta para casa: afunda Ré-Si bemol-Lá. Termina em Lá maior grave, no acorde anterior ao de casa, sem resolver.\n- **Harmonia:** Ré menor, Si bemol, Mi bemol/Si bemol, Sol menor.\n- **Instrumentos:** cordas e trompa, coro sussurrado, um toque de sino grave no começo e tímpano mais fraco a cada tempo, como o grupo sendo carregado. 60 bpm, 8,8 s."
+        }
+      ]
+    },
+    {
+      "id": "jingle-b-vitoria",
+      "letra": "B0",
+      "titulo": "B · Vitória (sala vencida)",
+      "audio": "audio/jingle_B_vitoria.ogg",
+      "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Opus 5.5 · esforço **xhigh** (subagente, sem ouvir).\n- **Como foi feita:** o agente recebeu o briefing dos jingles (clima dark orquestral do tema de batalha) e escreveu os três como script Python; MIDI e áudio saem do script.\n- **Ajustes de mistura:** medidos (volume -16 LUFS, pico abaixo de -2 dB), sem ouvir."
+        },
+        {
+          "titulo": "O que é",
+          "texto": "- **Ideia:** mantém o ritmo do motivo da batalha com forma nova: a quarta sobe (Lá-Ré) em vez de descer e a frase desce para repousar Dó-Si-Lá. Termina na quinta (Lá), aberto.\n- **Harmonia:** Ré menor, Lá menor, Sol, Ré maior; o Si dórico sobre o Sol e o Fá# do último acorde são o único momento claro.\n- **Instrumentos:** cordas com uma trompa uma oitava abaixo, coro suave no último acorde e três toques de tímpano, sem bateria. 76 bpm, 7,1 s."
+        }
+      ]
+    },
+    {
+      "id": "jingle-c-chefe",
+      "letra": "C2",
+      "titulo": "C · Chefe caiu (fim da expedição)",
+      "audio": "audio/jingle_C_chefe.ogg",
+      "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Opus 5.5 · esforço **xhigh** (subagente, sem ouvir).\n- **Como foi feita:** o agente recebeu o briefing dos jingles (clima dark orquestral do tema de batalha) e escreveu os três como script Python; MIDI e áudio saem do script.\n- **Ajustes de mistura:** medidos (volume -16 LUFS, pico abaixo de -2 dB), sem ouvir."
+        },
+        {
+          "titulo": "O que é",
+          "texto": "- **Ideia:** em quatro entradas que sobem: trombones chamam o motivo sobre pedal de Ré, trompas respondem uma quinta acima, uma trompa solista (com trompete 6 dB abaixo) troca o Mi bemol por Mi e Fá#, e os trombones fecham o motivo em maior (Ré-Lá-Ré-Mi-Fá#).\n- **Percussão:** tímpano em cada entrada, rufos de caixa, pratos e um toque de sino em maior.\n- **Cuidado:** o script importa funções de `battle_dark.py`. 100 bpm, 13,8 s."
+        }
+      ]
+    },
+    {
+      "id": "jingle-c-derrota",
+      "letra": "C1",
+      "titulo": "C · Derrota (grupo caiu)",
+      "audio": "audio/jingle_C_derrota.ogg",
+      "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Opus 5.5 · esforço **xhigh** (subagente, sem ouvir).\n- **Como foi feita:** o agente recebeu o briefing dos jingles (clima dark orquestral do tema de batalha) e escreveu os três como script Python; MIDI e áudio saem do script.\n- **Ajustes de mistura:** medidos (volume -16 LUFS, pico abaixo de -2 dB), sem ouvir."
+        },
+        {
+          "titulo": "O que é",
+          "texto": "- **Ideia:** o motivo, cansado, nas cordas; o Mi bemol vira um suspiro sobre Si bemol e a linha desce Ré-Dó-Si bemol-Lá; o baixo desce e sobe para Lá. Termina em Lá maior sem resolver.\n- **Instrumentos:** trompas e coro sussurrado nas vozes internas, rufar de tímpano que some e um sino suave em Lá. 66 bpm, 10,4 s."
+        }
+      ]
+    },
+    {
+      "id": "jingle-c-vitoria",
+      "letra": "C0",
+      "titulo": "C · Vitória (sala vencida)",
+      "audio": "audio/jingle_C_vitoria.ogg",
+      "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Opus 5.5 · esforço **xhigh** (subagente, sem ouvir).\n- **Como foi feita:** o agente recebeu o briefing dos jingles (clima dark orquestral do tema de batalha) e escreveu os três como script Python; MIDI e áudio saem do script.\n- **Ajustes de mistura:** medidos (volume -16 LUFS, pico abaixo de -2 dB), sem ouvir."
+        },
+        {
+          "titulo": "O que é",
+          "texto": "- **Ideia:** violinos cantam o início do motivo (Ré-Lá-Ré); onde a batalha tem Mi bemol vem Mi natural e a linha sobe até Fá#, a terça maior: o momento iluminado. Volta por Sol menor até Ré maior (cadência plagal).\n- **Instrumentos:** duas trompas em coral, contrabaixo dobrado pelo violoncelo uma oitava acima, tímpanos e um sino em Ré no acorde final.\n- **Cuidado:** a mais brilhante da versão (2,2% da energia acima de 3 kHz). 96 bpm, 8,7 s."
+        }
+      ]
+    },
+    {
+      "id": "jingle-d-chefe",
+      "letra": "D2",
+      "titulo": "D · Chefe caiu (fim da expedição)",
+      "audio": "audio/jingle_D_chefe.ogg",
+      "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Opus 5.5 · esforço **xhigh** (subagente, sem ouvir).\n- **Como foi feita:** o agente recebeu o briefing dark lo-fi no estilo Breath of Fire IV (sem Final Fantasy Tactics, sem o motivo da batalha) e escreveu os três como script Python, com o soundfont MuseScore General.\n- **Ajustes de mistura:** medidos (volume -16 LUFS, pico abaixo de -2 dB), sem ouvir."
+        },
+        {
+          "titulo": "O que é",
+          "texto": "- **Ideia:** o motivo três vezes, cada uma mais alta, enquanto cordas lentas, harpa e percussão de mão crescem; o violoncelo é o baixo. A ocarina segura o Lá5 enquanto Fá maior vira Ré maior por baixo, e cai Mi-Ré-Dó#-Si-Lá na tônica. No fim as vozes saem uma a uma, as cordas dedilhadas soam por último e a celesta responde Mi-Lá.\n- **Acordes:** Lá menor, Lá menor 7/Sol | Dó, Sol sus4 | Fá/Lá, Ré/Fá# | Lá sus4/Mi, Lá. 82 bpm, 13,7 s.\n- **Cuidado:** o primeiro motivo do agente lembrava o início de \"Bella Ciao\"; foi trocado pelo atual, e isso precisa do seu ouvido."
+        }
+      ]
+    },
+    {
+      "id": "jingle-d-derrota",
+      "letra": "D1",
+      "titulo": "D · Derrota (grupo caiu)",
+      "audio": "audio/jingle_D_derrota.ogg",
+      "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Opus 5.5 · esforço **xhigh** (subagente, sem ouvir).\n- **Como foi feita:** o agente recebeu o briefing dark lo-fi no estilo Breath of Fire IV (sem Final Fantasy Tactics, sem o motivo da batalha) e escreveu os três como script Python, com o soundfont MuseScore General.\n- **Ajustes de mistura:** medidos (volume -16 LUFS, pico abaixo de -2 dB), sem ouvir."
+        },
+        {
+          "titulo": "O que é",
+          "texto": "- **Ideia:** o violoncelo canta o motivo (Lá-Ré-Dó-Fá), suspira Mi-Ré sobre Si bemol maior 7 e se apoia em Si bemol-Lá sobre um Lá sus4 segurado, sem resolver; piano suave no baixo, tambor de mão com quatro passos lentos; uma caixa de música tenta o motivo e pára antes da nota longa; o pad cresce no último acorde para o fim sumir.\n- **Andamento e duração:** 68 bpm, 10,9 s (cauda cortada no limite)."
+        }
+      ]
+    },
+    {
+      "id": "jingle-d-vitoria",
+      "letra": "D0",
+      "titulo": "D · Vitória (sala vencida)",
+      "audio": "audio/jingle_D_vitoria.ogg",
+      "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Opus 5.5 · esforço **xhigh** (subagente, sem ouvir).\n- **Como foi feita:** o agente recebeu o briefing dark lo-fi no estilo Breath of Fire IV (sem Final Fantasy Tactics, sem o motivo da batalha) e escreveu os três como script Python, com o soundfont MuseScore General.\n- **Ajustes de mistura:** medidos (volume -16 LUFS, pico abaixo de -2 dB), sem ouvir."
+        },
+        {
+          "titulo": "O que é",
+          "texto": "- **Ideia:** motivo em Lá menor (Mi-Lá-Sol-Dó: sobe uma quarta, recua um grau, sobe outra quarta até uma nota longa): a ocarina toca sobre violão nylon dedilhado, pad quente e tambor de mão; depois repete uma quarta acima sobre Ré maior (o IV dórico, o único acorde claro), onde entra o chocalho. Pousa em Lá menor add9 com a melodia no Mi (a quinta), e a celesta responde Lá-Si e pára na nona: a sala foi vencida, o caminho não.\n- **Andamento e duração:** 80 bpm, 8,4 s."
+        }
+      ]
+    },
+    {
+      "id": "jingle-e-chefe",
+      "letra": "E2",
+      "titulo": "E · Chefe caiu (fim da expedição)",
+      "audio": "audio/jingle_E_chefe.ogg",
+      "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Opus 5.5 · esforço **xhigh** (subagente, sem ouvir).\n- **Como foi feita:** o agente recebeu o briefing dark lo-fi no estilo Breath of Fire IV (sem Final Fantasy Tactics, sem o motivo da batalha) e escreveu os três como script Python, com o soundfont MuseScore General.\n- **Ajustes de mistura:** medidos (volume -16 LUFS, pico abaixo de -2 dB), sem ouvir."
+        },
+        {
+          "titulo": "O que é",
+          "texto": "- **Ideia:** abre igual à vitória (de propósito: é a versão grande) e o motivo volta em Ré maior até Fá#5; fecha em Lá maior com Dó# no lugar do Dó. Flauta, violão e harpa, baixo de violoncelo, segundo violoncelo subindo Fá#-Sol#-Lá, pad que cresce e percussão de mão. O chocalho (a chuva) pára no acorde final e só soa um triângulo; sem fanfarra nem tímpano.\n- **Acordes:** Lá menor | Fá maior 7 Mi menor 7 | Ré Ré/Mi Mi | Lá. 76 bpm, 13,5 s."
+        }
+      ]
+    },
+    {
+      "id": "jingle-e-derrota",
+      "letra": "E1",
+      "titulo": "E · Derrota (grupo caiu)",
+      "audio": "audio/jingle_E_derrota.ogg",
+      "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Opus 5.5 · esforço **xhigh** (subagente, sem ouvir).\n- **Como foi feita:** o agente recebeu o briefing dark lo-fi no estilo Breath of Fire IV (sem Final Fantasy Tactics, sem o motivo da batalha) e escreveu os três como script Python, com o soundfont MuseScore General.\n- **Ajustes de mistura:** medidos (volume -16 LUFS, pico abaixo de -2 dB), sem ouvir."
+        },
+        {
+          "titulo": "O que é",
+          "texto": "- **Ideia:** o motivo de trás para frente (Dó-Si-Lá-Mi), como a lanterna descendo; violoncelo na melodia, piano em acordes quebrados, segundo violoncelo num baixo de lamento (Lá-Sol-Fá-Mi), pad fraco e dois passos de tambor de mão. Pára em Lá sobre Mi7sus4, sem resolver; as vozes somem como um suspiro.\n- **Cuidado:** violoncelo no Dó5 e flauta no Mi4 ficam perto do limite do registro. 66 bpm, 8,7 s."
+        }
+      ]
+    },
+    {
+      "id": "jingle-e-vitoria",
+      "letra": "E0",
+      "titulo": "E · Vitória (sala vencida)",
+      "audio": "audio/jingle_E_vitoria.ogg",
+      "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Opus 5.5 · esforço **xhigh** (subagente, sem ouvir).\n- **Como foi feita:** o agente recebeu o briefing dark lo-fi no estilo Breath of Fire IV (sem Final Fantasy Tactics, sem o motivo da batalha) e escreveu os três como script Python, com o soundfont MuseScore General.\n- **Ajustes de mistura:** medidos (volume -16 LUFS, pico abaixo de -2 dB), sem ouvir."
+        },
+        {
+          "titulo": "O que é",
+          "texto": "- **Ideia:** motivo \"lanterna erguida\" (Mi-Lá-Si-Dó, ritmo curto-longo-curto-longo): ocarina sobre arpejos de violão nylon e rolos de harpa; sobe até Fá#5 sobre o acorde de Ré, o único momento claro, e assenta em Mi5 sobre Lá menor 6/9, aberto: a sala foi vencida, o dia não.\n- **Acordes:** Lá menor | Dó maior 7 Ré | Lá menor 6/9. Baixo de violoncelo, pad quente, chocalho que cresce, um toque de pandeiro e triângulo no último acorde.\n- **Andamento e duração:** 84 bpm, 8,3 s."
+        }
+      ]
+    },
+    {
+      "id": "jingle-f-chefe",
+      "letra": "F2",
+      "titulo": "F · Chefe caiu (fim da expedição)",
+      "audio": "audio/jingle_F_chefe.ogg",
+      "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Opus 5.5 · esforço **xhigh** (subagente, sem ouvir).\n- **Como foi feita:** o agente recebeu o briefing dark lo-fi no estilo Breath of Fire IV (sem Final Fantasy Tactics, sem o motivo da batalha) e escreveu os três como script Python, com o soundfont MuseScore General.\n- **Ajustes de mistura:** medidos (volume -16 LUFS, pico abaixo de -2 dB), sem ouvir."
+        },
+        {
+          "titulo": "O que é",
+          "texto": "- **Ideia:** a harpa afirma o motivo sozinha; a ocarina responde no ritmo do motivo e sobe até Si5; pad, violoncelo, conga e chocalho (a chuva) crescem por baixo; sem cordas, metais nem tímpano. Chega a Mi maior vindo do subdominante menor, sem dominante; a melodia resolve Si-Lá-Sol#-Fá#-Mi e o chocalho pára na chegada, com harpa e violão em Mi add9, triângulo e celesta.\n- **Cuidado:** pico de -3,8 dB; o motivo Si-Mi-Fá#-Sol é um gesto muito comum. 72 bpm, 14,4 s."
+        }
+      ]
+    },
+    {
+      "id": "jingle-f-derrota",
+      "letra": "F1",
+      "titulo": "F · Derrota (grupo caiu)",
+      "audio": "audio/jingle_F_derrota.ogg",
+      "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Opus 5.5 · esforço **xhigh** (subagente, sem ouvir).\n- **Como foi feita:** o agente recebeu o briefing dark lo-fi no estilo Breath of Fire IV (sem Final Fantasy Tactics, sem o motivo da batalha) e escreveu os três como script Python, com o soundfont MuseScore General.\n- **Ajustes de mistura:** medidos (volume -16 LUFS, pico abaixo de -2 dB), sem ouvir."
+        },
+        {
+          "titulo": "O que é",
+          "texto": "- **Ideia:** a flauta de pã começa o mesmo motivo mas recua antes do Sol; o violoncelo afunda Mi-Ré-Dó-Lá sob piano e pad; pára em Lá menor 9 com a melodia segurada em Si, sem resolver. A celesta só repete o primeiro passo (Si-Mi) e deixa no ar; três passos de conga que somem.\n- **Cuidado:** velocidades do violoncelo subidas em 10 a 12 para ficar audível (o grave parece limpo na medição). 60 bpm, 10,5 s."
+        }
+      ]
+    },
+    {
+      "id": "jingle-f-vitoria",
+      "letra": "F0",
+      "titulo": "F · Vitória (sala vencida)",
+      "audio": "audio/jingle_F_vitoria.ogg",
+      "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Modelo e esforço:** Opus 5.5 · esforço **xhigh** (subagente, sem ouvir).\n- **Como foi feita:** o agente recebeu o briefing dark lo-fi no estilo Breath of Fire IV (sem Final Fantasy Tactics, sem o motivo da batalha) e escreveu os três como script Python, com o soundfont MuseScore General.\n- **Ajustes de mistura:** medidos (volume -16 LUFS, pico abaixo de -2 dB), sem ouvir."
+        },
+        {
+          "titulo": "O que é",
+          "texto": "- **Ideia:** motivo em Mi (Si-Mi-Fá#, uma quarta que sobe e dois graus, alcançando Sol5): a ocarina canta, chega ao Sol5 e desce; sobre o acorde de Lá vira no Dó#5, a nota dórica clara, e fecha repousando na quinta, não na tônica.\n- **Acordes:** Mi menor add9 | Dó maior 7 | Ré | Lá | Mi menor add9. Violão nylon em rolos, baixo de violoncelo, pad quente, maracas e conga suaves, címbalo de dedo e um brilho de celesta no último acorde.\n- **Andamento e duração:** 76 bpm, 8,7 s."
+        }
+      ]
+    }
+  ],
+  "checagens": []
+}

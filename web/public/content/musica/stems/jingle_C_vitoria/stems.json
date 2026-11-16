@@ -1,0 +1,35 @@
+{
+ "duracao": 8.673,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 48,
+   "nome": "Conjunto de cordas"
+  },
+  {
+   "canal": 2,
+   "programa": 60,
+   "nome": "Metais"
+  },
+  {
+   "canal": 3,
+   "programa": 43,
+   "nome": "Cordas"
+  },
+  {
+   "canal": 4,
+   "programa": 48,
+   "nome": "Conjunto de cordas"
+  },
+  {
+   "canal": 5,
+   "programa": 47,
+   "nome": "Cordas"
+  },
+  {
+   "canal": 6,
+   "programa": 14,
+   "nome": "Percussão melódica"
+  }
+ ]
+}
