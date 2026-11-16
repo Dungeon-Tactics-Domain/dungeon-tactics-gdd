@@ -33,11 +33,12 @@ describe('Remodelagem', () => {
       ]),
     );
     render(<Remodelagem />);
+    // the original beside the 5-head one by default
     await screen.findByTitle('Original');
-    expect(screen.getByTitle('4 cabeças')).toBeInTheDocument();
-    expect(screen.queryByTitle('5 cabeças')).toBeNull();
+    expect(screen.getByTitle('5 cabeças')).toBeInTheDocument();
+    expect(screen.queryByTitle('4 cabeças')).toBeNull();
 
-    await userEvent.click(screen.getByRole('button', { name: '5 cabeças' }));
+    await userEvent.click(screen.getByRole('button', { name: '4 cabeças' }));
     await userEvent.click(screen.getByRole('button', { name: '6 cabeças' }));
     // a fourth pushes the oldest out
     expect(screen.queryByTitle('Original')).toBeNull();

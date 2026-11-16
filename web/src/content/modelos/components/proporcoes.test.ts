@@ -35,13 +35,20 @@ describe('proporcoes.json', () => {
     expect(textoCabecas(5)).toBe('5,0 cabeças = 1 de cabeça + 4,0 de corpo');
     expect(caminhoDoArquivo('eval/x.glb')).toBe('/eval/x.glb');
     const [p] = lerProporcoes([
-      { id: 'a', arquivo: 'a.glb', cabecas: 2.11, alturaCabeca: 1.099, gerado: '15/11', versao: '2' },
+      {
+        id: 'a',
+        arquivo: 'a.glb',
+        cabecas: 2.11,
+        alturaCabeca: 1.099,
+        gerado: '2026-11-15T19:59:24-03:00',
+        versao: '2',
+      },
     ]);
     const f = fichaDaProporcao(p!);
     expect(f.numeros.map(([r, v]) => `${r}: ${v}`)).toEqual([
       'Cabeças: 2,1 cabeças = 1 de cabeça + 1,1 de corpo',
       'Cabeça: 1,099',
     ]);
-    expect(f.data).toBe('15/11, versão 2');
+    expect(f.data).toBe('15/11/2026, 19:59, versão 2');
   });
 });

@@ -76,6 +76,14 @@ export function lerProporcoes(dados: unknown): Proporcao[] {
 const br = (n: number, casas: number) =>
   n.toLocaleString('pt-BR', { minimumFractionDigits: casas, maximumFractionDigits: casas });
 
+// the agent writes ISO timestamps; anything else is shown as written
+const quando = (s: string) => {
+  const d = /^\d{4}-\d\d-\d\dT/.test(s) ? new Date(s) : null;
+  return d && !Number.isNaN(d.getTime())
+    ? d.toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short', timeZone: 'America/Sao_Paulo' })
+    : s;
+};
+
 /** "5,0 cabeças = 1 de cabeça + 4,0 de corpo" */
 export const textoCabecas = (c: number) => `${br(c, 1)} cabeças = 1 de cabeça + ${br(c - 1, 1)} de corpo`;
 
@@ -105,7 +113,7 @@ export function fichaDaProporcao(p: Proporcao): Ficha {
     origemDefeitos: origem,
     oQueTestar: p.oQueTestar,
     arquivo: p.arquivo,
-    data: [p.gerado, p.versao && `versão ${p.versao}`].filter(Boolean).join(', ') || undefined,
+    data: [quando(p.gerado), p.versao && `versão ${p.versao}`].filter(Boolean).join(', ') || undefined,
   };
 }
 

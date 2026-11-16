@@ -59,8 +59,11 @@ export function Remodelagem() {
     lista === 'medindo'
       ? RESERVA
       : lista.map((p) => ({ id: p.id, nome: p.nome, arquivo: p.arquivo, ficha: fichaDaProporcao(p) }));
-  // the first two until the user picks; ids no longer in the file drop out
-  const ativos = (escolhidos ?? modelos.slice(0, 2).map((m) => m.id)).filter((id) => modelos.some((m) => m.id === id));
+  // until the user picks: the first (the original) beside the 5-head one, the proportion the page is about, else the
+  // second; ids no longer in the file drop out
+  const cinco = lista === 'medindo' ? undefined : lista.find((p) => p.cabecas === 5)?.id;
+  const padrao = [modelos[0]?.id, cinco ?? modelos[1]?.id].filter((id): id is string => !!id);
+  const ativos = (escolhidos ?? padrao).filter((id) => modelos.some((m) => m.id === id));
   const alternar = (id: string) =>
     setEscolhidos(
       ativos.includes(id)
