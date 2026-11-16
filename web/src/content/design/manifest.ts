@@ -26,6 +26,8 @@ export default {
   },
   // old anchors (#maquetes, #ia…) and the old lab's tab-system map lead to the new route; "#/tab/section" routes work as they are
   linksAntigos: {
+    'interface/hud-3d': 'interface/fft-3d',
+    'interface/menu-3d': 'interface/fft-3d',
     agora: '',
     fases: 'plano/fases',
     pedidos: 'plano/pedidos',
@@ -45,6 +47,14 @@ export default {
       icone: '🟦',
       resumo: 'O estilo FFT Clássico escolhido, os ícones e as alternativas testadas.',
       paginas: [
+        {
+          id: 'fft-3d',
+          titulo: 'Interface FFT em 3D',
+          icone: '⭐',
+          destaque: 'Em andamento',
+          resumo:
+            'A interface completa do Final Fantasy Tactics: The Ivalice Chronicles em 3D no jogo: barra de combate, menu de ações e fila de turnos, para montar peça por peça.',
+        },
         {
           id: 'em-uso',
           titulo: 'Em uso: kit FFT Clássico',
@@ -69,16 +79,6 @@ export default {
           id: 'ui-ouro-couro',
           titulo: 'Ouro e couro: assets (Gemini e PixelLab)',
           resumo: 'Todos os elementos de interface no estilo escolhido, em lotes, com o que foi enviado e o que saiu.',
-        },
-        {
-          id: 'hud-3d',
-          titulo: 'HUD em 3D (Three.js)',
-          resumo: 'A barra de combate no estilo FFT feita em 3D por cima da cena do jogo, minimalista e translúcida.',
-        },
-        {
-          id: 'menu-3d',
-          titulo: 'Menu de ações em 3D (no jogo)',
-          resumo: 'O menu Mover/Agir/Esperar/Status do FFT em 3D dentro do sandbox do jogo, com ícones low poly.',
         },
         {
           id: 'testes',

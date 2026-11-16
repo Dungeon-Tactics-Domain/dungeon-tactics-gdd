@@ -6,6 +6,8 @@ export interface Pagina {
   /** short, fits one menu line (~28 characters) */
   titulo: string;
   icone?: string;
+  /** marks the page the work is on now: highlighted in the menu with this label (e.g. "Em andamento") */
+  destaque?: string;
   /** one sentence, shown in full on the card */
   resumo?: string;
   /** rendered only while the page is open; without it, the page shows its subpages as cards */

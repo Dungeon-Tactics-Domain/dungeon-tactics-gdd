@@ -214,10 +214,15 @@ export function Paginas({ sumario: s, base }: { sumario: Sumario; base: string }
                       onClick={fechar}
                       data-nav
                       aria-current={rota === r ? 'page' : undefined}
-                      className={LINK}
+                      className={cn(LINK, p.destaque && 'border-l-4 border-[#f2c14e] bg-couro-claro/60 font-bold')}
                     >
                       <Icone i={p.icone} />
                       {p.titulo}
+                      {p.destaque && (
+                        <span className="ml-auto flex-none rounded bg-[#f2c14e] px-1.5 py-0.5 text-[11px] font-bold leading-none text-[#3a2800]">
+                          {p.destaque}
+                        </span>
+                      )}
                     </Link>
                     {subsVis.length > 0 && (
                       <ul className="m-0 list-none py-0 pl-4">
