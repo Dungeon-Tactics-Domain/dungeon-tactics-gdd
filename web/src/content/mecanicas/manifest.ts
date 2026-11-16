@@ -154,6 +154,12 @@ export default {
       resumo:
         'As regras de batalha como estão no código hoje (master 4ed1af4, 14/11), com arquivo e linha no repositório do jogo.',
       paginas: [
+        {
+          id: 'como-jogar',
+          titulo: 'Como jogar, para quem nunca jogou',
+          icone: '🎓',
+          resumo: 'As regras em palavras simples, com exemplos, e onde cada bloco caberia como ajuda no jogo.',
+        },
         ...paginasDeRegra(REGRAS.mechanics),
         { id: 'divergencias', titulo: 'Divergências', icone: '⚠️', resumo: 'Onde a documentação diverge do código.' },
       ],

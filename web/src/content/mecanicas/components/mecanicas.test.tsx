@@ -32,18 +32,18 @@ beforeEach(() => {
 afterEach(() => vi.unstubAllGlobals());
 
 describe('mecanicas manifest', () => {
-  it('keeps the old lab tree plus the descent and equipment groups: 7 groups and 85 pages and subpages', () => {
+  it('keeps the old lab tree plus the descent and equipment groups: 7 groups and 86 pages and subpages', () => {
     expect(manifesto.grupos.map((g) => `${g.id}:${g.paginas.length}`)).toEqual([
       'decisoes:4',
       'descida:4',
       'equipamento:5',
       'clipes:4',
-      'regras:8',
+      'regras:9',
       'sensacao:6',
       'referencias:10',
     ]);
     const n = manifesto.grupos.flatMap((g) => g.paginas.flatMap((p) => [p, ...(p.subpaginas ?? [])])).length;
-    expect(n).toBe(85);
+    expect(n).toBe(86);
     expect((manifesto.linksAntigos as Record<string, string>)['cena-walk']).toBe('clipes/movimento/walk');
     expect((manifesto.linksAntigos as Record<string, string>)._geral).toBe('referencias/geral');
   });

@@ -1,0 +1,271 @@
+import { Tabela } from '../components/Descida';
+import { Altura, ContraAtaque, Cor, FilaDeTurnos, LadoECostas, LinhaDeTiro } from '../components/ComoJogar';
+
+Para quem nunca jogou um jogo de tática. Cada bloco explica uma ideia só, com um exemplo pequeno. Os números vêm
+do código do jogo (master 7ccdadc, 16/11) e dos dados deste lab. O que ainda está em teste diz isso.
+
+## 1. O que é o jogo
+
+<Callout tom="simples" titulo="Bloco 1 · O que é o jogo">
+  Dungeon Tactics é uma batalha em um tabuleiro de casas, como xadrez. Cada um joga na sua vez: anda, ataca ou
+  espera. Você vence quando derruba todos os inimigos.
+
+Exemplo: seu Guerreiro anda até o Esqueleto e bate nele com a espada.
+
+</Callout>
+
+## 2. De quem é a vez
+
+<Callout tom="simples" titulo="Bloco 2 · De quem é a vez">
+  A lista "Ordem dos turnos", ao lado da tela, mostra quem joga agora (no topo) e quem vem depois. Quem é mais
+  rápido joga mais vezes. Se dois chegam juntos, o inimigo joga primeiro.
+
+Exemplo: o Ladino é rápido e joga quase duas vezes para cada vez do Mago.
+
+</Callout>
+
+<FilaDeTurnos />
+
+<Callout tom="simples" titulo="Bloco 3 · Esperar também conta">
+  Fazer menos na sua vez faz você voltar mais cedo. Andar e atacar é a vez inteira; só um dos dois custa menos; e
+  Esperar (sem andar nem atacar) é o que custa menos.
+
+Exemplo: se não há ninguém para atacar, Esperar faz sua unidade voltar à lista antes.
+
+</Callout>
+
+## 3. Mover
+
+<Callout tom="simples" titulo="Bloco 4 · Mover">
+  Na sua vez, toque em Mover: as casas azuis mostram até onde a unidade chega. Cada classe anda de 3 a 5 casas. Você
+  pode andar, atacar e depois usar o que sobrou do movimento.
+
+Exemplo: o Arqueiro anda 2 casas, atira e ainda anda mais 2 para se esconder.
+
+</Callout>
+
+<Callout tom="simples" titulo="Bloco 5 · Passar por cima e desfazer">
+  Você passa por dentro dos seus aliados, mas não dos inimigos. Antes de atacar, dá para desfazer o movimento de
+  graça, a não ser que um inimigo tenha revidado no caminho.
+
+Exemplo: andou para o lado errado? Desfaça e escolha outra casa.
+
+</Callout>
+
+## 4. Atacar
+
+<Callout tom="simples" titulo="Bloco 6 · Atacar">
+  Toque em Agir, escolha uma habilidade e toque no alvo. Antes de confirmar, uma faixa mostra o dano, a chance de
+  acertar e a vida antes e depois. A chance nunca passa de 95% nem fica abaixo de 5%: sempre há um dado.
+
+Exemplo: "70%" quer dizer que, em 10 golpes iguais, uns 7 acertam.
+
+</Callout>
+
+## 5. Alcance
+
+<Callout tom="simples" titulo="Bloco 7 · Alcance">
+  Alcance é quantas casas a habilidade chega. A espada chega só na casa ao lado; o arco e a magia chegam mais longe.
+  Quanto mais longe, menor a chance: perde 3 pontos por casa depois da primeira.
+
+Exemplo: um tiro a 4 casas tem 9 pontos a menos de chance do que um tiro na casa ao lado.
+
+</Callout>
+
+## 6. A linha do tiro
+
+<Callout tom="simples" titulo="Bloco 8 · O tiro para no caminho">
+  Um tiro reto voa em linha e para na primeira unidade ou obstáculo que encontrar, até um aliado seu. Antes de
+  atirar, a linha aparece: azul onde passa, vermelha depois do bloqueio, com um X onde o tiro vai bater.
+
+Exemplo: tem um caixote entre você e o inimigo? O X fica no caixote, e o tiro não chega.
+
+</Callout>
+
+<Callout tom="simples" titulo="Bloco 9 · Tiro curvo (ainda em teste)">
+  Decidido em 15/11, ainda em teste e fora do jogo: o arco atira em curva e passa por cima de coisas baixas. A
+  besta e a adaga arremessada continuam retas. Magias como Explosão e Cura nascem no alvo e não precisam de linha.
+
+Exemplo: no futuro, o arco acertará o inimigo atrás do caixote; hoje, ainda não.
+
+</Callout>
+
+<LinhaDeTiro />
+
+## 7. Altura
+
+<Callout tom="simples" titulo="Bloco 10 · Ficar no alto">
+  Lugar alto é vantagem. Cada nível acima do alvo dá +5 de chance de acerto; cada nível abaixo tira 5. Arcos e
+  magias de alcance ainda chegam 1 casa mais longe por nível acima.
+
+Exemplo: o Arqueiro no muro, 2 níveis acima, ganha +10 de acerto e 2 casas de alcance.
+
+</Callout>
+
+<Callout tom="simples" titulo="Bloco 11 · Subir e pular">
+  Cada classe sobe e desce degraus de um tamanho. O Guerreiro, o Arqueiro e o Mago sobem 1 nível por passo; o
+  Ladino, 2; o Lanceiro, 3. Degrau mais alto que isso, só dando a volta.
+
+Exemplo: o Ladino sobe num caixote de 2 níveis; o Guerreiro precisa achar uma rampa.
+
+</Callout>
+
+<Altura />
+
+## 8. Lado e costas
+
+<Callout tom="simples" titulo="Bloco 12 · Bater de lado ou pelas costas">
+  Toda unidade olha para um lado. Bater de lado dá +15 de chance; pelas costas, +30. Vale para golpe e magia. No fim
+  da sua vez você escolhe para onde olhar: vire as costas para a parede, não para o inimigo.
+
+Exemplo: dê a volta no Esqueleto e ataque por trás.
+
+</Callout>
+
+<LadoECostas />
+
+## 9. Carga
+
+<Callout tom="simples" titulo="Bloco 13 · Habilidades com carga">
+  Habilidades fortes demoram: você escolhe agora e ela dispara depois, na hora marcada na lista de turnos. Tiro
+  mirado, Explosão, Rajada, Cura e Salto esperam 4 tiques; a Onda sombria do chefe, 6.
+
+Exemplo: o Mago começa a Explosão agora; ela cai quando o marcador dela chegar ao topo da lista.
+
+</Callout>
+
+<Callout tom="simples" titulo="Bloco 14 · Quem carrega fica fraco">
+  Enquanto carrega, a unidade se defende pior: perde 50 de resistência física e 25 de mágica. Começar a carga gasta
+  metade do movimento que sobrou. Se ela cair antes, a carga não dispara.
+
+Exemplo: o inimigo está carregando? É a hora de bater nele.
+
+</Callout>
+
+<Callout tom="simples" titulo="Bloco 15 · Saia da área roxa">
+  As casas onde uma carga vai cair ficam roxas até ela disparar. Tocando numa delas, o jogo avisa "vai cair aqui".
+  Se a carga mira o chão, quem sair da área escapa.
+
+Exemplo: viu roxo debaixo do seu Guerreiro? Ande para fora antes de a Explosão chegar.
+
+</Callout>
+
+## 10. Contra-ataque
+
+<Callout tom="simples" titulo="Bloco 16 · O revide">
+  Se você bate num inimigo e depois se afasta dele na mesma vez, ele revida com o ataque básico, com metade do dano.
+  Errar o golpe também conta. Ataque em área, ataque com carga e cura não provocam revide.
+
+Exemplo: o Ladino esfaqueia o Esqueleto e foge; ao sair de perto, leva o revide.
+
+</Callout>
+
+<Callout tom="simples" titulo="Bloco 17 · Como evitar o revide">
+  Ao andar depois de atacar, as casas que vão provocar revide aparecem com uma moldura vermelha. Ficar parado ao
+  lado do inimigo não provoca revide. Quantos revides cabem numa vez ainda está em teste.
+
+Exemplo: bata e fique onde está, ou fuja por uma casa sem moldura vermelha.
+
+</Callout>
+
+<ContraAtaque />
+
+## 11. Vida e queda
+
+<Callout tom="simples" titulo="Bloco 18 · Vida">
+  Cada unidade tem uma barra de vida. Ao chegar a 0, ela cai e sai da batalha. Se todos os seus heróis caírem,
+  você perde.
+
+Exemplo: o Guerreiro tem 210 de vida; o Mago, só 120. Proteja o Mago.
+
+</Callout>
+
+<Callout tom="simples" titulo="Bloco 19 · Empurrão e queda">
+  Algumas habilidades empurram o alvo 1 ou 2 casas. Bater numa parede ou noutra unidade tira 25. Ser empurrado do
+  alto: 1 nível é de graça, cada nível a mais tira 45. Espinhos tiram 50. Descer andando não machuca.
+
+Exemplo: empurre o inimigo de um muro de 3 níveis: ele perde 90 só na queda.
+
+</Callout>
+
+## 12. O que as marcas no chão querem dizer
+
+Cada marca tem uma cor e um desenho, para não depender só da cor. As cores são as do jogo hoje.
+
+<Tabela
+  colunas={['Marca', 'Desenho', 'Quer dizer']}
+  linhas={[
+    [<Cor hex="#ffd479" nome="Amarela cheia" />, 'casa cheia', 'quem joga agora'],
+    [<Cor hex="#6fc0ff" nome="Azul" />, 'moldura', 'onde a unidade pode andar'],
+    [<Cor hex="#1e6fff" nome="Pontos azuis" />, 'pontinhos', 'o caminho que ela vai fazer'],
+    [<Cor hex="#ff7a3c" nome="Laranja" />, 'listras', 'até onde a habilidade chega'],
+    [<Cor hex="#b07ae0" nome="Lilás" />, 'X', 'no alcance, mas sem linha de tiro'],
+    [<Cor hex="#ffb020" nome="Âmbar" />, 'casa cheia', 'a área que o golpe vai pegar'],
+    [<Cor hex="#fff2a0" nome="Amarelo claro" />, 'casa cheia', 'a casa escolhida'],
+    [<Cor hex="#ff2d55" nome="Vermelha" />, 'listras', 'até onde um inimigo chega na vez dele'],
+    [<Cor hex="#ff3b3b" nome="Vermelha" />, 'moldura', 'parar aqui provoca revide'],
+    [<Cor hex="#ff4040" nome="Vermelha" />, 'X', 'a unidade não cabe aqui'],
+    [<Cor hex="#9b4dff" nome="Roxa" />, 'casa cheia', 'uma carga vai cair aqui'],
+    [<Cor hex="#5fd6ff" nome="Linha ciano" />, 'linha', 'o caminho do tiro até bater'],
+    [<Cor hex="#ff4d4d" nome="Linha vermelha e X" />, 'linha e X', 'o tiro para no X'],
+    [<Cor hex="#ffcf4a" nome="Seta amarela" />, 'seta no ar', 'o cursor; fica vermelha se não cabe'],
+    [<Cor hex="#ffd27a" nome="Tracejado dourado" />, 'tracinhos', 'o alcance máximo da unidade'],
+  ]}
+/>
+
+<Callout tom="simples" titulo="Bloco 20 · O círculo da magia (ainda em teste)">
+  Hoje a área da magia aparece em casas âmbar, e roxas enquanto ela carrega. Decidido em 15/11, ainda em teste e
+  fora do jogo: um círculo pulsando sobre a área, vermelho para dano e verde para cura.
+
+Exemplo: no futuro, a Cura mostrará um círculo verde em volta dos aliados que ela pega.
+
+</Callout>
+
+## 13. Primeiro combate em 6 passos
+
+1. Olhe a lista de turnos: a unidade do topo é a sua vez.
+2. Toque em Mover e escolha uma casa azul, de preferência no alto.
+3. Toque em Agir, escolha a habilidade e toque num inimigo.
+4. Leia a faixa: dano e chance. Gostou? Confirme.
+5. Use o movimento que sobrou para sair da área vermelha dos inimigos.
+6. No fim, vire as costas da unidade para a parede, nunca para o inimigo.
+
+## 14. Para a ajuda dentro do jogo
+
+Proposta para a sessão de Interface: onde o jogo poderia mostrar cada bloco. Nada aqui muda o jogo.
+
+<Tabela
+  colunas={['Quando', 'Bloco']}
+  linhas={[
+    ['Primeira batalha, antes do primeiro turno', '1 e 2'],
+    ['Primeira vez que o jogador toca em Esperar', '3'],
+    ['Primeira vez em Mover', '4 e 5'],
+    ['Primeira vez em Agir, com a faixa da prévia aberta', '6'],
+    ['Habilidade com alcance maior que 1 escolhida', '7'],
+    ['A prévia do tiro mostra o X vermelho', '8'],
+    ['Quando o tiro curvo entrar no jogo', '9'],
+    ['Cursor numa casa mais alta que o alvo', '10'],
+    ['Cursor num degrau alto demais para a classe', '11'],
+    ['A prévia mostra "de lado" ou "pelas costas"', '12'],
+    ['Unidade com habilidade de carga selecionada', '13 e 14'],
+    ['Primeira casa roxa no mapa', '15'],
+    ['Primeiro revide sofrido', '16'],
+    ['Primeira moldura vermelha ao andar depois de atacar', '17'],
+    ['Primeira unidade do jogador abaixo de metade da vida', '18'],
+    ['Habilidade que empurra escolhida', '19'],
+    ['Botão de ajuda (H) na batalha', '12, a tabela das marcas'],
+    ['Quando o círculo da magia entrar no jogo', '20'],
+    ['Fim da primeira batalha perdida', '13. Primeiro combate em 6 passos'],
+  ]}
+/>
+
+## De onde saiu cada regra
+
+- Fila, custo da vez e empate: `src/shared/battle/turn-queue.ts:10-14` e `:23-36`.
+- Chance (distância −3, altura ±5, lado +15, costas +30, de 5% a 95%): `src/shared/battle/combat.ts:43-58`, `:116-119`.
+- Carga fraca (−50 físico, −25 mágico) e carga de quem cai: `combat.ts:61-63`, `:142-143`, `:379-382`.
+- Revide pela metade, quem revida e quando: `combat.ts:68`, `:245-253`, `:274-293`.
+- Batida 25, queda 45 por nível depois do 1º, espinhos 50: `combat.ts:50-53`, `:445-450`.
+- Vida 0 e derrota: `combat.ts:373-385`, `:514-524`.
+- Cores e desenhos das marcas, linha do tiro e seta: `src/client/scene/marks.ts:13-30`, `:154`, `:244`, `:288-292`.
+- Tiques de carga, salto por classe, vida das classes: `regras.json` deste lab. Tiro curvo e círculo: `trajetorias.json`.
