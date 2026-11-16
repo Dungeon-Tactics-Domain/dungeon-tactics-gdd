@@ -88,8 +88,7 @@
 }
 
 /* ---------- painel ---------- */
-/* display and padding reset: the app's features/fabrica/fabrica.css has a global .panel (grid, gap 12px, padding 18px) that
-   leaked into every kit panel */
+/* display and padding reset so no global .panel rule can leak into the kit panels */
 .fft .panel {
   display: block;
   padding: 0;

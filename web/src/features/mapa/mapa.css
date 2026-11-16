@@ -64,12 +64,6 @@
 .chamine {
   fill: #5b5446;
 }
-.fumaca circle {
-  fill: #b9b3a0;
-  opacity: 0;
-  transform-box: fill-box;
-  transform-origin: center;
-}
 .casco {
   fill: #7a4a12;
   stroke: var(--color-tinta);
@@ -139,8 +133,7 @@
 .placa .nome {
   font: 700 22px/1 var(--font-serif);
 }
-.placa .linha,
-.placa .barcos-txt {
+.placa .linha {
   font-size: 14px;
   line-height: 1.3;
   color: var(--color-apagado);
@@ -148,10 +141,6 @@
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-}
-.placa .barcos-txt {
-  color: var(--color-tinta);
-  font-weight: 700;
 }
 a.cidade:hover .placa {
   background: #fffdf4;
@@ -163,24 +152,6 @@ a.cidade:focus-visible {
 a.cidade:focus-visible .placa {
   outline: 3px solid var(--color-ouro-claro);
   outline-offset: 2px;
-}
-.cidade[data-estado='aguardando-voce'] .placa {
-  border-color: #8a4a00;
-  box-shadow:
-    0 0 0 3px var(--color-ouro-claro),
-    3px 3px 0 rgba(43, 42, 34, 0.35);
-}
-.cidade[data-estado='nenhum'] .placa,
-.cidade[data-estado='parado'] .placa {
-  background: #f1ecda;
-}
-.porto-cidade .placa {
-  border-width: 3px;
-  border-top-width: 10px;
-}
-.generica .placa {
-  border-style: dashed;
-  border-top-style: solid;
 }
 
 /* phone: the map becomes the backdrop and the towns line up in readable signs on top */
@@ -208,97 +179,21 @@ a.cidade:focus-visible .placa {
     width: 30px;
     height: 32px;
   }
-  .estradas,
-  .barcos {
+  .estradas {
     display: none;
   }
   .placa .nome {
     font-size: 20px;
   }
-  .placa [data-slot='badge'] {
-    white-space: normal;
-  }
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .cidade[data-estado='rodando'] .pano {
-    animation: tremula 1.4s ease-in-out infinite alternate;
-  }
-  .cidade[data-estado='aguardando-voce'] .pano {
-    animation: tremula 0.7s ease-in-out infinite alternate;
-  }
-  .cidade[data-estado='aguardando-voce'] .placa {
-    animation: chama 1.8s ease-in-out infinite;
-  }
   .ondas path {
     animation: onda 6s ease-in-out infinite alternate;
-  }
-  .porto-ativo .fumaca circle {
-    animation: fumaca 3.2s ease-out infinite;
-  }
-  .barco-vai {
-    animation: navega 14s ease-in-out infinite alternate;
-  }
-  .mudou .placa {
-    animation: mudou 1.2s ease-out 2;
-  }
-}
-@keyframes tremula {
-  from {
-    transform: skewY(0deg) scaleX(1);
-  }
-  to {
-    transform: skewY(-6deg) scaleX(0.9);
-  }
-}
-@keyframes chama {
-  50% {
-    box-shadow:
-      0 0 0 7px rgba(217, 138, 43, 0.45),
-      3px 3px 0 rgba(43, 42, 34, 0.35);
   }
 }
 @keyframes onda {
   to {
     transform: translateX(14px);
   }
-}
-@keyframes fumaca {
-  0% {
-    opacity: 0.8;
-    transform: translateY(0) scale(0.6);
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(-30px) scale(1.4);
-  }
-}
-@keyframes navega {
-  0% {
-    transform: translate(-40px, 0) rotate(-3deg);
-  }
-  50% {
-    transform: translate(20px, 3px) rotate(3deg);
-  }
-  100% {
-    transform: translate(70px, 0) rotate(-2deg);
-  }
-}
-@keyframes mudou {
-  50% {
-    transform: scale(1.06);
-  }
-}
-
-/* notice board pin */
-.nota::before {
-  content: '';
-  position: absolute;
-  top: -7px;
-  left: 50%;
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: #b3261e;
-  border: 2px solid var(--color-tinta);
 }
