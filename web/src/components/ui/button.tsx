@@ -32,11 +32,17 @@ function Button({
 }: React.ComponentProps<'button'> &
   VariantProps<typeof buttonVariants> & { asChild?: boolean; icone?: string }) {
   const Comp = asChild ? Slot : 'button';
-  // an icon before the label (the shared family of Icone.tsx); with asChild the child keeps its own content
+  // an icon before the label (the shared family of Icone.tsx); Slot (asChild) needs exactly one child, so it gets it untouched
   return (
     <Comp data-slot="button" className={cn(buttonVariants({ variant, size, className }))} {...props}>
-      {icone && !asChild && <Icone id={icone} />}
-      {children}
+      {asChild ? (
+        children
+      ) : (
+        <>
+          {icone && <Icone id={icone} />}
+          {children}
+        </>
+      )}
     </Comp>
   );
 }
