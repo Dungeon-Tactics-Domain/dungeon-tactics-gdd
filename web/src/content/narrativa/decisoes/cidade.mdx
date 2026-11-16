@@ -1,0 +1,189 @@
+<Callout tom="aviso" titulo="Rascunho para aprovar">
+
+Grill da narrativa da cidade, 15/11, decisões do Fernando. Nomes e falas são **propostas**: só entram no jogo depois da sua aprovação. Fonte no repo do jogo: `docs/game-design/narrative.md` (em inglês).
+
+</Callout>
+
+## Decisões do grill
+
+<DataTable
+  colunas={['Assunto', 'Decisão']}
+  linhas={[
+    [
+      'Tom',
+      'Acolhedor com sombra por baixo: vila viva e gentil; a descida traz perdas e segredos aos poucos. Sem stress nem aflições: o peso vem da história.',
+    ],
+    [
+      'Por que descer',
+      'O protagonista é um prisioneiro que a cidade obriga a descer. Começa com outros prisioneiros; ao se sair bem ganha independência e o grupo vira aventureiros.',
+    ],
+    [
+      'A pena',
+      'Cota de descidas quitada por 4 marcos; cada marco muda o tratamento e destrava lugares, pessoas e falas. Números vêm de Mecânicas.',
+    ],
+    ['Companheiros', 'Em branco no começo; revelados depois.'],
+    ['A vila', 'Pequena, nome e passado fixos, 8 a 12 moradores, as 4 instalações no centro.'],
+    ['Como a história chega', 'Mural de pedidos, conversa com cada morador (rumores) e eventos ao voltar.'],
+    ['O que destrava', 'Destinos, receitas e itens, falas e cenas, e bônus pequenos (trinket, desconto, vaga).'],
+    ['Queda em batalha', 'A cidade reage com falas curtas; nada durante a batalha.'],
+    ['Fora deste rascunho', 'O fundo, a história dos 3 companheiros e o conflito dentro da cidade.'],
+  ]}
+/>
+
+## A vila
+
+**Vauclair** (o nome que já está no jogo; alternativas: Brinkwell, Lastlantern). Fica na borda das velhas escavações, onde o chão se abre para a dungeon, com a floresta atrás e a montanha acima. Enriqueceu com o que subia lá de baixo, mas o próprio povo parou de descer há uma geração. Desde então o conselho manda condenados: sirva a descida, traga o que a vila precisa, e a pena encurta. Por que o povo parou de descer fica em aberto.
+
+## A pena e os marcos
+
+<DataTable
+  colunas={['Marco', 'Como ele é tratado', 'O que abre']}
+  linhas={[
+    [
+      '1. Acorrentado',
+      'Escoltado da cela até a entrada; só o carcereiro e a cozinha falam com ele.',
+      'A dungeon (primeiros andares); cozinha e loja a preço de prisioneiro.',
+    ],
+    [
+      '2. Com sino no tornozelo',
+      'Anda livre pela vila entre descidas. Os moradores começam a falar com ele.',
+      'O mural de pedidos, a taverna e a floresta.',
+    ],
+    [
+      '3. Com soldo',
+      'Fica com parte do que traz e gasta por conta própria.',
+      'O ferreiro completo, a montanha e os bônus das histórias dos moradores.',
+    ],
+    [
+      '4. Livre',
+      'Pena quitada; escolhe ficar como aventureiro.',
+      'Andares fundos; recrutas aventureiros, não condenados.',
+    ],
+  ]}
+/>
+
+## Moradores (nomes propostos)
+
+<DataTable
+  colunas={['Morador', 'Onde', 'Atitude inicial', 'Problema próprio']}
+  linhas={[
+    [
+      'Hesk, carcereiro',
+      'portão e celas',
+      'Dever, sem calor: conta o que sobe.',
+      'Tem um livro com cada condenado que desceu e os que voltaram; a segunda coluna é curta.',
+    ],
+    [
+      'Marta Penhale',
+      'Loja',
+      'Negócio: prisioneiro é fornecedor.',
+      'O conselho compra dela barato; precisa do que vem de baixo para não fechar.',
+    ],
+    [
+      'Garrick Ode',
+      'Ferreiro',
+      'Desconfiança: já viu condenado roubar ferramenta.',
+      'Machucou a mão e não segura mais o ferro quente sozinho; não admite.',
+    ],
+    [
+      'Sela',
+      'Taverna',
+      'Pena: serve sopa, não pergunta nada.',
+      'Uma prateleira com uma caneca por condenado que desceu; não lava as de quem não voltou.',
+    ],
+    [
+      'Wren',
+      'Cozinha e boticário',
+      'Curiosidade: quer saber o que cresce lá embaixo.',
+      'O caderno de receitas da mãe tem páginas faltando; ingredientes de baixo as completam (destrava receitas).',
+    ],
+    ['Pip, criança', 'a praça', 'Admiração: acha prisioneiro herói.', 'Quer descer; segue o grupo até a entrada.'],
+    [
+      'Velha Ysolde',
+      'o poço',
+      'Memória: conta como era antes.',
+      'Lembra os caminhos da floresta e da montanha; as histórias dela são os primeiros rumores.',
+    ],
+    [
+      'Tobin, sineiro',
+      'torre da capela',
+      'Indiferença, depois respeito.',
+      'Toca o sino a cada grupo que desce e a cada um que volta.',
+    ],
+  ]}
+/>
+
+## Os outros prisioneiros
+
+- **Dace** cumpre a pena calado e vai embora; uma fala na taverna lembra dele.
+- **Rook** cumpre e fica: vira o primeiro aventureiro que a taverna pode recrutar.
+- **Nell** desce um dia e não volta; a caneca dela fica na prateleira da Sela.
+
+## Primeiros textos
+
+### Rumores (conversa)
+
+<DataTable
+  colunas={['Quem', 'Quando', 'Fala', 'Efeito']}
+  linhas={[
+    [
+      'Ysolde',
+      'marco 1',
+      '"Antes da mina, a gente colhia cogumelo na mata. Ninguém volta lá desde que as árvores começaram a cantar."',
+      'aponta para a floresta',
+    ],
+    ['Wren', 'marco 1', '"Me traz qualquer coisa verde que cresça lá embaixo. Até a feia."', 'gancho de receitas'],
+    [
+      'Sela',
+      'marco 2',
+      '"Quem sobe da mina sempre pede sopa quente. Quem vem da montanha pede duas."',
+      'aponta para a montanha',
+    ],
+    [
+      'Garrick',
+      'marco 2',
+      '"Tem ferro bom no fundo do segundo andar. Ferro velho, de quem trabalhava aqui antes."',
+      'aponta para andares fundos',
+    ],
+    ['Pip', 'marco 2', '"Eu vi uma luz na montanha. Juro."', 'aponta para a montanha'],
+    [
+      'Hesk',
+      'marco 3',
+      '"A mata não está na sua pena. Mas o conselho paga pelo que vier de lá."',
+      'abre a floresta como trabalho pago',
+    ],
+  ]}
+/>
+
+### Mural de pedidos
+
+<DataTable
+  colunas={['Pedido', 'De', 'O que pede', 'Recompensa']}
+  linhas={[
+    ['Verde lá de baixo', 'Wren', '3 ingredientes da dungeon', 'uma receita'],
+    ['Ferro velho', 'Garrick', '1 peça de ferro velho do andar 2', 'desconto no conserto'],
+    ['Cogumelos para a sopa', 'Sela', 'cogumelos da floresta', 'um trinket (a colher da Sela)'],
+  ]}
+/>
+
+### Eventos ao voltar
+
+- **Primeira volta:** fim da primeira expedição. Tobin toca o sino, Sela serve a sopa, Hesk escreve uma linha no livro. Abre a conversa com os moradores.
+- **A caneca da Nell:** marco 2. Nell não volta; Sela guarda a caneca na prateleira. Só ambientação.
+
+### Alguém caiu
+
+<DataTable
+  colunas={['Quem', 'Fala']}
+  linhas={[
+    ['Wren', '"Senta. Come primeiro, conta depois."'],
+    ['Hesk', '"Caído conta como voltou. Por pouco."'],
+    ['Sela', '"Mais uma tigela, então."'],
+  ]}
+/>
+
+## Em aberto
+
+- O protagonista é um dos 4 de `party.ts` ou um quinto personagem?
+- Quanto custa cada marco e se expedição fracassada conta.
+- O que há no fundo e por que a vila parou de descer.

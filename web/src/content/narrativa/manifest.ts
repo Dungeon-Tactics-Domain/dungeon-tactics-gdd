@@ -71,6 +71,12 @@ export default {
           icone: '🏰',
           resumo: 'As 10 decisões do grill de 15/11, as fases e o que falta decidir.',
         },
+        {
+          id: 'cidade',
+          titulo: 'A cidade e a pena',
+          icone: '🏘️',
+          resumo: 'Rascunho de 15/11: a vila, a pena do prisioneiro, os moradores e os primeiros textos, para aprovar.',
+        },
       ],
     },
     {
