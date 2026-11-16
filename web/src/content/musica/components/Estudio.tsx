@@ -98,11 +98,13 @@ export function Estudio({
   const [atrib, setAtrib] = useState<Record<number, number>>({}); // channel -> index in sfs
   const [disp, setDisp] = useState<Set<number>[]>([]); // channels each sound has stems for
   const [usuario, setUsuario] = useState<Record<string, Record<string, string>>>(lerPresets);
-  const cache = useRef(new Map<string, AudioBuffer>());
+  const cache = useRef(new Map<string, Promise<AudioBuffer>>());
   const carregado = useRef<number[]>([]); // which sound each playing stem was loaded from
   const [agora, setAgora] = useState(0);
   const ctx = useRef<AudioContext | null>(null);
   const buffers = useRef<AudioBuffer[]>([]);
+  const [prog, setProg] = useState<Record<number, number>>({}); // channel -> share of its stem downloaded (1 = ready)
+  const carga = info?.stems.length ? info.stems.reduce((t, st) => t + (prog[st.canal] ?? 1), 0) / info.stems.length : 1;
   const fontes = useRef<AudioBufferSourceNode[]>([]);
   const ganhos = useRef<Map<number, GainNode>>(new Map());
   const mestre = useRef<{ entrada: GainNode; cadeia: AudioNode[] } | null>(null);
@@ -214,18 +216,44 @@ export function Estudio({
   useEffect(() => {
     atribRef.current = atrib;
   });
+  // stems download and decode as soon as the piece is chosen: one shared promise per stem, so a repeated request waits for it
   const buf = useCallback(
-    async (c: AudioContext, sf: number, canal: number) => {
+    (c: BaseAudioContext, sf: number, canal: number) => {
       const k = `${sf}:${canal}`;
       const feito = cache.current.get(k);
       if (feito) return feito;
       const d = `/content/musica/stems/${sfs?.[sf]?.stems ?? base}`;
-      const b = await c.decodeAudioData(await (await fetch(`${d}/${canal - 1}.ogg`)).arrayBuffer());
-      cache.current.set(k, b);
-      return b;
+      setProg((p) => ({ ...p, [canal]: 0 }));
+      const novo = (async () => {
+        const r = await fetch(`${d}/${canal - 1}.ogg`);
+        const tot = Number(r.headers.get('content-length')) || 0;
+        const partes: Uint8Array[] = [];
+        let lido = 0;
+        const leitor = r.body?.getReader();
+        // read in chunks to show progress; without a length (compressed answer) the bar jumps from 0 to done
+        for (let l = await leitor?.read(); l && !l.done; l = await leitor?.read()) {
+          partes.push(l.value);
+          lido += l.value.length;
+          if (tot) setProg((p) => ({ ...p, [canal]: Math.min(0.99, lido / tot) }));
+        }
+        const dados = leitor ? await new Blob(partes as BlobPart[]).arrayBuffer() : await r.arrayBuffer();
+        const b = await c.decodeAudioData(dados);
+        setProg((p) => ({ ...p, [canal]: 1 }));
+        return b;
+      })();
+      cache.current.set(k, novo);
+      return novo;
     },
     [sfs, base],
   );
+
+  // preload: an offline context decodes without the user gesture a live AudioContext waits for; the buffers play in any context
+  const pre = useRef<OfflineAudioContext | null>(null);
+  useEffect(() => {
+    if (!info) return;
+    const c = ctx.current ?? (pre.current ??= new OfflineAudioContext(2, 1, 44100));
+    for (const s of info.stems) void buf(c, atrib[s.canal] ?? 0, s.canal).catch(() => setEstado('erro'));
+  }, [info, atrib, buf]);
 
   // a channel changed sound while playing: load that stem and swap only its source, at the current position
   useEffect(() => {
@@ -610,12 +638,26 @@ export function Estudio({
         <button
           title={DICAS_UI.tocar}
           onClick={estado === 'tocando' ? pausar : tocar}
-          disabled={estado === 'carregando'}
+          disabled={estado === 'carregando' || carga < 1}
           className="inline-flex h-11 min-w-28 items-center justify-center gap-2 rounded bg-couro px-4 font-bold text-creme disabled:opacity-60"
         >
-          {estado !== 'carregando' && <Icone id={estado === 'tocando' ? 'pausar' : 'tocar'} />}
-          {estado === 'tocando' ? 'Pausar' : estado === 'carregando' ? 'Carregando…' : 'Tocar'}
+          {estado !== 'carregando' && carga >= 1 && <Icone id={estado === 'tocando' ? 'pausar' : 'tocar'} />}
+          {estado === 'tocando' ? 'Pausar' : estado === 'carregando' || carga < 1 ? 'Carregando…' : 'Tocar'}
         </button>
+        {info && carga < 1 && (
+          <div
+            role="progressbar"
+            aria-label="Carregando a trilha"
+            aria-valuenow={Math.round(carga * 100)}
+            title="Carregamento dos instrumentos desta trilha"
+            className="flex items-center gap-2 text-apagado"
+          >
+            <span className="h-2 w-32 overflow-hidden rounded bg-traco">
+              <span className="block h-full bg-ouro transition-[width]" style={{ width: `${carga * 100}%` }} />
+            </span>
+            <span className="tabular-nums">{Math.round(carga * 100)}%</span>
+          </div>
+        )}
         <span className="tabular-nums" aria-live="off">
           <b>{mmss(agora)}</b> <span className="text-apagado">/ {mmss(total)}</span>
         </span>
@@ -674,9 +716,22 @@ export function Estudio({
                 return (
                   <div
                     key={ch}
-                    className={`grid content-center gap-1 border-b border-r border-ouro px-3 ${i % 2 ? 'bg-pergaminho-escuro' : 'bg-folha'}`}
+                    className={`relative grid content-center gap-1 border-b border-r border-ouro px-3 ${i % 2 ? 'bg-pergaminho-escuro' : 'bg-folha'}`}
                     style={{ height: linha, opacity: calado ? 0.55 : 1 }}
                   >
+                    {(prog[s.canal] ?? 1) < 1 && (
+                      <div
+                        role="progressbar"
+                        aria-label={`Carregando ${s.nome}`}
+                        aria-valuenow={Math.round((prog[s.canal] ?? 0) * 100)}
+                        className="absolute inset-x-0 bottom-0 h-1 bg-traco"
+                      >
+                        <div
+                          className="h-full bg-ouro transition-[width]"
+                          style={{ width: `${(prog[s.canal] ?? 0) * 100}%` }}
+                        />
+                      </div>
+                    )}
                     <div className="flex items-center gap-2">
                       <span className="size-3 shrink-0 rounded-sm" style={{ background: CORES[i % CORES.length] }} />
                       <span

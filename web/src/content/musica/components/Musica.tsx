@@ -221,7 +221,7 @@ const versoesDe = (id: string) => {
         }),
       ),
     };
-  const rica = /^pastoral-rica-[a-z]$/.exec(id);
+  const rica = /^(pastoral-rica-[a-z]|jingle-[a-f]-(vitoria|derrota|chefe))$/.exec(id);
   if (rica)
     return {
       raiz: id,
