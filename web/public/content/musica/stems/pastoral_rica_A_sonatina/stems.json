@@ -1,0 +1,55 @@
+{
+ "duracao": 221.052653,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 14,
+   "nome": "Flute Solo"
+  },
+  {
+   "canal": 2,
+   "programa": 16,
+   "nome": "Oboe Solo"
+  },
+  {
+   "canal": 3,
+   "programa": 1,
+   "nome": "Concert Harp"
+  },
+  {
+   "canal": 4,
+   "programa": 1,
+   "nome": "Concert Harp"
+  },
+  {
+   "canal": 5,
+   "programa": 4,
+   "nome": "2nd Violins Sustain"
+  },
+  {
+   "canal": 6,
+   "programa": 11,
+   "nome": "Basses Pizz."
+  },
+  {
+   "canal": 7,
+   "programa": 8,
+   "nome": "Cello Section Sustai"
+  },
+  {
+   "canal": 8,
+   "programa": 20,
+   "nome": "Clarinet Solo"
+  },
+  {
+   "canal": 9,
+   "programa": 7,
+   "nome": "Viola Section Pizz."
+  },
+  {
+   "canal": 11,
+   "programa": 39,
+   "nome": "Glockenspiel"
+  }
+ ]
+}

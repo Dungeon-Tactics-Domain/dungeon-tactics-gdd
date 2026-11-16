@@ -387,7 +387,7 @@ export function Estudio({
         <button
           onClick={estado === 'tocando' ? pausar : tocar}
           disabled={estado === 'carregando'}
-          className="h-10 min-w-28 rounded bg-couro px-4 font-bold text-creme disabled:opacity-60"
+          className="h-11 min-w-28 rounded bg-couro px-4 font-bold text-creme disabled:opacity-60"
         >
           {estado === 'tocando' ? 'Pausar' : estado === 'carregando' ? 'Carregando…' : 'Tocar'}
         </button>
@@ -407,7 +407,7 @@ export function Estudio({
             step={0.05}
             value={geral}
             onChange={(ev) => setGeral(Number(ev.target.value))}
-            className="w-32 accent-couro"
+            className="h-11 w-32 accent-couro sm:h-auto"
           />
           <span className="w-10 tabular-nums">{Math.round(geral * 100)}%</span>
         </label>
@@ -422,7 +422,7 @@ export function Estudio({
               key={rotulo}
               aria-pressed={tratada === v}
               onClick={() => setTratada(v)}
-              className={`h-10 px-4 ${tratada === v ? 'bg-couro font-bold text-creme' : 'bg-folha'}`}
+              className={`h-11 px-4 ${tratada === v ? 'bg-couro font-bold text-creme' : 'bg-folha'}`}
             >
               {rotulo}
             </button>
@@ -479,13 +479,13 @@ export function Estudio({
                     value={vol[ch] ?? 1}
                     aria-label={`Volume: ${s.nome}`}
                     onChange={(e) => setVol({ ...vol, [ch]: Number(e.target.value) })}
-                    className="h-4 w-0 min-w-0 flex-1 accent-ouro"
+                    className="h-11 w-0 min-w-0 flex-1 accent-ouro sm:h-4"
                   />
                   <button
                     onClick={() => setMudo(alterna(mudo, ch))}
                     aria-pressed={mudo.has(ch)}
                     title="Mudo"
-                    className={`size-7 rounded text-[12px] font-bold ${mudo.has(ch) ? 'bg-erro text-white' : 'border border-ouro bg-folha'}`}
+                    className={`size-11 rounded text-[12px] font-bold sm:size-7 ${mudo.has(ch) ? 'bg-erro text-white' : 'border border-ouro bg-folha'}`}
                   >
                     M
                   </button>
@@ -493,7 +493,7 @@ export function Estudio({
                     onClick={() => setSolo(alterna(solo, ch))}
                     aria-pressed={solo.has(ch)}
                     title="Solo"
-                    className={`size-7 rounded text-[12px] font-bold ${solo.has(ch) ? 'bg-ouro-claro text-tinta' : 'border border-ouro bg-folha'}`}
+                    className={`size-11 rounded text-[12px] font-bold sm:size-7 ${solo.has(ch) ? 'bg-ouro-claro text-tinta' : 'border border-ouro bg-folha'}`}
                   >
                     S
                   </button>

@@ -1,0 +1,75 @@
+{
+ "duracao": 227.368435,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 20,
+   "nome": "Flute PSX"
+  },
+  {
+   "canal": 2,
+   "programa": 19,
+   "nome": "Oboe PSX"
+  },
+  {
+   "canal": 3,
+   "programa": 7,
+   "nome": "String Pizz PSX"
+  },
+  {
+   "canal": 4,
+   "programa": 8,
+   "nome": "Harp PSX"
+  },
+  {
+   "canal": 5,
+   "programa": 10,
+   "nome": "String Ens2 PSX"
+  },
+  {
+   "canal": 6,
+   "programa": 5,
+   "nome": "Celli PSX"
+  },
+  {
+   "canal": 7,
+   "programa": 5,
+   "nome": "Celli PSX"
+  },
+  {
+   "canal": 8,
+   "programa": 17,
+   "nome": "Clarinet PSX"
+  },
+  {
+   "canal": 9,
+   "programa": 0,
+   "nome": "Celesta"
+  },
+  {
+   "canal": 11,
+   "programa": 7,
+   "nome": "String Pizz PSX"
+  },
+  {
+   "canal": 12,
+   "programa": 25,
+   "nome": "French Horn PSX"
+  },
+  {
+   "canal": 13,
+   "programa": 9,
+   "nome": "Timpani PSX"
+  },
+  {
+   "canal": 14,
+   "programa": 22,
+   "nome": "Snare PSX"
+  },
+  {
+   "canal": 16,
+   "programa": 1,
+   "nome": "Glockenspiel PSX"
+  }
+ ]
+}

@@ -217,6 +217,13 @@ const versoesDe = (id: string) => {
         }),
       ),
     };
+  const rica = /^pastoral-rica-[a-z]$/.exec(id);
+  if (rica)
+    return {
+      raiz: id,
+      atual: 0,
+      opcoes: SONS_JOGO.map(([k, rotulo]) => ({ rotulo, faixa: id, stems: `${stemsDe(id)}${k ? `_${k}` : ''}` })),
+    };
   const f = /^(batalha|pastoral)-[a-f](-tfg)?(-t)?$/.exec(id);
   if (f) {
     const raiz = id.replace(/(-tfg)?(-t)?$/, '');
@@ -261,7 +268,7 @@ export function Referencias({ pagina: id }: { pagina: IdPagina }) {
       {p.referencias?.length ? (
         <ul className="m-0 grid list-none gap-4 p-0">
           {p.referencias.map((r) => (
-            <li key={r.href} className="grid gap-2">
+            <li key={r.href} className="grid max-w-[72ch] gap-2">
               {r.youtube && /^[\w-]{11}$/.test(r.youtube) ? (
                 <>
                   <strong>
@@ -319,7 +326,7 @@ export function FaixaMusica({ pagina: id, faixa }: { pagina: IdPagina; faixa: st
               key={o.rotulo}
               aria-pressed={versao === k}
               onClick={() => setVersao(k)}
-              className={`min-h-10 rounded border border-traco px-3 ${versao === k ? 'bg-lab font-bold text-white' : 'bg-white'}`}
+              className={`min-h-11 rounded border border-traco px-3 ${versao === k ? 'bg-lab font-bold text-white' : 'bg-white'}`}
             >
               {o.rotulo}
             </button>
@@ -332,7 +339,7 @@ export function FaixaMusica({ pagina: id, faixa }: { pagina: IdPagina; faixa: st
           base={stems}
           midiSrc={`/content/musica/midi/${midi}.mid`}
           tratadaInicial={
-            t.id.startsWith('ref-trisection') ? !t.id.endsWith('-cru') : /-t$|^dark-(principal|intenso)$/.test(t.id)
+            t.id.startsWith('ref-trisection') ? !t.id.endsWith('-cru') : /-t$|^dark-(principal|intenso)$|^pastoral-rica-/.test(t.id)
           }
           chave={grupo?.raiz ?? t.id}
         />
