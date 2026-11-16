@@ -20,6 +20,7 @@ interface Info {
 const CORES = ['#7a5523', '#7048e8', '#0c8599', '#2b8a3e', '#e8590c', '#c2255c', '#9c6b00', '#495057'];
 const LARGURA_ROTULOS = 230;
 const ALTURA_LINHA = 58;
+const ALTURA_LINHA_COM_SOM = 96; // name, volume and the per-instrument sound menu, one row each
 const ALTURA_LINHA_ESTREITA = 124; // a third row for the per-instrument sound menu on a phone
 const ALTURA_REGUA = 26;
 const JANELA = 24; // seconds visible in the lanes
@@ -92,7 +93,7 @@ export function Estudio({
     consulta?.addEventListener('change', f);
     return () => consulta?.removeEventListener('change', f);
   }, [consulta]);
-  const linha = sfs && sfs.length > 1 && estreito ? ALTURA_LINHA_ESTREITA : ALTURA_LINHA;
+  const linha = sfs && sfs.length > 1 ? (estreito ? ALTURA_LINHA_ESTREITA : ALTURA_LINHA_COM_SOM) : ALTURA_LINHA;
   const [preset, setPreset] = useState('sf:0'); // 'sf:<i>' (one soundfont everywhere), 'u:<name>' (saved) or 'custom'
   const [atrib, setAtrib] = useState<Record<number, number>>({}); // channel -> index in sfs
   const [disp, setDisp] = useState<Set<number>[]>([]); // channels each sound has stems for
@@ -687,23 +688,6 @@ export function Estudio({
                       <span className="ml-auto hidden truncate text-[12px] tabular-nums text-apagado lg:inline">
                         {ativas(ch)}
                       </span>
-                      {sfs && sfs.length > 1 && (
-                        <select
-                          aria-label={`Som de ${s.nome}`}
-                          title={DICAS_UI.somInstrumento}
-                          value={atrib[s.canal] ?? 0}
-                          onChange={(e) => trocarCanal(s.canal, Number(e.target.value))}
-                          className="hidden h-6 max-w-[112px] rounded border border-ouro bg-folha px-1 text-[12px] sm:ml-auto sm:block lg:ml-0"
-                        >
-                          {sfs.map((sf, i) =>
-                            i === 0 || disp[i]?.has(s.canal) ? (
-                              <option key={sf.rotulo} value={i}>
-                                {sf.rotulo}
-                              </option>
-                            ) : null,
-                          )}
-                        </select>
-                      )}
                     </div>
                     <div className="flex items-center gap-2">
                       <input
@@ -740,7 +724,7 @@ export function Estudio({
                         title={DICAS_UI.somInstrumento}
                         value={atrib[s.canal] ?? 0}
                         onChange={(e) => trocarCanal(s.canal, Number(e.target.value))}
-                        className="h-11 w-full rounded border border-ouro bg-folha px-1 text-[13px] sm:hidden"
+                        className="h-11 w-full rounded border border-ouro bg-folha px-1 text-[13px] sm:h-7"
                       >
                         {sfs.map((sf, i) =>
                           i === 0 || disp[i]?.has(s.canal) ? (
