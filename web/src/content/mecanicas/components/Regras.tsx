@@ -43,7 +43,7 @@ export function Regras({ de, grupo }: { de: keyof typeof REGRAS; grupo: string }
 export function Divergencias() {
   return (
     <Callout tom="simples">
-      <ul className="m-0 grid list-disc gap-1 pl-6">
+      <ul className="m-0 grid list-disc gap-1 gap-x-10 pl-6 wide:grid-cols-2 ultra:grid-cols-3">
         {DRIFT.map((d) => (
           <li key={d}>{d}</li>
         ))}

@@ -44,7 +44,7 @@ export function Lista({ de }: { de: Secao }) {
 export function Fonte() {
   return (
     <Callout tom="simples">
-      <p className="m-0">{equipamento.fonte}</p>
+      <p className="m-0 max-w-[72ch]">{equipamento.fonte}</p>
     </Callout>
   );
 }
@@ -52,7 +52,7 @@ export function Fonte() {
 export function Perguntas() {
   return (
     <Callout tom="simples">
-      <ul className="m-0 grid list-disc gap-1 pl-6">
+      <ul className="m-0 grid list-disc gap-1 gap-x-10 pl-6 wide:grid-cols-2 ultra:grid-cols-3">
         {equipamento.perguntas.map((p) => (
           <li key={p}>{p}</li>
         ))}

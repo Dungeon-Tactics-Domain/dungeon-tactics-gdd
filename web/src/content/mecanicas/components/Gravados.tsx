@@ -37,7 +37,7 @@ export function Gravados() {
       <p className="m-0 border border-dashed border-borda bg-folha p-7 text-apagado">Nenhum clipe gravado ainda.</p>
     );
   return (
-    <div className="grid gap-2.5">
+    <div className="grid gap-2.5 ultra:grid-cols-2">
       {CLIPES.map((c) => (
         <article key={c.name} id={c.name} className="grid gap-2 border border-borda bg-folha px-5 py-4">
           <h3 className="m-0 text-[21px] leading-tight">

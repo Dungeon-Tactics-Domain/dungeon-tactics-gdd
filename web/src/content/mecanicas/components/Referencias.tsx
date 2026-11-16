@@ -20,8 +20,8 @@ export function Ficha({ jogo: id }: { jogo: string }) {
   if (!g.reception && !g.notFound.length) return null;
   return (
     <Caixa>
-      {g.reception && <p className="m-0 text-apagado">{g.reception}</p>}
-      {g.notFound.length > 0 && <p className="m-0 text-apagado">Não achado: {g.notFound.join(' · ')}</p>}
+      {g.reception && <p className="m-0 max-w-[72ch] text-apagado">{g.reception}</p>}
+      {g.notFound.length > 0 && <p className="m-0 max-w-[72ch] text-apagado">Não achado: {g.notFound.join(' · ')}</p>}
     </Caixa>
   );
 }
@@ -40,7 +40,7 @@ export function Itens({ jogo: id, tipo }: { jogo: string; tipo: 'mechanics' | 'f
   if (!g) return <Desconhecido id={id} />;
   return (
     <Caixa>
-      <ul className="m-0 grid list-disc gap-1.5 pl-[18px]">
+      <ul className="m-0 grid list-disc gap-1.5 gap-x-10 pl-[18px] wide:grid-cols-2 ultra:grid-cols-3">
         {g[tipo].map((i) => (
           <Linha key={i.name} i={i} />
         ))}
@@ -54,7 +54,7 @@ export function Videos({ jogo: id }: { jogo: string }) {
   if (!g) return <Desconhecido id={id} />;
   return (
     <Caixa>
-      <ul className="m-0 grid list-disc gap-1.5 pl-[18px]">
+      <ul className="m-0 grid list-disc gap-1.5 gap-x-10 pl-[18px] wide:grid-cols-2 ultra:grid-cols-3">
         {g.videos.map((v) => (
           <li key={v.url}>
             <Fonte href={v.url}>{v.title}</Fonte> — {v.note}
