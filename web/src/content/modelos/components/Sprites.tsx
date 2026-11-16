@@ -2,7 +2,7 @@
 // canvas. Same actions, rates and files as the old lab (dungeon-tactics-lab/modelos/src/main.ts).
 import { type ReactNode, useEffect, useRef, useState } from 'react';
 import { BANCADA } from './bancada';
-import { Botoes } from './Visualizador';
+import { Botoes, LadoALado } from './Visualizador';
 
 const DIRS = ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW'] as const;
 // id, name, frames, fps
@@ -52,16 +52,22 @@ export function Sprites({ modelo, children }: { modelo: string; children?: React
   return (
     <>
       {children}
-      <div className="grid gap-2 border border-t-[6px] border-borda border-t-lab bg-folha px-5 py-4">
-        <Botoes rotulo="Ação" itens={ACOES.map((a, i) => [i, a[1]] as const)} atual={acao} escolher={setAcao} />
-        <Botoes rotulo="Acabamento" itens={ACABAMENTOS} atual={pixel} escolher={setPixel} />
-        <Botoes rotulo="Direção" itens={DIRS.map((d, i) => [i, d] as const)} atual={dir} escolher={setDir} />
-      </div>
-      <canvas
-        ref={canvas}
-        aria-label="Sprite animado"
-        className="block aspect-square h-auto w-[min(70vh,100%)] rounded-lg bg-pergaminho-escuro [image-rendering:pixelated]"
-      />
+      <LadoALado
+        viewer={
+          // square: as wide as the column, no taller than the viewer boxes of the other pages
+          <canvas
+            ref={canvas}
+            aria-label="Sprite animado"
+            className="block aspect-square h-auto w-[min(100%,50vh)] rounded-lg bg-pergaminho-escuro [image-rendering:pixelated] min-[1024px]:w-[min(100%,80vh)]"
+          />
+        }
+      >
+        <div className="grid gap-2 border border-t-[6px] border-borda border-t-lab bg-folha px-5 py-4">
+          <Botoes rotulo="Ação" itens={ACOES.map((a, i) => [i, a[1]] as const)} atual={acao} escolher={setAcao} />
+          <Botoes rotulo="Acabamento" itens={ACABAMENTOS} atual={pixel} escolher={setPixel} />
+          <Botoes rotulo="Direção" itens={DIRS.map((d, i) => [i, d] as const)} atual={dir} escolher={setDir} />
+        </div>
+      </LadoALado>
       <h3>Folha de contato</h3>
       <img src={`${base}/contato.png`} alt="Folha de contato" className="mt-3 max-w-full rounded-lg" />
     </>

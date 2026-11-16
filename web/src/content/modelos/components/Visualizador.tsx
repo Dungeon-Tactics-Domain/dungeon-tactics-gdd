@@ -66,6 +66,20 @@ export function Botoes<T>({
   );
 }
 
+/**
+ * The 3D viewer on the left, sticky while the options on the right scroll (Nov 15, Fernando's request). The viewer
+ * column is 58% of the width but never wider than the screen is tall, or ultrawide screens get a wide, low strip;
+ * below 1024 px (the shell's two-panel band) they stack, viewer first.
+ */
+export function LadoALado({ viewer, children }: { viewer: ReactNode; children: ReactNode }) {
+  return (
+    <div className="grid items-start gap-4 min-[1024px]:grid-cols-[minmax(0,min(58%,100vh))_minmax(0,1fr)]">
+      <div className="min-w-0 min-[1024px]:sticky min-[1024px]:top-[calc(var(--reino-h)+1rem)]">{viewer}</div>
+      <div className="grid min-w-0 content-start gap-4">{children}</div>
+    </div>
+  );
+}
+
 /** `asset` prefixes the piece id into the decision's asset id (`modelos/<set>/<piece>`). */
 function Bancada({ pecas: lista, asset, children }: { pecas: Peca[]; asset: string; children?: ReactNode }) {
   const [peca, setPeca] = useState(lista[0]!);
@@ -79,27 +93,28 @@ function Bancada({ pecas: lista, asset, children }: { pecas: Peca[]; asset: stri
   return (
     <>
       {children}
-      {!semCaixa && (
-        <div className="grid gap-2 border border-t-[6px] border-borda border-t-lab bg-folha px-5 py-4">
-          {lista.length > 1 && (
-            <Botoes rotulo="Peça" itens={lista.map((p) => [p, p.nome] as const)} atual={peca} escolher={setPeca} />
-          )}
-          {!peca.glb && <Botoes rotulo="Estilo" itens={ESTILOS} atual={estilo} escolher={setEstilo} />}
-          {foraDoAr && (
-            <p className="m-0 border border-dashed border-traco bg-folha px-4 py-3 text-apagado">
-              A bancada 3D não respondeu.
-              {EM_LOCALHOST && (
-                <>
-                  {' '}
-                  Ela roda na porta 5205: <code>npx vite --port 5205 --strictPort</code> na worktree do jogo.
-                </>
-              )}
-            </p>
-          )}
-        </div>
-      )}
-      <iframe src={urlDaPeca(peca, estilo)} title="Visualizador 3D" className={CLASSE_VIEWER} />
-      <DecisaoAsset key={peca.id} id={`${asset}/${peca.id}`} rotulo={peca.nome} />
+      <LadoALado viewer={<iframe src={urlDaPeca(peca, estilo)} title="Visualizador 3D" className={CLASSE_VIEWER} />}>
+        {!semCaixa && (
+          <div className="grid gap-2 border border-t-[6px] border-borda border-t-lab bg-folha px-5 py-4">
+            {lista.length > 1 && (
+              <Botoes rotulo="Peça" itens={lista.map((p) => [p, p.nome] as const)} atual={peca} escolher={setPeca} />
+            )}
+            {!peca.glb && <Botoes rotulo="Estilo" itens={ESTILOS} atual={estilo} escolher={setEstilo} />}
+            {foraDoAr && (
+              <p className="m-0 border border-dashed border-traco bg-folha px-4 py-3 text-apagado">
+                A bancada 3D não respondeu.
+                {EM_LOCALHOST && (
+                  <>
+                    {' '}
+                    Ela roda na porta 5205: <code>npx vite --port 5205 --strictPort</code> na worktree do jogo.
+                  </>
+                )}
+              </p>
+            )}
+          </div>
+        )}
+        <DecisaoAsset key={peca.id} id={`${asset}/${peca.id}`} rotulo={peca.nome} />
+      </LadoALado>
     </>
   );
 }

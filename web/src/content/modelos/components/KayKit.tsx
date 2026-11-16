@@ -2,18 +2,9 @@
 // base character, swap its parts with other classes, play the 17 game clips or any clip of the full KayKit animation pack
 // (listed by the bench's clips.json) and put weapons in each hand like the Animações pages.
 import { useEffect, useState } from 'react';
-import {
-  alterna,
-  type Botao,
-  DUAS_MAOS,
-  Grupo,
-  LadoALado,
-  MAO_PRINCIPAL,
-  MAO_SECUNDARIA,
-  urlDaAnimacao,
-} from './Animacoes';
-import { BANCADA, CLASSE_OPCOES, CLASSE_VIEWER_LADO } from './bancada';
-import { Botoes } from './Visualizador';
+import { alterna, type Botao, DUAS_MAOS, Grupo, MAO_PRINCIPAL, MAO_SECUNDARIA, urlDaAnimacao } from './Animacoes';
+import { BANCADA, CLASSE_OPCOES, CLASSE_VIEWER } from './bancada';
+import { Botoes, LadoALado } from './Visualizador';
 
 export const PERSONAGENS: readonly Botao[] = [
   ['knight', 'Cavaleiro'],
@@ -186,7 +177,7 @@ export function KayKit() {
           <iframe
             src={urlKayKit(base, partes, clipe, principal, secundaria, duas)}
             title="Personagem KayKit 3D"
-            className={CLASSE_VIEWER_LADO}
+            className={CLASSE_VIEWER}
           />
           <p className="m-0 mt-2 text-apagado">
             Tocando: {cena ?? nome(clipe.replace(/^.*\//, ''))}
