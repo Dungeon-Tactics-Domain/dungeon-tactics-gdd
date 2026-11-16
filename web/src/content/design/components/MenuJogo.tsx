@@ -17,9 +17,23 @@ interface Peca {
   porta: number;
   arvore: string;
   cenas: Cena[];
+  /** Built with the piece-by-piece selector (flags in the address, see the game's ui3d/skin-flags.ts). */
+  montar?: boolean;
 }
 
 const PECAS: Peca[] = [
+  {
+    id: 'montar',
+    nome: 'Montar o unificado',
+    feito: 'Fable 5.2, esforço médio (layout, flags e presets)',
+    porta: 5299,
+    arvore: 'ui3d-unificado',
+    montar: true,
+    cenas: [
+      { nome: 'Menu de comandos', arquivo: 'layout-edges' },
+      { nome: 'Com habilidades abertas', arquivo: 'preset-css' },
+    ],
+  },
   {
     id: 'unificado',
     nome: 'Unificado (menu 3D + fila + CSS)',
@@ -84,6 +98,13 @@ const PECAS: Peca[] = [
   },
 ];
 
+type Visual = 'html' | 'css' | '3d';
+const VISUAIS: [Visual, string][] = [
+  ['html', 'HTML atual'],
+  ['css', 'CSS'],
+  ['3d', '3D'],
+];
+
 const BOTAO =
   'min-h-11 cursor-pointer rounded-md border border-borda bg-folha px-4 text-[15px] text-tinta hover:bg-lab-soft aria-pressed:border-lab aria-pressed:bg-lab aria-pressed:text-white';
 const ESCOLHA =
@@ -94,9 +115,16 @@ export function MenuJogo() {
   const [peca, setPeca] = useState<Peca>(PECAS[0]!);
   const [cenaIdx, setCenaIdx] = useState(0);
   const [pixel, setPixel] = useState(false);
+  const [menu, setMenu] = useState<Visual>('3d');
+  const [fila, setFila] = useState<Visual>('3d');
+  const [layout, setLayout] = useState<'edges' | 'frame'>('edges');
   const cena = peca.cenas[Math.min(cenaIdx, peca.cenas.length - 1)]!;
   const arquivo = `${cena.arquivo}${cena.pixel && pixel ? '-pixel' : ''}`;
-  const src = `http://localhost:${peca.porta}/?scenario=ash_wood&sandbox=bench/${arquivo}.json`;
+  // the address beats the scene piece by piece, so the selector only has to name every piece and the layout
+  const flags = peca.montar
+    ? `&menu=${menu}&turn=${fila === 'css' ? 'html' : fila}&layout=${layout}&pixel=${pixel ? 1 : 0}`
+    : '';
+  const src = `http://localhost:${peca.porta}/?scenario=ash_wood${flags}&sandbox=bench/${arquivo}.json`;
   const escolher = (p: Peca) => {
     setPeca(p);
     setCenaIdx(0);
@@ -123,11 +151,66 @@ export function MenuJogo() {
         Gerado por: {peca.feito}, subagente do zero. bench/{arquivo}.json em localhost:{peca.porta}. Dentro do jogo: setas,
         Enter, Esc e mouse. Os efeitos sonoros tocam.
       </p>
+      {peca.montar && (
+        <div className="grid gap-2 rounded-lg border border-borda bg-folha p-3">
+          <div role="radiogroup" aria-label="Combinações prontas" className="flex flex-wrap items-center gap-1.5">
+            <span className="text-sm text-tinta-suave">Combinação pronta</span>
+            {VISUAIS.map(([v, nome]) => (
+              <button
+                key={v}
+                type="button"
+                role="radio"
+                aria-checked={menu === v && fila === (v === 'css' ? 'html' : v)}
+                onClick={() => {
+                  setMenu(v);
+                  setFila(v === 'css' ? 'html' : v);
+                }}
+                className={ESCOLHA}
+              >
+                Tudo {nome}
+              </button>
+            ))}
+          </div>
+          <div role="radiogroup" aria-label="Menu de ações" className="flex flex-wrap items-center gap-1.5">
+            <span className="text-sm text-tinta-suave">Menu de ações</span>
+            {VISUAIS.map(([v, nome]) => (
+              <button key={v} type="button" role="radio" aria-checked={menu === v} onClick={() => setMenu(v)} className={ESCOLHA}>
+                {nome}
+              </button>
+            ))}
+          </div>
+          <div role="radiogroup" aria-label="Fila de turnos" className="flex flex-wrap items-center gap-1.5">
+            <span className="text-sm text-tinta-suave">Fila de turnos</span>
+            {VISUAIS.filter(([v]) => v !== 'css').map(([v, nome]) => (
+              <button key={v} type="button" role="radio" aria-checked={fila === v} onClick={() => setFila(v)} className={ESCOLHA}>
+                {nome}
+              </button>
+            ))}
+          </div>
+          <div role="radiogroup" aria-label="Disposição da interface" className="flex flex-wrap items-center gap-1.5">
+            <span className="text-sm text-tinta-suave">Disposição</span>
+            {(
+              [
+                ['edges', 'Regiões nas bordas'],
+                ['frame', 'Moldura 16:9 centralizada'],
+              ] as const
+            ).map(([v, nome]) => (
+              <button key={v} type="button" role="radio" aria-checked={layout === v} onClick={() => setLayout(v)} className={ESCOLHA}>
+                {nome}
+              </button>
+            ))}
+          </div>
+          <p className="m-0 text-xs text-tinta-suave">
+            Ainda são só HTML atual: barra de combate, ficha, Height, banner, dicas e prévia (fase 2). A fila em CSS não existe;
+            &laquo;Tudo CSS&raquo; usa a fila HTML atual.
+          </p>
+        </div>
+      )}
       <div className="flex flex-wrap gap-2">
         <button type="button" onClick={() => setAoVivo((v) => !v)} className={BOTAO}>
           {aoVivo ? 'Parar' : 'Ver ao vivo'}
         </button>
-        {cena.pixel && (
+        {(cena.pixel || peca.montar) && (
           <button type="button" aria-pressed={pixel} onClick={() => setPixel((p) => !p)} className={BOTAO}>
             Filtro pixelado nos ícones
           </button>
