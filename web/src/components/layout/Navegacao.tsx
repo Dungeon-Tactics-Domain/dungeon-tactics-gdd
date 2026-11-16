@@ -10,6 +10,7 @@ import { LABS } from '@/lib/labs';
 import { DECISOES_ATIVAS } from '@/lib/recursos';
 import { SEM_DESKTOP, SEM_ULTRA, useMediaQuery } from '@/lib/useMediaQuery';
 import { cn, gravar, ler } from '@/lib/utils';
+import { Icone } from './Icone';
 
 const DOT: Record<string, string> = {
   rodando: 'bg-[#5fc283]',
@@ -31,12 +32,14 @@ const linkCls =
 /** A link's face: the full name, or in the rail a 2-letter seal in the place's colour with the dot on its corner. */
 function Face({
   nome,
+  icone,
   sinal,
   cor,
   dot,
   recolhida,
 }: {
   nome: string;
+  icone: string;
   sinal: string;
   cor?: string;
   dot?: ReactNode;
@@ -46,7 +49,9 @@ function Face({
     return (
       <>
         {dot}
-        <span className="max-w-60 truncate">{nome}</span>
+        <Icone id={icone} />
+        {/* between 1024 and 1199 px the bar has no room for 7 names: icon only, the name stays as tooltip and for readers */}
+        <span className="max-w-60 truncate min-[1024px]:max-[1199px]:sr-only">{nome}</span>
       </>
     );
   return (
@@ -82,7 +87,7 @@ function TownLink({ t, recolhida }: { t: Town; recolhida: boolean }) {
     />
   );
   const face = (
-    <Face nome={t.place.curto} sinal={t.place.curto.slice(0, 2)} cor={t.place.cor} dot={dot} recolhida={recolhida} />
+    <Face nome={t.place.curto} icone={t.place.id} sinal={t.place.curto.slice(0, 2)} cor={t.place.cor} dot={dot} recolhida={recolhida} />
   );
   if (!t.place.href)
     return (
@@ -113,14 +118,14 @@ export function Links({ recolhida = false }: { recolhida?: boolean }) {
   return (
     <>
       <NavLink to="/" end className={linkCls(recolhida)} title="Início">
-        <Face nome="Início" sinal="◆" recolhida={recolhida} />
+        <Face nome="Início" icone="inicio" sinal="◆" recolhida={recolhida} />
       </NavLink>
       {towns.map((t) => (
         <TownLink key={t.place.id} t={t} recolhida={recolhida} />
       ))}
       {DECISOES_ATIVAS && (
         <NavLink to="/decisoes" className={linkCls(recolhida)} title="Decisões">
-          <Face nome="Decisões" sinal="✓" recolhida={recolhida} />
+          <Face nome="Decisões" icone="decisoes" sinal="✓" recolhida={recolhida} />
         </NavLink>
       )}
     </>
@@ -234,7 +239,9 @@ export function MenuInferior() {
           // the active mark is gold: the labs' own colours fall under 3:1 on the leather bar
           className="flex min-h-11 min-w-0 flex-col items-center justify-center gap-0.5 border-t-4 border-transparent text-[14px] text-creme no-underline aria-[current=page]:border-casca-titulo aria-[current=page]:font-bold"
         >
-          <span aria-hidden="true" className="size-4 rounded-full" style={{ background: l.cor }} />
+          <span aria-hidden="true" className="flex size-7 items-center justify-center rounded-md text-white" style={{ background: l.cor }}>
+            <Icone id={l.id} className="size-[18px]" />
+          </span>
           <span className="max-w-full truncate">{l.curto}</span>
         </NavLink>
       ))}

@@ -1,0 +1,31 @@
+// Line icons of the shell (24-box, stroke follows the text colour), one per place; decorative: the name stays the accessible text.
+import type { SVGProps } from 'react';
+
+const TRACOS: Record<string, string> = {
+  inicio: 'M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10',
+  fabrica: 'M3 21V9l6 4V9l6 4V4h6v17zM8 17h1M13 17h1M18 17h1',
+  design: 'M12 3a9 9 0 100 18c1.5 0 2-1 1.5-2s0-2.5 1.5-2.5H17a4 4 0 004-4c0-5-4-9.5-9-9.5zM7.5 11h.01M10 7.5h.01M14.5 7.5h.01',
+  mecanicas: 'M14.5 17.5L3 6V3h3l11.5 11.5M13 19l6-6M16 16l4 4M19 21l2-2M9.5 6.5L21 18v3h-3L6.5 9.5M11 5L5 11M8 8L4 4M5 3L3 5',
+  narrativa: 'M4 19.5A2.5 2.5 0 016.5 17H20V3H6.5A2.5 2.5 0 004 5.5zM4 19.5A2.5 2.5 0 006.5 22H20v-5',
+  modelos: 'M12 2l9 5v10l-9 5-9-5V7zM12 12l9-5M12 12L3 7M12 12v10',
+  musica: 'M9 18V5l12-2v13M9 18a3 3 0 11-6 0 3 3 0 016 0zM21 16a3 3 0 11-6 0 3 3 0 016 0z',
+  decisoes: 'M5 12l4.5 4.5L19 7',
+};
+
+export function Icone({ id, ...p }: { id: string } & SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.8}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="size-5 flex-none"
+      {...p}
+    >
+      <path d={TRACOS[id] ?? TRACOS.inicio} />
+    </svg>
+  );
+}
