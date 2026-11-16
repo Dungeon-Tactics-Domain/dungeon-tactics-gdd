@@ -6,10 +6,10 @@ import { cn } from '@/lib/utils';
 import { PLANO, type Status } from '../dados';
 
 const TOM: Record<Status, string> = {
-  feito: 'bg-mar text-run',
+  feito: 'bg-sucesso-suave text-sucesso',
   fazendo: 'bg-lab-soft text-lab',
-  aberto: 'bg-warn-soft text-warn',
-  bloqueado: 'bg-stop-soft text-stop',
+  aberto: 'bg-aviso-suave text-aviso',
+  bloqueado: 'bg-erro-suave text-erro',
 };
 const Etiqueta = ({ s }: { s: Status }) => (
   <span className={cn('inline-block rounded-[3px] px-2 py-px text-[14px] font-bold whitespace-nowrap', TOM[s])}>

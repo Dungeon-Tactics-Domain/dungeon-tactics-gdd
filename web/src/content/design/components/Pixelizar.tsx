@@ -77,7 +77,7 @@ export function Pixelizar() {
                     className="block size-48 object-contain [image-rendering:pixelated]"
                   />
                 </div>
-                <figcaption className="text-[13px]">{nomeP}</figcaption>
+                <figcaption className="text-[14px]">{nomeP}</figcaption>
               </figure>
             ))}
           </div>

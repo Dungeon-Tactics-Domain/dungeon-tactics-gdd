@@ -227,106 +227,108 @@ export function Expressoes() {
 
   const nome = ROSTOS.find(([i]) => i === id)![1];
   return (
-    <div className="expr">
-      <div className="expr-col">
-        <Barra
-          rotulo="Versão"
-          itens={VERSOES.map(([p, n]) => [p, n])}
-          ativo={(p) => p === pasta}
-          onPick={(p) => {
-            setPasta(p);
-            refaz();
-          }}
-        />
-        <p className="expr-nota">{VERSOES.find(([p]) => p === pasta)![2]}</p>
-        <Barra
-          rotulo="Personagem"
-          itens={ROSTOS.filter(([, , f]) => f).map(([i, n]) => [i, n])}
-          ativo={(i) => i === id}
-          onPick={(i) => {
-            setId(i);
-            refaz();
-          }}
-        />
-        <div className="expr-bar" role="group" aria-label="Momento">
-          <span className="rot">Momento</span>
-          {MOMENTOS.map((m) => (
-            <button key={m} type="button" aria-pressed={m === escolhido} onClick={() => toca(m)}>
-              {ROTULO[m]}
-            </button>
-          ))}
-        </div>
-        <div className="fft expr-scene">
-          <div className="panel talk">
-            <span
-              key={fx.key}
-              className={`expr-face ${fx.cls}`.trim()}
-              role="img"
-              aria-label={`Retrato de ${nome}`}
-              style={css({ '--sheet': sheet(pasta, id), backgroundPositionX: posicao(q) })}
-            />
-            <div className="expr-info">
-              <strong>{nome}</strong>
-              <span className="expr-moment" aria-live="polite">
-                {momento}
-              </span>
-              <p className="expr-line">{fala}</p>
-              <div className="gauge hp">
-                <span className="gauge-label">VIDA</span>
-                <span className="gauge-bar">
-                  <i style={{ width: `${(hp / MAX_HP) * 100}%` }} />
+    <div className="expr-caixa">
+      <div className="expr">
+        <div className="expr-col">
+          <Barra
+            rotulo="Versão"
+            itens={VERSOES.map(([p, n]) => [p, n])}
+            ativo={(p) => p === pasta}
+            onPick={(p) => {
+              setPasta(p);
+              refaz();
+            }}
+          />
+          <p className="expr-nota">{VERSOES.find(([p]) => p === pasta)![2]}</p>
+          <Barra
+            rotulo="Personagem"
+            itens={ROSTOS.filter(([, , f]) => f).map(([i, n]) => [i, n])}
+            ativo={(i) => i === id}
+            onPick={(i) => {
+              setId(i);
+              refaz();
+            }}
+          />
+          <div className="expr-bar" role="group" aria-label="Momento">
+            <span className="rot">Momento</span>
+            {MOMENTOS.map((m) => (
+              <button key={m} type="button" aria-pressed={m === escolhido} onClick={() => toca(m)}>
+                {ROTULO[m]}
+              </button>
+            ))}
+          </div>
+          <div className="fft expr-scene">
+            <div className="panel talk">
+              <span
+                key={fx.key}
+                className={`expr-face ${fx.cls}`.trim()}
+                role="img"
+                aria-label={`Retrato de ${nome}`}
+                style={css({ '--sheet': sheet(pasta, id), backgroundPositionX: posicao(q) })}
+              />
+              <div className="expr-info">
+                <strong>{nome}</strong>
+                <span className="expr-moment" aria-live="polite">
+                  {momento}
                 </span>
-                <span className="gauge-num">
-                  {hp}/{MAX_HP}
-                </span>
+                <p className="expr-line">{fala}</p>
+                <div className="gauge hp">
+                  <span className="gauge-label">VIDA</span>
+                  <span className="gauge-bar">
+                    <i style={{ width: `${(hp / MAX_HP) * 100}%` }} />
+                  </span>
+                  <span className="gauge-num">
+                    {hp}/{MAX_HP}
+                  </span>
+                </div>
               </div>
             </div>
           </div>
+          <p className="expr-nota">
+            Mini-cena no kit FFT Clássico: a boca faz o ciclo neutro, Falando 1, Falando 2, Falando 1 (180 ms por
+            quadro); dano treme e pisca; vida abaixo de 30% mantém o quadro Ferido. Lacaio de osso, esqueleto ladino e
+            esqueleto guerreiro ainda não têm folha.
+          </p>
         </div>
-        <p className="expr-nota">
-          Mini-cena no kit FFT Clássico: a boca faz o ciclo neutro, Falando 1, Falando 2, Falando 1 (180 ms por quadro);
-          dano treme e pisca; vida abaixo de 30% mantém o quadro Ferido. Lacaio de osso, esqueleto ladino e esqueleto
-          guerreiro ainda não têm folha.
-        </p>
-      </div>
-      <div className="expr-col">
-        <Barra
-          rotulo="Tamanho"
-          itens={[1, 2, 4].map((z) => [String(z), `${z}x (${64 * z} px)`])}
-          ativo={(z) => z === String(zoom)}
-          onPick={(z) => setZoom(Number(z))}
-        />
-        <div className="expr-tabela">
-          <table>
-            <thead>
-              <tr>
-                <th>Personagem</th>
-                {NOMES.map((n) => (
-                  <th key={n} scope="col">
-                    {n}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {ROSTOS.map(([i, n, f]) => (
-                <tr key={i}>
-                  <th scope="row">{n}</th>
-                  {f ? (
-                    NOMES.map((qn, k) => (
-                      <td key={qn}>
-                        <Quadro pasta={pasta} id={i} n={k} lado={64 * zoom} />
-                      </td>
-                    ))
-                  ) : (
-                    <td className="vazio" colSpan={8}>
-                      sem folha ainda
-                    </td>
-                  )}
+        <div className="expr-col">
+          <Barra
+            rotulo="Tamanho"
+            itens={[1, 2, 4].map((z) => [String(z), `${z}x (${64 * z} px)`])}
+            ativo={(z) => z === String(zoom)}
+            onPick={(z) => setZoom(Number(z))}
+          />
+          <div className="expr-tabela">
+            <table>
+              <thead>
+                <tr>
+                  <th>Personagem</th>
+                  {NOMES.map((n) => (
+                    <th key={n} scope="col">
+                      {n}
+                    </th>
+                  ))}
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {ROSTOS.map(([i, n, f]) => (
+                  <tr key={i}>
+                    <th scope="row">{n}</th>
+                    {f ? (
+                      NOMES.map((qn, k) => (
+                        <td key={qn}>
+                          <Quadro pasta={pasta} id={i} n={k} lado={64 * zoom} />
+                        </td>
+                      ))
+                    ) : (
+                      <td className="vazio" colSpan={8}>
+                        sem folha ainda
+                      </td>
+                    )}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>

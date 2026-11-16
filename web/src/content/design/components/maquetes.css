@@ -64,6 +64,17 @@
       grid-template-columns: minmax(0, 1fr);
     }
   }
+  /* a full-width 16:9 stage outgrows the screen from 1440 px: the notes go beside it; on the ultrawide the three
+     directions stand side by side instead (Alternativas) and each tile stacks again */
+  @media (min-width: 1440px) and (max-width: 2559.98px) {
+    .tile {
+      grid-template-columns: minmax(0, 1fr) minmax(320px, 30%);
+      align-items: start;
+    }
+    .tile-notes {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
 
   .stage {
     position: relative;

@@ -58,7 +58,7 @@ function PorConversa({ tests }: { tests: Test[] }) {
 /** the images of one or more subjects (ids of IA.subs), a heading per platform; with several subjects each gets its own title */
 export function IaAssunto({ ids }: { ids: string[] }) {
   const desconhecido = ids.find((id) => !IA.subs.some(([s]) => s === id));
-  if (desconhecido) return <p className="m-0 text-stop">Assunto desconhecido: {desconhecido}</p>;
+  if (desconhecido) return <p className="m-0 text-erro">Assunto desconhecido: {desconhecido}</p>;
   return (
     <div className="grid gap-5">
       {ids.map((id) => {

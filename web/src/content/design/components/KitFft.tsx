@@ -524,7 +524,8 @@ export function Scene({ w = 1920, h = 1080, children }: { w?: number; h?: number
     return () => ro.disconnect();
   }, [w]);
   return (
-    <div className="fft-scene" ref={frame}>
+    // never wider than the real screen: on the ultrawide a scene scaled past 1x would be taller than the window
+    <div className="fft-scene" ref={frame} style={{ maxWidth: w }}>
       <div className="fft-stage" style={css({ '--k': String(k), width: `${w}px`, height: `${h}px` })}>
         {children}
       </div>
@@ -537,9 +538,10 @@ const ESTADOS = ['', 'h', 'f', 'p', 'disabled'];
 export function KitFft() {
   useEffect(() => carregarFonte(FONTE_FFT), []);
   return (
-    // min-w-0: as a grid item the kit would grow to its widest piece and scroll the page at 375px
-    <div className="fft min-w-0">
-      <p className="fft-note">
+    // min-w-0: as a grid item the kit would grow to its widest piece and scroll the page at 375px; on the ultrawide the
+    // pieces flow in two columns instead of one wide strip each
+    <div className="fft min-w-0 ultra:grid ultra:grid-cols-2 ultra:items-start ultra:gap-x-5">
+      <p className="fft-note ultra:col-span-full">
         Medidas em pixels da tela 1920×1080 (a montagem no fim encolhe para caber). Tokens com os nomes do :root do
         jogo, redefinidos em .fft.
       </p>
@@ -668,7 +670,7 @@ export function KitFft() {
       >
         <Board />
       </Piece>
-      <section className="fft-piece">
+      <section className="fft-piece ultra:col-span-full">
         <h3>Montagem 1920×1080 sobre a Colina</h3>
         <p className="fft-note">
           Fila à esquerda, ficha embaixo à esquerda, previsão embaixo no meio, comandos embaixo à direita.

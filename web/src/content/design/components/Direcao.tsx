@@ -231,7 +231,7 @@ export function Direcao({ id }: { id: string }) {
   const [cena, setCena] = useState(cenaEscolhida);
   useEffect(() => carregarFonte(FONTES), []);
   const d: Dados | undefined = DIRECOES.find((x) => x.id === id);
-  if (!d) return <p className="m-0 text-stop">Direção desconhecida: {id}</p>;
+  if (!d) return <p className="m-0 text-erro">Direção desconhecida: {id}</p>;
   const Stage = STAGES[d.id];
   const fundo = { '--cena': `url(${ASSETS}/cenas/cena-${cena}.jpg)` } as CSSProperties;
   return (
@@ -291,9 +291,9 @@ export function Direcao({ id }: { id: string }) {
 /** the three directions one after the other, a title each (the old interface/alternativas section) */
 export function Alternativas() {
   return (
-    <div className="grid gap-8">
+    <div className="grid gap-8 ultra:grid-cols-3">
       {DIRECOES.map((d) => (
-        <div key={d.id} className="grid gap-3">
+        <div key={d.id} className="grid min-w-0 content-start gap-3">
           <h3 className="m-0 mt-1 text-[21px] leading-tight">{d.name}</h3>
           <Direcao id={d.id} />
         </div>

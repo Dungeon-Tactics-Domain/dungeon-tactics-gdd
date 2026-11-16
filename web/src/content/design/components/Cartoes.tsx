@@ -17,7 +17,7 @@ function Grade({ itens }: { itens: { src: string; title: string; corpo: ReactNod
               type="button"
               aria-label={`Ampliar: ${it.title}`}
               onClick={() => setAberta(n)}
-              className="block cursor-zoom-in bg-terra p-2.5"
+              className="block cursor-zoom-in bg-pergaminho-escuro p-2.5"
             >
               <img src={it.src} alt={it.title} loading="lazy" className="block aspect-video w-full object-contain" />
             </button>
@@ -53,8 +53,8 @@ export function CartoesRef({ shots }: { shots: (Shot & { game: string })[] }) {
                 <li key={i}>{p}</li>
               ))}
             </ul>
-            {s.take && <span className="text-run">Aproveitar: {s.take}</span>}
-            {s.avoid && <span className="text-stop">Evitar: {s.avoid}</span>}
+            {s.take && <span className="text-sucesso">Aproveitar: {s.take}</span>}
+            {s.avoid && <span className="text-erro">Evitar: {s.avoid}</span>}
             <a href={s.source} target="_blank" rel="noreferrer" className={LINK}>
               Fonte
             </a>
@@ -81,8 +81,8 @@ export function CartoesIa({ tests }: { tests: Test[] }) {
                 Conversa de origem
               </a>
             )}
-            <span className="text-run">Acertou: {t.good}</span>
-            <span className="text-stop">Errou: {t.bad}</span>
+            <span className="text-sucesso">Acertou: {t.good}</span>
+            <span className="text-erro">Errou: {t.bad}</span>
             <details>
               <summary className="flex min-h-11 cursor-pointer items-center">Prompt usado</summary>
               <pre className="m-0 mt-2 max-h-[260px] overflow-auto font-sans text-[14px] leading-normal whitespace-pre-wrap">

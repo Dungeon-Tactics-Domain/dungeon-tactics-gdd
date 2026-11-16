@@ -112,7 +112,9 @@ export function Cidade() {
         <strong>{t(NIVEIS[nivel].nome)}:</strong> {t(NIVEIS[nivel].resumo)}
       </p>
 
-      <div className="flex flex-wrap items-start gap-5">
+      {/* townsfolk | map | lines: three panels on the ultrawide; below it the map and the lines wrap side by side and the
+          townsfolk list follows in a full row */}
+      <div className="flex flex-wrap items-start gap-5 ultra:grid ultra:grid-cols-[minmax(280px,380px)_max-content_minmax(360px,72ch)]">
         <div className="min-w-0 max-w-full overflow-x-auto border border-borda bg-folha p-2">
           <div className="relative">
             <div
@@ -157,7 +159,7 @@ export function Cidade() {
                 onMouseEnter={() => setSel(n)}
                 onFocus={() => setSel(n)}
                 onClick={() => setSel(n)}
-                className="absolute grid cursor-pointer place-items-center rounded-full border-2 border-white bg-tinta text-[14px] font-bold text-white aria-pressed:bg-stop"
+                className="absolute grid cursor-pointer place-items-center rounded-full border-2 border-white bg-couro-escuro text-[14px] font-bold text-white aria-pressed:bg-erro max-[1023px]:z-10 max-[1023px]:size-11! max-[1023px]:-translate-x-2.5 max-[1023px]:-translate-y-2.5"
                 style={{ left: n.em.x * CEL - 1, top: n.em.y * CEL - 1, width: CEL + 2, height: CEL + 2 }}
               >
                 {NPCS.indexOf(n) + 1}
@@ -168,7 +170,7 @@ export function Cidade() {
 
         <section
           aria-label={t(['Fala', 'Lines'])}
-          className="grid max-w-[380px] min-w-[280px] flex-1 gap-2 border border-borda bg-folha p-3"
+          className="grid min-w-[280px] flex-1 gap-2 border border-borda bg-folha p-3 ultra:sticky ultra:top-[calc(var(--reino-h)+16px)]"
         >
           <strong className="text-[17px]">
             {NPCS.indexOf(sel) + 1}. {sel.nome}
@@ -197,33 +199,33 @@ export function Cidade() {
               : t(['Só conversa, sem menu.', 'Talk only, no menu.'])}
           </span>
           {sel.nivel > nivel && (
-            <span className="text-stop">
+            <span className="text-erro">
               {t(['Ainda não está na cidade neste nível.', 'Not in town yet at this level.'])}
             </span>
           )}
         </section>
-      </div>
 
-      <section className="grid gap-2">
-        <strong className="text-[17px]">{t(['Moradores', 'Townsfolk'])}</strong>
-        <ul className="m-0 grid list-none gap-1 p-0 sm:grid-cols-2">
-          {NPCS.map((n, i) => (
-            <li key={n.id}>
-              <button
-                type="button"
-                aria-pressed={sel === n}
-                onMouseEnter={() => setSel(n)}
-                onFocus={() => setSel(n)}
-                onClick={() => setSel(n)}
-                className={`${BOTAO} w-full text-left`}
-              >
-                {i + 1}. {n.nome} · {t(n.papel)}
-                {n.nivel > 1 ? ` · ${t(['nível', 'level'])} ${n.nivel}` : ''}
-              </button>
-            </li>
-          ))}
-        </ul>
-      </section>
+        <section className="grid basis-full gap-2 ultra:order-first">
+          <strong className="text-[17px]">{t(['Moradores', 'Townsfolk'])}</strong>
+          <ul className="m-0 grid list-none gap-1 p-0 sm:grid-cols-2 ultra:grid-cols-1">
+            {NPCS.map((n, i) => (
+              <li key={n.id}>
+                <button
+                  type="button"
+                  aria-pressed={sel === n}
+                  onMouseEnter={() => setSel(n)}
+                  onFocus={() => setSel(n)}
+                  onClick={() => setSel(n)}
+                  className={`${BOTAO} w-full text-left`}
+                >
+                  {i + 1}. {n.nome} · {t(n.papel)}
+                  {n.nivel > 1 ? ` · ${t(['nível', 'level'])} ${n.nivel}` : ''}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </section>
+      </div>
 
       <section className="grid gap-2">
         <strong className="text-[17px]">

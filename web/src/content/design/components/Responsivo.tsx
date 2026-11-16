@@ -124,7 +124,7 @@ const ALTURA_MAX = 760;
 // ---------- shared pieces ----------
 
 const BOTAO =
-  'min-h-11 cursor-pointer border border-borda bg-folha px-3.5 text-[15px] text-tinta hover:bg-lab-soft aria-pressed:border-tinta aria-pressed:bg-tinta aria-pressed:text-sobre-tinta';
+  'min-h-11 cursor-pointer border border-borda bg-folha px-3.5 text-[15px] text-tinta hover:bg-lab-soft aria-pressed:border-couro aria-pressed:bg-couro aria-pressed:text-sobre-tinta';
 
 function Escolha<T extends string>({
   rotulo,
@@ -240,7 +240,7 @@ function Selo({ cor, texto }: { cor: string; texto: string }) {
 const sigla = (curto: string) => curto.slice(0, 2);
 
 const LINHA =
-  'flex min-h-11 w-full cursor-pointer items-center gap-2.5 rounded-[3px] px-2.5 text-left text-tinta hover:bg-lab-soft aria-[current=page]:bg-tinta aria-[current=page]:text-sobre-tinta';
+  'flex min-h-11 w-full cursor-pointer items-center gap-2.5 rounded-[3px] px-2.5 text-left text-tinta hover:bg-lab-soft aria-[current=page]:bg-couro aria-[current=page]:text-sobre-tinta';
 
 /** The lab tree: the 5 labs, then the open lab's groups with the pages of the open group. */
 function Arvore({
@@ -439,7 +439,7 @@ function Casca({
             </button>
           ))}
         </nav>
-        <nav aria-label="Grupos" className="rr-faixa flex flex-none border-y border-borda bg-papel">
+        <nav aria-label="Grupos" className="rr-faixa flex flex-none border-y border-borda bg-pergaminho">
           {lab.s.grupos.map((x) => (
             <button
               key={x.id}
@@ -489,7 +489,7 @@ function Casca({
             type="button"
             aria-expanded={gaveta}
             onClick={() => setGaveta(true)}
-            className="min-h-11 min-w-11 cursor-pointer border border-borda bg-papel px-3 text-[16px]"
+            className="min-h-11 min-w-11 cursor-pointer border border-borda bg-pergaminho px-3 text-[16px]"
           >
             ☰ Menu
           </button>,
@@ -524,7 +524,7 @@ function Casca({
           type="button"
           aria-expanded={gaveta}
           onClick={() => setGaveta(!gaveta)}
-          className="order-last ml-auto min-h-11 flex-none cursor-pointer border border-borda bg-papel px-3 text-[16px]"
+          className="order-last ml-auto min-h-11 flex-none cursor-pointer border border-borda bg-pergaminho px-3 text-[16px]"
         >
           Páginas ▴
         </button>,
@@ -684,7 +684,7 @@ function TresPaineis({ f }: { f: Faixa }) {
               type="button"
               aria-pressed={i === sel}
               onClick={() => escolher(i)}
-              className="flex min-h-11 w-full cursor-pointer items-center gap-3 border border-borda bg-folha p-2.5 text-left text-[15px] text-tinta hover:bg-lab-soft aria-pressed:border-tinta aria-pressed:outline-3 aria-pressed:outline-lab"
+              className="flex min-h-11 w-full cursor-pointer items-center gap-3 border border-borda bg-folha p-2.5 text-left text-[15px] text-tinta hover:bg-lab-soft aria-pressed:border-couro aria-pressed:outline-3 aria-pressed:outline-lab"
             >
               <span className="flex-none p-1.5" style={{ background: FUNDOS[0]![1] }}>
                 <Icone i={i} e={2} />
@@ -750,7 +750,11 @@ function TresPaineis({ f }: { f: Faixa }) {
     return (
       <div className="flex h-full flex-col">
         {cabeca()}
-        <div role="tablist" aria-label="Painéis" className="grid flex-none grid-cols-3 border-b border-borda bg-papel">
+        <div
+          role="tablist"
+          aria-label="Painéis"
+          className="grid flex-none grid-cols-3 border-b border-borda bg-pergaminho"
+        >
           {ABAS.map(([id, nome]) => (
             <button
               key={id}
@@ -778,7 +782,7 @@ function TresPaineis({ f }: { f: Faixa }) {
             type="button"
             aria-expanded={gaveta}
             onClick={() => setGaveta(true)}
-            className="min-h-11 cursor-pointer border border-borda bg-papel px-3 text-[16px]"
+            className="min-h-11 cursor-pointer border border-borda bg-pergaminho px-3 text-[16px]"
           >
             ☰ Páginas
           </button>,
@@ -824,7 +828,7 @@ function Ultrawide() {
   );
 }
 
-// ---------- 3. dense page: the real expression bench, laid out per band in responsivo.css ----------
+// ---------- 3. dense page: the real expression bench, laid out by its own width (container queries in expressoes.css) ----------
 
 function Densa() {
   const [tam, setTam] = useState<Faixa['id']>('celular');
@@ -834,9 +838,7 @@ function Densa() {
       <Escolha rotulo="Tela" itens={TAMANHOS} valor={tam} onPick={setTam} />
       <Moldura f={f}>
         <Casca f={f} variante="inferior" inicio={{ lab: 'design', grupo: 'personagens', pagina: 'expressoes' }}>
-          <div className={`rr-expr rr-f-${f.id}`}>
-            <Expressoes />
-          </div>
+          <Expressoes />
         </Casca>
       </Moldura>
     </>
@@ -849,7 +851,10 @@ function Amostra({ f }: { f: Faixa }) {
   const colunas = f.paineis.startsWith('3') ? 3 : f.paineis.startsWith('2') ? 2 : 1;
   return (
     <div className="h-full overflow-y-auto bg-mar/40" style={{ padding: `0 ${f.margem}px` }}>
-      <div className="grid min-h-full content-start bg-papel" style={{ gap: f.espaco, padding: `${f.espaco + 8}px 0` }}>
+      <div
+        className="grid min-h-full content-start bg-pergaminho"
+        style={{ gap: f.espaco, padding: `${f.espaco + 8}px 0` }}
+      >
         <p className="m-0 text-apagado" style={{ fontSize: f.legenda }}>
           Margem lateral {f.margem} px (faixa azul) · espaço entre blocos {f.espaco} px
         </p>
@@ -859,8 +864,8 @@ function Amostra({ f }: { f: Faixa }) {
         <h2 className="m-0 font-serif leading-tight font-bold" style={{ fontSize: f.h2 }}>
           Seção, {f.h2} px
         </h2>
-        <p className="m-0 border-r-4 border-call" style={{ fontSize: f.base, maxWidth: f.leitura, lineHeight: 1.55 }}>
-          Corpo de texto em {f.base} px, preso em {f.leitura === '100%' ? 'toda a largura' : f.leitura} (a borda laranja
+        <p className="m-0 border-r-4 border-ouro" style={{ fontSize: f.base, maxWidth: f.leitura, lineHeight: 1.55 }}>
+          Corpo de texto em {f.base} px, preso em {f.leitura === '100%' ? 'toda a largura' : f.leitura} (a borda dourada
           marca onde a linha para). Linhas longas demais cansam a leitura: no monitor largo, o espaço que sobra vira
           painéis ao lado, não frases mais compridas. O lab mostra decisões, histórias e testes, então o texto precisa
           ler bem em qualquer tela.
@@ -909,7 +914,7 @@ function Tipografia() {
             1100 px (index.css, --breakpoint-desk).
           </caption>
           <thead>
-            <tr className="bg-terra">
+            <tr className="bg-pergaminho-escuro">
               {[
                 'Faixa',
                 'Larguras',
@@ -1011,7 +1016,7 @@ export function RedesignResponsivo() {
       <Secao
         id="tema-e-tipografia"
         titulo="4. Tema e tipografia"
-        nota="Escala de texto, espaçamento e largura de leitura por faixa de tela. Só modo claro, com as cores de hoje (papel, folha, tinta, apagado, borda e a cor de cada lab). O desktop mantém os números da casca atual."
+        nota="Escala de texto, espaçamento e largura de leitura por faixa de tela. Só modo claro, com as cores do tema Ouro e couro (pergaminho, folha, tinta, apagado, ouro e a cor de cada lab). O desktop mantém os números da casca atual."
         recomendacao={[
           '5 faixas com cortes em 640, 1024, 1440 e 2560 px; corpo de 16 a 18 px, nunca texto abaixo de 14 px, e alvo de toque de 44 px em toda faixa.',
           'Texto corrido preso em 72 caracteres em qualquer tela: a largura extra vira painéis, não linhas mais longas.',

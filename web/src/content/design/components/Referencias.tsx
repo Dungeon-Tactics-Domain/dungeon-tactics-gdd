@@ -99,7 +99,7 @@ export function VisaoGeral() {
 
 export function Jogo({ slug }: { slug: string }) {
   const g = jogo(slug);
-  if (!g) return <p className="m-0 text-stop">Jogo desconhecido: {slug}</p>;
+  if (!g) return <p className="m-0 text-erro">Jogo desconhecido: {slug}</p>;
   return (
     <>
       <p className="m-0 max-w-[72ch]">
@@ -124,7 +124,7 @@ export function CapturasJogo({ slug, bloco }: { slug: string; bloco: number }) {
   const c = g && blocos(g)[bloco - 1];
   if (!g || !c)
     return (
-      <p className="m-0 text-stop">
+      <p className="m-0 text-erro">
         Bloco desconhecido: {slug} {bloco}
       </p>
     );
