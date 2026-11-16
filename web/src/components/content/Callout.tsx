@@ -14,7 +14,7 @@ export function Callout({
   return (
     <div
       className={cn(
-        'grid gap-3 border border-borda bg-folha px-5 py-4',
+        'grid max-w-[110ch] gap-3 border border-borda bg-folha px-5 py-4',
         tom === 'destaque' && 'border-t-[6px] border-t-lab',
         tom === 'aviso' && 'border-dashed border-traco bg-folha',
       )}
