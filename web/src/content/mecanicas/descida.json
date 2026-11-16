@@ -29,13 +29,13 @@
     },
     {
       "regra": "Quanto dano o grupo tira por turno de herói",
-      "valor": "cerca de 12,8 de vida inimiga por turno de herói",
+      "valor": "cerca de 12,8 de vida inimiga por turno de herói (vida na escala antiga; o jogo usa x5 (minion 120): cerca de 64; os turnos não mudam)",
       "origem": "dedução: Escaramuça mede 14,9 turnos de herói para 190 de vida inimiga (soldado 45 + arqueiro esqueleto 33 + mago sombrio 30 + bruto 82), 81% de vitória. É IA contra IA, conta também as derrotas; dano contra o chefe parado não foi medido. No Bosque das Cinzas, maior e com os lados mais longe, a mesma vida (190) leva 20,2 turnos: cerca de 9,4 por turno. Por isso a distância inicial abaixo fica curta"
     },
     {
       "regra": "Vida inimiga somada por sala",
-      "valor": "64 a 102 (5 a 8 turnos x 12,8)",
-      "origem": "dedução da linha acima"
+      "valor": "64 a 102 (5 a 8 turnos x 12,8); vida na escala antiga; o jogo usa x5 (minion 120): 320 a 510",
+      "origem": "dedução da linha acima; auditoria lab × jogo de 16/11; jogo: src/content/units.ts:12, :112, :154"
     },
     {
       "regra": "Inimigos por sala",
@@ -49,7 +49,7 @@
     },
     {
       "regra": "Dificuldade por andar",
-      "valor": "a vida somada fica parecida (71 a 88); o andar muda o papel: andar 1 ensina (lacaios, arqueiro com escolta), andar 2 junta papéis, andar 3 traz cura inimiga e tropa mista",
+      "valor": "a vida somada fica parecida (71 a 88; vida na escala antiga; o jogo usa x5 (minion 120): 355 a 440); o andar muda o papel: andar 1 ensina (lacaios, arqueiro com escolta), andar 2 junta papéis, andar 3 traz cura inimiga e tropa mista",
       "origem": "proposta; afinar jogando (o simulador é opcional)"
     },
     {
@@ -93,7 +93,7 @@
       "nome": "Acólito que cura",
       "andar": 3,
       "inimigos": ["soldier", "acolyte"],
-      "papel": "derrubar o acólito primeiro (cura 12 a 18 a cada 4 de carga)"
+      "papel": "derrubar o acólito primeiro (cura 12 a 18 a cada 4 de carga; no jogo, x5: 60 a 90)"
     },
     {
       "nome": "Tropa do Véu",
@@ -105,13 +105,13 @@
   "chefe": [
     {
       "regra": "Chefe do MVP",
-      "valor": "Colosso de Ossos (160 de vida, ocupa 4x4 meias casas, não anda, Onda Sombria e Explosão) + 1 lacaio",
-      "origem": "src/content/units.ts (colossus e minion) em e49ddb6; já existe no jogo, sem motor novo"
+      "valor": "Colosso de Ossos (160 de vida; vida na escala antiga; o jogo usa x5 (minion 120): 800; ocupa 4x4 meias casas, não anda, Onda Sombria e Explosão) + 1 lacaio",
+      "origem": "src/content/units.ts (colossus e minion) em e49ddb6; já existe no jogo, sem motor novo; auditoria lab × jogo de 16/11; jogo: src/content/units.ts:112, :154"
     },
     {
       "regra": "Duração alvo",
-      "valor": "12 a 18 turnos de herói: 184 de vida, cerca de 14 turnos, mais 2 a 3 de aproximação",
-      "origem": "proposta (cerca de 2 salas); 184 ÷ 12,8 é dedução. Com 2 lacaios e o mapa maior passaria de 18"
+      "valor": "12 a 18 turnos de herói: 184 de vida, cerca de 14 turnos, mais 2 a 3 de aproximação (vida na escala antiga; o jogo usa x5 (minion 120): 920 de vida, os mesmos turnos)",
+      "origem": "proposta (cerca de 2 salas); 184 ÷ 12,8 é dedução. Com 2 lacaios e o mapa maior passaria de 18; auditoria lab × jogo de 16/11; jogo: src/content/units.ts:112, :154"
     },
     {
       "regra": "Sala do chefe",
@@ -127,8 +127,8 @@
     },
     {
       "regra": "Depois da vitória",
-      "valor": "quem caiu volta com 25% da vida máxima, arredondado para cima (guerreiro 42 → 11, mago 24 → 6)",
-      "origem": "decisão 34 (25%); arredondar para cima é proposta do lab"
+      "valor": "quem caiu volta com 25% da vida máxima, arredondado para cima (guerreiro 42 → 11, mago 24 → 6; vida na escala antiga; o jogo usa x5 (minion 120): guerreiro 210 → 53, mago 120 → 30)",
+      "origem": "decisão 34 (25%); arredondar para cima é proposta do lab; auditoria lab × jogo de 16/11; jogo: src/content/units.ts:12, :33"
     },
     {
       "regra": "Quem não caiu",
@@ -142,8 +142,8 @@
     },
     {
       "regra": "Cura dentro da descida",
-      "valor": "em batalha, a Cura do mago herói (12 a 18); depois de cada sala vencida, quem ficou de pé recupera 25% da vida máxima; ao descer de andar, todo herói recupera mais 50%; nunca passa do máximo",
-      "origem": "src/content/abilities.ts (heal) em e49ddb6; 25% por sala e 50% por andar decididos pelo Fernando em 15/11, provisório até o acampamento voltar; quem caiu não ganha os 25% da sala (Fernando, 15/11)"
+      "valor": "em batalha, a Cura do mago herói (12 a 18; no jogo, x5: 60 a 90); depois de cada sala vencida, quem ficou de pé recupera 25% da vida máxima; ao descer de andar, todo herói recupera mais 50%; nunca passa do máximo",
+      "origem": "src/content/abilities.ts (heal) em e49ddb6; auditoria lab × jogo de 16/11; jogo: src/content/abilities.ts:109; 25% por sala e 50% por andar decididos pelo Fernando em 15/11, provisório até o acampamento voltar; quem caiu não ganha os 25% da sala (Fernando, 15/11)"
     },
     {
       "regra": "Grupo inteiro caído",
@@ -189,8 +189,8 @@
     },
     {
       "regra": "Espinhos",
-      "valor": "0 a 6 casas de espinho (o mapa tem mais área), longe das posições iniciais; servem de alvo para empurrão (10 de dano)",
-      "origem": "SPIKE_DAMAGE 10 em src/shared/battle/combat.ts"
+      "valor": "0 a 6 casas de espinho (o mapa tem mais área), longe das posições iniciais; servem de alvo para empurrão (10 de dano na escala antiga; no jogo, x5: 50)",
+      "origem": "auditoria lab × jogo de 16/11; jogo: src/shared/battle/combat.ts:53 (SPIKE_DAMAGE 50)"
     },
     {
       "regra": "Linha de tiro",

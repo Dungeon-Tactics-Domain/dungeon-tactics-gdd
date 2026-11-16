@@ -8,8 +8,8 @@
     },
     {
       "regra": "Acerto",
-      "valor": "como hoje (precisão − 3 por casa além da 1ª + 5 por nível acima − 20 de cobertura + 15 de lado / 30 pelas costas (físico e magia) + acerto da peça, de 5% a 95%), depois × (1 − esquiva × direção)",
-      "origem": "grill de 15/11 com o Fernando (combat.ts hitChance)"
+      "valor": "como hoje (precisão − 3 por casa além da 1ª + 5 por nível acima − 20 de cobertura + 15 de lado / 30 pelas costas (físico e magia)), cortado entre 5% e 95%; depois + acerto da peça, com teto de 95%; depois × (1 − esquiva × direção), arredondado meio para cima em inteiros, nunca abaixo de 5% (a ordem do jogo)",
+      "origem": "grill de 15/11 com o Fernando (combat.ts hitChance); piso de 5% depois da esquiva é escolha do Fernando de 15/11; auditoria lab × jogo de 16/11; jogo: src/shared/battle/combat.ts:111-120, :153-157, :218-222"
     },
     {
       "regra": "Direção da esquiva",
@@ -28,17 +28,17 @@
     },
     {
       "regra": "Dano",
-      "valor": "sorteio da faixa da habilidade + poder físico (marcial) ou mágico (magia) nas duas pontas, depois × (1 − resistência física ou mágica) × (1 − resistência do elemento); arredonda para baixo como hoje, mínimo 1; contra-ataque × 0,5",
-      "origem": "grill de 15/11 com o Fernando (resistências em % que multiplicam); arredondar para baixo é o de hoje (combat.ts, Math.floor)"
+      "valor": "sorteio da faixa da habilidade + poder físico (marcial) ou mágico (magia) nas duas pontas, depois × (1 − resistência física ou mágica) × (1 − resistência do elemento); contra-ataque × 0,5; fogo amigo × 0,5 (golpe no próprio lado, Fernando, 15/11); um arredondamento só, para baixo, no fim (depois das resistências, do contra-ataque e do fogo amigo), mínimo 1",
+      "origem": "grill de 15/11 com o Fernando (resistências em % que multiplicam); auditoria lab × jogo de 16/11; jogo: src/shared/battle/combat.ts:64-66, :138-151"
     },
     {
       "regra": "Limites da resistência",
-      "valor": "de −100% a 60% cada uma (nunca imune; o teto baixo segura empilhar peças)",
+      "valor": "de −100% a 60% cada uma (nunca imune; o teto baixo segura empilhar peças). decisão pendente do Fernando (16/11): a penalidade de carga entra antes ou depois do teto de 60? Hoje o jogo soma o −50 à ficha e corta uma vez só (units.ts:40-41)",
       "origem": "proposta do lab (15/11)"
     },
     {
       "regra": "Carregando",
-      "valor": "enquanto carrega: −50 de resistência física e −25 de mágica (substitui o ×1,5 de hoje)",
+      "valor": "enquanto carrega: −50 de resistência física e −25 de mágica (substitui o ×1,5 de hoje). decisão pendente do Fernando (16/11): somar antes ou depois do teto de 60 (ver Limites da resistência)",
       "origem": "grill de 15/11 com o Fernando"
     },
     {
@@ -53,7 +53,7 @@
     },
     {
       "regra": "Mana e stamina",
-      "valor": "magia gasta mana, habilidade marcial gasta stamina; o ataque básico (1º da lista) e o contra-ataque não gastam; a carga continua",
+      "valor": "magia gasta mana, habilidade marcial gasta stamina; o ataque básico (1º da lista) e o contra-ataque não gastam; a carga continua. Hoje o jogo paga o custo ao declarar a carga (battle.ts:143). decisão pendente do Fernando (16/11): devolver ou não a mana ou stamina de uma carga que não dispara (conjurador morto ou carga trocada por outra)",
       "origem": "grill de 15/11 com o Fernando"
     },
     {
@@ -73,8 +73,8 @@
     },
     {
       "regra": "Cura",
-      "valor": "cura ignora resistências e fraquezas (a Cura de luz não fere nem cura mais um esqueleto)",
-      "origem": "proposta do lab (15/11)"
+      "valor": "cura ignora resistências e fraquezas; em morto-vivo a cura fere pela metade do valor sorteado (sem resistência, sem errar); cura no lado inimigo vale metade (fogo amigo)",
+      "origem": "proposta do lab (15/11); morto-vivo pela metade decidido pelo Fernando em 15/11; auditoria lab × jogo de 16/11; jogo: src/shared/battle/combat.ts:67, :106, :335-339"
     },
     {
       "regra": "Ataque básico do Colosso",
@@ -239,7 +239,7 @@
       "resFisica": 30,
       "resMagica": 20,
       "esquiva": 0,
-      "elementos": "sombra +75, luz −50"
+      "elementos": "sombra +75 (decisão pendente do Fernando (16/11): 75 da ficha ou o teto de 60; o jogo usa 60, units.ts:160-161), luz −50"
     }
   ],
   "habilidades": [

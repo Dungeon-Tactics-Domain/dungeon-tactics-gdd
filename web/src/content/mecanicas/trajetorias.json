@@ -51,12 +51,12 @@
   },
   {
     "regra": "Escala e ponto de saída",
-    "valor": "Meia casa mede 1 m (a casa inteira, 2 m) e cada nível de altura, 1 m. O tiro sai do centro da casa do atacante a 1,5 m do chão dele (meio do segundo nível de altura) e mira o mesmo ponto na casa do alvo. Unidades têm cerca de 1,8 m. Na reta em chão plano, um muro de 1 m não para o tiro e um de 2 m para.",
-    "origem": "grill de trajetórias de 15/11 com o Fernando"
+    "valor": "Meia casa mede 1 m (a casa inteira, 2 m) e cada nível de altura, 1 m. O tiro sai do centro da casa do atacante a 1,5 m do chão dele (meio do segundo nível de altura) e mira o mesmo ponto na casa do alvo; na água funda, 1,5 m acima da superfície; unidade grande (Colosso), da casa dela mais perto do alvo. Unidades têm cerca de 1,8 m. Na reta em chão plano, um muro de 1 m não para o tiro e um de 2 m para.",
+    "origem": "grill de trajetórias de 15/11 com o Fernando; água funda e unidade grande: auditoria lab × jogo de 16/11; jogo: src/shared/battle/pathing.ts:320-328, :420-429"
   },
   {
     "regra": "Bloqueio realista",
-    "valor": "Tudo o que cruza o caminho bloqueia: coluna de terreno, muro ou corpo de outra unidade. Não há exceção de casa vizinha ou de qualquer outra casa; só os corpos do atacante e do alvo são ignorados. Vale igual para reta e curva, na mesma função de caminho e colisão da prévia e do voo.",
-    "origem": "grill de trajetórias de 15/11 com o Fernando"
+    "valor": "Tudo o que cruza o caminho bloqueia: coluna de terreno, muro ou outra unidade viva; o cadáver é objeto baixo e bloqueia 1 nível, como um caixote. Não há exceção de casa vizinha ou de qualquer outra casa; só o atacante e o alvo são ignorados. Vale igual para reta e curva, na mesma função de caminho e colisão da prévia e do voo.",
+    "origem": "grill de trajetórias de 15/11 com o Fernando; cadáver: auditoria lab × jogo de 16/11; jogo: src/shared/battle/grid.ts:15-18"
   }
 ]
