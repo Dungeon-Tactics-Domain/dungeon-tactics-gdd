@@ -2,9 +2,8 @@
 // "Fichas de classes e inimigos" page never drifts from the game.
 //
 // How it works:
-// 1. `git show origin/master:<path>` copies the game's data files (units, abilities, party, the unit registry) into a
-//    temp folder with their relative paths, and Node 25 imports them as TypeScript (it strips types natively; the
-//    files only use `import type`, so no other game module is needed).
+// 1. `lerJogo` (jogo.mjs) copies the game's data files (units, abilities, party, the unit registry) from origin/master
+//    into a temp folder and imports them as TypeScript.
 // 2. The few engine numbers it needs (default jump, charging and dodge shares, undead heal) are read from pathing.ts and
 //    combat.ts with a regex; a missing match stops the script, so a rename in the game cannot pass silently.
 // 3. Classes are the game's JOBS (party.ts); enemies are every other unit except the Beacon (OBJECTIVE_DEF).
@@ -17,39 +16,27 @@
 //   git -C D:/Projetos/dungeon-tactics fetch origin
 //   node scripts/mecanicas/fichas.mjs D:/Projetos/dungeon-tactics
 //   npx prettier --write src/content/mecanicas/fichas.json
-import { execFileSync } from 'node:child_process';
-import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
-import { tmpdir } from 'node:os';
+import { readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
-import { fileURLToPath, pathToFileURL } from 'node:url';
+import { fileURLToPath } from 'node:url';
+import { ELEMENTO, faixa, lerJogo } from './jogo.mjs';
 
 const JOGO = process.argv[2] ?? 'D:/Projetos/dungeon-tactics';
 const AQUI = dirname(fileURLToPath(import.meta.url));
 const SAIDA = join(AQUI, '../../src/content/mecanicas/fichas.json');
 const LAB = JSON.parse(readFileSync(join(AQUI, '../../src/content/mecanicas/equipamento.json'), 'utf8'));
 
-const git = (...a) => execFileSync('git', ['-C', JOGO, ...a], { encoding: 'utf8' });
-const commit = git('rev-parse', 'origin/master').trim();
-const show = (p) => git('show', `origin/master:${p}`);
-
-const tmp = mkdtempSync(join(tmpdir(), 'fichas-'));
 const ARQUIVOS = [
   'src/content/units.ts',
   'src/content/abilities.ts',
   'src/content/party.ts',
   'src/shared/battle/units.ts',
 ];
-writeFileSync(join(tmp, 'package.json'), '{"type":"module"}');
-for (const p of ARQUIVOS) {
-  mkdirSync(dirname(join(tmp, p)), { recursive: true });
-  writeFileSync(join(tmp, p), show(p));
-}
-const carregar = (p) => import(pathToFileURL(join(tmp, p)).href);
-const { UNIT_LIST } = await carregar('src/content/units.ts');
-const { ABILITY_LIST } = await carregar('src/content/abilities.ts');
-const { JOBS } = await carregar('src/content/party.ts');
-const { OBJECTIVE_DEF } = await carregar('src/shared/battle/units.ts');
-rmSync(tmp, { recursive: true, force: true });
+const {
+  commit,
+  show,
+  modulos: [{ UNIT_LIST }, { ABILITY_LIST }, { JOBS }, { OBJECTIVE_DEF }],
+} = await lerJogo(JOGO, ARQUIVOS);
 
 const numero = (fonte, re, nome) => {
   const m = re.exec(fonte);
@@ -64,11 +51,9 @@ const [CARGA_MAG] = numero(combat, /CHARGING_MAG: (\d+)/, 'CHARGING_MAG');
 const [LADO, COSTAS] = numero(combat, /DODGE_BY_SIDE: \{ front: \d+, side: (\d+), back: (\d+) \}/, 'DODGE_BY_SIDE');
 const [CURA_MORTO] = numero(combat, /UNDEAD_HEAL: ([\d.]+)/, 'UNDEAD_HEAL');
 
-const ELEMENTO = { fire: 'fogo', ice: 'gelo', lightning: 'raio', shadow: 'sombra', wind: 'vento', light: 'luz' };
 const RESIST = { phys: 'física', mag: 'mágica', ...ELEMENTO };
 const HAB = Object.fromEntries(ABILITY_LIST.map((a) => [a.id, a]));
 const ataca = (a) => a.damage[1] > 0;
-const faixa = ([a, b]) => (a === b ? `${a}` : `${a}–${b}`);
 const lista = (xs) => xs.join(', ');
 const casas = (n) => (n === 1 ? '1 casa' : `${n} casas`);
 // a resistance as the change in damage taken: 25 → −25%, −10 → +10%

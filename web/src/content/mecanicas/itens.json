@@ -1,0 +1,162 @@
+{
+  "fonte": {
+    "repositorio": "dungeon-tactics",
+    "commit": "7ccdadc1ca9a9457ae4f6807415adff415371bc0",
+    "arquivos": [
+      "src/content/items.ts",
+      "src/shared/battle/equipment.ts",
+      "src/client/chest.ts",
+      "src/client/town-ui.ts"
+    ],
+    "espacos": ["arma", "armadura", "acessório"],
+    "semCampos": "o jogo ainda não tem raridade, resistência em %, esquiva, mana, stamina, regeneração nem os espaços do lab além de arma, armadura e acessório",
+    "semClasse": "o jogo não restringe peça por classe: confere só o espaço e o baú"
+  },
+  "itens": [
+    {
+      "id": "iron_blade",
+      "nome": "Lâmina de ferro",
+      "en": "Iron blade",
+      "espaco": "arma",
+      "preco": 120,
+      "atributos": { "poder físico": 10 },
+      "quem": ["Guerreiro", "Arqueiro", "Mago", "Ladino", "Lanceiro"]
+    },
+    {
+      "id": "hunter_bow",
+      "nome": "Arco de caça",
+      "en": "Hunter bow",
+      "espaco": "arma",
+      "preco": 140,
+      "atributos": { "poder físico": 5, "acerto": 8 },
+      "quem": ["Guerreiro", "Arqueiro", "Mago", "Ladino", "Lanceiro"]
+    },
+    {
+      "id": "ash_staff",
+      "nome": "Cajado de freixo",
+      "en": "Ash staff",
+      "espaco": "arma",
+      "preco": 150,
+      "atributos": { "poder mágico": 15 },
+      "quem": ["Guerreiro", "Arqueiro", "Mago", "Ladino", "Lanceiro"]
+    },
+    {
+      "id": "leather_vest",
+      "nome": "Gibão de couro",
+      "en": "Leather vest",
+      "espaco": "armadura",
+      "preco": 100,
+      "atributos": { "vida": 30 },
+      "quem": ["Guerreiro", "Arqueiro", "Mago", "Ladino", "Lanceiro"]
+    },
+    {
+      "id": "chain_mail",
+      "nome": "Cota de malha",
+      "en": "Chain mail",
+      "espaco": "armadura",
+      "preco": 220,
+      "atributos": { "vida": 60, "velocidade": -1 },
+      "quem": ["Guerreiro", "Arqueiro", "Mago", "Ladino", "Lanceiro"]
+    },
+    {
+      "id": "warded_robe",
+      "nome": "Manto guardado",
+      "en": "Warded robe",
+      "espaco": "armadura",
+      "preco": 160,
+      "atributos": { "vida": 40 },
+      "quem": ["Guerreiro", "Arqueiro", "Mago", "Ladino", "Lanceiro"]
+    },
+    {
+      "id": "swift_boots",
+      "nome": "Botas ligeiras",
+      "en": "Swift boots",
+      "espaco": "acessório",
+      "preco": 200,
+      "atributos": { "movimento": 1 },
+      "quem": ["Guerreiro", "Arqueiro", "Mago", "Ladino", "Lanceiro"]
+    },
+    {
+      "id": "spring_greaves",
+      "nome": "Grevas de mola",
+      "en": "Spring greaves",
+      "espaco": "acessório",
+      "preco": 180,
+      "atributos": { "salto": 1 },
+      "quem": ["Guerreiro", "Arqueiro", "Mago", "Ladino", "Lanceiro"]
+    },
+    {
+      "id": "quick_charm",
+      "nome": "Amuleto ligeiro",
+      "en": "Quick charm",
+      "espaco": "acessório",
+      "preco": 240,
+      "atributos": { "velocidade": 1 },
+      "quem": ["Guerreiro", "Arqueiro", "Mago", "Ladino", "Lanceiro"]
+    }
+  ],
+  "soNoLab": [
+    {
+      "nome": "Lança do vigia",
+      "espaco": "mão principal",
+      "raridade": "rara",
+      "atributos": "+30 poder físico, +5 acerto"
+    },
+    {
+      "nome": "Cetro da brasa",
+      "espaco": "mão principal",
+      "raridade": "épica",
+      "atributos": "+40 poder mágico, +40% fogo, +3 regen de mana, −20% gelo"
+    },
+    { "nome": "Broquel", "espaco": "mão secundária", "raridade": "comum", "atributos": "+10% física, +5% esquiva" },
+    {
+      "nome": "Grimório gasto",
+      "espaco": "mão secundária",
+      "raridade": "comum",
+      "atributos": "+20 mana, +3 regen de mana"
+    },
+    {
+      "nome": "Aljava de couro",
+      "espaco": "mão secundária",
+      "raridade": "rara",
+      "atributos": "+20 poder físico, +5 acerto, +20 stamina"
+    },
+    {
+      "nome": "Escudo do Véu",
+      "espaco": "mão secundária",
+      "raridade": "épica",
+      "atributos": "+30% física, +30% mágica, +40% sombra, −1 velocidade"
+    },
+    { "nome": "Capuz", "espaco": "capacete", "raridade": "comum", "atributos": "+5% esquiva, +5 acerto" },
+    { "nome": "Elmo de ferro", "espaco": "capacete", "raridade": "comum", "atributos": "+10% física, +25 vida" },
+    {
+      "nome": "Tiara da aurora",
+      "espaco": "capacete",
+      "raridade": "rara",
+      "atributos": "+10% mágica, +40% luz, +3 regen de mana"
+    },
+    {
+      "nome": "Couraça do colosso",
+      "espaco": "corpo",
+      "raridade": "épica",
+      "atributos": "+30% física, +125 vida, +5 regen de vida, −1 movimento"
+    },
+    { "nome": "Calças acolchoadas", "espaco": "pernas", "raridade": "comum", "atributos": "+10% física, +25 vida" },
+    { "nome": "Anel de brasa", "espaco": "acessório", "raridade": "comum", "atributos": "+20% fogo, +10 poder mágico" },
+    { "nome": "Pedra-do-sono", "espaco": "acessório", "raridade": "comum", "atributos": "+5 regen de vida, +25 vida" },
+    { "nome": "Talismã de osso", "espaco": "acessório", "raridade": "rara", "atributos": "+40% sombra, +20% mágica" }
+  ],
+  "diferencas": [
+    { "onde": "Lâmina de ferro", "campo": "poder físico", "lab": 20, "jogo": 10 },
+    { "onde": "Arco de caça", "campo": "poder físico", "lab": 10, "jogo": 5 },
+    { "onde": "Arco de caça", "campo": "acerto", "lab": 5, "jogo": 8 },
+    { "onde": "Cajado de freixo", "campo": "poder mágico", "lab": 20, "jogo": 15 },
+    { "onde": "Gibão de couro", "campo": "vida", "lab": 25, "jogo": 30 },
+    { "onde": "Cota de malha", "campo": "vida", "lab": 50, "jogo": 60 },
+    { "onde": "Cota de malha", "campo": "velocidade", "lab": 0, "jogo": -1 },
+    { "onde": "Manto guardado", "campo": "vida", "lab": 25, "jogo": 40 },
+    { "onde": "Grevas de mola", "campo": "espaço", "lab": "pernas", "jogo": "acessório" },
+    { "onde": "Botas ligeiras", "campo": "espaço", "lab": "pernas", "jogo": "acessório" },
+    { "onde": "Amuleto ligeiro", "campo": "acerto", "lab": 5, "jogo": 0 }
+  ]
+}

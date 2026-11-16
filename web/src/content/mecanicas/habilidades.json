@@ -1,0 +1,357 @@
+{
+  "fonte": {
+    "repositorio": "dungeon-tactics",
+    "commit": "7ccdadc1ca9a9457ae4f6807415adff415371bc0",
+    "arquivos": [
+      "src/content/abilities.ts",
+      "src/content/units.ts",
+      "src/content/party.ts",
+      "src/shared/battle/combat.ts"
+    ],
+    "semCusto": "nenhum: nenhuma habilidade do jogo tem custo, ainda não há mana nem stamina"
+  },
+  "unidades": {
+    "warrior": ["strike", "heavy_strike", "shield_bash", "spin"],
+    "archer": ["shot", "aimed_shot", "knock_shot", "dagger"],
+    "mage": ["firebolt", "blast", "gust", "heal"],
+    "rogue": ["stab", "throwing_knife", "trip", "deathblow"],
+    "soldier": ["strike", "shield_bash"],
+    "skeleton_archer": ["shot", "dagger"],
+    "dark_mage": ["firebolt", "blast"],
+    "lancer": ["lance", "sweep", "lance_jump"],
+    "brute": ["cleave", "slam"],
+    "minion": ["stab", "trip"],
+    "acolyte": ["firebolt", "heal"],
+    "veil_knight": ["strike", "heavy_strike"],
+    "colossus": ["shadow_wave", "blast"]
+  },
+  "habilidades": [
+    {
+      "id": "strike",
+      "nome": "Golpe",
+      "en": "Strike",
+      "alcance": "1",
+      "dano": "50–80",
+      "acerto": 90,
+      "tipo": "físico",
+      "distancia": "corpo a corpo",
+      "linhaDeVisao": false,
+      "quem": [
+        { "nome": "Guerreiro", "grupo": "classe" },
+        { "nome": "Soldado", "grupo": "inimigo" },
+        { "nome": "Cavaleiro do Véu", "grupo": "inimigo" }
+      ]
+    },
+    {
+      "id": "heavy_strike",
+      "nome": "Golpe pesado",
+      "en": "Heavy strike",
+      "alcance": "1",
+      "dano": "95–130",
+      "acerto": 75,
+      "tipo": "físico",
+      "distancia": "corpo a corpo",
+      "linhaDeVisao": false,
+      "quem": [
+        { "nome": "Guerreiro", "grupo": "classe" },
+        { "nome": "Cavaleiro do Véu", "grupo": "inimigo" }
+      ]
+    },
+    {
+      "id": "shield_bash",
+      "nome": "Escudada",
+      "en": "Shield bash",
+      "alcance": "1",
+      "dano": "20–25",
+      "acerto": 95,
+      "empurra": 2,
+      "tipo": "físico",
+      "distancia": "corpo a corpo",
+      "linhaDeVisao": false,
+      "quem": [
+        { "nome": "Guerreiro", "grupo": "classe" },
+        { "nome": "Soldado", "grupo": "inimigo" }
+      ]
+    },
+    {
+      "id": "spin",
+      "nome": "Giro",
+      "en": "Spin",
+      "alcance": "0",
+      "dano": "35–50",
+      "acerto": 85,
+      "raio": 1,
+      "tipo": "físico",
+      "distancia": "corpo a corpo",
+      "linhaDeVisao": false,
+      "quem": [{ "nome": "Guerreiro", "grupo": "classe" }]
+    },
+    {
+      "id": "shot",
+      "nome": "Tiro",
+      "en": "Shot",
+      "alcance": "2–6",
+      "sobeComAltura": true,
+      "dano": "45–70",
+      "acerto": 85,
+      "tipo": "físico",
+      "distancia": "à distância",
+      "linhaDeVisao": true,
+      "quem": [
+        { "nome": "Arqueiro", "grupo": "classe" },
+        { "nome": "Arqueiro esqueleto", "grupo": "inimigo" }
+      ]
+    },
+    {
+      "id": "aimed_shot",
+      "nome": "Tiro mirado",
+      "en": "Aimed shot",
+      "alcance": "2–6",
+      "sobeComAltura": true,
+      "dano": "80–105",
+      "acerto": 90,
+      "carga": 4,
+      "travaNaCasa": true,
+      "tipo": "físico",
+      "distancia": "à distância",
+      "linhaDeVisao": true,
+      "quem": [{ "nome": "Arqueiro", "grupo": "classe" }]
+    },
+    {
+      "id": "knock_shot",
+      "nome": "Tiro de recuo",
+      "en": "Knockback shot",
+      "alcance": "2–4",
+      "sobeComAltura": true,
+      "dano": "25–35",
+      "acerto": 85,
+      "empurra": 1,
+      "tipo": "físico",
+      "distancia": "à distância",
+      "linhaDeVisao": true,
+      "quem": [{ "nome": "Arqueiro", "grupo": "classe" }]
+    },
+    {
+      "id": "dagger",
+      "nome": "Adaga",
+      "en": "Dagger",
+      "alcance": "1",
+      "dano": "25–35",
+      "acerto": 90,
+      "tipo": "físico",
+      "distancia": "corpo a corpo",
+      "linhaDeVisao": false,
+      "quem": [
+        { "nome": "Arqueiro", "grupo": "classe" },
+        { "nome": "Arqueiro esqueleto", "grupo": "inimigo" }
+      ]
+    },
+    {
+      "id": "firebolt",
+      "nome": "Raio de fogo",
+      "en": "Firebolt",
+      "alcance": "2–5",
+      "sobeComAltura": true,
+      "dano": "50–80",
+      "acerto": 90,
+      "tipo": "magia",
+      "distancia": "à distância",
+      "linhaDeVisao": true,
+      "elemento": "fogo",
+      "quem": [
+        { "nome": "Mago", "grupo": "classe" },
+        { "nome": "Mago sombrio", "grupo": "inimigo" },
+        { "nome": "Acólito do Véu", "grupo": "inimigo" }
+      ]
+    },
+    {
+      "id": "blast",
+      "nome": "Explosão",
+      "en": "Blast",
+      "alcance": "2–5",
+      "sobeComAltura": true,
+      "dano": "45–70",
+      "acerto": 85,
+      "raio": 1,
+      "carga": 4,
+      "tipo": "magia",
+      "distancia": "à distância",
+      "linhaDeVisao": true,
+      "elemento": "fogo",
+      "quem": [
+        { "nome": "Mago", "grupo": "classe" },
+        { "nome": "Mago sombrio", "grupo": "inimigo" },
+        { "nome": "Colosso de Ossos", "grupo": "inimigo" }
+      ]
+    },
+    {
+      "id": "gust",
+      "nome": "Rajada",
+      "en": "Gust",
+      "alcance": "1–4",
+      "dano": "10–20",
+      "acerto": 85,
+      "empurra": 2,
+      "carga": 4,
+      "tipo": "magia",
+      "distancia": "à distância",
+      "linhaDeVisao": true,
+      "elemento": "vento",
+      "quem": [{ "nome": "Mago", "grupo": "classe" }]
+    },
+    {
+      "id": "heal",
+      "nome": "Cura",
+      "en": "Heal",
+      "alcance": "1–4",
+      "cura": "60–90",
+      "acerto": 100,
+      "carga": 4,
+      "tipo": "magia",
+      "distancia": "à distância",
+      "linhaDeVisao": true,
+      "elemento": "luz",
+      "quem": [
+        { "nome": "Mago", "grupo": "classe" },
+        { "nome": "Acólito do Véu", "grupo": "inimigo" }
+      ]
+    },
+    {
+      "id": "stab",
+      "nome": "Facada",
+      "en": "Stab",
+      "alcance": "1",
+      "dano": "45–60",
+      "acerto": 95,
+      "tipo": "físico",
+      "distancia": "corpo a corpo",
+      "linhaDeVisao": false,
+      "quem": [
+        { "nome": "Ladino", "grupo": "classe" },
+        { "nome": "Lacaio esqueleto", "grupo": "inimigo" }
+      ]
+    },
+    {
+      "id": "throwing_knife",
+      "nome": "Faca arremessada",
+      "en": "Throwing knife",
+      "alcance": "2–4",
+      "sobeComAltura": true,
+      "dano": "35–50",
+      "acerto": 85,
+      "tipo": "físico",
+      "distancia": "à distância",
+      "linhaDeVisao": true,
+      "quem": [{ "nome": "Ladino", "grupo": "classe" }]
+    },
+    {
+      "id": "trip",
+      "nome": "Rasteira",
+      "en": "Trip",
+      "alcance": "1",
+      "dano": "20–25",
+      "acerto": 90,
+      "empurra": 1,
+      "tipo": "físico",
+      "distancia": "corpo a corpo",
+      "linhaDeVisao": false,
+      "quem": [
+        { "nome": "Ladino", "grupo": "classe" },
+        { "nome": "Lacaio esqueleto", "grupo": "inimigo" }
+      ]
+    },
+    {
+      "id": "deathblow",
+      "nome": "Golpe mortal",
+      "en": "Deathblow",
+      "alcance": "1",
+      "dano": "105–140",
+      "acerto": 70,
+      "tipo": "físico",
+      "distancia": "corpo a corpo",
+      "linhaDeVisao": false,
+      "quem": [{ "nome": "Ladino", "grupo": "classe" }]
+    },
+    {
+      "id": "shadow_wave",
+      "nome": "Onda sombria",
+      "en": "Shadow wave",
+      "alcance": "2–5",
+      "sobeComAltura": true,
+      "dano": "50–80",
+      "acerto": 85,
+      "raio": 2,
+      "carga": 6,
+      "tipo": "magia",
+      "distancia": "à distância",
+      "linhaDeVisao": true,
+      "elemento": "sombra",
+      "quem": [{ "nome": "Colosso de Ossos", "grupo": "inimigo" }]
+    },
+    {
+      "id": "cleave",
+      "nome": "Machadada",
+      "en": "Cleave",
+      "alcance": "1",
+      "dano": "90–120",
+      "acerto": 80,
+      "tipo": "físico",
+      "distancia": "corpo a corpo",
+      "linhaDeVisao": false,
+      "quem": [{ "nome": "Bruto", "grupo": "inimigo" }]
+    },
+    {
+      "id": "slam",
+      "nome": "Pancada",
+      "en": "Slam",
+      "alcance": "1",
+      "dano": "35–50",
+      "acerto": 85,
+      "empurra": 2,
+      "tipo": "físico",
+      "distancia": "corpo a corpo",
+      "linhaDeVisao": false,
+      "quem": [{ "nome": "Bruto", "grupo": "inimigo" }]
+    },
+    {
+      "id": "lance",
+      "nome": "Estocada longa",
+      "en": "Long thrust",
+      "alcance": "1–2",
+      "dano": "55–80",
+      "acerto": 90,
+      "tipo": "físico",
+      "distancia": "à distância",
+      "linhaDeVisao": false,
+      "quem": [{ "nome": "Lanceiro", "grupo": "classe" }]
+    },
+    {
+      "id": "sweep",
+      "nome": "Derrubar",
+      "en": "Sweep",
+      "alcance": "1–2",
+      "dano": "25–35",
+      "acerto": 85,
+      "empurra": 1,
+      "tipo": "físico",
+      "distancia": "à distância",
+      "linhaDeVisao": false,
+      "quem": [{ "nome": "Lanceiro", "grupo": "classe" }]
+    },
+    {
+      "id": "lance_jump",
+      "nome": "Salto",
+      "en": "Jump",
+      "alcance": "2–4",
+      "dano": "95–130",
+      "acerto": 85,
+      "carga": 4,
+      "travaNaCasa": true,
+      "tipo": "físico",
+      "distancia": "à distância",
+      "linhaDeVisao": false,
+      "quem": [{ "nome": "Lanceiro", "grupo": "classe" }]
+    }
+  ],
+  "diferencas": [{ "onde": "Onda sombria", "campo": "nome", "lab": "Onda Sombria", "jogo": "Onda sombria" }]
+}

@@ -42,3 +42,10 @@ rules and shows `peso.json`, the 6 visual-only decisions of the weight grill (hi
 `fichas.json` is generated, never edited by hand: from `web/`, run `git -C D:/Projetos/dungeon-tactics fetch origin`,
 `node scripts/mecanicas/fichas.mjs D:/Projetos/dungeon-tactics` and `npx prettier --write src/content/mecanicas/fichas.json`.
 The script reads the game's origin/master (its header says how) and writes the commit it used into the file.
+
+## Abilities and items (Nov 16)
+
+`habilidades.json` and `itens.json` are generated, never edited by hand: from `web/`, run
+`git -C D:/Projetos/dungeon-tactics fetch origin`, `node scripts/mecanicas/habilidades-itens.mjs D:/Projetos/dungeon-tactics`
+and `npx prettier --write src/content/mecanicas/habilidades.json src/content/mecanicas/itens.json`. Both generators read the
+game through `scripts/mecanicas/jogo.mjs`.
