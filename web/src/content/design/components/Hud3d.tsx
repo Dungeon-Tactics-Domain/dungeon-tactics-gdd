@@ -53,11 +53,12 @@ export function Hud3d() {
   const [versao, setVersao] = useState(4);
   const alternar = () => setAplicado((a) => !a);
   return (
-    <div className="my-4">
+    <div className="my-4 max-w-[1280px]">
       <p className="mb-3 text-sm text-tinta-suave">
         Cada visor 3D desta página pode ser redimensionado: arraste o canto inferior direito.
       </p>
       <h2 className="mb-2 mt-0 text-xl">1. A barra em 3D (Three.js)</h2>
+      <p className="mb-2 mt-0 text-xs text-tinta-suave">Gerado por: Sonnet 5.5, esforço médio</p>
       <CenaHud
         comHud
         aplicado={aplicado}
@@ -76,6 +77,7 @@ export function Hud3d() {
         Também vale tocar no bloco do meio da barra. O botão vale para as três versões desta página.
       </p>
       <h2 className="mb-2 mt-8 text-xl">2. A mesma barra em HTML/CSS</h2>
+      <p className="mb-2 mt-0 text-xs text-tinta-suave">Gerado por: Sonnet 5.5, esforço médio</p>
       <CenaHud
         comHud={false}
         aplicado={aplicado}
@@ -83,6 +85,7 @@ export function Hud3d() {
         rotulo="Cena 3D do jogo com a barra de combate em HTML e CSS por cima"
       />
       <h2 className="mb-2 mt-8 text-xl">3. A barra exata do FFT, em 3D</h2>
+      <p className="mb-2 mt-0 text-xs text-tinta-suave">Gerado por: Sonnet 5.5, esforço médio (versões v1 a v5)</p>
       <p className="mb-2 text-sm text-tinta-suave">
         Em cima, o recorte da captura de referência (Final Fantasy Tactics, tela de prévia de golpe, Ramza contra Thomas).
         Embaixo, a recriação em 3D com as mesmas medidas, sobre a nossa cena. Escolha a versão para ver a evolução.
@@ -112,6 +115,9 @@ export function Hud3d() {
           </button>
         ))}
       </div>
+      <p className="mb-2 mt-0 text-xs text-tinta-suave">
+        Versão v{versao} gerada por: Sonnet 5.5, esforço médio (todas as versões de v1 a v5).
+      </p>
       <CenaHud
         comHud
         fft
@@ -129,6 +135,7 @@ export function Hud3d() {
         . No celular esta barra fica pequena demais (é a barra do console, desenhada para 1920 px).
       </p>
       <h2 className="mb-2 mt-8 text-xl">4. A mesma barra, recriada pelo Opus 5.5 (do zero)</h2>
+      <p className="mb-2 mt-0 text-xs text-tinta-suave">Gerado por: Opus 5.5, esforço alto (subagente independente)</p>
       <p className="mb-2 text-sm text-tinta-suave">
         Uma segunda implementação, feita sem olhar a da seção 3, para comparar. Os painéis são vidro fosco de verdade (a cena
         é desfocada e lida por baixo deles), as barras são desenhadas por shader, e o golpe se repete em laço: o trecho

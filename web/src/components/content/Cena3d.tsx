@@ -84,7 +84,7 @@ export function Cena3d<T extends CenaHandle>({
   return (
     <div
       ref={caixa}
-      className={`relative ${altura} min-h-[200px] min-w-[280px] max-w-full overflow-hidden rounded-lg border border-borda bg-[#1d2a38] [resize:both]`}
+      className={`relative ${altura} min-h-[200px] min-w-[280px] max-w-[min(100%,1280px)] overflow-hidden rounded-lg border border-borda bg-[#1d2a38] [resize:both]`}
     >
       <canvas
         ref={canvas}

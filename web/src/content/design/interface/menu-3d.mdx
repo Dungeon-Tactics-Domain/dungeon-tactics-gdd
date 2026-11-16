@@ -1,17 +1,12 @@
 import { MenuJogo } from '../components/MenuJogo';
 
-Menu de ações do Final Fantasy Tactics (Mover, Agir, Esperar, Status) **recriado em 3D dentro do jogo**: um segundo canvas Three.js transparente por cima do jogo, com painéis em shader (degradê, borda, brilho, sombra), ícones low poly com filtro pixelado ativável e luva com mola. O estado vem do mesmo `command.ts` do jogo, então teclado e mouse funcionam de verdade.
+Menu de ações do Final Fantasy Tactics (Mover, Agir, Esperar, Status) **recriado em 3D dentro do jogo**: um segundo canvas Three.js transparente por cima do jogo, com painéis em shader (papel, degradê, borda, sombra), ícones low poly com filtro pixelado ativável e luva com mola. O estado vem do mesmo `command.ts` do jogo, então teclado e mouse funcionam de verdade. Há duas versões feitas do zero por subagentes, uma por modelo; escolha abaixo.
 
 <MenuJogo />
 
-## Fase 1 (o que já existe)
+## As duas versões
 
-- Coluna Mover / Agir / Esperar / Status em 3D, atrás de `?menu3d` (`?menu3d=pixel` liga o filtro pixelado).
-- Luva com mola, linha em foco que levanta, ícone que gira e flash ao confirmar.
-- Submenu de habilidades, confirmação e descrição ainda são HTML; toque e gamepad passam pelo HTML.
-
-## Próximas fases
-
-- 2: cascata, submenu de habilidades e painel de descrição com página 1/3.
-- 3: confirmação de alvo e prévia do golpe.
-- 4: reserva e itens, toque e gamepad.
+- **Opus 5.5, esforço alto** (worktree `menu3d-opus-ag`, porta 5292): painéis com textura de papel, ícones com tons em degraus, cascata com mola. Cores a 1 a 9 pontos de RGB da referência. Limites: fonte Georgia, sem desfoque no fundo, a cascata cobre parte da primeira coluna, menu fixo no canto inferior direito.
+- **Fable 5.2, esforço alto** (worktree `menu3d-fable-ag`, porta 5296): cascata com mola quadro a quadro, Esc ao contrário, troca de página com deslize e flash ao confirmar; cores a até 5 níveis da referência. Limites: toque e gamepad passam pelo HTML, em 1280x720 a luva passa uns 20 px sobre a lista de turnos, discos dos ícones pontilhados no filtro pixel.
+- **Em comum:** 4 linhas em vez das 5 da referência, "Executar?" ainda em HTML, nada commitado no jogo.
+- Origem: relatórios dos próprios subagentes (medidas deles); só olhei as capturas, não repeti os gates.
