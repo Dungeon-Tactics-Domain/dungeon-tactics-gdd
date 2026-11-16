@@ -1,7 +1,7 @@
 {
   "fonte": {
     "repositorio": "dungeon-tactics",
-    "commit": "7ccdadc1ca9a9457ae4f6807415adff415371bc0",
+    "commit": "7468a5e79af61caa91fb33b962031cbe4a926dc4",
     "arquivos": [
       "src/content/units.ts",
       "src/content/abilities.ts",
