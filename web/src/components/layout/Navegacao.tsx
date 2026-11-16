@@ -175,7 +175,7 @@ export function Lateral({
     >
       <div className="min-h-0 flex-1 overflow-x-hidden overflow-y-auto overscroll-contain">
         <nav
-          aria-label="Laboratórios"
+          aria-label="Barra lateral"
           className={cn(
             'grid gap-0.5 bg-casca-topo py-2 font-bold text-casca-topo-texto',
             recolhida ? 'px-1.5' : 'px-2',
@@ -195,7 +195,6 @@ export function Lateral({
             <span aria-hidden="true">{recolhida ? '»' : '«'}</span>
             {!recolhida && 'Recolher'}
           </button>
-          <Links recolhida={recolhida} />
         </nav>
         <div ref={setSlot} className="contents" />
       </div>

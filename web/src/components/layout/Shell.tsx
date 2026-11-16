@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Outlet, useLocation } from 'react-router';
+import { LABS } from '@/lib/labs';
 import { GavetaContext } from '@/lib/gaveta-context';
 import { ESTREITO, SEM_DESKTOP, useMediaQuery } from '@/lib/useMediaQuery';
 import { Lateral, MenuInferior } from './Navegacao';
@@ -15,7 +16,9 @@ export function Shell() {
   const [recolher, setRecolher] = useState<boolean | null>(null);
   const recolhida = recolher ?? semDesktop;
   // any navigation closes the sheet; keyed on the location instead of an effect
-  const { key } = useLocation();
+  const { key, pathname } = useLocation();
+  // the sidebar holds a lab's own pages: on the home and the Fábrica it would be empty
+  const noLab = LABS.some((l) => l.href && (pathname === l.href || pathname.startsWith(`${l.href}/`)));
   const [openAt, setOpenAt] = useState(key);
   const isOpen = open && openAt === key;
   const onOpenChange = (o: boolean) => {
@@ -33,7 +36,7 @@ export function Shell() {
       <TopBar estreito={estreito} open={isOpen} onOpenChange={onOpenChange} setSlot={setSlot} />
       {/* one tree at every size: turning the tablet must not remount the page (scroll, state, exit hooks) */}
       <div className={estreito ? 'pb-(--nav-h)' : 'flex'}>
-        {!estreito && <Lateral recolhida={recolhida} alternar={() => setRecolher(!recolhida)} setSlot={setSlot} />}
+        {!estreito && noLab && <Lateral recolhida={recolhida} alternar={() => setRecolher(!recolhida)} setSlot={setSlot} />}
         <div className="min-w-0 flex-1">
           <Outlet />
         </div>

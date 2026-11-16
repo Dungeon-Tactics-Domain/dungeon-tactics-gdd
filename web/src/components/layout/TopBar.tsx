@@ -1,5 +1,6 @@
-// Header, fixed on every page: the site's name, the "chama você" alert and, below 1024 px, the "☰ Menu" button whose
-// sheet rises from the bottom with every place and the open lab's own pages (the sidebar holds them from 1024 up).
+// Header, fixed on every page: the site's name, from 1024 px the places (home, Fábrica, the labs), the "chama você" alert
+// and, below 1024 px, the "☰ Menu" button whose sheet rises from the bottom with every place and the open lab's own pages
+// (from 1024 up the sidebar holds those pages).
 import { NavLink } from 'react-router';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetClose, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
@@ -32,6 +33,11 @@ export function TopBar({
         </span>
         <span className="sr-only min-[421px]:hidden">{SITE}</span>
       </NavLink>
+      {!estreito && (
+        <nav aria-label="Laboratórios" className="flex min-w-0 items-center gap-0.5 overflow-x-auto">
+          <Links />
+        </nav>
+      )}
       <div className="ml-auto flex items-center gap-1">
         {calling.length > 0 && (
           <NavLink
