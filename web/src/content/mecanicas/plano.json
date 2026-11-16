@@ -21,6 +21,10 @@
     {
       "topic": "Ouro (grill de 15/11)",
       "decision": "Ouro e itens vêm do drop dos monstros e de baús (ouro só de quem faz sentido carregar); a cidade tem várias formas de gastar: loja de comuns e consumíveis, ferreiro que melhora peça, encantador de elemento e taverna; jogo novo começa com 0 de ouro e peças básicas; grupo inteiro caído perde metade do ouro e dos itens da descida (refeito a pedido dele); baús em nós de tesouro do mapa do andar também dão ouro."
+    },
+    {
+      "topic": "Pendências de 15/11",
+      "decision": "Quem caiu fica em 25% (não ganha a cura da sala); os +15/+30 de lado e costas valem também para magia; os números das classes servem de partida, afinados jogando. A sala sorteia uma composição pronta do andar."
     }
   ],
   "phases": [

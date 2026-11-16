@@ -51,6 +51,11 @@
       "regra": "Dificuldade por andar",
       "valor": "a vida somada fica parecida (71 a 88); o andar muda o papel: andar 1 ensina (lacaios, arqueiro com escolta), andar 2 junta papéis, andar 3 traz cura inimiga e tropa mista",
       "origem": "proposta; afinar jogando (o simulador é opcional)"
+    },
+    {
+      "regra": "Como a sala escolhe os inimigos",
+      "valor": "sorteia uma das composições prontas do andar (lista Salas em Inimigos e chefe); composição nova entra como dado",
+      "origem": "Fernando, 15/11"
     }
   ],
   "salas": [
@@ -138,7 +143,7 @@
     {
       "regra": "Cura dentro da descida",
       "valor": "em batalha, a Cura do mago herói (12 a 18); depois de cada sala vencida, quem ficou de pé recupera 25% da vida máxima; ao descer de andar, todo herói recupera mais 50%; nunca passa do máximo",
-      "origem": "src/content/abilities.ts (heal) em e49ddb6; 25% por sala e 50% por andar decididos pelo Fernando em 15/11, provisório até o acampamento voltar; a cura da sala não somar para quem caiu é leitura do lab"
+      "origem": "src/content/abilities.ts (heal) em e49ddb6; 25% por sala e 50% por andar decididos pelo Fernando em 15/11, provisório até o acampamento voltar; quem caiu não ganha os 25% da sala (Fernando, 15/11)"
     },
     {
       "regra": "Grupo inteiro caído",
@@ -198,9 +203,6 @@
       "origem": "meia casa em produção desde 14/11 (regras > Meia casa)"
     }
   ],
-  "perguntas": [
-    "Composição das salas fixa (esta lista, sorteada por andar) ou gerada por orçamento de vida (o gerador soma inimigos até 64 a 102)?",
-    "Quem caiu volta com 25% e ganha também os 25% da sala (chega a 50%), ou fica nos 25%? O lab leu que fica nos 25%."
-  ],
+  "perguntas": [],
   "chefeInimigos": ["colossus", "minion"]
 }

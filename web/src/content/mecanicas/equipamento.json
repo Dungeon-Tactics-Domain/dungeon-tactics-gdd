@@ -8,7 +8,7 @@
     },
     {
       "regra": "Acerto",
-      "valor": "como hoje (precisão − 3 por casa além da 1ª + 5 por nível acima − 20 de cobertura + 15 de lado / 30 pelas costas + acerto da peça, de 5% a 95%), depois × (1 − esquiva × direção)",
+      "valor": "como hoje (precisão − 3 por casa além da 1ª + 5 por nível acima − 20 de cobertura + 15 de lado / 30 pelas costas (físico e magia) + acerto da peça, de 5% a 95%), depois × (1 − esquiva × direção)",
       "origem": "grill de 15/11 com o Fernando (combat.ts hitChance)"
     },
     {
@@ -18,8 +18,8 @@
     },
     {
       "regra": "Esquiva contra magia",
-      "valor": "magia é esquivada igual ao físico, com o mesmo fator de direção (1 / 0,75 / 0,5); os +15/+30 de lado e costas continuam só no físico, como hoje",
-      "origem": "grill de 15/11 com o Fernando (\"igual ao físico\"); manter os +15/+30 só no físico é leitura do lab"
+      "valor": "magia é esquivada igual ao físico, com o mesmo fator de direção (1 / 0,75 / 0,5); os +15 de lado e +30 pelas costas passam a valer para magia também",
+      "origem": "grill de 15/11 com o Fernando (\"igual ao físico\" e \"sim, para tudo\")"
     },
     {
       "regra": "Teto de esquiva",
@@ -632,10 +632,8 @@
       "duracao": "o andar inteiro (decidido em 15/11)"
     }
   ],
-  "perguntas": [
-    "Os números de classes e inimigos (vida, stamina, mana, resistências) servem de ponto de partida para jogar e afinar?"
-  ],
-  "nota": "Só a vida x5 e as regras de recurso são decisão do grill; stamina, mana, regen e resistências de cada classe e inimigo são proposta do lab, para afinar jogando.",
+  "perguntas": [],
+  "nota": "Vida x5 e as regras de recurso são decisão do grill; os números de stamina, mana, regen e resistências de cada classe e inimigo foram aceitos pelo Fernando como ponto de partida em 15/11, para afinar jogando.",
   "ouro": [
     {
       "regra": "De onde vem",
