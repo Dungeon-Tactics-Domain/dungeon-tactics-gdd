@@ -2,6 +2,7 @@
 import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
 import type * as React from 'react';
+import { Icone } from '@/components/layout/Icone';
 import { cn } from '@/lib/utils';
 
 const buttonVariants = cva(
@@ -25,10 +26,19 @@ function Button({
   variant,
   size,
   asChild = false,
+  icone,
+  children,
   ...props
-}: React.ComponentProps<'button'> & VariantProps<typeof buttonVariants> & { asChild?: boolean }) {
+}: React.ComponentProps<'button'> &
+  VariantProps<typeof buttonVariants> & { asChild?: boolean; icone?: string }) {
   const Comp = asChild ? Slot : 'button';
-  return <Comp data-slot="button" className={cn(buttonVariants({ variant, size, className }))} {...props} />;
+  // an icon before the label (the shared family of Icone.tsx); with asChild the child keeps its own content
+  return (
+    <Comp data-slot="button" className={cn(buttonVariants({ variant, size, className }))} {...props}>
+      {icone && !asChild && <Icone id={icone} />}
+      {children}
+    </Comp>
+  );
 }
 
 export { Button };

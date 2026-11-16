@@ -10,6 +10,22 @@ const TRACOS: Record<string, string> = {
   modelos: 'M12 2l9 5v10l-9 5-9-5V7zM12 12l9-5M12 12L3 7M12 12v10',
   musica: 'M9 18V5l12-2v13M9 18a3 3 0 11-6 0 3 3 0 016 0zM21 16a3 3 0 11-6 0 3 3 0 016 0z',
   decisoes: 'M5 12l4.5 4.5L19 7',
+  // actions: one family for every clickable label in the labs (rule from Fernando, 16/11)
+  menu: 'M4 6h16M4 12h16M4 18h16',
+  fechar: 'M6 6l12 12M18 6L6 18',
+  lupa: 'M11 4a7 7 0 100 14 7 7 0 000-14zM21 21l-5-5',
+  voltar: 'M19 12H5M11 6l-6 6 6 6',
+  avancar: 'M5 12h14M13 6l6 6-6 6',
+  recolher: 'M11 7l-5 5 5 5M18 7l-5 5 5 5',
+  expandir: 'M13 7l5 5-5 5M6 7l5 5-5 5',
+  copiar: 'M9 9h11v11H9zM5 15V4h11',
+  abrir: 'M14 4h6v6M20 4l-9 9M18 14v6H4V6h6',
+  filtrar: 'M3 5h18l-7 8v6l-4 2v-8z',
+  ordenar: 'M7 4v16M3 8l4-4 4 4M17 20V4M13 16l4 4 4-4',
+  tocar: 'M7 4l13 8-13 8z',
+  pausar: 'M8 5v14M16 5v14',
+  baixar: 'M12 4v11M7 11l5 5 5-5M4 20h16',
+  recarregar: 'M20 11a8 8 0 10-2.3 6.3M20 4v7h-7',
 };
 
 export function Icone({ id, ...p }: { id: string } & SVGProps<SVGSVGElement>) {

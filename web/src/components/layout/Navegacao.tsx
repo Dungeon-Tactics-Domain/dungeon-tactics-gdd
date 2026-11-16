@@ -197,7 +197,7 @@ export function Lateral({
               'cursor-pointer border-2 border-casca-topo-texto/50 font-bold',
             )}
           >
-            <span aria-hidden="true">{recolhida ? '»' : '«'}</span>
+            <Icone id={recolhida ? 'expandir' : 'recolher'} />
             {!recolhida && 'Recolher'}
           </button>
         </nav>

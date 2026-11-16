@@ -54,10 +54,11 @@ export function TopBar({
             <SheetTrigger asChild>
               <Button
                 variant="ghost"
+                icone="menu"
                 className="shrink-0 border-2 border-casca-topo-texto/50"
                 aria-label={calling.length ? 'Menu, alguém chama você' : 'Menu'}
               >
-                ☰ Menu
+                Menu
               </Button>
             </SheetTrigger>
             {/* rises from the bottom, over the labs menu: the thumb reaches it (design lab, 15/11) */}
@@ -69,9 +70,7 @@ export function TopBar({
                 <SheetTitle className="font-serif text-xl">Menu</SheetTitle>
                 <SheetDescription className="sr-only">Todos os lugares e as páginas do lab aberto</SheetDescription>
                 <SheetClose asChild>
-                  <Button variant="ghost" size="icon" aria-label="Fechar menu">
-                    ✕
-                  </Button>
+                  <Button variant="ghost" size="icon" icone="fechar" aria-label="Fechar menu" />
                 </SheetClose>
               </div>
               <nav aria-label="Laboratórios" className="grid bg-casca-topo px-2 pb-3 font-bold text-casca-topo-texto">
