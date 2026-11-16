@@ -40,7 +40,8 @@ export function Decisoes() {
         <h1 className="m-0 text-(length:--h1) leading-none">Decisões</h1>
         <p className="m-0 max-w-[72ch] text-[17px]">
           O que você decidiu sobre cada faixa, modelo ou imagem dos labs. Para decidir, abra o item na página do lab. As
-          sessões leem estas decisões no arquivo <code className="bg-terra px-1 text-[15px]">data/decisoes.json</code>.
+          sessões leem estas decisões no arquivo{' '}
+          <code className="bg-pergaminho-escuro px-1 text-[15px]">data/decisoes.json</code>.
         </p>
       </header>
       <div className="flex flex-wrap gap-3">
@@ -67,11 +68,9 @@ export function Decisoes() {
           </select>
         </label>
       </div>
-      {semApi && (
-        <p className="m-0 border border-dashed border-traco bg-bilhete px-4 py-3">Decisões só na rede local.</p>
-      )}
+      {semApi && <p className="m-0 border border-dashed border-traco bg-folha px-4 py-3">Decisões só na rede local.</p>}
       {erro && (
-        <p className="m-0 border border-dashed border-traco bg-bilhete px-4 py-3">
+        <p className="m-0 border border-dashed border-traco bg-folha px-4 py-3">
           Não consegui ler as decisões: {erro}.
         </p>
       )}

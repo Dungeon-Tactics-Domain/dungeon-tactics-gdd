@@ -17,7 +17,7 @@ export function NaoMigrado({ lab }: { lab?: Place }) {
       {lab ? (
         <>
           <p className="m-0 text-[17px]">{lab.descricao}.</p>
-          <p className="m-0 border border-dashed border-traco bg-bilhete px-4 py-3">
+          <p className="m-0 border border-dashed border-traco bg-folha px-4 py-3">
             Ainda não migrado para esta plataforma. O conteúdo continua na página atual do lab.
           </p>
           <p className="m-0 flex flex-wrap gap-2">

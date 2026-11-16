@@ -1,102 +1,174 @@
-/* Dungeon Tactics Lab theme (direction B, the kingdom map). Light only: there is no dark variant on purpose.
-   Text ≥ 14px (no text-xs), targets ≥ 44px, contrast ≥ 4.5:1 on every pair below. */
+/* Dungeon Tactics Lab theme "Ouro e couro" (Fernando, 15/11): light parchment pages, leather header and sidebar, gold
+   edges. Light only. The @theme, :root and band blocks below are web/src/content/design/ouro-e-couro.tokens.css as the
+   design lab delivered it; change them there first. Text ≥ 14px, targets ≥ 44px, contrast checked on that page. */
 @import 'tailwindcss';
-
 @theme {
-  --color-tinta: #2b2a22;
-  --color-papel: #f7f2e2;
-  --color-mar: #cfe0e0;
-  --color-terra: #e8e2c7;
-  --color-cortica: #efe6c8;
-  --color-bilhete: #fbf7e8;
-  --color-folha: #fbf8ee;
-  --color-traco: #8a8264;
-  --color-borda: #cfc5a5;
-  --color-apagado: #57533f;
-  --color-sobre-tinta: #f3efe4;
-  --color-run: #1f6a3a;
-  --color-call: #d98a2b;
-  --color-wait: #2f5f8a;
-  --color-idle: #6b665a;
-  --color-warn: #8a4a00;
-  --color-warn-soft: #fbeedb;
-  --color-stop: #9b2f2f;
-  --color-stop-soft: #f8e4e1;
-  --color-subs: #1d5fa6;
+  /* surfaces */
+  --color-pergaminho: #f3e8cf; /* page background (derived: light parchment, not in the reference) */
+  --color-pergaminho-escuro: #e9dab8; /* tags, zebra rows, disabled buttons (derived) */
+  --color-folha: #fbf5e6; /* cards and panels on parchment (derived) */
+  --color-couro: #2e2424; /* sidebar, buttons (measured: ChatGPT sheet, square frame) */
+  --color-couro-escuro: #18130e; /* header, table head (measured: Copilot unit panel) */
+  --color-couro-claro: #43342c; /* hover on leather (derived) */
 
-  --font-serif: 'Cormorant Garamond', Georgia, serif;
-  --font-sans: 'Karla', system-ui, sans-serif;
+  /* gold: ouro never carries text on parchment (3.6:1), only borders */
+  --color-ouro: #99713d; /* borders on every surface (measured: Copilot forecast frame) */
+  --color-ouro-claro: #e0b268; /* titles and links on leather, active button (measured: Copilot "PREVISÃO") */
+  --color-ouro-brilho: #f2d489; /* highlight on top of the active button (measured: ChatGPT button rim) */
+  --color-ouro-escuro: #7a5523; /* titles on parchment (derived: ouro darkened to 5.5:1) */
 
-  /* screen bands of the responsive redesign (design lab, 15/11): sm 640 and lg 1024 are Tailwind's own, plus 1440 and
-     2560. Below lg the labs sit in a bottom menu; from lg up, in the sidebar. desk (1100) stays for the labs' content. */
+  /* text */
+  --color-tinta: #2b2117; /* body text on parchment (derived) */
+  --color-apagado: #5f4e3a; /* secondary text on parchment (derived) */
+  --color-creme: #f8dda4; /* text on leather (measured: Copilot "Alren") */
+  --color-creme-apagado: #d5b881; /* secondary text on leather (measured: Copilot "Custo de Movimento") */
+  --color-link: #1f4f8a; /* links on parchment (derived from the gem and MP bar blues) */
+
+  /* states (derived from the HP bar green, the red bar and the CT bar gold) */
+  --color-sucesso: #2f6a2c;
+  --color-sucesso-suave: #e3efd9;
+  --color-erro: #a3262a;
+  --color-erro-suave: #f7e0dc;
+  --color-aviso: #7d5100;
+  --color-aviso-suave: #f8e8c8;
+
+  --color-mar: #cfe0e0; /* the sea of the kingdom map, unchanged */
+
+  /* old names kept so 300+ class uses need no rework */
+  --color-borda: var(--color-ouro);
+  --color-traco: var(--color-ouro-escuro);
+  --color-sobre-tinta: var(--color-creme);
+
+  --font-serif: 'Cinzel', 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Alegreya Sans', system-ui, sans-serif;
+
+  /* screen bands, unchanged: sm 640 and lg 1024 are Tailwind's own, plus wide 1440 and ultra 2560 */
   --breakpoint-desk: 1100px;
   --breakpoint-wide: 90rem;
   --breakpoint-ultra: 160rem;
   --reino-h: 52px;
   --nav-h: 64px;
+
+  --shadow-folha: 0 1px 2px rgb(24 19 14 / 0.2), 0 3px 10px rgb(24 19 14 / 0.1);
+  --shadow-couro: inset 0 1px 0 rgb(224 178 104 / 0.25), 0 4px 14px rgb(24 19 14 / 0.35);
+  /* the glow of the ChatGPT sheet's active button */
+  --shadow-brilho: 0 0 0 1px var(--color-ouro-claro), 0 0 14px rgb(224 178 104 / 0.55);
 }
 
-/* shadcn/ui variables mapped onto the kingdom palette */
 :root {
   color-scheme: light;
-  --radius: 3px;
-  --background: var(--color-papel);
-  --foreground: var(--color-tinta);
-  --primary: var(--color-tinta);
-  --primary-foreground: var(--color-sobre-tinta);
-  --secondary: var(--color-terra);
-  --secondary-foreground: var(--color-tinta);
-  --muted: var(--color-terra);
-  --muted-foreground: var(--color-apagado);
-  --accent: var(--color-terra);
-  --accent-foreground: var(--color-tinta);
-  --border: var(--color-borda);
-  --input: var(--color-traco);
-  --ring: var(--color-call);
-  /* lab accent: set per page from lib/labs.ts (cor, corSuave) */
-  --lab: #5e5a48;
-  --lab-soft: #ecebe3;
-  /* the shell's own colours, named apart so the design lab can retheme the header and sidebar by swapping these only */
-  --casca-topo: var(--color-tinta);
-  --casca-topo-texto: var(--color-sobre-tinta);
-  --casca-lateral: var(--color-folha);
-  --casca-borda: var(--lab);
-  --casca-titulo: var(--color-tinta);
-  /* page margin and title sizes per band (design lab, section 4) */
-  --margem: 16px;
+  --radius: 2px;
+  /* thin gold line, the double frame and the corner brackets of the reference panels */
+  --borda-fina: 1px solid var(--color-ouro);
+  --borda-dupla: 3px double var(--color-ouro);
+  --cantos:
+    linear-gradient(var(--color-ouro-claro) 0 0) top left / 12px 2px no-repeat,
+    linear-gradient(var(--color-ouro-claro) 0 0) top left / 2px 12px no-repeat,
+    linear-gradient(var(--color-ouro-claro) 0 0) top right / 12px 2px no-repeat,
+    linear-gradient(var(--color-ouro-claro) 0 0) top right / 2px 12px no-repeat,
+    linear-gradient(var(--color-ouro-claro) 0 0) bottom left / 12px 2px no-repeat,
+    linear-gradient(var(--color-ouro-claro) 0 0) bottom left / 2px 12px no-repeat,
+    linear-gradient(var(--color-ouro-claro) 0 0) bottom right / 12px 2px no-repeat,
+    linear-gradient(var(--color-ouro-claro) 0 0) bottom right / 2px 12px no-repeat;
+  /* two-tone focus: the gold ring shows on leather, the dark outline on parchment */
+  --foco-contorno: 2px solid var(--color-couro-escuro);
+  --foco-anel: 0 0 0 2px var(--color-ouro-claro);
+
+  /* per band (same numbers as FAIXAS in Responsivo.tsx): text, titles, caption, page margin, gap; --margem and --h1 are
+     the names index.css already uses */
+  --texto: 16px;
   --h1: 26px;
   --h2: 21px;
+  --h3: 18px;
+  --legenda: 14px;
+  --margem: 16px;
+  --respiro: 12px;
+
+  /* shadcn/ui variables on the new palette */
+  --background: var(--color-pergaminho);
+  --foreground: var(--color-tinta);
+  --primary: var(--color-couro);
+  --primary-foreground: var(--color-creme);
+  --secondary: var(--color-pergaminho-escuro);
+  --secondary-foreground: var(--color-tinta);
+  --muted: var(--color-pergaminho-escuro);
+  --muted-foreground: var(--color-apagado);
+  --accent: var(--color-pergaminho-escuro);
+  --accent-foreground: var(--color-tinta);
+  --border: var(--color-ouro);
+  --input: var(--color-ouro);
+  --ring: var(--color-couro-escuro);
+  /* lab accent: still set per page from lib/labs.ts (cor, corSuave) */
+  --lab: #5e5a48;
+  --lab-soft: #ecebe3;
+  /* the shell's own colours: leather header and sidebar, gold edges */
+  --casca-topo: var(--color-couro-escuro);
+  --casca-topo-texto: var(--color-creme);
+  --casca-lateral: var(--color-couro);
+  --casca-borda: var(--color-ouro);
+  --casca-titulo: var(--color-ouro-claro);
   scroll-padding-top: calc(var(--reino-h) + 8px);
 }
 @media (min-width: 640px) {
   :root {
-    --margem: 24px;
     --h1: 30px;
     --h2: 22px;
+    --margem: 24px;
+    --respiro: 16px;
   }
 }
 @media (min-width: 1024px) {
   :root {
-    --margem: 32px;
+    --texto: 17px;
     --h1: 32px;
     --h2: 24px;
+    --h3: 19px;
+    --margem: 32px;
+    --respiro: 20px;
   }
 }
 @media (min-width: 1440px) {
   :root {
-    --margem: 40px;
     --h1: 34px;
     --h2: 26px;
+    --h3: 20px;
+    --legenda: 15px;
+    --margem: 40px;
+    --respiro: 24px;
   }
 }
 @media (min-width: 2560px) {
   :root {
-    --margem: 48px;
+    --texto: 18px;
     --h1: 40px;
     --h2: 28px;
+    --h3: 21px;
+    --margem: 48px;
+    --respiro: 32px;
   }
 }
 
+@layer base {
+  :root :focus-visible {
+    outline: var(--foco-contorno);
+    outline-offset: 2px;
+    box-shadow: var(--foco-anel);
+  }
+}
+
+/* old names still used inside the labs' own pages (src/content/<lab>), on the design lab's map: each lab renames them
+   when it migrates, then this block goes */
+@theme {
+  --color-papel: var(--color-pergaminho);
+  --color-terra: var(--color-pergaminho-escuro);
+  --color-bilhete: var(--color-folha);
+  --color-run: var(--color-sucesso);
+  --color-call: var(--color-ouro-claro);
+  --color-warn: var(--color-aviso);
+  --color-warn-soft: var(--color-aviso-suave);
+  --color-stop: var(--color-erro);
+  --color-stop-soft: var(--color-erro-suave);
+}
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -126,20 +198,9 @@
 @layer base {
   body {
     @apply bg-background text-foreground font-sans;
-    font-size: 16px;
+    font-size: var(--texto);
     line-height: 1.5;
     margin: 0;
-  }
-  /* body text 16 px up to the tablet, 17 from 1024, 18 on the ultrawide */
-  @media (min-width: 1024px) {
-    body {
-      font-size: 17px;
-    }
-  }
-  @media (min-width: 2560px) {
-    body {
-      font-size: 18px;
-    }
   }
   h1,
   h2,
@@ -149,12 +210,7 @@
   a {
     color: inherit;
   }
-  :focus-visible {
-    outline: 3px solid var(--color-call);
-    outline-offset: 2px;
-  }
 }
-
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -175,9 +231,9 @@
 }
 @keyframes ping-dot {
   0% {
-    box-shadow: 0 0 0 0 rgba(217, 138, 43, 0.8);
+    box-shadow: 0 0 0 0 rgb(224 178 104 / 0.8);
   }
   100% {
-    box-shadow: 0 0 0 9px rgba(217, 138, 43, 0);
+    box-shadow: 0 0 0 9px rgb(224 178 104 / 0);
   }
 }

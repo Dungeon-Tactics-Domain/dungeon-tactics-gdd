@@ -29,7 +29,7 @@ export function Relogio() {
       </p>
       <p role="status" className="m-0 empty:hidden">
         {avisos.length > 0 && (
-          <span className="block border-l-[6px] border-warn bg-warn-soft px-3.5 py-2.5 font-bold text-warn">
+          <span className="block border-l-[6px] border-aviso bg-aviso-suave px-3.5 py-2.5 font-bold text-aviso">
             {avisos.join(' ')}
           </span>
         )}

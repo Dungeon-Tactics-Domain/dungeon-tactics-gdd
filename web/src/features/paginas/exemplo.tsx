@@ -4,7 +4,7 @@ import type { Pagina, Sumario } from './types';
 
 const Selo = () => (
   <p>
-    <span className="bg-warn-soft px-2 py-0.5 text-sm font-bold text-warn">EXEMPLO</span>
+    <span className="bg-aviso-suave px-2 py-0.5 text-sm font-bold text-aviso">EXEMPLO</span>
   </p>
 );
 

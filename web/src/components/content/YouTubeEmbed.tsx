@@ -7,7 +7,7 @@ const ID = /^[\w-]{11}$/;
 
 export function YouTubeEmbed({ id, titulo }: { id: string; titulo: string }) {
   const [aberto, setAberto] = useState(false);
-  if (!ID.test(id)) return <p className="m-0 text-stop">Vídeo com id inválido: {titulo}.</p>;
+  if (!ID.test(id)) return <p className="m-0 text-erro">Vídeo com id inválido: {titulo}.</p>;
   return (
     <div className="grid max-w-[720px] gap-2">
       {aberto ? (

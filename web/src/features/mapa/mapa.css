@@ -16,7 +16,7 @@
   display: block;
 }
 .terra {
-  fill: var(--color-terra);
+  fill: var(--color-pergaminho-escuro);
   stroke: var(--color-traco);
   stroke-width: 2;
 }
@@ -81,7 +81,7 @@
   fill: none;
 }
 .vela {
-  fill: var(--color-papel);
+  fill: var(--color-pergaminho);
   stroke: var(--color-tinta);
   stroke-width: 1.2;
 }
@@ -131,7 +131,7 @@
   gap: 4px;
   justify-items: start;
   padding: 10px 12px;
-  background: var(--color-papel);
+  background: var(--color-pergaminho);
   border: 2px solid var(--color-tinta);
   border-top: 8px solid var(--c);
   box-shadow: 3px 3px 0 rgba(43, 42, 34, 0.35);
@@ -161,13 +161,13 @@ a.cidade:focus-visible {
   outline: none;
 }
 a.cidade:focus-visible .placa {
-  outline: 3px solid var(--color-call);
+  outline: 3px solid var(--color-ouro-claro);
   outline-offset: 2px;
 }
 .cidade[data-estado='aguardando-voce'] .placa {
   border-color: #8a4a00;
   box-shadow:
-    0 0 0 3px var(--color-call),
+    0 0 0 3px var(--color-ouro-claro),
     3px 3px 0 rgba(43, 42, 34, 0.35);
 }
 .cidade[data-estado='nenhum'] .placa,

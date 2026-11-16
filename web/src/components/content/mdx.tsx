@@ -36,7 +36,7 @@ export const MDX_COMPONENTS: MDXComponents = {
   h3: (props) => <h3 className="m-0 mt-1 text-[21px] leading-tight" {...props} />,
   ul: (props) => <ul className="m-0 grid max-w-[72ch] list-disc gap-1 pl-6" {...props} />,
   ol: (props) => <ol className="m-0 grid max-w-[72ch] list-decimal gap-1 pl-6" {...props} />,
-  code: (props) => <code className="bg-terra px-1 text-[15px]" {...props} />,
+  code: (props) => <code className="bg-pergaminho-escuro px-1 text-[15px]" {...props} />,
   table: (props) => (
     <Rolagem>
       <table className={TABELA} {...props} />

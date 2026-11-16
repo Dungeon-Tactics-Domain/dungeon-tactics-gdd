@@ -36,7 +36,7 @@ export function TopBar({
         {calling.length > 0 && (
           <NavLink
             to="/#avisos"
-            className="flex min-h-11 shrink-0 items-center bg-call px-3.5 whitespace-nowrap text-tinta no-underline hover:bg-[#e9a04a] max-[520px]:px-2.5"
+            className="flex min-h-11 shrink-0 items-center bg-ouro-claro px-3.5 whitespace-nowrap text-tinta no-underline hover:bg-ouro-brilho max-[520px]:px-2.5"
           >
             {/* at phone width only the bell and the name fit; the rest stays for screen readers */}
             🔔 {calling.length === 1 ? calling[0]!.place.curto : `${calling.length} labs`}
@@ -57,7 +57,7 @@ export function TopBar({
             {/* rises from the bottom, over the labs menu: the thumb reaches it (design lab, 15/11) */}
             <SheetContent
               aria-describedby={undefined}
-              className="inset-x-0 top-auto bottom-0 max-h-[85dvh] w-full motion-safe:data-[state=open]:animate-[sobe_.2s_ease-out]"
+              className="inset-x-0 top-auto bottom-0 max-h-[85dvh] w-full bg-casca-lateral motion-safe:data-[state=open]:animate-[sobe_.2s_ease-out]"
             >
               <div className="flex items-center justify-between gap-2 bg-casca-topo px-4 py-1 text-casca-topo-texto">
                 <SheetTitle className="font-serif text-xl">Menu</SheetTitle>

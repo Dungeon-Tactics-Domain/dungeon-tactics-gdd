@@ -1,9 +1,9 @@
 /* Fábrica: one session per line, grouped by state. Only who works moves; idle stays grey and still.
    Bench colours (--st) come from lib/labs.ts. Animations off under prefers-reduced-motion (index.css). */
 .fabrica {
-  --ok: var(--color-run);
-  --warn: var(--color-warn);
-  --stop: var(--color-stop);
+  --ok: var(--color-sucesso);
+  --warn: var(--color-aviso);
+  --stop: var(--color-erro);
   --muted: var(--color-apagado);
   --line: var(--color-borda);
 }
@@ -56,13 +56,13 @@
   color: var(--muted);
 }
 .sum-subs {
-  border-left-color: var(--color-subs);
+  border-left-color: var(--color-link);
 }
 .sum-subs b {
-  color: var(--color-subs);
+  color: var(--color-link);
 }
 .sum-aguardando-voce:not(.zero) {
-  background: var(--color-stop-soft);
+  background: var(--color-erro-suave);
   border-color: var(--stop);
 }
 .sum.zero b {
@@ -191,7 +191,7 @@
   font-size: 20px;
   font-weight: 700;
   color: var(--stop);
-  background: var(--color-stop-soft);
+  background: var(--color-erro-suave);
   padding: 8px 12px;
   border-left: 5px solid var(--stop);
   overflow-wrap: anywhere;
@@ -402,7 +402,7 @@
 .row[data-estado='aguardando-voce'] {
   border-color: var(--stop);
   border-left-color: var(--st);
-  box-shadow: 0 0 0 3px var(--color-stop-soft);
+  box-shadow: 0 0 0 3px var(--color-erro-suave);
 }
 
 /* subagent drones, coloured by model */
@@ -449,7 +449,7 @@
   gap: 12px;
   padding: 18px;
   background: var(--color-folha);
-  border: 2px solid var(--color-subs);
+  border: 2px solid var(--color-link);
 }
 .panel h2 {
   margin: 0;
@@ -461,7 +461,7 @@
   font-size: 20px;
   font-weight: 700;
   color: var(--muted);
-  background: var(--color-papel);
+  background: var(--color-pergaminho);
   text-align: center;
 }
 .cards {

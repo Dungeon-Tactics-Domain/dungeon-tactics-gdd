@@ -24,13 +24,13 @@ function Avisos({ fabrica, towns }: { fabrica: Fabrica | null; towns: Town[] }) 
     <section
       id="avisos"
       aria-labelledby="avisos-titulo"
-      className="grid gap-3 border-2 border-tinta bg-cortica p-[18px] shadow-[5px_5px_0_rgba(43,42,34,.3)]"
+      className="grid gap-3 border-2 border-tinta bg-pergaminho-escuro p-[18px] shadow-[5px_5px_0_rgba(43,42,34,.3)]"
     >
       <h2 id="avisos-titulo" className="m-0 text-(length:--h2)">
         Quadro de avisos
       </h2>
       {calling.length > 0 && (
-        <span className="font-bold text-warn">
+        <span className="font-bold text-aviso">
           {calling.length} {calling.length > 1 ? 'esperam' : 'espera'} por você
         </span>
       )}
@@ -41,7 +41,7 @@ function Avisos({ fabrica, towns }: { fabrica: Fabrica | null; towns: Town[] }) 
           return (
             <li
               key={s.id}
-              className="nota relative grid gap-1.5 border border-l-8 border-traco bg-bilhete py-3.5 pr-4 pl-[18px] shadow-[2px_3px_0_rgba(43,42,34,.18)]"
+              className="nota relative grid gap-1.5 border border-l-8 border-traco bg-folha py-3.5 pr-4 pl-[18px] shadow-[2px_3px_0_rgba(43,42,34,.18)]"
               style={{ borderLeftColor: t?.place.cor ?? GENERIC_COLOR, rotate: i % 2 ? '.6deg' : '-.5deg' }}
             >
               <span
@@ -74,7 +74,7 @@ function Avisos({ fabrica, towns }: { fabrica: Fabrica | null; towns: Town[] }) 
         })}
       </ul>
       {calling.length + asked.length === 0 && (
-        <p className="m-0 border border-dashed border-traco bg-bilhete px-4 py-3.5">
+        <p className="m-0 border border-dashed border-traco bg-folha px-4 py-3.5">
           {fabrica ? 'Nenhum lab espera você agora. ' : 'Ainda sem leitura do quadro. '}
           {busy
             ? `${busy} sessão(ões) trabalhando; o quadro avisa sozinho quando alguma chamar.`
@@ -108,7 +108,7 @@ function Sessoes({ fabrica, towns }: { fabrica: Fabrica | null; towns: Town[] })
           return (
             <li
               key={s.id}
-              className="grid grid-cols-[28px_minmax(0,1fr)_auto] items-center gap-3 border border-l-8 border-traco bg-folha px-3.5 py-2.5 text-[15px] data-[estado=aguardando-voce]:bg-warn-soft lg:grid-cols-[28px_minmax(200px,1.2fr)_150px_minmax(0,2fr)_120px]"
+              className="grid grid-cols-[28px_minmax(0,1fr)_auto] items-center gap-3 border border-l-8 border-traco bg-folha px-3.5 py-2.5 text-[15px] data-[estado=aguardando-voce]:bg-aviso-suave lg:grid-cols-[28px_minmax(200px,1.2fr)_150px_minmax(0,2fr)_120px]"
               style={{ borderLeftColor: t?.place.cor ?? GENERIC_COLOR }}
               data-estado={s.estado}
             >
@@ -135,7 +135,7 @@ function Sessoes({ fabrica, towns }: { fabrica: Fabrica | null; towns: Town[] })
           );
         })}
         {!sorted.length && (
-          <li className="border border-dashed border-traco bg-bilhete px-4 py-3.5">
+          <li className="border border-dashed border-traco bg-folha px-4 py-3.5">
             Nenhuma sessão no quadro da Fábrica.
           </li>
         )}

@@ -16,7 +16,7 @@ export function Callout({
       className={cn(
         'grid gap-3 border border-borda bg-folha px-5 py-4',
         tom === 'destaque' && 'border-t-[6px] border-t-lab',
-        tom === 'aviso' && 'border-dashed border-traco bg-bilhete',
+        tom === 'aviso' && 'border-dashed border-traco bg-folha',
       )}
     >
       {titulo && <h2 className="m-0 text-[21px] leading-tight">{titulo}</h2>}

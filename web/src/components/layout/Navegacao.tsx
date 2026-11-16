@@ -13,7 +13,7 @@ import { cn, gravar, ler } from '@/lib/utils';
 
 const DOT: Record<string, string> = {
   rodando: 'bg-[#5fc283]',
-  'aguardando-voce': 'bg-call motion-safe:animate-[ping-dot_1.6s_ease-out_infinite]',
+  'aguardando-voce': 'bg-ouro-claro motion-safe:animate-[ping-dot_1.6s_ease-out_infinite]',
   espera: 'bg-[#8fb8d8]',
   parado: 'bg-[#8c877a]',
   nenhum: 'bg-transparent',
@@ -232,7 +232,7 @@ export function MenuInferior() {
           key={l.id}
           to={l.href ?? '/'}
           title={l.nome}
-          className="flex min-h-11 min-w-0 flex-col items-center justify-center gap-0.5 border-t-4 border-transparent text-[14px] text-tinta no-underline aria-[current=page]:font-bold"
+          className="flex min-h-11 min-w-0 flex-col items-center justify-center gap-0.5 border-t-4 border-transparent text-[14px] text-creme no-underline aria-[current=page]:font-bold"
           style={({ isActive }) => (isActive ? { borderTopColor: l.cor } : undefined)}
         >
           <span aria-hidden="true" className="size-4 rounded-full" style={{ background: l.cor }} />

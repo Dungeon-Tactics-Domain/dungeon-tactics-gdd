@@ -33,7 +33,7 @@ function entradas(s: Sumario): Entrada[] {
 }
 
 const LINK =
-  'flex min-h-11 items-center gap-2 rounded-md py-1 pr-2.5 pl-[18px] leading-tight text-tinta no-underline hover:bg-lab-soft aria-[current=page]:bg-lab aria-[current=page]:font-bold aria-[current=page]:text-white';
+  'flex min-h-11 items-center gap-2 rounded-md py-1 pr-2.5 pl-[18px] leading-tight text-creme no-underline hover:bg-couro-claro aria-[current=page]:bg-lab aria-[current=page]:font-bold aria-[current=page]:text-white';
 const VIZINHO =
   'grid min-h-11 gap-0.5 border border-borda bg-folha px-3.5 py-2.5 font-bold text-tinta no-underline hover:bg-lab-soft';
 
@@ -155,7 +155,7 @@ export function Paginas({ sumario: s, base }: { sumario: Sumario; base: string }
         to={base}
         onClick={fechar}
         data-nav
-        className="flex min-h-11 items-center px-2 font-serif text-[21px] leading-tight font-bold text-tinta no-underline hover:underline"
+        className="flex min-h-11 items-center px-2 font-serif text-[21px] leading-tight font-bold text-casca-titulo no-underline hover:underline"
       >
         {s.titulo}
       </Link>
@@ -170,7 +170,7 @@ export function Paginas({ sumario: s, base }: { sumario: Sumario; base: string }
         className="mt-1 mb-2"
       />
       {q && !achadas.length && (
-        <p role="status" className="mx-2 my-1 text-[15px] text-apagado">
+        <p role="status" className="mx-2 my-1 text-[15px] text-creme-apagado">
           Nenhuma página com esse nome.
         </p>
       )}
@@ -187,12 +187,12 @@ export function Paginas({ sumario: s, base }: { sumario: Sumario; base: string }
               aria-expanded={open}
               aria-controls={`pg-${s.lab}-${g.id}`}
               onClick={() => alternar(g.id, !open)}
-              className="flex min-h-11 w-full cursor-pointer items-center gap-2 rounded-md px-2.5 text-left font-serif text-[17px] font-bold text-tinta hover:bg-lab-soft"
+              className="flex min-h-11 w-full cursor-pointer items-center gap-2 rounded-md px-2.5 text-left font-serif text-[17px] font-bold text-creme hover:bg-couro-claro"
             >
               <Icone i={g.icone} />
               <span className="flex-1">{g.titulo}</span>
-              <span className="font-sans text-sm text-apagado">{g.paginas.length}</span>
-              <span aria-hidden="true" className="font-sans text-sm text-apagado">
+              <span className="font-sans text-sm text-creme-apagado">{g.paginas.length}</span>
+              <span aria-hidden="true" className="font-sans text-sm text-creme-apagado">
                 {open ? '▾' : '▸'}
               </span>
             </button>
