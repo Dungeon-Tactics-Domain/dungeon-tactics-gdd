@@ -25,6 +25,9 @@ createServer((req, res) => {
   if (!file.startsWith(root)) return res.writeHead(403).end();
   const inPublic = join(publicRoot, normalize(url));
   if (!isFile(file) && inPublic.startsWith(publicRoot) && isFile(inPublic)) file = inPublic;
+  // A missing file with an extension must be a 404, never the app shell: a half-built dist would otherwise answer a JS
+  // request with HTML under an immutable cache header and leave browsers with a blank page after the rebuild.
+  if (!isFile(file) && extname(url)) return res.writeHead(404, { 'cache-control': 'no-store' }).end();
   if (!isFile(file)) file = join(root, 'index.html');
   // dist is rewritten by `build:watch`: a file can vanish between the check and the read, so a stream error must not kill the server.
   const stream = createReadStream(file);
