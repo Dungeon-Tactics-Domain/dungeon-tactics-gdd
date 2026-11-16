@@ -125,7 +125,7 @@ export function Cena({ nome }: { nome: string }) {
       </p>
       <div className="flex flex-wrap items-center gap-1.5">
         <button type="button" aria-pressed={view.bare} onClick={() => mudar({ bare: !view.bare })} className={BOTAO}>
-          <Icone id="filtrar" />
+          <Icone id="animacao" />
           Só a animação
         </button>
         <span className="text-apagado">
@@ -153,7 +153,7 @@ export function Cena({ nome }: { nome: string }) {
           <div className="grid gap-2.5">
             <Escolha
               rotulo="Velocidade"
-              icone="avancar"
+              icone="velocidade"
               opcoes={[
                 [0.25, '0,25x'],
                 [0.5, '0,5x'],
@@ -179,7 +179,7 @@ export function Cena({ nome }: { nome: string }) {
             </div>
             <Escolha<Camera>
               rotulo="Câmera"
-              icone="recarregar"
+              icone="camera"
               opcoes={[
                 ['acao', 'ação'],
                 ['side', 'lado'],
