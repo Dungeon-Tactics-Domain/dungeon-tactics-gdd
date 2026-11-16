@@ -70,13 +70,19 @@ export function Botoes<T>({
 /**
  * The 3D viewer on the left, sticky while the options on the right scroll (Nov 15, Fernando's request). The viewer
  * column is 58% of the width but never wider than the screen is tall, or ultrawide screens get a wide, low strip;
- * below 1024 px (the shell's two-panel band) they stack, viewer first.
+ * below 1024 px (the shell's two-panel band) they stack, viewer first and pinned under the header, on a page-coloured
+ * band so the options scroll under it.
  */
 export function LadoALado({ viewer, children }: { viewer: ReactNode; children: ReactNode }) {
   return (
     <div className="grid items-start gap-4 min-[1024px]:grid-cols-[minmax(0,min(58%,100vh))_minmax(0,1fr)]">
-      <div className="min-w-0 min-[1024px]:sticky min-[1024px]:top-[calc(var(--reino-h)+1rem)]">{viewer}</div>
-      <div className="grid min-w-0 content-start gap-4">{children}</div>
+      <div className="sticky top-(--reino-h) z-10 min-w-0 bg-pergaminho pb-2 min-[1024px]:top-[calc(var(--reino-h)+1rem)] min-[1024px]:pb-0">
+        {viewer}
+      </div>
+      {/* keyboard focus and scrollIntoView must stop below the pinned viewer, not under it (at most 50vh + its caption) */}
+      <div className="grid min-w-0 content-start gap-4 max-[1023px]:[&_:is(button,summary)]:scroll-mt-[calc(50vh+var(--reino-h)+48px)]">
+        {children}
+      </div>
     </div>
   );
 }
