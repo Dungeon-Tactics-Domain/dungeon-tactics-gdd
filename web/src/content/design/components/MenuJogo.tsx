@@ -85,6 +85,17 @@ const PECAS: Peca[] = [
     ],
   },
   {
+    id: 'menu-uikit',
+    nome: 'Menu com uikit (teste)',
+    feito: 'Fable 5.2, esforço médio, com @pmndrs/uikit (teste não aprovado: mais pesado, sem acentos; guardado para ver depois)',
+    porta: 5305,
+    arvore: 'menu-uikit',
+    cenas: [
+      { nome: 'Menu de comandos', arquivo: 'menuuikit' },
+      { nome: 'Com habilidades abertas', arquivo: 'menuuikit-habilidades' },
+    ],
+  },
+  {
     id: 'menu-css',
     nome: 'Menu em HTML/CSS',
     feito: 'Opus 5.5, esforço médio',
@@ -118,11 +129,12 @@ export function MenuJogo() {
   const [menu, setMenu] = useState<Visual>('3d');
   const [fila, setFila] = useState<Visual>('3d');
   const [layout, setLayout] = useState<'edges' | 'frame'>('edges');
+  const [guias, setGuias] = useState(true);
   const cena = peca.cenas[Math.min(cenaIdx, peca.cenas.length - 1)]!;
   const arquivo = `${cena.arquivo}${cena.pixel && pixel ? '-pixel' : ''}`;
   // the address beats the scene piece by piece, so the selector only has to name every piece and the layout
   const flags = peca.montar
-    ? `&menu=${menu}&turn=${fila === 'css' ? 'html' : fila}&layout=${layout}&pixel=${pixel ? 1 : 0}`
+    ? `&menu=${menu}&turn=${fila === 'css' ? 'html' : fila}&layout=${layout}&pixel=${pixel ? 1 : 0}&guides=${guias ? 1 : 0}`
     : '';
   const src = `http://localhost:${peca.porta}/?scenario=ash_wood${flags}&sandbox=bench/${arquivo}.json`;
   const escolher = (p: Peca) => {
@@ -210,6 +222,11 @@ export function MenuJogo() {
         <button type="button" onClick={() => setAoVivo((v) => !v)} className={BOTAO}>
           {aoVivo ? 'Parar' : 'Ver ao vivo'}
         </button>
+        {peca.montar && (
+          <button type="button" aria-pressed={guias} onClick={() => setGuias((g) => !g)} className={BOTAO}>
+            Guias 16:9 e regiões
+          </button>
+        )}
         {(cena.pixel || peca.montar) && (
           <button type="button" aria-pressed={pixel} onClick={() => setPixel((p) => !p)} className={BOTAO}>
             Filtro pixelado nos ícones
