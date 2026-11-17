@@ -1,0 +1,35 @@
+{
+ "duracao": 13.5,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 14,
+   "nome": "Flute Solo"
+  },
+  {
+   "canal": 2,
+   "programa": 1,
+   "nome": "Concert Harp"
+  },
+  {
+   "canal": 3,
+   "programa": 1,
+   "nome": "Concert Harp"
+  },
+  {
+   "canal": 4,
+   "programa": 4,
+   "nome": "2nd Violins Sustain"
+  },
+  {
+   "canal": 5,
+   "programa": 8,
+   "nome": "Cello Section Sustai"
+  },
+  {
+   "canal": 6,
+   "programa": 8,
+   "nome": "Cello Section Sustai"
+  }
+ ]
+}

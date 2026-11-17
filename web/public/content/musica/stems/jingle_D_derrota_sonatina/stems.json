@@ -1,0 +1,25 @@
+{
+ "duracao": 10.85,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 0,
+   "nome": "Steinway Concert Gra"
+  },
+  {
+   "canal": 2,
+   "programa": 8,
+   "nome": "Cello Section Sustai"
+  },
+  {
+   "canal": 3,
+   "programa": 39,
+   "nome": "Glockenspiel"
+  },
+  {
+   "canal": 4,
+   "programa": 4,
+   "nome": "2nd Violins Sustain"
+  }
+ ]
+}

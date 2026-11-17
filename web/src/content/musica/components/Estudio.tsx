@@ -105,7 +105,8 @@ export function Estudio({
   const buffers = useRef<AudioBuffer[]>([]);
   const [prog, setProg] = useState<Record<number, number>>({}); // channel -> share of its stem downloaded (1 = ready)
   const carga = info?.stems.length ? info.stems.reduce((t, st) => t + (prog[st.canal] ?? 1), 0) / info.stems.length : 1;
-  const fontes = useRef<AudioBufferSourceNode[]>([]);
+  const algumPronto = !!info?.stems.some((st) => prog[st.canal] === 1);
+  const fontes = useRef<(AudioBufferSourceNode | undefined)[]>([]);
   const ganhos = useRef<Map<number, GainNode>>(new Map());
   const mestre = useRef<{ entrada: GainNode; cadeia: AudioNode[] } | null>(null);
   const inicio = useRef(0); // ctx time at which the loop position was 0
@@ -195,13 +196,15 @@ export function Estudio({
     if (!c || !m || !live.current.info) return;
     fontes.current.forEach((f) => {
       try {
-        f.stop();
+        f?.stop();
       } catch {
         /* already stopped */
       }
     });
     const t0 = c.currentTime + 0.05; // every stem starts on the same tick
+    // stems still downloading have no buffer yet: they join later through colocar, at the then-current position
     fontes.current = live.current.info.stems.map((s, i) => {
+      if (!buffers.current[i]) return undefined;
       const src = c.createBufferSource();
       src.buffer = buffers.current[i]!;
       src.loop = true;
@@ -211,6 +214,27 @@ export function Estudio({
     });
     inicio.current = t0 - de;
   }, []);
+
+  // a stem finished loading (or changed sound) while the music runs: start or replace only its source, in sync with the rest
+  const colocar = useCallback(
+    (i: number, b: AudioBuffer) => {
+      const c = ctx.current;
+      const s = live.current.info?.stems[i];
+      if (!c || !s) return;
+      try {
+        fontes.current[i]?.stop();
+      } catch {
+        /* already stopped */
+      }
+      const src = c.createBufferSource();
+      src.buffer = b;
+      src.loop = true;
+      src.connect(ganhos.current.get(s.canal - 1)!);
+      src.start(c.currentTime + 0.03, posicao());
+      fontes.current[i] = src;
+    },
+    [posicao],
+  );
 
   const atribRef = useRef(atrib);
   useEffect(() => {
@@ -266,22 +290,10 @@ export function Estudio({
       carregado.current[i] = quer;
       void buf(c, quer, s.canal).then((b) => {
         buffers.current[i] = b;
-        const velha = fontes.current[i];
-        if (!velha) return;
-        try {
-          velha.stop();
-        } catch {
-          /* already stopped */
-        }
-        const src = c.createBufferSource();
-        src.buffer = b;
-        src.loop = true;
-        src.connect(ganhos.current.get(s.canal - 1)!);
-        src.start(c.currentTime + 0.03, posicao());
-        fontes.current[i] = src;
+        colocar(i, b);
       });
     });
-  }, [atrib, buf, posicao]);
+  }, [atrib, buf, colocar]);
 
   const tocar = async () => {
     if (estado === 'carregando') return;
@@ -295,7 +307,17 @@ export function Estudio({
       setEstado('carregando');
       const c = new AudioContext();
       carregado.current = info.stems.map((s) => atribRef.current[s.canal] ?? 0);
-      buffers.current = await Promise.all(info.stems.map((s, i) => buf(c, carregado.current[i]!, s.canal)));
+      // start with the first stem ready; the others join as they arrive (see colocar)
+      buffers.current = [];
+      let comecou = false;
+      const todas = info.stems.map((s, i) =>
+        buf(c, carregado.current[i]!, s.canal).then((b) => {
+          buffers.current[i] = b;
+          if (comecou) colocar(i, b);
+        }),
+      );
+      await Promise.race(todas);
+      await new Promise((r) => setTimeout(r, 0)); // let the stems already finished record their buffers
       const entrada = c.createGain();
       const hp = c.createBiquadFilter();
       hp.type = 'highpass';
@@ -324,6 +346,7 @@ export function Estudio({
       });
       ctx.current = c;
       arrancar(retomada.current?.t ?? 0);
+      comecou = true;
       document.querySelector('audio')?.pause(); // never two copies of the music at once
       setEstado('tocando'); // the effect above wires the master chain once the state changes
     } catch {
@@ -638,11 +661,11 @@ export function Estudio({
         <button
           title={DICAS_UI.tocar}
           onClick={estado === 'tocando' ? pausar : tocar}
-          disabled={estado === 'carregando' || carga < 1}
+          disabled={estado === 'carregando' || !algumPronto}
           className="inline-flex h-11 min-w-28 items-center justify-center gap-2 rounded bg-couro px-4 font-bold text-creme disabled:opacity-60"
         >
-          {estado !== 'carregando' && carga >= 1 && <Icone id={estado === 'tocando' ? 'pausar' : 'tocar'} />}
-          {estado === 'tocando' ? 'Pausar' : estado === 'carregando' || carga < 1 ? 'Carregando…' : 'Tocar'}
+          {estado !== 'carregando' && algumPronto && <Icone id={estado === 'tocando' ? 'pausar' : 'tocar'} />}
+          {estado === 'tocando' ? 'Pausar' : estado === 'carregando' || !algumPronto ? 'Carregando…' : 'Tocar'}
         </button>
         {info && carga < 1 && (
           <div

@@ -1,0 +1,40 @@
+{
+ "duracao": 13.646,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 79,
+   "nome": "Ocarina"
+  },
+  {
+   "canal": 2,
+   "programa": 42,
+   "nome": "Cello"
+  },
+  {
+   "canal": 3,
+   "programa": 24,
+   "nome": "Nylon Guitar"
+  },
+  {
+   "canal": 4,
+   "programa": 49,
+   "nome": "String Ensemble 2"
+  },
+  {
+   "canal": 5,
+   "programa": 46,
+   "nome": "Orchestral Harp"
+  },
+  {
+   "canal": 6,
+   "programa": 8,
+   "nome": "Celesta"
+  },
+  {
+   "canal": 10,
+   "programa": null,
+   "nome": "Drums"
+  }
+ ]
+}

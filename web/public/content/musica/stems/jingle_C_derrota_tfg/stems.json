@@ -1,0 +1,40 @@
+{
+ "duracao": 10.434,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 6,
+   "nome": "String Ensemble 1"
+  },
+  {
+   "canal": 2,
+   "programa": 25,
+   "nome": "French Horn PSX"
+  },
+  {
+   "canal": 3,
+   "programa": 12,
+   "nome": "Choir Ah PSX"
+  },
+  {
+   "canal": 4,
+   "programa": 5,
+   "nome": "Celli PSX"
+  },
+  {
+   "canal": 5,
+   "programa": 6,
+   "nome": "String Ensemble 1"
+  },
+  {
+   "canal": 6,
+   "programa": 9,
+   "nome": "Timpani PSX"
+  },
+  {
+   "canal": 7,
+   "programa": 21,
+   "nome": "Tubular Bell PSX"
+  }
+ ]
+}

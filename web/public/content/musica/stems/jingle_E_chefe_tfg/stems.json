@@ -1,0 +1,45 @@
+{
+ "duracao": 13.5,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 20,
+   "nome": "Flute PSX"
+  },
+  {
+   "canal": 2,
+   "programa": 7,
+   "nome": "String Pizz PSX"
+  },
+  {
+   "canal": 3,
+   "programa": 8,
+   "nome": "Harp PSX"
+  },
+  {
+   "canal": 4,
+   "programa": 11,
+   "nome": "Slow Strings PSX"
+  },
+  {
+   "canal": 5,
+   "programa": 5,
+   "nome": "Celli PSX"
+  },
+  {
+   "canal": 6,
+   "programa": 5,
+   "nome": "Celli PSX"
+  },
+  {
+   "canal": 13,
+   "programa": 9,
+   "nome": "Timpani PSX"
+  },
+  {
+   "canal": 16,
+   "programa": 1,
+   "nome": "Glockenspiel PSX"
+  }
+ ]
+}

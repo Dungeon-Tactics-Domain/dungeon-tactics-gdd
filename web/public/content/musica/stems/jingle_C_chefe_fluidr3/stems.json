@@ -1,0 +1,60 @@
+{
+ "duracao": 13.798,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 60,
+   "nome": "French Horn"
+  },
+  {
+   "canal": 2,
+   "programa": 56,
+   "nome": "Trumpet"
+  },
+  {
+   "canal": 3,
+   "programa": 60,
+   "nome": "French Horn"
+  },
+  {
+   "canal": 4,
+   "programa": 57,
+   "nome": "Trombone"
+  },
+  {
+   "canal": 5,
+   "programa": 48,
+   "nome": "String Ensemble 1"
+  },
+  {
+   "canal": 6,
+   "programa": 52,
+   "nome": "Choir Aahs"
+  },
+  {
+   "canal": 7,
+   "programa": 43,
+   "nome": "Contrabass"
+  },
+  {
+   "canal": 8,
+   "programa": 48,
+   "nome": "String Ensemble 1"
+  },
+  {
+   "canal": 9,
+   "programa": 47,
+   "nome": "Timpani"
+  },
+  {
+   "canal": 10,
+   "programa": null,
+   "nome": "Drums"
+  },
+  {
+   "canal": 11,
+   "programa": 14,
+   "nome": "Tubular Bells"
+  }
+ ]
+}

@@ -1,0 +1,30 @@
+{
+ "duracao": 10.85,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 0,
+   "nome": "Acoustic Grand Piano"
+  },
+  {
+   "canal": 2,
+   "programa": 42,
+   "nome": "Cello"
+  },
+  {
+   "canal": 3,
+   "programa": 10,
+   "nome": "Music Box"
+  },
+  {
+   "canal": 4,
+   "programa": 89,
+   "nome": "Warm Pad"
+  },
+  {
+   "canal": 10,
+   "programa": null,
+   "nome": "Drums"
+  }
+ ]
+}

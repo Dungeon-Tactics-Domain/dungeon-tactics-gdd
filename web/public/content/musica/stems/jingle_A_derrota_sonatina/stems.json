@@ -1,0 +1,40 @@
+{
+ "duracao": 9.658,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 2,
+   "nome": "1st Violins Sustain"
+  },
+  {
+   "canal": 2,
+   "programa": 2,
+   "nome": "1st Violins Sustain"
+  },
+  {
+   "canal": 3,
+   "programa": 10,
+   "nome": "Basses Sustain"
+  },
+  {
+   "canal": 4,
+   "programa": 30,
+   "nome": "Horn Section"
+  },
+  {
+   "canal": 5,
+   "programa": 35,
+   "nome": "Mixed Choir"
+  },
+  {
+   "canal": 6,
+   "programa": 43,
+   "nome": "Chimes"
+  },
+  {
+   "canal": 7,
+   "programa": 40,
+   "nome": "Timpani"
+  }
+ ]
+}

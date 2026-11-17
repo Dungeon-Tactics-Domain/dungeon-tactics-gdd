@@ -1,0 +1,30 @@
+{
+ "duracao": 10.85,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 0,
+   "nome": "Celesta"
+  },
+  {
+   "canal": 2,
+   "programa": 5,
+   "nome": "Celli PSX"
+  },
+  {
+   "canal": 3,
+   "programa": 1,
+   "nome": "Glockenspiel PSX"
+  },
+  {
+   "canal": 4,
+   "programa": 11,
+   "nome": "Slow Strings PSX"
+  },
+  {
+   "canal": 13,
+   "programa": 9,
+   "nome": "Timpani PSX"
+  }
+ ]
+}

@@ -1,0 +1,40 @@
+{
+ "duracao": 203.418,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 52,
+   "nome": "Choir Aahs"
+  },
+  {
+   "canal": 2,
+   "programa": 52,
+   "nome": "Choir Aahs"
+  },
+  {
+   "canal": 3,
+   "programa": 24,
+   "nome": "Nylon Guitar"
+  },
+  {
+   "canal": 4,
+   "programa": 0,
+   "nome": "Acoustic Grand Piano"
+  },
+  {
+   "canal": 5,
+   "programa": 110,
+   "nome": "Fiddle"
+  },
+  {
+   "canal": 6,
+   "programa": 35,
+   "nome": "Fretless Bass"
+  },
+  {
+   "canal": 7,
+   "programa": 49,
+   "nome": "String Ensemble 2"
+  }
+ ]
+}

@@ -194,6 +194,7 @@ const SONS_TRISECTION = [
   ['fa-neo', 'Neo Orchestra'],
   ['fa-tfg', 'Tactical Fantasy Guy'],
   ['fa-sonatina', 'Sonatina'],
+  ['fa-sc88', 'SC-88 (teste privado)'],
   ['transcricao', 'Transcrição do áudio'],
 ] as const;
 // sounds offered for every battle and pastoral track; the key is the suffix of its stems folder ('' is MuseScore)
@@ -206,6 +207,8 @@ const SONS_JOGO = [
   ['tfg', 'Tactical Fantasy Guy'],
   ['sonatina', 'Sonatina'],
 ] as const;
+// private listening test with the Roland SC-88 soundfont, rendered for every piece (not part of the game: the sounds are Roland's)
+const SC88 = ['sc88', 'SC-88 (teste privado)'] as const;
 const versoesDe = (id: string) => {
   const e = estudoDe(id);
   if (e)
@@ -213,20 +216,24 @@ const versoesDe = (id: string) => {
       raiz: id,
       atual: 0,
       // the Chrono Cross files use instruments the TFG and Sonatina banks do not have
-      opcoes: SONS_JOGO.filter(([k]) => !e.startsWith('cc_') || (k !== 'tfg' && k !== 'sonatina')).map(
-        ([k, rotulo]) => ({
+      opcoes: [...SONS_JOGO, SC88]
+        .filter(([k]) => !e.startsWith('cc_') || (k !== 'tfg' && k !== 'sonatina'))
+        .map(([k, rotulo]) => ({
           rotulo,
           faixa: id,
           stems: `${e}${k ? `_${k}` : ''}`,
-        }),
-      ),
+        })),
     };
   const rica = /^(pastoral-rica-[a-z]|jingle-[a-f]-(vitoria|derrota|chefe))$/.exec(id);
   if (rica)
     return {
       raiz: id,
       atual: 0,
-      opcoes: SONS_JOGO.map(([k, rotulo]) => ({ rotulo, faixa: id, stems: `${stemsDe(id)}${k ? `_${k}` : ''}` })),
+      opcoes: [...SONS_JOGO, SC88].map(([k, rotulo]) => ({
+        rotulo,
+        faixa: id,
+        stems: `${stemsDe(id)}${k ? `_${k}` : ''}`,
+      })),
     };
   const f = /^(batalha|pastoral)-[a-f](-tfg)?(-t)?$/.exec(id);
   if (f) {
@@ -235,7 +242,7 @@ const versoesDe = (id: string) => {
       raiz,
       atual: f[2] ? SONS_JOGO.findIndex(([k]) => k === 'tfg') : 0,
       // the text of each sound comes from its own page when there is one (MuseScore and TFG); the others reuse the base page
-      opcoes: SONS_JOGO.map(([k, rotulo]) => ({
+      opcoes: [...SONS_JOGO, SC88].map(([k, rotulo]) => ({
         rotulo,
         faixa: k === 'tfg' ? `${raiz}-tfg` : raiz,
         stems: `${stemsDe(raiz)}${k ? `_${k}` : ''}`,

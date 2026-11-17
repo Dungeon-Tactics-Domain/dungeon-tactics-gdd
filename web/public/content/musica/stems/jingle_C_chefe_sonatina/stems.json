@@ -1,0 +1,65 @@
+{
+ "duracao": 13.798,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 30,
+   "nome": "Horn Section"
+  },
+  {
+   "canal": 2,
+   "programa": 27,
+   "nome": "Trumpet Solo"
+  },
+  {
+   "canal": 3,
+   "programa": 30,
+   "nome": "Horn Section"
+  },
+  {
+   "canal": 4,
+   "programa": 31,
+   "nome": "Tenor Trombone Solo"
+  },
+  {
+   "canal": 5,
+   "programa": 2,
+   "nome": "1st Violins Sustain"
+  },
+  {
+   "canal": 6,
+   "programa": 35,
+   "nome": "Mixed Choir"
+  },
+  {
+   "canal": 7,
+   "programa": 10,
+   "nome": "Basses Sustain"
+  },
+  {
+   "canal": 8,
+   "programa": 2,
+   "nome": "1st Violins Sustain"
+  },
+  {
+   "canal": 9,
+   "programa": 40,
+   "nome": "Timpani"
+  },
+  {
+   "canal": 11,
+   "programa": 43,
+   "nome": "Chimes"
+  },
+  {
+   "canal": 15,
+   "programa": 40,
+   "nome": "Timpani"
+  },
+  {
+   "canal": 16,
+   "programa": 38,
+   "nome": "Cymbals"
+  }
+ ]
+}

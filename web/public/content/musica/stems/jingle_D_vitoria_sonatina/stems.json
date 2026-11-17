@@ -1,0 +1,25 @@
+{
+ "duracao": 8.387,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 14,
+   "nome": "Flute Solo"
+  },
+  {
+   "canal": 2,
+   "programa": 1,
+   "nome": "Concert Harp"
+  },
+  {
+   "canal": 3,
+   "programa": 4,
+   "nome": "2nd Violins Sustain"
+  },
+  {
+   "canal": 4,
+   "programa": 39,
+   "nome": "Glockenspiel"
+  }
+ ]
+}

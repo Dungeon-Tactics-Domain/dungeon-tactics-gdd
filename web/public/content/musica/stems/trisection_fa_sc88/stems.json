@@ -1,0 +1,40 @@
+{
+ "duracao": 157.1,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 48,
+   "nome": "String Ensemble 1"
+  },
+  {
+   "canal": 2,
+   "programa": 48,
+   "nome": "String Ensemble 1"
+  },
+  {
+   "canal": 3,
+   "programa": 43,
+   "nome": "Contrabass"
+  },
+  {
+   "canal": 5,
+   "programa": 60,
+   "nome": "French Horn"
+  },
+  {
+   "canal": 7,
+   "programa": 58,
+   "nome": "Tuba"
+  },
+  {
+   "canal": 8,
+   "programa": 14,
+   "nome": "Tubular Bells"
+  },
+  {
+   "canal": 10,
+   "programa": 1,
+   "nome": "Drums"
+  }
+ ]
+}
