@@ -84,12 +84,12 @@ describe('registered labs', () => {
     expect(c.vazias).toEqual([]);
   });
 
-  it('modelos keeps the old lab tree plus the KayKit bench: 8 groups, 26 pages', () => {
+  it('modelos keeps the old lab tree plus the KayKit bench: 8 groups, 27 pages', () => {
     const s = CONTEUDO.modelos!.sumario;
     expect(s.grupos.map((g) => `${g.id}:${g.paginas.length}`)).toEqual([
       'personagens:4',
       'animacoes:6',
-      'kaykit:2',
+      'kaykit:3',
       'sprites:2',
       'carrocas:4',
       'arvores:5',

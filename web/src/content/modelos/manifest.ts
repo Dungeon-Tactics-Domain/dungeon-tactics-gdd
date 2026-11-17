@@ -88,6 +88,12 @@ export default {
           icone: '📐',
           resumo: 'O Cavaleiro KayKit com proporção menos chibi, ao lado do original.',
         },
+        {
+          id: 'estudo-wow',
+          titulo: 'Estudo: humano do WoW',
+          icone: '🔍',
+          resumo: 'Modelo original do WoW para remodelar por cima; só no PC do Fernando.',
+        },
       ],
     },
     {
