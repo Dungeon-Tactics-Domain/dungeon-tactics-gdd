@@ -1,6 +1,6 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, within } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
-import { Checagens, EstiloMusica, FaixaMusica, Referencias, Texto } from './Musica';
+import { Checagens, EstudioMusicas, FaixaMusica, Referencias, Texto } from './Musica';
 
 vi.mock('@/lib/recursos', () => ({ DECISOES_ATIVAS: true }));
 
@@ -48,11 +48,20 @@ describe('music lab', () => {
     expect(screen.getAllByText('✓ Feito')).toHaveLength(4);
   });
 
-  it('gathers a style in one page: a Música menu with every family and the description of the chosen piece', () => {
-    render(<EstiloMusica estilo="cidade" />);
-    const menu = screen.getByRole('combobox', { name: /Música/ });
-    const grupos = [...menu.querySelectorAll('optgroup')].map((g) => g.getAttribute('label'));
-    expect(grupos.length).toBeGreaterThanOrEqual(3);
-    expect(menu.querySelectorAll('option').length).toBeGreaterThan(8);
+  it('lists every piece in one studio and filters it by category and search', () => {
+    render(<EstudioMusicas />);
+    const lista = screen.getByRole('complementary', { name: /Lista de músicas/ });
+    const itens = () =>
+      within(lista)
+        .getAllByRole('button')
+        .filter((b) => b.hasAttribute('aria-current'));
+    const todas = itens().length;
+    expect(todas).toBeGreaterThan(30);
+    fireEvent.click(within(lista).getByRole('button', { name: /Jingles/ }));
+    expect(itens()).toHaveLength(18);
+    fireEvent.click(within(lista).getByRole('button', { name: /Todas/ }));
+    fireEvent.change(within(lista).getByRole('searchbox'), { target: { value: 'chefe' } });
+    expect(itens().length).toBeGreaterThan(0);
+    expect(itens().length).toBeLessThan(todas);
   });
 });

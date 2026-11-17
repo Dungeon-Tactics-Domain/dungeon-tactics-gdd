@@ -5,6 +5,7 @@
 import { Fragment, useState, type ReactNode } from 'react';
 import { Player } from '@/components/content/Player';
 import { YouTubeEmbed } from '@/components/content/YouTubeEmbed';
+import { Icone } from '@/components/layout/Icone';
 import { Estudio } from './Estudio';
 import { MidiVisual } from './MidiVisual';
 import batalha from '../batalha.json';
@@ -216,16 +217,14 @@ const versoesDe = (id: string) => {
     return {
       raiz: id,
       atual: 0,
-      // the Chrono Cross files use instruments the TFG and Sonatina banks do not have
-      opcoes: [...SONS_JOGO, SC88]
-        .filter(([k]) => !e.startsWith('cc_') || (k !== 'tfg' && k !== 'sonatina'))
-        .map(([k, rotulo]) => ({
-          rotulo,
-          faixa: id,
-          stems: `${e}${k ? `_${k}` : ''}`,
-        })),
+      // the Chrono Cross files use instruments the TFG and Sonatina banks lack: those two render the nearest instrument
+      opcoes: [...SONS_JOGO, SC88].map(([k, rotulo]) => ({
+        rotulo,
+        faixa: id,
+        stems: `${e}${k ? `_${k}` : ''}`,
+      })),
     };
-  const rica = /^(pastoral-rica-[a-z]|jingle-[a-f]-(vitoria|derrota|chefe))$/.exec(id);
+  const rica = /^(dark-(principal|intenso)|pastoral-rica-[a-z]|jingle-[a-f]-(vitoria|derrota|chefe))$/.exec(id);
   if (rica)
     return {
       raiz: id,
@@ -324,6 +323,8 @@ export interface ItemMusica {
   faixa: string;
   rotulo: string;
   familia: string;
+  categoria: Estilo;
+  estudio: boolean; // false: only a recording (no MIDI, so no separate instruments)
 }
 export interface SeletorMusica {
   opcoes: ItemMusica[];
@@ -375,15 +376,35 @@ export const itensDe = (estilo: Estilo): ItemMusica[] =>
   ESTILOS[estilo].flatMap(({ pagina: pg, familia }) =>
     faixasDe(PAGINAS[pg])
       .filter((t) => noMenu(pg, t.id))
-      .map((t) => ({ valor: `${pg}/${t.id}`, pagina: pg, faixa: t.id, rotulo: rotuloFaixa(pg, t), familia })),
+      .map((t) => ({
+        valor: `${pg}/${t.id}`,
+        pagina: pg,
+        faixa: t.id,
+        rotulo: rotuloFaixa(pg, t),
+        familia,
+        categoria: estilo,
+        estudio: !!(stemsDe(t.id) ?? midiDe(t.id)),
+      })),
   );
 
-export function EstiloMusica({ estilo }: { estilo: Estilo }) {
-  const itens = itensDe(estilo);
+const CATEGORIAS: { id: Estilo; rotulo: string; icone: string }[] = [
+  { id: 'cidade', rotulo: 'Cidade', icone: 'inicio' },
+  { id: 'batalha', rotulo: 'Batalha', icone: 'mecanicas' },
+  { id: 'jingles', rotulo: 'Jingles', icone: 'musica' },
+];
+type Ordem = 'categoria' | 'az' | 'za';
+const semAcento = (t: string) => t.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+
+// one studio for every piece: a list on the side (search, category and order) and the studio of the chosen piece beside it
+export function EstudioMusicas() {
+  const itens = CATEGORIAS.flatMap((c) => itensDe(c.id));
   const [valor, setValor] = useState(() => {
     const pedido = new URLSearchParams(window.location.search).get('m');
     return itens.some((i) => i.valor === pedido) ? pedido! : itens[0]!.valor;
   });
+  const [busca, setBusca] = useState('');
+  const [cat, setCat] = useState<Estilo | 'todas'>('todas');
+  const [ordem, setOrdem] = useState<Ordem>('categoria');
   const item = itens.find((i) => i.valor === valor) ?? itens[0]!;
   const trocar = (v: string) => {
     setValor(v);
@@ -393,13 +414,84 @@ export function EstiloMusica({ estilo }: { estilo: Estilo }) {
       /* the address is only a convenience */
     }
   };
+  const q = semAcento(busca.trim());
+  const visiveis = itens
+    .filter(
+      (i) => (cat === 'todas' || i.categoria === cat) && (!q || semAcento(`${i.rotulo} ${i.familia}`).includes(q)),
+    )
+    .sort((a, b) => (ordem === 'categoria' ? 0 : a.rotulo.localeCompare(b.rotulo, 'pt') * (ordem === 'za' ? -1 : 1)));
+  // grouped by family in the default order; one flat alphabetical list otherwise
+  const grupos =
+    ordem === 'categoria'
+      ? [...new Set(visiveis.map((i) => i.familia))].map((f) => ({
+          titulo: f,
+          itens: visiveis.filter((i) => i.familia === f),
+        }))
+      : [{ titulo: '', itens: visiveis }];
+  const botao = (ativo: boolean) =>
+    `inline-flex min-h-11 items-center gap-2 rounded border px-3 text-[14px] ${ativo ? 'border-ouro bg-couro font-bold text-creme' : 'border-ouro bg-folha'}`;
   return (
-    <FaixaMusica
-      key={item.valor}
-      pagina={item.pagina}
-      faixa={item.faixa}
-      musica={{ opcoes: itens, atual: item.valor, aoTrocar: trocar }}
-    />
+    <div className="grid items-start gap-4 lg:grid-cols-[minmax(260px,340px)_minmax(0,1fr)]">
+      <aside className="grid gap-3 rounded-md border border-ouro bg-folha p-3" aria-label="Lista de músicas">
+        <label className="flex min-h-11 items-center gap-2 rounded border border-ouro bg-white/60 px-3">
+          <Icone id="lupa" />
+          <input
+            type="search"
+            value={busca}
+            onChange={(e) => setBusca(e.target.value)}
+            placeholder="Buscar música"
+            aria-label="Buscar música"
+            className="min-w-0 flex-1 bg-transparent outline-none"
+          />
+        </label>
+        <div className="flex flex-wrap gap-2" role="group" aria-label="Categoria">
+          <button onClick={() => setCat('todas')} aria-pressed={cat === 'todas'} className={botao(cat === 'todas')}>
+            <Icone id="filtrar" /> Todas ({itens.length})
+          </button>
+          {CATEGORIAS.map((c) => (
+            <button key={c.id} onClick={() => setCat(c.id)} aria-pressed={cat === c.id} className={botao(cat === c.id)}>
+              <Icone id={c.icone} /> {c.rotulo} ({itens.filter((i) => i.categoria === c.id).length})
+            </button>
+          ))}
+        </div>
+        <label className="flex items-center gap-2">
+          <Icone id="ordenar" />
+          <span className="text-apagado">Ordem:</span>
+          <select
+            value={ordem}
+            onChange={(e) => setOrdem(e.target.value as Ordem)}
+            className="min-h-11 min-w-0 flex-1 rounded border border-ouro bg-folha px-2"
+          >
+            <option value="categoria">Por família</option>
+            <option value="az">Nome, A a Z</option>
+            <option value="za">Nome, Z a A</option>
+          </select>
+        </label>
+        <div className="grid max-h-80 content-start gap-3 overflow-auto lg:max-h-[calc(100vh-17rem)]">
+          {visiveis.length === 0 && <p className="m-0 text-apagado">Nenhuma música com esse filtro.</p>}
+          {grupos.map((g) => (
+            <div key={g.titulo} className="grid gap-1">
+              {g.titulo && <h3 className="m-0 text-[14px] text-apagado">{g.titulo}</h3>}
+              {g.itens.map((i) => (
+                <button
+                  key={i.valor}
+                  onClick={() => trocar(i.valor)}
+                  aria-current={i.valor === item.valor}
+                  className={`flex min-h-11 items-center gap-2 rounded px-2 text-left text-[14px] ${i.valor === item.valor ? 'bg-couro font-bold text-creme' : 'hover:bg-pergaminho-escuro'}`}
+                >
+                  <Icone id={i.valor === item.valor ? 'tocar' : 'musica'} className="size-4 flex-none" />
+                  <span className="min-w-0 flex-1">{i.rotulo}</span>
+                  {!i.estudio && <span className="flex-none text-[12px] opacity-80">só áudio</span>}
+                </button>
+              ))}
+            </div>
+          ))}
+        </div>
+      </aside>
+      <div className="grid min-w-0 gap-4">
+        <FaixaMusica key={item.valor} pagina={item.pagina} faixa={item.faixa} />
+      </div>
+    </div>
   );
 }
 

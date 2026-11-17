@@ -1,32 +1,25 @@
 // Music lab: battle and pastoral evals, copied from dungeon-tactics-lab/musica (src/main.ts, data/*.json). Each old
 // page (#/batalha, #/pastoral) is a group and each old anchor (referencias, a track id, checagens) a page with the same
 // id, so old links like #/batalha/batalha-c land on the same content.
-import { itensDe, PAGINAS } from './components/Musica';
+import { itensDe } from './components/Musica';
 import type { GrupoManifesto, Manifesto } from '../types';
 
-// three pages by style, each one studio with a Música menu (the old per-track pages were merged into it); the pastoral and
-// battle pages also keep the references of their original data page and its checks
-const ESTILO_DADOS = { cidade: 'pastoral', batalha: 'batalha', jingles: 'jingles' } as const;
-const TITULOS = { cidade: 'Cidade', batalha: 'Batalha', jingles: 'Jingles' } as const;
-const grupos: GrupoManifesto[] = (Object.keys(ESTILO_DADOS) as (keyof typeof ESTILO_DADOS)[]).map((id) => {
-  const p = PAGINAS[ESTILO_DADOS[id]];
-  const itens = itensDe(id);
-  const comRefs = id !== 'jingles';
-  return {
-    id,
-    titulo: TITULOS[id],
-    resumo: `${p.descricao ?? ''} · ${itens.length} músicas num só estúdio`,
+// one studio with a list of every piece (search, category, order); the references and checks of the two old data pages
+// stay as pages beside it
+const grupos: GrupoManifesto[] = [
+  {
+    id: 'estudio',
+    titulo: 'Estúdio',
+    resumo: `${itensDe('cidade').length + itensDe('batalha').length + itensDe('jingles').length} músicas num só estúdio, com lista, busca e filtro por categoria.`,
     paginas: [
-      { id: 'estudio', titulo: 'Estúdio' },
-      ...(comRefs
-        ? [
-            { id: 'referencias', titulo: 'Referências' },
-            { id: 'checagens', titulo: 'Checagens' },
-          ]
-        : []),
+      { id: 'musicas', titulo: 'Músicas' },
+      { id: 'referencias-cidade', titulo: 'Referências da cidade' },
+      { id: 'referencias-batalha', titulo: 'Referências da batalha' },
+      { id: 'checagens-cidade', titulo: 'Checagens da cidade' },
+      { id: 'checagens-batalha', titulo: 'Checagens da batalha' },
     ],
-  };
-});
+  },
+];
 
 export default {
   titulo: 'Laboratório de música PSX',
