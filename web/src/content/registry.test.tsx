@@ -75,7 +75,7 @@ describe('montarLab', () => {
 });
 
 // pages that only exist for the paused decision UI: the manifest hides them, so they are orphans on purpose
-const PAUSADAS = DECISOES_ATIVAS ? [] : ['./narrativa/marcas/minhas.mdx', './narrativa/moodboard/quero.mdx'];
+const PAUSADAS = DECISOES_ATIVAS ? [] : ['./narrativa/marcas/minhas.mdx'];
 
 describe('registered labs', () => {
   it.each(Object.entries(CONTEUDO))('%s: matches a place in lib/labs.ts, no orphan files, no empty pages', (id, c) => {

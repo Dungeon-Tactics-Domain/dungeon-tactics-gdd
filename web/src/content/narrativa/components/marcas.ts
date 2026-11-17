@@ -1,8 +1,6 @@
-// "Quero / Não quero" marks, with an optional note. The old lab POSTed them to narrativa/marcas.json through its Vite
-// server; this app has no such API yet, so the same object (key "obra:l:lição" or "obra:i:arquivo") lives in this
-// browser's localStorage. Storage can be missing (private tab), so every access is guarded.
-import { useState } from 'react';
-
+// "Quero / Não quero" marks, with an optional note, made on the reference sheets and the moodboard (both removed on
+// 17/11). The old lab POSTed them to narrativa/marcas.json; here the same object (key "obra:l:lição" or "obra:i:arquivo")
+// lives in this browser's localStorage and is only read now. Storage can be missing (private tab), so access is guarded.
 export type Marca = { v: 'quero' | 'nao'; note: string; label: string };
 export type Marcas = Record<string, Marca>;
 
@@ -23,30 +21,4 @@ export function lerMarcas(): Marcas {
   } catch {
     return {};
   }
-}
-
-function gravar(chave: string, marca: Marca | undefined) {
-  // read-modify-write of the whole object: every button on the page writes its own key without clobbering the others
-  const todas = lerMarcas();
-  if (marca) todas[chave] = marca;
-  else delete todas[chave];
-  try {
-    localStorage.setItem(CHAVE, JSON.stringify(todas));
-  } catch {
-    // no storage: the mark lasts until reload
-  }
-}
-
-export function useMarca(chave: string, label: string) {
-  const [marca, setMarca] = useState<Marca | undefined>(() => lerMarcas()[chave]);
-  const mudar = (m: Marca | undefined) => {
-    gravar(chave, m);
-    setMarca(m);
-  };
-  return {
-    marca,
-    /** clicking the current choice clears the mark, as in the old lab */
-    alternar: (v: Marca['v']) => mudar(marca?.v === v ? undefined : { v, note: marca?.note ?? '', label }),
-    anotar: (note: string) => marca && mudar({ ...marca, note }),
-  };
 }

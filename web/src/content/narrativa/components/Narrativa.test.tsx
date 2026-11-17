@@ -1,10 +1,7 @@
-import { render, screen, within } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { render, screen } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { FichaJogo, Moodboard } from './Narrativa';
+import { MinhasMarcas } from './Narrativa';
 import { CHAVE, lerMarcas } from './marcas';
-
-vi.mock('@/lib/recursos', () => ({ DECISOES_ATIVAS: true }));
 
 // Node's own localStorage global shadows jsdom's in Vitest and has no methods, so each test brings its storage
 beforeEach(() => {
@@ -18,37 +15,22 @@ beforeEach(() => {
 afterEach(() => vi.unstubAllGlobals());
 
 describe('narrative lab marks', () => {
-  it('marks a lesson, keeps the note and clears on a second click, with the old keys', async () => {
-    render(<FichaJogo slug="fft" />);
-    const licao = screen.getByText('Sistema de classes (jobs) com JP').closest('li')!;
-    const quero = within(licao).getByRole('button', { name: 'Quero' });
-    await userEvent.click(quero);
-    expect(quero).toHaveAttribute('aria-pressed', 'true');
-    await userEvent.type(within(licao).getByRole('textbox', { name: 'Nota' }), 'sim');
-    expect(lerMarcas()['fft:l:Sistema de classes (jobs) com JP']).toEqual({
-      v: 'quero',
-      note: 'sim',
-      label: 'Final Fantasy Tactics · Sistema de classes (jobs) com JP',
-    });
-    await userEvent.click(quero);
-    expect(lerMarcas()).toEqual({});
-  });
-
-  it('shows on "O que eu quero" only the images marked Quero', () => {
-    const file = 'refs/fft/01-batalha-fila.jpg';
-    localStorage.setItem(CHAVE, JSON.stringify({ [`fft:i:${file}`]: { v: 'quero', note: '', label: 'x' } }));
-    render(<Moodboard slug="quero" />);
-    expect(screen.getAllByRole('listitem')).toHaveLength(1);
-    expect(screen.getByRole('img')).toHaveAttribute('src', `/content/narrativa/${file}`);
+  it('lists the saved marks under Quero and Não quero, with the note', () => {
+    localStorage.setItem(
+      CHAVE,
+      JSON.stringify({
+        'fft:l:x': { v: 'quero', note: 'sim', label: 'Final Fantasy Tactics · x' },
+        'fft:l:y': { v: 'nao', note: '', label: 'Final Fantasy Tactics · y' },
+      }),
+    );
+    render(<MinhasMarcas />);
+    expect(screen.getByRole('heading', { name: 'Quero (1)' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Não quero (1)' })).toBeInTheDocument();
+    expect(screen.getByText('sim')).toBeInTheDocument();
   });
 
   it('drops anything malformed in storage', () => {
     localStorage.setItem(CHAVE, JSON.stringify({ a: { v: 'talvez' }, b: { v: 'nao' } }));
     expect(lerMarcas()).toEqual({ b: { v: 'nao', note: '', label: 'b' } });
-  });
-
-  it('names an unknown work instead of an empty page', () => {
-    render(<Moodboard slug="nada" />);
-    expect(screen.getByText(/desconhecido/)).toBeInTheDocument();
   });
 });

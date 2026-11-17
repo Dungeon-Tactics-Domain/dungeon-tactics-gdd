@@ -1,8 +1,8 @@
-// Narrative lab: references of games, anime and books for the story and the loop. Same tree as the old lab after its
-// conversion to pages (dungeon-tactics-lab/narrativa/src/main.ts): the per-work pages come from dados.ts.
+// Narrative lab: decisions, the loop of each reference game and the marks. The reference sheets (games, anime and books)
+// and the moodboard were removed on 17/11 at Fernando's request; the per-game loop pages come from dados.ts.
 import { DECISOES_ATIVAS } from '@/lib/recursos';
 import type { Manifesto, PaginaManifesto } from '../types';
-import { type Game, IMAGENS, JOGOS, OBRAS, TIPOS, tipoDe } from './dados';
+import { type Game, JOGOS, TIPOS, tipoDe } from './dados';
 
 // menu titles up to ~28 characters; the full name and year go in the summary
 const curto = (n: string) =>
@@ -22,27 +22,19 @@ const porTipo = (pagina: (g: Game) => PaginaManifesto): PaginaManifesto[] =>
     .map((t) => ({ id: t.id, titulo: t.nome, resumo: t.resumo, subpaginas: t.jogos.map(pagina) }));
 
 const jogo = (g: Game): PaginaManifesto => ({ id: g.slug, titulo: curto(g.game), resumo: `${g.game} (${g.year})` });
-const mood = (slug: string, nome: string): PaginaManifesto => ({
-  id: slug,
-  titulo: curto(nome),
-  resumo: `${IMAGENS.filter((s) => s.slug === slug).length} imagens`,
-});
 
-// old in-page links (#ref-slug, #loop-slug, #decisoes...) still open the right page
+// old in-page links (#loop-slug, #decisoes...) still open the right page; routes of the removed sheets
+// (/jogos, /animes, /moodboard) fall to the lab home with the usual notice
 const linksAntigos: Record<string, string> = {
   decisoes: 'decisoes/agora',
-  ...(DECISOES_ATIVAS ? { moodboard: 'moodboard/quero', marcas: 'marcas/minhas' } : {}),
+  ...(DECISOES_ATIVAS ? { marcas: 'marcas/minhas' } : {}),
   loops: 'loops/nosso-loop',
-  referencias: 'jogos',
-  obras: 'animes',
-  ...Object.fromEntries(OBRAS.map((w) => [`ref-${w.slug}`, `animes/${w.slug}`])),
-  ...Object.fromEntries(JOGOS.map((g) => [`ref-${g.slug}`, `jogos/${tipoDe(g.slug)}/${g.slug}`])),
   ...Object.fromEntries(JOGOS.map((g) => [`loop-${g.slug}`, `loops/${tipoDe(g.slug)}/${g.slug}`])),
 };
 
 export default {
   titulo: 'Laboratório de narrativa',
-  resumo: 'Referências de jogos, animes e livros para a história e o loop do Dungeon Tactics.',
+  resumo: 'Decisões da história e o loop de cada jogo de referência do Dungeon Tactics.',
   origem: {
     caminho: '/narrativa/',
     fonte: 'dungeon-tactics-lab/narrativa: src/main.ts e src/data (plan.ts, refs, obras)',
@@ -92,29 +84,6 @@ export default {
       ],
     },
     {
-      id: 'moodboard',
-      titulo: 'Moodboard',
-      icone: '🖼️',
-      resumo: 'Imagens de cada obra; só ficam neste PC.',
-      paginas: [
-        ...(DECISOES_ATIVAS
-          ? [{ id: 'quero', titulo: 'O que eu quero', resumo: 'As imagens que você marcou com Quero.' }]
-          : []),
-        {
-          id: 'jogos',
-          titulo: 'Jogos',
-          resumo: 'Imagens de cada jogo.',
-          subpaginas: JOGOS.filter((g) => g.shots.length).map((g) => mood(g.slug, g.game)),
-        },
-        {
-          id: 'animes',
-          titulo: 'Animes e livros',
-          resumo: 'Imagens de cada obra.',
-          subpaginas: OBRAS.filter((w) => w.shots.length).map((w) => mood(w.slug, w.work)),
-        },
-      ],
-    },
-    {
       id: 'loops',
       titulo: 'Loops',
       icone: '🔁',
@@ -123,24 +92,6 @@ export default {
         { id: 'nosso-loop', titulo: 'Nosso loop', icone: '🎯', resumo: 'O loop do Dungeon Tactics hoje.' },
         ...porTipo(jogo),
       ],
-    },
-    {
-      id: 'jogos',
-      titulo: 'Jogos',
-      icone: '🎮',
-      resumo: 'Ficha do loop: mecânicas que carregam a história, vídeos e imagens.',
-      paginas: porTipo(jogo),
-    },
-    {
-      id: 'animes',
-      titulo: 'Animes e livros',
-      icone: '📖',
-      resumo: 'Ficha de tom, grupo, morte, mundo, política e progressão. Com spoiler.',
-      paginas: OBRAS.map((w) => ({
-        id: w.slug,
-        titulo: curto(w.work),
-        resumo: `${w.work} · ${w.kind} (${w.year})`,
-      })),
     },
     ...(DECISOES_ATIVAS
       ? [
