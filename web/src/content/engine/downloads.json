@@ -1,0 +1,6 @@
+{
+  "nota": "Download aproximado ao apertar Rodar, sem compressão, medido no build de produção e na pasta do export do Godot (17/11/2026). O motor do Godot (index.wasm e carregador) é um só para as quatro cenas: baixa na primeira cena e depois fica no cache do navegador; cada cena baixa só o seu pacote.",
+  "threejsMB": { "fisica": 4.9, "particulas": 0.7, "sombras": 1.6, "nevoa": 0.7 },
+  "godotMotorMB": 39.8,
+  "godotMB": { "fisica": 0.56, "particulas": 0.56, "sombras": 0.56, "nevoa": 0.56 }
+}

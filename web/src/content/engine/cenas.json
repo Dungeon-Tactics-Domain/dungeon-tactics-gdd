@@ -1,0 +1,87 @@
+{
+  "fisica": {
+    "titulo": "Física",
+    "testa": "Até 5.000 caixas caem num cercado e se empilham. Os corpos nunca dormem, então a pilha custa o tempo todo: a cena mede quanto o motor de física pesa por quadro.",
+    "godot": {
+      "pronto": "Jolt vem embutido desde o Godot 4.4 e é o motor de física padrão de projetos novos. Corpos, colisores e passo fixo se montam no editor.",
+      "monta": "Nada além da cena: cada caixa é um corpo rígido com colisor.",
+      "origem": {
+        "tipo": "documentacao",
+        "texto": "Documentação oficial do Godot, página \"Using Jolt Physics\" (lida em 17/11/2026).",
+        "link": "https://docs.godotengine.org/en/stable/tutorials/physics/using_jolt_physics.html"
+      }
+    },
+    "threejs": {
+      "pronto": "O Three.js só desenha; não tem física.",
+      "monta": "Aqui entra o Rapier (biblioteca em WebAssembly, 1 thread), ligado à mão: criar o mundo, os corpos e os colisores, rodar o passo fixo e copiar posição e rotação de cada corpo para a sua malha a cada quadro.",
+      "origem": {
+        "tipo": "documentacao",
+        "texto": "Documentação do Rapier para JavaScript.",
+        "link": "https://rapier.rs/docs/user_guides/javascript/getting_started_js"
+      }
+    }
+  },
+  "particulas": {
+    "titulo": "Partículas",
+    "testa": "Oito fogueiras, cada uma com fogo, fumaça e faíscas, de 1.000 a 100.000 partículas vivas. Mede o custo de atualizar e desenhar muitas partículas transparentes.",
+    "godot": {
+      "pronto": "GPUParticles3D: sistema de partículas que roda na GPU, com editor visual de emissão, cor por idade e gravidade. No renderizador Compatibility (o do navegador), rastro de partícula e colisão por SDF não existem.",
+      "monta": "Só os parâmetros de cada sistema.",
+      "origem": {
+        "tipo": "documentacao",
+        "texto": "Documentação oficial do Godot: partículas 3D e comparação de renderizadores (lidas em 17/11/2026).",
+        "link": "https://docs.godotengine.org/en/stable/tutorials/rendering/renderers.html"
+      }
+    },
+    "threejs": {
+      "pronto": "O núcleo do Three.js tem pontos (Points) e materiais, mas não um sistema de partículas com emissão e vida.",
+      "monta": "Aqui as partículas são escritas à mão num shader de vértice: a posição de cada uma é uma conta sobre o tempo, então nada é atualizado em JavaScript por quadro. Outra saída é uma biblioteca de terceiros.",
+      "origem": {
+        "tipo": "medido",
+        "texto": "Código desta cena; a bancada nativa mostrou o custo da versão que atualiza as partículas em JavaScript (8.192 partículas: −78% no Chrome)."
+      }
+    }
+  },
+  "sombras": {
+    "titulo": "Sombras e luzes",
+    "testa": "A cidade em terraços da bancada (mapa 64, 200 prédios KayKit) com a sombra do sol e de 0 a 16 luzes de ponto coloridas. Mede o custo de sombra e de luzes.",
+    "godot": {
+      "pronto": "Sombra do sol em cascata (PSSM de 2 ou 4 divisões, padrão 4) e iluminação global pronta (SDFGI, VoxelGI, lightmaps) no renderizador Forward+, o do jogo nativo. No navegador (Compatibility): SDFGI e VoxelGI não existem, lightmaps assados só são exibidos, e cada objeto recebe até 8 luzes de ponto por padrão (este projeto sobe para 32).",
+      "monta": "Só ligar as opções no editor.",
+      "origem": {
+        "tipo": "documentacao",
+        "texto": "Documentação oficial do Godot: luzes e sombras, comparação de renderizadores (lidas em 17/11/2026).",
+        "link": "https://docs.godotengine.org/en/stable/tutorials/3d/lights_and_shadows.html"
+      }
+    },
+    "threejs": {
+      "pronto": "Mapa de sombra com filtro PCF (padrão) ou VSM, e luzes de ponto sem limite fixo por objeto. Sombra em cascata existe só como exemplo nos complementos (CSM), fora do núcleo.",
+      "monta": "Iluminação global em tempo real não existe: precisa de lightmap assado fora ou de técnica própria. Esta cena usa um mapa de sombra único de 4096, igual ao do Godot.",
+      "origem": {
+        "tipo": "documentacao",
+        "texto": "Lido no código-fonte do three r186 instalado (constantes de sombra e pasta de complementos), 17/11/2026."
+      }
+    }
+  },
+  "nevoa": {
+    "titulo": "Névoa volumétrica",
+    "testa": "Uma sala escura com colunas e um holofote. Modo 0 sem névoa, modo 1 névoa de distância, modo 2 névoa volumétrica por raymarching (16 a 64 amostras por pixel). Mede o custo de encher a tela de névoa iluminada.",
+    "godot": {
+      "pronto": "Névoa volumétrica e FogVolume de verdade, com sombra dentro do feixe de luz. Mas só no renderizador Forward+, ou seja, só no Godot nativo. No navegador (Compatibility) não existe névoa volumétrica: o lado Godot desta página roda o mesmo raymarching escrito à mão que o Three.js (modo 2), e o modo 3 (FogVolume) vira o modo 2.",
+      "monta": "No nativo, nada: um nó FogVolume. No navegador, o mesmo shader de raymarching.",
+      "origem": {
+        "tipo": "documentacao",
+        "texto": "Documentação oficial do Godot, página de névoa volumétrica: \"Volumetric fog is only supported in the Forward+ renderer\" (lida em 17/11/2026).",
+        "link": "https://docs.godotengine.org/en/stable/tutorials/3d/volumetric_fog.html"
+      }
+    },
+    "threejs": {
+      "pronto": "Névoa de distância pronta (Fog e FogExp2).",
+      "monta": "Névoa volumétrica é um shader próprio: esta cena marcha o raio dentro de uma caixa e soma a luz do holofote em cada amostra. O que ela NÃO faz comparada ao FogVolume do Godot: não tem sombra no feixe (a coluna não corta a luz), não lê a profundidade (a névoa passa por cima dos objetos), a densidade é constante (sem ruído nem vento) e só existe dentro de uma caixa fixa.",
+      "origem": {
+        "tipo": "documentacao",
+        "texto": "Código desta cena, seguindo o contrato das cenas (mesmo algoritmo nos dois lados)."
+      }
+    }
+  }
+}

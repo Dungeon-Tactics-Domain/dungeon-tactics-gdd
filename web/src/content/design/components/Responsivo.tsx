@@ -543,7 +543,10 @@ function Casca({
           </div>
         </div>
       )}
-      <nav aria-label="Labs" className="grid h-[68px] flex-none grid-cols-5 border-t border-borda bg-folha">
+      <nav
+        aria-label="Labs"
+        className="grid h-[68px] flex-none auto-cols-fr grid-flow-col border-t border-borda bg-folha"
+      >
         {LAB_DADOS.map((l) => (
           <button
             key={l.id}

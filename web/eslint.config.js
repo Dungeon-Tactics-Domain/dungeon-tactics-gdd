@@ -6,7 +6,8 @@ import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
-  { ignores: ['dist', 'coverage', 'src/types/generated'] },
+  // the Godot web export is the engine's own built loader, not source of this site
+  { ignores: ['dist', 'coverage', 'src/types/generated', 'public/content/engine/godot'] },
   {
     files: ['**/*.{ts,tsx}'],
     extends: [js.configs.recommended, ...tseslint.configs.recommended, prettier],
