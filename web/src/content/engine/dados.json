@@ -1,0 +1,408 @@
+{
+  "copia": {
+    "em": "2026-11-17",
+    "de": "matriz de decisão de 17/11/2026 e as bancadas de 16 e 17/11/2026 (bancada da noite, repetição com o PC limpo, bancada de vibe code e protótipo da interface 3D)",
+    "pc": "Ryzen 9 5900XT (16 núcleos, 32 threads), NVIDIA GeForce RTX 5070, monitor de 3440x1440 a 144 Hz, Windows 11"
+  },
+  "decisao": {
+    "pergunta": "Console (Switch, Xbox, PlayStation) é requisito obrigatório do Dungeon Tactics ou só desejável?",
+    "porQue": "É o único critério em que um lado não tem como recuperar depois. Com console obrigatório, o Three.js fica sem caminho conhecido para Switch e PlayStation. Com console só desejável, a soma dá empate e o jogo que já existe pesa a favor do Three.js.",
+    "exemplo": "Daqui a um ano o jogo está na Steam e aparece a chance de lançar no Switch. No Godot, o caminho é contratar uma empresa de porte e adaptar. No Three.js, hoje, seria reescrever o jogo nessa hora.",
+    "opcoes": [
+      {
+        "titulo": "Console obrigatório: Godot, em etapas",
+        "recomendada": true,
+        "embasamento": "No Godot, a W4 Games diz cobrir Switch, Xbox Series e PS5 (documentação). No Three.js, nenhum caminho foi achado para Switch e PlayStation.",
+        "pros": "Mantém o console possível; o Godot foi melhor com CPU fraca e na bancada de vibe code.",
+        "contras": "Reescrever 27.587 linhas de TypeScript; o serviço de console é pago, ainda não lista o Godot 4.7 e exige empresa registrada.",
+        "consequencia": "Próximo passo: uma sala de batalha no Godot com o mesmo teste de regras do Three.js. O jogo em Three.js continua vivo até essa sala passar."
+      },
+      {
+        "titulo": "Console só desejável: fica o Three.js",
+        "recomendada": false,
+        "embasamento": "A soma empata (62 a 60,8) e o jogo inteiro já existe em Three.js.",
+        "pros": "Nenhuma reescrita; a versão web continua servindo de demo sem esforço.",
+        "contras": "Console fica sem caminho; pior com CPU fraca (medido só limitando núcleos).",
+        "consequencia": "Próximo passo: empacotar o jogo real em Electron e Tauri e testar a Steam."
+      },
+      {
+        "titulo": "Adiar e medir antes",
+        "recomendada": false,
+        "embasamento": "Vários itens decisivos ainda não foram testados.",
+        "pros": "Decide com dado melhor.",
+        "contras": "Atrasa; os testes custam tempo.",
+        "consequencia": "Rodar primeiro os três testes baratos da lista de testes que faltam."
+      }
+    ],
+    "recomendacao": "Ir para o Godot em etapas, se console for requisito de verdade. Primeira etapa: uma sala de batalha jogável no Godot, com o mesmo resultado de regras do Three.js. O jogo em Three.js segue vivo, e segue sendo a demo web, até essa etapa passar.",
+    "porQueRecomendacao": [
+      "Por pontos não há vencedor: 62 a 60,8; sem o custo de migração, 66,7 a 56,4. As duas diferenças ficam abaixo da margem de 15 pontos que o plano de testes trata como ruído.",
+      "Console é o único critério sem volta, e só o Godot tem caminho documentado para os três fabricantes.",
+      "Nos critérios medidos, o Godot foi igual ou melhor com CPU fraca e na bancada de vibe code, então a migração não piora o dia a dia (dedução, com dado fraco)."
+    ],
+    "gatilhos": [
+      "Console passa a ser só desejável: fica o Three.js (empate por pontos e nenhuma reescrita).",
+      "A W4 Games não suporta o Godot 4.7 no prazo do jogo, ou a exigência de empresa registrada e licença de fabricante se mostra inviável: a vantagem do Godot em console cai e a soma volta a mandar.",
+      "A sala de batalha no Godot não reproduz as regras do Three.js (teste de 1.000 batalhas com o mesmo resultado): não migrar.",
+      "Aparece um caminho confirmado para Three.js em console (por exemplo, a rota de Xbox testada de verdade) e só o Xbox interessa.",
+      "Medição com a GPU limitada ou em hardware fraco de verdade inverte o desempenho."
+    ]
+  },
+  "margem": 15,
+  "criterios": [
+    {
+      "id": "perf_noite",
+      "nome": "Desempenho: bancada da noite",
+      "peso": 6,
+      "godot": 4,
+      "threejs": 3,
+      "brutoGodot": "Com a CPU no limite (modo ingênuo), Godot contra Chrome: base 99,2 x 48,2 fps (2,06 vezes); sombras 79,8 x 29,8 fps (2,68 vezes); física de 1.000 corpos 92,6 x 32,1 fps (2,89 vezes); 1.000 personagens 12,9 x 9,2 fps (1,40 vez). 200 personagens: 59,5 fps.",
+      "brutoThreejs": "Chrome nos mesmos casos (segundo número de cada par). 50 personagens: 101,1 fps (Godot 181,9); 200 personagens: 37,8 fps. Com a GPU no limite (modo otimizado), o fps do navegador conta chamadas de requestAnimationFrame e não se compara ao do Godot.",
+      "porQue": "Regra do plano de testes: acima de 60 fps tudo vale igual. Os dois passam de 60 fps com carga pequena (50 personagens); com 200 personagens o Godot faz 59,5 fps e o Chrome 37,8. Não é 5 porque o Godot foi medido pelo executável do editor, não por um jogo exportado, e o ruído dos casos ingênuos é de cerca de 15%.",
+      "origem": {
+        "tipo": "medido",
+        "texto": "Bancada da noite de 16 e 17/11: blocos de cargas de GPU, de física e partículas e de mapa, prédios e personagens; mediana de 3 rodadas, recalculada dos arquivos de resultado."
+      }
+    },
+    {
+      "id": "perf_limpo",
+      "nome": "Desempenho: PC limpo",
+      "peso": 8,
+      "godot": 4,
+      "threejs": 3,
+      "brutoGodot": "Godot contra Chrome, modo ingênuo: base 107,4 x 51 fps (2,11 vezes); sombras 73,8 x 28,9 fps (2,56 vezes); física de 1.000 corpos 87,5 x 27,5 fps (3,18 vezes); 1.000 personagens 11,4 x 8,5 fps (1,34 vez). Física otimizada: 1.623,8 x 356,9 fps (4,55 vezes).",
+      "brutoThreejs": "Com textura de ossos, 1.000 personagens: Chrome 217 fps contra Godot 156 (Three.js 1,39 vez na frente). Sem ela: Chrome 8,2 x Godot 11,3 fps.",
+      "porQue": "Mesma regra dos 60 fps. A ordem não mudou com o PC limpo: Godot na frente quando a CPU limita; Three.js na frente com textura de ossos. Na segunda metade da repetição havia outras duas janelas abertas no PC.",
+      "origem": {
+        "tipo": "medido",
+        "texto": "Repetição da bancada com o PC limpo, 17/11 de 07:27 a 08:37; mediana de 3 rodadas, recalculada."
+      }
+    },
+    {
+      "id": "perf_fraco",
+      "nome": "Desempenho: modo fraco",
+      "peso": 6,
+      "godot": 4,
+      "threejs": 2,
+      "brutoGodot": "Otimizado: 62,1 fps com todos os núcleos, 65,8 com 4 e 64,4 com 2 (+4%). 1% low com 2 núcleos: 49. Ingênuo: 14,4, 14 e 14 fps.",
+      "brutoThreejs": "Otimizado, Chrome: 33,1, 32,7 e 27,3 fps (−18% com 2 núcleos); Electron −10%, Tauri −15%. Ingênuo, Chrome: 6, 5,4 e 4,6 fps (−24%); Electron −28%, Tauri −23%.",
+      "porQue": "Régua do plano: 5 = 60 fps com 1% low de 45; 3 = 30 fps com 1% low de 25. O Godot otimizado passa da régua de 5 com 2 e com 4 núcleos (1% low de 49 e 51,6); com todos os núcleos o 1% low foi 40,8, abaixo da linha de 45. O Chrome com 2 núcleos (27,3 fps) fica abaixo da régua de 3. Um ponto a menos para o Godot porque só a CPU foi limitada: o clock da GPU não foi travado.",
+      "origem": {
+        "tipo": "medido",
+        "texto": "Bancada da noite, bloco de modo fraco (núcleos limitados por afinidade de CPU); carga: mapa 128, 8 prédios, 200 personagens, sombras."
+      }
+    },
+    {
+      "id": "consoles",
+      "nome": "Consoles (Switch, Xbox, PlayStation)",
+      "peso": 20,
+      "godot": 3,
+      "threejs": 1,
+      "brutoGodot": "Oficialmente, só Steam Deck. Switch, Xbox Series e PS5 por empresa paga (W4 Games) ou por empresas de porte (Pineapple Works, Lone Wolf e outras). Exige empresa registrada e licença de cada fabricante. A página da W4 lista as versões 4.3 a 4.6 do Godot e a 4.7 não aparece.",
+      "brutoThreejs": "Nenhum caminho encontrado para Switch nem PlayStation. Xbox: há uma rota por aplicativo UWP com WebView2, com relatos de tela preta no WebGL em Xbox Series (não confirmado).",
+      "porQue": "O Godot tem caminho documentado, mas pago, com exigência legal e sem confirmação para a versão 4.7. O Three.js não zera porque a rota de Xbox existe em relato, ainda não confirmado.",
+      "origem": {
+        "tipo": "documentacao",
+        "texto": "Páginas lidas em 17/11: docs.godotengine.org (plataformas de console) e w4games.com/w4consoles; rota de Xbox só por resumo de busca, páginas não abertas."
+      }
+    },
+    {
+      "id": "vibe",
+      "nome": "Vibe code (10 tarefas iguais)",
+      "peso": 20,
+      "godot": 4,
+      "threejs": 3,
+      "brutoGodot": "849.838 tokens, 44 chamadas de ferramenta, 2 rodadas de correção; 8 de 10 tarefas sem correção.",
+      "brutoThreejs": "882.283 tokens, 81 chamadas de ferramenta, 5 rodadas de correção; 6 de 10 tarefas sem correção.",
+      "porQue": "Régua do plano: 8 ou mais de 10 certas de primeira = 5; 5 a 7 = 3. O Godot ficaria com 5; caiu para 4 porque foi uma execução por tarefa, num projeto pequeno (uma cidade de teste, não o jogo), sem conferência visual, e a diferença de tokens (3,8%) é ruído.",
+      "origem": {
+        "tipo": "medido",
+        "texto": "Bancada de vibe code de 16/11: tokens informados pelo sistema ao fim de cada tarefa; chamadas e correções relatadas pelo próprio agente."
+      }
+    },
+    {
+      "id": "interface3d",
+      "nome": "Interface 3D (menus do jogo)",
+      "peso": 10,
+      "godot": 3,
+      "threejs": 5,
+      "brutoGodot": "Protótipo do menu de comandos e do submenu de habilidades: 78 verificações do teste automático passaram, 0 falharam; 1.136 linhas de script e shader, 321 de teste. Falta portar: ficha da habilidade, barra, confirmação, dicas e tela de resultado.",
+      "brutoThreejs": "Já existe e está no jogo: 2.602 linhas em 16 arquivos (menu, barra, confirmação, dicas, resultado); o menu sozinho tem 917 linhas.",
+      "porQue": "O port é viável: o menu ficou parecido na captura lado a lado. Mas a comparação visual foi só olhando a captura, e o custo da segunda versão do protótipo não foi registrado.",
+      "origem": {
+        "tipo": "medido",
+        "texto": "17/11: teste do protótipo rodado sem janela; linhas contadas no protótipo e no cliente do jogo."
+      }
+    },
+    {
+      "id": "peso",
+      "nome": "Peso (RAM, VRAM, instalador)",
+      "peso": 10,
+      "godot": 3,
+      "threejs": 4,
+      "brutoGodot": "Cena base otimizada, PC limpo: 799 MB de RAM e 212 MB de VRAM (noite: 801 e 212). Instalador: não medido (não existe projeto exportado).",
+      "brutoThreejs": "Mesma cena, PC limpo, RAM e VRAM: Chrome 546 e 93 MB; Electron 453 e 91; Tauri 494 e 88. Instalador da cidade de teste: Electron 115,2 MB, Tauri 2,2 MB.",
+      "porQue": "O Three.js usa menos RAM e VRAM nesta cena. Dado fraco: a RAM do Godot é a do executável do editor; os instaladores são da cidade de teste, não do jogo; o instalador do Godot não existe para comparar.",
+      "origem": {
+        "tipo": "medido",
+        "texto": "Repetição com o PC limpo e bancada da noite (bloco de cargas de GPU); tamanho dos instaladores lido do disco em 17/11."
+      }
+    },
+    {
+      "id": "migracao",
+      "nome": "Custo de migração",
+      "peso": 10,
+      "godot": 1,
+      "threejs": 5,
+      "brutoGodot": "Reescrever o jogo: 27.587 linhas de TypeScript em 179 arquivos (cliente 22.652, regras 3.153, conteúdo 1.782), 4.462 linhas de CSS da interface e 12.128 linhas em 84 arquivos de teste.",
+      "brutoThreejs": "Nenhuma reescrita. Falta só o casco de instalação (Electron ou Tauri) e a integração com a Steam.",
+      "porQue": "Em 16/11 ficou decidido que o orçamento de migração não pesa na decisão. Por isso o total aparece com e sem este critério.",
+      "origem": {
+        "tipo": "medido",
+        "texto": "17/11: linhas contadas no código e nos testes do jogo; sem estimativa de horas."
+      }
+    },
+    {
+      "id": "risco",
+      "nome": "Risco e lacunas",
+      "peso": 10,
+      "godot": 2,
+      "threejs": 3,
+      "brutoGodot": "Não testado: C# e C++ contra GDScript, Godot na web, Steam Deck, sessão longa, integração com a Steam, projeto exportado. Na web o Godot 4 só roda o renderizador Compatibility.",
+      "brutoThreejs": "Não testado: sobreposição da Steam em casco web, Steam Deck, sessão longa, o jogo real nos cascos. Electron e Tauri perdem cerca de 29% no mapa 256 otimizado, sem causa investigada.",
+      "porQue": "Os dois lados têm lacunas grandes. O Godot fica um ponto abaixo porque nada do jogo real existe nele ainda; o Three.js já roda o jogo inteiro na web.",
+      "origem": {
+        "tipo": "deducao",
+        "texto": "Dedução sobre a lista de pendências das bancadas e a documentação de exportação web do Godot 4.7."
+      }
+    }
+  ],
+  "ressalvas": [
+    {
+      "texto": "FPS de navegador sem vsync conta chamadas de requestAnimationFrame, não quadros na tela. Acima de cerca de 1.000 só valem razões dentro do mesmo lado; Godot contra navegador em número absoluto nessa faixa não se compara.",
+      "origem": "medido"
+    },
+    {
+      "texto": "Godot abaixo de cerca de 7,5 fps tem o tempo por quadro limitado (cerca de 133 ms), então o fps fica superestimado. Vale para o mapa 256 ingênuo e para a física de 5.000 corpos; nenhum dos dois entrou nas notas.",
+      "origem": "medido"
+    },
+    {
+      "texto": "Ruído de cerca de 15% nos casos ingênuos (CPU no limite): o caso de controle variou de −13% a +19% entre o início e o fim dos blocos. Razões pequenas não valem.",
+      "origem": "medido"
+    },
+    {
+      "texto": "A GPU não foi limitada. O modo fraco simula só CPU fraca (afinidade de núcleos); travar o clock da GPU exige administrador e ficou pendente.",
+      "origem": "medido"
+    },
+    {
+      "texto": "O Godot foi medido pelo executável do editor, não por um jogo exportado. Afeta RAM, VRAM e tempo de abertura.",
+      "origem": "medido"
+    },
+    {
+      "texto": "O PC limpo não ficou limpo até o fim: na segunda metade da repetição havia duas janelas abertas.",
+      "origem": "medido"
+    }
+  ],
+  "fracos": [
+    "Desempenho: a carga é uma cidade de teste, não o jogo. Um RPG tático tem dezenas de unidades; nessa faixa os dois passam de 60 fps (dedução a partir de 50 personagens: Godot 181,9 e Chrome 101,1 fps).",
+    "Vibe code: uma execução por tarefa, projeto pequeno, sem conferência visual; 4% de diferença em tokens é ruído. As correções foram relatadas pelo próprio agente.",
+    "Peso: instalador do Godot não medido; os instaladores do Three.js são da cidade de teste.",
+    "Consoles: tudo vem de páginas lidas, nada foi testado; o preço foi lido da página da W4 por ferramenta de leitura automática."
+  ],
+  "godotPerde": "Com textura de ossos (1.000 personagens) o Three.js faz 217 fps contra 156; RAM e VRAM da cena base são maiores no Godot; a interface 3D e o jogo inteiro já existem no Three.js; a versão web como demo sai de graça no Three.js.",
+  "naoConfirmado": [
+    {
+      "texto": "Suporte da W4 Games ao Godot 4.7: a página lista 4.3 a 4.6 e não cita a 4.7.",
+      "link": "https://w4games.com/w4consoles"
+    },
+    {
+      "texto": "Preço da W4 Games: a página indicava a partir de US$ 800 por ano por plataforma, ou US$ 2.000 por ano para todas, no plano inicial. Lido por ferramenta automática em 17/11; confirmar com a empresa.",
+      "link": "https://w4games.com/w4consoles"
+    },
+    { "texto": "Jogos lançados com a W4: a página não nomeia nenhum." },
+    { "texto": "Switch 2: a página da W4 fala em \"beta inicial\"; nada além disso." },
+    { "texto": "Preços de Pineapple Works, Lone Wolf e das outras empresas de porte: não encontrados." },
+    {
+      "texto": "Three.js no Xbox por aplicativo UWP com WebView2: só resumo de busca, com relatos de tela preta no WebGL em Xbox Series; as páginas não foram abertas.",
+      "link": "https://blogs.windows.com/msedgedev/2023/11/01/webview2-for-xbox-announcement/"
+    },
+    {
+      "texto": "Three.js em Switch e PlayStation: nenhum caminho achado. Isso é ausência de fonte, não prova de que é impossível."
+    }
+  ],
+  "consoles": [
+    {
+      "plataforma": "Steam Deck",
+      "godot": "Oficial (Linux)",
+      "threejs": "Pelo casco Electron ou Tauri no Linux (não testado)",
+      "origem": "documentacao"
+    },
+    {
+      "plataforma": "Nintendo Switch",
+      "godot": "Por empresa paga: W4 Games, Pineapple Works, Lone Wolf",
+      "threejs": "Nenhum caminho achado",
+      "origem": "documentacao"
+    },
+    {
+      "plataforma": "Xbox Series",
+      "godot": "Por empresa paga: W4 Games e empresas de porte",
+      "threejs": "Aplicativo UWP com WebView2 (não confirmado; relatos de tela preta no WebGL)",
+      "origem": "documentacao"
+    },
+    {
+      "plataforma": "PlayStation 5",
+      "godot": "Por empresa paga: W4 Games e empresas de porte",
+      "threejs": "Nenhum caminho achado",
+      "origem": "documentacao"
+    }
+  ],
+  "consolesLinks": [
+    {
+      "rotulo": "Godot: plataformas de console (documentação oficial)",
+      "url": "https://docs.godotengine.org/en/stable/tutorials/platform/consoles.html"
+    },
+    { "rotulo": "W4 Games: consoles", "url": "https://w4games.com/w4consoles" }
+  ],
+  "cpu": {
+    "titulo": "CPU no limite (modo ingênuo): fps médio",
+    "nota": "Modo ingênuo = um objeto por peça, milhares de chamadas de desenho; quem limita é a CPU. Nessa faixa o fps dos dois lados se compara em número absoluto.",
+    "casos": [
+      {
+        "rotulo": "Base (mapa 64, 200 prédios)",
+        "noite": { "godot": 99.2, "chrome": 48.2, "electron": 53.4, "tauri": 54.3 },
+        "limpo": { "godot": 107, "chrome": 51.0, "electron": 51.4, "tauri": 45.0 }
+      },
+      {
+        "rotulo": "Base com sombras",
+        "noite": { "godot": 79.8, "chrome": 29.8, "electron": 33.1, "tauri": 33.2 },
+        "limpo": { "godot": 73.8, "chrome": 28.9, "electron": 30.0, "tauri": 29.0 }
+      },
+      {
+        "rotulo": "Base com física de 1.000 corpos",
+        "noite": { "godot": 92.6, "chrome": 32.1, "electron": 32.0, "tauri": 32.3 },
+        "limpo": { "godot": 87.5, "chrome": 27.5, "electron": 28.0, "tauri": 27.8 }
+      },
+      {
+        "rotulo": "1.000 personagens animados",
+        "noite": { "godot": 12.9, "chrome": 9.2, "electron": 8.5, "tauri": 8.9 },
+        "limpo": { "godot": 11.4, "chrome": 8.5, "electron": 7.1, "tauri": 8.2 }
+      }
+    ]
+  },
+  "personagens": {
+    "titulo": "Personagens animados (mapa 32, modo ingênuo, bancada da noite): fps médio",
+    "casos": [
+      { "rotulo": "50 personagens", "godot": 182, "chrome": 101 },
+      { "rotulo": "200 personagens", "godot": 59.5, "chrome": 37.8 },
+      { "rotulo": "1.000 personagens", "godot": 12.9, "chrome": 9.2 }
+    ],
+    "ossos": {
+      "titulo": "1.000 personagens com textura de ossos (PC limpo): fps médio",
+      "casos": [
+        { "rotulo": "Sem textura de ossos", "godot": 11.3, "chrome": 8.2, "electron": 7.9, "tauri": 7.8 },
+        { "rotulo": "Com textura de ossos", "godot": 156, "chrome": 217, "electron": 218, "tauri": 222 }
+      ]
+    }
+  },
+  "gpu": {
+    "titulo": "GPU no limite (modo otimizado): quanto cada carga custa ao próprio lado",
+    "nota": "No modo otimizado o navegador passa de 1.000 fps e conta chamadas de requestAnimationFrame. Por isso o gráfico mostra a queda em relação à base do mesmo lado, nunca Godot contra navegador em número absoluto.",
+    "casos": [
+      { "rotulo": "Sombras", "godot": -15, "chrome": -50 },
+      { "rotulo": "16 luzes de ponto", "godot": -8, "chrome": -40 },
+      { "rotulo": "Pós-processamento (bloom)", "godot": -13, "chrome": -13 },
+      { "rotulo": "Transparência (6 planos)", "godot": -1, "chrome": -31 },
+      { "rotulo": "8.192 partículas", "godot": -5, "chrome": -78 },
+      { "rotulo": "Física de 1.000 corpos", "godot": -22, "chrome": -93 }
+    ],
+    "base": { "godot": 2285, "chrome": 6122 }
+  },
+  "fisica": {
+    "titulo": "Física otimizada (bancada da noite): fps médio",
+    "nota": "Godot com Jolt, Chrome com Rapier (WASM, 1 thread), 60 Hz, corpos sem dormir. Com 5.000 corpos o Godot usou cerca de 9 núcleos lógicos; o Chrome, 1 thread saturada. O fps do Godot com 5.000 corpos está superestimado (abaixo de 7,5 fps o tempo por quadro é limitado).",
+    "casos": [
+      { "rotulo": "100 corpos", "godot": 2267, "chrome": 3782 },
+      { "rotulo": "1.000 corpos", "godot": 1793, "chrome": 421 },
+      { "rotulo": "5.000 corpos", "godot": 17.8, "chrome": 3.6 }
+    ]
+  },
+  "fraco": {
+    "titulo": "Modo fraco (mapa 128, 8 prédios, 200 personagens, sombras, otimizado): fps médio",
+    "nota": "Núcleos físicos limitados por afinidade de CPU, sem limitar a GPU.",
+    "casos": [
+      { "rotulo": "Todos os 16 núcleos", "godot": 62.1, "chrome": 33.1, "electron": 29.7, "tauri": 32.0 },
+      { "rotulo": "4 núcleos", "godot": 65.8, "chrome": 32.7, "electron": 31.4, "tauri": 30.5 },
+      { "rotulo": "2 núcleos", "godot": 64.4, "chrome": 27.3, "electron": 26.6, "tauri": 27.2 }
+    ]
+  },
+  "peso": {
+    "titulo": "Memória da cena base otimizada (PC limpo), em MB",
+    "ram": { "godot": 799, "chrome": 546, "electron": 453, "tauri": 494 },
+    "vram": { "godot": 212, "chrome": 93, "electron": 91, "tauri": 88 },
+    "instalador": "Instalador da cidade de teste: Electron 115,2 MB, Tauri 2,2 MB; Godot não medido (não existe projeto exportado)."
+  },
+  "vibe": {
+    "regra": "Cada tarefa rodou em dois agentes de IA de código, um por motor, com o mesmo modelo, o mesmo texto e contexto limpo, sobre a mesma cidade de teste (grade 32 x 32 em terraços, 8 prédios, herói 2 x 2, câmera isométrica). Verificação só sem janela.",
+    "tarefas": [
+      {
+        "nome": "Lama (terreno novo com custo 2)",
+        "godot": { "tokens": 85537, "tools": 5, "correcoes": 0 },
+        "threejs": { "tokens": 93544, "tools": 13, "correcoes": 2 }
+      },
+      {
+        "nome": "Dica com o nome do prédio",
+        "godot": { "tokens": 82833, "tools": 4, "correcoes": 0 },
+        "threejs": { "tokens": 86472, "tools": 7, "correcoes": 0 }
+      },
+      {
+        "nome": "Tela de opções",
+        "godot": { "tokens": 83924, "tools": 4, "correcoes": 1 },
+        "threejs": { "tokens": 86866, "tools": 6, "correcoes": 0 }
+      },
+      {
+        "nome": "Salvar e carregar",
+        "godot": { "tokens": 84211, "tools": 5, "correcoes": 0 },
+        "threejs": { "tokens": 85477, "tools": 6, "correcoes": 0 }
+      },
+      {
+        "nome": "Partículas ao clicar",
+        "godot": { "tokens": 92757, "tools": 6, "correcoes": 0 },
+        "threejs": { "tokens": 86145, "tools": 6, "correcoes": 0 }
+      },
+      {
+        "nome": "Segundo idioma",
+        "godot": { "tokens": 83053, "tools": 4, "correcoes": 0 },
+        "threejs": { "tokens": 93164, "tools": 10, "correcoes": 1 }
+      },
+      {
+        "nome": "Conquista",
+        "godot": { "tokens": 83103, "tools": 4, "correcoes": 0 },
+        "threejs": { "tokens": 88125, "tools": 11, "correcoes": 1 }
+      },
+      {
+        "nome": "Bug de altura plantado",
+        "godot": { "tokens": 87357, "tools": 6, "correcoes": 1 },
+        "threejs": { "tokens": 85890, "tools": 6, "correcoes": 0 }
+      },
+      {
+        "nome": "Área em cone",
+        "godot": { "tokens": 84017, "tools": 3, "correcoes": 0 },
+        "threejs": { "tokens": 87431, "tools": 7, "correcoes": 0 }
+      },
+      {
+        "nome": "Inimigo que persegue",
+        "godot": { "tokens": 83046, "tools": 3, "correcoes": 0 },
+        "threejs": { "tokens": 89169, "tools": 9, "correcoes": 1 }
+      }
+    ],
+    "totais": {
+      "godot": { "tokens": 849838, "tools": 44, "correcoes": 2 },
+      "threejs": { "tokens": 882283, "tools": 81, "correcoes": 5 }
+    }
+  },
+  "interface": {
+    "godot": "Protótipo em Godot do menu de comandos e do submenu de habilidades, no estilo dos menus de RPG tático: 78 verificações do teste automático passaram e 0 falharam; 1.136 linhas de script e shader e 321 de teste.",
+    "threejs": "No jogo em Three.js, a interface 3D já existe: 2.602 linhas em 16 arquivos (menu, barra, confirmação, dicas e tela de resultado).",
+    "falta": "Falta portar para o Godot: ficha da habilidade, barra, confirmação, dicas e tela de resultado."
+  }
+}

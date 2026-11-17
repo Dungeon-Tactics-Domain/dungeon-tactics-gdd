@@ -190,12 +190,12 @@ export function Lateral({
   );
 }
 
-/** Phone and standing tablet: the 5 labs at the thumb. */
+/** Phone and standing tablet: every lab at the thumb, one equal column each. */
 export function MenuInferior() {
   return (
     <nav
       aria-label="Labs"
-      className="fixed inset-x-0 bottom-0 z-40 grid h-(--nav-h) grid-cols-5 border-t border-borda bg-casca-lateral"
+      className="fixed inset-x-0 bottom-0 z-40 grid h-(--nav-h) auto-cols-fr grid-flow-col border-t border-borda bg-casca-lateral"
     >
       {LABS.map((l) => (
         <NavLink

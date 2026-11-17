@@ -88,6 +88,17 @@ export const LABS: Place[] = [
     descricao: 'Trilha no estilo FFT e BoF4',
     antigo: '/musica/',
   },
+  {
+    id: 'engine',
+    nome: 'Engine: Godot x Three.js',
+    curto: 'Engine',
+    href: '/engine',
+    cor: '#3b5a78',
+    corSuave: '#e3eaf1',
+    x: 62,
+    y: 60,
+    descricao: 'Qual motor, com medições e cenas ao vivo',
+  },
 ];
 
 // the decisions page is not a town: its own quiet accent

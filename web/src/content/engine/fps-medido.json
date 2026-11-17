@@ -1,0 +1,29 @@
+{
+  "nota": "Chave = parâmetros da cena na ordem da query string. Three.js e Godot no navegador: medidos neste PC pelas cenas desta página (mediana de 3 rodadas, 10 s, sem vsync, janela 1280 x 720). Godot nativo: bancada nativa, só onde a bancada tem exatamente o mesmo caso.",
+  "threejs": {},
+  "godotWeb": {},
+  "godotNativo": {
+    "sombras": {
+      "luzes=0&otimizado=1&sombras=0": {
+        "fps": 2247,
+        "origem": "Bancada nativa, PC limpo (17/11), executável do editor"
+      },
+      "luzes=0&otimizado=1&sombras=1": {
+        "fps": 1881,
+        "origem": "Bancada nativa, PC limpo (17/11), executável do editor"
+      },
+      "luzes=4&otimizado=1&sombras=0": {
+        "fps": 2204,
+        "origem": "Bancada nativa, bancada da noite (16/11), executável do editor"
+      },
+      "luzes=16&otimizado=1&sombras=0": {
+        "fps": 2097,
+        "origem": "Bancada nativa, bancada da noite (16/11), executável do editor"
+      },
+      "luzes=0&otimizado=0&sombras=1": {
+        "fps": 73.8,
+        "origem": "Bancada nativa, PC limpo (17/11), executável do editor"
+      }
+    }
+  }
+}

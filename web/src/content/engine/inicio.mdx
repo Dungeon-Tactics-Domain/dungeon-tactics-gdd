@@ -1,0 +1,15 @@
+import { OrigemCopia, Totais } from './components/Painel';
+
+O **Dungeon Tactics** é um RPG tático em 3D, com câmera isométrica e batalhas em grade, feito hoje em **Three.js** (TypeScript no navegador). A pergunta deste lab é se o jogo deve continuar em Three.js ou migrar para o **Godot 4.7**, pensando em lançar na Steam e, talvez, em console. Para responder, os dois motores rodaram as mesmas cargas no mesmo PC, fizeram as mesmas dez tarefas de programação e foram comparados em documentação. Cada número aqui diz de onde veio: medido, documentação ou dedução.
+
+<Callout titulo="Recomendação atual, em avaliação">
+
+Por pontos, os motores empatam. O que separa os dois é **console**: só o Godot tem caminho documentado para Switch, Xbox e PlayStation. Se console for obrigatório, a recomendação atual é migrar para o Godot em etapas, começando por uma sala de batalha; se for só desejável, ficar no Three.js. [Ver a decisão e os gatilhos que mudariam a conclusão](/engine/decisao/agora).
+
+</Callout>
+
+<Totais />
+
+Na seção **Cenas ao vivo**, quatro cenas (física, partículas, sombras e névoa) rodam lado a lado nos dois motores, no seu navegador, com o fps de cada lado. Nada carrega antes de você apertar "Rodar".
+
+<OrigemCopia />

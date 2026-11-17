@@ -1,0 +1,120 @@
+{
+  "fumacaNota": "Teste de fumaça de 17/11/2026: 1 rodada por caso, PC em uso, ruído alto. A GPU já estava entre 7% e 30% antes de cada rodada. Não é o número oficial: a medição com o PC parado ainda está pendente.",
+  "fumacaMetodo": "Chrome sem vsync e sem limite de quadros, janela fora da tela e não minimizada; 2 s de aquecimento e 10 s medidos. O nativo é o executável do Godot 4.7.2 com o mesmo projeto, nos renderizadores Compatibility e Forward+.",
+  "geral": [
+    {
+      "texto": "No navegador o Godot usa só o renderizador Compatibility (WebGL 2). O padrão do Godot nativo é o Forward+ (Vulkan ou Direct3D 12). Por isso a comparação justa web contra nativo é com o nativo Compatibility; o Forward+ entra só como referência do que um jogo de Steam faria.",
+      "origem": {
+        "tipo": "medido",
+        "texto": "O console do export web imprime \"OpenGL ES 3.0 (WebGL 2.0) - Compatibility\". A documentação oficial do Godot diz o mesmo sobre o export web.",
+        "link": "https://docs.godotengine.org/en/stable/tutorials/export/exporting_for_web.html"
+      }
+    },
+    {
+      "texto": "O export roda sem threads: o servidor não precisa de cabeçalhos especiais (COOP e COEP), mas o motor inteiro, física incluída, roda num núcleo só.",
+      "origem": {
+        "tipo": "medido",
+        "texto": "Console do export web: \"single-threaded, no GDExtension support\"."
+      }
+    }
+  ],
+  "cenas": {
+    "fisica": {
+      "fumaca": {
+        "caso": "1.000 caixas, sem sombras",
+        "web": 82.9,
+        "web1pct": 33.3,
+        "compat": 240.7,
+        "forward": 534.2,
+        "razaoCompat": 34,
+        "razaoForward": 16
+      },
+      "diferencas": [
+        {
+          "texto": "Com 1.000 caixas, o Godot web e o nativo Compatibility fazem cerca de 1.003 chamadas de desenho por quadro (uma por caixa); o nativo Forward+ junta tudo em cerca de 5. No navegador, esta cena mede a física mais 1.000 desenhos, e o Three.js faz o mesmo (um objeto por caixa, como manda o contrato das cenas).",
+          "origem": {
+            "tipo": "medido",
+            "texto": "Contador de chamadas de desenho do Godot nos três alvos, 17/11/2026."
+          }
+        },
+        {
+          "texto": "O Jolt (motor de física do Godot) provavelmente roda numa thread só no navegador, porque o export não tem threads. Com 5.000 corpos a distância para o nativo deve crescer, mas esse caso não foi medido.",
+          "origem": {
+            "tipo": "deducao",
+            "texto": "Dedução a partir do export sem threads; não medido com 5.000 corpos."
+          }
+        }
+      ]
+    },
+    "particulas": {
+      "fumaca": {
+        "caso": "10.000 partículas",
+        "web": 180.2,
+        "web1pct": 101,
+        "compat": 418.2,
+        "forward": 1556.1,
+        "razaoCompat": 43,
+        "razaoForward": 12
+      },
+      "diferencas": [
+        {
+          "texto": "As partículas de GPU (GPUParticles3D) funcionam no navegador: fogo, fumaça e faíscas aparecem iguais. A diferença é só de desempenho.",
+          "origem": { "tipo": "medido", "texto": "Capturas do export web no Chrome, 17/11/2026." }
+        }
+      ]
+    },
+    "sombras": {
+      "fumaca": {
+        "caso": "16 luzes, sombras ligadas, instâncias",
+        "web": 527.7,
+        "web1pct": 270,
+        "compat": 679.5,
+        "forward": 1456.2,
+        "razaoCompat": 78,
+        "razaoForward": 36
+      },
+      "diferencas": [
+        {
+          "texto": "O Compatibility aceita por padrão 8 luzes de ponto por objeto. O projeto subiu o limite para 32, para o caso de 16 luzes valer de verdade nos dois lados do Godot.",
+          "origem": { "tipo": "medido", "texto": "Configuração do projeto lida no Godot web e no nativo, 17/11/2026." }
+        },
+        {
+          "texto": "É a mesma cidade da bancada nativa: a assinatura da cidade gerada no Godot é igual à da bancada com os mesmos parâmetros.",
+          "origem": {
+            "tipo": "medido",
+            "texto": "Assinatura conferida com 4 luzes (nativo) e 16 luzes (web), 17/11/2026."
+          }
+        }
+      ]
+    },
+    "nevoa": {
+      "fumaca": {
+        "caso": "névoa: nativo Compatibility no raymarching, nativo Forward+ no FogVolume",
+        "web": null,
+        "web1pct": null,
+        "compat": 836.1,
+        "forward": 887.9,
+        "razaoCompat": null,
+        "razaoForward": null
+      },
+      "diferencas": [
+        {
+          "texto": "O FogVolume (névoa volumétrica pronta do Godot) não existe no Compatibility, então não existe no navegador. No navegador a névoa vira um raymarching escrito em shader, o mesmo algoritmo do lado Three.js, sem sombra dentro do feixe de luz.",
+          "origem": {
+            "tipo": "documentacao",
+            "texto": "Documentação oficial: \"Volumetric fog is only supported in the Forward+ renderer\" (lida em 17/11/2026).",
+            "link": "https://docs.godotengine.org/en/stable/tutorials/3d/volumetric_fog.html"
+          }
+        },
+        {
+          "texto": "No nativo Forward+ o FogVolume renderizou, mas mais fraco que o raymarching: a densidade e o brilho não foram calibrados para ficarem iguais. Os dois números do nativo medem efeitos diferentes.",
+          "origem": { "tipo": "medido", "texto": "Captura do nativo Forward+, 17/11/2026, uma vez." }
+        },
+        {
+          "texto": "O Godot web desta cena não tem número no teste de fumaça: as 5 tentativas foram invalidadas pela própria ferramenta de medição (um aviso contado como erro e uma navegação no meio). O erro foi corrigido para a medição oficial.",
+          "origem": { "tipo": "medido", "texto": "Registro da ferramenta de medição, 17/11/2026." }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "atualizadoEm": "2026-11-17",
+  "comoAtualizar": "Ao rodar um teste, troque o estado para \"em-andamento\" ou \"feito\" e escreva o resultado em uma frase.",
+  "itens": [
+    {
+      "id": "cenas-navegador",
+      "titulo": "Medir o fps do Three.js no navegador nas quatro cenas, para rodar com o PC parado",
+      "porQue": "As cenas desta página mostram \"não medido\": a primeira tentativa parou porque a GPU não ficou ociosa com o PC em uso. O script exige a GPU abaixo de 5% antes de cada rodada e para sozinho depois de duas esperas seguidas sem isso.",
+      "passos": [
+        "Fechar jogos, vídeos e navegadores, e deixar o PC parado durante toda a medição (cerca de 30 minutos: 22 casos, 3 rodadas de 10 segundos cada).",
+        "Na pasta web do site: `npm run build`",
+        "Na mesma pasta, num terminal que fica aberto: `npx vite preview --port 5195 --strictPort --host 127.0.0.1`",
+        "Em outro terminal, na pasta lab-engine da bancada: `node medir-threejs-web.mjs --porta 5195`",
+        "Ao terminar, o resultado está em fps-threejs-web.json (mediana de 3 rodadas por caso). Copiar cada caso para o bloco threejs de fps-medido.json, na mesma cena e com a mesma chave, no formato dos casos do Godot nativo: { \"fps\": <fpsMediana>, \"origem\": \"Página do lab, Chrome sem vsync, <data>\" }.",
+        "Fechar o terminal do vite preview."
+      ],
+      "estado": "nao-testado"
+    },
+    {
+      "id": "godot-web-oficial",
+      "titulo": "Medir o fps do Godot no navegador e no nativo (Compatibility e Forward+) com o PC parado",
+      "porQue": "As cenas mostram só o teste de fumaça do Godot: 1 rodada com o PC em uso, ruído alto. A medição oficial foi interrompida e ficou para depois.",
+      "passos": [
+        "Fechar jogos, vídeos e navegadores, e deixar o PC parado durante toda a medição (cerca de 80 minutos: 20 casos em três alvos, 3 rodadas cada).",
+        "Na pasta da bancada: `cd lab-engine`",
+        "`node medir-lab.mjs --alvos chrome,compat,godot --janela fora --rodadas 3 --saida fps-godot-web-limpo.json`",
+        "Ao terminar, copiar a mediana de cada caso do Godot web para o bloco godotWeb de fps-medido.json, com a chave na ordem dos parâmetros da página (por exemplo, fisica → \"qtd=1000&sombras=0\"), no formato { \"fps\": <mediana>, \"origem\": \"Página do lab, Chrome sem vsync, <data>\" }."
+      ],
+      "estado": "nao-testado"
+    },
+    {
+      "id": "w4-perguntar",
+      "titulo": "Perguntar à W4 Games: suporte ao Godot 4.7, preço para um estúdio pequeno, jogos lançados, exigência de empresa",
+      "porQue": "É o que sustenta a vantagem do Godot em console. Barato: um e-mail.",
+      "estado": "nao-testado"
+    },
+    {
+      "id": "godot-exportado",
+      "titulo": "Exportar o projeto do Godot e medir RAM, instalador e tempo de abertura",
+      "porQue": "Hoje o Godot foi medido pelo executável do editor, que pesa mais que um jogo exportado.",
+      "estado": "nao-testado"
+    },
+    {
+      "id": "gpu-travada",
+      "titulo": "Clock da GPU travado (simular placa fraca) e repetir o modo fraco",
+      "porQue": "O modo fraco só limitou a CPU. Exige permissão de administrador.",
+      "estado": "nao-testado"
+    },
+    {
+      "id": "hardware-fraco",
+      "titulo": "Hardware fraco de verdade (notebook ou PC antigo)",
+      "porQue": "Limitar núcleos não reproduz uma máquina fraca inteira (memória, GPU integrada, térmica).",
+      "estado": "nao-testado"
+    },
+    {
+      "id": "csharp-cpp",
+      "titulo": "C# e C++ contra GDScript no Godot",
+      "porQue": "Toda a bancada do Godot usou GDScript; as regras de combate podem pedir uma linguagem mais rápida.",
+      "estado": "nao-testado"
+    },
+    {
+      "id": "steam-deck",
+      "titulo": "Steam Deck nos dois motores",
+      "porQue": "É o único portátil com caminho oficial nos dois lados.",
+      "estado": "nao-testado"
+    },
+    {
+      "id": "sessao-longa",
+      "titulo": "Sessão longa (1 hora) nos dois motores",
+      "porQue": "Vazamento de memória e queda de fps só aparecem com tempo.",
+      "estado": "nao-testado"
+    },
+    {
+      "id": "sala-batalha",
+      "titulo": "Sala de batalha no Godot com o teste de regras idêntico ao do Three.js",
+      "porQue": "Mede o custo real de migração e prova que as regras batem (1.000 batalhas com o mesmo resultado).",
+      "estado": "nao-testado"
+    },
+    {
+      "id": "steam",
+      "titulo": "Steam nos dois lados: sobreposição, conquista e nuvem",
+      "porQue": "A sobreposição da Steam em casco web (Electron, Tauri) é um risco conhecido.",
+      "estado": "nao-testado"
+    },
+    {
+      "id": "repetir-limpo",
+      "titulo": "Repetir sem nada aberto os casos do PC limpo medidos na segunda metade",
+      "porQue": "Na segunda metade da repetição havia duas janelas abertas no PC.",
+      "estado": "nao-testado"
+    }
+  ]
+}
