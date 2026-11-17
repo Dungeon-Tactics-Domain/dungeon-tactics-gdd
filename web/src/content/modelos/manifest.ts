@@ -97,6 +97,20 @@ export default {
       ],
     },
     {
+      id: 'vagrant',
+      titulo: 'Vagrant Story',
+      icone: '⚔️',
+      resumo: 'Personagens, animações e mapas do Vagrant Story, para estudar e remodelar.',
+      paginas: [
+        {
+          id: 'estudo',
+          titulo: 'Estudo: modelos e mapas',
+          icone: '🔍',
+          resumo: 'Visualizador 3D com animações, subdivisão com textura e salas do jogo.',
+        },
+      ],
+    },
+    {
       id: 'sprites',
       titulo: 'Sprites',
       icone: '🖼️',

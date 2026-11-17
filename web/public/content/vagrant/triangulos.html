@@ -1,0 +1,18 @@
+<!doctype html><meta charset=utf-8><title>Triângulos</title><pre id=o>carregando…</pre>
+<script type="module" src="https://unpkg.com/three@0.116.1/build/three.module.js" crossorigin></script>
+<script type="module" src="https://unpkg.com/three@0.116.1/examples/jsm/controls/OrbitControls.js" crossorigin></script>
+<script type="module" src="https://unpkg.com/three@0.116.1/examples/jsm/exporters/OBJExporter.js" crossorigin></script>
+<script type="module">
+import { ZUD } from './src/ZUD.js';
+import { Reader } from './src/Reader.js';
+const lista = await (await fetch('./zud.json')).json(), vistos = new Set(), rows = [];
+const tri = (m) => { const g = m.geometry; return Math.round((g.index ? g.index.count : g.attributes.position.count) / 3); };
+for (const n of lista) { try {
+  const z = new ZUD(new Reader(new Uint8Array(await (await fetch('./arq/MAP/' + n)).arrayBuffer()))); z.read();
+  if (vistos.has(z.idCharacter)) continue; vistos.add(z.idCharacter); z.build();
+  rows.push({ n, id: z.idCharacter, corpo: tri(z.shp.mesh), arma: z.weapon && z.weapon.mesh ? tri(z.weapon.mesh) : 0, ossos: z.shp.mesh.skeleton.bones.length });
+} catch (e) {} }
+const t = rows.map((r) => r.corpo).sort((a, b) => a - b);
+document.getElementById('o').textContent = `personagens ${rows.length} · corpo min ${t[0]} mediana ${t[t.length >> 1]} max ${t[t.length - 1]}\n` + rows.slice(0, 40).map((r) => `${r.n} id${r.id} corpo=${r.corpo} arma=${r.arma} ossos=${r.ossos}`).join('\n');
+window.__rows = rows;
+</script>

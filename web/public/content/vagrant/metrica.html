@@ -1,0 +1,19 @@
+<!doctype html><meta charset=utf-8><title>Métricas</title><pre id=o>carregando…</pre>
+<script type="module" src="https://unpkg.com/three@0.116.1/build/three.module.js" crossorigin></script>
+<script type="module" src="https://unpkg.com/three@0.116.1/examples/jsm/controls/OrbitControls.js" crossorigin></script>
+<script type="module" src="https://unpkg.com/three@0.116.1/examples/jsm/exporters/OBJExporter.js" crossorigin></script>
+<script type="module">
+import { Box3, Vector3, AnimationMixer } from './src/three.js';
+import { ZUD } from './src/ZUD.js';
+import { Reader } from './src/Reader.js';
+const nome = new URLSearchParams(location.search).get('z') || 'Z001U00.ZUD';
+const z = new ZUD(new Reader(new Uint8Array(await (await fetch('./arq/MAP/' + nome)).arrayBuffer()))); z.read(); z.build();
+const mesh = z.shp.mesh, mx = new AnimationMixer(mesh), out = [];
+for (const set of ['bt', 'com']) (z[set] ? z[set].animations : []).forEach((a, i) => {
+  const cl = a.animationClip, ac = mx.clipAction(cl, mesh); mx.stopAllAction(); ac.play();
+  let minY = 1e9, maxY = -1e9, ex = 0, p0 = null, pe = null, hand = 0;
+  for (let k = 0; k <= 8; k++) { ac.time = cl.duration * k / 8; mx.update(0); mesh.updateMatrixWorld(true); const b = new Box3().setFromObject(mesh), c = b.getCenter(new Vector3()), s = b.getSize(new Vector3()); if (!p0) p0 = c.clone(); pe = c; minY = Math.min(minY, s.y); maxY = Math.max(maxY, s.y); ex = Math.max(ex, s.x, s.z); }
+  out.push(`${set}#${i} dur=${cl.duration.toFixed(2)} dx=${(pe.x - p0.x).toFixed(0)} dz=${(pe.z - p0.z).toFixed(0)} alt=${minY.toFixed(0)}-${maxY.toFixed(0)} larg=${ex.toFixed(0)}`);
+});
+document.getElementById('o').textContent = nome + ' tracks=' + (z.bt ? z.bt.animations.length : 0) + '\n' + out.join('\n');
+</script>

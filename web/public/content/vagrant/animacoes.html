@@ -1,0 +1,52 @@
+<!doctype html><meta charset=utf-8><title>Animações do Vagrant Story</title>
+<style>body{margin:0;background:#222;color:#ddd;font:12px sans-serif}#bar{padding:6px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}select,button{font:inherit}canvas{display:block;width:100%}#g{padding:0 4px 4px}.t{position:absolute;font-size:11px;background:#000a;padding:1px 4px;pointer-events:none}</style>
+<div id=bar><select id=z></select><label>Conjunto <select id=s><option value=bt>bt (batalha)</option><option value=com>com (comum)</option></select></label><span id=st>carregando…</span></div>
+<div id=g style="position:relative"></div>
+<script type="module" src="https://unpkg.com/three@0.116.1/build/three.module.js" crossorigin></script>
+<script type="module" src="https://unpkg.com/three@0.116.1/examples/jsm/controls/OrbitControls.js" crossorigin></script>
+<script type="module" src="https://unpkg.com/three@0.116.1/examples/jsm/exporters/OBJExporter.js" crossorigin></script>
+<script type="module">
+import { Scene, PerspectiveCamera, WebGLRenderer, Box3, Vector3, AnimationMixer, LinearFilter } from './src/three.js';
+import { ZUD } from './src/ZUD.js';
+import { Reader } from './src/Reader.js';
+const $ = (i) => document.getElementById(i), Q = new URLSearchParams(location.search);
+const lista = await (await fetch('./zud.json')).json();
+$('z').innerHTML = lista.map((n) => `<option>${n}</option>`).join(''); if (lista.includes(Q.get('z'))) $('z').value = Q.get('z');
+if (Q.get('s')) $('s').value = Q.get('s');
+const COLS = 6, W = 190, H = 190;
+const r = new WebGLRenderer({ antialias: true, alpha: false }); r.setPixelRatio(1); r.setClearColor(0x333333, 1); r.setScissorTest(true);
+r.domElement.style.cssText = 'position:absolute;left:0;top:0;width:100%;pointer-events:none'; $('g').appendChild(r.domElement);
+const sc = new Scene(); let mesh, mixer, clips = [], tiles = [], cam, nome;
+async function abre() {
+  nome = $('z').value; const z = new ZUD(new Reader(new Uint8Array(await (await fetch('./arq/MAP/' + nome)).arrayBuffer()))); z.read(); z.build();
+  if (mesh) sc.remove(mesh); mesh = z.shp.mesh; sc.add(mesh);
+  mesh.traverse((o) => [].concat(o.material || []).forEach((m) => { if (m.map) { m.map.magFilter = m.map.minFilter = LinearFilter; m.map.needsUpdate = true; } }));
+  const seq = z[$('s').value]; clips = seq ? seq.animations.map((a) => a.animationClip) : [];
+  mixer = new AnimationMixer(mesh);
+  // frame the first pose so one camera fits every clip
+  mixer.clipAction(clips[0] || null, mesh) && 0;
+  if (clips[0]) { mixer.clipAction(clips[0], mesh).play(); mixer.update(0.2); }
+  mesh.updateMatrixWorld(true);
+  const box = new Box3().setFromObject(mesh), c = box.getCenter(new Vector3()), s = box.getSize(new Vector3()), d = Math.max(s.x, s.y, s.z) * 2.1;
+  cam = new PerspectiveCamera(40, 1, 1, 1e5); cam.position.set(c.x + d * .45, c.y, c.z + d * .9); cam.lookAt(c);
+  tiles = clips.map((c, i) => ({ i, c, a: mixer.clipAction(c, mesh) }));
+  const rows = Math.ceil(clips.length / COLS); $('g').style.height = rows * H + 'px';
+  $('g').querySelectorAll('.t').forEach((e) => e.remove());
+  tiles.forEach((t) => { const e = document.createElement('a'); e.className = 't'; e.textContent = `#${t.i} · ${t.c.duration.toFixed(2)}s`; e.style.cssText = `left:${(t.i % COLS) * W + 4}px;top:${Math.floor(t.i / COLS) * H + 4}px`; $('g').appendChild(e); });
+  $('st').textContent = `${nome} · ${$('s').value}: ${clips.length} animações (mudam a cada ciclo; clique para abrir no visualizador)`;
+  r.setSize(COLS * W, rows * H, false);
+}
+$('z').onchange = $('s').onchange = abre;
+$('g').onclick = (e) => { const b = $('g').getBoundingClientRect(), k = e.clientX - b.left, y = e.clientY - b.top, i = Math.floor(y / (H * b.width / (COLS * W))) * COLS + Math.floor(k / (W * b.width / (COLS * W))); if (tiles[i]) location.href = `viewer.html?z=${nome}&a=${i}&s=${$('s').value}`; };
+const t0 = performance.now();
+(function loop(now) {
+  requestAnimationFrame(loop); if (!mesh || !tiles.length) return;
+  const rows = Math.ceil(tiles.length / COLS), cw = r.domElement.width, ch = r.domElement.height, tw = cw / COLS, th = ch / rows;
+  for (const t of tiles) {
+    mixer.stopAllAction(); t.a.play(); t.a.time = ((now - t0) / 1000) % (t.c.duration || 1); mixer.update(0); mesh.updateMatrixWorld(true);
+    const x = (t.i % COLS) * tw, y = ch - (Math.floor(t.i / COLS) + 1) * th;
+    r.setViewport(x, y, tw, th); r.setScissor(x, y, tw, th); r.render(sc, cam);
+  }
+})(0);
+await abre();
+</script>

@@ -1,0 +1,35 @@
+<!doctype html><meta charset=utf-8><title>Folha de personagens (ZUD)</title>
+<style>body{margin:0;background:#222;color:#ddd;font:12px sans-serif}#g{display:grid;grid-template-columns:repeat(8,160px);gap:2px;padding:4px}figure{margin:0;background:#333;text-align:center}img{width:160px;height:160px;display:block}</style>
+<div id=st>carregando…</div><div id=g></div>
+<script type="module" src="https://unpkg.com/three@0.116.1/build/three.module.js" crossorigin></script>
+<script type="module" src="https://unpkg.com/three@0.116.1/examples/jsm/controls/OrbitControls.js" crossorigin></script>
+<script type="module" src="https://unpkg.com/three@0.116.1/examples/jsm/exporters/OBJExporter.js" crossorigin></script>
+<script type="module">
+import { Scene, PerspectiveCamera, WebGLRenderer, Box3, Vector3, AnimationMixer } from './src/three.js';
+import { ZUD } from './src/ZUD.js';
+import { Reader } from './src/Reader.js';
+const P = new URLSearchParams(location.search), ia = +P.get('a') || 0, max = +P.get('n') || 999;
+const lista = await (await fetch('./zud.json')).json();
+const r = new WebGLRenderer({ preserveDrawingBuffer: true }); r.setSize(160, 160); r.setClearColor(0x444444, 1);
+const g = document.getElementById('g'), st = document.getElementById('st'); const vistos = new Set(); let ok = 0; const bad = [];
+for (let i = 0; i < lista.length && ok < max; i++) {
+  const nome = lista[i];
+  try {
+    const z = new ZUD(new Reader(new Uint8Array(await (await fetch('./arq/MAP/' + nome)).arrayBuffer()))); z.read();
+    if (vistos.has(z.idCharacter)) continue; vistos.add(z.idCharacter);
+    z.build();
+    const seq = z.bt || z.com; let anim = false;
+    if (seq && seq.animations.length) { const m = new AnimationMixer(z.shp.mesh); m.clipAction(seq.animations[Math.min(ia, seq.animations.length - 1)].animationClip, z.shp.mesh).play(); m.update(0.2); anim = true; }
+    if (!anim) z.shp.mesh.rotation.z = Math.PI / 2;
+    const sc = new Scene(); sc.add(z.shp.mesh); z.shp.mesh.updateMatrixWorld(true);
+    const box = new Box3().setFromObject(z.shp.mesh), c = box.getCenter(new Vector3()), s = box.getSize(new Vector3());
+    const cam = new PerspectiveCamera(40, 1, 1, 1e5), d = Math.max(s.x, s.y, s.z) * 1.9;
+    cam.position.set(c.x + d * .5, c.y, c.z + d * .85); cam.lookAt(c);
+    r.render(sc, cam);
+    const f = document.createElement('a'), im = new Image(); f.href = 'viewer.html?z=' + nome; f.style.cssText = 'color:inherit;text-decoration:none;background:#333;text-align:center'; im.src = r.domElement.toDataURL('image/jpeg', .8);
+    f.append(im, 'char ' + z.idCharacter + ' · ' + nome + (anim ? ' ▶' : '')); g.append(f); ok++;
+  } catch (e) { bad.push(nome + ': ' + e.message); }
+  st.textContent = 'ZUD ' + (i + 1) + '/' + lista.length + ' · ' + ok + ' personagens';
+}
+st.textContent = 'pronto: ' + ok + ' personagens, ' + bad.length + ' falhas'; window.__bad = bad;
+</script>

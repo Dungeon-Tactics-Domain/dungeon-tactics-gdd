@@ -1,0 +1,115 @@
+<!doctype html><meta charset=utf-8><title>Mock de gestos · Vagrant Story</title>
+<style>body{margin:0;background:#2a2a2a;color:#ddd;font:13px sans-serif;overflow:hidden}#p{position:absolute;top:8px;left:8px;background:#000a;padding:10px;border-radius:6px;width:250px;z-index:2}#p select{width:100%;margin:3px 0;box-sizing:border-box}#b{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin:6px 0}#b button{font:inherit;padding:6px 4px;cursor:pointer;text-align:left}#b button.on{outline:2px solid #e0b040}canvas{display:block}#i{font-size:11px;color:#aaa}#p label{display:block;margin:2px 0}</style>
+<div id=p><select id=z></select><label>⚔️ Arma <select id=w></select></label><label>🛡️ Escudo <select id=e></select></label><label><input type=checkbox id=lin checked>🖼️ Textura suavizada</label><div id=b></div><div id=i>carregando…</div></div>
+<script type="module" src="https://unpkg.com/three@0.116.1/build/three.module.js" crossorigin></script>
+<script type="module" src="https://unpkg.com/three@0.116.1/examples/jsm/controls/OrbitControls.js" crossorigin></script>
+<script type="module" src="https://unpkg.com/three@0.116.1/examples/jsm/exporters/OBJExporter.js" crossorigin></script>
+<script type="module">
+import { Scene, PerspectiveCamera, WebGLRenderer, Box3, Vector3, AnimationMixer, OrbitControls, LinearFilter, NearestFilter, LoopOnce, LoopRepeat, Clock } from './src/three.js';
+import { ZUD } from './src/ZUD.js';
+import { Reader } from './src/Reader.js';
+import { WEP } from './src/WEP.js';
+
+// Gesture table. Keys are SEQ slots, not raw clip indices: the slot table (seq.slots) is the same for
+// every character, the raw index is not (attack is #18 on Z001U00, #16 on Z009U00, #5 on the bat).
+// `slots` play in order, `voltas` repeats the list, `segura` holds the last pose (seconds) before idle.
+// Comments give the Z001U00 clip index and the action codes that back the name.
+const GESTOS = {
+  parado:   { icone: '🧍', nome: 'Parado',   slots: [1] },                               // #0, 'loop'
+  andar:    { icone: '🚶', nome: 'Andar',    slots: [13, 14], voltas: 2 },               // #2 + #3, half cycle each (0x0b step, 0x18 / 0x17 foot)
+  correr:   { icone: '🏃', nome: 'Correr',   slots: [19, 20], voltas: 3 },               // #6 + #7, shorter half cycles; walk vs run is a guess
+  golpe:    { icone: '⚔️', nome: 'Golpe',    slots: [72] },                              // #18, 0x04(88) + 0x02
+  golpe2:   { icone: '🗡️', nome: 'Golpe 2',  slots: [73] },                              // #19
+  golpe3:   { icone: '🪓', nome: 'Golpe 3',  slots: [74] },                              // #20
+  dano:     { icone: '💥', nome: 'Dano',     slots: [64] },                              // #15, 0x0a(8), head thrown back
+  dano2:    { icone: '🤕', nome: 'Dano 2',   slots: [66] },                              // #16, head thrown forward
+  morrer:   { icone: '💀', nome: 'Morrer',   slots: [70, 71], segura: 1.5 },             // #17, 0x0a(11) + 'disappear'; slot 71 only on monsters
+  magia:    { icone: '✨', nome: 'Magia',    slots: [85, 87, 88, 89, 90], segura: 0.2 }, // #24 start, #25 chant loop, #26 release, #27 hold, #28 back to idle
+  defender: { icone: '🛡️', nome: 'Defender (incerto)', slots: [80], segura: 0.8 },       // #22, one-frame pose; nothing in the data ties it to defending
+};
+
+// OBJ/XX.WEP is the ZUD's idWeapon / idShield in hex (Z001U00's embedded weapon is byte-identical to 0F.WEP).
+// Each range starts where the ZUD headers of arq/MAP first use that idWeaponCategory; ids no ZUD uses fall in the
+// range before them. Category names are the game's menu order from memory, not read from the data.
+const ARMAS = [[0x01, '🗡️', 'Adagas'], [0x0d, '⚔️', 'Espadas'], [0x19, '⚔️', 'Espadas grandes'], [0x23, '🪓', 'Machados e maças'], [0x33, '🪓', 'Machados grandes'],
+  [0x39, '🪄', 'Cajados'], [0x3f, '🔨', 'Maças pesadas'], [0x47, '🔱', 'Hastes'], [0x53, '🏹', 'Bestas'], [0x60, '🛡️', 'Escudos'], [0x70, '❓', 'Outros'], [0x80]];
+const grupos = (de, ate, nome) => ARMAS.slice(de, ate).map(([ini, ic, cat], k) => `<optgroup label="${ic} ${cat}">` + Array.from({ length: ARMAS[de + k + 1][0] - ini }, (_, j) => {
+  const h = (ini + j).toString(16).toUpperCase().padStart(2, '0'); return `<option value=${h}>${ic} ${nome} ${h}</option>`; }).join('') + '</optgroup>').join('');
+
+const $ = (i) => document.getElementById(i), Q = new URLSearchParams(location.search);
+const lista = await (await fetch('./zud.json')).json();
+$('w').innerHTML = '<option value=zud>⚔️ Do personagem<option value=>🚫 Sem arma' + grupos(0, 9, 'Arma') + grupos(10, 11, 'Arma');
+$('e').innerHTML = '<option value=zud>🛡️ Do personagem<option value=>🚫 Sem escudo' + grupos(9, 10, 'Escudo');
+$('z').innerHTML = lista.map((n) => `<option>${n}</option>`).join(''); if (lista.includes(Q.get('z'))) $('z').value = Q.get('z');
+const r = new WebGLRenderer({ antialias: true }); r.setPixelRatio(Math.max(2, devicePixelRatio)); r.setSize(innerWidth, innerHeight); r.setClearColor(0x2a2a2a, 1); document.body.appendChild(r.domElement);
+const sc = new Scene(), cam = new PerspectiveCamera(40, innerWidth / innerHeight, 1, 1e5), oc = new OrbitControls(cam, r.domElement), clock = new Clock();
+addEventListener('resize', () => { r.setSize(innerWidth, innerHeight); cam.aspect = innerWidth / innerHeight; cam.updateProjectionMatrix(); });
+let mesh, mixer, clips = [], indices = {}, fila = [], action, atual = '', n = -1, espera = 0, zud, ossos = {}, pecas = {};
+
+// Weapons hang from the character's bones, so one traverse reaches them too.
+function filtro() {
+  const f = $('lin').checked ? LinearFilter : NearestFilter;
+  if (mesh) mesh.traverse((o) => [].concat(o.material || []).forEach((m) => { if (m.map) { m.map.magFilter = m.map.minFilter = f; m.map.needsUpdate = true; } }));
+}
+// Every armed SHP ends its hand chains with a bone that has no vertex group and mountId 240 or 241; the SEQ animates
+// it like any other bone. 240 = weapon and 241 = shield is a guess from which hand strikes, checked by eye.
+async function poe(sel, mount, doZud) {
+  const v = $(sel).value, osso = ossos[mount];
+  if (pecas[sel]) pecas[sel].parent.remove(pecas[sel]); pecas[sel] = null;
+  $(sel).disabled = !osso; if (!osso || !v) return;
+  let w = doZud;
+  if (v !== 'zud') {
+    try { w = new WEP(new Reader(new Uint8Array(await (await fetch('./arq/OBJ/' + v + '.WEP')).arrayBuffer()))); w.read(); w.build(); } catch (e) { w = null; }
+    if ($(sel).value !== v || ossos[mount] !== osso || pecas[sel]) return; // another pick or character arrived while this one loaded
+  }
+  if (!w) return;
+  w.mesh.rotation.set(0, 0, 0); // WEP.js flips X for standalone viewing; the character mesh already carries that flip
+  w.mesh.frustumCulled = false; // its bounding sphere stays at the origin while the hand moves
+  osso.add(w.mesh); pecas[sel] = w.mesh; filtro();
+}
+const arma = () => poe('w', 240, zud.weapon), escudo = () => poe('e', 241, zud.shield);
+
+function proximo() {
+  n = fila.shift(); if (action) action.stop();
+  action = mixer.clipAction(clips[n], mesh); action.reset().setLoop(atual === 'parado' ? LoopRepeat : LoopOnce); action.clampWhenFinished = true; action.play();
+}
+function toca(g) {
+  if (!indices[g]) return;
+  atual = g; espera = 0; fila = Array(GESTOS[g].voltas || 1).fill(indices[g]).flat(); proximo();
+  document.querySelectorAll('#b button').forEach((b) => b.classList.toggle('on', b.dataset.g === g));
+}
+async function abre() {
+  const nome = $('z').value; $('b').innerHTML = ''; indices = {}; clips = []; ossos = {}; pecas = {};
+  if (mesh) sc.remove(mesh); mesh = mixer = action = null;
+  let z; try { z = new ZUD(new Reader(new Uint8Array(await (await fetch('./arq/MAP/' + nome)).arrayBuffer()))); z.read(); z.build(); } catch (e) { $('i').textContent = nome + ': não abriu (' + e.message + ')'; return; }
+  const seq = z.bt || z.com; if (!seq || !seq.animations.length) { $('i').textContent = nome + ': sem animação'; return; }
+  mesh = z.shp.mesh; sc.add(mesh); clips = seq.animations.map((a) => a.animationClip);
+  zud = z; z.shp.bones.forEach((b) => { if (b.mountId >= 240) ossos[b.mountId] = z.shp.skeleton.bones[b.id]; });
+  mixer = new AnimationMixer(mesh);
+  mixer.addEventListener('finished', () => { if (fila.length) proximo(); else espera = (GESTOS[atual].segura || 0) + 1e-3; });
+  const vistos = new Set();
+  for (const [g, def] of Object.entries(GESTOS)) {
+    const ids = def.slots.map((s) => seq.slots[s]).filter((i) => i !== undefined && i !== 255), chave = ids.join();
+    if (!ids.length || vistos.has(chave)) continue; // gesture missing on this character, or same clips as an earlier button
+    vistos.add(chave); indices[g] = ids;
+    const b = document.createElement('button'); b.dataset.g = g; b.textContent = def.icone + ' ' + def.nome; b.title = 'clipes ' + ids.map((i) => '#' + i).join(' → '); b.onclick = () => toca(g); $('b').appendChild(b);
+  }
+  if (!indices.parado) { indices.parado = [0]; } // no idle slot: fall back to the first clip
+  toca('parado'); mixer.update(0.2); mesh.updateMatrixWorld(true);
+  const box = new Box3().setFromObject(mesh), c = box.getCenter(new Vector3()), s = box.getSize(new Vector3()), d = Math.max(s.x, s.y, s.z) * 3; // 3x leaves room for raised weapons and falls
+  oc.target.copy(c); cam.position.set(c.x - d * .7, c.y, c.z + d * .7); // three-quarter view: from the front the idle sword points at the camera and vanishes oc.update();
+  await Promise.all([arma(), escudo()]); filtro(); // after framing, so the camera does not depend on the weapon
+  $('z').title = `char ${z.idCharacter} · ${clips.length} clipes`;
+}
+$('z').onchange = abre; $('w').onchange = arma; $('e').onchange = escudo; $('lin').onchange = filtro;
+(function loop() {
+  requestAnimationFrame(loop); const dt = Math.min(clock.getDelta(), 0.1);
+  if (mixer) {
+    mixer.update(dt);
+    if (espera > 0 && (espera -= dt) <= 0) toca('parado');
+    $('i').textContent = `${GESTOS[atual].nome} · clipe #${n} · ${action.time.toFixed(2)} / ${clips[n].duration.toFixed(2)} s`;
+  }
+  oc.update(); r.render(sc, cam);
+})();
+await abre();
+</script>

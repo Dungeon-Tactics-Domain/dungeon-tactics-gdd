@@ -1,0 +1,241 @@
+<!doctype html><meta charset=utf-8><title>Cena de batalha · Vagrant Story</title>
+<style>body{margin:0;background:#1f2226;color:#ddd;font:13px sans-serif;overflow:hidden}#p{position:absolute;top:8px;left:8px;background:#000a;padding:10px;border-radius:6px;width:230px;z-index:2}#b{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin:6px 0}#b button{font:inherit;padding:6px 4px;cursor:pointer;text-align:left}#b button.on{outline:2px solid #e0b040}#b button:disabled{opacity:.5;cursor:default}canvas{display:block}#i{font-size:12px;color:#e0b040;min-height:30px}#log{font-size:11px;color:#aaa;margin-top:6px;white-space:pre-line}#p label{display:block;margin:2px 0}
+.hp{position:absolute;z-index:1;transform:translate(-50%,-100%);pointer-events:none;font-size:10px;text-align:center;text-shadow:0 0 3px #000,0 0 3px #000;white-space:nowrap}.hp u{display:block;width:46px;height:5px;margin:1px auto 0;background:#000c;border:1px solid #000}.hp i{display:block;height:100%}</style>
+<div id=p><b>🏰 Cena de batalha (mock)</b><div id=b><button id=andar>🚶 Andar</button><button id=atacar>⚔️ Atacar</button><button id=magia>✨ Magia</button><button id=recomecar>🔄 Recomeçar</button><button id=auto style="grid-column:span 2">🤖 Batalha automática</button></div><label>🗺️ Sala <select id=sala style="width:100%;box-sizing:border-box"></select></label><label><input type=checkbox id=lin checked>🖼️ Texturas suaves</label><div id=i>carregando…</div><div id=log></div></div>
+<script type="module">
+import { Scene, PerspectiveCamera, WebGLRenderer, Box3, Vector2, Vector3, Vector4, Matrix4, Group, Mesh, BoxGeometry, CircleGeometry, RingGeometry, BufferGeometry, Float32BufferAttribute, MeshBasicMaterial, Raycaster, DoubleSide, AnimationMixer, OrbitControls, LinearFilter, NearestFilter, LoopOnce, LoopRepeat, Clock } from './src/three.js';
+import { ZUD } from './src/ZUD.js';
+import { Reader } from './src/Reader.js';
+import { WEP } from './src/WEP.js';
+import { ZND } from './src/ZND.js';
+import { MPD } from './src/MPD.js';
+
+// Standalone mock: nothing here is game code or game rules. Gesture playback and weapon mounting are copied from
+// animacao-mock.html and made per unit (one mixer, queue and state each).
+
+// Keys are SEQ slots, not raw clip indices: the slot is the same for every character, the raw index is not.
+const GESTOS = {
+  parado: { slots: [1] },
+  andar:  { slots: [13, 14] },                               // two half cycles, alternated while the unit moves
+  golpe:  { slots: [72] },
+  dano:   { slots: [64] },
+  morrer: { slots: [70, 71], segura: 1.2 },                  // falls, lies for a moment, then leaves the board
+  magia:  { slots: [85, 87, 88, 89, 90], segura: 0.2 },
+};
+
+// lado 0 = allies, 1 = enemies. Every ZUD brings the weapon its battle SEQ was made for; only Ashley's shield comes
+// from outside (her ZUD has none). `voo` lifts a flyer off the ground, in tiles.
+const ELENCO = [
+  { zud: 'Z001U00', nome: 'Ashley',     lado: 0, escudo: '60' },
+  { zud: 'Z009U00', nome: 'Espadachim', lado: 1 },
+  { zud: 'Z009U01', nome: 'Machadeiro', lado: 0 },
+  { zud: 'Z011U00', nome: 'Bruto',      lado: 1 },
+  { zud: 'Z009U09', nome: 'Besteiro',   lado: 0 },
+  { zud: 'Z009U05', nome: 'Morcego',    lado: 1, voo: 0.6 },
+];
+// Arenas: rooms of the game's own map (zone ZND + room MPD), picked from a scan of the 205 rooms of zones 1 to 40 for
+// the largest stretch of floor at one height, then checked by eye: these four keep the middle free of pillars and
+// dark overlay pieces. The labels describe the look; they are not the game's room names.
+const SALAS = [
+  ['011', '025', 'Zona 11 · sala 025 · arena de pedra'],
+  ['022', '070', 'Zona 22 · sala 070 · pátio aberto'],
+  ['024', '085', 'Zona 24 · sala 085 · salão de lajotas'],
+  ['018', '062', 'Zona 18 · sala 062 · salão escuro'],
+];
+// S = room units per tile (MPD vertices sit on multiples of 12.8). ESCALA = SHP units to tiles: the two files use
+// different units, so Ashley (470 SHP units tall) is set to 1.6 tile by eye and everyone else keeps their own size.
+const S = 12.8, ESCALA = 1.6 / 470, VEL = 2.2, FRENTE = 0, COR = ['#5aa0e8', '#e06a5a']; // VEL in tiles per second; FRENTE = yaw that makes the model look down +z
+
+const $ = (i) => document.getElementById(i), dorme = (ms) => new Promise((r) => setTimeout(r, ms)), chave = (x, z) => x + ',' + z;
+const r = new WebGLRenderer({ antialias: true }); r.setPixelRatio(Math.max(2, devicePixelRatio)); r.setSize(innerWidth, innerHeight); r.setClearColor(0x1f2226, 1); document.body.appendChild(r.domElement);
+const cena = new Scene(), cam = new PerspectiveCamera(35, innerWidth / innerHeight, 0.1, 400), oc = new OrbitControls(cam, r.domElement), clock = new Clock();
+addEventListener('resize', () => { r.setSize(innerWidth, innerHeight); cam.aspect = innerWidth / innerHeight; cam.updateProjectionMatrix(); });
+
+const si = SALAS[new URLSearchParams(location.search).get('s')] ? +new URLSearchParams(location.search).get('s') : 0;
+$('sala').innerHTML = SALAS.map((s, i) => `<option value=${i}>🗺️ ${s[2]}</option>`).join(''); $('sala').value = si; $('sala').onchange = () => { location.search = '?s=' + $('sala').value; };
+const rd = async (u) => new Reader(new Uint8Array(await (await fetch(u)).arrayBuffer()));
+const znd = new ZND(await rd(`./arq/MAP/ZONE${SALAS[si][0]}.ZND`)); znd.read(); znd.frameBuffer.build();
+const mpd = new MPD(await rd(`./arq/MAP/MAP${SALAS[si][1]}.MPD`), znd); mpd.read(); mpd.build();
+// The room is y-down like the characters, so it gets the same half turn; the half-tile shift puts tile centres on whole numbers.
+const sala = new Group(); sala.add(mpd.mesh); sala.rotation.x = Math.PI; sala.scale.setScalar(1 / S); sala.position.set(0.5, 0, 0.5); cena.add(sala); sala.updateMatrixWorld(true);
+
+// The room is not a grid, so the grid is laid over it: a ray straight down at each tile finds the floor. Ceilings and
+// walls do not answer (single-sided faces seen from behind). A tile counts when its centre and four inner corners land
+// on the same level. ponytail: flat tiles only, ramps and tiles cut by a wall are left out.
+const caixa = new Box3().setFromObject(sala), raio = new Raycaster(), baixo = new Vector3(0, -1, 0);
+const piso = (x, z) => { raio.set(new Vector3(x, caixa.max.y + 1, z), baixo); const h = raio.intersectObject(sala, true)[0]; return h ? h.point.y : null; };
+const bruto = new Map(), nivel = {};
+for (let x = Math.floor(caixa.min.x); x <= Math.ceil(caixa.max.x); x++) for (let z = Math.floor(caixa.min.z); z <= Math.ceil(caixa.max.z); z++) {
+  const hs = [[0, 0], [0.3, 0.3], [-0.3, 0.3], [0.3, -0.3], [-0.3, -0.3]].map(([a, b]) => piso(x + a, z + b));
+  if (hs.every((h) => h !== null && Math.abs(h - hs[0]) < 0.3)) { bruto.set(chave(x, z), hs[0]); const n = Math.round(hs[0] * 4); nivel[n] = (nivel[n] || 0) + 1; }
+}
+// The battle starts on the most common floor level, at its tile closest to the middle of that level; the walkable
+// tiles are the ones reached from there by steps of at most half a tile.
+const h0 = Object.keys(nivel).sort((a, b) => nivel[b] - nivel[a])[0] / 4, planos = [...bruto].filter(([, h]) => Math.abs(h - h0) < 0.2).map(([k]) => k.split(',').map(Number));
+if (!planos.length) { $('i').textContent = 'esta sala não tem piso plano'; throw new Error('sem piso'); }
+const media = (i) => planos.reduce((t, p) => t + p[i], 0) / planos.length, mx = media(0), mz = media(1);
+const centro = planos.reduce((a, b) => (Math.hypot(a[0] - mx, a[1] - mz) <= Math.hypot(b[0] - mx, b[1] - mz) ? a : b));
+const tiles = new Map([[chave(...centro), bruto.get(chave(...centro))]]);
+for (const fila = [centro]; fila.length;) {
+  const [x, z] = fila.shift(), h = tiles.get(chave(x, z));
+  for (const [a, b] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) { const k = chave(x + a, z + b); if (!tiles.has(k) && bruto.has(k) && Math.abs(bruto.get(k) - h) <= 0.55) { tiles.set(k, bruto.get(k)); fila.push([x + a, z + b]); } }
+}
+// Starting tiles: level tiles up to 3 away from the centre, sorted along the longer side; allies take one end and
+// enemies the other, every second tile.
+const perto = [...tiles].filter(([, h]) => Math.abs(h - h0) < 0.2).map(([k]) => k.split(',').map(Number)).filter(([x, z]) => Math.max(Math.abs(x - centro[0]), Math.abs(z - centro[1])) <= 3);
+const vao = (i) => Math.max(...perto.map((p) => p[i])) - Math.min(...perto.map((p) => p[i])), eixo = vao(0) > vao(1) ? 0 : 1;
+perto.sort((a, b) => a[eixo] - b[eixo] || a[1 - eixo] - b[1 - eixo]);
+const postos = [[0, 2, 4].map((i) => perto[perto.length - 1 - i]), [0, 2, 4].map((i) => perto[i])];
+
+// Tile marks: one faint square per walkable tile, all in one mesh, which is also what a click on the floor hits.
+const quad = []; for (const [k, h] of tiles) { const [x, z] = k.split(',').map(Number), a = 0.46, y = h + 0.03; quad.push(x - a, y, z - a, x - a, y, z + a, x + a, y, z + a, x - a, y, z - a, x + a, y, z + a, x + a, y, z - a); }
+const marcas = new Mesh(new BufferGeometry().setAttribute('position', new Float32BufferAttribute(quad, 3)), new MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.2, depthWrite: false }));
+marcas.renderOrder = 1; cena.add(marcas); // the room's materials are transparent and share one sort depth, so the overlays are ordered by hand: marks 1, ring and shadows 2, characters 3
+const alvos = [marcas];
+oc.target.set(centro[0], h0 + 0.5, centro[1]); cam.position.set(6, 8.5, 10.5).multiplyScalar(Math.max(1, 1.4 / cam.aspect)).add(oc.target); // a narrow window (the lab iframe on a phone) steps back
+oc.enablePan = false; oc.minPolarAngle = 0.3; oc.maxPolarAngle = 1.3; oc.minDistance = 5; oc.maxDistance = 45; oc.update();
+const anel = new Mesh(new RingGeometry(0.36, 0.47, 32), new MeshBasicMaterial({ side: DoubleSide })); anel.rotation.x = -Math.PI / 2; anel.visible = false; anel.renderOrder = 2; cena.add(anel);
+
+const unidades = []; let sel = null, modo = '', ocupado = false, autoLigado = false;
+const vivos = (lado) => unidades.filter((u) => u.hp > 0 && u.lado === lado), em = (x, z) => unidades.find((u) => u.hp > 0 && u.x === x && u.z === z);
+const dist = (a, b) => Math.max(Math.abs(a.x - b.x), Math.abs(a.z - b.z)); // mock reach: the 8 neighbours count as adjacent
+const chao = (u, x, z) => new Vector3(x, tiles.get(chave(x, z)) + u.voo, z);
+const vira = (u, x, z) => { if (x !== u.x || z !== u.z) u.g.rotation.y = Math.atan2(x - u.x, z - u.z) + FRENTE; };
+const linhas = []; const log = (t) => { linhas.push(t); $('log').textContent = linhas.slice(-6).join('\n'); };
+
+function filtro() {
+  const f = $('lin').checked ? LinearFilter : NearestFilter;
+  // The VSTools material is a ShaderMaterial: its texture sits in uniforms.map, not in material.map.
+  cena.traverse((o) => [].concat(o.material || []).forEach((m) => { const t = m.uniforms && m.uniforms.map && m.uniforms.map.value; if (t) { t.magFilter = t.minFilter = f; t.needsUpdate = true; } }));
+}
+// Box of the mesh in its current pose. Box3.setFromObject reads the bind pose of a SkinnedMesh, which is not the
+// standing character, so the vertices are skinned here (same maths as cloneMeshWithPose in VSTOOLS.js).
+function medir(mesh) {
+  mesh.updateMatrixWorld(true); mesh.skeleton.update();
+  const a = mesh.geometry.attributes, bm = mesh.skeleton.boneMatrices, v = new Vector3(), t = new Vector3(), p = new Vector3(), si = new Vector4(), sw = new Vector4(), m = new Matrix4(), box = new Box3();
+  for (let i = 0; i < a.position.count; i++) {
+    v.fromBufferAttribute(a.position, i).applyMatrix4(mesh.bindMatrix); si.fromBufferAttribute(a.skinIndex, i); sw.fromBufferAttribute(a.skinWeight, i); p.set(0, 0, 0);
+    for (let j = 0; j < 4; j++) p.add(t.copy(v).applyMatrix4(m.fromArray(bm, si.getComponent(j) * 16)).multiplyScalar(sw.getComponent(j)));
+    box.expandByPoint(p.applyMatrix4(mesh.bindMatrixInverse).applyMatrix4(mesh.matrixWorld));
+  }
+  return box;
+}
+// Bones with mountId 240 (weapon) and 241 (shield) end the hand chains; the SEQ animates them like any other bone.
+function poe(u, mount, w) {
+  const osso = u.ossos[mount]; if (!osso || !w) return;
+  w.mesh.rotation.set(0, 0, 0); // WEP.js flips X for standalone viewing; the character mesh already carries that flip
+  w.mesh.renderOrder = 3; w.mesh.frustumCulled = false; // its bounding sphere stays at the origin while the hand moves
+  osso.add(w.mesh);
+}
+async function wep(id) { try { const w = new WEP(new Reader(new Uint8Array(await (await fetch('./arq/OBJ/' + id + '.WEP')).arrayBuffer()))); w.read(); w.build(); return w; } catch (e) { return null; } }
+
+function proximo(u) {
+  u.n = u.fila.shift(); if (u.action) u.action.stop();
+  u.action = u.mixer.clipAction(u.clips[u.n], u.mesh); u.action.reset().setLoop(u.atual === 'parado' ? LoopRepeat : LoopOnce); u.action.clampWhenFinished = true; u.action.play();
+}
+// Resolves when the gesture ends (at once for the idle loop and for a gesture this character does not have).
+function toca(u, g) {
+  if (u.fim) { const f = u.fim; u.fim = null; f(); }
+  if (!u.indices[g]) return Promise.resolve();
+  u.atual = g; u.espera = 0; u.fila = [...u.indices[g]]; proximo(u);
+  return g === 'parado' ? Promise.resolve() : new Promise((ok) => { u.fim = ok; });
+}
+function some(u) { if (u.g.parent) cena.remove(u.g); u.barra.remove(); const i = alvos.indexOf(u.pega); if (i >= 0) alvos.splice(i, 1); if (sel === u) sel = null; }
+
+async function abre(def) {
+  const z = new ZUD(new Reader(new Uint8Array(await (await fetch('./arq/MAP/' + def.zud + '.ZUD')).arrayBuffer()))); z.read(); z.build();
+  const seq = z.bt || z.com, u = { voo: 0, ...def, hp: 100, mesh: z.shp.mesh, clips: seq.animations.map((a) => a.animationClip), indices: {}, ossos: {}, fila: [], espera: 0, atual: '', g: new Group() };
+  for (const [g, d] of Object.entries(GESTOS)) { const ids = d.slots.map((s) => seq.slots[s]).filter((i) => i !== undefined && i !== 255); if (ids.length) u.indices[g] = ids; }
+  if (!u.indices.parado) u.indices.parado = [0]; // no idle slot: fall back to the first clip
+  z.shp.bones.forEach((b) => { if (b.mountId >= 240) u.ossos[b.mountId] = z.shp.skeleton.bones[b.id]; });
+  u.mixer = new AnimationMixer(u.mesh);
+  u.mixer.addEventListener('finished', () => {
+    if (u.fila.length) proximo(u); else if (u.mov) { u.fila = [...u.indices.andar]; proximo(u); } else u.espera = (GESTOS[u.atual].segura || 0) + 1e-3;
+  });
+  toca(u, 'parado'); u.mixer.update(0.2);
+  const box = medir(u.mesh), c = box.getCenter(new Vector3()), s = ESCALA; u.alt = (box.max.y - box.min.y) * s; // measured before the mesh has a parent
+  u.mesh.scale.setScalar(s); u.mesh.position.set(-c.x * s, -box.min.y * s, -c.z * s); u.mesh.frustumCulled = false; u.mesh.renderOrder = 3; // same reason as the weapon
+  poe(u, 240, z.weapon); poe(u, 241, def.escudo ? await wep(def.escudo) : z.shield);
+  const sombra = new Mesh(new CircleGeometry(0.32, 24), new MeshBasicMaterial({ color: 0, transparent: true, opacity: 0.35 })); sombra.rotation.x = -Math.PI / 2; sombra.position.y = 0.05 - u.voo; sombra.renderOrder = 2;
+  u.pega = new Mesh(new BoxGeometry(0.6, u.alt, 0.6), new MeshBasicMaterial({ visible: false })); u.pega.position.y = u.alt / 2; u.pega.userData = { u }; // skinned meshes raycast in bind pose
+  u.g.add(u.mesh, sombra, u.pega); u.g.position.copy(chao(u, u.x, u.z)); cena.add(u.g); alvos.push(u.pega);
+  u.barra = document.createElement('div'); u.barra.className = 'hp'; u.barra.innerHTML = `${u.nome}<u><i style="background:${COR[u.lado]}"></i></u>`; document.body.appendChild(u.barra);
+  return u;
+}
+
+function anda(u, x, z) {
+  return new Promise((ok) => {
+    vira(u, x, z); const de = u.g.position.clone(), para = chao(u, x, z);
+    u.mov = { de, para, t: 0, dur: Math.max(de.distanceTo(para) / VEL, 0.01), ok }; u.x = x; u.z = z; toca(u, 'andar');
+  });
+}
+async function ataca(a, v) {
+  vira(a, v.x, v.z); const golpe = toca(a, 'golpe'), dano = 30 + Math.floor(Math.random() * 25);
+  await dorme(350); // the blow lands a little into the swing
+  v.hp = Math.max(0, v.hp - dano); vira(v, a.x, a.z);
+  log(`⚔️ ${a.nome} acerta ${v.nome}: -${dano}` + (v.hp ? '' : ' 💀'));
+  await Promise.all([golpe, toca(v, v.hp ? 'dano' : 'morrer')]);
+  if (!v.hp) some(v); // also covers a character with no death clip
+}
+function fim() { for (const l of [0, 1]) if (!vivos(l).length) { log(l ? '🏆 Vitória dos aliados' : '☠️ Vitória dos inimigos'); return true; } return false; }
+// Mock AI: walk up to 3 tiles towards the nearest enemy, strike when next to it. The round cap ends a fight that stalls.
+async function batalha() {
+  for (let rodada = 0; rodada < 40 && autoLigado && !fim(); rodada++) for (const u of [...unidades]) {
+    if (!autoLigado || u.hp <= 0) continue;
+    const alvo = vivos(1 - u.lado).sort((a, b) => dist(u, a) - dist(u, b))[0]; if (!alvo) break;
+    sel = u;
+    if (dist(u, alvo) > 1) {
+      let melhor = null;
+      for (const k of tiles.keys()) { const [x, z] = k.split(',').map(Number), t = { x, z }; if (!em(x, z) && dist(u, t) <= 3 && (!melhor || dist(t, alvo) < dist(melhor, alvo))) melhor = t; }
+      if (melhor && dist(melhor, alvo) < dist(u, alvo)) { log(`🚶 ${u.nome} avança`); await anda(u, melhor.x, melhor.z); }
+    }
+    if (dist(u, alvo) === 1) await ataca(u, alvo);
+  }
+  autoLigado = false;
+}
+
+function pinta() {
+  for (const b of ['andar', 'atacar', 'magia']) { $(b).disabled = !sel || ocupado; $(b).classList.toggle('on', modo === b); }
+  $('auto').textContent = autoLigado ? '⏹️ Parar batalha' : '🤖 Batalha automática'; $('auto').disabled = ocupado && !autoLigado;
+  $('i').textContent = autoLigado ? 'Batalha automática em curso…' : !sel ? 'Clique numa unidade para selecionar.' : modo === 'andar' ? `${sel.nome}: clique num tile vazio.` : modo === 'atacar' ? `${sel.nome}: clique num inimigo vizinho.` : `${sel.nome} selecionado (${sel.hp} de vida).`;
+}
+async function age(f) { ocupado = true; modo = ''; pinta(); try { await f(); } finally { ocupado = false; pinta(); } }
+async function clique(e) {
+  if (ocupado) return;
+  const hit = new Raycaster(); hit.setFromCamera(new Vector2(e.clientX / innerWidth * 2 - 1, 1 - e.clientY / innerHeight * 2), cam);
+  const d = hit.intersectObjects(alvos)[0]; if (!d) return;
+  const x = Math.round(d.point.x), z = Math.round(d.point.z), u = d.object.userData.u || em(x, z);
+  if (modo === 'andar' && sel && !u && tiles.has(chave(x, z))) return age(() => anda(sel, x, z));
+  if (modo === 'atacar' && sel && u && u.lado !== sel.lado) { if (dist(sel, u) === 1) return age(() => ataca(sel, u)); log(`${u.nome} está longe: ande até um tile vizinho.`); return; }
+  if (u) { sel = u; modo = ''; pinta(); }
+}
+// A click is a press and release in the same spot; a drag belongs to the camera.
+let ini = null; r.domElement.addEventListener('pointerdown', (e) => { ini = [e.clientX, e.clientY]; });
+r.domElement.addEventListener('pointerup', (e) => { if (ini && Math.hypot(e.clientX - ini[0], e.clientY - ini[1]) < 5) clique(e); ini = null; });
+$('andar').onclick = () => { modo = modo === 'andar' ? '' : 'andar'; pinta(); }; $('atacar').onclick = () => { modo = modo === 'atacar' ? '' : 'atacar'; pinta(); };
+$('magia').onclick = () => age(() => { log(`✨ ${sel.nome} conjura`); return toca(sel, 'magia'); });
+$('auto').onclick = () => { if (autoLigado) { autoLigado = false; pinta(); return; } autoLigado = true; age(batalha); };
+$('recomecar').onclick = () => location.reload(); $('lin').onchange = filtro;
+
+const v3 = new Vector3();
+(function loop() {
+  requestAnimationFrame(loop); const dt = Math.min(clock.getDelta(), 0.1);
+  for (const u of unidades) {
+    if (!u.g.parent) continue;
+    u.mixer.update(dt);
+    if (u.mov) { const m = u.mov; m.t = Math.min(1, m.t + dt / m.dur); u.g.position.lerpVectors(m.de, m.para, m.t); if (m.t === 1) { u.mov = null; toca(u, 'parado'); m.ok(); } }
+    if (u.espera > 0 && (u.espera -= dt) <= 0) { const f = u.fim; u.fim = null; if (u.atual === 'morrer') some(u); else toca(u, 'parado'); if (f) f(); }
+    v3.copy(u.g.position).setY(u.g.position.y + u.alt + 0.15).project(cam);
+    u.barra.style.left = (v3.x + 1) / 2 * innerWidth + 'px'; u.barra.style.top = (1 - v3.y) / 2 * innerHeight + 'px'; u.barra.querySelector('i').style.width = u.hp + '%';
+  }
+  anel.visible = !!sel; if (sel) { anel.position.copy(sel.g.position).setY(sel.g.position.y - sel.voo + 0.06); anel.material.color.set(COR[sel.lado]); }
+  oc.update(); r.render(cena, cam);
+})();
+try {
+  unidades.push(...await Promise.all(ELENCO.map((d) => { const [x, z] = postos[d.lado].shift(); return abre({ ...d, x, z }); })));
+  for (const u of unidades) { const o = vivos(1 - u.lado)[1]; vira(u, o.x, o.z); } // each side starts facing the middle unit of the other
+  filtro(); pinta();
+} catch (e) { $('i').textContent = 'não abriu: ' + e.message; }
+// Test hook: the walkable tiles and the screen position of one, so automation can click the canvas like a player.
+window.cena = { unidades, tiles, tela: (x, z) => { const p = new Vector3(x, tiles.get(chave(x, z)), z).project(cam); return [Math.round((p.x + 1) / 2 * innerWidth), Math.round((1 - p.y) / 2 * innerHeight)]; } };
+</script>

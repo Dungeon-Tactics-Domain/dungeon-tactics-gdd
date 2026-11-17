@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>VSTOOLS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link rel="stylesheet" href="css/main.css">
+  </head>
+  <body>
+    <div class="ui-sidebar">
+      <div class="ui-panel app-file">
+        <h2>File</h2>
+
+        <p>
+          <label>
+            Select SHP, WEP, ZUD, ZND, or ARM<br>
+            <input type="file" class="file1">
+          </label>
+        </p>
+
+        <p>
+          <label>
+            Select SEQ or MPD<br>
+            <input type="file" class="file2">
+          </label>
+        </p>
+
+
+        <p>
+          <button class="load">Open</button>
+        </p>
+      </div>
+
+      <div class="ui-panel app-animation">
+        <h2>Animation</h2>
+
+        <p>
+          <button class="prev">&lt;</button>
+          <input class="animation" size="3">
+          <button class="next">&gt;</button>
+          <span class="animation-count"></span>
+        </p>
+      </div>
+
+      <div class="ui-panel app-textures">
+        <h2>Textures</h2>
+        <div class="textures"></div>
+      </div>
+
+      <div class="ui-panel app-settings">
+        <h2>Settings</h2>
+
+        <p>
+          <label>
+            <input type="checkbox" class="wireframe"> Wireframe
+          </label>
+        </p>
+
+        <p>
+          <label>
+            <input type="checkbox" class="no-vertex-colors"> Disable Vertex Colors
+          </label>
+        </p>
+
+        <p>
+          <label>
+            <input type="checkbox" class="no-texture"> Disable Texture
+          </label>
+        </p>
+
+        <p>
+          <label>
+            <input type="checkbox" class="normals"> Use Normal Material
+          </label>
+        </p>
+
+        <p>
+          <label>
+            <input type="checkbox" class="skeleton"> Show Skeleton
+          </label>
+        </p>
+      </div>
+
+      <div class="ui-panel app-export">
+        <h2>Export</h2>
+        <!-- <p><button id="exportCollada">Export Collada</button></p> -->
+        <p><button class="export-obj">Export OBJ</button></p>
+        <p><small>Exports the geometry <em>as is</em>, without skeleton and animations.</small></p>
+      </div>
+    </div>
+
+    <script type="module" src="https://unpkg.com/three@0.116.1/build/three.module.js" crossorigin></script>
+    <script type="module" src="https://unpkg.com/three@0.116.1/examples/jsm/controls/OrbitControls.js" crossorigin></script>
+    <script type="module" src="https://unpkg.com/three@0.116.1/examples/jsm/exporters/OBJExporter.js" crossorigin></script>
+
+    <script type="module" src="src/Viewer.js"></script>
+
+    <script type="module">
+      import { Viewer } from "./src/Viewer.js";
+      const viewer = new Viewer();
+      viewer.run();
+    </script>
+  </body>
+</html>

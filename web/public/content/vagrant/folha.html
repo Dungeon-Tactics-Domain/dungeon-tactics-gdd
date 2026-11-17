@@ -1,0 +1,34 @@
+<!doctype html><meta charset=utf-8><title>Folha de personagens</title>
+<style>body{margin:0;background:#222;color:#ddd;font:12px sans-serif}#g{display:grid;grid-template-columns:repeat(8,160px);gap:2px;padding:4px}figure{margin:0;background:#333;text-align:center}img{width:160px;height:160px;display:block}</style>
+<div id=st>carregando…</div><div id=g></div>
+<script type="module" src="https://unpkg.com/three@0.116.1/build/three.module.js" crossorigin></script>
+<script type="module" src="https://unpkg.com/three@0.116.1/examples/jsm/controls/OrbitControls.js" crossorigin></script>
+<script type="module" src="https://unpkg.com/three@0.116.1/examples/jsm/exporters/OBJExporter.js" crossorigin></script>
+<script type="module">
+import { Scene, PerspectiveCamera, WebGLRenderer, Box3, Vector3, AnimationMixer } from './src/three.js';
+import { SEQ } from './src/SEQ.js';
+import { SHP } from './src/SHP.js';
+import { Reader } from './src/Reader.js';
+const N = +new URLSearchParams(location.search).get('n') || 202;
+const r = new WebGLRenderer({ preserveDrawingBuffer: true }); r.setSize(160, 160); r.setClearColor(0x444444, 1);
+const g = document.getElementById('g'), st = document.getElementById('st'); let ok = 0, bad = [];
+for (let i = 0; i < N; i++) {
+  const hex = i.toString(16).toUpperCase().padStart(2, '0'), nome = hex + '.SHP', ia = +new URLSearchParams(location.search).get('a') || 0;
+  try {
+    const b = new Uint8Array(await (await fetch('./arq/OBJ/' + nome)).arrayBuffer());
+    const shp = new SHP(new Reader(b)); shp.read(); shp.build();
+    let anim = false;
+    try { const q = await fetch('./arq/OBJ/' + hex + 'BT1B00.SEQ'); if (q.ok) { const seq = new SEQ(new Reader(new Uint8Array(await q.arrayBuffer())), shp); seq.read(); seq.build(); const m = new AnimationMixer(shp.mesh); m.clipAction(seq.animations[Math.min(ia, seq.animations.length - 1)].animationClip, shp.mesh).play(); m.update(0.2); anim = true; } } catch (e) { bad.push(nome + ' seq: ' + e.message); }
+    if (!anim) shp.mesh.rotation.z = Math.PI / 2;
+    const sc = new Scene(); sc.add(shp.mesh); shp.mesh.updateMatrixWorld(true);
+    const box = new Box3().setFromObject(shp.mesh), c = box.getCenter(new Vector3()), s = box.getSize(new Vector3());
+    const cam = new PerspectiveCamera(40, 1, 1, 1e5), d = Math.max(s.x, s.y, s.z) * 1.9;
+    cam.position.set(c.x + d * .85, c.y + d * .05, c.z + d * .45); cam.lookAt(c);
+    r.render(sc, cam);
+    const f = document.createElement('figure'), im = new Image(); im.src = r.domElement.toDataURL('image/jpeg', .8);
+    f.append(im, nome + (anim ? ' ▶' : '')); g.append(f); ok++;
+  } catch (e) { bad.push(nome + ': ' + e.message); }
+  st.textContent = 'feitos ' + (i + 1) + '/' + N;
+}
+st.textContent = 'pronto: ' + ok + ' ok, ' + bad.length + ' falhas'; window.__bad = bad; window.__done = true;
+</script>

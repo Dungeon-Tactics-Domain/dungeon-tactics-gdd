@@ -1,0 +1,24 @@
+<!doctype html><meta charset=utf-8><title>Mapa</title>
+<style>body{margin:0;background:#222;color:#ddd;font:12px sans-serif}#st{position:absolute;top:4px;left:6px}</style>
+<div id=st>carregando…</div>
+<script type="module" src="https://unpkg.com/three@0.116.1/build/three.module.js" crossorigin></script>
+<script type="module" src="https://unpkg.com/three@0.116.1/examples/jsm/controls/OrbitControls.js" crossorigin></script>
+<script type="module" src="https://unpkg.com/three@0.116.1/examples/jsm/exporters/OBJExporter.js" crossorigin></script>
+<script type="module">
+import { Scene, PerspectiveCamera, WebGLRenderer, Box3, Vector3, OrbitControls } from './src/three.js';
+import { ZND } from './src/ZND.js';
+import { MPD } from './src/MPD.js';
+import { Reader } from './src/Reader.js';
+const P = new URLSearchParams(location.search), z = P.get('z') || '000', m = P.get('m') || '000';
+const rd = async (u) => new Reader(new Uint8Array(await (await fetch(u)).arrayBuffer()));
+const znd = new ZND(await rd('./arq/MAP/ZONE' + z + '.ZND')); znd.read(); znd.frameBuffer.build();
+const mpd = new MPD(await rd('./arq/MAP/MAP' + m + '.MPD'), znd); mpd.read(); mpd.build();
+const r = new WebGLRenderer({ preserveDrawingBuffer: true }); r.setSize(innerWidth, innerHeight); r.setClearColor(0x333333, 1); document.body.appendChild(r.domElement);
+const sc = new Scene(); sc.add(mpd.mesh); mpd.mesh.updateMatrixWorld(true);
+const box = new Box3().setFromObject(mpd.mesh), c = box.getCenter(new Vector3()), s = box.getSize(new Vector3()), d = Math.max(s.x, s.y, s.z) * 1.4;
+const cam = new PerspectiveCamera(50, innerWidth / innerHeight, 1, 1e6); cam.position.set(c.x + d * .6, c.y - d * .6, c.z + d * .6); cam.up.set(0, -1, 0); cam.lookAt(c);
+const oc = new OrbitControls(cam, r.domElement); oc.target.copy(c);
+(function loop() { requestAnimationFrame(loop); oc.update(); r.render(sc, cam); })();
+document.getElementById('st').textContent = 'ZONE' + z + ' + MAP' + m + ' · tamanho ' + [s.x, s.y, s.z].map(Math.round).join('×') + ' · MPDs da zona: ' + znd.mpdNum;
+window.__znd = znd;
+</script>

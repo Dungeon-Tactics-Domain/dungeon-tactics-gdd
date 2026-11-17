@@ -1,0 +1,37 @@
+<!doctype html><meta charset=utf-8><title>Folha de mapas</title>
+<style>body{margin:0;background:#222;color:#ddd;font:12px sans-serif}#g{display:grid;grid-template-columns:repeat(5,240px);gap:2px;padding:4px}figure{margin:0;background:#333;text-align:center}img{width:240px;height:180px;display:block}</style>
+<div id=st>carregando…</div><div id=g></div>
+<script type="module" src="https://unpkg.com/three@0.116.1/build/three.module.js" crossorigin></script>
+<script type="module" src="https://unpkg.com/three@0.116.1/examples/jsm/controls/OrbitControls.js" crossorigin></script>
+<script type="module" src="https://unpkg.com/three@0.116.1/examples/jsm/exporters/OBJExporter.js" crossorigin></script>
+<script type="module">
+import { Scene, PerspectiveCamera, WebGLRenderer, Box3, Vector3 } from './src/three.js';
+import { ZND } from './src/ZND.js';
+import { MPD } from './src/MPD.js';
+import { Reader } from './src/Reader.js';
+const P = new URLSearchParams(location.search), de = +P.get('de') || 1, ate = +P.get('ate') || 40;
+const zonas = await (await fetch('./zonas.json')).json();
+const rd = async (u) => new Reader(new Uint8Array(await (await fetch(u)).arrayBuffer()));
+const r = new WebGLRenderer({ preserveDrawingBuffer: true }); r.setSize(240, 180); r.setClearColor(0x333333, 1);
+const g = document.getElementById('g'), st = document.getElementById('st'); const bad = []; let ok = 0; const feitos = new Set();
+for (let zi = de; zi <= ate; zi++) {
+  const zn = 'ZONE' + String(zi).padStart(3, '0') + '.ZND', ms = zonas[zn]; if (!ms) continue;
+  try {
+    const znd = new ZND(await rd('./arq/MAP/' + zn)); znd.read(); znd.frameBuffer.build();
+    for (const m of ms) {
+      if (!m || feitos.has(m)) continue; feitos.add(m);
+      try {
+        const mpd = new MPD(await rd('./arq/MAP/' + m), znd); mpd.read(); mpd.build();
+        const sc = new Scene(); sc.add(mpd.mesh); mpd.mesh.updateMatrixWorld(true);
+        const box = new Box3().setFromObject(mpd.mesh), c = box.getCenter(new Vector3()), s = box.getSize(new Vector3()), d = Math.max(s.x, s.y, s.z) * 1.3;
+        const cam = new PerspectiveCamera(50, 240 / 180, 1, 1e6); cam.position.set(c.x + d * .6, c.y - d * .6, c.z + d * .6); cam.up.set(0, -1, 0); cam.lookAt(c);
+        r.render(sc, cam);
+        const f = document.createElement('a'), im = new Image(); f.href = 'mapa.html?z=' + zn.slice(4, 7) + '&m=' + m.slice(3, 6); f.style.cssText = 'color:inherit;text-decoration:none;background:#333;text-align:center'; im.src = r.domElement.toDataURL('image/jpeg', .75);
+        f.append(im, zn.slice(0, 7) + ' · ' + m.slice(0, 6)); g.append(f); ok++;
+      } catch (e) { bad.push(zn + '/' + m + ': ' + e.message); }
+    }
+  } catch (e) { bad.push(zn + ': ' + e.message); }
+  st.textContent = 'zona ' + zi + '/' + ate + ' · ' + ok + ' salas';
+}
+st.textContent = 'pronto: ' + ok + ' salas, ' + bad.length + ' falhas'; window.__bad = bad;
+</script>

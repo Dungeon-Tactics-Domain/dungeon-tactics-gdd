@@ -1,0 +1,23 @@
+<!doctype html><meta charset=utf-8><title>Original e subdividido</title>
+<style>body{margin:0;background:#2a2a2a;color:#ddd;font:13px sans-serif;overflow:hidden}#p{position:absolute;top:8px;left:8px;background:#000a;padding:10px;border-radius:6px;z-index:2}#p label{display:flex;gap:6px;align-items:center}#t{position:absolute;bottom:10px;width:100%;display:flex;justify-content:space-around;pointer-events:none;font-size:15px}</style>
+<div id=p><label><input type=checkbox id=lin checked>Filtro suave</label><label><input type=checkbox id=wf>Wireframe</label><label><input type=checkbox id=vc checked>Cor dos vértices</label><label><input type=checkbox id=rot checked>Girar sozinho</label></div>
+<div id=t><span>Original</span><span>Subdivisão nível 2 (Blender)</span></div>
+<script type="module">
+import * as THREE from 'https://unpkg.com/three@0.116.1/build/three.module.js';
+import { OrbitControls } from 'https://unpkg.com/three@0.116.1/examples/jsm/controls/OrbitControls.js';
+import { GLTFLoader } from 'https://unpkg.com/three@0.116.1/examples/jsm/loaders/GLTFLoader.js';
+const nome = new URLSearchParams(location.search).get('n') || 'Z001U00';
+const r = new THREE.WebGLRenderer({ antialias: true }); r.setPixelRatio(Math.max(2, devicePixelRatio)); r.setSize(innerWidth, innerHeight); r.setClearColor(0x2a2a2a); document.body.appendChild(r.domElement);
+const sc = new THREE.Scene(), cam = new THREE.PerspectiveCamera(35, innerWidth / innerHeight, .01, 1000), oc = new OrbitControls(cam, r.domElement);
+sc.add(new THREE.HemisphereLight(0xffffff, 0x555566, 1.1)); const dl = new THREE.DirectionalLight(0xffffff, .7); dl.position.set(2, 4, 3); sc.add(dl);
+const grupos = [];
+for (const [i, suf] of ['orig', 'sub'].entries()) {
+  const g = await new Promise((ok) => new GLTFLoader().load(`glb/${nome}_${suf}.glb`, ok));
+  const box = new THREE.Box3().setFromObject(g.scene), c = box.getCenter(new THREE.Vector3()); g.scene.position.set(-c.x + (i ? 1.6 : -1.6), -box.min.y, -c.z); sc.add(g.scene); grupos.push(g.scene);
+}
+cam.position.set(0, 1.9, 7); oc.target.set(0, 1.5, 0); oc.update();
+function aplica() { grupos.forEach((g) => g.traverse((o) => { if (!o.isMesh) return; [].concat(o.material).forEach((m) => { m.wireframe = wf.checked; m.vertexColors = vc.checked ? THREE.VertexColors : THREE.NoColors; if (m.map) { m.map.magFilter = m.map.minFilter = lin.checked ? THREE.LinearFilter : THREE.NearestFilter; m.map.needsUpdate = true; } m.needsUpdate = true; }); })); }
+lin.onchange = wf.onchange = vc.onchange = aplica; aplica();
+addEventListener('resize', () => { r.setSize(innerWidth, innerHeight); cam.aspect = innerWidth / innerHeight; cam.updateProjectionMatrix(); });
+(function loop() { requestAnimationFrame(loop); oc.autoRotate = rot.checked; oc.update(); r.render(sc, cam); })();
+</script>

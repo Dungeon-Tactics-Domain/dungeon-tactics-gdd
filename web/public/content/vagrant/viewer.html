@@ -1,0 +1,52 @@
+<!doctype html><meta charset=utf-8><title>Visualizador Vagrant Story</title>
+<style>body{margin:0;background:#2a2a2a;color:#ddd;font:13px sans-serif;overflow:hidden}#p{position:absolute;top:8px;left:8px;background:#000a;padding:10px;border-radius:6px;width:250px;z-index:2}#p *{margin:3px 0;display:block;width:100%;box-sizing:border-box}#p label{display:flex;gap:6px;align-items:center}#p input[type=checkbox]{width:auto}canvas{display:block}#i{font-size:11px;color:#aaa}</style>
+<div id=p><select id=z></select><div style="display:flex;gap:4px"><button id=pa style="width:30px">◀</button><input id=an value=0 style="width:60px"><button id=na style="width:30px">▶</button></div><label><input type=checkbox id=lin checked>Filtro suave (linear)</label><label><input type=checkbox id=wf>Wireframe</label><label><input type=checkbox id=rot checked>Girar sozinho</label><button id=ex>Exportar OBJ (pose atual)</button><div id=i>carregando…</div></div>
+<script type="module" src="https://unpkg.com/three@0.116.1/build/three.module.js" crossorigin></script>
+<script type="module" src="https://unpkg.com/three@0.116.1/examples/jsm/controls/OrbitControls.js" crossorigin></script>
+<script type="module" src="https://unpkg.com/three@0.116.1/examples/jsm/exporters/OBJExporter.js" crossorigin></script>
+<script type="module">
+import { Scene, PerspectiveCamera, WebGLRenderer, Box3, Vector3, AnimationMixer, OrbitControls, LinearFilter, NearestFilter, Mesh, BufferGeometry, BufferAttribute, OBJExporter, LinearMipmapLinearFilter, GridHelper } from './src/three.js';
+import { ZUD } from './src/ZUD.js';
+import { Reader } from './src/Reader.js';
+const $ = (i) => document.getElementById(i);
+const lista = await (await fetch('./zud.json')).json();
+$('z').innerHTML = lista.map((n, i) => `<option value="${n}">${n}</option>`).join('');
+const r = new WebGLRenderer({ antialias: true }); r.setPixelRatio(Math.max(2, devicePixelRatio)); r.setSize(innerWidth, innerHeight); r.setClearColor(0x2a2a2a, 1); document.body.appendChild(r.domElement);
+const sc = new Scene(), cam = new PerspectiveCamera(40, innerWidth / innerHeight, 1, 1e5), oc = new OrbitControls(cam, r.domElement);
+addEventListener('resize', () => { r.setSize(innerWidth, innerHeight); cam.aspect = innerWidth / innerHeight; cam.updateProjectionMatrix(); });
+let z, mixer, action, mesh;
+function aplica() {
+  if (!mesh) return;
+  mesh.traverse((o) => { const ms = [].concat(o.material || []); ms.forEach((m) => { m.wireframe = $('wf').checked; if (m.map) { m.map.magFilter = $('lin').checked ? LinearFilter : NearestFilter; m.map.minFilter = $('lin').checked ? LinearFilter : NearestFilter; m.map.anisotropy = 8; m.map.needsUpdate = true; m.needsUpdate = true; } }); });
+}
+function anima() {
+  const seq = (Q.get('s') === 'com' && z.com) || z.bt || z.com; if (!seq || !seq.animations.length) { $('i').textContent += ' · sem animação'; return; }
+  const n = Math.max(0, Math.min(seq.animations.length - 1, +$('an').value || 0)); $('an').value = n;
+  if (action) action.stop(); mixer = new AnimationMixer(mesh); action = mixer.clipAction(seq.animations[n].animationClip, mesh); action.play();
+  $('i').textContent = `char ${z.idCharacter} · animação ${n}/${seq.animations.length - 1}`;
+}
+async function abre() {
+  const nome = $('z').value;
+  z = new ZUD(new Reader(new Uint8Array(await (await fetch('./arq/MAP/' + nome)).arrayBuffer()))); z.read(); z.build();
+  if (mesh) sc.remove(mesh); mesh = z.shp.mesh; sc.add(mesh); mesh.updateMatrixWorld(true);
+  $('an').value = +Q.get('a') || 0; anima(); mixer && mixer.update(0.2); mesh.updateMatrixWorld(true);
+  const box = new Box3().setFromObject(mesh), c = box.getCenter(new Vector3()), s = box.getSize(new Vector3()), d = Math.max(s.x, s.y, s.z) * 2;
+  oc.target.copy(c); cam.position.set(c.x + d * .4, c.y, c.z + d * .9); oc.update(); aplica();
+}
+const Q = new URLSearchParams(location.search); if (Q.get('z') && lista.includes(Q.get('z'))) $('z').value = Q.get('z');
+$('z').onchange = abre; $('an').onchange = () => { anima(); aplica(); };
+$('pa').onclick = () => { $('an').value = +$('an').value - 1; anima(); }; $('na').onclick = () => { $('an').value = +$('an').value + 1; anima(); };
+$('lin').onchange = $('wf').onchange = aplica;
+$('ex').onclick = async () => {
+  mesh.updateMatrixWorld(true); mesh.skeleton.update();
+  const g = mesh.geometry, pos = g.attributes.position, out = new Float32Array(pos.count * 3), v = new Vector3();
+  for (let i = 0; i < pos.count; i++) { v.fromBufferAttribute(pos, i); mesh.boneTransform(i, v); out[i * 3] = v.x; out[i * 3 + 1] = v.y; out[i * 3 + 2] = v.z; }
+  const bg = new BufferGeometry(); bg.setAttribute('position', new BufferAttribute(out, 3)); if (g.attributes.uv) bg.setAttribute('uv', g.attributes.uv); if (g.index) bg.setIndex(g.index);
+  const txt = new OBJExporter().parse(new Mesh(bg));
+  const nome = $('z').value.replace('.ZUD', '') + '_anim' + $('an').value + '.obj';
+  const q = await fetch('/salvar/' + nome, { method: 'POST', body: txt }); $('i').textContent = 'salvo: ' + nome + ' (' + q.status + ')';
+};
+const clk = { t: 0 };
+(function loop(t) { requestAnimationFrame(loop); if (mixer) mixer.update(0.016); oc.autoRotate = $('rot').checked; oc.autoRotateSpeed = 2; oc.update(); r.render(sc, cam); })();
+await abre();
+</script>
