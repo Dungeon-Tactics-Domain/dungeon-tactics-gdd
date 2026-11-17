@@ -207,7 +207,8 @@ const SONS_JOGO = [
   ['tfg', 'Tactical Fantasy Guy'],
   ['sonatina', 'Sonatina'],
 ] as const;
-// private listening test with the Roland SC-88 soundfont, rendered for every piece (not part of the game: the sounds are Roland's)
+// Roland SC-88 soundfont (a fan rip): a listening test for the owner only, on this unadvertised lab site. Its stems are not in
+// the repository and its sounds never go into the game, because they are Roland's.
 const SC88 = ['sc88', 'SC-88 (teste privado)'] as const;
 const versoesDe = (id: string) => {
   const e = estudoDe(id);
