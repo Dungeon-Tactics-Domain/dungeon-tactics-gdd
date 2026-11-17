@@ -1,0 +1,1740 @@
+{
+ "meta": {
+  "titulo": "Layout da interface do Final Fantasy Tactics: The Ivalice Chronicles (modo Enhanced)",
+  "sistema_de_coordenadas": "1920x1080, origem no canto superior esquerdo; x,y = canto superior esquerdo da caixa",
+  "data": "16/11/2026",
+  "metodo": "Caixas lidas com grade de 50 px desenhada sobre cada captura (PIL); precisão de leitura ±4 px nas capturas 1080p nativas e ±6 px nas normalizadas (1440p e 4K reduzidas p/ 1920x1080). Painéis bege de borda dura (comandos, submenu, descrição, habilidades, inventário, opções) tiveram as bordas ajustadas por varredura de limiar de cor, ±1 px. Capturas 1920x1088 (RPG Site): as 8 linhas de sobra ficam embaixo, então foram cortadas para 1080 (dedução: a fileira de dicas cai em y≈1048 e o texto de ajuda em y≈978, como nas capturas 1080p nativas). Cores = mediana de um bloco 5x5 px no ponto indicado (JPEG/WebP: variam alguns níveis). Elementos conferidos em mais de uma captura estão descritos em 'observacoes'.",
+  "estimativa": "estimativa=true: borda sem limite nítido (gradiente), fonte não nativa em 1080p ou caixa lida em miniatura.",
+  "nao_encontrado": [
+   "tela de vitória",
+   "tela de derrota (Game Over)",
+   "submenu de itens dentro da batalha (lista de Items)",
+   "abas Display/Sound/Control Assignments das opções abertas (só os nomes das abas)",
+   "prévia de magia com área + tempo de conjuração no painel central"
+  ],
+  "arquivos_de_origem": "pasta web/public/content/design/refs/fft-ivalice (fontes em fontes.md)"
+ },
+ "elementos": [
+  {
+   "id": "fila.rotulo",
+   "tela": "batalha",
+   "ancora": "topo-esquerda",
+   "x": 50,
+   "y": 28,
+   "largura": 222,
+   "altura": 28,
+   "cores": [
+    {
+     "ponto": [
+      66,
+      41
+     ],
+     "o_que": "glifo LT",
+     "hex": "#6b6764"
+    }
+   ],
+   "origem": "01-previa.jpg",
+   "estimativa": false,
+   "observacoes": "Glifo do gatilho (34x26) + texto 'Combat Timeline' semitransparente; some/escurece conforme o fundo."
+  },
+  {
+   "id": "fila.slot",
+   "tela": "batalha",
+   "ancora": "esquerda",
+   "x": 102,
+   "y": 82,
+   "largura": 66,
+   "altura": 78,
+   "cores": [
+    {
+     "ponto": [
+      135,
+      156
+     ],
+     "o_que": "barra aliado (azul)",
+     "hex": "#1d7daf"
+    },
+    {
+     "ponto": [
+      135,
+      336
+     ],
+     "o_que": "barra inimigo (vermelha)",
+     "hex": "#c4461d"
+    },
+    {
+     "ponto": [
+      135,
+      120
+     ],
+     "o_que": "retrato (meio)",
+     "hex": "#9c6a4e"
+    }
+   ],
+   "origem": "01-previa.jpg",
+   "estimativa": false,
+   "observacoes": "Retrato 66x68 com cantos arredondados + barra de time de 8 px embaixo. Número da posição à esquerda (x 68-88), azul p/ aliado e rosa p/ inimigo, com brilho.",
+   "repeticao": {
+    "quantidade": 8,
+    "passo_y": 90,
+    "ordem": "9 no topo (y=82) até 2 (y=712); a posição 1 é o retrato da ficha da unidade",
+    "numero_x": 68
+   }
+  },
+  {
+   "id": "fila.slot_ativo",
+   "tela": "batalha",
+   "ancora": "esquerda",
+   "x": 48,
+   "y": 350,
+   "largura": 132,
+   "altura": 80,
+   "cores": [
+    {
+     "ponto": [
+      60,
+      410
+     ],
+     "o_que": "destaque amarelo",
+     "hex": "#a27220"
+    }
+   ],
+   "origem": "01-previa.jpg",
+   "estimativa": false,
+   "observacoes": "Slot do alvo/unidade em foco: caixa amarela 48x80 atrás do número e retrato deslocado 12 px p/ a direita (x=114). Uma faixa escura translúcida segue à direita."
+  },
+  {
+   "id": "fila.rotulo_acao",
+   "tela": "batalha",
+   "ancora": "esquerda",
+   "x": 196,
+   "y": 96,
+   "largura": 156,
+   "altura": 42,
+   "cores": [
+    {
+     "ponto": [
+      210,
+      104
+     ],
+     "o_que": "fundo do rótulo",
+     "hex": "#c6b9a9"
+    }
+   ],
+   "origem": "19-previa-magia-alvo.jpg",
+   "estimativa": false,
+   "observacoes": "Etiqueta bege com seta à esquerda, colada ao slot, com a ação já enfileirada (ex.: 'Slow Dance', 'Aim +5'). Largura acompanha o texto (Aim +5 = 108)."
+  },
+  {
+   "id": "fila.icones_status",
+   "tela": "batalha",
+   "ancora": "esquerda",
+   "x": 176,
+   "y": 82,
+   "largura": 80,
+   "altura": 30,
+   "cores": [],
+   "origem": "30-turno-inimigo-status.jpg",
+   "estimativa": true,
+   "observacoes": "Ícones de status (corações etc.) à direita do retrato do slot. Posição lida em miniatura."
+  },
+  {
+   "id": "visao_tatica.rotulo",
+   "tela": "batalha",
+   "ancora": "topo-direita",
+   "x": 1702,
+   "y": 28,
+   "largura": 180,
+   "altura": 28,
+   "cores": [
+    {
+     "ponto": [
+      1864,
+      41
+     ],
+     "o_que": "glifo RT",
+     "hex": "#686461"
+    }
+   ],
+   "origem": "01-previa.jpg",
+   "estimativa": false,
+   "observacoes": "Texto 'Tactical View' + glifo do gatilho (36x26) terminando em x=1882."
+  },
+  {
+   "id": "altura.rotulo",
+   "tela": "batalha",
+   "ancora": "topo-direita",
+   "x": 1582,
+   "y": 138,
+   "largura": 70,
+   "altura": 24,
+   "cores": [],
+   "origem": "01-previa.jpg",
+   "estimativa": false,
+   "observacoes": "Texto 'Height' branco com sombra."
+  },
+  {
+   "id": "altura.numero",
+   "tela": "batalha",
+   "ancora": "topo-direita",
+   "x": 1750,
+   "y": 95,
+   "largura": 90,
+   "altura": 72,
+   "cores": [
+    {
+     "ponto": [
+      1765,
+      130
+     ],
+     "o_que": "dígito (verde)",
+     "hex": "#4daf7c"
+    }
+   ],
+   "origem": "19-previa-magia-alvo.jpg",
+   "estimativa": false,
+   "observacoes": "Número grande serifado verde-água, alinhado à direita em x≈1832 (1 dígito ocupa 1775-1830; '7.5' e '13' começam em ~1750)."
+  },
+  {
+   "id": "altura.linha",
+   "tela": "batalha",
+   "ancora": "topo-direita",
+   "x": 1500,
+   "y": 177,
+   "largura": 420,
+   "altura": 3,
+   "cores": [
+    {
+     "ponto": [
+      1800,
+      178
+     ],
+     "o_que": "linha",
+     "hex": "#53739b"
+    }
+   ],
+   "origem": "01-previa.jpg",
+   "estimativa": false,
+   "observacoes": "Linha fina clara que some em gradiente p/ a esquerda; encosta na borda direita."
+  },
+  {
+   "id": "banner_instrucao",
+   "tela": "batalha",
+   "ancora": "topo-centro",
+   "x": 650,
+   "y": 80,
+   "largura": 620,
+   "altura": 78,
+   "cores": [
+    {
+     "ponto": [
+      680,
+      120
+     ],
+     "o_que": "fundo (sobre cenário bege)",
+     "hex": "#433a2b"
+    }
+   ],
+   "origem": "19-previa-magia-alvo.jpg",
+   "estimativa": false,
+   "observacoes": "Pílula escura translúcida (raio ~39), centrada em x=960. Largura acompanha o texto: 620 em 'Select a target and press X to confirm.' e 550 (685-1235) em 'Select a tile and press X to move.' (17). Texto ~30 px branco, glifo do botão no meio da frase."
+  },
+  {
+   "id": "banner_instrucao.sobre_azul",
+   "tela": "batalha",
+   "ancora": "topo-centro",
+   "x": 685,
+   "y": 80,
+   "largura": 550,
+   "altura": 78,
+   "cores": [
+    {
+     "ponto": [
+      705,
+      120
+     ],
+     "o_que": "fundo (sobre céu azul)",
+     "hex": "#363f48"
+    }
+   ],
+   "origem": "17-batalha-movimento-banner.jpg",
+   "estimativa": false,
+   "observacoes": "Mesma pílula com o texto 'Select a tile and press X to move.'; a cor muda porque o fundo é translúcido."
+  },
+  {
+   "id": "banner_pausa",
+   "tela": "batalha",
+   "ancora": "topo-centro",
+   "x": 860,
+   "y": 30,
+   "largura": 200,
+   "altura": 30,
+   "cores": [],
+   "origem": "26-batalha-pausada.jpg",
+   "estimativa": true,
+   "observacoes": "Texto dourado 'Battle Paused' centrado no topo, sem caixa. Lido em miniatura."
+  },
+  {
+   "id": "ficha.retrato",
+   "tela": "batalha",
+   "ancora": "base-esquerda",
+   "x": 100,
+   "y": 818,
+   "largura": 162,
+   "altura": 194,
+   "cores": [
+    {
+     "ponto": [
+      110,
+      1005
+     ],
+     "o_que": "moldura (canto)",
+     "hex": "#684630"
+    }
+   ],
+   "origem": "01-previa.jpg",
+   "estimativa": false,
+   "observacoes": "Retrato com moldura clara fina e cantos arredondados (~10). Mesma caixa nas grades de 01, 19 e 20."
+  },
+  {
+   "id": "ficha.signo",
+   "tela": "batalha",
+   "ancora": "base-esquerda",
+   "x": 93,
+   "y": 808,
+   "largura": 40,
+   "altura": 40,
+   "cores": [
+    {
+     "ponto": [
+      113,
+      842
+     ],
+     "o_que": "disco do signo",
+     "hex": "#2d5948"
+    }
+   ],
+   "origem": "01-previa.jpg",
+   "estimativa": false,
+   "observacoes": "Disco do signo sobre o canto superior esquerdo do retrato. O número da fila ('1') fica em x 70-85, y 825-850."
+  },
+  {
+   "id": "ficha.painel",
+   "tela": "batalha",
+   "ancora": "base-esquerda",
+   "x": 262,
+   "y": 818,
+   "largura": 510,
+   "altura": 214,
+   "cores": [
+    {
+     "ponto": [
+      400,
+      878
+     ],
+     "o_que": "fundo azul (aliado)",
+     "hex": "#172958"
+    },
+    {
+     "ponto": [
+      700,
+      985
+     ],
+     "o_que": "fundo perto da borda",
+     "hex": "#17191f"
+    }
+   ],
+   "origem": "01-previa.jpg",
+   "estimativa": true,
+   "observacoes": "Faixa em gradiente (azul p/ aliado, vermelho p/ inimigo) que some para a direita e para baixo; sem borda dura (largura é estimada pelo fim do texto em x≈770)."
+  },
+  {
+   "id": "ficha.nome",
+   "tela": "batalha",
+   "ancora": "base-esquerda",
+   "x": 280,
+   "y": 822,
+   "largura": 200,
+   "altura": 34,
+   "cores": [],
+   "origem": "01-previa.jpg",
+   "estimativa": false,
+   "observacoes": "Nome serifado ~30 px. 'Lv.N' alinhado à direita em x≈663 e 'EXP n' em x≈757, na mesma linha."
+  },
+  {
+   "id": "ficha.barra_hp",
+   "tela": "batalha",
+   "ancora": "base-esquerda",
+   "x": 278,
+   "y": 902,
+   "largura": 234,
+   "altura": 16,
+   "cores": [
+    {
+     "ponto": [
+      380,
+      910
+     ],
+     "o_que": "HP cheio (verde)",
+     "hex": "#759c29"
+    }
+   ],
+   "origem": "01-previa.jpg",
+   "estimativa": false,
+   "observacoes": "Barra em paralelogramo (inclinada), valor 'atual/máx' acima alinhado à direita (y 866-900). Rótulo 'HP' em x=280."
+  },
+  {
+   "id": "ficha.barra_mp",
+   "tela": "batalha",
+   "ancora": "base-esquerda",
+   "x": 528,
+   "y": 902,
+   "largura": 234,
+   "altura": 16,
+   "cores": [
+    {
+     "ponto": [
+      640,
+      910
+     ],
+     "o_que": "MP (salmão)",
+     "hex": "#bb765b"
+    }
+   ],
+   "origem": "01-previa.jpg",
+   "estimativa": false,
+   "observacoes": "Mesma forma da barra de HP; rótulo 'MP' em x=532."
+  },
+  {
+   "id": "ficha.barra_ct",
+   "tela": "batalha",
+   "ancora": "base-esquerda",
+   "x": 326,
+   "y": 941,
+   "largura": 130,
+   "altura": 10,
+   "cores": [
+    {
+     "ponto": [
+      380,
+      946
+     ],
+     "o_que": "CT (dourado)",
+     "hex": "#977511"
+    }
+   ],
+   "origem": "01-previa.jpg",
+   "estimativa": false,
+   "observacoes": "Rótulo 'CT' em x=280, valor em x 465-510."
+  },
+  {
+   "id": "ficha.bravura_fe",
+   "tela": "batalha",
+   "ancora": "base-esquerda",
+   "x": 528,
+   "y": 932,
+   "largura": 234,
+   "altura": 34,
+   "cores": [
+    {
+     "ponto": [
+      590,
+      940
+     ],
+     "o_que": "fundo da caixa",
+     "hex": "#0d1427"
+    }
+   ],
+   "origem": "01-previa.jpg",
+   "estimativa": false,
+   "observacoes": "Caixa escura translúcida com 'Bravery n  Faith n' (fonte sem serifa pequena)."
+  },
+  {
+   "id": "ficha.linha_classe",
+   "tela": "batalha",
+   "ancora": "base-esquerda",
+   "x": 278,
+   "y": 978,
+   "largura": 484,
+   "altura": 32,
+   "cores": [],
+   "origem": "01-previa.jpg",
+   "estimativa": false,
+   "observacoes": "Ícone da classe 34x34 + nome; 'Lv. n', 'Next n' e 'JP n' alinhados à direita até x≈762."
+  },
+  {
+   "id": "previa.centro",
+   "tela": "batalha",
+   "ancora": "base-centro",
+   "x": 790,
+   "y": 812,
+   "largura": 340,
+   "altura": 218,
+   "cores": [
+    {
+     "ponto": [
+      860,
+      950
+     ],
+     "o_que": "fundo escuro",
+     "hex": "#181715"
+    },
+    {
+     "ponto": [
+      1050,
+      1010
+     ],
+     "o_que": "fundo escuro 2",
+     "hex": "#222220"
+    }
+   ],
+   "origem": "01-previa.jpg",
+   "estimativa": false,
+   "observacoes": "Placa escura em forma de seta apontando p/ o alvo (ponta em x≈1130, y≈920), borda clara fina. Mesma caixa nas grades de 01 e 20."
+  },
+  {
+   "id": "previa.acerto",
+   "tela": "batalha",
+   "ancora": "base-centro",
+   "x": 805,
+   "y": 828,
+   "largura": 255,
+   "altura": 30,
+   "cores": [],
+   "origem": "01-previa.jpg",
+   "estimativa": false,
+   "observacoes": "Dois pares ícone+%: acerto (x 805-920) e segundo valor (x 945-1060; 100%/150%/75%)."
+  },
+  {
+   "id": "previa.numero",
+   "tela": "batalha",
+   "ancora": "base-centro",
+   "x": 880,
+   "y": 868,
+   "largura": 110,
+   "altura": 80,
+   "cores": [
+    {
+     "ponto": [
+      905,
+      905
+     ],
+     "o_que": "dígito",
+     "hex": "#ebe4c8"
+    }
+   ],
+   "origem": "01-previa.jpg",
+   "estimativa": false,
+   "observacoes": "Número grande serifado branco (centro x≈932). Em 20 aparece seta dupla laranja à direita (x 1015-1045) quando há reação; em 22 o número fica vermelho quando o alvo é aliado."
+  },
+  {
+   "id": "previa.rotulo",
+   "tela": "batalha",
+   "ancora": "base-centro",
+   "x": 890,
+   "y": 962,
+   "largura": 85,
+   "altura": 26,
+   "cores": [],
+   "origem": "01-previa.jpg",
+   "estimativa": false,
+   "observacoes": "Texto 'Damage' (ou 'Bravery +4' em 23) centrado em x≈932."
+  },
+  {
+   "id": "alvo.painel",
+   "tela": "batalha",
+   "ancora": "base-direita",
+   "x": 1140,
+   "y": 818,
+   "largura": 520,
+   "altura": 214,
+   "cores": [
+    {
+     "ponto": [
+      1420,
+      858
+     ],
+     "o_que": "fundo vermelho (inimigo)",
+     "hex": "#5a3330"
+    },
+    {
+     "ponto": [
+      1300,
+      985
+     ],
+     "o_que": "fundo perto da base",
+     "hex": "#322827"
+    }
+   ],
+   "origem": "01-previa.jpg",
+   "estimativa": true,
+   "observacoes": "Espelho da ficha: texto de x=1152 a 1640 com as mesmas linhas (nome y=822, barras y=902, CT y=941, classe y=978)."
+  },
+  {
+   "id": "alvo.retrato",
+   "tela": "batalha",
+   "ancora": "base-direita",
+   "x": 1660,
+   "y": 818,
+   "largura": 160,
+   "altura": 194,
+   "cores": [
+    {
+     "ponto": [
+      1740,
+      998
+     ],
+     "o_que": "faixa 'Enemy'",
+     "hex": "#f4aaab"
+    }
+   ],
+   "origem": "01-previa.jpg",
+   "estimativa": false,
+   "observacoes": "Retrato à direita; etiqueta 'Enemy' em rosa na base (y 985-1010) e disco do signo no canto superior direito (centro 1805,828). Em 19 há etiqueta 'Objective' no topo."
+  },
+  {
+   "id": "alvo.icones_status",
+   "tela": "batalha",
+   "ancora": "base-direita",
+   "x": 1487,
+   "y": 775,
+   "largura": 150,
+   "altura": 38,
+   "cores": [
+    {
+     "ponto": [
+      1503,
+      795
+     ],
+     "o_que": "ícone azul",
+     "hex": "#7ab4c2"
+    },
+    {
+     "ponto": [
+      1617,
+      795
+     ],
+     "o_que": "ícone vermelho",
+     "hex": "#520a08"
+    }
+   ],
+   "origem": "19-previa-magia-alvo.jpg",
+   "estimativa": false,
+   "observacoes": "Fileira de ícones de status (34 px, passo 38) logo acima do painel do alvo, alinhada à direita em x≈1637."
+  },
+  {
+   "id": "rotulo_acao_mapa",
+   "tela": "batalha",
+   "ancora": "flutuante (base-centro)",
+   "x": 622,
+   "y": 732,
+   "largura": 292,
+   "altura": 48,
+   "cores": [
+    {
+     "ponto": [
+      650,
+      745
+     ],
+     "o_que": "fundo bege",
+     "hex": "#cfc7b4"
+    }
+   ],
+   "origem": "20-previa-contra-ataque.jpg",
+   "estimativa": false,
+   "observacoes": "Etiqueta bege com rabinho embaixo com o nome da ação (Pummel). A reação do alvo aparece ao lado (x=1004, mesma caixa, com ícone de raio). Em 01 fica em x≈622,y≈728 com 290 de largura."
+  },
+  {
+   "id": "rotulo_acao_alvo",
+   "tela": "batalha",
+   "ancora": "flutuante (sobre a unidade)",
+   "x": 1040,
+   "y": 518,
+   "largura": 184,
+   "altura": 44,
+   "cores": [
+    {
+     "ponto": [
+      1060,
+      528
+     ],
+     "o_que": "fundo bege",
+     "hex": "#c4baaa"
+    }
+   ],
+   "origem": "19-previa-magia-alvo.jpg",
+   "estimativa": false,
+   "observacoes": "Etiqueta pequena ao lado da unidade que age ('Hallowed Bolt', 'Attack'), com seta apontando p/ ela."
+  },
+  {
+   "id": "dicas.direita",
+   "tela": "batalha",
+   "ancora": "base-direita",
+   "x": 1225,
+   "y": 1035,
+   "largura": 660,
+   "altura": 28,
+   "cores": [
+    {
+     "ponto": [
+      1241,
+      1049
+     ],
+     "o_que": "glifo",
+     "hex": "#b1a8a9"
+    }
+   ],
+   "origem": "01-previa.jpg",
+   "estimativa": false,
+   "observacoes": "Fila de glifo (26 px) + texto ~22 px, alinhada à direita em x=1885: Confirm (1228), Cancel (1395), Zoom (1545), Change Display (1682). Largura varia com os itens e com a plataforma."
+  },
+  {
+   "id": "dicas.esquerda",
+   "tela": "batalha",
+   "ancora": "base-esquerda",
+   "x": 45,
+   "y": 1035,
+   "largura": 206,
+   "altura": 28,
+   "cores": [],
+   "origem": "01-previa.jpg",
+   "estimativa": false,
+   "observacoes": "'Move Viewpoint' (ou 'Pause Battle', 'Marker'): glifo em x=45, texto de 88 a 250."
+  },
+  {
+   "id": "unidade.barra_hp",
+   "tela": "batalha",
+   "ancora": "flutuante (sobre a unidade)",
+   "x": 228,
+   "y": 292,
+   "largura": 100,
+   "altura": 16,
+   "cores": [
+    {
+     "ponto": [
+      295,
+      302
+     ],
+     "o_que": "barra inimigo",
+     "hex": "#bb431a"
+    }
+   ],
+   "origem": "19-previa-magia-alvo.jpg",
+   "estimativa": false,
+   "observacoes": "Número da ordem na fila (2 dígitos = 28 px) + barrinha de HP 68x10 sobre cada unidade; azul p/ aliado, vermelha p/ inimigo."
+  },
+  {
+   "id": "tile.movimento",
+   "tela": "batalha",
+   "ancora": "mapa",
+   "x": 0,
+   "y": 0,
+   "largura": 0,
+   "altura": 0,
+   "cores": [
+    {
+     "ponto": [
+      756,
+      346
+     ],
+     "o_que": "azul (miolo)",
+     "hex": "#1755a3"
+    }
+   ],
+   "origem": "17-batalha-movimento-banner.jpg",
+   "estimativa": false,
+   "observacoes": "Tiles de movimento: azul vivo com borda ciano brilhante. Sem caixa fixa (segue o mapa)."
+  },
+  {
+   "id": "tile.alvo",
+   "tela": "batalha",
+   "ancora": "mapa",
+   "x": 0,
+   "y": 0,
+   "largura": 0,
+   "altura": 0,
+   "cores": [
+    {
+     "ponto": [
+      740,
+      625
+     ],
+     "o_que": "laranja (área do golpe)",
+     "hex": "#d36d21"
+    },
+    {
+     "ponto": [
+      1125,
+      625
+     ],
+     "o_que": "amarelo/oliva (alcance)",
+     "hex": "#353517"
+    }
+   ],
+   "origem": "19-previa-magia-alvo.jpg",
+   "estimativa": false,
+   "observacoes": "Alcance em contorno amarelo com miolo oliva; área do golpe em laranja cheio."
+  },
+  {
+   "id": "tile.inimigo",
+   "tela": "batalha",
+   "ancora": "mapa",
+   "x": 0,
+   "y": 0,
+   "largura": 0,
+   "altura": 0,
+   "cores": [
+    {
+     "ponto": [
+      929,
+      671
+     ],
+     "o_que": "vermelho",
+     "hex": "#8a251c"
+    }
+   ],
+   "origem": "26-batalha-pausada.jpg",
+   "estimativa": true,
+   "observacoes": "Tiles vermelhos (alcance/área do inimigo). Ponto de amostra escolhido em miniatura."
+  },
+  {
+   "id": "visao_tatica.terreno",
+   "tela": "batalha",
+   "ancora": "direita",
+   "x": 1640,
+   "y": 250,
+   "largura": 240,
+   "altura": 100,
+   "cores": [],
+   "origem": "27-visao-tatica.webp",
+   "estimativa": true,
+   "observacoes": "Na Tactical View: nome do terreno em faixa escura (y≈246), descrição (y≈286) e 'Geomancy' (y≈332), alinhados à direita em x≈1875. 'Tactical View' em texto vertical gigante na borda direita (x 1850-1900). A ficha da unidade vai para a base-direita (retrato x=1660)."
+  },
+  {
+   "id": "objetivo.faixa",
+   "tela": "batalha",
+   "ancora": "centro",
+   "x": 0,
+   "y": 423,
+   "largura": 1920,
+   "altura": 192,
+   "cores": [
+    {
+     "ponto": [
+      700,
+      590
+     ],
+     "o_que": "fundo da faixa",
+     "hex": "#22180a"
+    },
+    {
+     "ponto": [
+      700,
+      460
+     ],
+     "o_que": "fundo da faixa (topo)",
+     "hex": "#211b0b"
+    }
+   ],
+   "origem": "36-objetivo.jpg",
+   "estimativa": true,
+   "observacoes": "Faixa escura de borda a borda com fade nas pontas: 'Objective' (y 433-463) com ornamentos, divisor em y≈496, texto grande em y 529-579, linha inferior em y≈612. Fonte 1920x1088 (y corrigido para o corte de 1080)."
+  },
+  {
+   "id": "comandos.painel",
+   "tela": "menu de comandos",
+   "ancora": "base-direita",
+   "x": 1152,
+   "y": 688,
+   "largura": 414,
+   "altura": 327,
+   "cores": [
+    {
+     "ponto": [
+      1400,
+      950
+     ],
+     "o_que": "fundo bege",
+     "hex": "#e6e1ce"
+    },
+    {
+     "ponto": [
+      1400,
+      709
+     ],
+     "o_que": "cabeçalho",
+     "hex": "#d4ceb8"
+    },
+    {
+     "ponto": [
+      1400,
+      760
+     ],
+     "o_que": "linha selecionada",
+     "hex": "#f4efd9"
+    },
+    {
+     "ponto": [
+      1167,
+      861
+     ],
+     "o_que": "disco do ícone",
+     "hex": "#3c3527"
+    }
+   ],
+   "origem": "12-menu-comandos.jpg",
+   "estimativa": false,
+   "observacoes": "Painel bege com sombra, cantos ~6. Cabeçalho de 42 px com o nome da unidade. Bordas conferidas por varredura de pixels (±1 px) em 12; a borda esquerda e a base batem em 13 e 38 (x=1152, base y=1014), ou seja, posição fixa nas 3 capturas.",
+   "linhas": {
+    "quantidade": 5,
+    "passo_y": 56,
+    "primeira_y": 732,
+    "altura": 56,
+    "icone": {
+     "x": 1160,
+     "diametro": 40
+    },
+    "texto_x": 1218,
+    "itens": [
+     "Move",
+     "Abilities",
+     "Wait",
+     "Status",
+     "Auto-Battle (??? quando bloqueado)"
+    ]
+   }
+  },
+  {
+   "id": "comandos.cursor",
+   "tela": "menu de comandos",
+   "ancora": "base-direita",
+   "x": 1100,
+   "y": 746,
+   "largura": 46,
+   "altura": 30,
+   "cores": [
+    {
+     "ponto": [
+      1120,
+      760
+     ],
+     "o_que": "luva",
+     "hex": "#afafa7"
+    }
+   ],
+   "origem": "12-menu-comandos.jpg",
+   "estimativa": false,
+   "observacoes": "Mão/luva branca apontando p/ a direita, à esquerda da linha selecionada (fora do painel)."
+  },
+  {
+   "id": "submenu.painel",
+   "tela": "submenu de habilidades",
+   "ancora": "base-direita",
+   "x": 1284,
+   "y": 688,
+   "largura": 414,
+   "altura": 327,
+   "cores": [
+    {
+     "ponto": [
+      1500,
+      950
+     ],
+     "o_que": "fundo bege",
+     "hex": "#e7e2cf"
+    },
+    {
+     "ponto": [
+      1500,
+      705
+     ],
+     "o_que": "cabeçalho",
+     "hex": "#d4ceb8"
+    },
+    {
+     "ponto": [
+      1500,
+      817
+     ],
+     "o_que": "linha selecionada",
+     "hex": "#f6f1db"
+    },
+    {
+     "ponto": [
+      1312,
+      817
+     ],
+     "o_que": "ícone da habilidade",
+     "hex": "#711820"
+    }
+   ],
+   "origem": "13-menu-comandos.jpg",
+   "estimativa": false,
+   "observacoes": "Abre por cima do menu de comandos, deslocado 132 px p/ a direita (cobre os textos, deixa os ícones à mostra). Cabeçalho 'Abilities' de 40 px. Bordas por varredura de pixels (±1 px), idênticas em 13 e 38.",
+   "linhas": {
+    "passo_y": 57,
+    "primeira_y": 732,
+    "icone": {
+     "x": 1292,
+     "lado": 42
+    },
+    "texto_x": 1350
+   }
+  },
+  {
+   "id": "submenu.descricao",
+   "tela": "submenu de habilidades",
+   "ancora": "direita",
+   "x": 1450,
+   "y": 100,
+   "largura": 400,
+   "altura": 564,
+   "cores": [
+    {
+     "ponto": [
+      1650,
+      560
+     ],
+     "o_que": "fundo bege",
+     "hex": "#e7e2cf"
+    },
+    {
+     "ponto": [
+      1650,
+      283
+     ],
+     "o_que": "faixa 'Description'",
+     "hex": "#bbb4a2"
+    },
+    {
+     "ponto": [
+      1510,
+      205
+     ],
+     "o_que": "ícone grande (vermelho)",
+     "hex": "#8c232c"
+    },
+    {
+     "ponto": [
+      1650,
+      640
+     ],
+     "o_que": "rodapé",
+     "hex": "#d4ceb8"
+    }
+   ],
+   "origem": "13-menu-comandos.jpg",
+   "estimativa": false,
+   "observacoes": "Painel de descrição: cabeçalho com ícone+classe (y 105-145), ícone 90x88 em (1466,162), nome em faixa (1568-1832, y 162-204), faixa 'Description' (1466-1834, y 266-300), texto a partir de y=315 com entrelinha 39, rodapé y 618-665 (onde entra 'n/3'). Bordas por varredura de pixels (±1 px), idênticas em 13 e 38."
+  },
+  {
+   "id": "ficha_completa.trilha",
+   "tela": "ficha de status",
+   "ancora": "topo-esquerda",
+   "x": 40,
+   "y": 22,
+   "largura": 420,
+   "altura": 34,
+   "cores": [],
+   "origem": "14-ficha.jpg",
+   "estimativa": false,
+   "observacoes": "Trilha 'Units > Status > Jobs > Abilities' (~30 px, cinza-claro); linha divisória em y≈76 de borda a borda."
+  },
+  {
+   "id": "ficha_completa.retrato",
+   "tela": "ficha de status",
+   "ancora": "topo-esquerda",
+   "x": 52,
+   "y": 112,
+   "largura": 178,
+   "altura": 216,
+   "cores": [],
+   "origem": "14-ficha.jpg",
+   "estimativa": false,
+   "observacoes": "Disco do signo no canto (centro 65,125)."
+  },
+  {
+   "id": "ficha_completa.dados",
+   "tela": "ficha de status",
+   "ancora": "topo-esquerda",
+   "x": 250,
+   "y": 118,
+   "largura": 536,
+   "altura": 210,
+   "cores": [
+    {
+     "ponto": [
+      380,
+      216
+     ],
+     "o_que": "HP (verde)",
+     "hex": "#7dad32"
+    },
+    {
+     "ponto": [
+      650,
+      216
+     ],
+     "o_que": "MP (salmão)",
+     "hex": "#b3725c"
+    },
+    {
+     "ponto": [
+      370,
+      257
+     ],
+     "o_que": "CT (dourado)",
+     "hex": "#977b17"
+    }
+   ],
+   "origem": "14-ficha.jpg",
+   "estimativa": false,
+   "observacoes": "Mesmo bloco da ficha de batalha, 10% maior: nome y=120, barras de HP (250-508) e MP (527-785) em y 208-226, CT 302-446 em y 250-262, caixa Bravery/Faith 530-780, linha da classe y 295-325."
+  },
+  {
+   "id": "ficha_completa.modelo",
+   "tela": "ficha de status",
+   "ancora": "topo-centro",
+   "x": 890,
+   "y": 120,
+   "largura": 140,
+   "altura": 210,
+   "cores": [],
+   "origem": "14-ficha.jpg",
+   "estimativa": false,
+   "observacoes": "Sprite da unidade sobre pedestal; em 02 há glifos LB/RB embaixo (x 868-908 e 1008-1048, y 298-320) p/ trocar de unidade."
+  },
+  {
+   "id": "ficha_completa.atributos",
+   "tela": "ficha de status",
+   "ancora": "topo-direita",
+   "x": 1118,
+   "y": 165,
+   "largura": 782,
+   "altura": 170,
+   "cores": [
+    {
+     "ponto": [
+      1130,
+      250
+     ],
+     "o_que": "aba vertical 'Unit'",
+     "hex": "#373330"
+    }
+   ],
+   "origem": "14-ficha.jpg",
+   "estimativa": false,
+   "observacoes": "Dois blocos com aba vertical ('Unit' x 1118-1145; 'Equipment' x 1525-1552): grade de ícone+valor, 4 linhas com passo 42 (y 186, 228, 270, 312), valores alinhados à direita em x≈1295, 1490, 1728 e 1895."
+  },
+  {
+   "id": "ficha_completa.classe_atual",
+   "tela": "ficha de status",
+   "ancora": "esquerda",
+   "x": 52,
+   "y": 490,
+   "largura": 505,
+   "altura": 265,
+   "cores": [
+    {
+     "ponto": [
+      150,
+      720
+     ],
+     "o_que": "fundo escuro",
+     "hex": "#0f100b"
+    },
+    {
+     "ponto": [
+      252,
+      488
+     ],
+     "o_que": "etiqueta 'Current Job'",
+     "hex": "#133052"
+    }
+   ],
+   "origem": "14-ficha.jpg",
+   "estimativa": false,
+   "observacoes": "Cartão escuro com retrato esmaecido; etiqueta azul 'Current Job' (68,472,196x34) sobre a borda superior; setas douradas < > nas laterais (y≈635) p/ trocar de classe."
+  },
+  {
+   "id": "ficha_completa.habilidades",
+   "tela": "ficha de status",
+   "ancora": "centro",
+   "x": 638,
+   "y": 350,
+   "largura": 648,
+   "altura": 583,
+   "cores": [
+    {
+     "ponto": [
+      960,
+      880
+     ],
+     "o_que": "fundo bege",
+     "hex": "#e6e1ce"
+    },
+    {
+     "ponto": [
+      960,
+      375
+     ],
+     "o_que": "cabeçalho",
+     "hex": "#d6d0ba"
+    },
+    {
+     "ponto": [
+      960,
+      549
+     ],
+     "o_que": "linha selecionada",
+     "hex": "#f5f1d8"
+    },
+    {
+     "ponto": [
+      713,
+      549
+     ],
+     "o_que": "ícone da habilidade",
+     "hex": "#b74053"
+    }
+   ],
+   "origem": "14-ficha.jpg",
+   "estimativa": false,
+   "observacoes": "Bordas por varredura de pixels (±1 px). Painel 'Abilities': cabeçalho 350-400, abas de ícone y 402-462 (passo 108 a partir de x=762, aba ativa sublinhada), subtítulo 'Action Abilities'/'JP' y 478-505, lista com barra de rolagem em x≈1278.",
+   "linhas": {
+    "passo_y": 68,
+    "primeira_y": 520,
+    "altura": 60,
+    "icone": {
+     "x": 694,
+     "lado": 40
+    },
+    "texto_x": 750,
+    "custo_alinhado_direita_x": 1262
+   }
+  },
+  {
+   "id": "ficha_completa.descricao",
+   "tela": "ficha de status",
+   "ancora": "direita",
+   "x": 1464,
+   "y": 376,
+   "largura": 400,
+   "altura": 563,
+   "cores": [
+    {
+     "ponto": [
+      1660,
+      800
+     ],
+     "o_que": "fundo bege",
+     "hex": "#e6e1ce"
+    },
+    {
+     "ponto": [
+      1524,
+      484
+     ],
+     "o_que": "ícone (vermelho)",
+     "hex": "#b76066"
+    },
+    {
+     "ponto": [
+      1660,
+      560
+     ],
+     "o_que": "faixa 'Description'",
+     "hex": "#bbb4a2"
+    }
+   ],
+   "origem": "14-ficha.jpg",
+   "estimativa": false,
+   "observacoes": "Mesmo painel de descrição do submenu de batalha; pílulas 'MP' e 'Cast Speed' em y 497-528; paginação '1/3' em x=1480, y 905-930."
+  },
+  {
+   "id": "ficha_completa.ajuda",
+   "tela": "ficha de status",
+   "ancora": "base-centro",
+   "x": 0,
+   "y": 950,
+   "largura": 1920,
+   "altura": 60,
+   "cores": [
+    {
+     "ponto": [
+      300,
+      980
+     ],
+     "o_que": "faixa",
+     "hex": "#0c0c0c"
+    }
+   ],
+   "origem": "14-ficha.jpg",
+   "estimativa": false,
+   "observacoes": "Faixa escura translúcida de borda a borda com texto de ajuda centrado (y≈978). As dicas de botão ficam em y≈1048 (ver 02)."
+  },
+  {
+   "id": "classes.grade",
+   "tela": "tela de classes",
+   "ancora": "centro",
+   "x": 50,
+   "y": 360,
+   "largura": 1820,
+   "altura": 570,
+   "cores": [],
+   "origem": "02-classe.jpg",
+   "estimativa": false,
+   "observacoes": "Grade de sprites com rótulo embaixo: passo horizontal 270; linha 1 com 6 itens (rótulo x=185, y 462-492, nível/JP y 500-528), linha 2 com 7 itens (x=50, rótulo y 664-694), linha 3 (x=185, rótulo y 866-896). Passo vertical 202. Classes bloqueadas viram silhueta preta."
+  },
+  {
+   "id": "classes.mais",
+   "tela": "tela de classes",
+   "ancora": "topo-direita",
+   "x": 1735,
+   "y": 112,
+   "largura": 185,
+   "altura": 42,
+   "cores": [
+    {
+     "ponto": [
+      1905,
+      133
+     ],
+     "o_que": "fundo",
+     "hex": "#29221c"
+    }
+   ],
+   "origem": "02-classe.jpg",
+   "estimativa": false,
+   "observacoes": "Pílula 'More' com glifo, encostada na borda direita."
+  },
+  {
+   "id": "classes.dicas",
+   "tela": "tela de classes",
+   "ancora": "base",
+   "x": 45,
+   "y": 1035,
+   "largura": 1840,
+   "altura": 28,
+   "cores": [],
+   "origem": "02-classe.jpg",
+   "estimativa": false,
+   "observacoes": "Dica à esquerda (x=45) e fila à direita terminando em x≈1885, y≈1048."
+  },
+  {
+   "id": "menu_principal.abas",
+   "tela": "menu principal",
+   "ancora": "topo-centro",
+   "x": 383,
+   "y": 28,
+   "largura": 1153,
+   "altura": 47,
+   "cores": [
+    {
+     "ponto": [
+      700,
+      50
+     ],
+     "o_que": "aba ativa (bege)",
+     "hex": "#e6d9ad"
+    },
+    {
+     "ponto": [
+      420,
+      50
+     ],
+     "o_que": "aba inativa",
+     "hex": "#2b2a25"
+    }
+   ],
+   "origem": "48-inventario.png",
+   "estimativa": false,
+   "observacoes": "Barra com 4 abas de 288 px (Units, Inventory, Chronicle, Options); glifos L2 (325-358) e R2 (1560-1593) nas pontas."
+  },
+  {
+   "id": "menu_principal.gil",
+   "tela": "menu principal",
+   "ancora": "topo-direita",
+   "x": 1705,
+   "y": 36,
+   "largura": 168,
+   "altura": 80,
+   "cores": [],
+   "origem": "48-inventario.png",
+   "estimativa": false,
+   "observacoes": "Gil (y 38-62) e contagem de unidades (y 91-116), valores alinhados à direita em x≈1870."
+  },
+  {
+   "id": "inventario.painel",
+   "tela": "inventário",
+   "ancora": "centro",
+   "x": 593,
+   "y": 188,
+   "largura": 736,
+   "altura": 653,
+   "cores": [
+    {
+     "ponto": [
+      960,
+      705
+     ],
+     "o_que": "fundo bege",
+     "hex": "#fffae6"
+    },
+    {
+     "ponto": [
+      1050,
+      386
+     ],
+     "o_que": "linha selecionada",
+     "hex": "#feffef"
+    },
+    {
+     "ponto": [
+      960,
+      212
+     ],
+     "o_que": "cabeçalho",
+     "hex": "#ede7cd"
+    }
+   ],
+   "origem": "48-inventario.png",
+   "estimativa": false,
+   "observacoes": "Bordas por varredura de pixels (±1 px). Cabeçalho y 188-237; ícones de categoria y 247-300 (passo 87, L1/R1 nas pontas); subtítulo y 312-353; linhas com passo 68 a partir de y=355; contagem 'equipado / em posse' à direita."
+  },
+  {
+   "id": "inventario.descricao",
+   "tela": "inventário",
+   "ancora": "direita",
+   "x": 1464,
+   "y": 188,
+   "largura": 400,
+   "altura": 597,
+   "cores": [
+    {
+     "ponto": [
+      1700,
+      700
+     ],
+     "o_que": "fundo bege",
+     "hex": "#fffae6"
+    },
+    {
+     "ponto": [
+      1660,
+      371
+     ],
+     "o_que": "faixa 'Description'",
+     "hex": "#cfc7b0"
+    }
+   ],
+   "origem": "48-inventario.png",
+   "estimativa": false,
+   "observacoes": "Bordas por varredura de pixels (±1 px). Painel de descrição com '1/3' e 'Change Page' no rodapé (y 745-781)."
+  },
+  {
+   "id": "opcoes.abas",
+   "tela": "opções",
+   "ancora": "topo",
+   "x": 150,
+   "y": 110,
+   "largura": 1620,
+   "altura": 48,
+   "cores": [
+    {
+     "ponto": [
+      180,
+      134
+     ],
+     "o_que": "aba ativa",
+     "hex": "#d3c39f"
+    },
+    {
+     "ponto": [
+      720,
+      134
+     ],
+     "o_que": "aba inativa",
+     "hex": "#2e2c28"
+    }
+   ],
+   "origem": "52-opcoes-jogo.png",
+   "estimativa": false,
+   "observacoes": "6 abas de 270 px (Gameplay, Control Assignments, Keyboard, Display, Sound, Optional Subtitles); glifos LB (92-136) e RB (1784-1828)."
+  },
+  {
+   "id": "opcoes.painel",
+   "tela": "opções",
+   "ancora": "esquerda",
+   "x": 151,
+   "y": 187,
+   "largura": 910,
+   "altura": 699,
+   "cores": [
+    {
+     "ponto": [
+      600,
+      860
+     ],
+     "o_que": "fundo bege",
+     "hex": "#d6ccb9"
+    },
+    {
+     "ponto": [
+      600,
+      705
+     ],
+     "o_que": "linha selecionada",
+     "hex": "#efe8d0"
+    },
+    {
+     "ponto": [
+      965,
+      569
+     ],
+     "o_que": "chave ligada (verde)",
+     "hex": "#75955f"
+    },
+    {
+     "ponto": [
+      1005,
+      297
+     ],
+     "o_que": "chave desligada",
+     "hex": "#a1957f"
+    }
+   ],
+   "origem": "52-opcoes-jogo.png",
+   "estimativa": false,
+   "observacoes": "Bordas por varredura de pixels (±1 px). Lista: rótulo em x=175; seletor < valor > (caixa 716-1024, h 44); chave 948-1024 (76x36).",
+   "linhas": {
+    "quantidade": 10,
+    "passo_y": 68,
+    "primeira_y": 196,
+    "altura": 68
+   }
+  },
+  {
+   "id": "opcoes.ajuda",
+   "tela": "opções",
+   "ancora": "base-centro",
+   "x": 0,
+   "y": 945,
+   "largura": 1920,
+   "altura": 40,
+   "cores": [],
+   "origem": "52-opcoes-jogo.png",
+   "estimativa": false,
+   "observacoes": "Texto de ajuda centrado em y≈965; dicas em y≈1048 ('Restore Defaults' à esquerda, 'Change Setting'/'Back' à direita)."
+  },
+  {
+   "id": "titulo.botao_principal",
+   "tela": "título",
+   "ancora": "centro-esquerda",
+   "x": 235,
+   "y": 620,
+   "largura": 612,
+   "altura": 78,
+   "cores": [
+    {
+     "ponto": [
+      540,
+      680
+     ],
+     "o_que": "botão ativo (dourado)",
+     "hex": "#c9a872"
+    },
+    {
+     "ponto": [
+      1200,
+      660
+     ],
+     "o_que": "botão inativo",
+     "hex": "#514338"
+    }
+   ],
+   "origem": "51-titulo-versoes.jpg",
+   "estimativa": false,
+   "observacoes": "Botão 'Start Game' com pontas chanfradas; coluna Enhanced centrada em x=540 e coluna Classic em x=1380 (botão em x=1075). Cabeçalho da coluna em y 555-585. Cursor de luva em x 158-208."
+  },
+  {
+   "id": "titulo.botao_secundario",
+   "tela": "título",
+   "ancora": "centro-esquerda",
+   "x": 242,
+   "y": 712,
+   "largura": 596,
+   "altura": 52,
+   "cores": [
+    {
+     "ponto": [
+      400,
+      738
+     ],
+     "o_que": "fundo",
+     "hex": "#483c30"
+    }
+   ],
+   "origem": "51-titulo-versoes.jpg",
+   "estimativa": false,
+   "observacoes": "'About'; repetido na coluna Classic em x=1082."
+  },
+  {
+   "id": "titulo.botoes_base",
+   "tela": "título",
+   "ancora": "base-centro",
+   "x": 343,
+   "y": 896,
+   "largura": 1234,
+   "altura": 52,
+   "cores": [
+    {
+     "ponto": [
+      400,
+      922
+     ],
+     "o_que": "fundo",
+     "hex": "#22211f"
+    }
+   ],
+   "origem": "51-titulo-versoes.jpg",
+   "estimativa": false,
+   "observacoes": "3 botões de 394 px com espaço de 25 (General Options, Credits, Exit Game). Copyright centrado em y≈1050."
+  },
+  {
+   "id": "dialogo.balao",
+   "tela": "diálogo",
+   "ancora": "flutuante (perto de quem fala)",
+   "x": 596,
+   "y": 140,
+   "largura": 824,
+   "altura": 208,
+   "cores": [
+    {
+     "ponto": [
+      900,
+      290
+     ],
+     "o_que": "fundo pergaminho",
+     "hex": "#d5bf9a"
+    },
+    {
+     "ponto": [
+      700,
+      330
+     ],
+     "o_que": "fundo pergaminho (base)",
+     "hex": "#d6c49e"
+    }
+   ],
+   "origem": "66-dialogo.jpg",
+   "estimativa": false,
+   "observacoes": "Balão bege com cantos ~18 e rabinho de ~50 px apontando p/ quem fala (aqui embaixo, x≈1020). Nome do falante acima da borda (x=612, y 120-150), retrato recortado dentro, à direita (x 1248-1418). Texto ~34 px a partir de (632,170). O balão muda de posição conforme quem fala."
+  },
+  {
+   "id": "dialogo.balao_largo",
+   "tela": "diálogo",
+   "ancora": "base-centro",
+   "x": 195,
+   "y": 786,
+   "largura": 1479,
+   "altura": 210,
+   "cores": [
+    {
+     "ponto": [
+      900,
+      960
+     ],
+     "o_que": "fundo pergaminho",
+     "hex": "#d7c29d"
+    }
+   ],
+   "origem": "68-dialogo-baixo.jpg",
+   "estimativa": true,
+   "observacoes": "Variante larga na base, com retrato à esquerda. Caixa lida em miniatura."
+  },
+  {
+   "id": "mapa.data",
+   "tela": "mapa do mundo",
+   "ancora": "topo-esquerda",
+   "x": 90,
+   "y": 35,
+   "largura": 120,
+   "altura": 40,
+   "cores": [],
+   "origem": "54-mapa-mundo.jpg",
+   "estimativa": false,
+   "observacoes": "Data ('5 Virgo'), serifada dourada."
+  },
+  {
+   "id": "mapa.objetivo",
+   "tela": "mapa do mundo",
+   "ancora": "topo-direita",
+   "x": 1588,
+   "y": 147,
+   "largura": 302,
+   "altura": 32,
+   "cores": [
+    {
+     "ponto": [
+      1871,
+      161
+     ],
+     "o_que": "losango do objetivo",
+     "hex": "#cf8d00"
+    }
+   ],
+   "origem": "54-mapa-mundo.jpg",
+   "estimativa": false,
+   "observacoes": "Texto do objetivo atual + losango dourado, alinhado à direita em x=1890."
+  },
+  {
+   "id": "mapa.aviso",
+   "tela": "mapa do mundo",
+   "ancora": "direita",
+   "x": 1642,
+   "y": 237,
+   "largura": 278,
+   "altura": 46,
+   "cores": [
+    {
+     "ponto": [
+      1655,
+      260
+     ],
+     "o_que": "fundo",
+     "hex": "#69644e"
+    }
+   ],
+   "origem": "54-mapa-mundo.jpg",
+   "estimativa": false,
+   "observacoes": "Pílula 'New errands available.' encostada na borda direita."
+  },
+  {
+   "id": "mapa.local",
+   "tela": "mapa do mundo",
+   "ancora": "base-esquerda",
+   "x": 55,
+   "y": 868,
+   "largura": 1800,
+   "altura": 95,
+   "cores": [],
+   "origem": "54-mapa-mundo.jpg",
+   "estimativa": false,
+   "observacoes": "Nome do local (x=100, y 868-907), linha com ornamento em y≈919 e descrição em uma linha (y 937-962)."
+  },
+  {
+   "id": "mapa.dicas",
+   "tela": "mapa do mundo",
+   "ancora": "base-direita",
+   "x": 895,
+   "y": 1035,
+   "largura": 990,
+   "altura": 28,
+   "cores": [],
+   "origem": "54-mapa-mundo.jpg",
+   "estimativa": false,
+   "observacoes": "Enter Settlement, Move Cursor, Zoom Out, Locations, Main Menu; termina em x=1885."
+  }
+ ]
+}

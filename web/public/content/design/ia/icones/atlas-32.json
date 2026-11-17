@@ -1,0 +1,30 @@
+{
+ "celula": 32,
+ "colunas": 6,
+ "icones": [
+  "golpe",
+  "golpe-pesado",
+  "escudada",
+  "giro",
+  "machadada",
+  "pancada",
+  "tiro",
+  "tiro-mirado",
+  "tiro-de-recuo",
+  "adaga",
+  "faca-arremessada",
+  "facada",
+  "raio-de-fogo",
+  "explosao",
+  "rajada",
+  "cura",
+  "onda-sombria",
+  "golpe-mortal",
+  "rasteira",
+  "derrubar",
+  "estocada-longa",
+  "salto",
+  "mover",
+  "esperar"
+ ]
+}
