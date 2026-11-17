@@ -1,0 +1,22 @@
+import { Marcacoes } from '../components/Marcacoes';
+
+O jogo ganhou **marcações do chão** (casas de movimento, ataque e perigo, cursor, círculos dos bonecos, borda tracejada e linhas de carga) com relevo, textura e luz, em 4 estilos: **Simples** (o chapado de antes), **Luz**, **Pedra** e **Neon**.
+Também entrou o **número da ordem de turno** ao lado da barra de vida de cada boneco no mapa.
+Abaixo, as capturas lado a lado (clique para ampliar) e o jogo ao vivo para trocar o estilo.
+
+## Comparação
+
+<Marcacoes />
+
+## O que cada estilo é
+
+- **Simples:** o chapado de antes, sem relevo.
+- **Luz:** tiras com espessura e brilho pulsando; aro do herói inteiro e do inimigo partido em quatro. É o padrão no jogo.
+- **Pedra:** molduras de pedra com textura, que só recebem sombra.
+- **Neon:** tubos de luz com volume.
+
+## Custo
+
+Chamadas de desenho / triângulos: Simples 438 / 612 mil, Luz 586 / 639 mil, Pedra 595 / 663 mil, Neon 743 / 709 mil. O tempo de quadro é igual nos quatro (13,9 ms, o limite do monitor de 72 Hz). Origem: medido na bancada em 17/11/2026.
+
+A escolha fica nas Opções do jogo, em **Marcações**.

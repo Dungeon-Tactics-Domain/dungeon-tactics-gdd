@@ -1,0 +1,98 @@
+/* Voices test page (Vozes.tsx). Colours from the Ouro e couro tokens in index.css; text >= 16px, targets 44px. */
+.vz {
+  display: grid;
+  gap: calc(var(--respiro) * 2);
+  min-width: 0;
+}
+.vz section {
+  display: grid;
+  gap: var(--respiro);
+  min-width: 0;
+}
+.vz h2,
+.vz h3 {
+  margin: 0;
+  color: var(--color-ouro-escuro);
+  font-family: var(--font-serif);
+}
+.vz p {
+  margin: 0;
+  max-width: 72ch;
+}
+.vz-apagado {
+  color: var(--color-apagado);
+}
+.vz-modelos {
+  display: grid;
+  gap: var(--respiro);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+}
+.vz-card,
+.vz-fala {
+  background: var(--color-folha);
+  border: var(--borda-fina);
+  padding: var(--respiro);
+  min-width: 0;
+}
+.vz-fala {
+  display: grid;
+  gap: var(--respiro);
+}
+.vz-texto {
+  font-size: 18px;
+  overflow-wrap: anywhere;
+}
+.vz-tag {
+  display: inline-block;
+  background: var(--color-pergaminho-escuro);
+  color: var(--color-tinta);
+  padding: 2px 8px;
+  margin-right: 8px;
+}
+.vz-players {
+  display: grid;
+  gap: var(--respiro);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+}
+.vz-player {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+.vz-player audio {
+  width: 100%;
+  min-height: 44px;
+}
+.vz-player audio:focus-visible,
+.vz button:focus-visible {
+  outline: var(--foco-contorno);
+  box-shadow: var(--foco-anel);
+}
+.vz-breve {
+  border: 1px dashed var(--color-ouro);
+  color: var(--color-apagado);
+  padding: 10px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+.vz-faltou {
+  color: var(--color-aviso);
+}
+.vz button {
+  min-height: 44px;
+  padding: 0 16px;
+  font: inherit;
+  background: var(--color-couro);
+  color: var(--color-creme);
+  border: var(--borda-fina);
+  cursor: pointer;
+}
+.vz button:hover {
+  background: var(--color-couro-claro);
+}
+.vz-botoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--respiro);
+}

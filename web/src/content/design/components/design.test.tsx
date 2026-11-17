@@ -10,13 +10,15 @@ import { Direcao } from './Direcao';
 import { Expressoes } from './Expressoes';
 import { IaAssunto } from './Ia';
 import { VisaoGeral } from './Referencias';
+import { Marcacoes } from './Marcacoes';
+import { Vozes } from './Vozes';
 import { Telas } from './Telas';
 
 describe('design lab data', () => {
   it('keeps the old lab tabs as groups (same ids as its routes): 5 groups, 112 captures of 10 games, every capture in exactly one block', () => {
     const s = CONTEUDO.design!.sumario;
     expect(s.grupos.map((g) => `${g.id}:${g.paginas.length}`)).toEqual([
-      'interface:9',
+      'interface:14',
       'personagens:6',
       'mapa:2',
       'plano:5',
@@ -215,5 +217,36 @@ describe('design lab components', () => {
     await user.hover(screen.getByRole('button', { name: '10. Amaro, beacon archivist' }));
     expect(screen.getByText(/The beacon lit again/)).toBeInTheDocument();
     expect(screen.getByRole('status')).toHaveTextContent('Beacon lit');
+  });
+});
+
+describe('voices test page', () => {
+  it('shows a labelled audio player per model for every line and marks the cloud models as coming soon', () => {
+    const { container } = render(<Vozes />);
+    expect(container.querySelectorAll('audio[controls][aria-label]')).toHaveLength(83);
+    expect(container.querySelectorAll('audio[data-modelo="ming"]')).toHaveLength(19);
+    expect(container.querySelectorAll('audio[data-modelo="ming-clone"]')).toHaveLength(4);
+    expect(container.querySelectorAll('audio[data-modelo="qwen-clone"]')).toHaveLength(20);
+    expect(screen.getAllByLabelText(/Qwen3 clonado, referência do timbre/)).toHaveLength(4);
+    expect(screen.getByRole('button', { name: /Ouvir tudo: Qwen3 clonado/ })).toBeInTheDocument();
+    expect(container.querySelector('audio[data-modelo="ming"][data-fala="odo_03"]')).toBeNull();
+    expect(screen.getAllByText('falhou: não gerou áudio')).toHaveLength(1);
+    expect(screen.getByText(/ainda não foi ouvida/)).toBeInTheDocument();
+    expect(screen.getAllByText('em breve')).toHaveLength(60);
+    expect(screen.getByRole('button', { name: /Ouvir tudo: Maya1/ })).toBeInTheDocument();
+  });
+});
+
+describe('floor marks page', () => {
+  it('shows 4 styles in 2 scenes plus the sheets, and only loads the game after "Ver ao vivo"', async () => {
+    const { container } = render(<Marcacoes />);
+    expect(container.querySelectorAll('img')).toHaveLength(12);
+    expect(container.querySelector('iframe')).toBeNull();
+    await userEvent.click(screen.getByRole('radio', { name: 'Degraus' }));
+    await userEvent.click(screen.getByRole('radio', { name: 'Neon' }));
+    await userEvent.click(screen.getByRole('button', { name: 'Ver ao vivo' }));
+    expect(container.querySelector('iframe')!.getAttribute('src')).toBe(
+      'http://localhost:5364/?scenario=beacon_hill&marks=neon&sandbox=bench/marks-degraus-neon.json',
+    );
   });
 });

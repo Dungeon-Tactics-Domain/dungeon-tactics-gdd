@@ -56,6 +56,17 @@ export default {
             'A interface completa do Final Fantasy Tactics: The Ivalice Chronicles em 3D no jogo: barra de combate, menu de ações e fila de turnos, para montar peça por peça.',
         },
         {
+          id: 'vozes',
+          titulo: 'Vozes dos personagens (teste de dublagem)',
+          resumo:
+            '20 falas em inglês dubladas por Qwen3-TTS e Maya1, lado a lado, com espaço para os modelos de nuvem.',
+        },
+        {
+          id: 'marcacoes',
+          titulo: 'Marcações do chão em 3D (4 estilos)',
+          resumo: 'Casas, cursor e círculos do mapa em Simples, Luz, Pedra e Neon: capturas lado a lado e o jogo ao vivo.',
+        },
+        {
           id: 'em-uso',
           titulo: 'Em uso: kit FFT Clássico',
           resumo: 'Kit de peças com todos os estados e montagem 1920×1080.',
@@ -81,6 +92,17 @@ export default {
           resumo: 'Todos os elementos de interface no estilo escolhido, em lotes, com o que foi enviado e o que saiu.',
         },
         {
+          id: 'paineis-css',
+          titulo: 'Painéis e menu Ouro e couro em CSS',
+          resumo: 'Os painéis, molduras, aba, banner e divisor refeitos em CSS puro, ao lado da folha do Gemini.',
+        },
+        {
+          id: 'hud-fft',
+          titulo: 'HUD do FFT em couro e ouro',
+          resumo:
+            'A tela de batalha do FFT refeita no Ouro e couro, uma peça por vez, cada uma em sua conversa do Gemini.',
+        },
+        {
           id: 'testes',
           titulo: 'Testes de IA: interface',
           resumo: 'Folhas de elementos e a interface aplicada sobre o jogo.',
@@ -95,6 +117,12 @@ export default {
           titulo: 'Ouro e couro (tokens do lab)',
           resumo:
             'Paleta medida na referência, tokens com contraste calculado, exemplos vivos e o bloco pronto para colar.',
+        },
+        {
+          id: 'decisoes-de-gosto',
+          titulo: 'Decisões de gosto: escolha olhando',
+          resumo:
+            'As 10 decisões de gosto pendentes da interface, com as opções desenhadas lado a lado em 3440×1440 e 390×844.',
         },
       ],
     },
