@@ -1,6 +1,6 @@
 // Design lab: the old lab's tabs (design/src/main.ts, 15/11) as groups and their sections as pages, with the same ids, so
-// the old routes (#/interface/testes, #/personagens/em-uso...) open the same page. The tree of the games is derived from the
-// data with the old lab's own rules; the AI tests are listed by subject (the old "por assunto" pages).
+// the old routes (#/interface/em-uso, #/personagens/em-uso...) open the same page. The tree of the games is derived from the
+// data with the old lab's own rules. The AI test pages were archived on 17/11 in docs/arquivo-assets-ia.
 import type { Manifesto, PaginaManifesto } from '../types';
 import { blocos, GAMES, PER_PAGE, screenName, SHORT } from './dados';
 
@@ -36,8 +36,8 @@ export default {
     'direcao-fft': 'interface',
     maquetes: 'interface',
     pecas: 'personagens',
-    'testes-de-ia': 'interface/testes',
-    ia: 'interface/testes',
+    'testes-de-ia': 'interface',
+    ia: 'interface',
     referencias: 'referencias',
   },
   grupos: [
@@ -45,7 +45,7 @@ export default {
       id: 'interface',
       titulo: 'Interface',
       icone: '🟦',
-      resumo: 'O estilo FFT Clássico escolhido, os ícones e os testes.',
+      resumo: 'O estilo FFT Clássico escolhido e os ícones.',
       paginas: [
         {
           id: 'fft-3d',
@@ -72,11 +72,6 @@ export default {
           resumo: 'Kit de peças com todos os estados e montagem 1920×1080.',
         },
         {
-          id: 'telas',
-          titulo: 'Telas: fim de batalha, mapa e título (maquetes)',
-          resumo: 'Maquetes 1920×1080 e 1280×720, em português e inglês, para o jogo refazer estas telas com o kit.',
-        },
-        {
           id: 'icones',
           titulo: 'Em uso: ícones 32 px',
           resumo: 'Atlas de 32 px dos ícones de habilidade, em 1x, 2x e 4x.',
@@ -96,11 +91,6 @@ export default {
           titulo: 'HUD do FFT em couro e ouro',
           resumo:
             'A tela de batalha do FFT refeita no Ouro e couro, uma peça por vez, cada uma em sua conversa do Gemini.',
-        },
-        {
-          id: 'testes',
-          titulo: 'Testes de IA: interface',
-          resumo: 'Folhas de elementos e a interface aplicada sobre o jogo.',
         },
         {
           id: 'redesign-responsivo',
@@ -125,7 +115,7 @@ export default {
       id: 'personagens',
       titulo: 'Personagens',
       icone: '🙂',
-      resumo: 'Rostos falando e sprites dos 10 bonecos.',
+      resumo: 'Rostos falando dos 10 bonecos.',
       paginas: [
         {
           id: 'em-uso',
@@ -137,29 +127,18 @@ export default {
           titulo: 'Bancada de expressões (IA)',
           resumo: 'Rostos de IA em vários momentos: falando, dano, ataque, ferido, vitória.',
         },
-        { id: 'testes', titulo: 'Testes de IA: rostos', resumo: 'Retratos por plataforma e por estilo.' },
-        {
-          id: 'sprites',
-          titulo: 'Testes de IA: sprites',
-          resumo: 'Bonecos andando e atacando (prova de conceito).',
-        },
       ],
     },
     {
       id: 'mapa',
       titulo: 'Mapa',
       icone: '🗺️',
-      resumo: 'Cidade andável, cenas e terreno.',
+      resumo: 'Cidade andável.',
       paginas: [
         {
           id: 'cidade',
           titulo: 'Cidade andável (rascunho)',
           resumo: 'Mapa 40×30 da cidade com 10 lugares e 10 moradores, e o que cada nível (1 a 3) acrescenta.',
-        },
-        {
-          id: 'testes',
-          titulo: 'Testes de IA: cenas e terreno',
-          resumo: 'Ainda sem peça aprovada para o mapa.',
         },
       ],
     },
@@ -167,21 +146,11 @@ export default {
       id: 'plano',
       titulo: 'Plano',
       icone: '📋',
-      resumo: 'Plano do tema, fases, pedidos e decisões.',
+      resumo: 'Fases, pedidos e decisões.',
       paginas: [
-        {
-          id: 'tema',
-          titulo: 'Plano do tema FFT',
-          resumo: 'As decisões do grill de 15/11 sobre levar o tema ao jogo.',
-        },
         { id: 'fases', titulo: 'Fases e portões', resumo: 'As fases do plano e o portão de cada uma.' },
         { id: 'pedidos', titulo: 'Pedidos', resumo: 'Todo pedido do Fernando, com dono e estado.' },
         { id: 'decisoes', titulo: 'As 22 decisões', resumo: 'As decisões do grill de 13/11.' },
-        {
-          id: 'plataformas',
-          titulo: 'Plataformas de IA',
-          resumo: 'Limites e contas de cada gerador; as imagens ficam nas páginas, por assunto.',
-        },
       ],
     },
     {

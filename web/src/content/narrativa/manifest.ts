@@ -1,6 +1,6 @@
-// Narrative lab: decisions, the loop of each reference game and the marks. The reference sheets (games, anime and books)
-// and the moodboard were removed on 17/11 at Fernando's request; the per-game loop pages come from dados.ts.
-import { DECISOES_ATIVAS } from '@/lib/recursos';
+// Narrative lab: decisions and the loop of each reference game. The reference sheets (games, anime and books), the
+// moodboard, the marks and the plan pages (agora, fases, pedidos, grill) were removed on 17/11 at Fernando's request;
+// the per-game loop pages come from dados.ts.
 import type { Manifesto, PaginaManifesto } from '../types';
 import { type Game, JOGOS, TIPOS, tipoDe } from './dados';
 
@@ -24,10 +24,9 @@ const porTipo = (pagina: (g: Game) => PaginaManifesto): PaginaManifesto[] =>
 const jogo = (g: Game): PaginaManifesto => ({ id: g.slug, titulo: curto(g.game), resumo: `${g.game} (${g.year})` });
 
 // old in-page links (#loop-slug, #decisoes...) still open the right page; routes of the removed sheets
-// (/jogos, /animes, /moodboard) fall to the lab home with the usual notice
+// (/jogos, /animes, /moodboard, /marcas, /decisoes/agora...) fall to the lab home with the usual notice
 const linksAntigos: Record<string, string> = {
-  decisoes: 'decisoes/agora',
-  ...(DECISOES_ATIVAS ? { marcas: 'marcas/minhas' } : {}),
+  decisoes: 'decisoes',
   loops: 'loops/nosso-loop',
   ...Object.fromEntries(JOGOS.map((g) => [`loop-${g.slug}`, `loops/${tipoDe(g.slug)}/${g.slug}`])),
 };
@@ -46,17 +45,8 @@ export default {
       id: 'decisoes',
       titulo: 'Decisões',
       icone: '🧭',
-      resumo: 'O que está aberto, as fases, os pedidos e o que já foi decidido.',
+      resumo: 'O loop de dungeon crawler e a cidade.',
       paginas: [
-        { id: 'agora', titulo: 'Agora estamos decidindo', icone: '❓', resumo: 'A decisão aberta da vez.' },
-        {
-          id: 'fases',
-          titulo: 'Fases e portões',
-          icone: '🚦',
-          resumo: 'As etapas do laboratório e o portão de cada uma.',
-        },
-        { id: 'pedidos', titulo: 'Pedidos', icone: '📋', resumo: 'Cada pedido seu, com dono e estado.' },
-        { id: 'grill', titulo: 'Decisões tomadas', icone: '✅', resumo: 'O que o grill já fechou.' },
         {
           id: 'loop-crawler',
           titulo: 'Loop de dungeon crawler',
@@ -93,16 +83,5 @@ export default {
         ...porTipo(jogo),
       ],
     },
-    ...(DECISOES_ATIVAS
-      ? [
-          {
-            id: 'marcas',
-            titulo: 'Minhas marcas',
-            icone: '⭐',
-            resumo: 'O que você marcou com Quero e Não quero.',
-            paginas: [{ id: 'minhas', titulo: 'Minhas marcas' }],
-          },
-        ]
-      : []),
   ],
 } satisfies Manifesto;

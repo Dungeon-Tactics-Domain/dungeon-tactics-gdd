@@ -1,0 +1,840 @@
+{
+  "criadoEm": "2026-11-17",
+  "commitBase": "db8cebd",
+  "motivo": "Revisão de design: as páginas de testes de IA saem do site e serão reunidas num componente único \"Assets de IA\", por categorias.",
+  "componentesNoCodigo": [
+    "web/src/content/design/components/Ia.tsx (IaDestaque, IaAssunto, IaPlataformas)",
+    "web/src/content/design/components/Cartoes.tsx (CartoesIa)",
+    "web/src/content/design/components/Leitor.tsx",
+    "web/src/content/design/dados.ts (IA, iaSub, porConversa, estiloDe, contagem, Test, Platform)"
+  ],
+  "paginas": [
+    {
+      "rota": "/design/interface/testes",
+      "grupo": "interface",
+      "id": "testes",
+      "titulo": "Testes de IA: interface",
+      "resumo": "Folhas de elementos e a interface aplicada sobre o jogo.",
+      "posicao": "depois de hud-fft, antes de redesign-responsivo",
+      "componentes": [
+        {
+          "nome": "IaDestaque",
+          "props": {}
+        },
+        {
+          "nome": "IaAssunto",
+          "props": {
+            "ids": ["folhas", "aplicados", "fft", "icones"]
+          }
+        }
+      ],
+      "campos": [
+        "platforms[].tests (file, title, size, attached, link, prompt, good, bad)",
+        "featured",
+        "subs"
+      ],
+      "mdx": "import { IaAssunto, IaDestaque } from '../components/Ia';\r\n\r\n### Destaque: FFT Clássico\r\n\r\n<IaDestaque />\r\n\r\n<IaAssunto ids={['folhas', 'aplicados', 'fft', 'icones']} />\r\n",
+      "arquivoMdx": "paginas/interface/testes.mdx",
+      "dados": "web/src/content/design/ia.json (cópia em dados/ia.json)",
+      "imagens": [
+        {
+          "arquivo": "web/public/content/design/ia/gemini-ui-kit-v1.png",
+          "bytes": 157259,
+          "titulo": "Folha de elementos, estilo carta de campo",
+          "plataforma": "Gemini (Nano Banana)",
+          "assunto": "folhas"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/gemini-ui-estilo1.png",
+          "bytes": 406629,
+          "titulo": "Elementos estilizados · Ouro e couro",
+          "plataforma": "Gemini (Nano Banana)",
+          "assunto": "folhas"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/gemini-ui-estilo2.png",
+          "bytes": 442811,
+          "titulo": "Elementos estilizados · Vitral gótico",
+          "plataforma": "Gemini (Nano Banana)",
+          "assunto": "folhas"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/gemini-ui-estilo3.png",
+          "bytes": 367314,
+          "titulo": "Elementos estilizados · Grimório iluminado",
+          "plataforma": "Gemini (Nano Banana)",
+          "assunto": "folhas"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/gemini-ui-ouro-aplicado.png",
+          "bytes": 518799,
+          "titulo": "Aplicado sobre o jogo · Ouro e couro",
+          "plataforma": "Gemini (Nano Banana)",
+          "assunto": "aplicados"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/gemini-ui-vitral-aplicado.png",
+          "bytes": 511303,
+          "titulo": "Aplicado sobre o jogo · Vitral gótico",
+          "plataforma": "Gemini (Nano Banana)",
+          "assunto": "aplicados"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/gemini-ui-grimorio-aplicado.png",
+          "bytes": 537240,
+          "titulo": "Aplicado sobre o jogo · Grimório iluminado",
+          "plataforma": "Gemini (Nano Banana)",
+          "assunto": "aplicados"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/gemini-ui-carta-aplicado.png",
+          "bytes": 398886,
+          "titulo": "Aplicado sobre o jogo · Carta de campo",
+          "plataforma": "Gemini (Nano Banana)",
+          "assunto": "aplicados"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/gemini-fft-ivalice.png",
+          "bytes": 157749,
+          "titulo": "Folha sóbria · FFT Ivalice Chronicles, com proporções",
+          "plataforma": "Gemini (Nano Banana)",
+          "assunto": "fft"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/gemini-fft-ivalice-aplicado.png",
+          "bytes": 447180,
+          "titulo": "Aplicado sobre o jogo · FFT Ivalice (a melhor até agora)",
+          "plataforma": "Gemini (Nano Banana)",
+          "assunto": "fft"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/gemini-fft-classico.png",
+          "bytes": 166836,
+          "titulo": "Folha sóbria · FFT Clássico de PlayStation, com proporções",
+          "plataforma": "Gemini (Nano Banana)",
+          "assunto": "fft"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/gemini-fft-classico-aplicado.png",
+          "bytes": 462020,
+          "titulo": "Aplicado sobre o jogo · FFT Clássico (escolhida pelo Fernando)",
+          "plataforma": "Gemini (Nano Banana)",
+          "assunto": "fft"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/gemini-fft-1-paineis.png",
+          "bytes": 237144,
+          "titulo": "Loop FFT Clássico · 1 Painéis",
+          "plataforma": "Gemini (Nano Banana)",
+          "assunto": "fft"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/gemini-fft-2-ficha-unidade.png",
+          "bytes": 273084,
+          "titulo": "Loop FFT Clássico · 2 Ficha da unidade",
+          "plataforma": "Gemini (Nano Banana)",
+          "assunto": "fft"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/gemini-fft-3-menu-habilidades.png",
+          "bytes": 380399,
+          "titulo": "Loop FFT Clássico · 3 Menu e submenu de habilidades",
+          "plataforma": "Gemini (Nano Banana)",
+          "assunto": "fft"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/pixellab-ui-1.png",
+          "bytes": 38677,
+          "titulo": "Painel grande com moldura",
+          "plataforma": "PixelLab (pixel art)",
+          "assunto": "folhas"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/pixellab-ui-2.png",
+          "bytes": 30847,
+          "titulo": "Menu de comandos com 5 botões",
+          "plataforma": "PixelLab (pixel art)",
+          "assunto": "folhas"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/pixellab-ui-3.png",
+          "bytes": 14976,
+          "titulo": "Barras de vida e MP com moldura (o agente descreve assim)",
+          "plataforma": "PixelLab (pixel art)",
+          "assunto": "folhas"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/chatgpt-ui-ouro.png",
+          "bytes": 1767311,
+          "titulo": "Elementos estilizados · Ouro e couro",
+          "plataforma": "ChatGPT (GPT Image)",
+          "assunto": "folhas"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-ui-ouro.png",
+          "bytes": 1997480,
+          "titulo": "Elementos estilizados · Ouro e couro",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "folhas"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-loop-0-ouro-aplicado.png",
+          "bytes": 2235681,
+          "titulo": "Aplicado sobre o jogo · Ouro e couro",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "aplicados"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-fft-1-paineis.png",
+          "bytes": 1036509,
+          "titulo": "Elementos FFT Clássico · 1 Painéis",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "fft"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-fft-2-ficha.png",
+          "bytes": 1184803,
+          "titulo": "Elementos FFT Clássico · 2 Ficha da unidade",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "fft"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-fft-3-menu.png",
+          "bytes": 1075792,
+          "titulo": "Elementos FFT Clássico · 3 Menu e submenu",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "fft"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-icones-1-habilidades.png",
+          "bytes": 1186676,
+          "titulo": "Ícones · as 22 habilidades do jogo + Mover e Esperar (estilo FFT Clássico)",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "icones"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-icones-1-habilidades-recorte.png",
+          "bytes": 99929,
+          "titulo": "Ícones recortados em 48 px (prova de conceito)",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "icones"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-icones-2-itens-status.png",
+          "bytes": 1263069,
+          "titulo": "Ícones · os 9 equipamentos do jogo, consumíveis, estados e marcas do mapa",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "icones"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-icones-2-itens-status-recorte.png",
+          "bytes": 98934,
+          "titulo": "Ícones de itens e estados recortados em 48 px (prova de conceito)",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "icones"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-ui-ouro-aplicado.png",
+          "bytes": 1889049,
+          "titulo": "Aplicado sobre o jogo · Ouro e couro (2ª versão, só a captura anexada)",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "aplicados"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-ui-vitral.png",
+          "bytes": 2598172,
+          "titulo": "Elementos estilizados · Vitral gótico",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "folhas"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-ui-vitral-aplicado.png",
+          "bytes": 1988578,
+          "titulo": "Aplicado sobre o jogo · Vitral gótico",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "aplicados"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-ui-grimorio.png",
+          "bytes": 2531331,
+          "titulo": "Elementos estilizados · Grimório iluminado",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "folhas"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-ui-carta.png",
+          "bytes": 1388139,
+          "titulo": "Elementos estilizados · Carta de campo",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "folhas"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-ui-carta-aplicado.png",
+          "bytes": 1906788,
+          "titulo": "Aplicado sobre o jogo · Carta de campo",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "aplicados"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/craiyon-fft-1-paineis.png",
+          "bytes": 190807,
+          "titulo": "Elementos FFT Clássico · 1 Painéis",
+          "plataforma": "Craiyon (sem login)",
+          "assunto": "fft"
+        }
+      ],
+      "contagem": 35,
+      "faltandoNoDisco": [],
+      "mb": 28.6
+    },
+    {
+      "rota": "/design/personagens/testes",
+      "grupo": "personagens",
+      "id": "testes",
+      "titulo": "Testes de IA: rostos",
+      "resumo": "Retratos por plataforma e por estilo.",
+      "posicao": "depois de expressoes",
+      "componentes": [
+        {
+          "nome": "IaAssunto",
+          "props": {
+            "ids": ["rostos"]
+          }
+        }
+      ],
+      "campos": ["platforms[].tests", "subs"],
+      "mdx": "import { IaAssunto } from '../components/Ia';\r\n\r\n<IaAssunto ids={['rostos']} />\r\n",
+      "arquivoMdx": "paginas/personagens/testes.mdx",
+      "dados": "web/src/content/design/ia.json (cópia em dados/ia.json)",
+      "imagens": [
+        {
+          "arquivo": "web/public/content/design/ia/gemini-fft-rostos-1-folha.png",
+          "bytes": 926815,
+          "titulo": "Rostos em pixel art · os 10 bonecos no estilo da Aria",
+          "plataforma": "Gemini (Nano Banana)",
+          "assunto": "rostos"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/gemini-rostos-conversa-errada-ivalice.png",
+          "bytes": 865469,
+          "titulo": "Rostos em pixel art · mesma folha, pedida por engano na conversa do FFT Ivalice",
+          "plataforma": "Gemini (Nano Banana)",
+          "assunto": "rostos"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/gemini-fft-rostos-2-barbaro.png",
+          "bytes": 929574,
+          "titulo": "Expressões · Bárbaro",
+          "plataforma": "Gemini (Nano Banana)",
+          "assunto": "rostos"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/gemini-fft-rostos-3-cavaleiro.png",
+          "bytes": 995253,
+          "titulo": "Expressões · Cavaleiro (1ª tentativa, cor errada)",
+          "plataforma": "Gemini (Nano Banana)",
+          "assunto": "rostos"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/gemini-fft-rostos-4-lanceiro.png",
+          "bytes": 833473,
+          "titulo": "Expressões · Lanceiro",
+          "plataforma": "Gemini (Nano Banana)",
+          "assunto": "rostos"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/gemini-fft-rostos-3b-cavaleiro.png",
+          "bytes": 837566,
+          "titulo": "Expressões · Cavaleiro (refeito em cinza-aço)",
+          "plataforma": "Gemini (Nano Banana)",
+          "assunto": "rostos"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-ref-retratos-1-folha.png",
+          "bytes": 1326331,
+          "titulo": "Rostos em pixel art · os 10 bonecos no traço dos retratos do FFT Clássico (sem fotos do KayKit)",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "rostos"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-ref-retratos-2-barbaro.png",
+          "bytes": 1306838,
+          "titulo": "Expressões · Bárbaro (traço FFT Clássico)",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "rostos"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-ref-retratos-3-cavaleiro.png",
+          "bytes": 1320036,
+          "titulo": "Expressões · Cavaleiro (traço FFT Clássico)",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "rostos"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-ref-retratos-4-lanceiro.png",
+          "bytes": 1338055,
+          "titulo": "Expressões · Lanceiro (traço FFT Clássico)",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "rostos"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-ref-retratos-5-maga.png",
+          "bytes": 1267936,
+          "titulo": "Expressões · Maga (traço FFT Clássico)",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "rostos"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-ref-retratos-6-arqueira.png",
+          "bytes": 1308998,
+          "titulo": "Expressões · Arqueira (traço FFT Clássico)",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "rostos"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-ref-retratos-7-ladino.png",
+          "bytes": 1161633,
+          "titulo": "Expressões · Ladino (traço FFT Clássico)",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "rostos"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-ref-retratos-8-esqueleto-mago.png",
+          "bytes": 1302731,
+          "titulo": "Expressões · Esqueleto mago (traço FFT Clássico)",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "rostos"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-ref-retratos-9-lacaio-de-osso.png",
+          "bytes": 1215102,
+          "titulo": "Expressões · Lacaio de osso (traço FFT Clássico)",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "rostos"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-ref-retratos-10-esqueleto-ladino.png",
+          "bytes": 1157591,
+          "titulo": "Expressões · Esqueleto ladino (traço FFT Clássico)",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "rostos"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-ref-retratos-11-esqueleto-guerreiro.png",
+          "bytes": 1398883,
+          "titulo": "Expressões · Esqueleto guerreiro (traço FFT Clássico)",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "rostos"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-ref-retratos-12-folha-moldura-fina.png",
+          "bytes": 1417050,
+          "titulo": "Rostos em pixel art · os 10 com a moldura fina da referência FFT Clássico",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "rostos"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-ref-retratos-13-maga-rotulos.png",
+          "bytes": 1317234,
+          "titulo": "Expressões · Maga com moldura fina e rótulos curtos",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "rostos"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-ref-retratos-13-maga-rotulos-fala-anim.gif",
+          "bytes": 281639,
+          "titulo": "Animação · Maga falando e reagindo (prova de conceito)",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "rostos"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-ref-retratos-14-barbaro.png",
+          "bytes": 1637297,
+          "titulo": "Expressões · Bárbaro com moldura fina e rótulos curtos",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "rostos"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-ref-retratos-15-cavaleiro.png",
+          "bytes": 1407375,
+          "titulo": "Expressões · Cavaleiro com moldura fina e rótulos curtos",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "rostos"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-ref-retratos-16-lanceiro.png",
+          "bytes": 1442129,
+          "titulo": "Expressões · Lanceiro com moldura fina e rótulos curtos",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "rostos"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-ref-retratos-17-arqueira.png",
+          "bytes": 1489671,
+          "titulo": "Expressões · Arqueira com moldura fina e rótulos curtos",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "rostos"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-ref-retratos-18-ladino.png",
+          "bytes": 1276458,
+          "titulo": "Expressões · Ladino com moldura fina e rótulos curtos",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "rostos"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-ref-retratos-19-esqueleto-mago.png",
+          "bytes": 1372991,
+          "titulo": "Expressões · Esqueleto mago com moldura fina e rótulos curtos",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "rostos"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-vitral-rostos-1-folha.png",
+          "bytes": 1594047,
+          "titulo": "Rostos em pixel art · os 10 bonecos no estilo do Reno (Vitral)",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "rostos"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-vitral-rostos-2-barbaro.png",
+          "bytes": 1646540,
+          "titulo": "Expressões · Bárbaro (Copilot, estilo do Reno)",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "rostos"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-vitral-rostos-3-cavaleiro.png",
+          "bytes": 1591796,
+          "titulo": "Expressões · Cavaleiro (Copilot, estilo do Reno)",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "rostos"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-vitral-rostos-4-lanceiro.png",
+          "bytes": 1566748,
+          "titulo": "Expressões · Lanceiro (Copilot, estilo do Reno)",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "rostos"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-vitral-rostos-5-maga.png",
+          "bytes": 1475448,
+          "titulo": "Expressões · Maga (Copilot, estilo do Reno)",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "rostos"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-rosto-mage.png",
+          "bytes": 711458,
+          "titulo": "Rosto em pixel art · Maga, 4 bocas (estilo próprio do Copilot)",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "rostos"
+        }
+      ],
+      "contagem": 32,
+      "faltandoNoDisco": [],
+      "mb": 37.9
+    },
+    {
+      "rota": "/design/personagens/sprites",
+      "grupo": "personagens",
+      "id": "sprites",
+      "titulo": "Testes de IA: sprites",
+      "resumo": "Bonecos andando e atacando (prova de conceito).",
+      "posicao": "depois de testes",
+      "componentes": [
+        {
+          "nome": "IaAssunto",
+          "props": {
+            "ids": ["sprites"]
+          }
+        }
+      ],
+      "campos": ["platforms[].tests", "subs"],
+      "mdx": "import { IaAssunto } from '../components/Ia';\r\n\r\n<IaAssunto ids={['sprites']} />\r\n",
+      "arquivoMdx": "paginas/personagens/sprites.mdx",
+      "dados": "web/src/content/design/ia.json (cópia em dados/ia.json)",
+      "imagens": [
+        {
+          "arquivo": "web/public/content/design/ia/copilot-sprite-1-cavaleiro.png",
+          "bytes": 1381284,
+          "titulo": "Sprite sheet · Cavaleiro chibi em pixel art (prova de conceito)",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "sprites"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-sprite-1-cavaleiro-anim.gif",
+          "bytes": 562854,
+          "titulo": "Animação · Cavaleiro recortado da sprite sheet (prova de conceito)",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "sprites"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-sprite-2-maga.png",
+          "bytes": 1510720,
+          "titulo": "Sprite sheet · Maga chibi em pixel art (prova de conceito)",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "sprites"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-sprite-2-maga-anim.gif",
+          "bytes": 590865,
+          "titulo": "Animação · Maga recortada da sprite sheet (prova de conceito)",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "sprites"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-sprite-3-esqueleto-guerreiro.png",
+          "bytes": 1606454,
+          "titulo": "Sprite sheet · Esqueleto guerreiro chibi em pixel art (prova de conceito)",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "sprites"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-sprite-3-esqueleto-guerreiro-anim.gif",
+          "bytes": 662985,
+          "titulo": "Animação · Esqueleto guerreiro chibi recortado da sprite sheet (prova de conceito)",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "sprites"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-sprite-4-arqueira.png",
+          "bytes": 1607846,
+          "titulo": "Sprite sheet · Arqueira chibi em pixel art (prova de conceito)",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "sprites"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-sprite-4-arqueira-anim.gif",
+          "bytes": 682171,
+          "titulo": "Animação · Arqueira chibi recortado da sprite sheet (prova de conceito)",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "sprites"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-sprite-5-barbaro.png",
+          "bytes": 1768452,
+          "titulo": "Sprite sheet · Bárbaro chibi em pixel art (prova de conceito)",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "sprites"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-sprite-5-barbaro-anim.gif",
+          "bytes": 753102,
+          "titulo": "Animação · Bárbaro chibi recortado da sprite sheet (prova de conceito)",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "sprites"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-sprite-6-lanceiro.png",
+          "bytes": 1653072,
+          "titulo": "Sprite sheet · Lanceiro chibi em pixel art (prova de conceito)",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "sprites"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-sprite-6-lanceiro-anim.gif",
+          "bytes": 682718,
+          "titulo": "Animação · Lanceiro chibi recortado da sprite sheet (prova de conceito)",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "sprites"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-sprite-7-ladino.png",
+          "bytes": 1580762,
+          "titulo": "Sprite sheet · Ladino chibi em pixel art (prova de conceito)",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "sprites"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-sprite-7-ladino-anim.gif",
+          "bytes": 529673,
+          "titulo": "Animação · Ladino chibi recortado da sprite sheet (prova de conceito)",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "sprites"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-sprite-8-esqueleto-mago.png",
+          "bytes": 1678456,
+          "titulo": "Sprite sheet · Esqueleto mago chibi em pixel art (prova de conceito)",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "sprites"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-sprite-8-esqueleto-mago-anim.gif",
+          "bytes": 651318,
+          "titulo": "Animação · Esqueleto mago chibi recortado da sprite sheet (prova de conceito)",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "sprites"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-sprite-9-lacaio-de-osso.png",
+          "bytes": 1467555,
+          "titulo": "Sprite sheet · Lacaio de osso chibi em pixel art (prova de conceito)",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "sprites"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-sprite-9-lacaio-de-osso-anim.gif",
+          "bytes": 538952,
+          "titulo": "Animação · Lacaio de osso chibi recortado da sprite sheet (prova de conceito)",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "sprites"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-sprite-10-esqueleto-ladino.png",
+          "bytes": 1620854,
+          "titulo": "Sprite sheet · Esqueleto ladino chibi em pixel art (prova de conceito)",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "sprites"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-sprite-10-esqueleto-ladino-anim.gif",
+          "bytes": 574630,
+          "titulo": "Animação · Esqueleto ladino chibi recortado da sprite sheet (prova de conceito)",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "sprites"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-sprite-11-elenco-anim.gif",
+          "bytes": 634719,
+          "titulo": "Elenco · os 10 bonecos andando e atacando em escala de jogo (prova de conceito)",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "sprites"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-sprite-12-cena-batalha.png",
+          "bytes": 430714,
+          "titulo": "Cena de batalha montada só com os assets da noite (prova de conceito)",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "sprites"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-sprite-12-cena-batalha-anim.gif",
+          "bytes": 469435,
+          "titulo": "Cena de batalha animada (bonecos respirando)",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "sprites"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-sprite-13-atlas.png",
+          "bytes": 1933547,
+          "titulo": "Sprites · 13 Atlas de jogo (64 px, PNG + JSON)",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "sprites"
+        }
+      ],
+      "contagem": 24,
+      "faltandoNoDisco": [],
+      "mb": 24.4
+    },
+    {
+      "rota": "/design/mapa/testes",
+      "grupo": "mapa",
+      "id": "testes",
+      "titulo": "Testes de IA: cenas e terreno",
+      "resumo": "Ainda sem peça aprovada para o mapa.",
+      "posicao": "depois de cidade",
+      "componentes": [
+        {
+          "nome": "IaAssunto",
+          "props": {
+            "ids": ["cenas", "terreno"]
+          }
+        }
+      ],
+      "campos": ["platforms[].tests", "subs"],
+      "mdx": "import { IaAssunto } from '../components/Ia';\r\n\r\n<IaAssunto ids={['cenas', 'terreno']} />\r\n",
+      "arquivoMdx": "paginas/mapa/testes.mdx",
+      "dados": "web/src/content/design/ia.json (cópia em dados/ia.json)",
+      "imagens": [
+        {
+          "arquivo": "web/public/content/design/ia/gemini-cena-do-zero-v1.png",
+          "bytes": 519048,
+          "titulo": "Cena de batalha do zero, sem referência",
+          "plataforma": "Gemini (Nano Banana)",
+          "assunto": "cenas"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/gemini-C-v1.png",
+          "bytes": 411986,
+          "titulo": "Direção C sobre a captura do jogo, 1ª tentativa",
+          "plataforma": "Gemini (Nano Banana)",
+          "assunto": "cenas"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/gemini-C-v2.png",
+          "bytes": 412262,
+          "titulo": "Direção C, prompt mais firme (mesmo chat, mesma captura)",
+          "plataforma": "Gemini (Nano Banana)",
+          "assunto": "cenas"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/chatgpt-cena.png",
+          "bytes": 2799311,
+          "titulo": "Mesma cena do Gemini",
+          "plataforma": "ChatGPT (GPT Image)",
+          "assunto": "cenas"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-terreno-1-blocos.png",
+          "bytes": 1340170,
+          "titulo": "Terreno · 18 blocos isométricos em pixel art (água rasa e funda, rampa, degrau)",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "terreno"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-terreno-1-blocos-mapa.png",
+          "bytes": 309963,
+          "titulo": "Mapa isométrico montado só com os blocos gerados (prova de conceito)",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "terreno"
+        },
+        {
+          "arquivo": "web/public/content/design/ia/copilot-terreno-2-objetos.png",
+          "bytes": 1320636,
+          "titulo": "Objetos do mapa · 18 objetos isométricos (árvores, pedras, baús, fogueira, lápide)",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "terreno"
+        }
+      ],
+      "contagem": 7,
+      "faltandoNoDisco": [],
+      "mb": 6.8
+    },
+    {
+      "rota": "/design/plano/plataformas",
+      "grupo": "plano",
+      "id": "plataformas",
+      "titulo": "Plataformas de IA",
+      "resumo": "Limites e contas de cada gerador; as imagens ficam nas páginas, por assunto.",
+      "posicao": "último do grupo plano",
+      "componentes": [
+        {
+          "nome": "IaPlataformas",
+          "props": {}
+        }
+      ],
+      "campos": [
+        "platforms[].name",
+        "platforms[].plan",
+        "platforms[].tests.length",
+        "notRun"
+      ],
+      "mdx": "import { IaPlataformas } from '../components/Ia';\r\n\r\n<IaPlataformas />\r\n",
+      "arquivoMdx": "paginas/plano/plataformas.mdx",
+      "dados": "web/src/content/design/ia.json (cópia em dados/ia.json)",
+      "imagens": [],
+      "contagem": 0,
+      "faltandoNoDisco": [],
+      "mb": 0
+    }
+  ],
+  "totais": {
+    "paginas": 5,
+    "imagensDistintas": 98,
+    "mbImagens": 97.7,
+    "mbPastaIaInteira": 100.5
+  }
+}

@@ -1,6 +1,6 @@
 // AI image tests of the old lab (ia.ts), by subject: each subject lists its images per platform, and inside a platform
 // the images of one conversation go together under a heading that links to the chat. The featured pick and the
-// platforms table (plano/plataformas) are the other two views.
+// platforms table are the other two views. No page uses them since 17/11 (archived in docs/arquivo-assets-ia).
 import { Rolagem, TABELA } from '@/components/content/DataTable';
 import { contagem, estiloDe, IA, iaSub, porConversa, type Test } from '../dados';
 import { CartoesIa } from './Cartoes';

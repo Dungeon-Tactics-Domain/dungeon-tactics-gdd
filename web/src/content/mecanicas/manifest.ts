@@ -1,12 +1,8 @@
-// Mechanics and game feel lab: decisions, the game live in an iframe, the rules and feel read from the game's code, and
-// references from other games. Copied from dungeon-tactics-lab/mecanicas (src/main.ts and src/data); the tree is built
+// Mechanics and game feel lab: decisions, the rules and feel read from the game's code, and references from other
+// games. Copied from dungeon-tactics-lab/mecanicas (src/main.ts and src/data); the tree is built
 // from the data the same way the old montarPaginas call built it, so routes, titles and summaries match.
 import type { Manifesto, PaginaManifesto } from '../types';
-import { CENAS, JOGOS, qtd, REGRAS, slug } from './dados';
-
-const GAME = 'localhost:5291';
-const ICONE_CENAS: Record<string, string> = { Movimento: '🏃', Golpe: '⚔️', 'Empurrão e terreno': '🪨' };
-const gruposDeCena = [...new Set(CENAS.map((s) => s.group))];
+import { JOGOS, qtd, REGRAS, slug } from './dados';
 
 const paginasDeRegra = (lista: (typeof REGRAS)['mechanics']): PaginaManifesto[] =>
   lista.map((g) => ({
@@ -17,29 +13,24 @@ const paginasDeRegra = (lista: (typeof REGRAS)['mechanics']): PaginaManifesto[] 
 
 export default {
   titulo: 'Mecânicas e sensação',
-  resumo:
-    'Dungeon Tactics: decisões, o jogo ao vivo, as regras e a sensação de hoje lidas do código, e referências de outros jogos.',
+  resumo: 'Dungeon Tactics: decisões, as regras e a sensação de hoje lidas do código, e referências de outros jogos.',
   origem: {
     caminho: '/mecanicas/',
-    fonte: 'dungeon-tactics-lab/mecanicas: src/main.ts, src/data e public/mecanicas/clips',
+    fonte: 'dungeon-tactics-lab/mecanicas: src/main.ts e src/data',
     copiadoEm: '2026-11-14T23:38:40-03:00',
   },
-  // anchors of the old single-page lab (#clipes, #grill, game and scene ids) lead to the new routes
+  // anchors of the old single-page lab (#grill, game ids) lead to the new routes; the game clips left on 17/11
   linksAntigos: {
     decisoes: 'decisoes',
     agora: 'decisoes/agora',
     grill: 'decisoes/grill',
     pedidos: 'decisoes/pedidos',
     fases: 'decisoes/fases',
-    clipes: 'clipes',
-    'ao-vivo': 'clipes',
-    gravados: 'clipes/gravados',
     mecanicas: 'regras',
     divergencias: 'regras/divergencias',
     sensacao: 'sensacao',
     referencias: 'referencias',
     ...Object.fromEntries(JOGOS.map((g) => [g.slug, `referencias/${slug(g.slug)}`])),
-    ...Object.fromEntries(CENAS.map((s) => [`cena-${s.name}`, `clipes/${slug(s.group)}/${s.name}`])),
   },
   grupos: [
     {
@@ -132,25 +123,6 @@ export default {
           icone: '🪙',
           resumo: 'Drop por monstro, loja, ferreiro, encantador e taverna.',
         },
-      ],
-    },
-    {
-      id: 'clipes',
-      titulo: 'Clipes do jogo',
-      icone: '🎬',
-      resumo: `O jogo de verdade em ${GAME}, uma cena ao vivo por vez, e os trechos gravados.`,
-      paginas: [
-        ...gruposDeCena.map((g): PaginaManifesto => {
-          const lista = CENAS.filter((s) => s.group === g);
-          return {
-            id: slug(g),
-            titulo: g,
-            icone: ICONE_CENAS[g],
-            resumo: `${qtd(lista.length, 'cena', 'cenas')} da bancada do jogo, ao vivo e em laço.`,
-            subpaginas: lista.map((s) => ({ id: s.name, titulo: s.title, resumo: s.note })),
-          };
-        }),
-        { id: 'gravados', titulo: 'Gravados', icone: '🎞️', resumo: 'Trechos gravados do jogo (clips.json).' },
       ],
     },
     {

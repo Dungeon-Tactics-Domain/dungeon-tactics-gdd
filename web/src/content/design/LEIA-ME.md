@@ -7,16 +7,18 @@ official version D and kept moment, the SDXL pixelizer rows and the regenerated 
 ## Where things are
 
 - `manifest.ts`: the page tree. Since 15/11 it mirrors the old lab's tabs: each tab is a group and each section a page, with
-  the same ids, so `#/interface/testes`, `#/personagens/em-uso`... open the same page here (`Paginas` turns `#/a/b` into
+  the same ids, so `#/interface/em-uso`, `#/personagens/em-uso`... open the same page here (`Paginas` turns `#/a/b` into
   `/design/a/b`). The old "Início" tab is the lab home (`inicio.mdx`: "Em uso agora" and "Agora estamos decidindo").
   The games under `referencias` keep their `capturas-N` subpages (blocks of 2, as the old lab does).
 - `dados.ts`: typed access to `plano.json` (decisions, phases, requests), `ia.json` (AI tests, prompts already expanded),
   and `refs/*.json` (one file per game, copied as they were; since 17/11 only `fft-ivalice`).
 - `components/`: `Decisoes`, `Referencias` (overview with filters, game intro, capture blocks), `Ia` (tests by subject,
   per platform, grouped by conversation; featured pick; platforms table), `Cartoes` + `Leitor` (cards and the full-screen
-  reader), `KitFft` + `fft-kit.css`, `Rostos`, `EmUso`, `Icones`, `Expressoes` +
-  `expressoes.css`, `Telas` + `telas.css` (screen mock-ups built from the kit's pieces, which `KitFft` exports).
-- The `.mdx` pages are a component call (`plano/tema.mdx` is the plan text itself). A page with a new route needs its
+  reader), `KitFft` + `fft-kit.css`, `Rostos`, `EmUso`, `Icones`, `Expressoes` + `expressoes.css`.
+- On 17/11 the AI test pages (`interface/testes`, `personagens/testes`, `personagens/sprites`, `mapa/testes`,
+  `plano/plataformas`) were archived in `docs/arquivo-assets-ia/` for a future "Assets de IA" component; `Ia`, `Cartoes`
+  and `Leitor` stay here with no page. The theme plan (`plano/tema`) and the screen mock-ups (`interface/telas`) were removed.
+- The `.mdx` pages are a component call. A page with a new route needs its
   `.mdx`: `registry.test.tsx` fails on a page without one and on an orphan file.
 - Old paths of the first copy (`/design/decisoes/...`, `/design/testes-de-ia/...`, `/design/maquetes/...`) no longer
   exist; only the old anchors (`#fases`, `#maquetes`, `#ia`...) redirect, through `linksAntigos`.

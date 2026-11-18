@@ -1,0 +1,965 @@
+{
+  "platforms": [
+    {
+      "name": "Gemini (Nano Banana)",
+      "plan": "conta do Fernando, grátis · saída 1024×572 · agente: eu mesmo, pelo Chrome",
+      "tests": [
+        {
+          "file": "gemini-cena-do-zero-v1.png",
+          "title": "Cena de batalha do zero, sem referência",
+          "size": "1024×572",
+          "link": "https://gemini.google.com/app/434125d61be25866",
+          "prompt": "Crie uma imagem 16:9, sem nenhum texto, número, ícone, barra ou interface de jogo: apenas a CENA de um campo de batalha de um jogo de tática por turnos, em visão isométrica elevada (câmera a uns 45 graus, como Final Fantasy Tactics e Tactics Ogre Reborn), estilo diorama 3D pintado, personagens low-poly estilizados. Local: ruínas de uma capela em uma colina ao entardecer, terreno em níveis com degraus e rampas, grama, pedra, água rasa de um riacho, árvores e caixotes. Grade quadrada do tabuleiro sutil sobre o chão, com algumas casas azuis (alcance de movimento) e uma casa vermelha sob um inimigo. Em campo: 3 heróis (guerreira com espada e escudo, arqueira, clériga) à esquerda e 4 mortos-vivos (esqueletos e um necromante) à direita, bem legíveis. Deixe os cantos inferiores e o canto superior esquerdo com chão calmo e pouco detalhe, para receber painéis de interface por cima. Luz quente de fim de tarde, sombras suaves, alto contraste nas unidades, alta resolução.",
+          "good": "Ruínas de capela ao entardecer, 3 heróis e 4 mortos-vivos legíveis, casas azuis e vermelha.",
+          "bad": "Cantos de baixo cortados em cinza (moldura de diorama); só 1024 px."
+        },
+        {
+          "file": "gemini-C-v1.png",
+          "title": "Direção C sobre a captura do jogo, 1ª tentativa",
+          "size": "1024×572",
+          "link": "https://gemini.google.com/app/25f66bc6594cf72b",
+          "attached": "cena-colina.jpg (captura real do jogo, sem interface)",
+          "prompt": "Crie uma imagem 16:9 (conceito de interface de jogo) usando esta captura como fundo, sem alterar a cena 3D. Por cima, desenhe a interface de batalha de um jogo de tática por turnos, no estilo 'carta de campo': papel creme (#f2ecdc) com tinta quase preta (#26241f), lacre vermelho (#b3261e) só para dano, verde-mar (#14595c) para aliados, títulos em serifa tipo Spectral e números em monoespaçada tipo IBM Plex Mono, bordas finas de tinta, etiquetas de papel ligadas às unidades por linhas finas. Elementos: fila de turnos no topo esquerdo (Aria agora, Lacaio, Tess, Odo, Acólito); painel do inimigo 'Lacaio de osso' com barra de vida em 3 faixas e a previsão '-19 a 26, 75% de acerto'; ficha da aliada 'Aria, Guerreira' no canto inferior esquerdo com barras de vida e MP; botão primário escuro 'Executar golpe pesado (Enter)' e secundário 'Voltar (Esc)'. Legível, alto contraste, sem texto minúsculo, sem pixel art.",
+          "good": "Clima de papel e tinta, lacre vermelho só no dano.",
+          "bad": "Mudou a cena (hexágonos, zoom), trocou as linhas das etiquetas, inventou números (45/45) e trocou a barra por corações."
+        },
+        {
+          "file": "gemini-C-v2.png",
+          "title": "Direção C, prompt mais firme (mesmo chat, mesma captura)",
+          "size": "1024×572",
+          "link": "https://gemini.google.com/app/25f66bc6594cf72b",
+          "attached": "cena-colina.jpg (do prompt anterior)",
+          "prompt": "Refaça corrigindo estes erros, mantendo o estilo carta de campo. REGRAS RÍGIDAS: (1) A captura anexa deve aparecer IDÊNTICA, mesmo enquadramento e zoom, grade quadrada como está, sem inventar hexágonos: só desenhe interface por cima. (2) Use EXATAMENTE estes números e nada além deles: Aria, Guerreira, nível 4: VIDA 42/42 e MP 8/12. Lacaio de osso, Inimigo, Morto-vivo nível 3: VIDA 31/38, sem MP. Previsão: Golpe pesado, -19 a 26, 75% de acerto, vida do Lacaio depois: 31 → 5 a 12. (3) A barra de vida do Lacaio é UMA barra horizontal em 3 faixas: tinta sólida (sobra certo), tinta listrada (talvez sobre), lacre vermelho (dano), mais um vazio; NÃO use corações nem ícones. (4) Etiqueta do Lacaio de osso liga por linha fina ao Lacaio inimigo (de vermelho, à direita no mapa) e a etiqueta da Aria liga à Aria (de azul, à esquerda no mapa); as linhas não podem cruzar. (5) Só UM botão escuro: 'Executar golpe pesado  Enter'; 'Voltar  Esc' só com contorno. (6) Sem cantos arredondados nem bordas rasgadas: papel retangular, borda fina de tinta. Imagem 16:9 na maior resolução possível.",
+          "good": "Números certos, barra em 3 faixas, linhas das etiquetas certas, só 1 botão escuro.",
+          "bad": "Ainda altera a cena (grade, zoom) e é imagem achatada."
+        },
+        {
+          "file": "gemini-ui-kit-v1.png",
+          "title": "Folha de elementos, estilo carta de campo",
+          "size": "1024×572",
+          "link": "https://gemini.google.com/app/23b345b93e95529f",
+          "prompt": "Crie uma FOLHA DE ELEMENTOS DE INTERFACE (UI kit / sprite sheet) para um jogo de tática por turnos no PC, estilo 'carta de campo': papel creme (#f2ecdc), tinta quase preta (#26241f), lacre vermelho (#b3261e) só para dano e alerta, verde-mar (#14595c) para aliados, azul-tinta (#3d4f8a) para MP. Bordas finas de tinta, cantos retos, textura leve de papel, sem cenário nem personagens. Tudo sobre um fundo liso cinza claro (#e6e6e6), cada peça separada das outras com folga, alinhada em grade, imagem 16:9 de alta resolução. Peças, com rótulos curtos em português: (1) moldura de painel retangular grande, com cantos marcados; (2) moldura de painel pequena para ficha de unidade, com espaço para retrato à esquerda; (3) menu de comandos vertical com 5 linhas (Mover, Agir, Esperar, Status, Magia desativada) mostrando a linha normal, a linha com foco e a linha desativada; (4) botão primário escuro em 3 estados (normal, foco, desativado) e botão secundário só com contorno em 3 estados; (5) barra de vida e barra de MP horizontais, vazia, cheia e com 3 faixas (sobra, talvez sobre, dano); (6) aba da fila de turnos, em 2 estados (atual e demais); (7) balão de previsão com seta, para o dano; (8) 8 ícones quadrados em linha de tinta: espada, escudo, bota, arco, magia, cura, esperar, status; (9) divisor de seção e marcadores de lista; (10) marcadores de casa do tabuleiro: casa azul de movimento, casa vermelha de alvo, cursor de seleção. Mesmo peso de linha em todas as peças, aparência de sistema coerente, sem texto minúsculo.",
+          "good": "Todas as peças e um sistema coerente.",
+          "bad": "Simples; rótulos com erro (\"Secundári\", \"Otros\"); botões arredondados; peças pequenas."
+        },
+        {
+          "file": "gemini-ui-estilo1.png",
+          "title": "Elementos estilizados · Ouro e couro",
+          "size": "1024×572",
+          "link": "https://gemini.google.com/app/e0c4530957ac9b15",
+          "prompt": "Crie uma imagem. Estilo OURO E COURO: couro escuro, filigrana de ouro, aço azulado, gemas, aparência de armadura e relicário, brilho quente. Folha de elementos de interface para um jogo de tática por turnos de fantasia (nível Tactics Ogre Reborn / Final Fantasy Tactics Ivalice Chronicles), MUITO ESTILIZADA, ornamentada, com personalidade, aparência de arte pintada à mão de jogo premium, não minimalista. SEM NENHUM TEXTO nem letras em lugar nenhum. Fundo liso cinza médio (#8a8a8a), cada peça separada com folga, alinhada em grade, imagem 16:9 de alta resolução. Peças: (1) painel grande com moldura ornamentada e cantos trabalhados; (2) moldura de retrato de personagem; (3) menu de comandos vertical com 5 botões em estados normal, foco (brilhando) e desativado; (4) botão primário largo em 3 estados e botão secundário; (5) barra de vida e barra de MP com moldura ornamentada, vazia e cheia; (6) 8 ícones de habilidade: espada, escudo, bota, arco, magia, cura, ampulheta, estrela; (7) aba de fila de turnos com brasão; (8) cursor de seleção e marcadores de casa azul e vermelha; (9) divisor ornamentado de seção. Mesma linguagem visual em todas as peças.",
+          "good": "O mais \"jogo premium\": couro, filigrana de ouro, gemas, ícones em escudo.",
+          "bad": "Rótulos em inglês escaparam; peças não recortáveis."
+        },
+        {
+          "file": "gemini-ui-estilo2.png",
+          "title": "Elementos estilizados · Vitral gótico",
+          "size": "1024×572",
+          "link": "https://gemini.google.com/app/3a4bc7a75e8af93d",
+          "prompt": "Crie uma imagem. Estilo VITRAL GÓTICO: vidro colorido de catedral, divisões de chumbo, cores de joia (rubi, safira, esmeralda, âmbar), luz atravessando, arcos ogivais. Folha de elementos de interface para um jogo de tática por turnos de fantasia (nível Tactics Ogre Reborn / Final Fantasy Tactics Ivalice Chronicles), MUITO ESTILIZADA, ornamentada, com personalidade, aparência de arte pintada à mão de jogo premium, não minimalista. SEM NENHUM TEXTO nem letras em lugar nenhum. Fundo liso cinza médio (#8a8a8a), cada peça separada com folga, alinhada em grade, imagem 16:9 de alta resolução. Peças: (1) painel grande com moldura ornamentada e cantos trabalhados; (2) moldura de retrato de personagem; (3) menu de comandos vertical com 5 botões em estados normal, foco (brilhando) e desativado; (4) botão primário largo em 3 estados e botão secundário; (5) barra de vida e barra de MP com moldura ornamentada, vazia e cheia; (6) 8 ícones de habilidade: espada, escudo, bota, arco, magia, cura, ampulheta, estrela; (7) aba de fila de turnos com brasão; (8) cursor de seleção e marcadores de casa azul e vermelha; (9) divisor ornamentado de seção. Mesma linguagem visual em todas as peças.",
+          "good": "O mais único: arcos ogivais, vidro colorido, foco com brilho.",
+          "bad": "Texto em inglês; cores fortes podem atrapalhar a leitura."
+        },
+        {
+          "file": "gemini-ui-estilo3.png",
+          "title": "Elementos estilizados · Grimório iluminado",
+          "size": "1024×572",
+          "link": "https://gemini.google.com/app/042282ee8065a60b",
+          "prompt": "Crie uma imagem. Estilo GRIMÓRIO ILUMINADO: pergaminho antigo, ouro em folha, iluminuras e arabescos de tinta, capitulares em vermelho e azul, selos de cera. Folha de elementos de interface para um jogo de tática por turnos de fantasia (nível Tactics Ogre Reborn / Final Fantasy Tactics Ivalice Chronicles), MUITO ESTILIZADA, ornamentada, arte pintada à mão de jogo premium, não minimalista. SEM NENHUM TEXTO nem letras. Fundo liso cinza médio (#8a8a8a), cada peça separada com folga, em grade, 16:9 de alta resolução. Peças: (1) painel grande com moldura ornamentada; (2) moldura de retrato; (3) menu vertical com 5 botões em estados normal, foco (brilhando) e desativado; (4) botão primário largo em 3 estados e botão secundário; (5) barras de vida e de MP com moldura ornamentada, vazia e cheia; (6) 8 ícones: espada, escudo, bota, arco, magia, cura, ampulheta, estrela; (7) aba de fila de turnos com brasão; (8) cursor e marcadores de casa azul e vermelha; (9) divisor ornamentado. Mesma linguagem visual em todas.",
+          "good": "Quase sem letras; painel de pergaminho com selo de cera combina com a carta de campo.",
+          "bad": "Peças pequenas."
+        },
+        {
+          "file": "gemini-ui-ouro-aplicado.png",
+          "title": "Aplicado sobre o jogo · Ouro e couro",
+          "size": "1024×572",
+          "link": "https://gemini.google.com/app/09ff0d7118dd95af",
+          "attached": "folha ouro e couro + cena-colina.jpg",
+          "prompt": "A primeira imagem é uma folha de elementos de interface de um jogo de tática por turnos; a segunda é uma captura do jogo. Monte a interface de batalha sobre a captura usando SOMENTE os elementos da folha (painel, menu de comandos, botões, barras, ícones, aba da fila de turnos, casas). NÃO altere a cena da captura: mesmo enquadramento, zoom e grade quadrada; só desenhe a interface por cima. Conteúdo: fila de turnos no topo esquerdo (Aria agora, Lacaio, Tess, Odo, Acólito); ficha da Aria (Guerreira, VIDA 42/42, MP 8/12) no canto inferior esquerdo; painel do inimigo Lacaio de osso (VIDA 31/38) com a previsão Golpe pesado, -19 a 26, 75% de acerto; menu Mover, Agir, Esperar, Status; botão primário Executar golpe pesado (Enter) e secundário Voltar (Esc). Use exatamente esses números. Imagem 16:9 na maior resolução possível.",
+          "good": "Cena intacta, fila de retratos, ficha da Aria, menu e previsão com os elementos da folha; números certos (42/42, 8/12, 31/38, −19 a 26, 75%).",
+          "bad": "Previsão em painel pequeno e com ícones demais; As imagens têm botões do próprio Gemini (compartilhar, copiar, baixar) no canto superior direito, vindos da captura de tela."
+        },
+        {
+          "file": "gemini-ui-vitral-aplicado.png",
+          "title": "Aplicado sobre o jogo · Vitral gótico",
+          "size": "1024×572",
+          "link": "https://gemini.google.com/app/45ed9cbe628bb6e9",
+          "attached": "folha vitral + cena-colina.jpg",
+          "prompt": "A primeira imagem é uma folha de elementos de interface de um jogo de tática por turnos; a segunda é uma captura do jogo. Monte a interface de batalha sobre a captura usando SOMENTE os elementos da folha (painel, menu de comandos, botões, barras, ícones, aba da fila de turnos, casas). NÃO altere a cena da captura: mesmo enquadramento, zoom e grade quadrada; só desenhe a interface por cima. Conteúdo: fila de turnos no topo esquerdo (Aria agora, Lacaio, Tess, Odo, Acólito); ficha da Aria (Guerreira, VIDA 42/42, MP 8/12) no canto inferior esquerdo; painel do inimigo Lacaio de osso (VIDA 31/38) com a previsão Golpe pesado, -19 a 26, 75% de acerto; menu Mover, Agir, Esperar, Status; botão primário Executar golpe pesado (Enter) e secundário Voltar (Esc). Use exatamente esses números. Imagem 16:9 na maior resolução possível.",
+          "good": "Cena intacta, fila \"Ordem de turnos\" com retratos, menu em vidro com foco em Agir, previsão grande com −19 a 26 legível, números certos.",
+          "bad": "Fila e ficha ocupam bastante área; rótulos em maiúsculas (não é o texto pedido). Cores fortes disputam com a cena."
+        },
+        {
+          "file": "gemini-ui-grimorio-aplicado.png",
+          "title": "Aplicado sobre o jogo · Grimório iluminado",
+          "size": "1024×572",
+          "link": "https://gemini.google.com/app/9b6a8d1be16feb53",
+          "attached": "folha grimório + cena-colina.jpg",
+          "prompt": "A primeira imagem é uma folha de elementos de interface de um jogo de tática por turnos; a segunda é uma captura do jogo. Monte a interface de batalha sobre a captura usando SOMENTE os elementos da folha (painel, menu de comandos, botões, barras, ícones, aba da fila de turnos, casas). NÃO altere a cena da captura: mesmo enquadramento, zoom e grade quadrada; só desenhe a interface por cima. Conteúdo: fila de turnos no topo esquerdo (Aria agora, Lacaio, Tess, Odo, Acólito); ficha da Aria (Guerreira, VIDA 42/42, MP 8/12) no canto inferior esquerdo; painel do inimigo Lacaio de osso (VIDA 31/38) com a previsão Golpe pesado, -19 a 26, 75% de acerto; menu Mover, Agir, Esperar, Status; botão primário Executar golpe pesado (Enter) e secundário Voltar (Esc). Use exatamente esses números. Imagem 16:9 na maior resolução possível.",
+          "good": "Cena intacta, fila com brasão, ficha em pergaminho, menu com ícones, botões e números certos.",
+          "bad": "Escreveu \"de Dano\" depois do −19 a 26; a ficha em pergaminho cobre muito do canto; As imagens têm botões do próprio Gemini (compartilhar, copiar, baixar) no canto superior direito, vindos da captura de tela."
+        },
+        {
+          "file": "gemini-ui-carta-aplicado.png",
+          "title": "Aplicado sobre o jogo · Carta de campo",
+          "size": "1024×572",
+          "link": "https://gemini.google.com/app/ca25434c6e8e5adf",
+          "attached": "folha carta de campo + cena-colina.jpg",
+          "prompt": "A primeira imagem é uma folha de elementos de interface de um jogo de tática por turnos; a segunda é uma captura do jogo. Monte a interface de batalha sobre a captura usando SOMENTE os elementos da folha (painel, menu de comandos, botões, barras, ícones, aba da fila de turnos, casas). NÃO altere a cena da captura: mesmo enquadramento, zoom e grade quadrada; só desenhe a interface por cima. Conteúdo: fila de turnos no topo esquerdo (Aria agora, Lacaio, Tess, Odo, Acólito); ficha da Aria (Guerreira, VIDA 42/42, MP 8/12) no canto inferior esquerdo; painel do inimigo Lacaio de osso (VIDA 31/38) com a previsão Golpe pesado, -19 a 26, 75% de acerto; menu Mover, Agir, Esperar, Status; botão primário Executar golpe pesado (Enter) e secundário Voltar (Esc). Use exatamente esses números. Imagem 16:9 na maior resolução possível.",
+          "good": "A mais limpa e legível; balão de previsão aponta ao alvo; cena intacta.",
+          "bad": "Inventou um botão \"Focado\" e pôs HP na ficha, fora do pedido; barra do inimigo sem faixas; As imagens têm botões do próprio Gemini (compartilhar, copiar, baixar) no canto superior direito, vindos da captura de tela."
+        },
+        {
+          "file": "gemini-fft-ivalice.png",
+          "title": "Folha sóbria · FFT Ivalice Chronicles, com proporções",
+          "size": "1024×572",
+          "link": "https://gemini.google.com/app/0be701aed3b919cb",
+          "prompt": "Crie uma imagem. Estilo FFT IVALICE CHRONICLES: painéis escuros azul-marinho translúcidos e papel bege liso para o menu, linha fina bege-dourada, texto serifado branco, destaque amarelo no foco. Folha de elementos de interface para um jogo de tática por turnos no PC, inspirada na interface de Final Fantasy Tactics (The Ivalice Chronicles), MUITO SÓBRIA e funcional, quase sem ornamento: painéis retangulares lisos, borda fina, sem filigrana, sem gemas, sem moldura decorativa, sem texto algum. Fundo liso cinza médio (#8a8a8a), cada peça separada com folga, imagem 16:9. Peças e PROPORÇÕES dentro de uma tela 1920x1080 (devem ser pequenas, a cena é a protagonista): (1) ficha da unidade ativa, canto inferior esquerdo: 35% da largura por 18% da altura da tela, com retrato quadrado à esquerda, barras finas de HP e MP e uma barra de CT; (2) coluna de fila de turnos: retratos pequenos numerados, 5% da largura da tela e 66% da altura, o ativo com moldura amarela; (3) menu de comandos em papel liso, 22% da largura por 30% da altura da tela, 4 linhas com ícone redondo pequeno (mover, habilidades, esperar, status), cabeçalho com o nome, uma linha em foco com faixa clara e mão branca apontando, e uma linha desativada; (4) faixa de prévia de golpe para a parte de baixo: retrato do atacante à esquerda, do alvo à direita, bloco central com acerto e dano, azul para aliado e vinho para inimigo, só 18% da altura da tela; (5) botões primário e secundário pequenos em 3 estados; (6) losangos azuis translúcidos de alcance e um losango vermelho de alvo. Mesma linguagem visual em todas.",
+          "good": "Sóbria como pedido; o Gemini até anotou o tamanho de cada peça (22%, 5%, 35%, 18%); menu em papel com mão apontando, fila numerada, faixa de prévia.",
+          "bad": "Rótulos em inglês (COMMANDS, CONFIRM); retratos são silhuetas."
+        },
+        {
+          "file": "gemini-fft-ivalice-aplicado.png",
+          "title": "Aplicado sobre o jogo · FFT Ivalice (a melhor até agora)",
+          "size": "1024×572",
+          "link": "https://gemini.google.com/app/47400828947f05b4",
+          "attached": "folha FFT Ivalice + cena-colina.jpg",
+          "prompt": "A primeira imagem é uma folha de elementos de interface de um jogo de tática por turnos; a segunda é uma captura 1920x1080 do jogo. Monte a interface de batalha sobre a captura usando SOMENTE os elementos da folha, e mantenha tudo PEQUENO como no Final Fantasy Tactics: a interface inteira ocupa no máximo 20% da tela. NÃO altere a cena da captura: mesmo enquadramento, zoom e grade; só desenhe a interface por cima. Posições: fila de turnos em coluna estreita na borda esquerda (5% da largura; Aria agora, Lacaio, Tess, Odo, Acólito); ficha da Aria (Guerreira, VIDA 42/42, MP 8/12) no canto inferior esquerdo (35% x 18%); menu Mover, Agir, Esperar, Status no canto inferior direito (22% x 30%); prévia Golpe pesado, -19 a 26, 75% de acerto, com Lacaio de osso VIDA 31/38, numa faixa baixa e discreta. Use exatamente esses números. 16:9, maior resolução possível.",
+          "good": "Interface pequena e no lugar certo como no FFT: fila estreita à esquerda, ficha embaixo à esquerda, menu embaixo à direita, prévia numa faixa baixa; cena intacta; números certos.",
+          "bad": "Rótulo COMMANDS em inglês; botões de compartilhar do Gemini no canto, vindos da captura de tela."
+        },
+        {
+          "file": "gemini-fft-classico.png",
+          "title": "Folha sóbria · FFT Clássico de PlayStation, com proporções",
+          "size": "1024×572",
+          "link": "https://gemini.google.com/app/5bfae5d64c573c53",
+          "prompt": "Crie uma imagem. Estilo FFT CLÁSSICO de PlayStation: janelas com degradê azul-escuro, borda fina branca com leve relevo, cantos retos, mão apontando pequena, retrô limpo em alta resolução. Folha de elementos de interface para um jogo de tática por turnos no PC, inspirada na interface de Final Fantasy Tactics (The Ivalice Chronicles), MUITO SÓBRIA e funcional, quase sem ornamento: painéis retangulares lisos, borda fina, sem filigrana, sem gemas, sem moldura decorativa, sem texto algum. Fundo liso cinza médio (#8a8a8a), cada peça separada com folga, imagem 16:9. Peças e PROPORÇÕES dentro de uma tela 1920x1080 (devem ser pequenas, a cena é a protagonista): (1) ficha da unidade ativa, canto inferior esquerdo: 35% da largura por 18% da altura da tela, com retrato quadrado à esquerda, barras finas de HP e MP e uma barra de CT; (2) coluna de fila de turnos: retratos pequenos numerados, 5% da largura da tela e 66% da altura, o ativo com moldura amarela; (3) menu de comandos em papel liso, 22% da largura por 30% da altura da tela, 4 linhas com ícone redondo pequeno (mover, habilidades, esperar, status), cabeçalho com o nome, uma linha em foco com faixa clara e mão branca apontando, e uma linha desativada; (4) faixa de prévia de golpe para a parte de baixo: retrato do atacante à esquerda, do alvo à direita, bloco central com acerto e dano, azul para aliado e vinho para inimigo, só 18% da altura da tela; (5) botões primário e secundário pequenos em 3 estados; (6) losangos azuis translúcidos de alcance e um losango vermelho de alvo. Mesma linguagem visual em todas.",
+          "good": "Estética retrô clara: degradê azul, retratos em pixel art, fila longa, menu com mão apontando.",
+          "bad": "Rótulos em inglês; botões de compartilhar do Gemini no canto, vindos da captura de tela."
+        },
+        {
+          "file": "gemini-fft-classico-aplicado.png",
+          "title": "Aplicado sobre o jogo · FFT Clássico (escolhida pelo Fernando)",
+          "size": "1024×572",
+          "link": "https://gemini.google.com/app/24542f1782bf0a20",
+          "attached": "folha FFT Clássico + cena-colina.jpg",
+          "prompt": "A primeira imagem é uma folha de elementos de interface de um jogo de tática por turnos; a segunda é uma captura 1920x1080 do jogo. Monte a interface de batalha sobre a captura usando SOMENTE os elementos da folha, e mantenha tudo PEQUENO como no Final Fantasy Tactics: a interface inteira ocupa no máximo 20% da tela. NÃO altere a cena da captura: mesmo enquadramento, zoom e grade; só desenhe a interface por cima. Posições: fila de turnos em coluna estreita na borda esquerda (5% da largura; Aria agora, Lacaio, Tess, Odo, Acólito); ficha da Aria (Guerreira, VIDA 42/42, MP 8/12) no canto inferior esquerdo (35% x 18%); menu Mover, Agir, Esperar, Status no canto inferior direito (22% x 30%); prévia Golpe pesado, -19 a 26, 75% de acerto, com Lacaio de osso VIDA 31/38, numa faixa baixa e discreta. Use exatamente esses números. 16:9, maior resolução possível.",
+          "good": "Interface pequena e nas posições do FFT: fila com retratos à esquerda, ficha da Aria embaixo à esquerda, prévia numa faixa baixa e menu embaixo à direita; tudo em português; cena intacta; números certos (42/42, 8/12, 31/38, −19 a 26, 75%).",
+          "bad": "Retratos viram bonequinhos (Lacaio como caveira); resolução 1024 px; barra superior de botões do Gemini cortada na captura."
+        },
+        {
+          "file": "gemini-fft-1-paineis.png",
+          "title": "Loop FFT Clássico · 1 Painéis",
+          "size": "1376×768",
+          "link": "https://gemini.google.com/app/5bfae5d64c573c53",
+          "prompt": "Crie uma imagem no MESMO estilo exato da folha anterior desta conversa (FFT Clássico: degradê azul-marinho, borda fina clara, texto branco sóbrio, discreto). Folha de PAINÉIS, 16:9, fundo liso cinza médio (#8a8a8a), cada peça separada com folga, rótulos curtos em português: (1) painel base grande; (2) painel pequeno; (3) painel médio com cabeçalho; (4) faixa de título de seção com o texto \"Habilidades\"; (5) faixa de título de seção com o texto \"Inventário\"; (6) divisor horizontal fino; (7) marcadores de lista. Sem personagens nem cenário.",
+          "good": "Painéis finos, degradê e borda iguais à folha clássica; textos certos.",
+          "bad": "Rótulos numerados na imagem; marcadores pequenos."
+        },
+        {
+          "file": "gemini-fft-2-ficha-unidade.png",
+          "title": "Loop FFT Clássico · 2 Ficha da unidade",
+          "size": "1376×768",
+          "link": "https://gemini.google.com/app/5bfae5d64c573c53",
+          "prompt": "Crie uma imagem no MESMO estilo exato da folha anterior desta conversa (FFT Clássico: degradê azul-marinho, borda fina clara, texto branco sóbrio, retratos pequenos, discreto). Folha da FICHA DA UNIDADE, 16:9, fundo liso cinza médio (#8a8a8a), cada peça separada com folga, rótulos curtos em português: (1) ficha completa da unidade com retrato quadrado pequeno à esquerda, nome \"Aria\", classe \"Guerreira\", e três linhas VIDA 42/42, MP 8/12 e CT 60/100 com barras finas; (2) barra de VIDA cheia; (3) barra de VIDA vazia; (4) barra de VIDA com faixa de dano (parte clara indicando o dano previsto); (5) barra de MP; (6) barra de CT. Sem cenário.",
+          "good": "Retrato pixel art, números certos, barras nos estados pedidos.",
+          "bad": "Rótulos numerados na imagem; texto da ficha apertado sobre as barras."
+        },
+        {
+          "file": "gemini-fft-3-menu-habilidades.png",
+          "title": "Loop FFT Clássico · 3 Menu e submenu de habilidades",
+          "size": "1376×768",
+          "link": "https://gemini.google.com/app/5bfae5d64c573c53",
+          "prompt": "Crie uma imagem no MESMO estilo exato da folha anterior desta conversa (FFT Clássico: degradê azul-marinho, borda fina clara, texto branco sóbrio, mão branca apontando no foco, discreto). Folha do MENU DE COMANDOS E SUBMENU DE HABILIDADES, 16:9, fundo liso cinza médio (#8a8a8a), cada peça separada com folga, rótulos curtos em português: (1) menu de comandos vertical, painel pequeno com cabeçalho \"Aria\" e linhas com ícone redondo pequeno: Mover, Agir, Esperar, Status; (2) a mesma linha de menu em 4 estados lado a lado: normal, foco (faixa clara e mão apontando), selecionado (destaque amarelo) e desativado (cinza apagado); (3) submenu de habilidades, painel mais largo com colunas nome e custo: Golpe pesado 0, Escudada 2 MP, Cura 4 MP, Bola de fogo 6 MP, uma linha em foco com mão apontando e uma linha desativada por falta de MP; (4) etiqueta de custo \"6 MP\". Sem cenário.",
+          "good": "Menu com ícones redondos, submenu com mão apontando e linha desativada, custo em MP, textos certos.",
+          "bad": "Os 4 estados ficaram numa só linha mal separada; foco caiu em Cura, não em Golpe pesado."
+        },
+        {
+          "file": "gemini-fft-rostos-1-folha.png",
+          "title": "Rostos em pixel art · os 10 bonecos no estilo da Aria",
+          "size": "1376×768",
+          "link": "https://gemini.google.com/app/24542f1782bf0a20",
+          "attached": "refs-bonecos-kaykit.png (os 10 renders 3D do jogo, numerados)",
+          "prompt": "Crie uma imagem. Use o MESMO estilo exato dos retratos em pixel art da imagem que você gerou nesta conversa (o retrato da Aria na ficha e os retratos pequenos da fila de turnos: pixel art de PlayStation, contorno escuro, sombreado simples, poucas cores). Anexei uma folha com os 10 personagens do meu jogo (bonecos 3D numerados 1 a 10): use deles SÓ a ideia de cada personagem (cores, chapéu, capuz, elmo, chifres, barba, crânio), redesenhando no estilo dos retratos da sua imagem, não no estilo 3D. Faça uma folha 16:9, fundo liso cinza escuro, com os 10 retratos de busto em 2 linhas de 5, na ordem 1 a 10, cada um dentro de uma moldura pequena azul-marinho com borda fina clara como as da sua imagem, e o nome embaixo: Bárbaro, Cavaleiro, Lanceiro, Maga, Arqueira, Ladino encapuzado, Esqueleto mago, Lacaio de osso, Esqueleto ladino, Esqueleto guerreiro. Sem outro texto. Maior resolução possível.",
+          "good": "Mesmo traço dos retratos da Aria; cada rosto bate com o boneco (gorro de urso e barba cinza, elmos cinza e azul-petróleo, chapéu roxo, capuz verde, chapéu vinho, capuz vinho, elmo com chifres); molduras azul-marinho e nomes certos.",
+          "bad": "Arqueira sem arco nem detalhe de classe; Ladino encapuzado com máscara preta que o boneco não tem; nomes em amarelo e branco misturados."
+        },
+        {
+          "file": "gemini-rostos-conversa-errada-ivalice.png",
+          "title": "Rostos em pixel art · mesma folha, pedida por engano na conversa do FFT Ivalice",
+          "size": "1376×768",
+          "link": "https://gemini.google.com/app/47400828947f05b4",
+          "attached": "refs-bonecos-kaykit.png",
+          "prompt": "Crie uma imagem. Use o MESMO estilo exato dos retratos em pixel art da imagem que você gerou nesta conversa (o retrato da Aria na ficha e os retratos pequenos da fila de turnos: pixel art de PlayStation, contorno escuro, sombreado simples, poucas cores). Anexei uma folha com os 10 personagens do meu jogo (bonecos 3D numerados 1 a 10): use deles SÓ a ideia de cada personagem (cores, chapéu, capuz, elmo, chifres, barba, crânio), redesenhando no estilo dos retratos da sua imagem, não no estilo 3D. Faça uma folha 16:9, fundo liso cinza escuro, com os 10 retratos de busto em 2 linhas de 5, na ordem 1 a 10, cada um dentro de uma moldura pequena azul-marinho com borda fina clara como as da sua imagem, e o nome embaixo: Bárbaro, Cavaleiro, Lanceiro, Maga, Arqueira, Ladino encapuzado, Esqueleto mago, Lacaio de osso, Esqueleto ladino, Esqueleto guerreiro. Sem outro texto. Maior resolução possível.",
+          "good": "Fiel aos bonecos e mais próxima deles que a da conversa certa (elmos fechados como no jogo, arqueira ruiva, crânios de olhos vazios); traço limpo.",
+          "bad": "Conversa errada: o estilo de base é o do FFT Ivalice, não o do FFT Clássico em destaque; elmos fechados escondem a boca (não servem para animar fala)."
+        },
+        {
+          "file": "gemini-fft-rostos-2-barbaro.png",
+          "title": "Expressões · Bárbaro",
+          "size": "1376×768",
+          "link": "https://gemini.google.com/app/24542f1782bf0a20",
+          "prompt": "Crie uma imagem. Agora, no MESMO estilo exato dos retratos da folha que você acabou de gerar, faça uma folha de EXPRESSÕES só do rosto do Bárbaro (1º retrato: gorro de pele de urso, barba cinza). Mesmo personagem, mesmo enquadramento de busto e mesma moldura azul-marinho, idêntico em tudo, mudando SÓ a expressão do rosto, como os retratos de diálogo do Final Fantasy Tactics. 8 quadros em 2 linhas de 4, fundo liso cinza escuro, com o rótulo embaixo de cada um: Neutro, Falando (boca entreaberta), Falando (boca aberta), Gritando ao atacar, Tomando dano (careta, olhos apertados), Ferido (cansado, suando), Sorrindo, Bravo. Sem outro texto. Maior resolução possível.",
+          "good": "Mesmo rosto em todos os quadros; boca entreaberta e aberta servem para animar fala; grito, dano com faísca, ferido suando e bravo bem distintos.",
+          "bad": "Saíram 9 quadros com \"Sorrindo\" repetido (um sem sorriso); no \"Tomando dano\" a roupa ficou verde."
+        },
+        {
+          "file": "gemini-fft-rostos-3-cavaleiro.png",
+          "title": "Expressões · Cavaleiro (1ª tentativa, cor errada)",
+          "size": "1376×768",
+          "link": "https://gemini.google.com/app/24542f1782bf0a20",
+          "prompt": "Crie uma imagem. Agora, no MESMO estilo exato dos retratos da folha que você acabou de gerar, faça uma folha de EXPRESSÕES só do rosto do Cavaleiro (2º retrato da folha de 10 retratos: elmo cinza com viseira; levante a viseira para mostrar olhos e boca). Mesmo personagem, mesmo enquadramento de busto e mesma moldura azul-marinho, idêntico em tudo, mudando SÓ a expressão do rosto, como os retratos de diálogo do Final Fantasy Tactics. 8 quadros em 2 linhas de 4, fundo liso cinza escuro, com o rótulo embaixo de cada um: Neutro, Falando (boca entreaberta), Falando (boca aberta), Gritando ao atacar, Tomando dano (careta, olhos apertados), Ferido (cansado, suando), Sorrindo, Bravo. Sem outro texto. Maior resolução possível.",
+          "good": "Viseira levantada mostra o rosto; fala, grito, dano e ferido legíveis; mesmo rosto em todos.",
+          "bad": "Elmo saiu azul-petróleo (cor do Lanceiro), não cinza-aço; 10 quadros com \"Falando (boca aberta)\" repetido; erro de texto \"Lorrindo\"; num quadro a ombreira virou cinza."
+        },
+        {
+          "file": "gemini-fft-rostos-4-lanceiro.png",
+          "title": "Expressões · Lanceiro",
+          "size": "1376×768",
+          "link": "https://gemini.google.com/app/24542f1782bf0a20",
+          "prompt": "Crie uma imagem. Agora, no MESMO estilo exato dos retratos da folha que você acabou de gerar, faça uma folha de EXPRESSÕES só do rosto do Lanceiro (3º retrato da folha de 10 retratos: elmo AZUL-PETRÓLEO com crista; levante a viseira para mostrar olhos e boca). Mesmo personagem, mesmo enquadramento de busto e mesma moldura azul-marinho, idêntico em tudo, mudando SÓ a expressão do rosto, como os retratos de diálogo do Final Fantasy Tactics. 8 quadros em 2 linhas de 4, fundo liso cinza escuro, com o rótulo embaixo de cada um: Neutro, Falando (boca entreaberta), Falando (boca aberta), Gritando ao atacar, Tomando dano (careta, olhos apertados), Ferido (cansado, suando), Sorrindo, Bravo. Sem outro texto. Maior resolução possível.",
+          "good": "Exatamente os 8 quadros pedidos, mesmo rosto e elmo em todos; boca entreaberta e aberta prontas para animar a fala; dano, ferido e bravo claros.",
+          "bad": "Rótulo de \"Tomando dano\" quebra em 3 linhas; espaçamento desigual entre colunas."
+        },
+        {
+          "file": "gemini-fft-rostos-3b-cavaleiro.png",
+          "title": "Expressões · Cavaleiro (refeito em cinza-aço)",
+          "size": "1376×768",
+          "link": "https://gemini.google.com/app/24542f1782bf0a20",
+          "prompt": "Crie uma imagem. Agora, no MESMO estilo exato dos retratos da folha que você acabou de gerar, faça uma folha de EXPRESSÕES só do rosto do Cavaleiro (2º retrato da folha de 10 retratos: elmo e armadura CINZA-AÇO prateados, NÃO azul; levante a viseira para mostrar olhos e boca). Mesmo personagem, mesmo enquadramento de busto e mesma moldura azul-marinho, idêntico em tudo, mudando SÓ a expressão do rosto, como os retratos de diálogo do Final Fantasy Tactics. 8 quadros em 2 linhas de 4, fundo liso cinza escuro, com o rótulo embaixo de cada um: Neutro, Falando (boca entreaberta), Falando (boca aberta), Gritando ao atacar, Tomando dano (careta, olhos apertados), Ferido (cansado, suando), Sorrindo, Bravo. Sem outro texto. Maior resolução possível.",
+          "good": "Cor certa (cinza-aço do boneco); 8 quadros; mesmo rosto; fala, grito, dano com marca vermelha e ferido suando claros.",
+          "bad": "O \"Neutro\" tem o elmo de outro formato (sem as frestas); rótulo \"Gritando ao ataca\" cortado."
+        }
+      ]
+    },
+    {
+      "name": "PixelLab (pixel art)",
+      "plan": "conta do Fernando, franquia grátis (30 das 40 gerações usadas; ele pediu só 3) · gerador \"Create UI\" 256×256 · agente Sonnet pelo Chrome · só faz pixel art",
+      "tests": [
+        {
+          "file": "pixellab-ui-1.png",
+          "title": "Painel grande com moldura",
+          "size": "256×256 (captura 284)",
+          "prompt": "ornate dark fantasy RPG window frame, dark brown leather panel with gold filigree corners, blued steel border, small ruby and sapphire gems at the corners, parchment-dark center, Tactics Ogre and Final Fantasy Tactics style, no text (layout: 1 forma \"Window\")",
+          "good": "Aço azulado, couro trançado, ouro nos cantos e gemas; utilizável como moldura.",
+          "bad": "Ornamentado demais para o que o Fernando quer agora; centro liso e sujo; pequeno."
+        },
+        {
+          "file": "pixellab-ui-2.png",
+          "title": "Menu de comandos com 5 botões",
+          "size": "256×256 (captura 284)",
+          "prompt": "ornate dark fantasy RPG vertical command menu, five identical buttons, dark brown leather with gold filigree trim, blued steel edges, small ruby and sapphire gems, Tactics Ogre and Final Fantasy Tactics style, no text (layout: 5 formas \"Button\" em coluna)",
+          "good": "Cinco botões consistentes entre si.",
+          "bad": "Sem moldura de menu; botões pequenos no quadro; ornamentados demais."
+        },
+        {
+          "file": "pixellab-ui-3.png",
+          "title": "Barras de vida e MP com moldura (o agente descreve assim)",
+          "size": "256×256 (captura 284)",
+          "prompt": "ornate dark fantasy RPG status bars, two framed gauge bars, the upper one filled with red for health, the lower one filled with blue for mana, dark brown leather frame with gold filigree ends, blued steel edges, small gems, Tactics Ogre and Final Fantasy Tactics style, no text (layout: 2 formas \"Health bar\")",
+          "good": "O agente relata barras vermelha e azul com gema na ponta.",
+          "bad": "A imagem salva parece idêntica à do menu de 5 botões: provável captura do resultado errado. Conferir no site."
+        }
+      ]
+    },
+    {
+      "name": "ChatGPT (GPT Image)",
+      "plan": "plano grátis, conta do Fernando · saída 1672×941 · agente Sonnet pelo Chrome",
+      "tests": [
+        {
+          "file": "chatgpt-cena.png",
+          "title": "Mesma cena do Gemini",
+          "size": "1672×941",
+          "link": "https://chatgpt.com/c/6af8f1bb-a4d4-83e9-8ffd-7b2fbc521d98",
+          "prompt": "Crie uma imagem 16:9, sem nenhum texto, número, ícone, barra ou interface de jogo: apenas a CENA de um campo de batalha de um jogo de tática por turnos, em visão isométrica elevada (câmera a uns 45 graus, como Final Fantasy Tactics e Tactics Ogre Reborn), estilo diorama 3D pintado, personagens low-poly estilizados. Local: ruínas de uma capela em uma colina ao entardecer, terreno em níveis com degraus e rampas, grama, pedra, água rasa de um riacho, árvores e caixotes. Grade quadrada do tabuleiro sutil sobre o chão, com algumas casas azuis (alcance de movimento) e uma casa vermelha sob um inimigo. Em campo: 3 heróis (guerreira com espada e escudo, arqueira, clériga) à esquerda e 4 mortos-vivos (esqueletos e um necromante) à direita, bem legíveis. Deixe os cantos inferiores e o canto superior esquerdo com chão calmo e pouco detalhe, para receber painéis de interface por cima. A imagem deve ocupar o quadro inteiro, sem bordas, sem fundo cinza e sem moldura de diorama nos cantos. Luz quente de fim de tarde, sombras suaves, alto contraste nas unidades, alta resolução. (Agente usou a parte em português de prompt-cena.txt; o relatório dele não diz se trocou para a versão em inglês.)",
+          "good": "Maior resolução do dia, sem texto, grade e casas coloridas, quadro cheio.",
+          "bad": "Saiu em pixel art 2D, não diorama 3D; 6 inimigos em vez de 4; cantos com detalhe."
+        },
+        {
+          "file": "chatgpt-ui-ouro.png",
+          "title": "Elementos estilizados · Ouro e couro",
+          "size": "1672×941",
+          "link": "https://chatgpt.com/c/6af8f72d-3248-83e9-9951-29fa996f12f5",
+          "prompt": "Crie uma imagem. Estilo OURO E COURO: couro escuro, filigrana de ouro, aço azulado, gemas, aparência de armadura e relicário, brilho quente. Folha de elementos de interface para um jogo de tática por turnos de fantasia (nível Tactics Ogre Reborn / Final Fantasy Tactics Ivalice Chronicles), MUITO ESTILIZADA, ornamentada, com personalidade, aparência de arte pintada à mão de jogo premium, não minimalista. SEM NENHUM TEXTO nem letras em lugar nenhum. Fundo liso cinza médio (#8a8a8a), cada peça separada com folga, alinhada em grade, imagem 16:9 de alta resolução. Peças: (1) painel grande com moldura ornamentada e cantos trabalhados; (2) moldura de retrato de personagem; (3) menu de comandos vertical com 5 botões em estados normal, foco (brilhando) e desativado; (4) botão primário largo em 3 estados e botão secundário; (5) barra de vida e barra de MP com moldura ornamentada, vazia e cheia; (6) 8 ícones de habilidade: espada, escudo, bota, arco, magia, cura, ampulheta, estrela; (7) aba de fila de turnos com brasão; (8) cursor de seleção e marcadores de casa azul e vermelha; (9) divisor ornamentado de seção. Mesma linguagem visual em todas as peças.",
+          "good": "Nenhum texto escapou; muito ornamentada; todas as peças pedidas, com os 3 estados distinguíveis; resolução maior que a do Gemini.",
+          "bad": "Peças coladas, algumas se tocam; fundo cinza com degradê, não liso; menos alinhada em grade. O passo 2 (aplicar no jogo) não saiu: o plano grátis acabou (libera amanhã 20:42, segundo o aviso do ChatGPT)."
+        }
+      ]
+    },
+    {
+      "name": "Copilot (Microsoft)",
+      "plan": "conta do Fernando, grátis · saída 1536×1024 (3:2, não 16:9) · agente: eu mesmo, pelo Chrome · limite mensal de imagens atingido na madrugada de 15/11",
+      "tests": [
+        {
+          "file": "copilot-ui-ouro.png",
+          "title": "Elementos estilizados · Ouro e couro",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/b1833dae-16fe-4cb4-b126-7c544289c414",
+          "prompt": "Crie uma imagem 16:9. Folha de elementos de interface (UI kit) para um jogo de tática por turnos de fantasia, estilo OURO E COURO: couro escuro, filigrana de ouro, aço azulado, gemas, arte pintada à mão de jogo premium. SEM NENHUM TEXTO nem letras. Fundo liso cinza médio (#8a8a8a), cada peça separada com folga, alinhada em grade. Peças: (1) painel grande com moldura ornamentada; (2) moldura de retrato de personagem; (3) menu de comandos vertical com 5 botões em estados normal, foco (brilhando) e desativado; (4) botão primário largo em 3 estados e botão secundário; (5) barra de vida e barra de MP com moldura, vazia e cheia; (6) 8 ícones de habilidade: espada, escudo, bota, arco, magia, cura, ampulheta, estrela; (7) aba de fila de turnos com brasão; (8) cursor de seleção e marcadores de casa azul e vermelha; (9) divisor ornamentado. Mesma linguagem visual em todas as peças.",
+          "good": "Sem texto; ícones muito bons (espada, escudo, bota, arco, magia, cura, ampulheta, estrela); barras com gema; retratos de personagens de bônus; marcadores azul e vermelho; 3 estados de botão legíveis.",
+          "bad": "Saiu 3:2 em vez de 16:9; painel e moldura enormes e vazios; muito ornamentada (mesmo problema do Gemini). O passo 2 (aplicar no jogo) não rodou: o Copilot pediu aceitar um termo sobre imagens com pessoas ao anexar a captura; fica para o Fernando decidir."
+        },
+        {
+          "file": "copilot-loop-0-ouro-aplicado.png",
+          "title": "Aplicado sobre o jogo · Ouro e couro",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/ad5811f3-c162-4e2e-9a6a-0e6d6f8cc9b1",
+          "prompt": "Anexos: copilot-ui-ouro.png + cena-colina.jpg. A primeira imagem é uma folha de elementos de interface de um jogo de tática por turnos; a segunda é uma captura 1920x1080 do jogo. Monte a interface de batalha sobre a captura usando SOMENTE os elementos da folha, e mantenha tudo PEQUENO como no Final Fantasy Tactics: a interface inteira ocupa no máximo 20% da tela. NÃO altere a cena da captura: mesmo enquadramento, zoom e grade; só desenhe a interface por cima. Posições: fila de turnos em coluna estreita na borda esquerda (5% da largura; Aria agora, Lacaio, Tess, Odo, Acólito); ficha da Aria (Guerreira, VIDA 42/42, MP 8/12) no canto inferior esquerdo (35% x 18%); menu Mover, Agir, Esperar, Status no canto inferior direito (22% x 30%); prévia Golpe pesado, -19 a 26, 75% de acerto, com Lacaio de osso VIDA 31/38, numa faixa baixa e discreta. Use exatamente esses números. 16:9, maior resolução possível.",
+          "good": "Interface fiel à folha, nas posições do FFT (fila com retratos, ficha, menu com foco azul, prévia); textos e números em português certos; interface pequena.",
+          "bad": "A cena foi recortada e reenquadrada em 3:2 (perdeu parte da grade e dos lados); mais ornamentada e densa que o FFT Clássico."
+        },
+        {
+          "file": "copilot-fft-1-paineis.png",
+          "title": "Elementos FFT Clássico · 1 Painéis",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/f4604fd5-02f0-46b1-b311-c88760c887c9",
+          "prompt": "Anexo: gemini-fft-classico.png. A imagem anexada é só referência de ESTILO (não copie o layout): Final Fantasy Tactics clássico de PlayStation, janelas com degradê azul-marinho escuro, borda fina branca com leve relevo, cantos retos, texto branco serifado sóbrio, destaque amarelo no foco, retratos pequenos, retrô limpo em alta resolução. Crie uma FOLHA DE ELEMENTOS DE INTERFACE nesse estilo para um jogo de tática por turnos no PC, imagem 16:9, fundo liso cinza médio (#8a8a8a), cada peça separada das outras com folga, alinhada em grade, rótulos curtos em português. Mesma linguagem visual em todas as peças. Peças: (1) painel base grande, retangular; (2) painel pequeno; (3) painel médio com cabeçalho; (4) faixa de título de seção com o texto \"Habilidades\"; (5) faixa de título de seção com o texto \"Inventário\"; (6) divisor horizontal fino; (7) marcadores de lista. Sem personagens nem cenário.",
+          "good": "Estilo FFT Clássico fiel: degradê azul-marinho, borda fina clara, faixas de título, divisor e marcadores de lista (bolinhas, setas, caixas) bem feitos; rótulos em português.",
+          "bad": "Só os painéis (grupo 1 de 12); os painéis saem vazios; os rótulos \"(1) Painel base\" ficam dentro da imagem."
+        },
+        {
+          "file": "copilot-fft-2-ficha.png",
+          "title": "Elementos FFT Clássico · 2 Ficha da unidade",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/6d957b6d-c75a-46f0-bd07-5bd1ee249d01",
+          "prompt": "Anexo: gemini-fft-classico.png. A imagem anexada é só referência de ESTILO (não copie o layout): Final Fantasy Tactics clássico de PlayStation, janelas com degradê azul-marinho escuro, borda fina branca com leve relevo, cantos retos, texto branco serifado sóbrio, destaque amarelo no foco, retratos pequenos, retrô limpo em alta resolução. Crie uma FOLHA DE ELEMENTOS DE INTERFACE nesse estilo para um jogo de tática por turnos no PC, imagem 16:9, fundo liso cinza médio (#8a8a8a), cada peça separada das outras com folga, alinhada em grade, rótulos curtos em português. Mesma linguagem visual em todas as peças. Peças: (1) ficha da unidade ativa, painel largo e baixo, com retrato quadrado pequeno de uma guerreira à esquerda, nome \"Aria\", classe \"Guerreira\", \"Nv. 3\", linha \"VIDA 42/42\" com barra vermelha, linha \"MP 8/12\" com barra azul e linha \"CT 60/100\" com barra amarela; (2) as barras de vida e de MP ampliadas em 4 versões: cheia, vazia, pela metade e com faixa clara de dano (previsão de perda) na ponta; (3) ficha compacta de um inimigo (Lacaio de osso, VIDA 31/38) com retrato de caveira. Sem cenário.",
+          "good": "Ficha da Aria com retrato em pixel art, VIDA 42/42, MP 8/12, CT 60/100 e barras corretas; barras em 4 versões (cheia, metade, vazia, previsão de dano); ficha compacta do Lacaio de osso; texto em português certo.",
+          "bad": "Retrato da Aria sem moldura de classe; rótulos \"(1)\", \"(2)\" dentro da imagem; barras de dano só aparecem como faixa clara pequena."
+        },
+        {
+          "file": "copilot-fft-3-menu.png",
+          "title": "Elementos FFT Clássico · 3 Menu e submenu",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/ccaf6ef0-745f-495a-8b81-6876fb98dde2",
+          "prompt": "Anexo: gemini-fft-classico.png. A imagem anexada é só referência de ESTILO (não copie o layout): Final Fantasy Tactics clássico de PlayStation, janelas com degradê azul-marinho escuro, borda fina branca com leve relevo, cantos retos, texto branco serifado sóbrio, destaque amarelo no foco, retratos pequenos, retrô limpo em alta resolução. Crie uma FOLHA DE ELEMENTOS DE INTERFACE nesse estilo para um jogo de tática por turnos no PC, imagem 16:9, fundo liso cinza médio (#8a8a8a), cada peça separada das outras com folga, alinhada em grade, rótulos curtos em português. Mesma linguagem visual em todas as peças. Peças: (1) menu de comandos vertical, painel pequeno com cabeçalho \"Aria\" e 5 linhas com ícone redondo pequeno: Mover, Agir, Esperar, Status e Magia (desativada, cinza apagada); (2) a mesma linha de menu mostrada em 4 estados lado a lado, cada um rotulado: normal, foco (faixa clara e mão branca apontando), selecionado (destaque amarelo) e desativado; (3) submenu de habilidades, painel mais largo, com colunas nome e custo: Golpe pesado 0, Escudada 2 MP, Cura 4 MP, Bola de fogo 6 MP, com uma linha em foco com mão apontando e uma linha desativada por falta de MP; (4) pequena etiqueta de custo \"6 MP\". Sem cenário.",
+          "good": "Menu com ícones redondos e foco; 4 estados da linha (normal, foco com mão, selecionado amarelo, desativado) bem legíveis; submenu com custo em MP e mão apontando; mão e ícones no estilo FFT.",
+          "bad": "No menu principal a linha em foco não aparece; no submenu o foco cai em Escudada e a desativada (Bola de fogo) é só mais apagada; rótulos numerados dentro da imagem."
+        },
+        {
+          "file": "copilot-ref-retratos-1-folha.png",
+          "title": "Rostos em pixel art · os 10 bonecos no traço dos retratos do FFT Clássico (sem fotos do KayKit)",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/6ef32d77-3279-46a4-9484-c9ac81343ee8",
+          "attached": "ref-retratos-fft.png (11 retratos recortados das imagens FFT Clássico: fila Aria, Lacaio, Tess, Odo, Acólito; ficha da Aria; Lacaio e atacante/alvo da prévia; retrato da coluna)",
+          "prompt": "Crie uma imagem. A imagem anexada mostra 11 retratos de diálogo em pixel art, recortados de uma interface de jogo tático. Copie EXATAMENTE este traço: pixel art de 16 bits estilo Final Fantasy Tactics de PS1, busto de 3/4 virado para a direita, contorno escuro fino, sombreamento suave em 3 a 4 tons, olhos grandes amendoados com brilho, nariz pequeno, pele pêssego, fundo azul-acinzentado liso dentro de uma moldura fina. NÃO copie os personagens, só o estilo.\n\nFaça uma folha com 10 retratos novos nesse estilo, 2 linhas de 5, com o nome embaixo de cada um:\n1. Bárbaro: homem forte de barba cinza cheia, usando um gorro de pele de urso marrom com orelhas, ombreira de pele.\n2. Cavaleiro: homem de rosto quadrado sob um elmo fechado cinza-aço prateado com viseira levantada, gola de cota de malha.\n3. Lanceiro: jovem com elmo azul-petróleo de crista vermelha, rosto sério, gola alta.\n4. Maga: mulher de cabelo preto liso, chapéu pontudo roxo de bruxa com faixa laranja, olhar confiante.\n5. Arqueira: mulher ruiva de trança, capa vermelha com capuz caído nos ombros.\n6. Ladino: rosto magro meio coberto por um capuz verde, sorriso de canto, lenço no pescoço.\n7. Esqueleto mago: caveira com chapéu pontudo vinho e olhos amarelos brilhando nas órbitas.\n8. Lacaio de osso: caveira simples com lenço laranja no pescoço.\n9. Esqueleto ladino: caveira sob um capuz vinho, órbitas com brilho fraco.\n10. Esqueleto guerreiro: caveira com elmo de chifres e lenço vermelho.\nFundo geral cinza escuro, sem outro texto.",
+          "good": "Primeira no traço pedido: fundo azul-acinzentado, busto de 3/4 para a direita, olhos amendoados e sombreamento dos retratos da Aria; personagens só pela descrição em texto, todos reconhecíveis; nomes certos.",
+          "bad": "Placas de nome bege em vez da moldura fina da referência; saiu 3:2."
+        },
+        {
+          "file": "copilot-ref-retratos-2-barbaro.png",
+          "title": "Expressões · Bárbaro (traço FFT Clássico)",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/6ef32d77-3279-46a4-9484-c9ac81343ee8",
+          "prompt": "Crie uma imagem. Agora faça uma folha de EXPRESSÕES do Bárbaro (homem de barba cinza cheia com gorro de pele de urso marrom), no MESMO traço exato da folha anterior e dos retratos anexados no início: pixel art 16 bits estilo Final Fantasy Tactics, busto de 3/4 virado para a direita, mesmo fundo azul-acinzentado e moldura. Mesmo personagem, mesmo enquadramento, mudando SÓ o rosto. 8 quadros em 2 linhas de 4, rótulo embaixo de cada um: Neutro; Falando (boca entreaberta); Falando (boca bem aberta); Gritando ao atacar (boca escancarada, sobrancelhas franzidas); Tomando dano (olhos fechados apertados, dentes cerrados, cabeça recuando); Ferido (olhos semicerrados, gota de suor); Sorrindo; Bravo. Fundo geral cinza escuro, sem outro texto.",
+          "good": "8 quadros com o mesmo rosto; boca entreaberta, aberta e grito em graus (serve para animar fala); dano com dentes cerrados, ferido com gota de suor, sorriso e bravo distintos.",
+          "bad": "Rótulos sem o detalhe entre parênteses (dois \"Falando\"); placas bege."
+        },
+        {
+          "file": "copilot-ref-retratos-3-cavaleiro.png",
+          "title": "Expressões · Cavaleiro (traço FFT Clássico)",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/6ef32d77-3279-46a4-9484-c9ac81343ee8",
+          "prompt": "Crie uma imagem. Agora faça uma folha de EXPRESSÕES do Cavaleiro (homem de rosto quadrado sob elmo cinza-aço prateado com viseira levantada), no MESMO traço exato da folha anterior e dos retratos anexados no início: pixel art 16 bits estilo Final Fantasy Tactics, busto de 3/4 virado para a direita, mesmo fundo azul-acinzentado e moldura. Mesmo personagem, mesmo enquadramento, mudando SÓ o rosto. 8 quadros em 2 linhas de 4, rótulo embaixo de cada um: Neutro; Falando (boca entreaberta); Falando (boca bem aberta); Gritando ao atacar (boca escancarada, sobrancelhas franzidas); Tomando dano (olhos fechados apertados, dentes cerrados, cabeça recuando); Ferido (olhos semicerrados, gota de suor); Sorrindo; Bravo. Fundo geral cinza escuro, sem outro texto.",
+          "good": "Mesmo rosto e elmo em todos; bocas em graus claros, careta de dano com dentes cerrados, gota de suor no ferido.",
+          "bad": "Rótulos sem o detalhe entre parênteses; placas bege."
+        },
+        {
+          "file": "copilot-ref-retratos-4-lanceiro.png",
+          "title": "Expressões · Lanceiro (traço FFT Clássico)",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/6ef32d77-3279-46a4-9484-c9ac81343ee8",
+          "prompt": "Crie uma imagem. Agora faça uma folha de EXPRESSÕES do Lanceiro (jovem com elmo azul-petróleo de crista vermelha), no MESMO traço exato da folha anterior e dos retratos anexados no início: pixel art 16 bits estilo Final Fantasy Tactics, busto de 3/4 virado para a direita, mesmo fundo azul-acinzentado e moldura. Mesmo personagem, mesmo enquadramento, mudando SÓ o rosto. 8 quadros em 2 linhas de 4, rótulo embaixo de cada um: Neutro; Falando (boca entreaberta); Falando (boca bem aberta); Gritando ao atacar (boca escancarada, sobrancelhas franzidas); Tomando dano (olhos fechados apertados, dentes cerrados, cabeça recuando); Ferido (olhos semicerrados, gota de suor); Sorrindo; Bravo. Fundo geral cinza escuro, sem outro texto.",
+          "good": "Mesmo rosto, elmo e crista em todos; bocas em graus, careta de dano, suor no ferido.",
+          "bad": "Rótulos sem o detalhe entre parênteses; placas bege."
+        },
+        {
+          "file": "copilot-ref-retratos-5-maga.png",
+          "title": "Expressões · Maga (traço FFT Clássico)",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/6ef32d77-3279-46a4-9484-c9ac81343ee8",
+          "prompt": "Crie uma imagem. Agora faça uma folha de EXPRESSÕES do Maga (mulher de cabelo preto liso com chapéu pontudo roxo de bruxa de faixa laranja), no MESMO traço exato da folha anterior e dos retratos anexados no início: pixel art 16 bits estilo Final Fantasy Tactics, busto de 3/4 virado para a direita, mesmo fundo azul-acinzentado e moldura. Mesmo personagem, mesmo enquadramento, mudando SÓ o rosto. 8 quadros em 2 linhas de 4, rótulo embaixo de cada um: Neutro; Falando (boca entreaberta); Falando (boca bem aberta); Gritando ao atacar (boca escancarada, sobrancelhas franzidas); Tomando dano (olhos fechados apertados, dentes cerrados, cabeça recuando); Ferido (olhos semicerrados, gota de suor); Sorrindo; Bravo. Fundo geral cinza escuro, sem outro texto.",
+          "good": "Mesmo rosto e chapéu em todos; bocas em graus, careta de dano com um olho fechado, suor no ferido.",
+          "bad": "Chapéu corta o topo do quadro; rótulos sem o detalhe entre parênteses; placas bege."
+        },
+        {
+          "file": "copilot-ref-retratos-6-arqueira.png",
+          "title": "Expressões · Arqueira (traço FFT Clássico)",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/6ef32d77-3279-46a4-9484-c9ac81343ee8",
+          "prompt": "Crie uma imagem. Agora faça uma folha de EXPRESSÕES do Arqueira (mulher ruiva de trança com capa vermelha), no MESMO traço exato da folha anterior e dos retratos anexados no início: pixel art 16 bits estilo Final Fantasy Tactics, busto de 3/4 virado para a direita, mesmo fundo azul-acinzentado e moldura. Mesmo personagem, mesmo enquadramento, mudando SÓ o rosto. 8 quadros em 2 linhas de 4, rótulo embaixo de cada um: Neutro; Falando (boca entreaberta); Falando (boca bem aberta); Gritando ao atacar (boca escancarada, sobrancelhas franzidas); Tomando dano (olhos fechados apertados, dentes cerrados, cabeça recuando); Ferido (olhos semicerrados, gota de suor); Sorrindo; Bravo. Fundo geral cinza escuro, sem outro texto.",
+          "good": "A mais próxima da Aria da referência; mesmo rosto em todos; bocas em graus, careta de dano, suor no ferido.",
+          "bad": "Rótulos sem o detalhe entre parênteses; placas bege."
+        },
+        {
+          "file": "copilot-ref-retratos-7-ladino.png",
+          "title": "Expressões · Ladino (traço FFT Clássico)",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/6ef32d77-3279-46a4-9484-c9ac81343ee8",
+          "prompt": "Crie uma imagem. Agora faça uma folha de EXPRESSÕES do Ladino (rosto magro sob capuz verde, lenço no pescoço), no MESMO traço exato da folha anterior e dos retratos anexados no início: pixel art 16 bits estilo Final Fantasy Tactics, busto de 3/4 virado para a direita, mesmo fundo azul-acinzentado e moldura. Mesmo personagem, mesmo enquadramento, mudando SÓ o rosto. 8 quadros em 2 linhas de 4, rótulo embaixo de cada um: Neutro; Falando (boca entreaberta); Falando (boca bem aberta); Gritando ao atacar (boca escancarada, sobrancelhas franzidas); Tomando dano (olhos fechados apertados, dentes cerrados, cabeça recuando); Ferido (olhos semicerrados, gota de suor); Sorrindo; Bravo. Fundo geral cinza escuro, sem outro texto.",
+          "good": "Mesmo rosto e capuz em todos; bocas em graus, careta de dano, suor no ferido, sorriso de canto.",
+          "bad": "Rosto saiu feminino e jovem, sem o ar de malandro; rótulos sem parênteses; placas bege."
+        },
+        {
+          "file": "copilot-ref-retratos-8-esqueleto-mago.png",
+          "title": "Expressões · Esqueleto mago (traço FFT Clássico)",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/6ef32d77-3279-46a4-9484-c9ac81343ee8",
+          "prompt": "Crie uma imagem. Agora faça uma folha de EXPRESSÕES do Esqueleto mago (caveira com chapéu pontudo vinho e olhos amarelos brilhando; num rosto de caveira a expressão vem da mandíbula aberta ou fechada, do brilho e do formato dos olhos e da inclinação da cabeça), no MESMO traço exato da folha anterior e dos retratos anexados no início: pixel art 16 bits estilo Final Fantasy Tactics, busto de 3/4 virado para a direita, mesmo fundo azul-acinzentado e moldura. Mesmo personagem, mesmo enquadramento, mudando SÓ o rosto. 8 quadros em 2 linhas de 4, rótulo embaixo de cada um: Neutro; Falando (boca entreaberta); Falando (boca bem aberta); Gritando ao atacar (boca escancarada, sobrancelhas franzidas); Tomando dano (olhos fechados apertados, dentes cerrados, cabeça recuando); Ferido (olhos semicerrados, gota de suor); Sorrindo; Bravo. Fundo geral cinza escuro, sem outro texto.",
+          "good": "Expressão em caveira resolvida: mandíbula em graus, olhos em > < no dano, olhos semicerrados no ferido e bravo; mesmo chapéu em todos.",
+          "bad": "Gota de suor numa caveira; rótulos sem parênteses; placas bege."
+        },
+        {
+          "file": "copilot-ref-retratos-9-lacaio-de-osso.png",
+          "title": "Expressões · Lacaio de osso (traço FFT Clássico)",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/6ef32d77-3279-46a4-9484-c9ac81343ee8",
+          "prompt": "Crie uma imagem. Agora faça uma folha de EXPRESSÕES do Lacaio de osso (caveira simples com lenço laranja; a expressão vem da mandíbula, das órbitas e da inclinação da cabeça), no MESMO traço exato da folha anterior e dos retratos anexados no início: pixel art 16 bits estilo Final Fantasy Tactics, busto de 3/4 virado para a direita, mesmo fundo azul-acinzentado e moldura. Mesmo personagem, mesmo enquadramento, mudando SÓ o rosto. 8 quadros em 2 linhas de 4, rótulo embaixo de cada um: Neutro; Falando (boca entreaberta); Falando (boca bem aberta); Gritando ao atacar (boca escancarada, sobrancelhas franzidas); Tomando dano (olhos fechados apertados, dentes cerrados, cabeça recuando); Ferido (olhos semicerrados, gota de suor); Sorrindo; Bravo. Fundo geral cinza escuro, sem outro texto.",
+          "good": "Mandíbula em graus bem legível; órbitas em > no dano e inclinadas no bravo; mesmo lenço em todos.",
+          "bad": "Brilho amarelo aparece só no Sorrindo (incoerente); gota de suor numa caveira; placas bege."
+        },
+        {
+          "file": "copilot-ref-retratos-10-esqueleto-ladino.png",
+          "title": "Expressões · Esqueleto ladino (traço FFT Clássico)",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/6ef32d77-3279-46a4-9484-c9ac81343ee8",
+          "prompt": "Crie uma imagem. Agora faça uma folha de EXPRESSÕES do Esqueleto ladino (caveira sob capuz vinho com brilho fraco nas órbitas; a expressão vem da mandíbula, do brilho e da inclinação da cabeça), no MESMO traço exato da folha anterior e dos retratos anexados no início: pixel art 16 bits estilo Final Fantasy Tactics, busto de 3/4 virado para a direita, mesmo fundo azul-acinzentado e moldura. Mesmo personagem, mesmo enquadramento, mudando SÓ o rosto. 8 quadros em 2 linhas de 4, rótulo embaixo de cada um: Neutro; Falando (boca entreaberta); Falando (boca bem aberta); Gritando ao atacar (boca escancarada, sobrancelhas franzidas); Tomando dano (olhos fechados apertados, dentes cerrados, cabeça recuando); Ferido (olhos semicerrados, gota de suor); Sorrindo; Bravo. Fundo geral cinza escuro, sem outro texto.",
+          "good": "Mesmo capuz e brilho em todos; mandíbula em graus; olhos em traço no dano e inclinados no bravo.",
+          "bad": "Gota de suor numa caveira; rótulos sem parênteses; placas bege."
+        },
+        {
+          "file": "copilot-ref-retratos-11-esqueleto-guerreiro.png",
+          "title": "Expressões · Esqueleto guerreiro (traço FFT Clássico)",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/6ef32d77-3279-46a4-9484-c9ac81343ee8",
+          "prompt": "Crie uma imagem. Agora faça uma folha de EXPRESSÕES do Esqueleto guerreiro (caveira com elmo de chifres e lenço vermelho; a expressão vem da mandíbula, das órbitas e da inclinação da cabeça), no MESMO traço exato da folha anterior e dos retratos anexados no início: pixel art 16 bits estilo Final Fantasy Tactics, busto de 3/4 virado para a direita, mesmo fundo azul-acinzentado e moldura. Mesmo personagem, mesmo enquadramento, mudando SÓ o rosto. 8 quadros em 2 linhas de 4, rótulo embaixo de cada um: Neutro; Falando (boca entreaberta); Falando (boca bem aberta); Gritando ao atacar (boca escancarada, sobrancelhas franzidas); Tomando dano (olhos fechados apertados, dentes cerrados, cabeça recuando); Ferido (olhos semicerrados, gota de suor); Sorrindo; Bravo. Fundo geral cinza escuro, sem outro texto.",
+          "good": "Mesmo elmo e lenço em todos; mandíbula em graus; olhos em > < no dano.",
+          "bad": "Brilho amarelo só em Sorrindo e Bravo (incoerente); gota de suor numa caveira; placas bege."
+        },
+        {
+          "file": "copilot-sprite-1-cavaleiro.png",
+          "title": "Sprite sheet · Cavaleiro chibi em pixel art (prova de conceito)",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/5940caa1-885d-4eb9-8c91-e75ddd6ae2c5",
+          "prompt": "Crie uma imagem: uma sprite sheet de pixel art para um jogo de tática por turnos isométrico no estilo Final Fantasy Tactics de PlayStation 1.\n\nPersonagem: Cavaleiro chibi (cabeça grande, corpo de 2 cabeças e meia de altura), elmo fechado cinza-aço prateado com viseira, armadura de placas cinza, capa azul-marinho curta, espada longa na mão direita e escudo redondo azul na esquerda.\n\nTodos os quadros com o personagem virado na diagonal para baixo e para a esquerda (visão isométrica de 3/4, como as unidades do FFT), do mesmo tamanho, alinhados pelos pés numa grade regular, sem sobreposição.\nLinha 1: parado respirando, 4 quadros.\nLinha 2: andando, 6 quadros (ciclo completo de passos).\nLinha 3: ataque com espada, 5 quadros (preparo, golpe, seguimento, volta).\nLinha 4: tomando dano (recuo) 2 quadros, ajoelhado ferido 1 quadro, caído no chão 1 quadro.\n\nPixel art limpo de 16 bits, contorno escuro de 1 pixel, paleta limitada, sem anti-aliasing, sem desfoque. Fundo de cor única magenta puro (#FF00FF) liso, sem chão, sem sombra, sem texto, sem números.",
+          "good": "Grade regular com exatamente os quadros pedidos (4 parado, 6 andando, 5 ataque, 4 dano e queda); fundo magenta liso que sai fácil; personagem idêntico em todos os quadros; traço de 16 bits limpo, perto das unidades do FFT.",
+          "bad": "Virado para baixo e para a direita, não para a esquerda; franja rosada em volta do contorno ao tirar o fundo; quadros grandes (~200 px), precisam ser reduzidos para o tamanho do jogo."
+        },
+        {
+          "file": "copilot-sprite-1-cavaleiro-anim.gif",
+          "title": "Animação · Cavaleiro recortado da sprite sheet (prova de conceito)",
+          "size": "1176×242",
+          "link": "https://copilot.com/chat/conversation/5940caa1-885d-4eb9-8c91-e75ddd6ae2c5",
+          "prompt": "Sem prompt: GIF montado por script (fatiar.py) a partir da sprite sheet copilot-sprite-1-cavaleiro.png. Tira o fundo magenta, corta cada quadro pelas faixas vazias, alinha pelo pé e anima as 4 linhas lado a lado a 160 ms por quadro: parado, andando, atacando, dano e queda.",
+          "good": "Prova que a folha vira animação sem retoque: o script cortou os 19 quadros sozinho e o ciclo de andar fecha bem.",
+          "bad": "Parado quase não se mexe; franja rosada no contorno; precisa de redução e de paleta fixa para entrar no jogo."
+        },
+        {
+          "file": "copilot-sprite-2-maga.png",
+          "title": "Sprite sheet · Maga chibi em pixel art (prova de conceito)",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/5940caa1-885d-4eb9-8c91-e75ddd6ae2c5",
+          "prompt": "Crie uma imagem: outra sprite sheet no MESMO estilo, escala e grade da sprite sheet do Cavaleiro que você acabou de fazer (pixel art de 16 bits, chibi estilo Final Fantasy Tactics de PS1, fundo magenta puro #FF00FF liso).\n\nPersonagem: Maga chibi de cabelo preto liso comprido, chapéu pontudo roxo de bruxa com faixa laranja, túnica roxa longa, cajado de madeira com cristal azul na ponta.\n\nTodos os quadros com o personagem virado na diagonal, olhando para o canto inferior ESQUERDO da imagem (visão isométrica de 3/4), do mesmo tamanho, alinhados pelos pés, sem sobreposição e com espaço entre eles.\nLinha 1: parado respirando, 4 quadros.\nLinha 2: andando, 6 quadros (ciclo completo de passos).\nLinha 3: lançando magia com o cajado (ergue o cajado, brilho azul no cristal, aponta para frente, volta), 5 quadros.\nLinha 4: tomando dano (recuo) 2 quadros, ajoelhado ferido 1 quadro, caído no chão 1 quadro.\n\nContorno escuro de 1 pixel, paleta limitada, sem anti-aliasing, sem sombra, sem chão, sem texto, sem números.",
+          "good": "Virada para a esquerda como pedido; mesma escala e grade do Cavaleiro; magia com brilho azul no cristal; queda com o chapéu caindo.",
+          "bad": "Brilho da magia solto do corpo (o script precisou juntar); andar com pouca variação de pernas por causa da túnica."
+        },
+        {
+          "file": "copilot-sprite-2-maga-anim.gif",
+          "title": "Animação · Maga recortada da sprite sheet (prova de conceito)",
+          "size": "1168×227",
+          "link": "https://copilot.com/chat/conversation/5940caa1-885d-4eb9-8c91-e75ddd6ae2c5",
+          "prompt": "Sem prompt: GIF montado por script (fatiar.py) a partir da sprite sheet copilot-sprite-2-maga.png. Tira o fundo magenta, corta cada quadro pelas faixas vazias, alinha pelo pé e anima as 4 linhas lado a lado a 160 ms por quadro: parado, andando, atacando, dano e queda.",
+          "good": "Ciclo de magia legível (ergue, brilha, aponta, volta); escala igual à do Cavaleiro, então os dois podem dividir o mesmo mapa.",
+          "bad": "Franja rosada no contorno; parado quase sem movimento."
+        },
+        {
+          "file": "copilot-sprite-3-esqueleto-guerreiro.png",
+          "title": "Sprite sheet · Esqueleto guerreiro chibi em pixel art (prova de conceito)",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/5940caa1-885d-4eb9-8c91-e75ddd6ae2c5",
+          "prompt": "Crie uma imagem: outra sprite sheet no MESMO estilo, escala e grade da sprite sheet do Cavaleiro que você acabou de fazer (pixel art de 16 bits, chibi estilo Final Fantasy Tactics de PS1, fundo magenta puro #FF00FF liso).\n\nPersonagem: Esqueleto guerreiro chibi: caveira cor de osso com elmo de ferro com dois chifres curvos, lenço vermelho no pescoço, ombreiras de ferro, machado de uma mão e escudo de madeira.\n\nTodos os quadros com o personagem virado na diagonal, olhando para o canto inferior ESQUERDO da imagem (visão isométrica de 3/4), do mesmo tamanho, alinhados pelos pés, sem sobreposição e com espaço entre eles.\nLinha 1: parado respirando, 4 quadros.\nLinha 2: andando, 6 quadros (ciclo completo de passos).\nLinha 3: ataque com o machado (preparo, golpe de cima para baixo, seguimento, volta), 5 quadros.\nLinha 4: tomando dano (recuo) 2 quadros, ajoelhado ferido 1 quadro, caído no chão 1 quadro.\n\nContorno escuro de 1 pixel, paleta limitada, sem anti-aliasing, sem sombra, sem chão, sem texto, sem números.",
+          "good": "Elmo de chifres, lenço vermelho, machado e escudo fiéis à descrição; golpe de cima para baixo bem marcado; queda com o elmo rolando.",
+          "bad": "Capa vermelha que não foi pedida; franja rosada ao tirar o fundo."
+        },
+        {
+          "file": "copilot-sprite-3-esqueleto-guerreiro-anim.gif",
+          "title": "Animação · Esqueleto guerreiro chibi recortado da sprite sheet (prova de conceito)",
+          "size": "1244×251",
+          "link": "https://copilot.com/chat/conversation/5940caa1-885d-4eb9-8c91-e75ddd6ae2c5",
+          "prompt": "Sem prompt: GIF montado por script (fatiar.py) a partir da sprite sheet copilot-sprite-3-esqueleto-guerreiro.png. Tira o fundo magenta, corta cada quadro pelas faixas vazias, alinha pelo pé e anima as 4 linhas lado a lado a 160 ms por quadro: parado, andando, atacando, dano e queda.",
+          "good": "Cortado e animado pelo script sem retoque; mesma escala dos outros bonecos.",
+          "bad": "Franja rosada no contorno; precisa reduzir e fixar a paleta para entrar no jogo."
+        },
+        {
+          "file": "copilot-sprite-4-arqueira.png",
+          "title": "Sprite sheet · Arqueira chibi em pixel art (prova de conceito)",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/5940caa1-885d-4eb9-8c91-e75ddd6ae2c5",
+          "prompt": "Crie uma imagem: outra sprite sheet no MESMO estilo, escala e grade da sprite sheet do Cavaleiro que você acabou de fazer (pixel art de 16 bits, chibi estilo Final Fantasy Tactics de PS1, fundo magenta puro #FF00FF liso).\n\nPersonagem: Arqueira chibi ruiva de trança, capa vermelha com capuz caído, túnica verde-oliva, arco longo de madeira e aljava nas costas.\n\nTodos os quadros com o personagem virado na diagonal, olhando para o canto inferior ESQUERDO da imagem (visão isométrica de 3/4), do mesmo tamanho, alinhados pelos pés, sem sobreposição e com espaço entre eles.\nLinha 1: parado respirando, 4 quadros.\nLinha 2: andando, 6 quadros (ciclo completo de passos).\nLinha 3: atirando com o arco (pega a flecha, puxa a corda, solta, volta), 5 quadros.\nLinha 4: tomando dano (recuo) 2 quadros, ajoelhado ferido 1 quadro, caído no chão 1 quadro.\n\nContorno escuro de 1 pixel, paleta limitada, sem anti-aliasing, sem sombra, sem chão, sem texto, sem números.",
+          "good": "Ruiva de trança, capa vermelha e aljava fiéis; tiro em 5 tempos com a flecha saindo do arco; virada para a esquerda.",
+          "bad": "Flecha do quadro 3 é um pedaço solto (o script junta); franja rosada."
+        },
+        {
+          "file": "copilot-sprite-4-arqueira-anim.gif",
+          "title": "Animação · Arqueira chibi recortado da sprite sheet (prova de conceito)",
+          "size": "1180×244",
+          "link": "https://copilot.com/chat/conversation/5940caa1-885d-4eb9-8c91-e75ddd6ae2c5",
+          "prompt": "Sem prompt: GIF montado por script (fatiar.py) a partir da sprite sheet copilot-sprite-4-arqueira.png. Tira o fundo magenta, corta cada quadro pelas faixas vazias, alinha pelo pé e anima as 4 linhas lado a lado a 160 ms por quadro: parado, andando, atacando, dano e queda.",
+          "good": "Cortado e animado pelo script sem retoque; mesma escala dos outros bonecos.",
+          "bad": "Franja rosada no contorno; precisa reduzir e fixar a paleta para entrar no jogo."
+        },
+        {
+          "file": "copilot-sprite-5-barbaro.png",
+          "title": "Sprite sheet · Bárbaro chibi em pixel art (prova de conceito)",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/5940caa1-885d-4eb9-8c91-e75ddd6ae2c5",
+          "prompt": "Crie uma imagem: outra sprite sheet no MESMO estilo, escala e grade da sprite sheet do Cavaleiro que você acabou de fazer (pixel art de 16 bits, chibi estilo Final Fantasy Tactics de PS1, fundo magenta puro #FF00FF liso).\n\nPersonagem: Bárbaro chibi forte de barba cinza cheia, gorro de pele de urso marrom com orelhas, peito com tiras de couro, machado grande de duas mãos.\n\nTodos os quadros com o personagem virado na diagonal, olhando para o canto inferior ESQUERDO da imagem (visão isométrica de 3/4), do mesmo tamanho, alinhados pelos pés, sem sobreposição e com espaço entre eles.\nLinha 1: parado respirando, 4 quadros.\nLinha 2: andando, 6 quadros (ciclo completo de passos).\nLinha 3: ataque com o machado de duas mãos (ergue acima da cabeça, golpe, impacto, volta), 5 quadros.\nLinha 4: tomando dano (recuo) 2 quadros, ajoelhado ferido 1 quadro, caído no chão 1 quadro.\n\nContorno escuro de 1 pixel, paleta limitada, sem anti-aliasing, sem sombra, sem chão, sem texto, sem números.",
+          "good": "Gorro de urso, barba cinza e machado de duas mãos fiéis; golpe erguido acima da cabeça bem lido; queda com o gorro.",
+          "bad": "Parado com a mesma pose nos 4 quadros; franja rosada."
+        },
+        {
+          "file": "copilot-sprite-5-barbaro-anim.gif",
+          "title": "Animação · Bárbaro chibi recortado da sprite sheet (prova de conceito)",
+          "size": "1332×268",
+          "link": "https://copilot.com/chat/conversation/5940caa1-885d-4eb9-8c91-e75ddd6ae2c5",
+          "prompt": "Sem prompt: GIF montado por script (fatiar.py) a partir da sprite sheet copilot-sprite-5-barbaro.png. Tira o fundo magenta, corta cada quadro pelas faixas vazias, alinha pelo pé e anima as 4 linhas lado a lado a 160 ms por quadro: parado, andando, atacando, dano e queda.",
+          "good": "Cortado e animado pelo script sem retoque; mesma escala dos outros bonecos.",
+          "bad": "Franja rosada no contorno; precisa reduzir e fixar a paleta para entrar no jogo."
+        },
+        {
+          "file": "copilot-sprite-6-lanceiro.png",
+          "title": "Sprite sheet · Lanceiro chibi em pixel art (prova de conceito)",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/5940caa1-885d-4eb9-8c91-e75ddd6ae2c5",
+          "prompt": "Crie uma imagem: outra sprite sheet no MESMO estilo, escala e grade da sprite sheet do Cavaleiro que você acabou de fazer (pixel art de 16 bits, chibi estilo Final Fantasy Tactics de PS1, fundo magenta puro #FF00FF liso).\n\nPersonagem: Lanceiro chibi com elmo azul-petróleo de crista vermelha, armadura azul-petróleo, lança longa com ponta de aço.\n\nTodos os quadros com o personagem virado na diagonal, olhando para o canto inferior ESQUERDO da imagem (visão isométrica de 3/4), do mesmo tamanho, alinhados pelos pés, sem sobreposição e com espaço entre eles.\nLinha 1: parado respirando, 4 quadros.\nLinha 2: andando, 6 quadros (ciclo completo de passos).\nLinha 3: estocada com a lança (recua, avança, estocada, volta), 5 quadros.\nLinha 4: tomando dano (recuo) 2 quadros, ajoelhado ferido 1 quadro, caído no chão 1 quadro.\n\nContorno escuro de 1 pixel, paleta limitada, sem anti-aliasing, sem sombra, sem chão, sem texto, sem números.",
+          "good": "Elmo azul-petróleo com crista vermelha e lança longa fiéis; estocada com a lança toda esticada; queda com a lança no chão.",
+          "bad": "Elmo fechado esconde o rosto (o retrato mostra o rosto); capa vermelha não pedida; lanças quase encostam no quadro vizinho."
+        },
+        {
+          "file": "copilot-sprite-6-lanceiro-anim.gif",
+          "title": "Animação · Lanceiro chibi recortado da sprite sheet (prova de conceito)",
+          "size": "1392×232",
+          "link": "https://copilot.com/chat/conversation/5940caa1-885d-4eb9-8c91-e75ddd6ae2c5",
+          "prompt": "Sem prompt: GIF montado por script (fatiar.py) a partir da sprite sheet copilot-sprite-6-lanceiro.png. Tira o fundo magenta, corta cada quadro pelas faixas vazias, alinha pelo pé e anima as 4 linhas lado a lado a 160 ms por quadro: parado, andando, atacando, dano e queda.",
+          "good": "Cortado e animado pelo script sem retoque; mesma escala dos outros bonecos.",
+          "bad": "Franja rosada no contorno; precisa reduzir e fixar a paleta para entrar no jogo."
+        },
+        {
+          "file": "copilot-sprite-7-ladino.png",
+          "title": "Sprite sheet · Ladino chibi em pixel art (prova de conceito)",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/5940caa1-885d-4eb9-8c91-e75ddd6ae2c5",
+          "prompt": "Crie uma imagem: outra sprite sheet no MESMO estilo, escala e grade da sprite sheet do Cavaleiro que você acabou de fazer (pixel art de 16 bits, chibi estilo Final Fantasy Tactics de PS1, fundo magenta puro #FF00FF liso).\n\nPersonagem: Ladino chibi de capuz verde, lenço escuro no rosto até o nariz, roupa de couro marrom, duas adagas curtas.\n\nTodos os quadros com o personagem virado na diagonal, olhando para o canto inferior ESQUERDO da imagem (visão isométrica de 3/4), do mesmo tamanho, alinhados pelos pés, sem sobreposição e com espaço entre eles.\nLinha 1: parado respirando, 4 quadros.\nLinha 2: andando, 6 quadros (ciclo completo de passos).\nLinha 3: ataque com as adagas (agacha, salta para frente, corte duplo, volta), 5 quadros.\nLinha 4: tomando dano (recuo) 2 quadros, ajoelhado ferido 1 quadro, caído no chão 1 quadro.\n\nContorno escuro de 1 pixel, paleta limitada, sem anti-aliasing, sem sombra, sem chão, sem texto, sem números.",
+          "good": "Capuz verde, lenço no rosto e duas adagas fiéis; salto para frente no ataque dá leitura de agilidade.",
+          "bad": "Agachar do ataque quase igual ao parado; franja rosada."
+        },
+        {
+          "file": "copilot-sprite-7-ladino-anim.gif",
+          "title": "Animação · Ladino chibi recortado da sprite sheet (prova de conceito)",
+          "size": "1328×246",
+          "link": "https://copilot.com/chat/conversation/5940caa1-885d-4eb9-8c91-e75ddd6ae2c5",
+          "prompt": "Sem prompt: GIF montado por script (fatiar.py) a partir da sprite sheet copilot-sprite-7-ladino.png. Tira o fundo magenta, corta cada quadro pelas faixas vazias, alinha pelo pé e anima as 4 linhas lado a lado a 160 ms por quadro: parado, andando, atacando, dano e queda.",
+          "good": "Cortado e animado pelo script sem retoque; mesma escala dos outros bonecos.",
+          "bad": "Franja rosada no contorno; precisa reduzir e fixar a paleta para entrar no jogo."
+        },
+        {
+          "file": "copilot-sprite-8-esqueleto-mago.png",
+          "title": "Sprite sheet · Esqueleto mago chibi em pixel art (prova de conceito)",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/5940caa1-885d-4eb9-8c91-e75ddd6ae2c5",
+          "prompt": "Crie uma imagem: outra sprite sheet no MESMO estilo, escala e grade da sprite sheet do Cavaleiro que você acabou de fazer (pixel art de 16 bits, chibi estilo Final Fantasy Tactics de PS1, fundo magenta puro #FF00FF liso).\n\nPersonagem: Esqueleto mago chibi: caveira com olhos amarelos brilhando, chapéu pontudo vinho de aba larga com faixa laranja, manto vinho, cajado de osso.\n\nTodos os quadros com o personagem virado na diagonal, olhando para o canto inferior ESQUERDO da imagem (visão isométrica de 3/4), do mesmo tamanho, alinhados pelos pés, sem sobreposição e com espaço entre eles.\nLinha 1: parado respirando, 4 quadros.\nLinha 2: andando, 6 quadros (ciclo completo de passos).\nLinha 3: lançando magia sombria (ergue o cajado, brilho roxo, aponta, volta), 5 quadros.\nLinha 4: tomando dano (recuo) 2 quadros, ajoelhado ferido 1 quadro, caído no chão 1 quadro.\n\nContorno escuro de 1 pixel, paleta limitada, sem anti-aliasing, sem sombra, sem chão, sem texto, sem números.",
+          "good": "Chapéu vinho com faixa laranja, olhos amarelos e cajado com caveira; magia com brilho roxo; queda com o chapéu e a caveira separados.",
+          "bad": "Brilho roxo da magia solto do corpo; franja rosada."
+        },
+        {
+          "file": "copilot-sprite-8-esqueleto-mago-anim.gif",
+          "title": "Animação · Esqueleto mago chibi recortado da sprite sheet (prova de conceito)",
+          "size": "1288×262",
+          "link": "https://copilot.com/chat/conversation/5940caa1-885d-4eb9-8c91-e75ddd6ae2c5",
+          "prompt": "Sem prompt: GIF montado por script (fatiar.py) a partir da sprite sheet copilot-sprite-8-esqueleto-mago.png. Tira o fundo magenta, corta cada quadro pelas faixas vazias, alinha pelo pé e anima as 4 linhas lado a lado a 160 ms por quadro: parado, andando, atacando, dano e queda.",
+          "good": "Cortado e animado pelo script sem retoque; mesma escala dos outros bonecos.",
+          "bad": "Franja rosada no contorno; precisa reduzir e fixar a paleta para entrar no jogo."
+        },
+        {
+          "file": "copilot-sprite-9-lacaio-de-osso.png",
+          "title": "Sprite sheet · Lacaio de osso chibi em pixel art (prova de conceito)",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/5940caa1-885d-4eb9-8c91-e75ddd6ae2c5",
+          "prompt": "Crie uma imagem: outra sprite sheet no MESMO estilo, escala e grade da sprite sheet do Cavaleiro que você acabou de fazer (pixel art de 16 bits, chibi estilo Final Fantasy Tactics de PS1, fundo magenta puro #FF00FF liso).\n\nPersonagem: Lacaio de osso chibi: esqueleto simples cor de osso, lenço laranja no pescoço, espada curta enferrujada.\n\nTodos os quadros com o personagem virado na diagonal, olhando para o canto inferior ESQUERDO da imagem (visão isométrica de 3/4), do mesmo tamanho, alinhados pelos pés, sem sobreposição e com espaço entre eles.\nLinha 1: parado respirando, 4 quadros.\nLinha 2: andando, 6 quadros (ciclo completo de passos).\nLinha 3: ataque com a espada curta (preparo, golpe, seguimento, volta), 5 quadros.\nLinha 4: tomando dano (recuo) 2 quadros, ajoelhado ferido 1 quadro, caído no chão 1 quadro.\n\nContorno escuro de 1 pixel, paleta limitada, sem anti-aliasing, sem sombra, sem chão, sem texto, sem números.",
+          "good": "Esqueleto simples com lenço laranja e espada enferrujada fiéis; leitura de inimigo fraco; ataque claro.",
+          "bad": "Lenço vira capa curta; franja rosada."
+        },
+        {
+          "file": "copilot-sprite-9-lacaio-de-osso-anim.gif",
+          "title": "Animação · Lacaio de osso chibi recortado da sprite sheet (prova de conceito)",
+          "size": "1260×235",
+          "link": "https://copilot.com/chat/conversation/5940caa1-885d-4eb9-8c91-e75ddd6ae2c5",
+          "prompt": "Sem prompt: GIF montado por script (fatiar.py) a partir da sprite sheet copilot-sprite-9-lacaio-de-osso.png. Tira o fundo magenta, corta cada quadro pelas faixas vazias, alinha pelo pé e anima as 4 linhas lado a lado a 160 ms por quadro: parado, andando, atacando, dano e queda.",
+          "good": "Cortado e animado pelo script sem retoque; mesma escala dos outros bonecos.",
+          "bad": "Franja rosada no contorno; precisa reduzir e fixar a paleta para entrar no jogo."
+        },
+        {
+          "file": "copilot-sprite-10-esqueleto-ladino.png",
+          "title": "Sprite sheet · Esqueleto ladino chibi em pixel art (prova de conceito)",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/5940caa1-885d-4eb9-8c91-e75ddd6ae2c5",
+          "prompt": "Crie uma imagem: outra sprite sheet no MESMO estilo, escala e grade da sprite sheet do Cavaleiro que você acabou de fazer (pixel art de 16 bits, chibi estilo Final Fantasy Tactics de PS1, fundo magenta puro #FF00FF liso).\n\nPersonagem: Esqueleto ladino chibi: caveira sob capuz vinho, órbitas com brilho amarelo fraco, manto vinho rasgado, adaga curva.\n\nTodos os quadros com o personagem virado na diagonal, olhando para o canto inferior ESQUERDO da imagem (visão isométrica de 3/4), do mesmo tamanho, alinhados pelos pés, sem sobreposição e com espaço entre eles.\nLinha 1: parado respirando, 4 quadros.\nLinha 2: andando, 6 quadros (ciclo completo de passos).\nLinha 3: ataque com a adaga (agacha, avança, corte, volta), 5 quadros.\nLinha 4: tomando dano (recuo) 2 quadros, ajoelhado ferido 1 quadro, caído no chão 1 quadro.\n\nContorno escuro de 1 pixel, paleta limitada, sem anti-aliasing, sem sombra, sem chão, sem texto, sem números.",
+          "good": "Capuz e manto vinho rasgado, brilho amarelo nas órbitas e adaga curva fiéis; avanço do corte bem lido.",
+          "bad": "Franja rosada no manto rasgado."
+        },
+        {
+          "file": "copilot-sprite-10-esqueleto-ladino-anim.gif",
+          "title": "Animação · Esqueleto ladino chibi recortado da sprite sheet (prova de conceito)",
+          "size": "1256×241",
+          "link": "https://copilot.com/chat/conversation/5940caa1-885d-4eb9-8c91-e75ddd6ae2c5",
+          "prompt": "Sem prompt: GIF montado por script (fatiar.py) a partir da sprite sheet copilot-sprite-10-esqueleto-ladino.png. Tira o fundo magenta, corta cada quadro pelas faixas vazias, alinha pelo pé e anima as 4 linhas lado a lado a 160 ms por quadro: parado, andando, atacando, dano e queda.",
+          "good": "Cortado e animado pelo script sem retoque; mesma escala dos outros bonecos.",
+          "bad": "Franja rosada no contorno; precisa reduzir e fixar a paleta para entrar no jogo."
+        },
+        {
+          "file": "copilot-sprite-11-elenco-anim.gif",
+          "title": "Elenco · os 10 bonecos andando e atacando em escala de jogo (prova de conceito)",
+          "size": "900×192",
+          "link": "https://copilot.com/chat/conversation/5940caa1-885d-4eb9-8c91-e75ddd6ae2c5",
+          "prompt": "Sem prompt: GIF montado por script (elenco.py) com as linhas 'andando' (em cima) e 'atacando' (embaixo) das 10 sprite sheets, reduzidas a ~72 px de altura com vizinho mais próximo, sobre um verde de grama, 150 ms por quadro.",
+          "good": "Na escala do mapa os 10 leem bem e parecem do mesmo jogo; silhuetas distintas (chapéu, chifres, capuz, urso, crista).",
+          "bad": "O Cavaleiro olha para a direita e os outros para a esquerda (refazer o Cavaleiro ou espelhar); franja rosada some quase toda nessa escala."
+        },
+        {
+          "file": "copilot-icones-1-habilidades.png",
+          "title": "Ícones · as 22 habilidades do jogo + Mover e Esperar (estilo FFT Clássico)",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/8481078a-b654-4cd1-93dc-6ab6eff01914",
+          "attached": "C:/Tools/pw-mcp/saida/noite/ref-fft-classico-folha.png",
+          "prompt": "Crie uma imagem: uma folha de ÍCONES DE HABILIDADES em pixel art de 16 bits para a interface do jogo tático da imagem anexada. Siga o estilo da interface anexada: ícone quadrado com fundo azul-marinho em degradê, borda fina branca de 1 pixel, cantos levemente arredondados, desenho central com contorno escuro e paleta limitada.\n\nGrade regular de 6 colunas por 4 linhas, todos do mesmo tamanho, com espaço entre eles, e o nome em letras pequenas brancas embaixo de cada um:\nLinha 1: Golpe (espada cortando), Golpe pesado (espada grande descendo com impacto), Escudada (escudo empurrando), Giro (espada girando em círculo), Machadada (machado), Pancada (maça batendo).\nLinha 2: Tiro (flecha reta), Tiro mirado (flecha com alvo), Tiro de recuo (flecha empurrando para trás), Adaga (adaga), Faca arremessada (faca girando no ar), Facada (adaga com gota de sangue).\nLinha 3: Raio de fogo (raio de chamas), Explosão (bola de fogo explodindo), Rajada (vento cortante azul), Cura (cruz verde brilhando), Onda sombria (onda roxa escura), Golpe mortal (caveira com lâmina).\nLinha 4: Rasteira (pé varrendo), Derrubar (seta empurrando um boneco para fora da beira), Estocada longa (lança comprida), Salto (bota saltando com arco de movimento), Mover (pegadas), Esperar (ampulheta).\n\nFundo geral cinza escuro liso. Sem outro texto além dos nomes.",
+          "good": "Os 24 nomes certos e na ordem; mesmo quadro azul-marinho com borda branca da interface FFT Clássico anexada; desenhos claros (fogo, cura, onda sombria, derrubar da beira).",
+          "bad": "Golpe e Adaga parecidos; Giro lê mais como corte que como giro."
+        },
+        {
+          "file": "copilot-icones-1-habilidades-recorte.png",
+          "title": "Ícones recortados em 48 px (prova de conceito)",
+          "size": "344×232",
+          "link": "https://copilot.com/chat/conversation/8481078a-b654-4cd1-93dc-6ab6eff01914",
+          "prompt": "Sem prompt: recorte automático (icones.py) dos 24 ícones de copilot-icones-1-habilidades.png, reduzidos a 48 px (tamanho de botão do menu), lado a lado sobre fundo escuro. Os ícones soltos ficam em C:/Tools/pw-mcp/saida/noite/copilot-icones-1-habilidades/01..24.png.",
+          "good": "O script cortou os 24 sozinho; em 48 px todos continuam legíveis, prontos para o menu de habilidades.",
+          "bad": "Bordas com tamanhos 168 a 176 px no original; precisam de um quadro fixo antes de entrar no jogo."
+        },
+        {
+          "file": "copilot-icones-2-itens-status.png",
+          "title": "Ícones · os 9 equipamentos do jogo, consumíveis, estados e marcas do mapa",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/8481078a-b654-4cd1-93dc-6ab6eff01914",
+          "prompt": "Crie uma imagem: agora uma folha de ÍCONES DE ITENS E ESTADOS, no MESMO estilo exato da folha de habilidades que você acabou de fazer (quadro azul-marinho em degradê, borda fina branca, pixel art de 16 bits, nome pequeno em branco embaixo).\n\nGrade regular de 6 colunas por 4 linhas, todos do mesmo tamanho:\nLinha 1 (armas e armaduras): Lâmina de ferro (espada simples), Arco de caça (arco curto de madeira), Cajado de freixo (cajado de madeira clara), Gibão de couro (colete de couro marrom), Cota de malha (camisa de malha de aço), Manto guardado (manto azul com fivela).\nLinha 2 (acessórios e consumíveis): Botas ligeiras (botas com asinhas), Grevas de mola (caneleiras de metal com mola), Amuleto ligeiro (amuleto com pena), Poção (frasco vermelho), Éter (frasco azul), Ouro (pilha de moedas).\nLinha 3 (estados): Veneno (gota roxa com caveira), Atordoado (estrelas girando), Carregando (relógio com seta circular), Contra-ataque (duas espadas cruzadas com seta de volta), Em água funda (ondas azuis sobre um pé), Nocaute (lápide pequena).\nLinha 4 (mapa e turno): Altura (seta para cima sobre degraus), Alcance (círculo de mira), Pular (pé com seta curva), Vez da unidade (seta amarela apontando para baixo), Inimigo (escudo vermelho), Aliado (escudo azul).\n\nFundo geral cinza escuro liso. Sem outro texto além dos nomes.",
+          "good": "Mesmo estilo da folha de habilidades; os 9 equipamentos reais do jogo reconhecíveis; estados claros (veneno, atordoado, carregando, água funda).",
+          "bad": "Erro de grafia (Manto guardiado); lápide com RIP em inglês; Inimigo e Aliado com flor-de-lis parecem brasões, não marcas de time."
+        },
+        {
+          "file": "copilot-icones-2-itens-status-recorte.png",
+          "title": "Ícones de itens e estados recortados em 48 px (prova de conceito)",
+          "size": "344×232",
+          "link": "https://copilot.com/chat/conversation/8481078a-b654-4cd1-93dc-6ab6eff01914",
+          "prompt": "Sem prompt: recorte automático (icones.py) dos 24 ícones de copilot-icones-2-itens-status.png, reduzidos a 48 px, lado a lado. Os ícones soltos ficam em C:/Tools/pw-mcp/saida/noite/copilot-icones-2-itens-status/01..24.png.",
+          "good": "Recorte automático dos 24 sem erro; legíveis em 48 px.",
+          "bad": "Detalhes finos (molas das grevas, pena do amuleto) somem em 48 px."
+        },
+        {
+          "file": "copilot-terreno-1-blocos.png",
+          "title": "Terreno · 18 blocos isométricos em pixel art (água rasa e funda, rampa, degrau)",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/23ab3225-ca1b-44a3-affe-ee9768867344",
+          "attached": "C:/Tools/pw-mcp/saida/noite/ref-fft-classico-cena.png",
+          "prompt": "Crie uma imagem: uma folha de BLOCOS DE TERRENO ISOMÉTRICOS em pixel art de 16 bits para o jogo tático da imagem anexada, com a mesma paleta e luz da cena anexada (grama verde pintada, terra batida, pedra cinza, estilo Final Fantasy Tactics de PS1).\n\nCada bloco é um losango isométrico 2:1 visto de cima, com a lateral visível embaixo (altura de meio bloco), todos do mesmo tamanho, numa grade regular de 6 colunas por 3 linhas, separados por espaço:\nLinha 1: grama, grama com flores, terra batida, caminho de terra com pedrinhas, areia, cascalho.\nLinha 2: pedra lisa, pedra com musgo, laje de pedra, tijolos, madeira de ponte, neve.\nLinha 3: água rasa (azul clara transparente, com fundo de pedrinhas), água funda (azul escura), lama, lava, rampa de grama subindo para a direita, degrau de pedra (bloco de altura dupla).\n\nContorno escuro de 1 pixel, paleta limitada, sem anti-aliasing. Fundo de cor única magenta puro (#FF00FF) liso, sem texto, sem números.",
+          "good": "Todos os 18 pedidos, mesmo tamanho e mesmo ângulo 2:1; água rasa transparente com pedrinhas e água funda escura distintas como no jogo; fundo magenta sai limpo.",
+          "bad": "Rampa e degrau saíram em escala diferente dos outros; lateral de terra igual em todos os blocos de grama (repetição visível)."
+        },
+        {
+          "file": "copilot-terreno-1-blocos-mapa.png",
+          "title": "Mapa isométrico montado só com os blocos gerados (prova de conceito)",
+          "size": "808×572",
+          "link": "https://copilot.com/chat/conversation/23ab3225-ca1b-44a3-affe-ee9768867344",
+          "prompt": "Sem prompt: mapa 8x8 montado por script (mapa.py) só com blocos recortados de copilot-terreno-1-blocos.png (grama, flores, terra, caminho, pedra, musgo, laje, água rasa, água funda, ponte), reduzidos a 96 px de largura, com 3 alturas empilhando blocos.",
+          "good": "Os blocos encaixam sem retoque: rio com ponte, caminho e platô de pedra em 3 alturas; já parece um mapa de FFT.",
+          "bad": "Emendas finas entre blocos; o jogo de hoje usa terreno 3D pintado, então isso serve para o modo pixel art opcional."
+        },
+        {
+          "file": "copilot-terreno-2-objetos.png",
+          "title": "Objetos do mapa · 18 objetos isométricos (árvores, pedras, baús, fogueira, lápide)",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/23ab3225-ca1b-44a3-affe-ee9768867344",
+          "prompt": "Crie uma imagem: agora uma folha de OBJETOS DO MAPA no MESMO estilo, escala e luz dos blocos de terreno que você acabou de fazer (pixel art de 16 bits isométrico, estilo Final Fantasy Tactics de PS1), cada objeto do tamanho certo para ficar em cima de um bloco.\n\nGrade regular de 6 colunas por 3 linhas, separados por espaço, todos vistos do mesmo ângulo isométrico:\nLinha 1: pinheiro alto, árvore frondosa redonda, arbusto, toco de árvore, pedra grande, pilha de pedras pequenas.\nLinha 2: muro baixo de tijolos (1 bloco), cerca de madeira, barril, caixote de madeira, baú de tesouro fechado, baú aberto com ouro.\nLinha 3: lápide, fogueira acesa, estandarte azul num poste, coluna de pedra quebrada, cogumelos, ossos e caveira no chão.\n\nContorno escuro de 1 pixel, paleta limitada, sem anti-aliasing, sem sombra no chão. Fundo de cor única magenta puro (#FF00FF) liso, sem texto, sem números.",
+          "good": "Os 18 pedidos na ordem, na mesma escala e luz dos blocos; fogueira, baú aberto com ouro e estandarte prontos para cenário.",
+          "bad": "Estandarte com flor-de-lis (lembra brasão real); muro de tijolos pequeno para 1 bloco."
+        },
+        {
+          "file": "copilot-sprite-12-cena-batalha.png",
+          "title": "Cena de batalha montada só com os assets da noite (prova de conceito)",
+          "size": "808×672",
+          "link": "https://copilot.com/chat/conversation/23ab3225-ca1b-44a3-affe-ee9768867344",
+          "prompt": "Sem prompt: cena montada por script (cena.py) só com assets gerados na noite de 14 para 15/11: blocos e objetos (conversa 23ab3225) e os bonecos das sprite sheets (conversa 5940caa1), no quadro parado. Mapa 8x8 com 3 alturas, rio com ponte, aliados à esquerda e esqueletos à direita.",
+          "good": "Terreno, objetos e 9 bonecos de conversas diferentes convivem sem retoque: mesma luz, escala e traço; parece uma tela de FFT.",
+          "bad": "Unidades postas à mão, sem regra de jogo; esqueleto mago meio escondido atrás do ladino; emendas finas entre blocos."
+        },
+        {
+          "file": "copilot-sprite-12-cena-batalha-anim.gif",
+          "title": "Cena de batalha animada (bonecos respirando)",
+          "size": "808×672",
+          "link": "https://copilot.com/chat/conversation/23ab3225-ca1b-44a3-affe-ee9768867344",
+          "prompt": "Sem prompt: cena montada por script (cena.py) só com assets gerados na noite de 14 para 15/11: blocos e objetos (conversa 23ab3225) e os bonecos das sprite sheets (conversa 5940caa1), com os 4 quadros de parado em loop (220 ms). Mapa 8x8 com 3 alturas, rio com ponte, aliados à esquerda e esqueletos à direita.",
+          "good": "Com os 4 quadros de parado a cena ganha vida sem nenhum desenho extra.",
+          "bad": "O parado de alguns bonecos quase não muda; o GIF reduz a paleta."
+        },
+        {
+          "file": "copilot-ref-retratos-12-folha-moldura-fina.png",
+          "title": "Rostos em pixel art · os 10 com a moldura fina da referência FFT Clássico",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/6ef32d77-3279-46a4-9484-c9ac81343ee8",
+          "prompt": "Crie uma imagem: refaça a folha dos 10 retratos, com os MESMOS personagens e o MESMO traço da sua primeira folha nesta conversa, mas com a moldura igual à dos retratos anexados no início: cada retrato num quadrado com borda fina clara de 2 pixels, cantos retos, fundo azul-acinzentado liso, SEM placa bege. O nome vai em letras brancas pequenas embaixo, fora da moldura.\n\nMesma ordem, 2 linhas de 5: Bárbaro, Cavaleiro, Lanceiro, Maga, Arqueira; Ladino, Esqueleto mago, Lacaio de osso, Esqueleto ladino, Esqueleto guerreiro. Retratos quadrados, busto de 3/4 virado para a direita. Fundo geral cinza escuro liso, sem outro texto.",
+          "good": "Moldura fina clara e fundo azul-acinzentado iguais aos retratos da Aria; sem placa bege; mesmos rostos da primeira folha; nomes certos e fora do quadro.",
+          "bad": "Retratos ainda maiores que os da fila do FFT (precisam de redução); Lanceiro e Cavaleiro com o mesmo rosto."
+        },
+        {
+          "file": "copilot-ref-retratos-13-maga-rotulos.png",
+          "title": "Expressões · Maga com moldura fina e rótulos curtos",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/6ef32d77-3279-46a4-9484-c9ac81343ee8",
+          "prompt": "Crie uma imagem: agora a folha de EXPRESSÕES da Maga (mulher de cabelo preto liso com chapéu pontudo roxo de bruxa de faixa laranja), com a MESMA moldura fina da folha que você acabou de fazer (borda fina clara, fundo azul-acinzentado, sem placa bege, nome fora do quadro) e o mesmo traço. Mesmo rosto e enquadramento em todos, mudando só a expressão.\n\n8 retratos em 2 linhas de 4, com estes rótulos curtos exatamente assim, um embaixo de cada: Neutro, Fala baixa, Fala alta, Grito, Dano, Ferida, Sorriso, Brava.\nFala baixa = boca entreaberta. Fala alta = boca bem aberta. Grito = boca escancarada e sobrancelhas franzidas, atacando. Dano = olhos fechados apertados e dentes cerrados. Ferida = olhos semicerrados e cansados. Sorriso = sorriso leve. Brava = sobrancelhas franzidas e boca fechada.\nFundo geral cinza escuro liso, sem outro texto.",
+          "good": "Rótulos certos e únicos (Fala baixa, Fala alta, Grito, Dano, Ferida...); mesma moldura fina da folha nova; fala em 3 graus de boca, pronta para animar diálogo.",
+          "bad": "Moldura um pouco mais alta que larga (342×370); chapéu corta o topo."
+        },
+        {
+          "file": "copilot-ref-retratos-13-maga-rotulos-fala-anim.gif",
+          "title": "Animação · Maga falando e reagindo (prova de conceito)",
+          "size": "157×166",
+          "link": "https://copilot.com/chat/conversation/6ef32d77-3279-46a4-9484-c9ac81343ee8",
+          "prompt": "Sem prompt: GIF montado por script com os 8 retratos recortados de copilot-ref-retratos-13-maga-rotulos.png. Primeiro a boca abrindo e fechando (Neutro, Fala baixa, Fala alta) a 140 ms, como numa fala; depois Grito, Dano, Ferida, Sorriso e Brava a 300 ms.",
+          "good": "Com só 3 bocas a fala já convence; troca para grito e dano mostra como o retrato reage em combate.",
+          "bad": "Sem piscar; troca seca entre quadros (sem interpolação, como no FFT)."
+        },
+        {
+          "file": "copilot-ref-retratos-14-barbaro.png",
+          "title": "Expressões · Bárbaro com moldura fina e rótulos curtos",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/6ef32d77-3279-46a4-9484-c9ac81343ee8",
+          "prompt": "Crie uma imagem: agora a folha de EXPRESSÕES do Bárbaro (homem de barba cinza cheia com gorro de pele de urso marrom), com a MESMA moldura fina da folha que você acabou de fazer (borda fina clara, fundo azul-acinzentado, sem placa bege, nome fora do quadro) e o mesmo traço. Mesmo rosto e enquadramento em todos, mudando só a expressão.\n\n8 retratos em 2 linhas de 4, com estes rótulos curtos exatamente assim, um embaixo de cada: Neutro, Fala baixa, Fala alta, Grito, Dano, Ferido, Sorriso, Bravo.\nFala baixa = boca entreaberta. Fala alta = boca bem aberta. Grito = boca escancarada e sobrancelhas franzidas, atacando. Dano = olhos fechados apertados e dentes cerrados. Ferido = olhos semicerrados e cansados. Sorriso = sorriso leve. Bravo = sobrancelhas franzidas e boca fechada.\nFundo geral cinza escuro liso, sem outro texto.",
+          "good": "Moldura fina e rótulos curtos únicos; mesmo rosto nos 8; fala em 3 graus de boca pronta para animar diálogo; grito e dano bem marcados pela barba.",
+          "bad": "Fala baixa e Fala alta pouco diferentes (a barba esconde a boca)."
+        },
+        {
+          "file": "copilot-ref-retratos-15-cavaleiro.png",
+          "title": "Expressões · Cavaleiro com moldura fina e rótulos curtos",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/6ef32d77-3279-46a4-9484-c9ac81343ee8",
+          "prompt": "Crie uma imagem: agora a folha de EXPRESSÕES do Cavaleiro (homem de rosto quadrado sob elmo cinza-aço prateado com viseira levantada), com a MESMA moldura fina da folha que você acabou de fazer (borda fina clara, fundo azul-acinzentado, sem placa bege, nome fora do quadro) e o mesmo traço. Mesmo rosto e enquadramento em todos, mudando só a expressão.\n\n8 retratos em 2 linhas de 4, com estes rótulos curtos exatamente assim, um embaixo de cada: Neutro, Fala baixa, Fala alta, Grito, Dano, Ferido, Sorriso, Bravo.\nFala baixa = boca entreaberta. Fala alta = boca bem aberta. Grito = boca escancarada e sobrancelhas franzidas, atacando. Dano = olhos fechados apertados e dentes cerrados. Ferido = olhos semicerrados e cansados. Sorriso = sorriso leve. Bravo = sobrancelhas franzidas e boca fechada.\nFundo geral cinza escuro liso, sem outro texto.",
+          "good": "Moldura fina e rótulos curtos únicos; mesmo rosto nos 8; fala em 3 graus de boca pronta para animar diálogo.",
+          "bad": "Rosto quase igual ao do Lanceiro; Sorriso e Neutro parecidos."
+        },
+        {
+          "file": "copilot-ref-retratos-16-lanceiro.png",
+          "title": "Expressões · Lanceiro com moldura fina e rótulos curtos",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/6ef32d77-3279-46a4-9484-c9ac81343ee8",
+          "prompt": "Crie uma imagem: agora a folha de EXPRESSÕES do Lanceiro (jovem com elmo azul-petróleo de crista vermelha), com a MESMA moldura fina da folha que você acabou de fazer (borda fina clara, fundo azul-acinzentado, sem placa bege, nome fora do quadro) e o mesmo traço. Mesmo rosto e enquadramento em todos, mudando só a expressão.\n\n8 retratos em 2 linhas de 4, com estes rótulos curtos exatamente assim, um embaixo de cada: Neutro, Fala baixa, Fala alta, Grito, Dano, Ferido, Sorriso, Bravo.\nFala baixa = boca entreaberta. Fala alta = boca bem aberta. Grito = boca escancarada e sobrancelhas franzidas, atacando. Dano = olhos fechados apertados e dentes cerrados. Ferido = olhos semicerrados e cansados. Sorriso = sorriso leve. Bravo = sobrancelhas franzidas e boca fechada.\nFundo geral cinza escuro liso, sem outro texto.",
+          "good": "Moldura fina e rótulos curtos únicos; mesmo rosto nos 8; fala em 3 graus de boca pronta para animar diálogo; crista vermelha igual em todos.",
+          "bad": "Rosto quase igual ao do Cavaleiro (só o elmo diferencia)."
+        },
+        {
+          "file": "copilot-ref-retratos-17-arqueira.png",
+          "title": "Expressões · Arqueira com moldura fina e rótulos curtos",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/6ef32d77-3279-46a4-9484-c9ac81343ee8",
+          "prompt": "Crie uma imagem: agora a folha de EXPRESSÕES da Arqueira (mulher ruiva de trança com capa vermelha), com a MESMA moldura fina da folha que você acabou de fazer (borda fina clara, fundo azul-acinzentado, sem placa bege, nome fora do quadro) e o mesmo traço. Mesmo rosto e enquadramento em todos, mudando só a expressão.\n\n8 retratos em 2 linhas de 4, com estes rótulos curtos exatamente assim, um embaixo de cada: Neutro, Fala baixa, Fala alta, Grito, Dano, Ferida, Sorriso, Brava.\nFala baixa = boca entreaberta. Fala alta = boca bem aberta. Grito = boca escancarada e sobrancelhas franzidas, atacando. Dano = olhos fechados apertados e dentes cerrados. Ferida = olhos semicerrados e cansados. Sorriso = sorriso leve. Brava = sobrancelhas franzidas e boca fechada.\nFundo geral cinza escuro liso, sem outro texto.",
+          "good": "Moldura fina e rótulos curtos únicos; mesmo rosto nos 8; fala em 3 graus de boca pronta para animar diálogo; femininos certos (Ferida, Brava); a mais próxima da Aria da referência.",
+          "bad": "Nenhum defeito grave; trança corta na borda direita."
+        },
+        {
+          "file": "copilot-ref-retratos-18-ladino.png",
+          "title": "Expressões · Ladino com moldura fina e rótulos curtos",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/6ef32d77-3279-46a4-9484-c9ac81343ee8",
+          "prompt": "Crie uma imagem: agora a folha de EXPRESSÕES do Ladino (homem magro de rosto anguloso sob capuz verde, lenço escuro no pescoço, ar de malandro), com a MESMA moldura fina da folha que você acabou de fazer (borda fina clara, fundo azul-acinzentado, sem placa bege, nome fora do quadro) e o mesmo traço. Mesmo rosto e enquadramento em todos, mudando só a expressão.\n\n8 retratos em 2 linhas de 4, com estes rótulos curtos exatamente assim, um embaixo de cada: Neutro, Fala baixa, Fala alta, Grito, Dano, Ferido, Sorriso, Bravo.\nFala baixa = boca entreaberta. Fala alta = boca bem aberta. Grito = boca escancarada e sobrancelhas franzidas, atacando. Dano = olhos fechados apertados e dentes cerrados. Ferido = olhos semicerrados e cansados. Sorriso = sorriso leve. Bravo = sobrancelhas franzidas e boca fechada.\nFundo geral cinza escuro liso, sem outro texto.",
+          "good": "Moldura fina e rótulos curtos únicos; mesmo rosto nos 8; fala em 3 graus de boca pronta para animar diálogo; agora com rosto masculino e anguloso, como pedido.",
+          "bad": "Rótulo Brava no feminino (pedido era Bravo); suor no Ferido."
+        },
+        {
+          "file": "copilot-ref-retratos-19-esqueleto-mago.png",
+          "title": "Expressões · Esqueleto mago com moldura fina e rótulos curtos",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/6ef32d77-3279-46a4-9484-c9ac81343ee8",
+          "prompt": "Crie uma imagem: agora a folha de EXPRESSÕES do Esqueleto mago (caveira com chapéu pontudo vinho e olhos amarelos brilhando; numa caveira a expressão vem da mandíbula, do brilho e formato dos olhos e da inclinação da cabeça, sem suor), com a MESMA moldura fina da folha que você acabou de fazer (borda fina clara, fundo azul-acinzentado, sem placa bege, nome fora do quadro) e o mesmo traço. Mesmo rosto e enquadramento em todos, mudando só a expressão.\n\n8 retratos em 2 linhas de 4, com estes rótulos curtos exatamente assim, um embaixo de cada: Neutro, Fala baixa, Fala alta, Grito, Dano, Ferido, Sorriso, Bravo.\nFala baixa = boca entreaberta. Fala alta = boca bem aberta. Grito = boca escancarada e sobrancelhas franzidas, atacando. Dano = olhos fechados apertados e dentes cerrados. Ferido = olhos semicerrados e cansados. Sorriso = sorriso leve. Bravo = sobrancelhas franzidas e boca fechada.\nFundo geral cinza escuro liso, sem outro texto.",
+          "good": "Moldura fina e rótulos curtos únicos; mesmo rosto nos 8; fala em 3 graus de boca pronta para animar diálogo; caveira sem suor, como pedido; olhos em traço no Dano e semicerrados no Ferido.",
+          "bad": "Rótulo Brava no feminino; Sorriso e Neutro quase iguais."
+        },
+        {
+          "file": "copilot-sprite-13-atlas.png",
+          "title": "Sprites · 13 Atlas de jogo (64 px, PNG + JSON)",
+          "size": "1256×5928",
+          "link": "https://copilot.microsoft.com/chats/5940caa1-885d-4eb9-8c91-e75ddd6ae2c5",
+          "prompt": "(sem prompt novo: montado localmente com Pillow a partir das 10 sprite sheets copilot-sprite-1 a -10; script C:/Tools/pw-mcp/saida/noite/atlas.py)\nPassos: tira o fundo magenta e a franja rosada; reduz cada boneco a 64 px de altura (mesma escala para todas as animações dele); monta um atlas por boneco com linhas parado, andando, ataque e dano/queda, quadros alinhados pelo pé; grava PNG + JSON com os retângulos de cada quadro (pasta atlas/). A prévia mostra os 10 atlas sobre xadrez, ampliados 2x.",
+          "good": "Fundo transparente sem franja; escala única por boneco; quadros alinhados pelo pé; JSON com retângulos pronto para um leitor de spritesheet",
+          "bad": "Redução LANCZOS suaviza o pixel art (não é pixel exato); tamanho da célula varia por boneco; o Cavaleiro olha para a direita e os outros para a esquerda"
+        },
+        {
+          "file": "copilot-vitral-rostos-1-folha.png",
+          "title": "Rostos em pixel art · os 10 bonecos no estilo do Reno (Vitral)",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/b80de995-2084-44f1-bb58-929519a0db93",
+          "attached": "refs-bonecos-kaykit.png (os 10 renders 3D do jogo, numerados)",
+          "prompt": "Use o MESMO estilo exato dos retratos da imagem que você gerou nesta conversa (o retrato do Reno na ficha e os retratos pequenos da Ordem de Turno). Anexei uma folha com os 10 personagens do meu jogo (bonecos 3D numerados 1 a 10): use deles SÓ a ideia de cada personagem (cores, chapéu, capuz, elmo, chifres, barba, crânio), redesenhando no estilo dos retratos da sua imagem, não no estilo 3D. Gere uma imagem 16:9 com fundo liso cinza escuro e os 10 retratos de busto em 2 linhas de 5, na ordem 1 a 10, cada um numa moldura pequena igual à da Ordem de Turno, com o nome embaixo: Bárbaro, Cavaleiro, Lanceiro, Maga, Arqueira, Ladino encapuzado, Esqueleto mago, Lacaio de osso, Esqueleto ladino, Esqueleto guerreiro. Sem outro texto.",
+          "good": "A mais fiel aos bonecos de todas: gorro de urso, elmos cinza e azul-petróleo com crista, chapéu roxo com fivela laranja, arqueira com aljava, capuzes verde e vinho, crânios de olhos amarelos, elmo com chifres; traço do retrato do Reno; moldura de vitral com placa de nome; nomes certos.",
+          "bad": "Molduras grandes e ornamentadas (o Fernando quer discreto); saiu 3:2, não 16:9."
+        },
+        {
+          "file": "copilot-vitral-rostos-2-barbaro.png",
+          "title": "Expressões · Bárbaro (Copilot, estilo do Reno)",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/b80de995-2084-44f1-bb58-929519a0db93",
+          "prompt": "Agora, no MESMO estilo exato dos retratos da folha que você acabou de gerar, faça uma folha de EXPRESSÕES só do rosto do Bárbaro (1º retrato: gorro de urso, barba cinza). Mesmo personagem, mesmo enquadramento de busto e mesma moldura, idêntico em tudo, mudando SÓ a expressão do rosto, como os retratos de diálogo do Final Fantasy Tactics. 8 quadros em 2 linhas de 4, fundo liso cinza escuro, com o rótulo embaixo de cada um: Neutro, Falando (boca entreaberta), Falando (boca aberta), Gritando ao atacar, Tomando dano (careta, olhos apertados), Ferido (cansado, suando), Sorrindo, Bravo. Sem outro texto.",
+          "good": "Exatamente 8 quadros; mesmo rosto e gorro em todos; boca entreaberta, aberta e grito em graus claros (servem para animar fala); dano com olho fechado, ferido suando, sorriso e bravo distintos.",
+          "bad": "Rótulos perderam o detalhe entre parênteses (dois \"Falando\" iguais); moldura de vitral ornamentada."
+        },
+        {
+          "file": "copilot-vitral-rostos-3-cavaleiro.png",
+          "title": "Expressões · Cavaleiro (Copilot, estilo do Reno)",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/b80de995-2084-44f1-bb58-929519a0db93",
+          "prompt": "Agora, no MESMO estilo exato dos retratos da folha que você acabou de gerar, faça uma folha de EXPRESSÕES só do rosto do Cavaleiro (2º retrato: elmo cinza-aço; levante a viseira para mostrar olhos e boca). Mesmo personagem, mesmo enquadramento de busto e mesma moldura, idêntico em tudo, mudando SÓ a expressão do rosto, como os retratos de diálogo do Final Fantasy Tactics. 8 quadros em 2 linhas de 4, fundo liso cinza escuro, com o rótulo embaixo de cada um: Neutro, Falando (boca entreaberta), Falando (boca aberta), Gritando ao atacar, Tomando dano (careta, olhos apertados), Ferido (cansado, suando), Sorrindo, Bravo. Sem outro texto.",
+          "good": "Exatamente 8 quadros; cinza-aço e detalhes vermelhos do boneco; mesmo rosto; graus de boca claros para a fala; dano, ferido suando, sorriso e bravo distintos.",
+          "bad": "Rótulos sem o detalhe entre parênteses (dois \"Falando\"); moldura de vitral ornamentada."
+        },
+        {
+          "file": "copilot-vitral-rostos-4-lanceiro.png",
+          "title": "Expressões · Lanceiro (Copilot, estilo do Reno)",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/b80de995-2084-44f1-bb58-929519a0db93",
+          "prompt": "Agora, no MESMO estilo exato dos retratos da folha que você acabou de gerar, faça uma folha de EXPRESSÕES só do rosto do Lanceiro (3º retrato: elmo azul-petróleo com crista; abaixe o protetor da boca para mostrar a boca). Mesmo personagem, mesmo enquadramento de busto e mesma moldura, idêntico em tudo, mudando SÓ a expressão do rosto, como os retratos de diálogo do Final Fantasy Tactics. 8 quadros em 2 linhas de 4, fundo liso cinza escuro, com o rótulo embaixo de cada um: Neutro, Falando (boca entreaberta), Falando (boca aberta), Gritando ao atacar, Tomando dano (careta, olhos apertados), Ferido (cansado, suando), Sorrindo, Bravo. Sem outro texto.",
+          "good": "Exatamente 8 quadros; elmo azul-petróleo com crista e a lança do boneco; mesmo rosto; boca visível em todos.",
+          "bad": "Expressões mais sutis que as do Bárbaro (grito pequeno); rótulos sem o detalhe entre parênteses."
+        },
+        {
+          "file": "copilot-vitral-rostos-5-maga.png",
+          "title": "Expressões · Maga (Copilot, estilo do Reno)",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/b80de995-2084-44f1-bb58-929519a0db93",
+          "prompt": "Agora, no MESMO estilo exato dos retratos da folha que você acabou de gerar, faça uma folha de EXPRESSÕES só do rosto do Maga (4º retrato: chapéu roxo com fivela laranja, cabelo preto). Mesmo personagem, mesmo enquadramento de busto e mesma moldura, idêntico em tudo, mudando SÓ a expressão do rosto, como os retratos de diálogo do Final Fantasy Tactics. 8 quadros em 2 linhas de 4, fundo liso cinza escuro, com o rótulo embaixo de cada um: Neutro, Falando (boca entreaberta), Falando (boca aberta), Gritando ao atacar, Tomando dano (careta, olhos apertados), Ferido (cansado, suando), Sorrindo, Bravo. Sem outro texto.",
+          "good": "Exatamente 8 quadros; chapéu roxo com fivela laranja e cabelo preto do boneco; mesmo rosto; grito, dano e ferido bem claros.",
+          "bad": "O 1º envio ficou sem resposta (precisou repetir); rótulos sem o detalhe entre parênteses; personagem com cara de menino, ambígua para \"Maga\"."
+        },
+        {
+          "file": "copilot-rosto-mage.png",
+          "title": "Rosto em pixel art · Maga, 4 bocas (estilo próprio do Copilot)",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/be622372-144c-4f75-9e0e-215d3e461e2a",
+          "attached": "public/chars/mage.webp + pixel-faces.png",
+          "prompt": "Anexos: a primeira imagem é o render 3D do boneco \"mage\" (referência de FIDELIDADE); a segunda é uma versão por script de rostos em pixel art de todos os bonecos, só para comparação (a linha deste boneco é a 4ª de cima para baixo). Desenhe um RETRATO PEQUENO em pixel art no estilo dos retratos do Final Fantasy Tactics de PlayStation (contorno escuro, no máximo 16 cores, fundo liso de uma cor), FIEL ao boneco da primeira imagem: mesmas cores, chapéu pontudo roxo com faixa laranja e cabelo preto; nada de rosto inventado. Em seguida, uma linha de 4 quadros do MESMO rosto com a boca: neutra, fechada, meio aberta, aberta. Imagem única, quadros alinhados, fundo liso, sem texto.",
+          "good": "Fiel ao boneco (chapéu roxo com faixa laranja e fivela, cabelo preto); mesmo rosto nos 4 quadros.",
+          "bad": "Estilo chibi próprio do Copilot, não o dos retratos FFT da imagem aplicada; fundo creme; neutra e fechada quase iguais; pixel grosso borrado."
+        },
+        {
+          "file": "copilot-ui-ouro-aplicado.png",
+          "title": "Aplicado sobre o jogo · Ouro e couro (2ª versão, só a captura anexada)",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/b9a4141a-18ad-4579-90df-11cde7fdf049",
+          "prompt": "Anexo: cena-colina.jpg. Use esta captura do meu jogo de tática como fundo e desenhe por cima, em estilo FFT Ivalice Chronicles, a interface do jogo, ocupando só cerca de 17% da tela: fila de turnos fina no topo esquerdo (5% de altura), ficha da unidade no canto inferior esquerdo (35% x 18%), menu de comandos no canto inferior direito (22% x 30%) com Mover, Agir, Esperar, Status, e faixa de previsão (18%). Estilo ouro e couro, discreto, texto em português. Não altere a cena. Gere uma imagem 16:9.",
+          "good": "Interface coesa em ouro e couro, proporção discreta; fila, ficha, menu e previsão nos cantos pedidos, texto legível em português.",
+          "bad": "Cena regenerada e recortada em 3:2 com chão preto em volta; ficha com ~40% da largura (pedido 35%); a faixa de previsão cobre parte do cenário."
+        },
+        {
+          "file": "copilot-ui-vitral.png",
+          "title": "Elementos estilizados · Vitral gótico",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/b74f1cb0-abde-44e5-8b15-2446ead796ef",
+          "prompt": "Crie uma imagem. Estilo VITRAL GÓTICO: vidro colorido de catedral, divisões de chumbo, cores de joia (rubi, safira, esmeralda, âmbar), luz atravessando, arcos ogivais. Folha de elementos de interface para um jogo de tática por turnos de fantasia (nível Tactics Ogre Reborn / Final Fantasy Tactics Ivalice Chronicles), MUITO ESTILIZADA, ornamentada, com personalidade, aparência de arte pintada à mão de jogo premium, não minimalista. SEM NENHUM TEXTO nem letras em lugar nenhum. Fundo liso cinza médio (#8a8a8a), cada peça separada com folga, alinhada em grade, imagem 16:9 de alta resolução. Peças: (1) painel grande com moldura ornamentada e cantos trabalhados; (2) moldura de retrato de personagem; (3) menu de comandos vertical com 5 botões em estados normal, foco (brilhando) e desativado; (4) botão primário largo em 3 estados e botão secundário; (5) barra de vida e barra de MP com moldura ornamentada, vazia e cheia; (6) 8 ícones de habilidade: espada, escudo, bota, arco, magia, cura, ampulheta, estrela; (7) aba de fila de turnos com brasão; (8) cursor de seleção e marcadores de casa azul e vermelha; (9) divisor ornamentado de seção. Mesma linguagem visual em todas as peças.",
+          "good": "A mais ornamentada dos testes: vitrais, chumbo, ouro e gemas; as 9 peças presentes, grade limpa, nenhum texto.",
+          "bad": "O menu não tem 5 botões distintos (6 barras, ícones repetidos, bota duplicada); ícones fora de ordem e sem arco nem cura no menu."
+        },
+        {
+          "file": "copilot-ui-vitral-aplicado.png",
+          "title": "Aplicado sobre o jogo · Vitral gótico",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/b80de995-2084-44f1-bb58-929519a0db93",
+          "prompt": "Anexo: cena-colina.jpg. Use esta captura do meu jogo de tática como fundo e desenhe por cima, em estilo FFT Ivalice Chronicles, a interface do jogo, ocupando só cerca de 17% da tela: fila de turnos fina no topo esquerdo (5% de altura), ficha da unidade no canto inferior esquerdo (35% x 18%), menu de comandos no canto inferior direito (22% x 30%) com Mover, Agir, Esperar, Status, e faixa de previsão (18%). Estilo vitral gótico, discreto, texto em português. Não altere a cena. Gere uma imagem 16:9.",
+          "good": "Ficha, menu, previsão e fila de turnos presentes, vitral coerente, texto em português (\"Ordem de Turno\", \"Comandos\", \"Previsão\").",
+          "bad": "A cena foi regenerada e recortada em 3:2, com perda de detalhe; a interface passa de 17% (ficha e previsão grandes)."
+        },
+        {
+          "file": "copilot-ui-grimorio.png",
+          "title": "Elementos estilizados · Grimório iluminado",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/1c779202-5512-4a29-b7db-0a8ec7e38872",
+          "prompt": "Crie uma imagem. Estilo GRIMÓRIO ILUMINADO: pergaminho antigo, ouro em folha, iluminuras e arabescos de tinta, capitulares em vermelho e azul, selos de cera. Folha de elementos de interface para um jogo de tática por turnos de fantasia (nível Tactics Ogre Reborn / Final Fantasy Tactics Ivalice Chronicles), MUITO ESTILIZADA, ornamentada, com personalidade, aparência de arte pintada à mão de jogo premium, não minimalista. SEM NENHUM TEXTO nem letras em lugar nenhum. Fundo liso cinza médio (#8a8a8a), cada peça separada com folga, alinhada em grade, imagem 16:9 de alta resolução. Peças: (1) painel grande com moldura ornamentada e cantos trabalhados; (2) moldura de retrato de personagem; (3) menu de comandos vertical com 5 botões em estados normal, foco (brilhando) e desativado; (4) botão primário largo em 3 estados e botão secundário; (5) barra de vida e barra de MP com moldura ornamentada, vazia e cheia; (6) 8 ícones de habilidade: espada, escudo, bota, arco, magia, cura, ampulheta, estrela; (7) aba de fila de turnos com brasão; (8) cursor de seleção e marcadores de casa azul e vermelha; (9) divisor ornamentado de seção. Mesma linguagem visual em todas as peças.",
+          "good": "Ornamentada, com ouro, lacre de cera e pergaminho central; as 9 peças presentes; sem texto.",
+          "bad": "Lê-se mais como ouro e azul heráldico que como pergaminho iluminado (paleta próxima do Ouro e couro); ícones em grade 4×2 sem moldura própria."
+        },
+        {
+          "file": "copilot-ui-carta.png",
+          "title": "Elementos estilizados · Carta de campo",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/710a7b20-b056-4e67-9d3c-07dfb6740012",
+          "prompt": "Crie uma FOLHA DE ELEMENTOS DE INTERFACE (UI kit / sprite sheet) para um jogo de tática por turnos no PC, estilo 'carta de campo': papel creme (#f2ecdc), tinta quase preta (#26241f), lacre vermelho (#b3261e) só para dano e alerta, verde-mar (#14595c) para aliados, azul-tinta (#3d4f8a) para MP. Bordas finas de tinta, cantos retos, textura leve de papel, sem cenário nem personagens. Tudo sobre um fundo liso cinza claro (#e6e6e6), cada peça separada das outras com folga, alinhada em grade, imagem 16:9 de alta resolução. Peças, com rótulos curtos em português: (1) moldura de painel retangular grande, com cantos marcados; (2) moldura de painel pequena para ficha de unidade, com espaço para retrato à esquerda; (3) menu de comandos vertical com 5 linhas (Mover, Agir, Esperar, Status, Magia desativada) mostrando a linha normal, a linha com foco e a linha desativada; (4) botão primário escuro em 3 estados (normal, foco, desativado) e botão secundário só com contorno em 3 estados; (5) barra de vida e barra de MP horizontais, vazia, cheia e com 3 faixas (sobra, talvez sobre, dano); (6) aba da fila de turnos, em 2 estados (atual e demais); (7) balão de previsão com seta, para o dano; (8) 8 ícones quadrados em linha de tinta: espada, escudo, bota, arco, magia, cura, esperar, status; (9) divisor de seção e marcadores de lista; (10) marcadores de casa do tabuleiro: casa azul de movimento, casa vermelha de alvo, cursor de seleção. Mesmo peso de linha em todas as peças, aparência de sistema coerente, sem texto minúsculo.",
+          "good": "Segue bem o pedido: papel creme, tinta, verde-mar, rótulos em português nas 10 peças, barras de vida e MP com 3 faixas.",
+          "bad": "Ícone do arco estranho; \"Magia desativada\" saiu só \"Magia\"; texto sobreposto no rótulo \"MARCADORES\"; barras rotuladas \"HP\" em vez de VIDA."
+        },
+        {
+          "file": "copilot-ui-carta-aplicado.png",
+          "title": "Aplicado sobre o jogo · Carta de campo",
+          "size": "1536×1024",
+          "link": "https://copilot.com/chat/conversation/02fbe0b6-6619-486c-af66-b6a2d26c565e",
+          "prompt": "Anexo: cena-colina.jpg. Use esta captura do meu jogo de tática como fundo e desenhe por cima, em estilo FFT Ivalice Chronicles, a interface do jogo, ocupando só cerca de 17% da tela: fila de turnos fina no topo esquerdo (5% de altura), ficha da unidade no canto inferior esquerdo (35% x 18%), menu de comandos no canto inferior direito (22% x 30%) com Mover, Agir, Esperar, Status, e faixa de previsão (18%). Estilo carta de campo (papel creme e tinta), discreto, texto em português. Não altere a cena. Gere uma imagem 16:9.",
+          "good": "Mais discreta e legível: pergaminho com texto escuro, menu e ficha limpos.",
+          "bad": "Cena regenerada e recortada em 3:2; a faixa de previsão virou caixinha de legenda sob o menu; acrescentou \"Planalto / Alt. 2\" que ninguém pediu; números (Nv.12, PV 160/160) inventados."
+        }
+      ]
+    },
+    {
+      "name": "Craiyon (sem login)",
+      "plan": "grátis, sem conta · saída 1272×989 · agente do loop",
+      "tests": [
+        {
+          "file": "craiyon-fft-1-paineis.png",
+          "title": "Elementos FFT Clássico · 1 Painéis",
+          "size": "1272×989",
+          "prompt": "Folha de elementos de interface de jogo de tática por turnos estilo Final Fantasy Tactics clássico de PlayStation: painéis retangulares com degradê azul-marinho, borda fina branca, cantos retos, sem texto, fundo liso cinza, peças separadas: painel base, painel pequeno, título de seção. Alta resolução.",
+          "good": "Degradê azul-marinho com borda fina clara parecido com o FFT; sem texto.",
+          "bad": "Só dois retângulos vazios, sem faixa de título, divisor nem marcadores; marca d'água do Craiyon no canto; não seguiu a lista de peças. Só a 1ª imagem saiu: a 2ª geração abriu o aviso \"Obter Craiyon Pro\" (login com Google), então os grupos 2 a 12 ficaram bloqueados. O arquivo original do Craiyon tem 1152×896 (o PNG é uma captura ampliada para 1272×989)."
+        }
+      ]
+    }
+  ],
+  "notRun": [
+    [
+      "ChatGPT: faltam os prompts 3 a 5 e todos os passos 2",
+      "limite do plano grátis atingido depois de 2 imagens; libera amanhã às 20:42 (aviso do ChatGPT) ou com o plano Plus."
+    ],
+    [
+      "Dreamina (Seedream), Recraft, Leonardo",
+      "ainda mostram \"Sign in\" (sem login): abas abertas no Chrome esperando o Fernando entrar. Prompts prontos em prompt-cena.txt e prompt-ui.txt."
+    ],
+    [
+      "Copilot: faltam os prompts 3 a 5 e o passo 2",
+      "a folha Ouro e couro saiu (seção Copilot). Anexar a captura do jogo exige aceitar um termo do Copilot; aguardando o sim do Fernando."
+    ],
+    ["Ideogram", "agente rodando com a folha de interface (prompt-ui.txt); aba aberta."],
+    [
+      "PixelLab (pixellab.ai)",
+      "testado: 3 imagens de UI (seção acima). Só faz pixel art; UI de 256 a 688 px; o usuário é dono do que gera (§1.3 dos termos)."
+    ],
+    [
+      "Ludo.ai, Scenario, Layer.ai",
+      "exigem conta. Scenario declara licença comercial nos planos pagos e treino de estilo próprio no Pro (US$ 45 por mês)."
+    ]
+  ],
+  "featured": ["gemini-fft-classico.png", "gemini-fft-classico-aplicado.png"],
+  "subs": [
+    ["cenas", "Cenas", "Cena do zero e a direção C sobre a captura."],
+    ["folhas", "Folhas de elementos", "Folhas de interface, da carta de campo às estilizadas."],
+    ["aplicados", "Aplicados sobre o jogo", "Cada folha estilizada montada sobre a captura."],
+    ["fft", "FFT", "Folhas sóbrias nas proporções do FFT e aplicadas."],
+    ["rostos", "Rostos em pixel art", "Retratos dos bonecos KayKit no estilo dos retratos do FFT Clássico."],
+    [
+      "sprites",
+      "Sprite sheets (prova de conceito)",
+      "Bonecos andando, atacando e caindo em pixel art, gerados na noite de 14 para 15/11."
+    ],
+    ["icones", "Ícones", "Ícones de habilidades, itens e status em pixel art."],
+    ["terreno", "Terreno e objetos", "Blocos de terreno isométricos, árvores e objetos do mapa."]
+  ]
+}

@@ -4,7 +4,6 @@ import { describe, expect, it, vi } from 'vitest';
 import { Paginas } from '@/features/paginas/Paginas';
 import type { Pagina } from '@/features/paginas/types';
 import { LABS } from '@/lib/labs';
-import { DECISOES_ATIVAS } from '@/lib/recursos';
 import { CONTEUDO, montarLab } from './registry';
 import type { Manifesto } from './types';
 
@@ -74,13 +73,10 @@ describe('montarLab', () => {
   });
 });
 
-// pages that only exist for the paused decision UI: the manifest hides them, so they are orphans on purpose
-const PAUSADAS = DECISOES_ATIVAS ? [] : ['./narrativa/marcas/minhas.mdx'];
-
 describe('registered labs', () => {
   it.each(Object.entries(CONTEUDO))('%s: matches a place in lib/labs.ts, no orphan files, no empty pages', (id, c) => {
     expect(LABS.map((l) => l.id)).toContain(id);
-    expect(c.orfaos.filter((f) => !PAUSADAS.includes(f))).toEqual([]);
+    expect(c.orfaos).toEqual([]);
     expect(c.vazias).toEqual([]);
   });
 

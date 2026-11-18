@@ -29,9 +29,6 @@ export interface Plano {
   /** the open decision; null = none (the page shows the next step) */
   agora: { question: string; why: string; example: string; options: string[]; pick: string } | null;
   proximoPasso: string;
-  decisoes: { tema: string; decisao: string }[];
-  fases: { id: string; nome: string; portao: string; estado: string }[];
-  pedidos: { data: string; pedido: string; dono: string; estado: string; proximo: string }[];
 }
 
 // file-name order, then by year (stable): the order the old lab got from import.meta.glob

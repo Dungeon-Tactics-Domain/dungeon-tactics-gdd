@@ -2,7 +2,7 @@ import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it } from 'vitest';
 import { CONTEUDO } from '../../registry';
-import { blocos, GAMES, IA, iaSub, mouthFrame, PER_PAGE, porConversa, ROSTO, rostoFim, type Test } from '../dados';
+import { blocos, GAMES, IA, iaSub, mouthFrame, PER_PAGE, porConversa, type Test } from '../dados';
 import { CHAVE, LUGARES, MAPA, NPCS } from '../cidade';
 import { CartoesIa } from './Cartoes';
 import { Cidade } from './Cidade';
@@ -11,16 +11,15 @@ import { IaAssunto } from './Ia';
 import { VisaoGeral } from './Referencias';
 import { Marcacoes } from './Marcacoes';
 import { Vozes } from './Vozes';
-import { Telas } from './Telas';
 
 describe('design lab data', () => {
   it('keeps the old lab tabs as groups (same ids as its routes): 5 groups, 16 captures of 1 game, every capture in exactly one block', () => {
     const s = CONTEUDO.design!.sumario;
     expect(s.grupos.map((g) => `${g.id}:${g.paginas.length}`)).toEqual([
-      'interface:13',
-      'personagens:4',
-      'mapa:2',
-      'plano:5',
+      'interface:11',
+      'personagens:2',
+      'mapa:1',
+      'plano:3',
       'referencias:2',
     ]);
     expect(GAMES).toHaveLength(1);
@@ -44,15 +43,6 @@ describe('design lab data', () => {
       0, 1, 1, 2,
     ]);
     expect([mouthFrame(400, true), mouthFrame(600, true), mouthFrame(800, true)]).toEqual([3, 2, 1]);
-  });
-
-  it('picks the end-of-battle face: hurt when fallen or below 30%, smiling on a victory, neutral on a defeat', () => {
-    expect([rostoFim(0, 30, true), rostoFim(11, 38, true), rostoFim(12, 38, true), rostoFim(20, 36, false)]).toEqual([
-      ROSTO.ferido,
-      ROSTO.ferido,
-      ROSTO.sorrindo,
-      ROSTO.neutro,
-    ]);
   });
 
   it('groups the images of one conversation and leaves the single ones loose', () => {
@@ -159,37 +149,6 @@ describe('design lab components', () => {
     await user.click(screen.getByRole('button', { name: 'Maga' }));
     expect(screen.getByText('28/42')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Levar dano' })).toHaveAttribute('aria-pressed', 'true');
-  });
-
-  it('walks the screen mock-ups through every state in both languages and both sizes', async () => {
-    const user = userEvent.setup();
-    const { container } = render(<Telas />);
-    const [fim, mapa, titulo] = screen.getAllByRole('region').filter((r) => r.tagName === 'SECTION');
-    expect(within(fim!).getByRole('img', { name: 'Bran: sorrindo' })).toBeInTheDocument();
-    expect(within(fim!).getByRole('img', { name: 'Tess: ferido' })).toBeInTheDocument();
-    expect(within(fim!).getByRole('img', { name: 'Odo: caído, rosto ferido' })).toBeInTheDocument();
-    await user.click(within(fim!).getByRole('button', { name: 'Derrota' }));
-    expect(within(fim!).getByRole('img', { name: 'Lia: neutro' })).toBeInTheDocument();
-    for (const estado of ['Loja', 'Taverna', 'Ficha do grupo']) {
-      await user.click(within(mapa!).getByRole('button', { name: estado }));
-      expect(within(mapa!).getByRole('region', { name: estado })).toBeInTheDocument();
-    }
-    expect(within(mapa!).getAllByRole('img', { name: /: neutro$/ })).toHaveLength(5);
-    await user.click(within(mapa!).getByRole('button', { name: 'Mapa' }));
-    expect(within(mapa!).getByText('Enter entra · setas movem · Esc volta')).toBeInTheDocument();
-    await user.click(within(titulo!).getByRole('button', { name: 'Opções' }));
-    expect(within(titulo!).getByRole('group', { name: 'Ângulo da câmera' })).toBeInTheDocument();
-    // English everywhere, from any mock-up's switch; the options panel and the screen size follow
-    await user.click(within(fim!).getByRole('button', { name: 'English' }));
-    expect(within(fim!).getByText('Defeat')).toBeInTheDocument();
-    expect(within(titulo!).getByRole('group', { name: 'Camera angle' })).toBeInTheDocument();
-    expect(within(mapa!).getByText('Enter goes in · arrows move · Esc back')).toBeInTheDocument();
-    await user.click(within(titulo!).getByRole('button', { name: '1280×720' }));
-    expect([...container.querySelectorAll<HTMLElement>('.fft-stage')].map((s) => s.style.width)).toEqual([
-      '1280px',
-      '1280px',
-      '1280px',
-    ]);
   });
 
   it('switches the town level, showing the NPCs of that level, and the lines in both languages', async () => {

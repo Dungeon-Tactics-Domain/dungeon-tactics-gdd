@@ -1,7 +1,8 @@
 // Live iframe of a game bench server (npm run bench in the piece's worktree). One page for every FFT-style interface piece we
 // made for the game: the 3D action menu (two versions), the 3D turn order and the HTML/CSS action menu. Same idea as the
-// mechanics lab's Cena.tsx: the game never starts by itself, "Ver ao vivo" mounts the iframe, "Parar" unloads it. The bench
-// only allows localhost, so the page works on the machine that runs the game (also when opened from the public site).
+// mechanics lab's old Cena.tsx (removed 17/11): the game never starts by itself, "Ver ao vivo" mounts the iframe,
+// "Parar" unloads it. The bench only allows localhost, so the page works on the machine that runs the game (also when
+// opened from the public site).
 import { useState } from 'react';
 
 interface Cena {
