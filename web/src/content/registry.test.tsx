@@ -84,18 +84,9 @@ describe('registered labs', () => {
     expect(c.vazias).toEqual([]);
   });
 
-  it('modelos keeps the old lab tree plus the KayKit bench: 8 groups, 27 pages', () => {
+  it('modelos keeps the KayKit bench and the Vagrant Story study: 2 groups, 4 pages', () => {
     const s = CONTEUDO.modelos!.sumario;
-    expect(s.grupos.map((g) => `${g.id}:${g.paginas.length}`)).toEqual([
-      'personagens:4',
-      'animacoes:6',
-      'kaykit:3',
-      'sprites:2',
-      'carrocas:4',
-      'arvores:5',
-      'estilos:2',
-      'evals:1',
-    ]);
+    expect(s.grupos.map((g) => `${g.id}:${g.paginas.length}`)).toEqual(['kaykit:3', 'vagrant:1']);
   });
 
   // every page of every lab renders its MDX without a "missing" message from a component

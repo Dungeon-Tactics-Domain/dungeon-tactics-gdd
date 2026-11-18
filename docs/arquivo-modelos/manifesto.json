@@ -1,0 +1,3566 @@
+{
+  "geradoEm": "2026-11-18T00:53:39.440Z",
+  "origem": "dungeon-tactics-labs, commit 57aef1c (main), web/src/content/modelos",
+  "bancada": {
+    "publica": "https://dungeon-bancada.fernandorffdev.com",
+    "local": "http://localhost:5205 (npx vite --port 5205 --strictPort na worktree do jogo)",
+    "worktree": "D:/Projetos/dungeon-tactics/.claude/worktrees/modelagem-mapas-objetos-9b866c",
+    "observacao": "public/eval/, eval.html e src/client/eval/ NÃO estão versionados (git status \"??\") na worktree modelagem-mapas-objetos-9b866c do jogo.",
+    "eval": {
+      "caminho": "public/eval",
+      "existe": true,
+      "bytes": 161738003,
+      "tamanho": "154.25 MB",
+      "arquivos": [
+        {
+          "nome": "anim-fable/char.glb",
+          "bytes": 3648860,
+          "tamanho": "3.48 MB"
+        },
+        {
+          "nome": "anim-fable/check-attack-3q.png",
+          "bytes": 351255,
+          "tamanho": "0.33 MB"
+        },
+        {
+          "nome": "anim-fable/check-attack-side.png",
+          "bytes": 327790,
+          "tamanho": "0.31 MB"
+        },
+        {
+          "nome": "anim-fable/check-death_a.png",
+          "bytes": 318771,
+          "tamanho": "0.30 MB"
+        },
+        {
+          "nome": "anim-fable/check-hit_a.png",
+          "bytes": 315541,
+          "tamanho": "0.30 MB"
+        },
+        {
+          "nome": "anim-fable/check-idle-3q.png",
+          "bytes": 358724,
+          "tamanho": "0.34 MB"
+        },
+        {
+          "nome": "anim-fable/check-idle-side.png",
+          "bytes": 324032,
+          "tamanho": "0.31 MB"
+        },
+        {
+          "nome": "anim-fable/check-swim1.png",
+          "bytes": 301789,
+          "tamanho": "0.29 MB"
+        },
+        {
+          "nome": "anim-fable/check-swim2.png",
+          "bytes": 301436,
+          "tamanho": "0.29 MB"
+        },
+        {
+          "nome": "anim-fable/check-swim3.png",
+          "bytes": 280772,
+          "tamanho": "0.27 MB"
+        },
+        {
+          "nome": "anim-fable/check-swim4.png",
+          "bytes": 273710,
+          "tamanho": "0.26 MB"
+        },
+        {
+          "nome": "anim-fable/check-walk-3q.png",
+          "bytes": 354109,
+          "tamanho": "0.34 MB"
+        },
+        {
+          "nome": "anim-fable/check-walk-side.png",
+          "bytes": 325902,
+          "tamanho": "0.31 MB"
+        },
+        {
+          "nome": "anim-fable/extras.py",
+          "bytes": 6303,
+          "tamanho": "0.01 MB"
+        },
+        {
+          "nome": "anim-fable/rig-all.py",
+          "bytes": 25966,
+          "tamanho": "0.02 MB"
+        },
+        {
+          "nome": "anim-opus/char.glb",
+          "bytes": 5869776,
+          "tamanho": "5.60 MB"
+        },
+        {
+          "nome": "anim-opus/check-attack.png",
+          "bytes": 947628,
+          "tamanho": "0.90 MB"
+        },
+        {
+          "nome": "anim-opus/check-death.png",
+          "bytes": 352113,
+          "tamanho": "0.34 MB"
+        },
+        {
+          "nome": "anim-opus/check-hit.png",
+          "bytes": 972580,
+          "tamanho": "0.93 MB"
+        },
+        {
+          "nome": "anim-opus/check-magic.png",
+          "bytes": 988693,
+          "tamanho": "0.94 MB"
+        },
+        {
+          "nome": "anim-opus/check-swim.png",
+          "bytes": 507999,
+          "tamanho": "0.48 MB"
+        },
+        {
+          "nome": "anim-opus/check-walk.png",
+          "bytes": 926588,
+          "tamanho": "0.88 MB"
+        },
+        {
+          "nome": "anim-opus/check.py",
+          "bytes": 6465,
+          "tamanho": "0.01 MB"
+        },
+        {
+          "nome": "anim-opus/rig-all.py",
+          "bytes": 10158,
+          "tamanho": "0.01 MB"
+        },
+        {
+          "nome": "anim-opus-leve/char.glb",
+          "bytes": 5209540,
+          "tamanho": "4.97 MB"
+        },
+        {
+          "nome": "anim-opus-leve/check-attack.png",
+          "bytes": 931637,
+          "tamanho": "0.89 MB"
+        },
+        {
+          "nome": "anim-opus-leve/check-comparacao.png",
+          "bytes": 1779816,
+          "tamanho": "1.70 MB"
+        },
+        {
+          "nome": "anim-opus-leve/check-death.png",
+          "bytes": 349396,
+          "tamanho": "0.33 MB"
+        },
+        {
+          "nome": "anim-opus-leve/check-hit.png",
+          "bytes": 964572,
+          "tamanho": "0.92 MB"
+        },
+        {
+          "nome": "anim-opus-leve/check-magic.png",
+          "bytes": 977155,
+          "tamanho": "0.93 MB"
+        },
+        {
+          "nome": "anim-opus-leve/check-swim.png",
+          "bytes": 504887,
+          "tamanho": "0.48 MB"
+        },
+        {
+          "nome": "anim-opus-leve/check-walk.png",
+          "bytes": 916708,
+          "tamanho": "0.87 MB"
+        },
+        {
+          "nome": "anim-opus-leve/check.py",
+          "bytes": 6465,
+          "tamanho": "0.01 MB"
+        },
+        {
+          "nome": "anim-opus-leve/compare.py",
+          "bytes": 4483,
+          "tamanho": "0.00 MB"
+        },
+        {
+          "nome": "anim-opus-leve/reduce.py",
+          "bytes": 1770,
+          "tamanho": "0.00 MB"
+        },
+        {
+          "nome": "anim-sonnet/char-all.blend",
+          "bytes": 5443947,
+          "tamanho": "5.19 MB"
+        },
+        {
+          "nome": "anim-sonnet/char-all.blend1",
+          "bytes": 5251001,
+          "tamanho": "5.01 MB"
+        },
+        {
+          "nome": "anim-sonnet/char.glb",
+          "bytes": 6492444,
+          "tamanho": "6.19 MB"
+        },
+        {
+          "nome": "anim-sonnet/check-death_a.png",
+          "bytes": 335699,
+          "tamanho": "0.32 MB"
+        },
+        {
+          "nome": "anim-sonnet/check-death_a_side.png",
+          "bytes": 349738,
+          "tamanho": "0.33 MB"
+        },
+        {
+          "nome": "anim-sonnet/check-hit_a.png",
+          "bytes": 382247,
+          "tamanho": "0.36 MB"
+        },
+        {
+          "nome": "anim-sonnet/check-rest.png",
+          "bytes": 372625,
+          "tamanho": "0.36 MB"
+        },
+        {
+          "nome": "anim-sonnet/check-slice.png",
+          "bytes": 384895,
+          "tamanho": "0.37 MB"
+        },
+        {
+          "nome": "anim-sonnet/check-swim1.png",
+          "bytes": 347173,
+          "tamanho": "0.33 MB"
+        },
+        {
+          "nome": "anim-sonnet/check-swim2.png",
+          "bytes": 349437,
+          "tamanho": "0.33 MB"
+        },
+        {
+          "nome": "anim-sonnet/check-swim3.png",
+          "bytes": 343404,
+          "tamanho": "0.33 MB"
+        },
+        {
+          "nome": "anim-sonnet/check-swim4.png",
+          "bytes": 344009,
+          "tamanho": "0.33 MB"
+        },
+        {
+          "nome": "anim-sonnet/check-walking_a.png",
+          "bytes": 385195,
+          "tamanho": "0.37 MB"
+        },
+        {
+          "nome": "anim-sonnet/check.py",
+          "bytes": 4313,
+          "tamanho": "0.00 MB"
+        },
+        {
+          "nome": "anim-sonnet/extras.py",
+          "bytes": 7133,
+          "tamanho": "0.01 MB"
+        },
+        {
+          "nome": "anim-sonnet/rig-all.py",
+          "bytes": 8303,
+          "tamanho": "0.01 MB"
+        },
+        {
+          "nome": "anim-sonnet/skin_fix2.py",
+          "bytes": 3243,
+          "tamanho": "0.00 MB"
+        },
+        {
+          "nome": "anim-sonnet-leve/char.glb",
+          "bytes": 5637468,
+          "tamanho": "5.38 MB"
+        },
+        {
+          "nome": "anim-sonnet-leve/check-comparacao-34.png",
+          "bytes": 912676,
+          "tamanho": "0.87 MB"
+        },
+        {
+          "nome": "anim-sonnet-leve/check-comparacao-frente.png",
+          "bytes": 912368,
+          "tamanho": "0.87 MB"
+        },
+        {
+          "nome": "anim-sonnet-leve/check-comparacao-rosto.png",
+          "bytes": 918242,
+          "tamanho": "0.88 MB"
+        },
+        {
+          "nome": "anim-sonnet-leve/check-death_a.png",
+          "bytes": 336769,
+          "tamanho": "0.32 MB"
+        },
+        {
+          "nome": "anim-sonnet-leve/check-death_a_side.png",
+          "bytes": 348408,
+          "tamanho": "0.33 MB"
+        },
+        {
+          "nome": "anim-sonnet-leve/check-hit_a.png",
+          "bytes": 379953,
+          "tamanho": "0.36 MB"
+        },
+        {
+          "nome": "anim-sonnet-leve/check-rest.png",
+          "bytes": 374115,
+          "tamanho": "0.36 MB"
+        },
+        {
+          "nome": "anim-sonnet-leve/check-slice.png",
+          "bytes": 384229,
+          "tamanho": "0.37 MB"
+        },
+        {
+          "nome": "anim-sonnet-leve/check-swim1.png",
+          "bytes": 347714,
+          "tamanho": "0.33 MB"
+        },
+        {
+          "nome": "anim-sonnet-leve/check-swim2.png",
+          "bytes": 350953,
+          "tamanho": "0.33 MB"
+        },
+        {
+          "nome": "anim-sonnet-leve/check-swim3.png",
+          "bytes": 344852,
+          "tamanho": "0.33 MB"
+        },
+        {
+          "nome": "anim-sonnet-leve/check-swim4.png",
+          "bytes": 344597,
+          "tamanho": "0.33 MB"
+        },
+        {
+          "nome": "anim-sonnet-leve/check-walking_a.png",
+          "bytes": 384054,
+          "tamanho": "0.37 MB"
+        },
+        {
+          "nome": "anim-sonnet-leve/check.py",
+          "bytes": 4419,
+          "tamanho": "0.00 MB"
+        },
+        {
+          "nome": "anim-sonnet-leve/compare.py",
+          "bytes": 1990,
+          "tamanho": "0.00 MB"
+        },
+        {
+          "nome": "anim-sonnet-leve/reduce.py",
+          "bytes": 1603,
+          "tamanho": "0.00 MB"
+        },
+        {
+          "nome": "blender-fable/back.png",
+          "bytes": 678001,
+          "tamanho": "0.65 MB"
+        },
+        {
+          "nome": "blender-fable/char.blend",
+          "bytes": 2662185,
+          "tamanho": "2.54 MB"
+        },
+        {
+          "nome": "blender-fable/char.glb",
+          "bytes": 2768580,
+          "tamanho": "2.64 MB"
+        },
+        {
+          "nome": "blender-fable/face.png",
+          "bytes": 808255,
+          "tamanho": "0.77 MB"
+        },
+        {
+          "nome": "blender-fable/front.png",
+          "bytes": 715827,
+          "tamanho": "0.68 MB"
+        },
+        {
+          "nome": "blender-fable/hands.png",
+          "bytes": 781751,
+          "tamanho": "0.75 MB"
+        },
+        {
+          "nome": "blender-fable/make.py",
+          "bytes": 42642,
+          "tamanho": "0.04 MB"
+        },
+        {
+          "nome": "blender-fable/side.png",
+          "bytes": 665859,
+          "tamanho": "0.64 MB"
+        },
+        {
+          "nome": "blender-fable/small.png",
+          "bytes": 59829,
+          "tamanho": "0.06 MB"
+        },
+        {
+          "nome": "blender-fable/texture.png",
+          "bytes": 2263055,
+          "tamanho": "2.16 MB"
+        },
+        {
+          "nome": "blender-fable/three_quarter.png",
+          "bytes": 694286,
+          "tamanho": "0.66 MB"
+        },
+        {
+          "nome": "blender-opus/back.png",
+          "bytes": 695626,
+          "tamanho": "0.66 MB"
+        },
+        {
+          "nome": "blender-opus/char.blend",
+          "bytes": 4768827,
+          "tamanho": "4.55 MB"
+        },
+        {
+          "nome": "blender-opus/char.blend1",
+          "bytes": 4764716,
+          "tamanho": "4.54 MB"
+        },
+        {
+          "nome": "blender-opus/char.glb",
+          "bytes": 4933744,
+          "tamanho": "4.71 MB"
+        },
+        {
+          "nome": "blender-opus/face.png",
+          "bytes": 833446,
+          "tamanho": "0.79 MB"
+        },
+        {
+          "nome": "blender-opus/front.png",
+          "bytes": 722505,
+          "tamanho": "0.69 MB"
+        },
+        {
+          "nome": "blender-opus/make.py",
+          "bytes": 44300,
+          "tamanho": "0.04 MB"
+        },
+        {
+          "nome": "blender-opus/side.png",
+          "bytes": 689207,
+          "tamanho": "0.66 MB"
+        },
+        {
+          "nome": "blender-opus/small.png",
+          "bytes": 43865,
+          "tamanho": "0.04 MB"
+        },
+        {
+          "nome": "blender-opus/three_quarter.png",
+          "bytes": 714110,
+          "tamanho": "0.68 MB"
+        },
+        {
+          "nome": "blender-opus/warrior_paint.png",
+          "bytes": 4245560,
+          "tamanho": "4.05 MB"
+        },
+        {
+          "nome": "blender-sonnet/back.png",
+          "bytes": 659217,
+          "tamanho": "0.63 MB"
+        },
+        {
+          "nome": "blender-sonnet/char.blend",
+          "bytes": 4850489,
+          "tamanho": "4.63 MB"
+        },
+        {
+          "nome": "blender-sonnet/char.glb",
+          "bytes": 5029024,
+          "tamanho": "4.80 MB"
+        },
+        {
+          "nome": "blender-sonnet/check.py",
+          "bytes": 597,
+          "tamanho": "0.00 MB"
+        },
+        {
+          "nome": "blender-sonnet/face.png",
+          "bytes": 728450,
+          "tamanho": "0.69 MB"
+        },
+        {
+          "nome": "blender-sonnet/front.png",
+          "bytes": 695024,
+          "tamanho": "0.66 MB"
+        },
+        {
+          "nome": "blender-sonnet/hands.png",
+          "bytes": 726062,
+          "tamanho": "0.69 MB"
+        },
+        {
+          "nome": "blender-sonnet/make.py",
+          "bytes": 41203,
+          "tamanho": "0.04 MB"
+        },
+        {
+          "nome": "blender-sonnet/pipeline.py",
+          "bytes": 9274,
+          "tamanho": "0.01 MB"
+        },
+        {
+          "nome": "blender-sonnet/side.png",
+          "bytes": 653099,
+          "tamanho": "0.62 MB"
+        },
+        {
+          "nome": "blender-sonnet/small.png",
+          "bytes": 56194,
+          "tamanho": "0.05 MB"
+        },
+        {
+          "nome": "blender-sonnet/texture.png",
+          "bytes": 4202226,
+          "tamanho": "4.01 MB"
+        },
+        {
+          "nome": "blender-sonnet/three_quarter.png",
+          "bytes": 686850,
+          "tamanho": "0.66 MB"
+        },
+        {
+          "nome": "kaykit-anim/clips.json",
+          "bytes": 10022,
+          "tamanho": "0.01 MB"
+        },
+        {
+          "nome": "kaykit-anim/idle-combate-v2c.glb",
+          "bytes": 26856,
+          "tamanho": "0.03 MB"
+        },
+        {
+          "nome": "kaykit-anim/idle-combate-v2d.glb",
+          "bytes": 39996,
+          "tamanho": "0.04 MB"
+        },
+        {
+          "nome": "kaykit-anim/idle-combate.glb",
+          "bytes": 39996,
+          "tamanho": "0.04 MB"
+        },
+        {
+          "nome": "kaykit-anim/kaykit.glb",
+          "bytes": 3420128,
+          "tamanho": "3.26 MB"
+        },
+        {
+          "nome": "kaykit-remodel/knight-3h-v1.glb",
+          "bytes": 380276,
+          "tamanho": "0.36 MB"
+        },
+        {
+          "nome": "kaykit-remodel/knight-3h.glb",
+          "bytes": 406332,
+          "tamanho": "0.39 MB"
+        },
+        {
+          "nome": "kaykit-remodel/knight-4h-capalonga.glb",
+          "bytes": 461684,
+          "tamanho": "0.44 MB"
+        },
+        {
+          "nome": "kaykit-remodel/knight-4h-v1.glb",
+          "bytes": 380284,
+          "tamanho": "0.36 MB"
+        },
+        {
+          "nome": "kaykit-remodel/knight-4h-v2a.glb",
+          "bytes": 406348,
+          "tamanho": "0.39 MB"
+        },
+        {
+          "nome": "kaykit-remodel/knight-4h-v2b.glb",
+          "bytes": 461684,
+          "tamanho": "0.44 MB"
+        },
+        {
+          "nome": "kaykit-remodel/knight-4h-v2c.glb",
+          "bytes": 461684,
+          "tamanho": "0.44 MB"
+        },
+        {
+          "nome": "kaykit-remodel/knight-4h-v2d.glb",
+          "bytes": 461684,
+          "tamanho": "0.44 MB"
+        },
+        {
+          "nome": "kaykit-remodel/knight-4h.glb",
+          "bytes": 461684,
+          "tamanho": "0.44 MB"
+        },
+        {
+          "nome": "kaykit-remodel/knight-5h-capalonga.glb",
+          "bytes": 461672,
+          "tamanho": "0.44 MB"
+        },
+        {
+          "nome": "kaykit-remodel/knight-5h-v1.glb",
+          "bytes": 380280,
+          "tamanho": "0.36 MB"
+        },
+        {
+          "nome": "kaykit-remodel/knight-5h-v2a.glb",
+          "bytes": 406340,
+          "tamanho": "0.39 MB"
+        },
+        {
+          "nome": "kaykit-remodel/knight-5h-v2b.glb",
+          "bytes": 461672,
+          "tamanho": "0.44 MB"
+        },
+        {
+          "nome": "kaykit-remodel/knight-5h-v2c.glb",
+          "bytes": 461672,
+          "tamanho": "0.44 MB"
+        },
+        {
+          "nome": "kaykit-remodel/knight-5h-v2d.glb",
+          "bytes": 461672,
+          "tamanho": "0.44 MB"
+        },
+        {
+          "nome": "kaykit-remodel/knight-5h.glb",
+          "bytes": 461672,
+          "tamanho": "0.44 MB"
+        },
+        {
+          "nome": "kaykit-remodel/knight-6h-v1.glb",
+          "bytes": 380292,
+          "tamanho": "0.36 MB"
+        },
+        {
+          "nome": "kaykit-remodel/knight-6h.glb",
+          "bytes": 406340,
+          "tamanho": "0.39 MB"
+        },
+        {
+          "nome": "kaykit-remodel/knight-7h-v1.glb",
+          "bytes": 380288,
+          "tamanho": "0.36 MB"
+        },
+        {
+          "nome": "kaykit-remodel/knight-7h.glb",
+          "bytes": 406336,
+          "tamanho": "0.39 MB"
+        },
+        {
+          "nome": "kaykit-remodel/mage-3h-v1.glb",
+          "bytes": 310832,
+          "tamanho": "0.30 MB"
+        },
+        {
+          "nome": "kaykit-remodel/mage-3h.glb",
+          "bytes": 310816,
+          "tamanho": "0.30 MB"
+        },
+        {
+          "nome": "kaykit-remodel/mage-4h-v1.glb",
+          "bytes": 310836,
+          "tamanho": "0.30 MB"
+        },
+        {
+          "nome": "kaykit-remodel/mage-4h-v2a.glb",
+          "bytes": 310840,
+          "tamanho": "0.30 MB"
+        },
+        {
+          "nome": "kaykit-remodel/mage-4h.glb",
+          "bytes": 310844,
+          "tamanho": "0.30 MB"
+        },
+        {
+          "nome": "kaykit-remodel/mage-5h-v1.glb",
+          "bytes": 310832,
+          "tamanho": "0.30 MB"
+        },
+        {
+          "nome": "kaykit-remodel/mage-5h-v2a.glb",
+          "bytes": 310832,
+          "tamanho": "0.30 MB"
+        },
+        {
+          "nome": "kaykit-remodel/mage-5h.glb",
+          "bytes": 310836,
+          "tamanho": "0.30 MB"
+        },
+        {
+          "nome": "kaykit-remodel/mage-6h-v1.glb",
+          "bytes": 310844,
+          "tamanho": "0.30 MB"
+        },
+        {
+          "nome": "kaykit-remodel/mage-6h.glb",
+          "bytes": 310832,
+          "tamanho": "0.30 MB"
+        },
+        {
+          "nome": "kaykit-remodel/mage-7h-v1.glb",
+          "bytes": 310840,
+          "tamanho": "0.30 MB"
+        },
+        {
+          "nome": "kaykit-remodel/mage-7h.glb",
+          "bytes": 310828,
+          "tamanho": "0.30 MB"
+        },
+        {
+          "nome": "kaykit-remodel/proporcoes.json",
+          "bytes": 226232,
+          "tamanho": "0.22 MB"
+        },
+        {
+          "nome": "kaykit-remodel/rogue-3h-v1.glb",
+          "bytes": 337388,
+          "tamanho": "0.32 MB"
+        },
+        {
+          "nome": "kaykit-remodel/rogue-3h.glb",
+          "bytes": 337376,
+          "tamanho": "0.32 MB"
+        },
+        {
+          "nome": "kaykit-remodel/rogue-4h-v1.glb",
+          "bytes": 337396,
+          "tamanho": "0.32 MB"
+        },
+        {
+          "nome": "kaykit-remodel/rogue-4h-v2a.glb",
+          "bytes": 337400,
+          "tamanho": "0.32 MB"
+        },
+        {
+          "nome": "kaykit-remodel/rogue-4h.glb",
+          "bytes": 337404,
+          "tamanho": "0.32 MB"
+        },
+        {
+          "nome": "kaykit-remodel/rogue-5h-v1.glb",
+          "bytes": 337392,
+          "tamanho": "0.32 MB"
+        },
+        {
+          "nome": "kaykit-remodel/rogue-5h-v2a.glb",
+          "bytes": 337384,
+          "tamanho": "0.32 MB"
+        },
+        {
+          "nome": "kaykit-remodel/rogue-5h.glb",
+          "bytes": 337388,
+          "tamanho": "0.32 MB"
+        },
+        {
+          "nome": "kaykit-remodel/rogue-6h-v1.glb",
+          "bytes": 337396,
+          "tamanho": "0.32 MB"
+        },
+        {
+          "nome": "kaykit-remodel/rogue-6h.glb",
+          "bytes": 337376,
+          "tamanho": "0.32 MB"
+        },
+        {
+          "nome": "kaykit-remodel/rogue-7h-v1.glb",
+          "bytes": 337400,
+          "tamanho": "0.32 MB"
+        },
+        {
+          "nome": "kaykit-remodel/rogue-7h.glb",
+          "bytes": 337384,
+          "tamanho": "0.32 MB"
+        },
+        {
+          "nome": "sprites-opus/char-rigged.blend",
+          "bytes": 4912534,
+          "tamanho": "4.68 MB"
+        },
+        {
+          "nome": "sprites-opus/contato.png",
+          "bytes": 217646,
+          "tamanho": "0.21 MB"
+        },
+        {
+          "nome": "sprites-opus/hd-attack.png",
+          "bytes": 1696791,
+          "tamanho": "1.62 MB"
+        },
+        {
+          "nome": "sprites-opus/hd-idle.png",
+          "bytes": 935110,
+          "tamanho": "0.89 MB"
+        },
+        {
+          "nome": "sprites-opus/hd-walk.png",
+          "bytes": 1752017,
+          "tamanho": "1.67 MB"
+        },
+        {
+          "nome": "sprites-opus/pixel-attack.png",
+          "bytes": 110240,
+          "tamanho": "0.11 MB"
+        },
+        {
+          "nome": "sprites-opus/pixel-idle.png",
+          "bytes": 56746,
+          "tamanho": "0.05 MB"
+        },
+        {
+          "nome": "sprites-opus/pixel-walk.png",
+          "bytes": 103266,
+          "tamanho": "0.10 MB"
+        },
+        {
+          "nome": "sprites-opus/render.py",
+          "bytes": 11717,
+          "tamanho": "0.01 MB"
+        },
+        {
+          "nome": "sprites-opus/rig.py",
+          "bytes": 20905,
+          "tamanho": "0.02 MB"
+        },
+        {
+          "nome": "sprites-opus/seq-hd-attack.png",
+          "bytes": 165783,
+          "tamanho": "0.16 MB"
+        },
+        {
+          "nome": "sprites-opus/seq-hd-walk.png",
+          "bytes": 183517,
+          "tamanho": "0.18 MB"
+        },
+        {
+          "nome": "sprites-opus/seq-pixel-attack.png",
+          "bytes": 23301,
+          "tamanho": "0.02 MB"
+        },
+        {
+          "nome": "sprites-opus/sprites.json",
+          "bytes": 1472,
+          "tamanho": "0.00 MB"
+        },
+        {
+          "nome": "sprites-sonnet/char-rigged.blend",
+          "bytes": 4870040,
+          "tamanho": "4.64 MB"
+        },
+        {
+          "nome": "sprites-sonnet/char-rigged.blend1",
+          "bytes": 4870045,
+          "tamanho": "4.64 MB"
+        },
+        {
+          "nome": "sprites-sonnet/compose.py",
+          "bytes": 5051,
+          "tamanho": "0.00 MB"
+        },
+        {
+          "nome": "sprites-sonnet/contato.png",
+          "bytes": 386106,
+          "tamanho": "0.37 MB"
+        },
+        {
+          "nome": "sprites-sonnet/dump_poses.py",
+          "bytes": 3577,
+          "tamanho": "0.00 MB"
+        },
+        {
+          "nome": "sprites-sonnet/hd-attack.png",
+          "bytes": 1788727,
+          "tamanho": "1.71 MB"
+        },
+        {
+          "nome": "sprites-sonnet/hd-idle.png",
+          "bytes": 890149,
+          "tamanho": "0.85 MB"
+        },
+        {
+          "nome": "sprites-sonnet/hd-walk.png",
+          "bytes": 1761593,
+          "tamanho": "1.68 MB"
+        },
+        {
+          "nome": "sprites-sonnet/pixel-attack.png",
+          "bytes": 121164,
+          "tamanho": "0.12 MB"
+        },
+        {
+          "nome": "sprites-sonnet/pixel-idle.png",
+          "bytes": 54595,
+          "tamanho": "0.05 MB"
+        },
+        {
+          "nome": "sprites-sonnet/pixel-walk.png",
+          "bytes": 111155,
+          "tamanho": "0.11 MB"
+        },
+        {
+          "nome": "sprites-sonnet/poses.json",
+          "bytes": 78371,
+          "tamanho": "0.07 MB"
+        },
+        {
+          "nome": "sprites-sonnet/preview-hd-attack.gif",
+          "bytes": 89319,
+          "tamanho": "0.09 MB"
+        },
+        {
+          "nome": "sprites-sonnet/preview-hd-idle.gif",
+          "bytes": 42082,
+          "tamanho": "0.04 MB"
+        },
+        {
+          "nome": "sprites-sonnet/preview-hd-walk.gif",
+          "bytes": 88394,
+          "tamanho": "0.08 MB"
+        },
+        {
+          "nome": "sprites-sonnet/preview-pixel-attack.gif",
+          "bytes": 38797,
+          "tamanho": "0.04 MB"
+        },
+        {
+          "nome": "sprites-sonnet/preview-pixel-idle.gif",
+          "bytes": 14387,
+          "tamanho": "0.01 MB"
+        },
+        {
+          "nome": "sprites-sonnet/preview-pixel-walk.gif",
+          "bytes": 34243,
+          "tamanho": "0.03 MB"
+        },
+        {
+          "nome": "sprites-sonnet/render.py",
+          "bytes": 4300,
+          "tamanho": "0.00 MB"
+        },
+        {
+          "nome": "sprites-sonnet/rig.py",
+          "bytes": 6222,
+          "tamanho": "0.01 MB"
+        },
+        {
+          "nome": "sprites-sonnet/skin_fix.py",
+          "bytes": 2773,
+          "tamanho": "0.00 MB"
+        },
+        {
+          "nome": "sprites-sonnet/sprites.json",
+          "bytes": 1170,
+          "tamanho": "0.00 MB"
+        },
+        {
+          "nome": "weapons/axe_1handed.bin",
+          "bytes": 12524,
+          "tamanho": "0.01 MB"
+        },
+        {
+          "nome": "weapons/axe_1handed.gltf",
+          "bytes": 3087,
+          "tamanho": "0.00 MB"
+        },
+        {
+          "nome": "weapons/axe_2handed.bin",
+          "bytes": 21960,
+          "tamanho": "0.02 MB"
+        },
+        {
+          "nome": "weapons/axe_2handed.gltf",
+          "bytes": 3083,
+          "tamanho": "0.00 MB"
+        },
+        {
+          "nome": "weapons/axe_A.bin",
+          "bytes": 47012,
+          "tamanho": "0.04 MB"
+        },
+        {
+          "nome": "weapons/axe_A.gltf",
+          "bytes": 3039,
+          "tamanho": "0.00 MB"
+        },
+        {
+          "nome": "weapons/barbarian_texture.png",
+          "bytes": 15089,
+          "tamanho": "0.01 MB"
+        },
+        {
+          "nome": "weapons/bow_A_withString.bin",
+          "bytes": 48272,
+          "tamanho": "0.05 MB"
+        },
+        {
+          "nome": "weapons/bow_A_withString.gltf",
+          "bytes": 4312,
+          "tamanho": "0.00 MB"
+        },
+        {
+          "nome": "weapons/crossbow_1handed.bin",
+          "bytes": 25200,
+          "tamanho": "0.02 MB"
+        },
+        {
+          "nome": "weapons/crossbow_1handed.gltf",
+          "bytes": 3083,
+          "tamanho": "0.00 MB"
+        },
+        {
+          "nome": "weapons/crossbow_2handed.bin",
+          "bytes": 34896,
+          "tamanho": "0.03 MB"
+        },
+        {
+          "nome": "weapons/crossbow_2handed.gltf",
+          "bytes": 3083,
+          "tamanho": "0.00 MB"
+        },
+        {
+          "nome": "weapons/dagger.bin",
+          "bytes": 7656,
+          "tamanho": "0.01 MB"
+        },
+        {
+          "nome": "weapons/dagger.gltf",
+          "bytes": 3065,
+          "tamanho": "0.00 MB"
+        },
+        {
+          "nome": "weapons/dagger_A.bin",
+          "bytes": 17476,
+          "tamanho": "0.02 MB"
+        },
+        {
+          "nome": "weapons/dagger_A.gltf",
+          "bytes": 3042,
+          "tamanho": "0.00 MB"
+        },
+        {
+          "nome": "weapons/dagger_B.bin",
+          "bytes": 20004,
+          "tamanho": "0.02 MB"
+        },
+        {
+          "nome": "weapons/dagger_B.gltf",
+          "bytes": 3041,
+          "tamanho": "0.00 MB"
+        },
+        {
+          "nome": "weapons/halberd.bin",
+          "bytes": 64112,
+          "tamanho": "0.06 MB"
+        },
+        {
+          "nome": "weapons/halberd.gltf",
+          "bytes": 3044,
+          "tamanho": "0.00 MB"
+        },
+        {
+          "nome": "weapons/hammer_A.bin",
+          "bytes": 23240,
+          "tamanho": "0.02 MB"
+        },
+        {
+          "nome": "weapons/hammer_A.gltf",
+          "bytes": 3042,
+          "tamanho": "0.00 MB"
+        },
+        {
+          "nome": "weapons/knight_texture.png",
+          "bytes": 14172,
+          "tamanho": "0.01 MB"
+        },
+        {
+          "nome": "weapons/mage_texture.png",
+          "bytes": 16311,
+          "tamanho": "0.02 MB"
+        },
+        {
+          "nome": "weapons/rogue_texture.png",
+          "bytes": 16670,
+          "tamanho": "0.02 MB"
+        },
+        {
+          "nome": "weapons/shield_A.bin",
+          "bytes": 14604,
+          "tamanho": "0.01 MB"
+        },
+        {
+          "nome": "weapons/shield_A.gltf",
+          "bytes": 3042,
+          "tamanho": "0.00 MB"
+        },
+        {
+          "nome": "weapons/shield_badge.bin",
+          "bytes": 10628,
+          "tamanho": "0.01 MB"
+        },
+        {
+          "nome": "weapons/shield_badge.gltf",
+          "bytes": 3080,
+          "tamanho": "0.00 MB"
+        },
+        {
+          "nome": "weapons/shield_round.bin",
+          "bytes": 12008,
+          "tamanho": "0.01 MB"
+        },
+        {
+          "nome": "weapons/shield_round.gltf",
+          "bytes": 3083,
+          "tamanho": "0.00 MB"
+        },
+        {
+          "nome": "weapons/shield_spikes.bin",
+          "bytes": 21464,
+          "tamanho": "0.02 MB"
+        },
+        {
+          "nome": "weapons/shield_spikes.gltf",
+          "bytes": 3083,
+          "tamanho": "0.00 MB"
+        },
+        {
+          "nome": "weapons/shield_square.bin",
+          "bytes": 10724,
+          "tamanho": "0.01 MB"
+        },
+        {
+          "nome": "weapons/shield_square.gltf",
+          "bytes": 3081,
+          "tamanho": "0.00 MB"
+        },
+        {
+          "nome": "weapons/spear_A.bin",
+          "bytes": 52736,
+          "tamanho": "0.05 MB"
+        },
+        {
+          "nome": "weapons/spear_A.gltf",
+          "bytes": 3045,
+          "tamanho": "0.00 MB"
+        },
+        {
+          "nome": "weapons/spellbook_open.bin",
+          "bytes": 15128,
+          "tamanho": "0.01 MB"
+        },
+        {
+          "nome": "weapons/spellbook_open.gltf",
+          "bytes": 3076,
+          "tamanho": "0.00 MB"
+        },
+        {
+          "nome": "weapons/staff.bin",
+          "bytes": 18576,
+          "tamanho": "0.02 MB"
+        },
+        {
+          "nome": "weapons/staff.gltf",
+          "bytes": 3061,
+          "tamanho": "0.00 MB"
+        },
+        {
+          "nome": "weapons/staff_A.bin",
+          "bytes": 21016,
+          "tamanho": "0.02 MB"
+        },
+        {
+          "nome": "weapons/staff_A.gltf",
+          "bytes": 3040,
+          "tamanho": "0.00 MB"
+        },
+        {
+          "nome": "weapons/sword_1handed.bin",
+          "bytes": 13256,
+          "tamanho": "0.01 MB"
+        },
+        {
+          "nome": "weapons/sword_1handed.gltf",
+          "bytes": 3080,
+          "tamanho": "0.00 MB"
+        },
+        {
+          "nome": "weapons/sword_2handed.bin",
+          "bytes": 19912,
+          "tamanho": "0.02 MB"
+        },
+        {
+          "nome": "weapons/sword_2handed.gltf",
+          "bytes": 3081,
+          "tamanho": "0.00 MB"
+        },
+        {
+          "nome": "weapons/sword_A.bin",
+          "bytes": 13496,
+          "tamanho": "0.01 MB"
+        },
+        {
+          "nome": "weapons/sword_A.gltf",
+          "bytes": 3035,
+          "tamanho": "0.00 MB"
+        },
+        {
+          "nome": "weapons/sword_C.bin",
+          "bytes": 16976,
+          "tamanho": "0.02 MB"
+        },
+        {
+          "nome": "weapons/sword_C.gltf",
+          "bytes": 3038,
+          "tamanho": "0.00 MB"
+        },
+        {
+          "nome": "weapons/wand.bin",
+          "bytes": 5956,
+          "tamanho": "0.01 MB"
+        },
+        {
+          "nome": "weapons/wand.gltf",
+          "bytes": 3058,
+          "tamanho": "0.00 MB"
+        },
+        {
+          "nome": "weapons/weapons_bits_texture.png",
+          "bytes": 17508,
+          "tamanho": "0.02 MB"
+        }
+      ]
+    },
+    "harness": {
+      "caminho": "src/client/eval/harness.ts",
+      "existe": true,
+      "bytes": 68256,
+      "tamanho": "0.07 MB"
+    },
+    "evalHtml": {
+      "caminho": "eval.html",
+      "existe": true,
+      "bytes": 331,
+      "tamanho": "0.00 MB"
+    }
+  },
+  "paginas": [
+    {
+      "rota": "/modelos/personagens/codigo",
+      "grupo": {
+        "id": "personagens",
+        "titulo": "Personagens",
+        "icone": "🧍",
+        "resumo": "O guerreiro-viajante em cada técnica."
+      },
+      "titulo": "Fable 5.2 · código",
+      "icone": "🗡️",
+      "resumo": "Fable 5.2, só com código, sem KayKit.",
+      "mdxOriginal": "web/src/content/modelos/personagens/codigo.mdx",
+      "copiaMdx": "paginas/personagens/codigo.mdx",
+      "corpoMdx": "import { Visualizador } from '../components/Visualizador';\n\n<Visualizador conjunto=\"guerreiro-codigo\">\n\nFeito sem KayKit: 1.364 triângulos; no PSX, 680. Arraste para girar, roda do mouse para zoom, botão direito para mover.\n\n</Visualizador>\n",
+      "componente": "<Visualizador conjunto=\"guerreiro-codigo\">",
+      "props": {
+        "conjunto": "guerreiro-codigo"
+      },
+      "modeloEsforco": "Fable 5.2 (só código, sem KayKit); esforço não registrado",
+      "pecas": [
+        {
+          "id": "E",
+          "nome": "Guerreiro-viajante",
+          "m": "E",
+          "zoom": 1.6,
+          "decisaoAsset": "modelos/guerreiro-codigo/E",
+          "ficha": {
+            "numeros": [
+              [
+                "Triângulos",
+                "1.364 no pintado liso, 680 no PSX",
+                "nota personagem-pintado.md (título da bancada)"
+              ],
+              [
+                "Altura",
+                "0,85 (a peça é escalada pela caixa medida)",
+                "nota personagem-pintado.md"
+              ]
+            ],
+            "metodo": "Modelado do zero com as primitivas de painted.ts (nada do KayKit); dobras e luz pintadas por cor de vértice.",
+            "origemMetodo": "nota personagem-pintado.md, 14/11",
+            "defeitos": [],
+            "origemDefeitos": "nota personagem-pintado.md",
+            "arquivo": "peça m=E da bancada (src/client/eval)"
+          },
+          "fonte": {
+            "caminho": "src/client/eval/cart-E.ts",
+            "existe": true,
+            "bytes": 11448,
+            "tamanho": "0.01 MB"
+          },
+          "iframe": {
+            "liso": "/eval.html?zoom=1.6&m=E",
+            "normal": "/eval.html?zoom=1.6&m=E&pixel=3",
+            "psx": "/eval.html?zoom=1.6&m=E&ps1=1&pixel=3&keep=0.35"
+          }
+        }
+      ]
+    },
+    {
+      "rota": "/modelos/personagens/blender-sonnet",
+      "grupo": {
+        "id": "personagens",
+        "titulo": "Personagens",
+        "icone": "🧍",
+        "resumo": "O guerreiro-viajante em cada técnica."
+      },
+      "titulo": "Sonnet 5.5 · Blender",
+      "icone": "🧱",
+      "resumo": "Script do Blender feito pelo Sonnet 5.5.",
+      "mdxOriginal": "web/src/content/modelos/personagens/blender-sonnet.mdx",
+      "copiaMdx": "paginas/personagens/blender-sonnet.mdx",
+      "corpoMdx": "import { Blender } from '../components/Visualizador';\n\n<Blender modelo=\"sonnet\">\n\n21.776 triângulos, textura de 2048 px, sem esqueleto. Arraste para girar, roda do mouse para zoom, botão direito para mover.\n\n</Blender>\n",
+      "componente": "<Blender modelo=\"sonnet\">",
+      "props": {
+        "modelo": "sonnet"
+      },
+      "modeloEsforco": "Sonnet 5.5 (script do Blender); esforço não registrado",
+      "pecas": [
+        {
+          "id": "sonnet",
+          "nome": "Guerreiro",
+          "glb": "https://dungeon-bancada.fernandorffdev.com/eval/blender-sonnet/char.glb",
+          "zoom": 1.6,
+          "decisaoAsset": "modelos/blender/sonnet",
+          "iframe": {
+            "liso": "/eval.html?zoom=1.6&glb=https%3A%2F%2Fdungeon-bancada.fernandorffdev.com%2Feval%2Fblender-sonnet%2Fchar.glb"
+          }
+        }
+      ],
+      "ficha": {
+        "numeros": [
+          [
+            "Triângulos",
+            "21.776 (alvo ~20 mil, 9% acima)",
+            "medido em blender-sonnet/char.glb, 15/11"
+          ],
+          ["Malhas", "1", "medido em blender-sonnet/char.glb, 15/11"],
+          [
+            "Ossos e clipes",
+            "0 e 0 (sem esqueleto)",
+            "medido em blender-sonnet/char.glb, 15/11"
+          ],
+          [
+            "Arquivo",
+            "5,03 MB, 1 textura embutida",
+            "medido em blender-sonnet/char.glb, 15/11"
+          ],
+          ["Textura", "2048 × 2048", "nota blender-sonnet.md"],
+          [
+            "Versão rigada",
+            "23 ossos, 25 clipes",
+            "medido em anim-sonnet/char.glb (página Animações), 15/11"
+          ]
+        ],
+        "metodo": "Script bpy do zero: tubos com seção superelíptica, esferas deformadas (rosto esculpido por script), capa em grade com dobras senoidais, ~60 mechas cônicas de cabelo. Cor de materiais procedurais com bake de cor e oclusão numa textura só.",
+        "origemMetodo": "nota blender-sonnet.md, 14/11",
+        "defeitos": [
+          "Cabelo em \"escamas\" pontudas, o ponto mais fraco.",
+          "Sombreado vem da oclusão e de ruído, não de pinceladas; dobras de pano quase só como ruído.",
+          "Manga clara estourada; fenda escura na ponta da bota; tiras do bracelete pairando.",
+          "Capa pouco visível de frente; pernas longas para chibi."
+        ],
+        "origemDefeitos": "nota blender-sonnet.md, \"O que ficou longe da referência\"",
+        "arquivo": "eval/blender-sonnet/char.glb",
+        "data": "14/11 (modelo), medido 15/11"
+      },
+      "bancada": {
+        "caminho": "public/eval/blender-sonnet",
+        "existe": true,
+        "bytes": 18337709,
+        "tamanho": "17.49 MB",
+        "arquivos": [
+          {
+            "nome": "back.png",
+            "bytes": 659217,
+            "tamanho": "0.63 MB"
+          },
+          {
+            "nome": "char.blend",
+            "bytes": 4850489,
+            "tamanho": "4.63 MB"
+          },
+          {
+            "nome": "char.glb",
+            "bytes": 5029024,
+            "tamanho": "4.80 MB"
+          },
+          {
+            "nome": "check.py",
+            "bytes": 597,
+            "tamanho": "0.00 MB"
+          },
+          {
+            "nome": "face.png",
+            "bytes": 728450,
+            "tamanho": "0.69 MB"
+          },
+          {
+            "nome": "front.png",
+            "bytes": 695024,
+            "tamanho": "0.66 MB"
+          },
+          {
+            "nome": "hands.png",
+            "bytes": 726062,
+            "tamanho": "0.69 MB"
+          },
+          {
+            "nome": "make.py",
+            "bytes": 41203,
+            "tamanho": "0.04 MB"
+          },
+          {
+            "nome": "pipeline.py",
+            "bytes": 9274,
+            "tamanho": "0.01 MB"
+          },
+          {
+            "nome": "side.png",
+            "bytes": 653099,
+            "tamanho": "0.62 MB"
+          },
+          {
+            "nome": "small.png",
+            "bytes": 56194,
+            "tamanho": "0.05 MB"
+          },
+          {
+            "nome": "texture.png",
+            "bytes": 4202226,
+            "tamanho": "4.01 MB"
+          },
+          {
+            "nome": "three_quarter.png",
+            "bytes": 686850,
+            "tamanho": "0.66 MB"
+          }
+        ]
+      }
+    },
+    {
+      "rota": "/modelos/personagens/blender-opus",
+      "grupo": {
+        "id": "personagens",
+        "titulo": "Personagens",
+        "icone": "🧍",
+        "resumo": "O guerreiro-viajante em cada técnica."
+      },
+      "titulo": "Opus 5.5 · Blender",
+      "icone": "🧱",
+      "resumo": "Script do Blender feito pelo Opus 5.5.",
+      "mdxOriginal": "web/src/content/modelos/personagens/blender-opus.mdx",
+      "copiaMdx": "paginas/personagens/blender-opus.mdx",
+      "corpoMdx": "import { Blender } from '../components/Visualizador';\n\n<Blender modelo=\"opus\">\n\n19.942 triângulos, textura de 2048 px, sem esqueleto. Arraste para girar, roda do mouse para zoom, botão direito para mover.\n\n</Blender>\n",
+      "componente": "<Blender modelo=\"opus\">",
+      "props": {
+        "modelo": "opus"
+      },
+      "modeloEsforco": "Opus 5.5 (script do Blender); esforço não registrado",
+      "pecas": [
+        {
+          "id": "opus",
+          "nome": "Guerreiro",
+          "glb": "https://dungeon-bancada.fernandorffdev.com/eval/blender-opus/char.glb",
+          "zoom": 1.6,
+          "decisaoAsset": "modelos/blender/opus",
+          "iframe": {
+            "liso": "/eval.html?zoom=1.6&glb=https%3A%2F%2Fdungeon-bancada.fernandorffdev.com%2Feval%2Fblender-opus%2Fchar.glb"
+          }
+        }
+      ],
+      "ficha": {
+        "numeros": [
+          ["Triângulos", "19.942", "medido em blender-opus/char.glb, 15/11"],
+          ["Malhas", "1", "medido em blender-opus/char.glb, 15/11"],
+          [
+            "Ossos e clipes",
+            "0 e 0 (sem esqueleto)",
+            "medido em blender-opus/char.glb, 15/11"
+          ],
+          [
+            "Arquivo",
+            "4,93 MB, 1 textura embutida",
+            "medido em blender-opus/char.glb, 15/11"
+          ],
+          ["Textura", "2048 px", "nota blender-opus.md"],
+          [
+            "Versão rigada",
+            "23 ossos, 25 clipes",
+            "medido em anim-opus/char.glb (página Animações), 15/11"
+          ]
+        ],
+        "metodo": "Primitivas em bmesh: superelipsoides, tubos varridos por spline, torso por anéis, capa em sino com Solidify; rosto em peças (olhos, cílio, boca). Cor por vértice mais o bake de um shader \"pintor\" (luz em dois tons, sombra violeta, oclusão) num atlas de 2048 px.",
+        "origemMetodo": "nota blender-opus.md, 14/11",
+        "defeitos": [
+          "Acabamento de \"massinha 3D\": o pintado é procedural, sem pincelada de verdade.",
+          "Dobras de pano em ondas senoidais regulares; cabelo em fitas espetadas.",
+          "De costas a bainha lê como bastão; nariz \"bolinha\"; torso domina as pernas.",
+          "A textura já traz luz pintada: sob a luz do jogo a sombra dobra.",
+          "Versão rigada: ao andar, a calça atravessa a dobra do cano da bota no joelho (nota anim-opus-fix.md)."
+        ],
+        "origemDefeitos": "notas blender-opus.md e anim-opus-fix.md",
+        "arquivo": "eval/blender-opus/char.glb",
+        "data": "14/11 (modelo), medido 15/11"
+      },
+      "bancada": {
+        "caminho": "public/eval/blender-opus",
+        "existe": true,
+        "bytes": 22455906,
+        "tamanho": "21.42 MB",
+        "arquivos": [
+          {
+            "nome": "back.png",
+            "bytes": 695626,
+            "tamanho": "0.66 MB"
+          },
+          {
+            "nome": "char.blend",
+            "bytes": 4768827,
+            "tamanho": "4.55 MB"
+          },
+          {
+            "nome": "char.blend1",
+            "bytes": 4764716,
+            "tamanho": "4.54 MB"
+          },
+          {
+            "nome": "char.glb",
+            "bytes": 4933744,
+            "tamanho": "4.71 MB"
+          },
+          {
+            "nome": "face.png",
+            "bytes": 833446,
+            "tamanho": "0.79 MB"
+          },
+          {
+            "nome": "front.png",
+            "bytes": 722505,
+            "tamanho": "0.69 MB"
+          },
+          {
+            "nome": "make.py",
+            "bytes": 44300,
+            "tamanho": "0.04 MB"
+          },
+          {
+            "nome": "side.png",
+            "bytes": 689207,
+            "tamanho": "0.66 MB"
+          },
+          {
+            "nome": "small.png",
+            "bytes": 43865,
+            "tamanho": "0.04 MB"
+          },
+          {
+            "nome": "three_quarter.png",
+            "bytes": 714110,
+            "tamanho": "0.68 MB"
+          },
+          {
+            "nome": "warrior_paint.png",
+            "bytes": 4245560,
+            "tamanho": "4.05 MB"
+          }
+        ]
+      }
+    },
+    {
+      "rota": "/modelos/personagens/blender-fable",
+      "grupo": {
+        "id": "personagens",
+        "titulo": "Personagens",
+        "icone": "🧍",
+        "resumo": "O guerreiro-viajante em cada técnica."
+      },
+      "titulo": "Fable 5.2 · Blender",
+      "icone": "🧱",
+      "resumo": "Script do Blender feito pelo Fable 5.2.",
+      "mdxOriginal": "web/src/content/modelos/personagens/blender-fable.mdx",
+      "copiaMdx": "paginas/personagens/blender-fable.mdx",
+      "corpoMdx": "import { Blender } from '../components/Visualizador';\n\n<Blender modelo=\"fable\">\n\nArraste para girar, roda do mouse para zoom, botão direito para mover.\n\n</Blender>\n",
+      "componente": "<Blender modelo=\"fable\">",
+      "props": {
+        "modelo": "fable"
+      },
+      "modeloEsforco": "Fable 5.2 (script do Blender); esforço não registrado",
+      "pecas": [
+        {
+          "id": "fable",
+          "nome": "Guerreiro",
+          "glb": "https://dungeon-bancada.fernandorffdev.com/eval/blender-fable/char.glb",
+          "zoom": 1.6,
+          "decisaoAsset": "modelos/blender/fable",
+          "iframe": {
+            "liso": "/eval.html?zoom=1.6&glb=https%3A%2F%2Fdungeon-bancada.fernandorffdev.com%2Feval%2Fblender-fable%2Fchar.glb"
+          }
+        }
+      ],
+      "ficha": {
+        "numeros": [
+          ["Triângulos", "19.396", "medido em blender-fable/char.glb, 15/11"],
+          [
+            "Malhas",
+            "9 (cabeça, cabelo, torso, capa, braços, pernas, espada)",
+            "medido em blender-fable/char.glb, 15/11"
+          ],
+          [
+            "Ossos e clipes",
+            "0 e 0 (sem esqueleto)",
+            "medido em blender-fable/char.glb, 15/11"
+          ],
+          [
+            "Arquivo",
+            "2,77 MB, 1 textura embutida",
+            "medido em blender-fable/char.glb, 15/11"
+          ],
+          ["Textura", "2048 × 2048", "nota blender-fable.md"],
+          [
+            "Versão rigada",
+            "23 ossos, 25 clipes",
+            "medido em anim-fable/char.glb (página Animações), 15/11"
+          ]
+        ],
+        "metodo": "Grades paramétricas com UV feita pelo script (62 retângulos no atlas). Pintura em espaço de UV em três camadas: cor chapada, oclusão de contato e milhares de pinceladas orientadas pelo pano; rosto pintado na textura; nenhuma luz assada.",
+        "origemMetodo": "nota blender-fable.md, 14/11",
+        "defeitos": [
+          "Cabelo facetado de lado e de costas, com fios pintados regulares (listrado).",
+          "Pincelada procedural, sem luz e sombra desenhadas por planos; dobras suaves demais.",
+          "Manchas de oclusão no queixo e na testa e em volta da mochila; mochila sem alças.",
+          "Peças se atravessam, sem malha contínua nos ombros e quadris.",
+          "Versão rigada: com o braço erguido a manga atravessa a capa (nota anim-fable-fix.md)."
+        ],
+        "origemDefeitos": "notas blender-fable.md e anim-fable-fix.md",
+        "arquivo": "eval/blender-fable/char.glb",
+        "data": "14/11 (modelo), medido 15/11"
+      },
+      "bancada": {
+        "caminho": "public/eval/blender-fable",
+        "existe": true,
+        "bytes": 12140270,
+        "tamanho": "11.58 MB",
+        "arquivos": [
+          {
+            "nome": "back.png",
+            "bytes": 678001,
+            "tamanho": "0.65 MB"
+          },
+          {
+            "nome": "char.blend",
+            "bytes": 2662185,
+            "tamanho": "2.54 MB"
+          },
+          {
+            "nome": "char.glb",
+            "bytes": 2768580,
+            "tamanho": "2.64 MB"
+          },
+          {
+            "nome": "face.png",
+            "bytes": 808255,
+            "tamanho": "0.77 MB"
+          },
+          {
+            "nome": "front.png",
+            "bytes": 715827,
+            "tamanho": "0.68 MB"
+          },
+          {
+            "nome": "hands.png",
+            "bytes": 781751,
+            "tamanho": "0.75 MB"
+          },
+          {
+            "nome": "make.py",
+            "bytes": 42642,
+            "tamanho": "0.04 MB"
+          },
+          {
+            "nome": "side.png",
+            "bytes": 665859,
+            "tamanho": "0.64 MB"
+          },
+          {
+            "nome": "small.png",
+            "bytes": 59829,
+            "tamanho": "0.06 MB"
+          },
+          {
+            "nome": "texture.png",
+            "bytes": 2263055,
+            "tamanho": "2.16 MB"
+          },
+          {
+            "nome": "three_quarter.png",
+            "bytes": 694286,
+            "tamanho": "0.66 MB"
+          }
+        ]
+      }
+    },
+    {
+      "rota": "/modelos/animacoes/sonnet",
+      "grupo": {
+        "id": "animacoes",
+        "titulo": "Animações",
+        "icone": "🎬",
+        "resumo": "Os 17 clipes do jogo tocando em cada personagem que gerei."
+      },
+      "titulo": "Sonnet 5.5 · animações",
+      "icone": "🧱",
+      "resumo": "Personagem Sonnet 5.5 com esqueleto e todos os clipes.",
+      "mdxOriginal": "web/src/content/modelos/animacoes/sonnet.mdx",
+      "copiaMdx": "paginas/animacoes/sonnet.mdx",
+      "corpoMdx": "import { Animacoes } from '../components/Animacoes';\n\n<Animacoes modelo=\"sonnet\">\n\nEscolha o clipe. Os mesmos clipes do KayKit do jogo, passados para o esqueleto deste modelo. Arraste para girar, roda do mouse para zoom, botão direito para mover.\n\n</Animacoes>\n",
+      "componente": "<Animacoes modelo=\"sonnet\">",
+      "props": {
+        "modelo": "sonnet"
+      },
+      "modeloEsforco": "Sonnet 5.5; esforço não registrado",
+      "glb": "/eval/anim-sonnet/char.glb",
+      "clipes": "/eval/kaykit-anim/clips.json (durações), armas em /eval/weapons/",
+      "iframe": "/eval.html?glb=<glb>&zoom=1.6&anim=<clipe> (cenas walk:/jump:/act: usam zoom 3.4; armas: weapon=, off=)",
+      "ficha": {
+        "numeros": [
+          [
+            "Triângulos",
+            "21.776 (alvo ~20 mil, 9% acima)",
+            "medido em blender-sonnet/char.glb, 15/11"
+          ],
+          ["Textura", "2048 × 2048", "nota blender-sonnet.md"],
+          [
+            "Ossos e clipes",
+            "23 e 25",
+            "medido em anim-sonnet/char.glb (página Animações), 15/11"
+          ]
+        ],
+        "metodo": "Script bpy do zero: tubos com seção superelíptica, esferas deformadas (rosto esculpido por script), capa em grade com dobras senoidais, ~60 mechas cônicas de cabelo. Cor de materiais procedurais com bake de cor e oclusão numa textura só.",
+        "origemMetodo": "nota blender-sonnet.md, 14/11",
+        "defeitos": [
+          "Cabelo em \"escamas\" pontudas, o ponto mais fraco.",
+          "Sombreado vem da oclusão e de ruído, não de pinceladas; dobras de pano quase só como ruído.",
+          "Manga clara estourada; fenda escura na ponta da bota; tiras do bracelete pairando.",
+          "Capa pouco visível de frente; pernas longas para chibi."
+        ],
+        "origemDefeitos": "nota blender-sonnet.md, \"O que ficou longe da referência\"",
+        "arquivo": "eval/anim-sonnet/char.glb",
+        "data": "15/11"
+      },
+      "bancada": {
+        "caminho": "public/eval/anim-sonnet",
+        "existe": true,
+        "bytes": 20804806,
+        "tamanho": "19.84 MB",
+        "arquivos": [
+          {
+            "nome": "char-all.blend",
+            "bytes": 5443947,
+            "tamanho": "5.19 MB"
+          },
+          {
+            "nome": "char-all.blend1",
+            "bytes": 5251001,
+            "tamanho": "5.01 MB"
+          },
+          {
+            "nome": "char.glb",
+            "bytes": 6492444,
+            "tamanho": "6.19 MB"
+          },
+          {
+            "nome": "check-death_a.png",
+            "bytes": 335699,
+            "tamanho": "0.32 MB"
+          },
+          {
+            "nome": "check-death_a_side.png",
+            "bytes": 349738,
+            "tamanho": "0.33 MB"
+          },
+          {
+            "nome": "check-hit_a.png",
+            "bytes": 382247,
+            "tamanho": "0.36 MB"
+          },
+          {
+            "nome": "check-rest.png",
+            "bytes": 372625,
+            "tamanho": "0.36 MB"
+          },
+          {
+            "nome": "check-slice.png",
+            "bytes": 384895,
+            "tamanho": "0.37 MB"
+          },
+          {
+            "nome": "check-swim1.png",
+            "bytes": 347173,
+            "tamanho": "0.33 MB"
+          },
+          {
+            "nome": "check-swim2.png",
+            "bytes": 349437,
+            "tamanho": "0.33 MB"
+          },
+          {
+            "nome": "check-swim3.png",
+            "bytes": 343404,
+            "tamanho": "0.33 MB"
+          },
+          {
+            "nome": "check-swim4.png",
+            "bytes": 344009,
+            "tamanho": "0.33 MB"
+          },
+          {
+            "nome": "check-walking_a.png",
+            "bytes": 385195,
+            "tamanho": "0.37 MB"
+          },
+          {
+            "nome": "check.py",
+            "bytes": 4313,
+            "tamanho": "0.00 MB"
+          },
+          {
+            "nome": "extras.py",
+            "bytes": 7133,
+            "tamanho": "0.01 MB"
+          },
+          {
+            "nome": "rig-all.py",
+            "bytes": 8303,
+            "tamanho": "0.01 MB"
+          },
+          {
+            "nome": "skin_fix2.py",
+            "bytes": 3243,
+            "tamanho": "0.00 MB"
+          }
+        ]
+      }
+    },
+    {
+      "rota": "/modelos/animacoes/opus",
+      "grupo": {
+        "id": "animacoes",
+        "titulo": "Animações",
+        "icone": "🎬",
+        "resumo": "Os 17 clipes do jogo tocando em cada personagem que gerei."
+      },
+      "titulo": "Opus 5.5 · animações",
+      "icone": "🧱",
+      "resumo": "Personagem Opus 5.5 com esqueleto e todos os clipes.",
+      "mdxOriginal": "web/src/content/modelos/animacoes/opus.mdx",
+      "copiaMdx": "paginas/animacoes/opus.mdx",
+      "corpoMdx": "import { Animacoes } from '../components/Animacoes';\n\n<Animacoes modelo=\"opus\">\n\nEscolha o clipe. Os mesmos clipes do KayKit do jogo, passados para o esqueleto deste modelo. Arraste para girar, roda do mouse para zoom, botão direito para mover.\n\n</Animacoes>\n",
+      "componente": "<Animacoes modelo=\"opus\">",
+      "props": {
+        "modelo": "opus"
+      },
+      "modeloEsforco": "Opus 5.5; esforço não registrado",
+      "glb": "/eval/anim-opus/char.glb",
+      "clipes": "/eval/kaykit-anim/clips.json (durações), armas em /eval/weapons/",
+      "iframe": "/eval.html?glb=<glb>&zoom=1.6&anim=<clipe> (cenas walk:/jump:/act: usam zoom 3.4; armas: weapon=, off=)",
+      "ficha": {
+        "numeros": [
+          ["Triângulos", "19.942", "medido em blender-opus/char.glb, 15/11"],
+          ["Textura", "2048 px", "nota blender-opus.md"],
+          [
+            "Ossos e clipes",
+            "23 e 25",
+            "medido em anim-opus/char.glb (página Animações), 15/11"
+          ]
+        ],
+        "metodo": "Primitivas em bmesh: superelipsoides, tubos varridos por spline, torso por anéis, capa em sino com Solidify; rosto em peças (olhos, cílio, boca). Cor por vértice mais o bake de um shader \"pintor\" (luz em dois tons, sombra violeta, oclusão) num atlas de 2048 px.",
+        "origemMetodo": "nota blender-opus.md, 14/11",
+        "defeitos": [
+          "Acabamento de \"massinha 3D\": o pintado é procedural, sem pincelada de verdade.",
+          "Dobras de pano em ondas senoidais regulares; cabelo em fitas espetadas.",
+          "De costas a bainha lê como bastão; nariz \"bolinha\"; torso domina as pernas.",
+          "A textura já traz luz pintada: sob a luz do jogo a sombra dobra.",
+          "Versão rigada: ao andar, a calça atravessa a dobra do cano da bota no joelho (nota anim-opus-fix.md)."
+        ],
+        "origemDefeitos": "notas blender-opus.md e anim-opus-fix.md",
+        "arquivo": "eval/anim-opus/char.glb",
+        "data": "15/11"
+      },
+      "bancada": {
+        "caminho": "public/eval/anim-opus",
+        "existe": true,
+        "bytes": 10582000,
+        "tamanho": "10.09 MB",
+        "arquivos": [
+          {
+            "nome": "char.glb",
+            "bytes": 5869776,
+            "tamanho": "5.60 MB"
+          },
+          {
+            "nome": "check-attack.png",
+            "bytes": 947628,
+            "tamanho": "0.90 MB"
+          },
+          {
+            "nome": "check-death.png",
+            "bytes": 352113,
+            "tamanho": "0.34 MB"
+          },
+          {
+            "nome": "check-hit.png",
+            "bytes": 972580,
+            "tamanho": "0.93 MB"
+          },
+          {
+            "nome": "check-magic.png",
+            "bytes": 988693,
+            "tamanho": "0.94 MB"
+          },
+          {
+            "nome": "check-swim.png",
+            "bytes": 507999,
+            "tamanho": "0.48 MB"
+          },
+          {
+            "nome": "check-walk.png",
+            "bytes": 926588,
+            "tamanho": "0.88 MB"
+          },
+          {
+            "nome": "check.py",
+            "bytes": 6465,
+            "tamanho": "0.01 MB"
+          },
+          {
+            "nome": "rig-all.py",
+            "bytes": 10158,
+            "tamanho": "0.01 MB"
+          }
+        ]
+      }
+    },
+    {
+      "rota": "/modelos/animacoes/fable",
+      "grupo": {
+        "id": "animacoes",
+        "titulo": "Animações",
+        "icone": "🎬",
+        "resumo": "Os 17 clipes do jogo tocando em cada personagem que gerei."
+      },
+      "titulo": "Fable 5.2 · animações",
+      "icone": "🧱",
+      "resumo": "Personagem Fable 5.2 com esqueleto e todos os clipes.",
+      "mdxOriginal": "web/src/content/modelos/animacoes/fable.mdx",
+      "copiaMdx": "paginas/animacoes/fable.mdx",
+      "corpoMdx": "import { Animacoes } from '../components/Animacoes';\n\n<Animacoes modelo=\"fable\">\n\nEscolha o clipe. Os mesmos clipes do KayKit do jogo, passados para o esqueleto deste modelo. Arraste para girar, roda do mouse para zoom, botão direito para mover.\n\n</Animacoes>\n",
+      "componente": "<Animacoes modelo=\"fable\">",
+      "props": {
+        "modelo": "fable"
+      },
+      "modeloEsforco": "Fable 5.2; esforço não registrado",
+      "glb": "/eval/anim-fable/char.glb",
+      "clipes": "/eval/kaykit-anim/clips.json (durações), armas em /eval/weapons/",
+      "iframe": "/eval.html?glb=<glb>&zoom=1.6&anim=<clipe>&fx=1 (cenas walk:/jump:/act: usam zoom 3.4; armas: weapon=, off=)",
+      "ficha": {
+        "numeros": [
+          ["Triângulos", "19.396", "medido em blender-fable/char.glb, 15/11"],
+          ["Textura", "2048 × 2048", "nota blender-fable.md"],
+          [
+            "Ossos e clipes",
+            "23 e 25",
+            "medido em anim-fable/char.glb (página Animações), 15/11"
+          ]
+        ],
+        "metodo": "Grades paramétricas com UV feita pelo script (62 retângulos no atlas). Pintura em espaço de UV em três camadas: cor chapada, oclusão de contato e milhares de pinceladas orientadas pelo pano; rosto pintado na textura; nenhuma luz assada.",
+        "origemMetodo": "nota blender-fable.md, 14/11",
+        "defeitos": [
+          "Cabelo facetado de lado e de costas, com fios pintados regulares (listrado).",
+          "Pincelada procedural, sem luz e sombra desenhadas por planos; dobras suaves demais.",
+          "Manchas de oclusão no queixo e na testa e em volta da mochila; mochila sem alças.",
+          "Peças se atravessam, sem malha contínua nos ombros e quadris.",
+          "Versão rigada: com o braço erguido a manga atravessa a capa (nota anim-fable-fix.md)."
+        ],
+        "origemDefeitos": "notas blender-fable.md e anim-fable-fix.md",
+        "arquivo": "eval/anim-fable/char.glb",
+        "data": "15/11"
+      },
+      "bancada": {
+        "caminho": "public/eval/anim-fable",
+        "existe": true,
+        "bytes": 7514960,
+        "tamanho": "7.17 MB",
+        "arquivos": [
+          {
+            "nome": "char.glb",
+            "bytes": 3648860,
+            "tamanho": "3.48 MB"
+          },
+          {
+            "nome": "check-attack-3q.png",
+            "bytes": 351255,
+            "tamanho": "0.33 MB"
+          },
+          {
+            "nome": "check-attack-side.png",
+            "bytes": 327790,
+            "tamanho": "0.31 MB"
+          },
+          {
+            "nome": "check-death_a.png",
+            "bytes": 318771,
+            "tamanho": "0.30 MB"
+          },
+          {
+            "nome": "check-hit_a.png",
+            "bytes": 315541,
+            "tamanho": "0.30 MB"
+          },
+          {
+            "nome": "check-idle-3q.png",
+            "bytes": 358724,
+            "tamanho": "0.34 MB"
+          },
+          {
+            "nome": "check-idle-side.png",
+            "bytes": 324032,
+            "tamanho": "0.31 MB"
+          },
+          {
+            "nome": "check-swim1.png",
+            "bytes": 301789,
+            "tamanho": "0.29 MB"
+          },
+          {
+            "nome": "check-swim2.png",
+            "bytes": 301436,
+            "tamanho": "0.29 MB"
+          },
+          {
+            "nome": "check-swim3.png",
+            "bytes": 280772,
+            "tamanho": "0.27 MB"
+          },
+          {
+            "nome": "check-swim4.png",
+            "bytes": 273710,
+            "tamanho": "0.26 MB"
+          },
+          {
+            "nome": "check-walk-3q.png",
+            "bytes": 354109,
+            "tamanho": "0.34 MB"
+          },
+          {
+            "nome": "check-walk-side.png",
+            "bytes": 325902,
+            "tamanho": "0.31 MB"
+          },
+          {
+            "nome": "extras.py",
+            "bytes": 6303,
+            "tamanho": "0.01 MB"
+          },
+          {
+            "nome": "rig-all.py",
+            "bytes": 25966,
+            "tamanho": "0.02 MB"
+          }
+        ]
+      }
+    },
+    {
+      "rota": "/modelos/animacoes/sonnet-leve",
+      "grupo": {
+        "id": "animacoes",
+        "titulo": "Animações",
+        "icone": "🎬",
+        "resumo": "Os 17 clipes do jogo tocando em cada personagem que gerei."
+      },
+      "titulo": "Sonnet 5.5 (leve) · animações",
+      "icone": "🧱",
+      "resumo": "Personagem Sonnet 5.5 (leve) com esqueleto e todos os clipes.",
+      "mdxOriginal": "web/src/content/modelos/animacoes/sonnet-leve.mdx",
+      "copiaMdx": "paginas/animacoes/sonnet-leve.mdx",
+      "corpoMdx": "import { Animacoes } from '../components/Animacoes';\n\n<Animacoes modelo=\"sonnet-leve\">\n\nEscolha o clipe. Os mesmos clipes do KayKit do jogo, passados para o esqueleto deste modelo. Arraste para girar, roda do mouse para zoom, botão direito para mover.\n\n</Animacoes>\n",
+      "componente": "<Animacoes modelo=\"sonnet-leve\">",
+      "props": {
+        "modelo": "sonnet-leve"
+      },
+      "modeloEsforco": "Sonnet 5.5 (versão leve, decimada); esforço não registrado",
+      "glb": "/eval/anim-sonnet-leve/char.glb",
+      "clipes": "/eval/kaykit-anim/clips.json (durações), armas em /eval/weapons/",
+      "iframe": "/eval.html?glb=<glb>&zoom=1.6&anim=<clipe> (cenas walk:/jump:/act: usam zoom 3.4; armas: weapon=, off=)",
+      "ficha": {
+        "numeros": [
+          [
+            "Triângulos",
+            "5.008 (o original tem 21.776)",
+            "nota anim-sonnet-leve.md"
+          ],
+          ["Ossos e clipes", "23 e 25", "nota anim-sonnet-leve.md (check.py)"]
+        ],
+        "metodo": "Decimate (collapse, razão 0,23) no corpo do Sonnet rigado, antes do modificador de armadura; reexportado.",
+        "origemMetodo": "nota anim-sonnet-leve.md, 15/11",
+        "defeitos": [
+          "Rosto mais áspero: olhos e nariz.",
+          "Cabelo com pequenas lascas; bordas do pano um pouco rasgadas.",
+          "O Swim estica mais as arestas (arestas mais longas, não explosão)."
+        ],
+        "origemDefeitos": "nota anim-sonnet-leve.md",
+        "arquivo": "eval/anim-sonnet-leve/char.glb",
+        "data": "15/11"
+      },
+      "bancada": {
+        "caminho": "public/eval/anim-sonnet-leve",
+        "existe": true,
+        "bytes": 11984410,
+        "tamanho": "11.43 MB",
+        "arquivos": [
+          {
+            "nome": "char.glb",
+            "bytes": 5637468,
+            "tamanho": "5.38 MB"
+          },
+          {
+            "nome": "check-comparacao-34.png",
+            "bytes": 912676,
+            "tamanho": "0.87 MB"
+          },
+          {
+            "nome": "check-comparacao-frente.png",
+            "bytes": 912368,
+            "tamanho": "0.87 MB"
+          },
+          {
+            "nome": "check-comparacao-rosto.png",
+            "bytes": 918242,
+            "tamanho": "0.88 MB"
+          },
+          {
+            "nome": "check-death_a.png",
+            "bytes": 336769,
+            "tamanho": "0.32 MB"
+          },
+          {
+            "nome": "check-death_a_side.png",
+            "bytes": 348408,
+            "tamanho": "0.33 MB"
+          },
+          {
+            "nome": "check-hit_a.png",
+            "bytes": 379953,
+            "tamanho": "0.36 MB"
+          },
+          {
+            "nome": "check-rest.png",
+            "bytes": 374115,
+            "tamanho": "0.36 MB"
+          },
+          {
+            "nome": "check-slice.png",
+            "bytes": 384229,
+            "tamanho": "0.37 MB"
+          },
+          {
+            "nome": "check-swim1.png",
+            "bytes": 347714,
+            "tamanho": "0.33 MB"
+          },
+          {
+            "nome": "check-swim2.png",
+            "bytes": 350953,
+            "tamanho": "0.33 MB"
+          },
+          {
+            "nome": "check-swim3.png",
+            "bytes": 344852,
+            "tamanho": "0.33 MB"
+          },
+          {
+            "nome": "check-swim4.png",
+            "bytes": 344597,
+            "tamanho": "0.33 MB"
+          },
+          {
+            "nome": "check-walking_a.png",
+            "bytes": 384054,
+            "tamanho": "0.37 MB"
+          },
+          {
+            "nome": "check.py",
+            "bytes": 4419,
+            "tamanho": "0.00 MB"
+          },
+          {
+            "nome": "compare.py",
+            "bytes": 1990,
+            "tamanho": "0.00 MB"
+          },
+          {
+            "nome": "reduce.py",
+            "bytes": 1603,
+            "tamanho": "0.00 MB"
+          }
+        ]
+      }
+    },
+    {
+      "rota": "/modelos/animacoes/opus-leve",
+      "grupo": {
+        "id": "animacoes",
+        "titulo": "Animações",
+        "icone": "🎬",
+        "resumo": "Os 17 clipes do jogo tocando em cada personagem que gerei."
+      },
+      "titulo": "Opus 5.5 (leve) · animações",
+      "icone": "🧱",
+      "resumo": "Personagem Opus 5.5 (leve) com esqueleto e todos os clipes.",
+      "mdxOriginal": "web/src/content/modelos/animacoes/opus-leve.mdx",
+      "copiaMdx": "paginas/animacoes/opus-leve.mdx",
+      "corpoMdx": "import { Animacoes } from '../components/Animacoes';\n\n<Animacoes modelo=\"opus-leve\">\n\nEscolha o clipe. Os mesmos clipes do KayKit do jogo, passados para o esqueleto deste modelo. Arraste para girar, roda do mouse para zoom, botão direito para mover.\n\n</Animacoes>\n",
+      "componente": "<Animacoes modelo=\"opus-leve\">",
+      "props": {
+        "modelo": "opus-leve"
+      },
+      "modeloEsforco": "Opus 5.5 (versão leve, decimada); esforço não registrado",
+      "glb": "/eval/anim-opus-leve/char.glb",
+      "clipes": "/eval/kaykit-anim/clips.json (durações), armas em /eval/weapons/",
+      "iframe": "/eval.html?glb=<glb>&zoom=1.6&anim=<clipe> (cenas walk:/jump:/act: usam zoom 3.4; armas: weapon=, off=)",
+      "ficha": {
+        "numeros": [
+          [
+            "Triângulos",
+            "5.133 (corpo 4.939 + espada 194; o original tem 19.956)",
+            "nota anim-opus-leve.md"
+          ],
+          ["Ossos e clipes", "23 e 25", "nota anim-opus-leve.md (check.py)"],
+          [
+            "Arquivo",
+            "5,2 MB (a textura de ~5 MB domina)",
+            "nota anim-opus-leve.md"
+          ]
+        ],
+        "metodo": "Decimate (collapse, razão 0,25) no corpo do Opus rigado, depois de soldar os vértices das costuras de UV; espada intocada; reexportado com as 25 ações.",
+        "origemMetodo": "nota anim-opus-leve.md, 15/11",
+        "defeitos": [
+          "Os olhos perdem um pouco do brilho e do contorno.",
+          "O topo do cabelo fica mais chapado."
+        ],
+        "origemDefeitos": "nota anim-opus-leve.md (check-comparacao.png)",
+        "arquivo": "eval/anim-opus-leve/char.glb",
+        "data": "15/11"
+      },
+      "bancada": {
+        "caminho": "public/eval/anim-opus-leve",
+        "existe": true,
+        "bytes": 11646429,
+        "tamanho": "11.11 MB",
+        "arquivos": [
+          {
+            "nome": "char.glb",
+            "bytes": 5209540,
+            "tamanho": "4.97 MB"
+          },
+          {
+            "nome": "check-attack.png",
+            "bytes": 931637,
+            "tamanho": "0.89 MB"
+          },
+          {
+            "nome": "check-comparacao.png",
+            "bytes": 1779816,
+            "tamanho": "1.70 MB"
+          },
+          {
+            "nome": "check-death.png",
+            "bytes": 349396,
+            "tamanho": "0.33 MB"
+          },
+          {
+            "nome": "check-hit.png",
+            "bytes": 964572,
+            "tamanho": "0.92 MB"
+          },
+          {
+            "nome": "check-magic.png",
+            "bytes": 977155,
+            "tamanho": "0.93 MB"
+          },
+          {
+            "nome": "check-swim.png",
+            "bytes": 504887,
+            "tamanho": "0.48 MB"
+          },
+          {
+            "nome": "check-walk.png",
+            "bytes": 916708,
+            "tamanho": "0.87 MB"
+          },
+          {
+            "nome": "check.py",
+            "bytes": 6465,
+            "tamanho": "0.01 MB"
+          },
+          {
+            "nome": "compare.py",
+            "bytes": 4483,
+            "tamanho": "0.00 MB"
+          },
+          {
+            "nome": "reduce.py",
+            "bytes": 1770,
+            "tamanho": "0.00 MB"
+          }
+        ]
+      }
+    },
+    {
+      "rota": "/modelos/animacoes/fable-leve",
+      "grupo": {
+        "id": "animacoes",
+        "titulo": "Animações",
+        "icone": "🎬",
+        "resumo": "Os 17 clipes do jogo tocando em cada personagem que gerei."
+      },
+      "titulo": "Fable 5.2 (leve) · animações",
+      "icone": "🧱",
+      "resumo": "Personagem Fable 5.2 (leve) com esqueleto e todos os clipes.",
+      "mdxOriginal": "web/src/content/modelos/animacoes/fable-leve.mdx",
+      "copiaMdx": "paginas/animacoes/fable-leve.mdx",
+      "corpoMdx": "import { Animacoes } from '../components/Animacoes';\n\n<Animacoes modelo=\"fable-leve\">\n\nEscolha o clipe. Os mesmos clipes do KayKit do jogo, passados para o esqueleto deste modelo. Arraste para girar, roda do mouse para zoom, botão direito para mover.\n\n</Animacoes>\n",
+      "componente": "<Animacoes modelo=\"fable-leve\">",
+      "props": {
+        "modelo": "fable-leve"
+      },
+      "modeloEsforco": "Fable 5.2 (versão leve); esforço não registrado; sem arquivo na bancada nem ficha",
+      "glb": "/eval/anim-fable-leve/char.glb",
+      "clipes": "/eval/kaykit-anim/clips.json (durações), armas em /eval/weapons/",
+      "iframe": "/eval.html?glb=<glb>&zoom=1.6&anim=<clipe>&fx=1 (cenas walk:/jump:/act: usam zoom 3.4; armas: weapon=, off=)",
+      "ficha": null,
+      "bancada": {
+        "caminho": "public/eval/anim-fable-leve",
+        "existe": false
+      }
+    },
+    {
+      "rota": "/modelos/sprites/sonnet",
+      "grupo": {
+        "id": "sprites",
+        "titulo": "Sprites",
+        "icone": "🖼️",
+        "resumo": "Renders 2D do personagem do Blender: 8 direções, parado, andar e atacar."
+      },
+      "titulo": "Sonnet 5.5 · sprites",
+      "icone": "🧱",
+      "resumo": "Render do personagem do Sonnet, HD e pixel.",
+      "mdxOriginal": "web/src/content/modelos/sprites/sonnet.mdx",
+      "copiaMdx": "paginas/sprites/sonnet.mdx",
+      "corpoMdx": "import { Sprites } from '../components/Sprites';\n\n<Sprites modelo=\"sonnet\">\n\nHD 256 px e pixel 96 px (~24 cores). São renders do modelo 3D, não pintura à mão.\n\n</Sprites>\n",
+      "componente": "<Sprites modelo=\"sonnet\">",
+      "props": {
+        "modelo": "sonnet"
+      },
+      "modeloEsforco": "Sonnet 5.5; esforço não registrado",
+      "folhas": "/eval/sprites-sonnet/{hd,pixel}-{idle,walk,attack}.png e contato.png (8 direções por linha; parado 4 quadros a 4 fps, andar 8 a 8, atacar 8 a 10)",
+      "ficha": {
+        "numeros": [
+          [
+            "Quadro",
+            "HD 256 px (~156 px de altura) e pixel com 24 cores",
+            "nota sprites-sonnet.md"
+          ],
+          ["Direções", "8", "nota sprites-sonnet.md"],
+          ["Ossos", "23 (nomes do jogo, sem IK)", "nota sprites-sonnet.md"]
+        ],
+        "metodo": "EEVEE ortográfico a 30°, fundo transparente, contorno por casco invertido; pixel art renderizada a 4x e reduzida (BOX), alfa duro, contorno de 1 px, 16 + 8 cores.",
+        "origemMetodo": "nota sprites-sonnet.md, 14/11",
+        "defeitos": [
+          "O pé oscila 4 a 6 px entre os quadros (não fica fixo no pixel).",
+          "No pixel o rosto quase some (olhos de 1 a 2 px); a pele cai na paleta bege."
+        ],
+        "origemDefeitos": "nota sprites-sonnet.md",
+        "arquivo": "eval/sprites-sonnet/",
+        "data": "14/11"
+      },
+      "bancada": {
+        "caminho": "public/eval/sprites-sonnet",
+        "existe": true,
+        "bytes": 15262260,
+        "tamanho": "14.56 MB",
+        "arquivos": [
+          {
+            "nome": "char-rigged.blend",
+            "bytes": 4870040,
+            "tamanho": "4.64 MB"
+          },
+          {
+            "nome": "char-rigged.blend1",
+            "bytes": 4870045,
+            "tamanho": "4.64 MB"
+          },
+          {
+            "nome": "compose.py",
+            "bytes": 5051,
+            "tamanho": "0.00 MB"
+          },
+          {
+            "nome": "contato.png",
+            "bytes": 386106,
+            "tamanho": "0.37 MB"
+          },
+          {
+            "nome": "dump_poses.py",
+            "bytes": 3577,
+            "tamanho": "0.00 MB"
+          },
+          {
+            "nome": "hd-attack.png",
+            "bytes": 1788727,
+            "tamanho": "1.71 MB"
+          },
+          {
+            "nome": "hd-idle.png",
+            "bytes": 890149,
+            "tamanho": "0.85 MB"
+          },
+          {
+            "nome": "hd-walk.png",
+            "bytes": 1761593,
+            "tamanho": "1.68 MB"
+          },
+          {
+            "nome": "pixel-attack.png",
+            "bytes": 121164,
+            "tamanho": "0.12 MB"
+          },
+          {
+            "nome": "pixel-idle.png",
+            "bytes": 54595,
+            "tamanho": "0.05 MB"
+          },
+          {
+            "nome": "pixel-walk.png",
+            "bytes": 111155,
+            "tamanho": "0.11 MB"
+          },
+          {
+            "nome": "poses.json",
+            "bytes": 78371,
+            "tamanho": "0.07 MB"
+          },
+          {
+            "nome": "preview-hd-attack.gif",
+            "bytes": 89319,
+            "tamanho": "0.09 MB"
+          },
+          {
+            "nome": "preview-hd-idle.gif",
+            "bytes": 42082,
+            "tamanho": "0.04 MB"
+          },
+          {
+            "nome": "preview-hd-walk.gif",
+            "bytes": 88394,
+            "tamanho": "0.08 MB"
+          },
+          {
+            "nome": "preview-pixel-attack.gif",
+            "bytes": 38797,
+            "tamanho": "0.04 MB"
+          },
+          {
+            "nome": "preview-pixel-idle.gif",
+            "bytes": 14387,
+            "tamanho": "0.01 MB"
+          },
+          {
+            "nome": "preview-pixel-walk.gif",
+            "bytes": 34243,
+            "tamanho": "0.03 MB"
+          },
+          {
+            "nome": "render.py",
+            "bytes": 4300,
+            "tamanho": "0.00 MB"
+          },
+          {
+            "nome": "rig.py",
+            "bytes": 6222,
+            "tamanho": "0.01 MB"
+          },
+          {
+            "nome": "skin_fix.py",
+            "bytes": 2773,
+            "tamanho": "0.00 MB"
+          },
+          {
+            "nome": "sprites.json",
+            "bytes": 1170,
+            "tamanho": "0.00 MB"
+          }
+        ]
+      }
+    },
+    {
+      "rota": "/modelos/sprites/opus",
+      "grupo": {
+        "id": "sprites",
+        "titulo": "Sprites",
+        "icone": "🖼️",
+        "resumo": "Renders 2D do personagem do Blender: 8 direções, parado, andar e atacar."
+      },
+      "titulo": "Opus 5.5 · sprites",
+      "icone": "🧱",
+      "resumo": "Render do personagem do Opus, HD e pixel.",
+      "mdxOriginal": "web/src/content/modelos/sprites/opus.mdx",
+      "copiaMdx": "paginas/sprites/opus.mdx",
+      "corpoMdx": "import { Sprites } from '../components/Sprites';\n\n<Sprites modelo=\"opus\">\n\nHD 256 px e pixel 96 px (~24 cores). São renders do modelo 3D, não pintura à mão.\n\n</Sprites>\n",
+      "componente": "<Sprites modelo=\"opus\">",
+      "props": {
+        "modelo": "opus"
+      },
+      "modeloEsforco": "Opus 5.5; esforço não registrado",
+      "folhas": "/eval/sprites-opus/{hd,pixel}-{idle,walk,attack}.png e contato.png (8 direções por linha; parado 4 quadros a 4 fps, andar 8 a 8, atacar 8 a 10)",
+      "ficha": {
+        "numeros": [
+          ["Quadro", "HD 256 px e pixel 96 px", "nota sprites-opus.md"],
+          [
+            "Direções",
+            "8 (S, SE, E, NE, N, NW, W, SW)",
+            "nota sprites-opus.md"
+          ],
+          [
+            "Quadros por ação",
+            "parado 4, andar 8, atacar 8",
+            "nota sprites-opus.md"
+          ],
+          ["Ossos", "23 (nomes do jogo)", "nota sprites-opus.md"]
+        ],
+        "metodo": "O personagem do Blender ganhou esqueleto e pesos (bone heat e correção por ilha), 3 clipes KayKit retargetados e 320 quadros em EEVEE, com a luz e a câmera fixas e o personagem girando; as folhas são montadas em Python.",
+        "origemMetodo": "nota sprites-opus.md, 14/11",
+        "defeitos": [
+          "O bone heat deixou 2.958 de 10.136 vértices sem peso; corrigido ilha a ilha."
+        ],
+        "origemDefeitos": "nota sprites-opus.md",
+        "arquivo": "eval/sprites-opus/",
+        "data": "14/11"
+      },
+      "bancada": {
+        "caminho": "public/eval/sprites-opus",
+        "existe": true,
+        "bytes": 10191045,
+        "tamanho": "9.72 MB",
+        "arquivos": [
+          {
+            "nome": "char-rigged.blend",
+            "bytes": 4912534,
+            "tamanho": "4.68 MB"
+          },
+          {
+            "nome": "contato.png",
+            "bytes": 217646,
+            "tamanho": "0.21 MB"
+          },
+          {
+            "nome": "hd-attack.png",
+            "bytes": 1696791,
+            "tamanho": "1.62 MB"
+          },
+          {
+            "nome": "hd-idle.png",
+            "bytes": 935110,
+            "tamanho": "0.89 MB"
+          },
+          {
+            "nome": "hd-walk.png",
+            "bytes": 1752017,
+            "tamanho": "1.67 MB"
+          },
+          {
+            "nome": "pixel-attack.png",
+            "bytes": 110240,
+            "tamanho": "0.11 MB"
+          },
+          {
+            "nome": "pixel-idle.png",
+            "bytes": 56746,
+            "tamanho": "0.05 MB"
+          },
+          {
+            "nome": "pixel-walk.png",
+            "bytes": 103266,
+            "tamanho": "0.10 MB"
+          },
+          {
+            "nome": "render.py",
+            "bytes": 11717,
+            "tamanho": "0.01 MB"
+          },
+          {
+            "nome": "rig.py",
+            "bytes": 20905,
+            "tamanho": "0.02 MB"
+          },
+          {
+            "nome": "seq-hd-attack.png",
+            "bytes": 165783,
+            "tamanho": "0.16 MB"
+          },
+          {
+            "nome": "seq-hd-walk.png",
+            "bytes": 183517,
+            "tamanho": "0.18 MB"
+          },
+          {
+            "nome": "seq-pixel-attack.png",
+            "bytes": 23301,
+            "tamanho": "0.02 MB"
+          },
+          {
+            "nome": "sprites.json",
+            "bytes": 1472,
+            "tamanho": "0.00 MB"
+          }
+        ]
+      }
+    },
+    {
+      "rota": "/modelos/carrocas/low",
+      "grupo": {
+        "id": "carrocas",
+        "titulo": "Carroças",
+        "icone": "🛒",
+        "resumo": "A carroça tombada, 12 versões por esforço do modelo."
+      },
+      "titulo": "Fable 5.2 · esforço baixo",
+      "icone": null,
+      "resumo": "Três versões feitas no mesmo esforço.",
+      "mdxOriginal": "web/src/content/modelos/carrocas/low.mdx",
+      "copiaMdx": "paginas/carrocas/low.mdx",
+      "corpoMdx": "import { Visualizador } from '../components/Visualizador';\n\n<Visualizador conjunto=\"carrocas-low\">\n\nFable 5.2 no esforço low. Arraste para girar, roda do mouse para zoom, botão direito para mover.\n\n</Visualizador>\n",
+      "componente": "<Visualizador conjunto=\"carrocas-low\">",
+      "props": {
+        "conjunto": "carrocas-low"
+      },
+      "modeloEsforco": "Fable 5.2, esforço low",
+      "pecas": [
+        {
+          "id": "C",
+          "nome": "Carroça 1",
+          "m": "C",
+          "decisaoAsset": "modelos/carrocas-low/C",
+          "ficha": {
+            "numeros": [["Triângulos", "não medido", "—"]],
+            "metodo": "Carroça 1: peça feita em código para a bancada (TypeScript), sem arquivo 3D.",
+            "origemMetodo": "bancada (src/client/eval)",
+            "defeitos": [],
+            "origemDefeitos": "—",
+            "arquivo": "peça m=C da bancada (src/client/eval)"
+          },
+          "fonte": {
+            "caminho": "src/client/eval/cart-C.ts",
+            "existe": true,
+            "bytes": 9525,
+            "tamanho": "0.01 MB"
+          },
+          "iframe": {
+            "liso": "/eval.html?zoom=2.2&m=C",
+            "normal": "/eval.html?zoom=2.2&m=C&pixel=3",
+            "psx": "/eval.html?zoom=2.2&m=C&ps1=1&pixel=3&keep=0.35"
+          }
+        },
+        {
+          "id": "6",
+          "nome": "Carroça 2",
+          "m": "cart-6",
+          "decisaoAsset": "modelos/carrocas-low/6",
+          "ficha": {
+            "numeros": [["Triângulos", "não medido", "—"]],
+            "metodo": "Carroça 2: peça feita em código para a bancada (TypeScript), sem arquivo 3D.",
+            "origemMetodo": "bancada (src/client/eval)",
+            "defeitos": [],
+            "origemDefeitos": "—",
+            "arquivo": "peça m=cart-6 da bancada (src/client/eval)"
+          },
+          "fonte": {
+            "caminho": "src/client/eval/cart-6.ts",
+            "existe": true,
+            "bytes": 8071,
+            "tamanho": "0.01 MB"
+          },
+          "iframe": {
+            "liso": "/eval.html?zoom=2.2&m=cart-6",
+            "normal": "/eval.html?zoom=2.2&m=cart-6&pixel=3",
+            "psx": "/eval.html?zoom=2.2&m=cart-6&ps1=1&pixel=3&keep=0.35"
+          }
+        },
+        {
+          "id": "11",
+          "nome": "Carroça 3",
+          "m": "cart-11",
+          "decisaoAsset": "modelos/carrocas-low/11",
+          "ficha": {
+            "numeros": [["Triângulos", "não medido", "—"]],
+            "metodo": "Carroça 3: peça feita em código para a bancada (TypeScript), sem arquivo 3D.",
+            "origemMetodo": "bancada (src/client/eval)",
+            "defeitos": [],
+            "origemDefeitos": "—",
+            "arquivo": "peça m=cart-11 da bancada (src/client/eval)"
+          },
+          "fonte": {
+            "caminho": "src/client/eval/cart-11.ts",
+            "existe": true,
+            "bytes": 7366,
+            "tamanho": "0.01 MB"
+          },
+          "iframe": {
+            "liso": "/eval.html?zoom=2.2&m=cart-11",
+            "normal": "/eval.html?zoom=2.2&m=cart-11&pixel=3",
+            "psx": "/eval.html?zoom=2.2&m=cart-11&ps1=1&pixel=3&keep=0.35"
+          }
+        }
+      ]
+    },
+    {
+      "rota": "/modelos/carrocas/medium",
+      "grupo": {
+        "id": "carrocas",
+        "titulo": "Carroças",
+        "icone": "🛒",
+        "resumo": "A carroça tombada, 12 versões por esforço do modelo."
+      },
+      "titulo": "Fable 5.2 · esforço médio",
+      "icone": null,
+      "resumo": "Três versões feitas no mesmo esforço.",
+      "mdxOriginal": "web/src/content/modelos/carrocas/medium.mdx",
+      "copiaMdx": "paginas/carrocas/medium.mdx",
+      "corpoMdx": "import { Visualizador } from '../components/Visualizador';\n\n<Visualizador conjunto=\"carrocas-medium\">\n\nFable 5.2 no esforço medium. Arraste para girar, roda do mouse para zoom, botão direito para mover.\n\n</Visualizador>\n",
+      "componente": "<Visualizador conjunto=\"carrocas-medium\">",
+      "props": {
+        "conjunto": "carrocas-medium"
+      },
+      "modeloEsforco": "Fable 5.2, esforço medium",
+      "pecas": [
+        {
+          "id": "A",
+          "nome": "Carroça 1",
+          "m": "A",
+          "decisaoAsset": "modelos/carrocas-medium/A",
+          "ficha": {
+            "numeros": [["Triângulos", "não medido", "—"]],
+            "metodo": "Carroça 1: peça feita em código para a bancada (TypeScript), sem arquivo 3D.",
+            "origemMetodo": "bancada (src/client/eval)",
+            "defeitos": [],
+            "origemDefeitos": "—",
+            "arquivo": "peça m=A da bancada (src/client/eval)"
+          },
+          "fonte": {
+            "caminho": "src/client/eval/cart-A.ts",
+            "existe": true,
+            "bytes": 11520,
+            "tamanho": "0.01 MB"
+          },
+          "iframe": {
+            "liso": "/eval.html?zoom=2.2&m=A",
+            "normal": "/eval.html?zoom=2.2&m=A&pixel=3",
+            "psx": "/eval.html?zoom=2.2&m=A&ps1=1&pixel=3&keep=0.35"
+          }
+        },
+        {
+          "id": "8",
+          "nome": "Carroça 2",
+          "m": "cart-8",
+          "decisaoAsset": "modelos/carrocas-medium/8",
+          "ficha": {
+            "numeros": [["Triângulos", "não medido", "—"]],
+            "metodo": "Carroça 2: peça feita em código para a bancada (TypeScript), sem arquivo 3D.",
+            "origemMetodo": "bancada (src/client/eval)",
+            "defeitos": [],
+            "origemDefeitos": "—",
+            "arquivo": "peça m=cart-8 da bancada (src/client/eval)"
+          },
+          "fonte": {
+            "caminho": "src/client/eval/cart-8.ts",
+            "existe": true,
+            "bytes": 9653,
+            "tamanho": "0.01 MB"
+          },
+          "iframe": {
+            "liso": "/eval.html?zoom=2.2&m=cart-8",
+            "normal": "/eval.html?zoom=2.2&m=cart-8&pixel=3",
+            "psx": "/eval.html?zoom=2.2&m=cart-8&ps1=1&pixel=3&keep=0.35"
+          }
+        },
+        {
+          "id": "9",
+          "nome": "Carroça 3",
+          "m": "cart-9",
+          "decisaoAsset": "modelos/carrocas-medium/9",
+          "ficha": {
+            "numeros": [["Triângulos", "não medido", "—"]],
+            "metodo": "Carroça 3: peça feita em código para a bancada (TypeScript), sem arquivo 3D.",
+            "origemMetodo": "bancada (src/client/eval)",
+            "defeitos": [],
+            "origemDefeitos": "—",
+            "arquivo": "peça m=cart-9 da bancada (src/client/eval)"
+          },
+          "fonte": {
+            "caminho": "src/client/eval/cart-9.ts",
+            "existe": true,
+            "bytes": 8348,
+            "tamanho": "0.01 MB"
+          },
+          "iframe": {
+            "liso": "/eval.html?zoom=2.2&m=cart-9",
+            "normal": "/eval.html?zoom=2.2&m=cart-9&pixel=3",
+            "psx": "/eval.html?zoom=2.2&m=cart-9&ps1=1&pixel=3&keep=0.35"
+          }
+        }
+      ]
+    },
+    {
+      "rota": "/modelos/carrocas/high",
+      "grupo": {
+        "id": "carrocas",
+        "titulo": "Carroças",
+        "icone": "🛒",
+        "resumo": "A carroça tombada, 12 versões por esforço do modelo."
+      },
+      "titulo": "Fable 5.2 · esforço alto",
+      "icone": null,
+      "resumo": "Três versões feitas no mesmo esforço.",
+      "mdxOriginal": "web/src/content/modelos/carrocas/high.mdx",
+      "copiaMdx": "paginas/carrocas/high.mdx",
+      "corpoMdx": "import { Visualizador } from '../components/Visualizador';\n\n<Visualizador conjunto=\"carrocas-high\">\n\nFable 5.2 no esforço high. Arraste para girar, roda do mouse para zoom, botão direito para mover.\n\n</Visualizador>\n",
+      "componente": "<Visualizador conjunto=\"carrocas-high\">",
+      "props": {
+        "conjunto": "carrocas-high"
+      },
+      "modeloEsforco": "Fable 5.2, esforço high",
+      "pecas": [
+        {
+          "id": "D",
+          "nome": "Carroça 1",
+          "m": "D",
+          "decisaoAsset": "modelos/carrocas-high/D",
+          "ficha": {
+            "numeros": [["Triângulos", "não medido", "—"]],
+            "metodo": "Carroça 1: peça feita em código para a bancada (TypeScript), sem arquivo 3D.",
+            "origemMetodo": "bancada (src/client/eval)",
+            "defeitos": [],
+            "origemDefeitos": "—",
+            "arquivo": "peça m=D da bancada (src/client/eval)"
+          },
+          "fonte": {
+            "caminho": "src/client/eval/cart-D.ts",
+            "existe": true,
+            "bytes": 15288,
+            "tamanho": "0.01 MB"
+          },
+          "iframe": {
+            "liso": "/eval.html?zoom=2.2&m=D",
+            "normal": "/eval.html?zoom=2.2&m=D&pixel=3",
+            "psx": "/eval.html?zoom=2.2&m=D&ps1=1&pixel=3&keep=0.35"
+          }
+        },
+        {
+          "id": "7",
+          "nome": "Carroça 2",
+          "m": "cart-7",
+          "decisaoAsset": "modelos/carrocas-high/7",
+          "ficha": {
+            "numeros": [["Triângulos", "não medido", "—"]],
+            "metodo": "Carroça 2: peça feita em código para a bancada (TypeScript), sem arquivo 3D.",
+            "origemMetodo": "bancada (src/client/eval)",
+            "defeitos": [],
+            "origemDefeitos": "—",
+            "arquivo": "peça m=cart-7 da bancada (src/client/eval)"
+          },
+          "fonte": {
+            "caminho": "src/client/eval/cart-7.ts",
+            "existe": true,
+            "bytes": 12425,
+            "tamanho": "0.01 MB"
+          },
+          "iframe": {
+            "liso": "/eval.html?zoom=2.2&m=cart-7",
+            "normal": "/eval.html?zoom=2.2&m=cart-7&pixel=3",
+            "psx": "/eval.html?zoom=2.2&m=cart-7&ps1=1&pixel=3&keep=0.35"
+          }
+        },
+        {
+          "id": "10",
+          "nome": "Carroça 3",
+          "m": "cart-10",
+          "decisaoAsset": "modelos/carrocas-high/10",
+          "ficha": {
+            "numeros": [["Triângulos", "não medido", "—"]],
+            "metodo": "Carroça 3: peça feita em código para a bancada (TypeScript), sem arquivo 3D.",
+            "origemMetodo": "bancada (src/client/eval)",
+            "defeitos": [],
+            "origemDefeitos": "—",
+            "arquivo": "peça m=cart-10 da bancada (src/client/eval)"
+          },
+          "fonte": {
+            "caminho": "src/client/eval/cart-10.ts",
+            "existe": true,
+            "bytes": 13358,
+            "tamanho": "0.01 MB"
+          },
+          "iframe": {
+            "liso": "/eval.html?zoom=2.2&m=cart-10",
+            "normal": "/eval.html?zoom=2.2&m=cart-10&pixel=3",
+            "psx": "/eval.html?zoom=2.2&m=cart-10&ps1=1&pixel=3&keep=0.35"
+          }
+        }
+      ]
+    },
+    {
+      "rota": "/modelos/carrocas/xhigh",
+      "grupo": {
+        "id": "carrocas",
+        "titulo": "Carroças",
+        "icone": "🛒",
+        "resumo": "A carroça tombada, 12 versões por esforço do modelo."
+      },
+      "titulo": "Fable 5.2 · esforço máximo",
+      "icone": null,
+      "resumo": "Três versões feitas no mesmo esforço.",
+      "mdxOriginal": "web/src/content/modelos/carrocas/xhigh.mdx",
+      "copiaMdx": "paginas/carrocas/xhigh.mdx",
+      "corpoMdx": "import { Visualizador } from '../components/Visualizador';\n\n<Visualizador conjunto=\"carrocas-xhigh\">\n\nFable 5.2 no esforço xhigh. Arraste para girar, roda do mouse para zoom, botão direito para mover.\n\n</Visualizador>\n",
+      "componente": "<Visualizador conjunto=\"carrocas-xhigh\">",
+      "props": {
+        "conjunto": "carrocas-xhigh"
+      },
+      "modeloEsforco": "Fable 5.2, esforço xhigh",
+      "pecas": [
+        {
+          "id": "B",
+          "nome": "Carroça 1",
+          "m": "B",
+          "decisaoAsset": "modelos/carrocas-xhigh/B",
+          "ficha": {
+            "numeros": [["Triângulos", "não medido", "—"]],
+            "metodo": "Carroça 1: peça feita em código para a bancada (TypeScript), sem arquivo 3D.",
+            "origemMetodo": "bancada (src/client/eval)",
+            "defeitos": [],
+            "origemDefeitos": "—",
+            "arquivo": "peça m=B da bancada (src/client/eval)"
+          },
+          "fonte": {
+            "caminho": "src/client/eval/cart-B.ts",
+            "existe": true,
+            "bytes": 14976,
+            "tamanho": "0.01 MB"
+          },
+          "iframe": {
+            "liso": "/eval.html?zoom=2.2&m=B",
+            "normal": "/eval.html?zoom=2.2&m=B&pixel=3",
+            "psx": "/eval.html?zoom=2.2&m=B&ps1=1&pixel=3&keep=0.35"
+          }
+        },
+        {
+          "id": "5",
+          "nome": "Carroça 2",
+          "m": "cart-5",
+          "decisaoAsset": "modelos/carrocas-xhigh/5",
+          "ficha": {
+            "numeros": [["Triângulos", "não medido", "—"]],
+            "metodo": "Carroça 2: peça feita em código para a bancada (TypeScript), sem arquivo 3D.",
+            "origemMetodo": "bancada (src/client/eval)",
+            "defeitos": [],
+            "origemDefeitos": "—",
+            "arquivo": "peça m=cart-5 da bancada (src/client/eval)"
+          },
+          "fonte": {
+            "caminho": "src/client/eval/cart-5.ts",
+            "existe": true,
+            "bytes": 15129,
+            "tamanho": "0.01 MB"
+          },
+          "iframe": {
+            "liso": "/eval.html?zoom=2.2&m=cart-5",
+            "normal": "/eval.html?zoom=2.2&m=cart-5&pixel=3",
+            "psx": "/eval.html?zoom=2.2&m=cart-5&ps1=1&pixel=3&keep=0.35"
+          }
+        },
+        {
+          "id": "12",
+          "nome": "Carroça 3",
+          "m": "cart-12",
+          "decisaoAsset": "modelos/carrocas-xhigh/12",
+          "ficha": {
+            "numeros": [["Triângulos", "não medido", "—"]],
+            "metodo": "Carroça 3: peça feita em código para a bancada (TypeScript), sem arquivo 3D.",
+            "origemMetodo": "bancada (src/client/eval)",
+            "defeitos": [],
+            "origemDefeitos": "—",
+            "arquivo": "peça m=cart-12 da bancada (src/client/eval)"
+          },
+          "fonte": {
+            "caminho": "src/client/eval/cart-12.ts",
+            "existe": true,
+            "bytes": 13745,
+            "tamanho": "0.01 MB"
+          },
+          "iframe": {
+            "liso": "/eval.html?zoom=2.2&m=cart-12",
+            "normal": "/eval.html?zoom=2.2&m=cart-12&pixel=3",
+            "psx": "/eval.html?zoom=2.2&m=cart-12&ps1=1&pixel=3&keep=0.35"
+          }
+        }
+      ]
+    },
+    {
+      "rota": "/modelos/arvores/low",
+      "grupo": {
+        "id": "arvores",
+        "titulo": "Árvores",
+        "icone": "🌳",
+        "resumo": "A árvore velha do Bosque, 12 versões por esforço, mais as livres."
+      },
+      "titulo": "Fable 5.2 · esforço baixo",
+      "icone": null,
+      "resumo": "Três versões feitas no mesmo esforço.",
+      "mdxOriginal": "web/src/content/modelos/arvores/low.mdx",
+      "copiaMdx": "paginas/arvores/low.mdx",
+      "corpoMdx": "import { Visualizador } from '../components/Visualizador';\n\n<Visualizador conjunto=\"arvores-low\">\n\nFable 5.2 no esforço low. Arraste para girar, roda do mouse para zoom, botão direito para mover.\n\n</Visualizador>\n",
+      "componente": "<Visualizador conjunto=\"arvores-low\">",
+      "props": {
+        "conjunto": "arvores-low"
+      },
+      "modeloEsforco": "Fable 5.2, esforço low",
+      "pecas": [
+        {
+          "id": "2",
+          "nome": "Árvore 1",
+          "m": "tree-2",
+          "zoom": 3.2,
+          "decisaoAsset": "modelos/arvores-low/2",
+          "ficha": {
+            "numeros": [["Triângulos", "não medido", "—"]],
+            "metodo": "Árvore 1: peça feita em código para a bancada (TypeScript), sem arquivo 3D.",
+            "origemMetodo": "bancada (src/client/eval)",
+            "defeitos": [],
+            "origemDefeitos": "—",
+            "arquivo": "peça m=tree-2 da bancada (src/client/eval)"
+          },
+          "fonte": {
+            "caminho": "src/client/eval/tree-2.ts",
+            "existe": true,
+            "bytes": 6230,
+            "tamanho": "0.01 MB"
+          },
+          "iframe": {
+            "liso": "/eval.html?zoom=3.2&m=tree-2",
+            "normal": "/eval.html?zoom=3.2&m=tree-2&pixel=3",
+            "psx": "/eval.html?zoom=3.2&m=tree-2&ps1=1&pixel=3&keep=0.35"
+          }
+        },
+        {
+          "id": "5",
+          "nome": "Árvore 2",
+          "m": "tree-5",
+          "zoom": 3.2,
+          "decisaoAsset": "modelos/arvores-low/5",
+          "ficha": {
+            "numeros": [["Triângulos", "não medido", "—"]],
+            "metodo": "Árvore 2: peça feita em código para a bancada (TypeScript), sem arquivo 3D.",
+            "origemMetodo": "bancada (src/client/eval)",
+            "defeitos": [],
+            "origemDefeitos": "—",
+            "arquivo": "peça m=tree-5 da bancada (src/client/eval)"
+          },
+          "fonte": {
+            "caminho": "src/client/eval/tree-5.ts",
+            "existe": true,
+            "bytes": 7768,
+            "tamanho": "0.01 MB"
+          },
+          "iframe": {
+            "liso": "/eval.html?zoom=3.2&m=tree-5",
+            "normal": "/eval.html?zoom=3.2&m=tree-5&pixel=3",
+            "psx": "/eval.html?zoom=3.2&m=tree-5&ps1=1&pixel=3&keep=0.35"
+          }
+        },
+        {
+          "id": "11",
+          "nome": "Árvore 3",
+          "m": "tree-11",
+          "zoom": 3.2,
+          "decisaoAsset": "modelos/arvores-low/11",
+          "ficha": {
+            "numeros": [["Triângulos", "não medido", "—"]],
+            "metodo": "Árvore 3: peça feita em código para a bancada (TypeScript), sem arquivo 3D.",
+            "origemMetodo": "bancada (src/client/eval)",
+            "defeitos": [],
+            "origemDefeitos": "—",
+            "arquivo": "peça m=tree-11 da bancada (src/client/eval)"
+          },
+          "fonte": {
+            "caminho": "src/client/eval/tree-11.ts",
+            "existe": true,
+            "bytes": 5398,
+            "tamanho": "0.01 MB"
+          },
+          "iframe": {
+            "liso": "/eval.html?zoom=3.2&m=tree-11",
+            "normal": "/eval.html?zoom=3.2&m=tree-11&pixel=3",
+            "psx": "/eval.html?zoom=3.2&m=tree-11&ps1=1&pixel=3&keep=0.35"
+          }
+        }
+      ]
+    },
+    {
+      "rota": "/modelos/arvores/medium",
+      "grupo": {
+        "id": "arvores",
+        "titulo": "Árvores",
+        "icone": "🌳",
+        "resumo": "A árvore velha do Bosque, 12 versões por esforço, mais as livres."
+      },
+      "titulo": "Fable 5.2 · esforço médio",
+      "icone": null,
+      "resumo": "Três versões feitas no mesmo esforço.",
+      "mdxOriginal": "web/src/content/modelos/arvores/medium.mdx",
+      "copiaMdx": "paginas/arvores/medium.mdx",
+      "corpoMdx": "import { Visualizador } from '../components/Visualizador';\n\n<Visualizador conjunto=\"arvores-medium\">\n\nFable 5.2 no esforço medium. Arraste para girar, roda do mouse para zoom, botão direito para mover.\n\n</Visualizador>\n",
+      "componente": "<Visualizador conjunto=\"arvores-medium\">",
+      "props": {
+        "conjunto": "arvores-medium"
+      },
+      "modeloEsforco": "Fable 5.2, esforço medium",
+      "pecas": [
+        {
+          "id": "4",
+          "nome": "Árvore 1",
+          "m": "tree-4",
+          "zoom": 3.2,
+          "decisaoAsset": "modelos/arvores-medium/4",
+          "ficha": {
+            "numeros": [["Triângulos", "não medido", "—"]],
+            "metodo": "Árvore 1: peça feita em código para a bancada (TypeScript), sem arquivo 3D.",
+            "origemMetodo": "bancada (src/client/eval)",
+            "defeitos": [],
+            "origemDefeitos": "—",
+            "arquivo": "peça m=tree-4 da bancada (src/client/eval)"
+          },
+          "fonte": {
+            "caminho": "src/client/eval/tree-4.ts",
+            "existe": true,
+            "bytes": 6366,
+            "tamanho": "0.01 MB"
+          },
+          "iframe": {
+            "liso": "/eval.html?zoom=3.2&m=tree-4",
+            "normal": "/eval.html?zoom=3.2&m=tree-4&pixel=3",
+            "psx": "/eval.html?zoom=3.2&m=tree-4&ps1=1&pixel=3&keep=0.35"
+          }
+        },
+        {
+          "id": "6",
+          "nome": "Árvore 2",
+          "m": "tree-6",
+          "zoom": 3.2,
+          "decisaoAsset": "modelos/arvores-medium/6",
+          "ficha": {
+            "numeros": [["Triângulos", "não medido", "—"]],
+            "metodo": "Árvore 2: peça feita em código para a bancada (TypeScript), sem arquivo 3D.",
+            "origemMetodo": "bancada (src/client/eval)",
+            "defeitos": [],
+            "origemDefeitos": "—",
+            "arquivo": "peça m=tree-6 da bancada (src/client/eval)"
+          },
+          "fonte": {
+            "caminho": "src/client/eval/tree-6.ts",
+            "existe": true,
+            "bytes": 6188,
+            "tamanho": "0.01 MB"
+          },
+          "iframe": {
+            "liso": "/eval.html?zoom=3.2&m=tree-6",
+            "normal": "/eval.html?zoom=3.2&m=tree-6&pixel=3",
+            "psx": "/eval.html?zoom=3.2&m=tree-6&ps1=1&pixel=3&keep=0.35"
+          }
+        },
+        {
+          "id": "9",
+          "nome": "Árvore 3",
+          "m": "tree-9",
+          "zoom": 3.2,
+          "decisaoAsset": "modelos/arvores-medium/9",
+          "ficha": {
+            "numeros": [["Triângulos", "não medido", "—"]],
+            "metodo": "Árvore 3: peça feita em código para a bancada (TypeScript), sem arquivo 3D.",
+            "origemMetodo": "bancada (src/client/eval)",
+            "defeitos": [],
+            "origemDefeitos": "—",
+            "arquivo": "peça m=tree-9 da bancada (src/client/eval)"
+          },
+          "fonte": {
+            "caminho": "src/client/eval/tree-9.ts",
+            "existe": true,
+            "bytes": 6708,
+            "tamanho": "0.01 MB"
+          },
+          "iframe": {
+            "liso": "/eval.html?zoom=3.2&m=tree-9",
+            "normal": "/eval.html?zoom=3.2&m=tree-9&pixel=3",
+            "psx": "/eval.html?zoom=3.2&m=tree-9&ps1=1&pixel=3&keep=0.35"
+          }
+        }
+      ]
+    },
+    {
+      "rota": "/modelos/arvores/high",
+      "grupo": {
+        "id": "arvores",
+        "titulo": "Árvores",
+        "icone": "🌳",
+        "resumo": "A árvore velha do Bosque, 12 versões por esforço, mais as livres."
+      },
+      "titulo": "Fable 5.2 · esforço alto",
+      "icone": null,
+      "resumo": "Três versões feitas no mesmo esforço.",
+      "mdxOriginal": "web/src/content/modelos/arvores/high.mdx",
+      "copiaMdx": "paginas/arvores/high.mdx",
+      "corpoMdx": "import { Visualizador } from '../components/Visualizador';\n\n<Visualizador conjunto=\"arvores-high\">\n\nFable 5.2 no esforço high. Arraste para girar, roda do mouse para zoom, botão direito para mover.\n\n</Visualizador>\n",
+      "componente": "<Visualizador conjunto=\"arvores-high\">",
+      "props": {
+        "conjunto": "arvores-high"
+      },
+      "modeloEsforco": "Fable 5.2, esforço high",
+      "pecas": [
+        {
+          "id": "1",
+          "nome": "Árvore 1",
+          "m": "tree-1",
+          "zoom": 3.2,
+          "decisaoAsset": "modelos/arvores-high/1",
+          "ficha": {
+            "numeros": [["Triângulos", "não medido", "—"]],
+            "metodo": "Árvore 1: peça feita em código para a bancada (TypeScript), sem arquivo 3D.",
+            "origemMetodo": "bancada (src/client/eval)",
+            "defeitos": [],
+            "origemDefeitos": "—",
+            "arquivo": "peça m=tree-1 da bancada (src/client/eval)"
+          },
+          "fonte": {
+            "caminho": "src/client/eval/tree-1.ts",
+            "existe": true,
+            "bytes": 8904,
+            "tamanho": "0.01 MB"
+          },
+          "iframe": {
+            "liso": "/eval.html?zoom=3.2&m=tree-1",
+            "normal": "/eval.html?zoom=3.2&m=tree-1&pixel=3",
+            "psx": "/eval.html?zoom=3.2&m=tree-1&ps1=1&pixel=3&keep=0.35"
+          }
+        },
+        {
+          "id": "7",
+          "nome": "Árvore 2",
+          "m": "tree-7",
+          "zoom": 3.2,
+          "decisaoAsset": "modelos/arvores-high/7",
+          "ficha": {
+            "numeros": [["Triângulos", "não medido", "—"]],
+            "metodo": "Árvore 2: peça feita em código para a bancada (TypeScript), sem arquivo 3D.",
+            "origemMetodo": "bancada (src/client/eval)",
+            "defeitos": [],
+            "origemDefeitos": "—",
+            "arquivo": "peça m=tree-7 da bancada (src/client/eval)"
+          },
+          "fonte": {
+            "caminho": "src/client/eval/tree-7.ts",
+            "existe": true,
+            "bytes": 9545,
+            "tamanho": "0.01 MB"
+          },
+          "iframe": {
+            "liso": "/eval.html?zoom=3.2&m=tree-7",
+            "normal": "/eval.html?zoom=3.2&m=tree-7&pixel=3",
+            "psx": "/eval.html?zoom=3.2&m=tree-7&ps1=1&pixel=3&keep=0.35"
+          }
+        },
+        {
+          "id": "12",
+          "nome": "Árvore 3",
+          "m": "tree-12",
+          "zoom": 3.2,
+          "decisaoAsset": "modelos/arvores-high/12",
+          "ficha": {
+            "numeros": [["Triângulos", "não medido", "—"]],
+            "metodo": "Árvore 3: peça feita em código para a bancada (TypeScript), sem arquivo 3D.",
+            "origemMetodo": "bancada (src/client/eval)",
+            "defeitos": [],
+            "origemDefeitos": "—",
+            "arquivo": "peça m=tree-12 da bancada (src/client/eval)"
+          },
+          "fonte": {
+            "caminho": "src/client/eval/tree-12.ts",
+            "existe": true,
+            "bytes": 8081,
+            "tamanho": "0.01 MB"
+          },
+          "iframe": {
+            "liso": "/eval.html?zoom=3.2&m=tree-12",
+            "normal": "/eval.html?zoom=3.2&m=tree-12&pixel=3",
+            "psx": "/eval.html?zoom=3.2&m=tree-12&ps1=1&pixel=3&keep=0.35"
+          }
+        }
+      ]
+    },
+    {
+      "rota": "/modelos/arvores/xhigh",
+      "grupo": {
+        "id": "arvores",
+        "titulo": "Árvores",
+        "icone": "🌳",
+        "resumo": "A árvore velha do Bosque, 12 versões por esforço, mais as livres."
+      },
+      "titulo": "Fable 5.2 · esforço máximo",
+      "icone": null,
+      "resumo": "Três versões feitas no mesmo esforço.",
+      "mdxOriginal": "web/src/content/modelos/arvores/xhigh.mdx",
+      "copiaMdx": "paginas/arvores/xhigh.mdx",
+      "corpoMdx": "import { Visualizador } from '../components/Visualizador';\n\n<Visualizador conjunto=\"arvores-xhigh\">\n\nFable 5.2 no esforço xhigh. Arraste para girar, roda do mouse para zoom, botão direito para mover.\n\n</Visualizador>\n",
+      "componente": "<Visualizador conjunto=\"arvores-xhigh\">",
+      "props": {
+        "conjunto": "arvores-xhigh"
+      },
+      "modeloEsforco": "Fable 5.2, esforço xhigh",
+      "pecas": [
+        {
+          "id": "3",
+          "nome": "Árvore 1",
+          "m": "tree-3",
+          "zoom": 3.2,
+          "decisaoAsset": "modelos/arvores-xhigh/3",
+          "ficha": {
+            "numeros": [["Triângulos", "não medido", "—"]],
+            "metodo": "Árvore 1: peça feita em código para a bancada (TypeScript), sem arquivo 3D.",
+            "origemMetodo": "bancada (src/client/eval)",
+            "defeitos": [],
+            "origemDefeitos": "—",
+            "arquivo": "peça m=tree-3 da bancada (src/client/eval)"
+          },
+          "fonte": {
+            "caminho": "src/client/eval/tree-3.ts",
+            "existe": true,
+            "bytes": 10860,
+            "tamanho": "0.01 MB"
+          },
+          "iframe": {
+            "liso": "/eval.html?zoom=3.2&m=tree-3",
+            "normal": "/eval.html?zoom=3.2&m=tree-3&pixel=3",
+            "psx": "/eval.html?zoom=3.2&m=tree-3&ps1=1&pixel=3&keep=0.35"
+          }
+        },
+        {
+          "id": "8",
+          "nome": "Árvore 2",
+          "m": "tree-8",
+          "zoom": 3.2,
+          "decisaoAsset": "modelos/arvores-xhigh/8",
+          "ficha": {
+            "numeros": [["Triângulos", "não medido", "—"]],
+            "metodo": "Árvore 2: peça feita em código para a bancada (TypeScript), sem arquivo 3D.",
+            "origemMetodo": "bancada (src/client/eval)",
+            "defeitos": [],
+            "origemDefeitos": "—",
+            "arquivo": "peça m=tree-8 da bancada (src/client/eval)"
+          },
+          "fonte": {
+            "caminho": "src/client/eval/tree-8.ts",
+            "existe": true,
+            "bytes": 11432,
+            "tamanho": "0.01 MB"
+          },
+          "iframe": {
+            "liso": "/eval.html?zoom=3.2&m=tree-8",
+            "normal": "/eval.html?zoom=3.2&m=tree-8&pixel=3",
+            "psx": "/eval.html?zoom=3.2&m=tree-8&ps1=1&pixel=3&keep=0.35"
+          }
+        },
+        {
+          "id": "10",
+          "nome": "Árvore 3",
+          "m": "tree-10",
+          "zoom": 3.2,
+          "decisaoAsset": "modelos/arvores-xhigh/10",
+          "ficha": {
+            "numeros": [["Triângulos", "não medido", "—"]],
+            "metodo": "Árvore 3: peça feita em código para a bancada (TypeScript), sem arquivo 3D.",
+            "origemMetodo": "bancada (src/client/eval)",
+            "defeitos": [],
+            "origemDefeitos": "—",
+            "arquivo": "peça m=tree-10 da bancada (src/client/eval)"
+          },
+          "fonte": {
+            "caminho": "src/client/eval/tree-10.ts",
+            "existe": true,
+            "bytes": 9611,
+            "tamanho": "0.01 MB"
+          },
+          "iframe": {
+            "liso": "/eval.html?zoom=3.2&m=tree-10",
+            "normal": "/eval.html?zoom=3.2&m=tree-10&pixel=3",
+            "psx": "/eval.html?zoom=3.2&m=tree-10&ps1=1&pixel=3&keep=0.35"
+          }
+        }
+      ]
+    },
+    {
+      "rota": "/modelos/arvores/livres",
+      "grupo": {
+        "id": "arvores",
+        "titulo": "Árvores",
+        "icone": "🌳",
+        "resumo": "A árvore velha do Bosque, 12 versões por esforço, mais as livres."
+      },
+      "titulo": "Fable 5.2 × Opus 5.5 · livres",
+      "icone": null,
+      "resumo": "Sem as peças-base do projeto: Fable (P) contra Opus (Q).",
+      "mdxOriginal": "web/src/content/modelos/arvores/livres.mdx",
+      "copiaMdx": "paginas/arvores/livres.mdx",
+      "corpoMdx": "import { Visualizador } from '../components/Visualizador';\n\n<Visualizador conjunto=\"arvores-livres\">\n\nArraste para girar, roda do mouse para zoom, botão direito para mover.\n\n</Visualizador>\n",
+      "componente": "<Visualizador conjunto=\"arvores-livres\">",
+      "props": {
+        "conjunto": "arvores-livres"
+      },
+      "modeloEsforco": "P: Fable 5.2 médio; Q: Opus 5.5 médio (sem as peças-base do projeto)",
+      "pecas": [
+        {
+          "id": "P",
+          "nome": "P · Fable médio",
+          "m": "tree-P",
+          "zoom": 3.2,
+          "decisaoAsset": "modelos/arvores-livres/P",
+          "ficha": {
+            "numeros": [["Triângulos", "não medido", "—"]],
+            "metodo": "P · Fable médio: peça feita em código para a bancada (TypeScript), sem arquivo 3D.",
+            "origemMetodo": "bancada (src/client/eval)",
+            "defeitos": [],
+            "origemDefeitos": "—",
+            "arquivo": "peça m=tree-P da bancada (src/client/eval)"
+          },
+          "fonte": {
+            "caminho": "src/client/eval/tree-P.ts",
+            "existe": true,
+            "bytes": 7101,
+            "tamanho": "0.01 MB"
+          },
+          "iframe": {
+            "liso": "/eval.html?zoom=3.2&m=tree-P",
+            "normal": "/eval.html?zoom=3.2&m=tree-P&pixel=3",
+            "psx": "/eval.html?zoom=3.2&m=tree-P&ps1=1&pixel=3&keep=0.35"
+          }
+        },
+        {
+          "id": "Q",
+          "nome": "Q · Opus médio",
+          "m": "tree-Q",
+          "zoom": 3.2,
+          "decisaoAsset": "modelos/arvores-livres/Q",
+          "ficha": {
+            "numeros": [["Triângulos", "não medido", "—"]],
+            "metodo": "Q · Opus médio: peça feita em código para a bancada (TypeScript), sem arquivo 3D.",
+            "origemMetodo": "bancada (src/client/eval)",
+            "defeitos": [],
+            "origemDefeitos": "—",
+            "arquivo": "peça m=tree-Q da bancada (src/client/eval)"
+          },
+          "fonte": {
+            "caminho": "src/client/eval/tree-Q.ts",
+            "existe": true,
+            "bytes": 7416,
+            "tamanho": "0.01 MB"
+          },
+          "iframe": {
+            "liso": "/eval.html?zoom=3.2&m=tree-Q",
+            "normal": "/eval.html?zoom=3.2&m=tree-Q&pixel=3",
+            "psx": "/eval.html?zoom=3.2&m=tree-Q&ps1=1&pixel=3&keep=0.35"
+          }
+        }
+      ]
+    },
+    {
+      "rota": "/modelos/estilos/pintado",
+      "grupo": {
+        "id": "estilos",
+        "titulo": "Estilos",
+        "icone": "🎨",
+        "resumo": "O que cada estilo mostra."
+      },
+      "titulo": "Pintado (Fable 5.2)",
+      "icone": "🖌️",
+      "resumo": "O estilo atual do jogo.",
+      "mdxOriginal": "web/src/content/modelos/estilos/pintado.mdx",
+      "copiaMdx": "paginas/estilos/pintado.mdx",
+      "corpoMdx": "<Callout tom=\"simples\">\n\n- O estilo atual do jogo.\n- 1.422 triângulos na carroça D.\n- Na bancada há duas versões: **Pintado (jogo)**, com o pixel do jogo, e **Pintado em 3D liso**, sem pixel.\n\n[Ver no visualizador](/modelos/carrocas/high)\n\n</Callout>\n",
+      "componente": "<Callout tom=\"simples\">",
+      "props": {
+        "tom": "simples"
+      },
+      "modeloEsforco": "Fable 5.2 (carroça D, high)"
+    },
+    {
+      "rota": "/modelos/estilos/psx",
+      "grupo": {
+        "id": "estilos",
+        "titulo": "Estilos",
+        "icone": "🎨",
+        "resumo": "O que cada estilo mostra."
+      },
+      "titulo": "PSX (carroça do Fable 5.2)",
+      "icone": "📼",
+      "resumo": "Teste de estilo do primeiro PlayStation.",
+      "mdxOriginal": "web/src/content/modelos/estilos/psx.mdx",
+      "copiaMdx": "paginas/estilos/psx.mdx",
+      "corpoMdx": "<Callout tom=\"simples\">\n\n- 950 triângulos, faces chapadas.\n- Cor em poucos tons com trama; textura de 48 px sem suavizar.\n- Falta a textura afim; o tremido só aparece com a câmera mexendo.\n- O PSX come detalhes pequenos, como os olhos.\n\n[Ver o guerreiro no visualizador](/modelos/personagens/codigo)\n\n</Callout>\n",
+      "componente": "<Callout tom=\"simples\">",
+      "props": {
+        "tom": "simples"
+      },
+      "modeloEsforco": "Fable 5.2 (carroça do Fable 5.2 no estilo PSX, conforme o título); esforço não registrado"
+    },
+    {
+      "rota": "/modelos/evals/esforco",
+      "grupo": {
+        "id": "evals",
+        "titulo": "Evals",
+        "icone": "🧪",
+        "resumo": "Testes de como modelar melhor."
+      },
+      "titulo": "Esforço nos modelos",
+      "icone": "📊",
+      "resumo": "Quanto esforço do modelo vale pagar para modelar.",
+      "mdxOriginal": "web/src/content/modelos/evals/esforco.mdx",
+      "copiaMdx": "paginas/evals/esforco.mdx",
+      "corpoMdx": "<Callout>\n\n**Veredito:** modelar em Fable high; xhigh só em peça de destaque (herói, chefe, peça de capa).\n\n</Callout>\n\n<Callout tom=\"simples\">\n\n- Carroças A a D: a do Fable high (a D) foi a melhor, com 24,0 de 30.\n- Rodada 2, carroças: high > medium > xhigh > low. Árvores: xhigh > low > high > medium.\n- Nota média de 30, árvores / carroças: low 20,8 / 18,7 · medium 17,7 / 22,3 · high 20,2 / 24,0 · xhigh 24,7 / 19,3.\n- Tokens médios por peça: low ~143 mil · medium ~144 mil · high ~210 mil · xhigh ~300 mil.\n- A variação dentro de um mesmo esforço é parecida com a variação entre esforços.\n\n</Callout>\n",
+      "componente": "<Callout>",
+      "props": {},
+      "modeloEsforco": "eval de esforço do Fable 5.2 (low, medium, high, xhigh)"
+    }
+  ]
+}
