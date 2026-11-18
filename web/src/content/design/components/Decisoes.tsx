@@ -3,7 +3,8 @@
 import { Callout } from '@/components/content/Callout';
 import { Rolagem, TABELA } from '@/components/content/DataTable';
 import { cn } from '@/lib/utils';
-import { PLANO, type Status } from '../dados';
+import { Link } from 'react-router';
+import { GOSTO_ABERTAS, PLANO, type Status } from '../dados';
 
 const TOM: Record<Status, string> = {
   feito: 'bg-sucesso-suave text-sucesso',
@@ -42,7 +43,10 @@ export function Agora() {
       ) : (
         <div className="grid gap-3">
           <p className="m-0">
-            <strong>Nenhuma decisão pendente.</strong>
+            <Link to="/design/interface/decisoes-de-gosto" className="font-bold">
+              {GOSTO_ABERTAS} decisões de gosto abertas
+            </Link>{' '}
+            na página Interface › Decisões de gosto: escolha olhando.
           </p>
           <p className="m-0">
             <strong>Próximo passo: </strong>

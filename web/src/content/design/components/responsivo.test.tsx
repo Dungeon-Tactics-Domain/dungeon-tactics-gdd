@@ -1,6 +1,6 @@
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { faixa, FAIXAS, RedesignResponsivo } from './Responsivo';
 
 describe('responsive redesign mock-ups', () => {
@@ -37,5 +37,21 @@ describe('responsive redesign mock-ups', () => {
     await user.click(within(ultra).getByRole('button', { name: 'Cura' }));
     expect(within(ultra).getByRole('tab', { name: 'Lupa' })).toHaveAttribute('aria-selected', 'true');
     expect(within(ultra).getByRole('heading', { level: 2, name: 'Cura' })).toBeInTheDocument();
+  });
+
+  it('scales each frame to the column at mount even when the observer never calls back (hidden tab)', () => {
+    vi.stubGlobal(
+      'ResizeObserver',
+      class {
+        observe() {}
+        disconnect() {}
+      },
+    );
+    vi.spyOn(HTMLElement.prototype, 'clientWidth', 'get').mockReturnValue(344);
+    render(<RedesignResponsivo />);
+    // 344 / 1920 = 18%, not the 25% guess (480 px wide on a 390 px phone)
+    expect(screen.getAllByText(/1920 × 1080 px · mostrado a 18%/).length).toBeGreaterThan(0);
+    expect(screen.queryAllByText(/mostrado a 25%/)).toEqual([]);
+    vi.unstubAllGlobals();
   });
 });

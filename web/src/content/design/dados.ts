@@ -58,6 +58,10 @@ export function blocos(g: Game): Shot[][] {
   );
 }
 
+// open taste decisions (DecisoesDeGosto.tsx): a number, not an import, so the lab home does not load that page;
+// decisoes-de-gosto.test.tsx fails when they diverge
+export const GOSTO_ABERTAS = 10;
+
 export const PLANO = planoJson as {
   now: { question: string; why: string; example: string; options: string[]; pick: string } | null;
   nextStep: string;

@@ -32,10 +32,21 @@ const ESCALA = [4, 8, 12, 16, 24, 32, 48, 64];
 
 const razao = (r: number) => r.toFixed(2).replace('.', ',') + ':1';
 
-function Secao({ id, titulo, children }: { id: string; titulo: string; children: ReactNode }) {
+const SECOES: Record<string, string> = {
+  referencia: '1. Paleta medida na referência',
+  tokens: '2. Tokens semânticos',
+  contraste: '3. Contraste WCAG de cada par',
+  bordas: '4. Bordas, cantos, sombras e foco',
+  tipografia: '5. Tipografia e espaço por faixa',
+  exemplos: '6. Exemplos vivos',
+  bloco: '7. Bloco pronto para colar',
+  mapa: '8. Mapa: token atual → token novo',
+};
+
+function Secao({ id, children }: { id: string; children: ReactNode }) {
   return (
     <section aria-labelledby={`oc-${id}`}>
-      <h2 id={`oc-${id}`}>{titulo}</h2>
+      <h2 id={`oc-${id}`}>{SECOES[id]}</h2>
       {children}
     </section>
   );
@@ -90,8 +101,17 @@ export function OuroECouro() {
         Esta área inteira já roda com os tokens novos; a casca em volta continua com os atuais. {PARES.length} pares de
         contraste calculados, {falhas === 0 ? 'todos passam' : `${falhas} falham`}.
       </p>
+      <nav aria-label="Índice da página">
+        <ol className="oc-indice">
+          {Object.entries(SECOES).map(([id, titulo]) => (
+            <li key={id}>
+              <a href={`#oc-${id}`}>{titulo}</a>
+            </li>
+          ))}
+        </ol>
+      </nav>
 
-      <Secao id="referencia" titulo="1. Paleta medida na referência">
+      <Secao id="referencia">
         <p>
           Cores tiradas dos pixels das duas imagens de IA (pasta <code>public/content/design/ia</code>), com a caixa
           medida (x,y em pixels da imagem) e o método. Pergaminho, folha, tinta, apagado, link e os estados não estão na
@@ -136,7 +156,7 @@ export function OuroECouro() {
         </div>
       </Secao>
 
-      <Secao id="tokens" titulo="2. Tokens semânticos">
+      <Secao id="tokens">
         <div className="oc-grade">
           {Object.entries(CORES).map(([nome, hex]) => (
             <div key={nome} className="oc-cor">
@@ -154,7 +174,7 @@ export function OuroECouro() {
         </p>
       </Secao>
 
-      <Secao id="contraste" titulo="3. Contraste WCAG de cada par">
+      <Secao id="contraste">
         <p>
           Razão calculada pela luminância relativa do WCAG 2.x a partir dos hex do arquivo de tokens. Mínimo 4,5:1 para
           texto e 3:1 para borda e foco. O botão desligado (apagado sobre pergaminho-escuro) é isento pelo WCAG, mas
@@ -181,7 +201,7 @@ export function OuroECouro() {
         </div>
       </Secao>
 
-      <Secao id="bordas" titulo="4. Bordas, cantos, sombras e foco">
+      <Secao id="bordas">
         <div className="oc-grade">
           <div className="oc-folha">
             <h3>Borda fina</h3>
@@ -234,7 +254,7 @@ export function OuroECouro() {
         </div>
       </Secao>
 
-      <Secao id="tipografia" titulo="5. Tipografia e espaço por faixa">
+      <Secao id="tipografia">
         <p>
           Títulos em <strong>Cinzel</strong> (serifa romana, só maiúsculas e versaletes; reserva Cormorant Garamond e
           Georgia). Corpo em <strong>Alegreya Sans</strong> (humanista, boa em português; reserva system-ui). As duas
@@ -291,7 +311,7 @@ export function OuroECouro() {
         </div>
       </Secao>
 
-      <Secao id="exemplos" titulo="6. Exemplos vivos">
+      <Secao id="exemplos">
         <h3>Cabeçalho, barra lateral e card</h3>
         <div className="oc-casca">
           <header className="oc-cab">
@@ -458,7 +478,7 @@ export function OuroECouro() {
         </div>
       </Secao>
 
-      <Secao id="bloco" titulo="7. Bloco pronto para colar">
+      <Secao id="bloco">
         <p>
           Arquivo <code>web/src/content/design/ouro-e-couro.tokens.css</code>, não ligado ao app. Substitui os blocos{' '}
           <code>@theme</code> e <code>:root</code> de <code>src/index.css</code>; o link das fontes vai no{' '}
@@ -478,7 +498,7 @@ export function OuroECouro() {
         </pre>
       </Secao>
 
-      <Secao id="mapa" titulo="8. Mapa: token atual → token novo">
+      <Secao id="mapa">
         <p>
           Cada token de <code>src/index.css</code>. “Mesmo nome” troca só o valor: as classes continuam valendo.
           “Renomear” pede trocar as classes (busca e troca). Usos: contagem aproximada por busca em <code>src</code> em

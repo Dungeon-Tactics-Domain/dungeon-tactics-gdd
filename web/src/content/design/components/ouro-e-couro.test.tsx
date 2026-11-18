@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import { contraste, cor, CORES, FAIXAS_TOKENS, MAPA, PARES, tokensEm } from '../ouro-e-couro';
 import { OuroECouro } from './OuroECouro';
@@ -41,5 +41,16 @@ describe('ouro e couro tokens', () => {
     render(<OuroECouro />);
     expect(screen.getAllByRole('heading', { level: 2, name: /^\d\. / })).toHaveLength(8);
     expect(screen.getByRole('button', { name: 'Desligado' })).toHaveAttribute('aria-disabled', 'true');
+  });
+
+  it('opens with an index that links to each of its 8 sections', () => {
+    render(<OuroECouro />);
+    const links = within(screen.getByRole('navigation', { name: 'Índice da página' })).getAllByRole('link');
+    expect(links).toHaveLength(8);
+    for (const a of links) {
+      const alvo = document.getElementById(a.getAttribute('href')!.slice(1));
+      expect(alvo?.tagName).toBe('H2');
+      expect(alvo).toHaveTextContent(a.textContent!);
+    }
   });
 });

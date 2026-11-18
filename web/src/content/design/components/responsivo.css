@@ -13,6 +13,8 @@
 }
 .rr-janela {
   position: relative;
+  /* never wider than its column, even before the first measure */
+  max-width: 100%;
   overflow: hidden;
   border: 1px solid var(--color-traco);
   box-shadow: 0 6px 20px rgb(0 0 0 / 0.18);

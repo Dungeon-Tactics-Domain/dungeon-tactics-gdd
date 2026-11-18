@@ -161,6 +161,8 @@ function Moldura({ f, children }: { f: Faixa; children: ReactNode }) {
     const c = caixa.current;
     // jsdom (tests) has no ResizeObserver; the browser always does
     if (!c || typeof ResizeObserver === 'undefined') return;
+    // measured now too: a hidden or throttled tab delivers no observer callback and the frame kept its 25% guess (860 px)
+    setLargura(c.clientWidth);
     const ro = new ResizeObserver(() => setLargura(c.clientWidth));
     ro.observe(c);
     return () => ro.disconnect();

@@ -1,6 +1,6 @@
 {
   "now": null,
-  "nextStep": "Olhar as 3 amostras de estilo na área Maquetes e dizer o que agrada e o que não agrada em cada uma, antes das telas inteiras.",
+  "nextStep": "Responder as decisões de gosto em Interface › Decisões de gosto: escolha olhando, uma letra por decisão.",
   "decisions": [
     ["Alcance", "Tudo do zero, inclusive o HUD da batalha."],
     ["Onde nasce", "Maquetes primeiro; o código do jogo só muda depois de aprovado."],

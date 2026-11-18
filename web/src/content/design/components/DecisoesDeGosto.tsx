@@ -34,6 +34,8 @@ function Moldura({ tela, children }: { tela: TelaId; children: ReactNode }) {
     const c = caixa.current;
     // jsdom (tests) has no ResizeObserver; the browser always does
     if (!c || typeof ResizeObserver === 'undefined') return;
+    // measured now too: a hidden or throttled tab delivers no observer callback and the frame kept its 25% guess (860 px)
+    setLargura(c.clientWidth);
     const ro = new ResizeObserver(() => setLargura(c.clientWidth));
     ro.observe(c);
     return () => ro.disconnect();
@@ -520,6 +522,8 @@ interface Decisao {
   semMoldura?: boolean;
   nota?: string;
   recomendacao: string;
+  /** the letter Fernando answered; none yet (17/11), so every item shows as open */
+  resposta?: string;
 }
 
 const HOJE: Opcao = { letra: 'Hoje', nome: 'como está no jogo', ref: true, pros: [], contras: [] };
@@ -1118,18 +1122,22 @@ export function DecisoesDeGosto() {
         {DECISOES.length} decisões de gosto pendentes da interface do jogo. Em cada uma, as opções estão desenhadas lado
         a lado; troque a tela no seletor e responda só com a letra. Nada aqui mudou o jogo.
       </p>
-      <nav aria-label="Decisões" className="flex flex-wrap gap-2">
-        {DECISOES.map((d, i) => (
-          // a button, not a #link: the lab's router reads a bare hash as an old route
-          <button
-            key={d.id}
-            type="button"
-            className={BOTAO}
-            onClick={() => document.getElementById(d.id)?.scrollIntoView({ block: 'start' })}
-          >
-            {i + 1}. {d.titulo}
-          </button>
-        ))}
+      <nav aria-label="Índice das decisões">
+        <ol className="m-0 grid list-none gap-1 p-0">
+          {DECISOES.map((d, i) => (
+            <li key={d.id}>
+              {/* the lab's router keeps an unknown hash (not in linksAntigos) as an in-page anchor */}
+              <a href={`#${d.id}`} className="inline-flex min-h-11 items-center gap-2 text-[16px]">
+                {i + 1}. {d.titulo}
+                <span
+                  className={`px-2 py-0.5 text-[16px] font-bold ${d.resposta ? 'bg-sucesso-suave text-sucesso' : 'bg-aviso-suave text-aviso'}`}
+                >
+                  {d.resposta ? `respondida: ${d.resposta}` : 'aberta'}
+                </span>
+              </a>
+            </li>
+          ))}
+        </ol>
       </nav>
       {DECISOES.map((d, i) => (
         <Secao key={d.id} d={d} n={i + 1} />

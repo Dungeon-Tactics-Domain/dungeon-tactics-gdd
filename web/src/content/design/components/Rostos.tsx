@@ -1,6 +1,7 @@
 // Pixel-art faces of the KayKit puppets in use: 7 official 8-frame sheets plus 3 old still faces (see OFICIAL below).
 // Ported from dungeon-tactics-lab/design/src/rostos.ts.
 import { useEffect, useState } from 'react';
+import { Icone } from '@/components/layout/Icone';
 import { ASSETS } from '../dados';
 
 const FACES: [string, string][] = [
@@ -37,32 +38,48 @@ function Quadro({ id, n, size }: { id: string; n: number; size: number }) {
   );
 }
 
+// starts still with prefers-reduced-motion; the button pauses and resumes in either case
+const reduz = () => typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
 export function Rostos() {
   const [t, setT] = useState(0);
+  const [pausado, setPausado] = useState(reduz);
   useEffect(() => {
+    if (pausado) return;
     const timer = setInterval(() => setT((x) => x + 1), 180);
     return () => clearInterval(timer);
-  }, []);
+  }, [pausado]);
   return (
-    <div className="grid grid-cols-[repeat(auto-fill,minmax(min(300px,100%),1fr))] gap-4">
-      {FACES.map(([id, nome]) => (
-        <div key={id} className="flex min-w-0 flex-col gap-2 border border-borda bg-folha p-3">
-          <strong>
-            {nome} ({id})
-          </strong>
-          <div className="flex flex-wrap gap-1">
-            {(OFICIAL.has(id) ? MOMENTOS : ['base', 'fechada', 'meia', 'aberta']).map((m, n) => (
-              <Quadro key={m} id={id} n={n} size={48} />
-            ))}
+    <div className="grid gap-4">
+      <button
+        type="button"
+        aria-pressed={pausado}
+        onClick={() => setPausado((p) => !p)}
+        className="inline-flex min-h-11 cursor-pointer items-center gap-2 justify-self-start rounded-[3px] border border-borda bg-folha px-3 text-[16px] text-tinta hover:bg-lab-soft"
+      >
+        <Icone id={pausado ? 'tocar' : 'pausar'} />
+        {pausado ? 'Retomar a fala' : 'Pausar a fala'}
+      </button>
+      <div className="grid grid-cols-[repeat(auto-fill,minmax(min(300px,100%),1fr))] gap-4">
+        {FACES.map(([id, nome]) => (
+          <div key={id} className="flex min-w-0 flex-col gap-2 border border-borda bg-folha p-3">
+            <strong>
+              {nome} ({id})
+            </strong>
+            <div className="flex flex-wrap gap-1">
+              {(OFICIAL.has(id) ? MOMENTOS : ['base', 'fechada', 'meia', 'aberta']).map((m, n) => (
+                <Quadro key={m} id={id} n={n} size={48} />
+              ))}
+            </div>
+            <Quadro id={id} n={OFICIAL.has(id) ? TALK[t % TALK.length]! : 0} size={192} />
+            <span className="text-[14px]">
+              {OFICIAL.has(id)
+                ? 'Folha oficial: 8 momentos (neutro, falando 1 e 2, gritando, dano, ferido, sorrindo, bravo) e a fala.'
+                : 'Sem folha de expressões ainda: rosto parado antigo de 4 quadros.'}
+            </span>
           </div>
-          <Quadro id={id} n={OFICIAL.has(id) ? TALK[t % TALK.length]! : 0} size={192} />
-          <span className="text-[14px]">
-            {OFICIAL.has(id)
-              ? 'Folha oficial: 8 momentos (neutro, falando 1 e 2, gritando, dano, ferido, sorrindo, bravo) e a fala.'
-              : 'Sem folha de expressões ainda: rosto parado antigo de 4 quadros.'}
-          </span>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 }

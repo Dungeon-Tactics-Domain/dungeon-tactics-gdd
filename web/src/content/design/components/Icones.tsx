@@ -1,6 +1,8 @@
 // Atlas of the 32 px ability icons (the AI sheet reduced by the game's scripts/assets/icon-test.py): each icon at 1x, 2x
 // and 4x, sharp, then without background on light and dark. Ported from dungeon-tactics-lab/design/src/icones.ts.
 import { useRef, useState } from 'react';
+import { Icone as IconeAcao } from '@/components/layout/Icone';
+import { cn } from '@/lib/utils';
 import { ASSETS } from '../dados';
 
 const NOMES = [
@@ -104,7 +106,13 @@ export function Icones() {
                 </div>
               ))}
             </div>
-            <button type="button" aria-pressed={i === sel} className={BOTAO} onClick={() => escolher(i)}>
+            <button
+              id={`lupa-${i}`}
+              type="button"
+              aria-pressed={i === sel}
+              className={BOTAO}
+              onClick={() => escolher(i)}
+            >
               Lupa 8x
             </button>
           </div>
@@ -116,6 +124,19 @@ export function Icones() {
         className="grid scroll-mt-[calc(var(--reino-h)+8px)] scroll-mb-[calc(var(--nav-h)+8px)] gap-3 border border-borda bg-folha p-4 lg:sticky lg:top-[calc(var(--reino-h)+16px)]"
       >
         <h2 className="m-0 text-[21px]">{NOMES[sel]}</h2>
+        {/* below 1024 px the magnifier sits after all 24 cards (about 6,000 px down): the way back to the card */}
+        <button
+          type="button"
+          className={cn(BOTAO, 'inline-flex items-center gap-2 justify-self-start text-[16px] lg:hidden')}
+          onClick={() => {
+            const b = document.getElementById(`lupa-${sel}`);
+            b?.scrollIntoView({ block: 'center' });
+            b?.focus({ preventScroll: true });
+          }}
+        >
+          <IconeAcao id="subir" />
+          Voltar ao ícone
+        </button>
         <p className="m-0 text-[15px] text-apagado">Lupa 8x (256 px), sem suavizar.</p>
         <div className="flex flex-wrap gap-3">
           {FUNDOS.map(([nomeFundo, cor], n) => (

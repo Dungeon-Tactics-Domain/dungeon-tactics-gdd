@@ -10,7 +10,8 @@ const TRACOS: Record<string, string> = {
   narrativa: 'M4 19.5A2.5 2.5 0 016.5 17H20V3H6.5A2.5 2.5 0 004 5.5zM4 19.5A2.5 2.5 0 006.5 22H20v-5',
   modelos: 'M12 2l9 5v10l-9 5-9-5V7zM12 12l9-5M12 12L3 7M12 12v10',
   musica: 'M9 18V5l12-2v13M9 18a3 3 0 11-6 0 3 3 0 016 0zM21 16a3 3 0 11-6 0 3 3 0 016 0z',
-  engine: 'M12 9a3 3 0 100 6 3 3 0 000-6zM12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1',
+  engine:
+    'M12 9a3 3 0 100 6 3 3 0 000-6zM12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1',
   decisoes: 'M5 12l4.5 4.5L19 7',
   // actions: one family for every clickable label in the labs (rule from Fernando, 16/11)
   menu: 'M4 6h16M4 12h16M4 18h16',
@@ -18,6 +19,7 @@ const TRACOS: Record<string, string> = {
   lupa: 'M11 4a7 7 0 100 14 7 7 0 000-14zM21 21l-5-5',
   voltar: 'M19 12H5M11 6l-6 6 6 6',
   avancar: 'M5 12h14M13 6l6 6-6 6',
+  subir: 'M12 19V5M6 11l6-6 6 6',
   recolher: 'M11 7l-5 5 5 5M18 7l-5 5 5 5',
   expandir: 'M13 7l5 5-5 5M6 7l5 5-5 5',
   copiar: 'M9 9h11v11H9zM5 15V4h11',
