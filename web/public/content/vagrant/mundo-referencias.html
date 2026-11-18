@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Referências do mundo</title>
+<style>
+  :root { color-scheme: light; --bg: #f7f5f0; --card: #fff; --txt: #1d1b18; --sub: #5a554c; --line: #ddd6c8; --accent: #8a4b12; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--txt); font: 16px/1.5 system-ui, sans-serif; }
+  .wrap { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 24px; max-width: 1600px; margin: 0 auto; padding: 16px; }
+  nav { position: sticky; top: 16px; align-self: start; }
+  nav summary { font-weight: 700; cursor: pointer; min-height: 44px; display: flex; align-items: center; }
+  nav a { display: block; padding: 10px 12px; color: var(--txt); text-decoration: none; border-left: 3px solid transparent; min-height: 44px; }
+  nav a.on { border-left-color: var(--accent); background: #efe7d8; font-weight: 600; }
+  h1 { margin: 0 0 4px; font-size: 28px; }
+  h2 { margin: 32px 0 8px; font-size: 22px; border-bottom: 1px solid var(--line); padding-bottom: 4px; }
+  p { margin: 0 0 12px; color: var(--sub); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+  figure { margin: 0; background: var(--card); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+  figure button { all: unset; display: block; width: 100%; cursor: zoom-in; }
+  figure img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; background: #222; }
+  figcaption { padding: 10px 12px; font-size: 16px; }
+  figcaption b { display: block; }
+  .tag { display: inline-block; font-size: 16px; background: #efe7d8; border-radius: 4px; padding: 0 6px; margin: 4px 4px 0 0; }
+  dialog { border: 0; padding: 0; max-width: 96vw; max-height: 96vh; background: #111; }
+  dialog img { display: block; max-width: 96vw; max-height: 88vh; }
+  dialog p { color: #eee; padding: 8px 12px; margin: 0; }
+  dialog::backdrop { background: rgb(0 0 0 / .8); }
+  @media (max-width: 900px) {
+    .wrap { grid-template-columns: minmax(0, 1fr); }
+    nav { position: static; background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 0 12px; }
+    .grid { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav><details id="sum" open><summary>Sumário</summary><div id="links"></div></details></nav>
+  <main>
+    <h1>Referências do mundo</h1>
+    <p>Mapa planejado: caverna grande, corredor longo, sala grande de chefe, saída para a floresta, floresta com rio, casa no meio da floresta. Todas as imagens são vistas de cima (câmera tática alta), no visual do Vagrant Story (PS1). Clique para ampliar.</p>
+    <div id="secoes"></div>
+  </main>
+</div>
+<dialog id="zoom"><img alt=""><p></p></dialog>
+<script>
+const D = 'mundo-referencias/';
+// [file, title, what it references, attached refs or tags]
+const SECOES = [
+  ['gemini', 'Gemini (geradas agora)', 'Geradas no Gemini em 18/11 com as referências PSX anexadas (R1 a R5 na seção "Peças do Vagrant Story" e "Do que já temos"). Três contas do Gemini, 18/11: a 1ª bloqueou depois de 5 imagens aproveitadas, a 2ª depois de mais 9 e a 3ª depois de mais 5 (clareira aberta e2, casa na clareira f1/f2, interior da casa g1/g2). O mapa contínuo com trilha e câmera (h1/h2) saiu numa 4ª conta. A partir das salas de chefe, cada cena leva referências próprias do VS (renders de cima de outras zonas, na seção "Peças do Vagrant Story").', [
+    ['gemini/a1-caverna-de-cima.png', 'Caverna grande, vista de cima', 'Rocha escura, tochas e braseiro, paredes em corte, 3 bonecos para escala.', 'Anexadas: R1, R2, R3'],
+    ['gemini/a2-caverna-de-cima.png', 'Caverna grande, variação 2', 'Mais de cima, outro desenho de chão e degraus.', 'Anexadas: R1, R2, R3'],
+    ['gemini/b1-corredor-de-cima.png', 'Corredor longo, vista de cima', 'Corredor de pedra na diagonal, tochas espaçadas, arco que abre para a sala.', 'Anexadas: R1, R2, R3'],
+    ['gemini/b2-corredor-de-cima.png', 'Corredor em L, variação 2', 'Corredor que vira 90°, escada curta e grade no chão, quase tudo no escuro.', 'Anexadas: R1, R2, R3'],
+    ['gemini/c1-sala-grande-de-cima.png', 'Sala grande de chefe, vista de cima', 'Colunas, estrado com escada, fosso de água, grupo de 4 e o chefe. Copia de perto a sala original R3 (mesmo contorno e arco).', 'Anexadas: R3, R1, R2'],
+    ['gemini/c2-sala-de-chefe-octogonal-de-cima.png', 'Sala de chefe octogonal', 'Anel de colunas, círculo entalhado, escada para o balcão, chefe cavaleiro. 2ª conta, 18/11.', 'Anexadas: R3, R1, R2'],
+    ['gemini/c2b-sala-de-chefe-cripta-de-cima.png', 'Sala de chefe em cripta', 'Corredor entre sarcófagos, altar com o chefe, buraco no piso, velas nos nichos.', 'Anexadas: R3, R1, R2'],
+    ['gemini/d1-saida-caverna-floresta-de-cima.png', 'Saída da caverna para a floresta', 'Galerias com tochas e a boca da caverna abrindo para a mata.', 'Anexadas: R2, R4, R1'],
+    ['gemini/d2-saida-caverna-floresta-de-cima.png', 'Saída da caverna, variação 2', 'Faixa de luz do dia entrando na caverna escura; tocos e pedras fora.', 'Anexadas: R2, R4, R1'],
+    ['gemini/d3-saida-caverna-clareira-aberta-de-cima.png', 'Saída da caverna para a clareira aberta', 'Boca de pedra à esquerda com luz na entrada, trilha de terra cruzando a relva aberta, ponte sobre o rio fino e a casa ao fundo; árvores só nas bordas.', 'VS: zona 40 MAP188 (clareira), zona 50 MAP265 (galeria de rocha) · Gemini a1, e1, e2'],
+    ['gemini/d4-saida-caverna-clareira-aberta-v2-de-cima.png', 'Saída da caverna para a clareira aberta, variação 2', 'Quase de cima: fundo da caverna com tocha e barris, cunha de luz do dia no chão da boca, trilha até a ponte e a casa ao longe.', 'VS: zona 40 MAP188 (clareira), zona 50 MAP265 (galeria de rocha) · Gemini a1, e1, e2'],
+    ['gemini/e1-clareira-aberta-caverna-ate-casa-de-cima.png', 'Floresta aberta: da caverna até a casa', 'Clareira grande de relva, árvores só nas bordas, rio fino com ponte, trilha da boca da caverna até a casa, que se vê de longe.', 'VS: zona 40 MAP188 (clareira), zona 40 MAP195 (floresta), zona 32 MAP150 (canal)'],
+    ['gemini/e2-clareira-aberta-quase-de-cima.png', 'Floresta aberta, variação 2', 'Mesma clareira mais de cima: caverna embaixo à esquerda, rio fino com ponte, casa em cima à direita.', 'Anexadas: Gemini e1 · VS: zona 40 MAP188, MAP195, zona 32 MAP150'],
+    ['gemini/f1-casa-de-madeira-na-clareira-de-cima.png', 'Casa de madeira na clareira', 'Casa de tábuas com telhado de telha e chaminé, porta virada para a trilha que vem da ponte, barril na parede.', 'Anexadas: Gemini e1 · VS: zona 32 MAP165, MAP160 · R5'],
+    ['gemini/f2-casa-de-madeira-na-clareira-de-cima-v2.png', 'Casa de madeira na clareira, variação 2', 'Do outro lado: janelas com luz, alpendre, rio e ponte ao fundo.', 'Anexadas: Gemini e1 · VS: zona 32 MAP165, MAP160 · R5'],
+    ['gemini/g1-interior-casa-sala-unica-de-cima.png', 'Interior da casa: sala única', 'Corte de cima: piso de tábua, lareira acesa, cama, mesa, porta de saída, feixes de luz pelas janelas.', 'VS: zona 9 MAP009 (adega), zona 30 MAP140 (interior), zona 24 MAP085 (vitrais) · R5'],
+    ['gemini/g2-interior-casa-sala-unica-de-cima-v2.png', 'Interior da casa, variação 2', 'Porta embaixo, lareira no canto, tapete, prateleira com potes, baú, feixes de luz com poeira.', 'VS: zona 9 MAP009, zona 30 MAP140, zona 24 MAP085 · R5'],
+    ['gemini/h1-mapa-completo-trilha-e-camera-de-cima.png', 'Mapa completo com trilha e câmera', 'Caverna com tochas, corredor curto, saída na rocha, clareira com rio, ponte e casa. Trilha do jogador em pontilhado amarelo; três quadros brancos de câmera (caverna, saída, casa), desenhados pelo próprio Gemini.', 'Gemini a1 e e1 · VS: zona 50 MAP265, zona 50 MAP275'],
+    ['gemini/h2-mapa-completo-trilha-e-camera-v2-de-cima.png', 'Mapa completo com trilha e câmera, variação 2', 'Mesmo percurso com o corredor longo e sinuoso entre a caverna e a saída; trilha amarela e três quadros de câmera desenhados pelo Gemini.', 'Gemini a1 e e1 · VS: zona 50 MAP265, zona 50 MAP275'],
+    ['gemini/e0a-floresta-rio-refs-antigas-de-cima.png', 'Floresta com rio (versão antiga)', 'Rio com pedras e ponte de tábua, mata fechada. Feita antes do pedido de clareira aberta.', 'Anexadas: R4, R1'],
+    ['gemini/e0b-floresta-rio-cachoeira-refs-antigas-de-cima.png', 'Floresta com rio e cachoeira (versão antiga)', 'Rio com cachoeira e pedras de travessia, luz de pôr do sol. Mata fechada.', 'Anexadas: R4, R1'],
+    ['gemini/f0a-casa-na-floresta-densa-de-cima.png', 'Casa na floresta (mata fechada)', 'Casa de pedra e enxaimel com telhado de telha e chaminé, porta para a trilha. Feita antes do pedido de casa de madeira na clareira aberta.', 'VS: zona 32 MAP165 e MAP160 (casas e telhados), zona 40 MAP195 (floresta) · R5'],
+    ['gemini/f0b-casa-sem-telhado-floresta-densa-de-cima.png', 'Casa sem telhado (mata fechada)', 'Corte mostrando lareira, mesa, quarto e piso de tábua; horta e poço fora.', 'VS: zona 32 MAP165 e MAP160, zona 40 MAP195 · R5'],
+  ]],
+  ['sdxl', 'SDXL local (cenas que faltaram)', 'Geradas no PC (Stable Diffusion XL + IP-Adapter), partindo de uma imagem de cima e de uma referência de estilo. Qualidade abaixo do Gemini: servem para o desenho do mapa, não para o visual final.', [
+    ['sdxl/c2-sala-grande-de-cima-sdxl.png', 'Sala grande, variação 2', 'Câmara de chefe com colunas e escada.', 'Partiu de: Gemini c1 · Estilo: R3'],
+    ['sdxl/d1-saida-caverna-floresta-de-cima-sdxl.png', 'Saída da caverna para a floresta', 'Boca da caverna com a luz de fora entrando.', 'Partiu de: Gemini a1 · Estilo: R4'],
+    ['sdxl/d2-saida-caverna-floresta-de-cima-sdxl.png', 'Saída da caverna, variação 2', 'Metade caverna escura, metade floresta com sol.', 'Partiu de: Gemini a2 · Estilo: R4'],
+    ['sdxl/e1-floresta-rio-de-cima-sdxl.png', 'Floresta com rio', 'Clareira com rio correndo, pedras e árvores low-poly.', 'Partiu de: R4 · Estilo: R4'],
+    ['sdxl/e2-floresta-rio-de-cima-sdxl.png', 'Floresta com rio, variação 2', 'Rio sinuoso com ponte, luz de fim de tarde.', 'Partiu de: R4 · Estilo: R4'],
+    ['sdxl/f1-casa-na-floresta-de-cima-sdxl.png', 'Casa na floresta', 'Casa de madeira com porta e janelas na clareira. Saiu com cara de pixel art 2D, fora do estilo VS: vale só a planta.', 'Partiu de: R4 · Estilo: R5'],
+    ['sdxl/f2-casa-na-floresta-de-cima-sdxl.png', 'Casa na floresta, variação 2', 'Casa de madeira com chaminé. Pixel art 2D, não é vista de cima de verdade nem estilo VS.', 'Partiu de: R4 · Estilo: R5'],
+    ['sdxl/g1-interior-casa-de-cima-sdxl.png', 'Interior da casa sem teto', 'Lareira, móveis, luz pelas janelas.', 'Partiu de: Gemini c1 · Estilo: R5'],
+    ['sdxl/g2-interior-casa-de-cima-sdxl.png', 'Interior da casa, variação 2', 'Dois cômodos de cima, só a planta das tábuas; sem a luz pela janela que foi pedida.', 'Partiu de: Gemini a1 · Estilo: R5'],
+    ['sdxl/h1-mapa-inteiro-de-cima-sdxl.png', 'Mapa inteiro de cima', 'Pedido: o mapa inteiro. Saiu só uma sala de pedra com tochas e água; não serve como visão geral.', 'Partiu de: R4 · Estilo: R2'],
+    ['sdxl/h2-mapa-inteiro-de-cima-sdxl.png', 'Mapa inteiro, variação 2', 'Floresta com rio em volta de ilhas e um piso de pedra; sem caverna nem casa, mas mostra o rio cortando o mapa.', 'Partiu de: R2 · Estilo: R4'],
+  ]],
+  ['existente', 'Do que já temos', 'Prints da nossa sala fechada e plantas de chefe: luz, escuridão, escala e arquitetura que o mapa novo deve repetir.', [
+    ['refs/R1-sala-fechada-vista-de-cima-tochas.png', 'R1 · Sala fechada de cima, tochas', 'Anexada ao Gemini. Câmera alta, paredes que somem, tochas em pontos de luz.', 'Escala · luz'],
+    ['refs/R2-sala-fechada-de-cima-pedra-clara.png', 'R2 · Sala fechada de cima, pedra clara', 'Anexada ao Gemini. Corte das paredes, braseiros, poça e escada.', 'Arquitetura · luz'],
+    ['existente/01-sala-tochas-acesas-escuridao.png', 'Tochas acesas na escuridão total', 'Quanto cada tocha ilumina; o resto fica preto.', 'Luz'],
+    ['existente/02-tocha-na-mao-escuridao-total.png', 'Tocha na mão, escuridão total', 'A única luz é a que o grupo carrega.', 'Luz'],
+    ['existente/03-boneco-saindo-da-sombra-para-a-luz.png', 'Boneco saindo da sombra para a luz', 'Passagem da penumbra para a luz da tocha.', 'Luz · escala'],
+    ['existente/04-sombras-nos-bonecos.png', 'Sombras nos bonecos', 'Sombra projetada e lado escuro do corpo.', 'Sombras'],
+    ['existente/05-fumaca-no-braseiro.png', 'Fumaça no braseiro', 'Fumaça e partículas perto do fogo.', 'Efeitos'],
+    ['existente/06-agua-fosso-nadando.png', 'Água: fosso, nadando', 'Água escura com névoa baixa; base para o rio.', 'Água'],
+    ['existente/07-vista-de-cima-sala-dullahan.png', 'Vista geral alta da sala do Dullahan', 'Mesma câmera que o mapa novo vai usar.', 'Escala · câmera'],
+    ['existente/08-vista-de-cima-pedra-clara.png', 'Vista de cima, pedra clara', 'Origem de R2, com a cena inteira.', 'Arquitetura'],
+    ['existente/10-planta-chefe-dullahan.png', 'Planta de chefe: Dullahan', 'Planta 14x16 casas com estrado, fossos e tochas.', 'Arquitetura · escala'],
+    ['existente/11-planta-chefe-combinada.png', 'Planta combinada: duas salas', 'Duas salas ligadas por corredor: modelo para caverna, corredor e sala.', 'Arquitetura'],
+  ]],
+  ['vs', 'Peças do Vagrant Story', 'Material original do jogo extraído do disco: salas vistas de cima, texturas e personagens.', [
+    ['refs/R3-vs-original-salao-gotico-de-cima.png', 'R3 · Salão gótico original, de cima', 'Anexada ao Gemini. Paredes com arcos, colunas, baú. A grade verde é do nosso visualizador.', 'Arquitetura · textura'],
+    ['refs/R4-vs-original-floresta-de-cima.png', 'R4 · Floresta original, de cima', 'Árvores, barrancos e chão de grama do VS: base da floresta.', 'Floresta · textura'],
+    ['refs/R5-vs-textura-madeira.png', 'R5 · Textura de madeira do VS', 'Tábuas para a casa.', 'Textura'],
+    ['refs/VS-zona40-MAP188-clareira-da-floresta-de-cima.png', 'VS zona 40, MAP188: clareira da floresta', 'Renderizada de cima em 18/11 do disco. Anexada na floresta aberta.', 'Floresta'],
+    ['refs/VS-zona40-MAP195-floresta-de-cima.png', 'VS zona 40, MAP195: floresta', 'Árvores de folha em cartão e chão de grama. Anexada na floresta e na casa.', 'Floresta'],
+    ['refs/VS-zona32-MAP150-canal-pontes-e-casas-de-cima.png', 'VS zona 32, MAP150: canal com pontes e casas', 'Água, pontes e casas. Anexada na floresta aberta.', 'Água · casas'],
+    ['refs/VS-zona32-MAP160-telhados-da-cidade-de-cima.png', 'VS zona 32, MAP160: telhados da cidade', 'Telhas, paredes de pedra. Anexada na casa.', 'Casas'],
+    ['refs/VS-zona32-MAP165-casas-e-arvores-de-cima.png', 'VS zona 32, MAP165: casas e árvores', 'Casas com chaminé e mata. Anexada na casa.', 'Casas'],
+    ['refs/VS-zona30-MAP140-interior-piso-xadrez-de-cima.png', 'VS zona 30, MAP140: interior com piso xadrez', 'Para o interior da casa (não gerado: limite).', 'Interior'],
+    ['refs/VS-zona24-MAP085-salao-com-vitrais-de-cima.png', 'VS zona 24, MAP085: salão com vitrais', 'Luz de janela num interior. Para o interior (não gerado).', 'Interior · luz'],
+    ['refs/VS-zona09-MAP009-adega-com-barris-de-cima.png', 'VS zona 9, MAP009: adega com barris', 'Sala pequena com móveis e luz quente. Para o interior (não gerado).', 'Interior'],
+    ['refs/VS-zona50-MAP265-galeria-de-rocha-de-cima.png', 'VS zona 50, MAP265: galeria de rocha', 'Caverna/galeria escura. Para o mapa completo (não gerado).', 'Caverna'],
+    ['refs/VS-zona50-MAP275-galeria-com-escoras-de-cima.png', 'VS zona 50, MAP275: galeria com escoras', 'Galeria com vigas, cara de mina. Para o mapa completo (não gerado).', 'Caverna'],
+    ['existente/15-vs-texturas-da-sala.png', 'Texturas da sala (VS)', 'Chão, parede, tijolo, madeira, metal e arco usados na sala fechada.', 'Textura'],
+    ['existente/09-folha-retratos-personagens.png', 'Personagens do VS', 'Ashley, espadachim, besteiro, maga, esqueletos e minotauros.', 'Personagens · escala'],
+    ['existente/14-vs-textura-ashley.png', 'Textura da Ashley', 'Página de textura do modelo original: tamanho e paleta reais do PS1.', 'Textura · personagem'],
+  ]],
+];
+const sec = document.getElementById('secoes'), links = document.getElementById('links');
+for (const [id, titulo, texto, itens] of SECOES) {
+  const s = document.createElement('section'); s.id = id;
+  s.innerHTML = `<h2>${titulo}</h2><p>${texto}</p><div class="grid"></div>`;
+  for (const [f, t, d, tag] of itens) {
+    const fig = document.createElement('figure');
+    fig.innerHTML = `<button type="button" aria-label="Ampliar: ${t}"><img loading="lazy" src="${D + f}" alt="${t}"></button><figcaption><b>${t}</b>${d}<br><span class="tag">${tag}</span><span class="tag">Vista de cima</span></figcaption>`;
+    if (!/de cima|vista/i.test(t + d)) fig.querySelector('.tag:last-child').remove();
+    fig.querySelector('button').onclick = () => { const z = document.getElementById('zoom'); z.querySelector('img').src = D + f; z.querySelector('p').textContent = `${t} — ${d}`; z.showModal(); };
+    s.querySelector('.grid').append(fig);
+  }
+  sec.append(s);
+  const a = document.createElement('a'); a.href = '#' + id; a.textContent = titulo; links.append(a);
+}
+const zoom = document.getElementById('zoom');
+zoom.onclick = () => zoom.close();
+if (matchMedia('(max-width: 900px)').matches) document.getElementById('sum').open = false;
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) links.querySelectorAll('a').forEach(a => a.classList.toggle('on', a.hash === '#' + e.target.id)); }), { rootMargin: '-40% 0px -55% 0px' });
+document.querySelectorAll('main section').forEach(s => io.observe(s));
+</script>
+</body>
+</html>

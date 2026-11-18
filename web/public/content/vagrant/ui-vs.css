@@ -1,0 +1,718 @@
+/* ui-vs.css: shared interface kit for the Vagrant Story 3D viewers of the lab (Fernando, Nov 17 grill).
+   Dark panels over the 3D scene, aged bronze frames, bevelled corners, a refined PS1 RPG menu that stays readable.
+   Rules it follows: text never under 16 px, touch targets 44 px or more, nothing only on hover, only transform and
+   opacity move, reduced motion respected, panels opaque so the measured contrast does not depend on the scene. */
+
+:root {
+  --vs-fundo: #14100c; /* panel */
+  --vs-fundo-2: #201910; /* control at rest */
+  --vs-fundo-3: #33281a; /* control pressed or hovered */
+  --vs-borda: #8a6a3a; /* aged bronze: 3.9:1 on the panel, for frames only, never for text */
+  --vs-borda-2: #4a3a22; /* inner hairline, decoration only */
+  --vs-ouro: #d9b46a; /* accents and the one filled button */
+  --vs-texto: #ece0c8; /* parchment */
+  --vs-texto-2: #bfb096; /* secondary text, still 8:1 on the panel */
+  --vs-inimigo: #e58a72;
+  --vs-ok: #a9cc93;
+  --vs-foco: #ffe9b0;
+  --vs-chanfro: 8px;
+  --vs-toque: 48px; /* the rule asks for 44; 48 leaves slack for zoom and rounding */
+  --vs-fonte: 'Segoe UI', system-ui, -apple-system, Roboto, sans-serif;
+  --vs-fonte-titulo: 'Palatino Linotype', Palatino, 'Book Antiqua', 'Noto Serif', Georgia, serif;
+  --vs-barra-base: 0px; /* raise the action bar, e.g. above a virtual joystick */
+}
+
+/* ---- layout: top strip, free middle (the scene shows through), action bar ------------------------------------ */
+.vs-hud {
+  position: fixed;
+  inset: 0;
+  z-index: 5;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 8px;
+  padding: max(8px, env(safe-area-inset-top)) max(8px, env(safe-area-inset-right))
+    calc(max(8px, env(safe-area-inset-bottom)) + var(--vs-barra-base)) max(8px, env(safe-area-inset-left));
+  pointer-events: none; /* the scene keeps the mouse and the finger wherever there is no panel */
+  color: var(--vs-texto);
+  font: 1rem/1.35 var(--vs-fonte);
+  color-scheme: dark;
+  -webkit-text-size-adjust: 100%;
+}
+.vs-hud *,
+.vs-hud *::before,
+.vs-hud *::after {
+  box-sizing: border-box;
+}
+.vs-hud > * {
+  pointer-events: auto;
+  min-width: 0;
+}
+/* wide screen: the open drawer takes its own column, so it never sits over the cards or the action bar.
+   Under 900 px it covers them instead, and ui-vs.js turns what is underneath inert. */
+@media (min-width: 900px) {
+  .vs-hud:has(> .vs-gaveta[data-aberta]) {
+    padding-right: calc(min(400px, 100vw - 16px) + 16px);
+  }
+}
+.vs-hud button,
+.vs-hud select,
+.vs-hud input {
+  font: inherit;
+  color: inherit;
+}
+.vs-hud svg {
+  display: block;
+  flex: none;
+}
+.vs-topo {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+.vs-topo > :first-child {
+  flex: 1;
+  min-width: 0;
+}
+/* what the open drawer covers is switched off (inert); dimming it says so */
+.vs-hud > [inert]:not(.vs-gaveta) {
+  opacity: 0.45;
+}
+@media (max-width: 639px) {
+  /* phone: the drawer button keeps only its icon (its name stays for screen readers), so the cards get the row */
+  .vs-topo > .vs-botao > span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+.vs-base {
+  display: grid;
+  gap: 8px;
+  container-type: inline-size;
+}
+.vs-so-leitor {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ---- the frame every piece shares ----------------------------------------------------------------------------- */
+.vs-painel,
+.vs-botao,
+.vs-carta-boneco,
+.vs-acao,
+.vs-gaveta,
+.vs-aviso > *,
+.vs-selecao select {
+  background: var(--vs-fundo);
+  border: 1.5px solid var(--vs-borda);
+}
+/* ponytail: bevel needs corner-shape (Chromium 139+); elsewhere the corners stay square, which is still not "app round" */
+@supports (corner-shape: bevel) {
+  .vs-painel,
+  .vs-botao,
+  .vs-carta-boneco,
+  .vs-acao,
+  .vs-gaveta,
+  .vs-aviso > *,
+  .vs-selecao select,
+  .vs-tecla {
+    border-radius: var(--vs-chanfro);
+    corner-shape: bevel;
+  }
+}
+.vs-painel {
+  padding: 12px;
+  box-shadow: inset 0 0 0 3px var(--vs-fundo), inset 0 0 0 4px var(--vs-borda-2); /* the double line of the VS menus */
+}
+.vs-titulo {
+  margin: 0;
+  font: 600 1.25rem/1.2 var(--vs-fonte-titulo);
+  letter-spacing: 0.02em;
+  color: var(--vs-ouro);
+  text-wrap: balance;
+}
+.vs-dica {
+  margin: 4px 0 0;
+  color: var(--vs-texto-2);
+  text-wrap: pretty;
+}
+
+/* ---- focus: light ring plus a dark halo, so it holds 3:1 over any part of the scene --------------------------- */
+.vs-hud :focus-visible {
+  outline: 2px solid var(--vs-foco);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 6px #000;
+}
+
+/* ---- buttons ------------------------------------------------------------------------------------------------- */
+.vs-botao,
+.vs-carta-boneco,
+.vs-acao {
+  position: relative;
+  min-height: var(--vs-toque);
+  cursor: pointer;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.vs-botao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-width: var(--vs-toque);
+  padding: 8px 14px;
+  background: var(--vs-fundo-2);
+}
+.vs-botao.vs-primario {
+  background: var(--vs-ouro);
+  border-color: var(--vs-ouro);
+  color: var(--vs-fundo);
+  font-weight: 600;
+}
+.vs-botao.vs-icone {
+  padding: 8px;
+}
+.vs-botao.vs-largo {
+  width: 100%;
+}
+@media (hover: hover) {
+  :is(.vs-botao, .vs-carta-boneco, .vs-acao):hover:not(:disabled) {
+    background: var(--vs-fundo-3);
+    border-color: var(--vs-ouro);
+  }
+  .vs-botao.vs-primario:hover:not(:disabled) {
+    background: #ecca85;
+  }
+}
+/* pressed (finger, mouse, or the key / pad button mirrored by destacar): lighter fill, gold frame, 1 px sink */
+:is(.vs-botao, .vs-carta-boneco, .vs-acao):active:not(:disabled),
+.vs-acao.vs-on {
+  background: var(--vs-fundo-3);
+  border-color: var(--vs-foco);
+  transform: translateY(1px);
+}
+.vs-botao.vs-primario:active:not(:disabled) {
+  background: #c49c50;
+}
+:is(.vs-botao, .vs-acao):disabled {
+  cursor: not-allowed;
+  color: var(--vs-texto-2);
+  border-style: dashed; /* a second sign besides the dimmer text */
+  background: var(--vs-fundo);
+}
+
+/* ---- character cards (top) ----------------------------------------------------------------------------------- */
+.vs-cartas {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto; /* the strip scrolls inside itself; the page never does */
+  overscroll-behavior-x: contain;
+  scrollbar-width: none; /* the card cut at the edge is the hint that there are more; Q / E and Tab reach them too */
+  padding: 6px; /* room for the focus ring, which the scroller would cut */
+  margin: -6px;
+}
+.vs-carta-boneco {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 4px 12px 4px 4px;
+  text-align: left;
+}
+.vs-retrato {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  background: var(--vs-fundo-2);
+  border: 1px solid var(--vs-borda-2);
+  color: var(--vs-texto-2);
+  overflow: hidden;
+}
+.vs-retrato img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+.vs-carta-boneco[data-inimigo] .vs-retrato {
+  color: var(--vs-inimigo);
+}
+.vs-carta-nome {
+  font-family: var(--vs-fonte-titulo);
+  white-space: nowrap;
+}
+.vs-carta-marca {
+  display: none;
+  color: var(--vs-ouro);
+}
+/* the active card: gold frame, lighter fill, bold name and a diamond mark (never colour alone) */
+.vs-carta-boneco[aria-pressed='true'] {
+  background: var(--vs-fundo-3);
+  border-color: var(--vs-ouro);
+  box-shadow: inset 0 -3px 0 var(--vs-ouro);
+}
+.vs-carta-boneco[aria-pressed='true'] .vs-carta-nome {
+  color: var(--vs-ouro);
+  font-weight: 700;
+}
+.vs-carta-boneco[aria-pressed='true'] .vs-carta-marca {
+  display: block;
+}
+.vs-carta-boneco[aria-pressed='true']:focus-visible {
+  box-shadow: inset 0 -3px 0 var(--vs-ouro), 0 0 0 6px #000;
+}
+
+/* ---- action bar (bottom) ------------------------------------------------------------------------------------- */
+.vs-barra-acoes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  justify-self: center;
+  width: min(100%, 960px);
+}
+.vs-acao {
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: center;
+  align-items: center;
+  gap: 4px 8px;
+  min-height: 56px;
+  padding: 6px 8px;
+}
+.vs-acao-rotulo {
+  font-family: var(--vs-fonte-titulo);
+  font-weight: 600;
+}
+.vs-acao-atalho {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: var(--vs-texto-2);
+}
+.vs-tecla {
+  display: inline-grid;
+  place-items: center;
+  min-width: 28px;
+  height: 28px;
+  padding: 0 6px;
+  border: 1px solid var(--vs-borda);
+  background: var(--vs-fundo-2);
+  color: var(--vs-texto);
+  font: 600 1rem/1 var(--vs-fonte);
+}
+.vs-pad {
+  display: inline-block;
+  vertical-align: middle;
+}
+/* a held key or pad button lights its hint as well as the button */
+.vs-on .vs-tecla,
+tr.vs-on .vs-tecla {
+  background: var(--vs-ouro);
+  border-color: var(--vs-foco);
+  color: var(--vs-fundo);
+}
+.vs-on .vs-pad,
+.vs-pad.vs-on {
+  filter: drop-shadow(0 0 3px var(--vs-foco)) brightness(1.35);
+}
+.vs-acao[aria-pressed='true'] {
+  border-color: var(--vs-ouro);
+  box-shadow: inset 0 -3px 0 var(--vs-ouro);
+}
+@media (max-width: 639px) {
+  /* phone: icon above the name, no keyboard hint (there is no keyboard) */
+  .vs-acao {
+    grid-template-columns: auto;
+    justify-items: center;
+    padding: 6px 4px;
+  }
+  .vs-acao-atalho .vs-tecla,
+  .vs-barra-acoes:not([data-pad]) .vs-pad {
+    display: none; /* pad icons come back while a gamepad is connected (barra.temPad) */
+  }
+}
+/* six across only when the bar's own row has the room (it shrinks when the drawer opens beside it) */
+@container (min-width: 900px) {
+  .vs-barra-acoes {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+@media (max-height: 500px) {
+  /* phone lying down, or a desktop zoomed to 200 %: hints dropped, so the scene keeps its height */
+  .vs-acao {
+    min-height: 48px;
+  }
+  .vs-acao-atalho {
+    display: none;
+  }
+}
+@media (max-height: 500px) {
+  @container (min-width: 700px) {
+    .vs-barra-acoes {
+      grid-template-columns: repeat(6, 1fr);
+    }
+    .vs-acao {
+      grid-template-columns: auto;
+      justify-items: center;
+      padding: 4px;
+    }
+  }
+}
+
+/* ---- side drawer --------------------------------------------------------------------------------------------- */
+.vs-gaveta {
+  position: fixed;
+  z-index: 6;
+  top: max(8px, env(safe-area-inset-top));
+  right: max(8px, env(safe-area-inset-right));
+  bottom: max(8px, env(safe-area-inset-bottom));
+  width: min(400px, 100vw - 16px);
+  display: none;
+  flex-direction: column;
+  box-shadow: inset 0 0 0 3px var(--vs-fundo), inset 0 0 0 4px var(--vs-borda-2), 0 0 0 100vmax transparent;
+  opacity: 0;
+}
+.vs-gaveta[data-aberta] {
+  display: flex;
+  opacity: 1;
+}
+@media (prefers-reduced-motion: no-preference) {
+  /* enters in 220 ms, leaves in 150 ms, both ease-out, starting 24 px to the side (never from nothing) */
+  .vs-gaveta {
+    transform: translateX(24px);
+    transition-property: opacity, transform, display;
+    transition-duration: 150ms;
+    transition-timing-function: ease-out;
+    transition-behavior: allow-discrete;
+  }
+  .vs-gaveta[data-aberta] {
+    transform: none;
+    transition-duration: 220ms;
+    @starting-style {
+      opacity: 0;
+      transform: translateX(24px);
+    }
+  }
+}
+.vs-gaveta-topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 10px 10px 16px;
+  border-bottom: 1px solid var(--vs-borda-2);
+}
+.vs-gaveta-corpo {
+  flex: 1;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--vs-borda) transparent;
+  padding: 0 10px 10px;
+}
+.vs-secao {
+  border-bottom: 1px solid var(--vs-borda-2);
+}
+.vs-secao > summary {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 6px;
+  list-style: none;
+  cursor: pointer;
+  font: 600 1.125rem/1.2 var(--vs-fonte-titulo);
+  color: var(--vs-texto);
+}
+.vs-secao > summary::-webkit-details-marker {
+  display: none;
+}
+.vs-secao > summary .vs-seta {
+  color: var(--vs-texto-2); /* before the title, so the eye finds it going down the list */
+  rotate: -90deg; /* closed: points to the side; open: points down. No transition: opened many times a session */
+}
+.vs-secao[open] > summary {
+  color: var(--vs-ouro);
+}
+.vs-secao[open] > summary .vs-seta {
+  rotate: 0deg;
+}
+@media (hover: hover) {
+  .vs-secao > summary:hover {
+    background: var(--vs-fundo-2);
+  }
+}
+.vs-secao > summary:active {
+  background: var(--vs-fundo-3);
+}
+.vs-secao-corpo {
+  display: grid;
+  gap: 6px;
+  padding: 4px 6px 14px;
+}
+
+/* ---- on / off switch: a real checkbox with role=switch; the whole row is the target ---------------------------- */
+.vs-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: var(--vs-toque);
+  cursor: pointer;
+}
+.vs-toggle > span:first-of-type {
+  flex: 1;
+}
+.vs-toggle .vs-dica {
+  display: block;
+  margin: 0;
+  font-size: 1rem;
+}
+.vs-toggle input {
+  appearance: none;
+  flex: none;
+  position: relative;
+  width: 52px;
+  height: 28px;
+  margin: 0;
+  background: var(--vs-fundo-2);
+  border: 1.5px solid var(--vs-borda);
+  cursor: inherit;
+}
+/* the knob: left and dull when off, right, gold and ticked when on (place, colour and mark all change) */
+.vs-toggle input::before {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 19px;
+  height: 19px;
+  background: var(--vs-texto-2);
+}
+.vs-toggle input:checked {
+  background: #5b4520;
+  border-color: var(--vs-ouro);
+}
+.vs-toggle input:checked::before {
+  left: 27px;
+  background: var(--vs-ouro)
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 19 19'%3E%3Cpath d='M4.5 10l3.2 3.2 6.8-7.4' fill='none' stroke='%2314100c' stroke-width='2.4'/%3E%3C/svg%3E");
+}
+.vs-toggle input:active:not(:disabled)::before {
+  background-color: var(--vs-foco);
+}
+.vs-toggle:has(input:disabled) {
+  cursor: not-allowed;
+  color: var(--vs-texto-2);
+}
+.vs-toggle input:disabled {
+  border-style: dashed;
+}
+.vs-toggle input:disabled::before {
+  background: var(--vs-borda-2);
+}
+
+/* ---- slider -------------------------------------------------------------------------------------------------- */
+.vs-slider {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  column-gap: 10px;
+}
+.vs-slider output {
+  font-variant-numeric: tabular-nums;
+  color: var(--vs-ouro);
+}
+.vs-slider input {
+  grid-column: 1 / -1;
+  appearance: none;
+  width: 100%;
+  height: var(--vs-toque);
+  margin: 0;
+  background: transparent;
+  cursor: pointer;
+}
+/* --vs-p (0-100, kept by ui-vs.js) fills the track up to the knob */
+.vs-slider input::-webkit-slider-runnable-track {
+  height: 8px;
+  border: 1px solid var(--vs-borda);
+  background: linear-gradient(to right, var(--vs-ouro) calc(var(--vs-p, 50) * 1%), var(--vs-fundo-2) 0);
+}
+.vs-slider input::-moz-range-track {
+  height: 8px;
+  border: 1px solid var(--vs-borda);
+  background: var(--vs-fundo-2);
+}
+.vs-slider input::-moz-range-progress {
+  height: 8px;
+  background: var(--vs-ouro);
+}
+.vs-slider input::-webkit-slider-thumb {
+  appearance: none;
+  width: 18px;
+  height: 28px;
+  margin-top: -11px;
+  background: var(--vs-texto);
+  border: 2px solid var(--vs-fundo);
+  outline: 1.5px solid var(--vs-ouro);
+}
+.vs-slider input::-moz-range-thumb {
+  width: 16px;
+  height: 26px;
+  border-radius: 0;
+  background: var(--vs-texto);
+  border: 2px solid var(--vs-fundo);
+  outline: 1.5px solid var(--vs-ouro);
+}
+.vs-slider input:active::-webkit-slider-thumb {
+  background: var(--vs-foco);
+}
+.vs-slider input:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* ---- select -------------------------------------------------------------------------------------------------- */
+.vs-selecao {
+  display: grid;
+  gap: 4px;
+}
+.vs-selecao select {
+  width: 100%;
+  min-height: var(--vs-toque);
+  padding: 8px 10px;
+  background: var(--vs-fundo-2);
+  cursor: pointer;
+}
+@media (hover: hover) {
+  .vs-selecao select:hover:not(:disabled) {
+    background: var(--vs-fundo-3);
+    border-color: var(--vs-ouro);
+  }
+}
+.vs-selecao select:active:not(:disabled) {
+  background: var(--vs-fundo-3);
+  border-color: var(--vs-foco);
+}
+.vs-selecao select:disabled {
+  cursor: not-allowed;
+  border-style: dashed;
+  color: var(--vs-texto-2);
+}
+
+/* ---- read-only text to copy by hand (the report, when the browser refuses the clipboard) ------------------------- */
+.vs-area {
+  width: 100%;
+  min-height: 120px;
+  padding: 8px;
+  background: var(--vs-fundo-2);
+  border: 1.5px solid var(--vs-borda);
+  color: var(--vs-texto);
+  font: 1rem/1.35 var(--vs-fonte);
+  resize: vertical;
+}
+
+/* ---- performance meter: numbers that change in place keep their width ------------------------------------------ */
+.vs-medidor {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4px 12px;
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+}
+.vs-medidor dt {
+  color: var(--vs-texto-2);
+}
+.vs-medidor dd {
+  margin: 0;
+  text-align: right;
+  font-weight: 600;
+}
+.vs-medidor dd[data-nivel='bom'] {
+  color: var(--vs-ok);
+}
+.vs-medidor dd[data-nivel='baixo'] {
+  color: var(--vs-inimigo);
+}
+
+/* ---- controls list ------------------------------------------------------------------------------------------- */
+.vs-lista-controles {
+  width: 100%;
+  border-collapse: collapse;
+}
+.vs-lista-controles th {
+  text-align: left;
+  font: 600 1rem var(--vs-fonte);
+  color: var(--vs-texto-2);
+  padding: 6px;
+}
+.vs-lista-controles td {
+  padding: 8px 6px;
+  border-top: 1px solid var(--vs-borda-2);
+  vertical-align: middle;
+}
+.vs-lista-controles td:last-child {
+  white-space: nowrap;
+}
+/* the row of the key or button held right now: lighter fill plus a gold bar at its left edge */
+.vs-lista-controles tr.vs-on td {
+  background: var(--vs-fundo-3);
+}
+.vs-lista-controles tr.vs-on td:first-child {
+  box-shadow: inset 4px 0 0 var(--vs-ouro);
+  font-weight: 600;
+}
+
+/* ---- notices: a live region above the action bar ---------------------------------------------------------------- */
+.vs-aviso {
+  position: fixed; /* above the drawer too: "Relatório copiado" comes from a button inside it */
+  z-index: 7;
+  top: calc(max(8px, env(safe-area-inset-top)) + 64px);
+  left: 50%;
+  translate: -50%;
+  width: max-content;
+  display: grid;
+  gap: 6px;
+  justify-items: center;
+  max-width: min(100vw - 16px, 560px);
+  pointer-events: none; /* never blocks what is under it (this rule sits after .vs-hud > *, so it wins) */
+}
+.vs-aviso > * {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  text-wrap: pretty;
+}
+.vs-aviso > [data-tipo='ok'] {
+  border-color: var(--vs-ok);
+}
+.vs-aviso > [data-tipo='ok'] svg {
+  color: var(--vs-ok);
+}
+.vs-aviso > [data-tipo='erro'] {
+  border-color: var(--vs-inimigo);
+}
+.vs-aviso > [data-tipo='erro'] svg {
+  color: var(--vs-inimigo);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .vs-aviso > * {
+    transition: opacity 200ms ease-out, transform 200ms ease-out;
+    @starting-style {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+  }
+}

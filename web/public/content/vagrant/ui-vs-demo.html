@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="pt-BR">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Kit de interface · Vagrant Story</title>
+<link rel="stylesheet" href="./ui-vs.css?v=2">
+<style>
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #0a0806; }
+  canvas { display: block; width: 100%; height: 100%; touch-action: none; } /* CSS sizes it, so a late resize event never leaves it wider than the screen */
+  /* demo only: the small status panel sits at the top left of the free middle row */
+  #estado { align-self: start; justify-self: start; max-width: min(100%, 300px); }
+</style>
+<canvas id="cena" role="img" aria-label="Cena 3D de demonstração: seis blocos num salão escuro"></canvas>
+<div class="vs-hud" id="hud">
+  <div class="vs-topo" id="topo"></div>
+  <section class="vs-painel" id="estado"><h1 class="vs-titulo" id="estado-nome"></h1><p class="vs-dica" id="estado-dica"></p></section>
+  <div class="vs-base" id="base"></div>
+</div>
+<script type="module">
+// Demo page of the kit (ui-vs.css + ui-vs.js): every component working over a plain three.js scene. Nothing here is
+// viewer code: six boxes stand in for the characters, so the page loads no Vagrant Story file.
+import { Scene, PerspectiveCamera, WebGLRenderer, Mesh, BoxBufferGeometry, PlaneBufferGeometry, BufferGeometry, Float32BufferAttribute, MeshLambertMaterial, MeshBasicMaterial, PointLight, AmbientLight, Points, PointsMaterial, CanvasTexture, RepeatWrapping, NearestFilter, BasicShadowMap, PCFSoftShadowMap, Fog, Color, OrbitControls } from './src/three.js';
+import { criarBarraAcoes, criarCartasBoneco, criarGaveta, criarToggle, criarSlider, criarSelecao, criarBotao, criarMedidor, criarListaControles, criarAviso, ligarAtalhos } from './ui-vs.js?v=2'; // the site keeps .js and .css for 4 hours: raise v when either file changes
+
+const $ = (id) => document.getElementById(id), Q = new URLSearchParams(location.search);
+const calmo = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// ---- scene ------------------------------------------------------------------------------------------------------
+const r = new WebGLRenderer({ canvas: $('cena'), antialias: true });
+const cena = new Scene(), cam = new PerspectiveCamera(50, 1, 0.1, 100);
+cena.background = new Color(0x0a0806);
+cam.position.set(0, 6, 11);
+const orbita = new OrbitControls(cam, r.domElement);
+orbita.target.set(0, 1, 0); orbita.maxPolarAngle = 1.5; orbita.enableKeys = false; orbita.update(); // the arrows move the character, not the camera
+function xadrez() {
+  const c = Object.assign(document.createElement('canvas'), { width: 2, height: 2 }), g = c.getContext('2d');
+  g.fillStyle = '#6b6152'; g.fillRect(0, 0, 2, 2); g.fillStyle = '#3d362c'; g.fillRect(0, 0, 1, 1); g.fillRect(1, 1, 1, 1);
+  const t = new CanvasTexture(c); t.magFilter = NearestFilter; t.wrapS = t.wrapT = RepeatWrapping; t.repeat.set(8, 8); return t;
+}
+const PISOS = { pedra: new MeshLambertMaterial({ color: 0x5a5146 }), xadrez: new MeshLambertMaterial({ map: xadrez() }), lisa: new MeshLambertMaterial({ color: 0x8a8378 }) };
+const piso = new Mesh(new PlaneBufferGeometry(16, 16), PISOS.xadrez);
+piso.rotation.x = -Math.PI / 2; piso.receiveShadow = true; cena.add(piso);
+const agua = new Mesh(new PlaneBufferGeometry(6, 6), new MeshBasicMaterial({ color: 0x2a5d78, transparent: true, opacity: 0.6 }));
+agua.rotation.x = -Math.PI / 2; agua.position.set(3, 0.15, 2); agua.visible = false; cena.add(agua);
+cena.add(new AmbientLight(0x554a40, 0.9));
+const tochas = [[-5, 3, -5], [5, 3, -5], [0, 4, 4]].map(([x, y, z]) => { const l = new PointLight(0xffa24a, 1.1, 22, 1.5); l.position.set(x, y, z); l.castShadow = true; cena.add(l); return l; });
+const clarao = new PointLight(0xffffff, 0, 14); cena.add(clarao);
+const pos = []; for (let i = 0; i < 300; i++) pos.push((Math.random() - 0.5) * 14, Math.random() * 5, (Math.random() - 0.5) * 14);
+const poeira = new Points(new BufferGeometry().setAttribute('position', new Float32BufferAttribute(pos, 3)), new PointsMaterial({ color: 0xffd9a0, size: 0.06 }));
+cena.add(poeira);
+
+const BONECOS = [{ nome: 'Ashley' }, { nome: 'Callo' }, { nome: 'Sydney' }, { nome: 'Hardin' }, { nome: 'Dullahan', inimigo: true }, { nome: 'Minotauro', inimigo: true }];
+BONECOS.forEach((b, i) => {
+  b.m = new Mesh(new BoxBufferGeometry(0.8, b.inimigo ? 2.4 : 1.8, 0.8), new MeshLambertMaterial({ color: b.inimigo ? 0x8a3b30 : 0x8a7a55 }));
+  b.chao = b.m.geometry.parameters.height / 2; b.m.position.set(i < 4 ? -4.5 + i * 2 : 1 + (i - 4) * 3, b.chao, i < 4 ? 2 : -3);
+  b.m.castShadow = true; b.luz = new PointLight(0xffc070, 0, 6); b.m.add(b.luz); b.pulo = 0; b.bote = 0; cena.add(b.m);
+});
+let sel = BONECOS[0], correndo = false;
+const NEVOA = 0x0a0806; let densidade = 0.5;
+const poeNevoa = (on) => { cena.fog = on ? new Fog(NEVOA, 4, 34 - densidade * 22) : null; cena.traverse((o) => o.material && (o.material.needsUpdate = true)); };
+function poeSombras(tipo) { r.shadowMap.enabled = tipo !== 'nao'; r.shadowMap.type = tipo === 'suave' ? PCFSoftShadowMap : BasicShadowMap; r.shadowMap.needsUpdate = true; cena.traverse((o) => o.material && (o.material.needsUpdate = true)); }
+let resolucao = Math.min(devicePixelRatio, 2);
+function ajusta() { r.setPixelRatio(resolucao); r.setSize(innerWidth, innerHeight, false); cam.aspect = innerWidth / innerHeight; cam.updateProjectionMatrix(); }
+addEventListener('resize', ajusta); ajusta();
+
+// ---- interface: all of it comes from the kit ---------------------------------------------------------------------
+const aviso = criarAviso();
+function pintaEstado() { $('estado-nome').textContent = sel.nome; $('estado-dica').textContent = `${sel.inimigo ? 'Inimigo' : 'Aliado'}. Tocha ${sel.luz.intensity ? 'acesa' : 'apagada'}${correndo ? ', correndo' : ''}.`; }
+const flash = (cor) => { clarao.color.set(cor); clarao.position.copy(sel.m.position).setY(3); clarao.intensity = 3; };
+
+const cartas = criarCartasBoneco({ bonecos: BONECOS, onSelecionar: (i) => { sel = BONECOS[i]; barra.marcar('tocha', sel.luz.intensity); pintaEstado(); } });
+const barra = criarBarraAcoes({
+  acoes: [
+    { id: 'atacar', rotulo: 'Atacar', icone: 'atacar', tecla: 'k', teclaRotulo: 'K', pad: 2 },
+    { id: 'fogo', rotulo: 'Magia fogo', icone: 'fogo', tecla: 'f', teclaRotulo: 'F', pad: 1 },
+    { id: 'raio', rotulo: 'Magia raio', icone: 'raio', tecla: 'r', teclaRotulo: 'R', pad: 6 },
+    { id: 'tocha', rotulo: 'Tocha', icone: 'tocha', tecla: 't', teclaRotulo: 'T', pad: 3 },
+    { id: 'correr', rotulo: 'Correr', icone: 'correr', tecla: 'shift', teclaRotulo: 'Shift', pad: 7, segurar: true },
+    { id: 'pular', rotulo: 'Pular', icone: 'pular', tecla: ' ', teclaRotulo: 'Espaço', pad: 0 },
+  ],
+  onAcao(id, fase) {
+    if (id === 'atacar') sel.bote = 1;
+    if (id === 'fogo') flash(0xff7a2a);
+    if (id === 'raio') flash(0x9fd0ff);
+    if (id === 'tocha') sel.luz.intensity = sel.luz.intensity ? 0 : 1.4;
+    barra.marcar('tocha', sel.luz.intensity);
+    if (id === 'correr') correndo = fase === 'aperta';
+    if (id === 'pular' && !sel.pulo) sel.pulo = 0.0001;
+    pintaEstado();
+  },
+});
+
+const CONTROLES = [
+  { acao: 'Andar', teclado: 'W A S D ou setas', pad: ['LS'], teclas: ['w', 'a', 's', 'd', 'arrowup', 'arrowdown', 'arrowleft', 'arrowright'], eixos: [0, 1] },
+  { acao: 'Correr', teclado: 'Shift (segurar)', pad: [7], teclas: ['shift'] },
+  { acao: 'Pular', teclado: 'Espaço', pad: [0], teclas: [' '] },
+  { acao: 'Câmera', teclado: 'Arrastar o mouse', pad: ['RS'], teclas: [], eixos: [2, 3] },
+  { acao: 'Atacar', teclado: 'K', pad: [2], teclas: ['k'] },
+  { acao: 'Magia fogo', teclado: 'F', pad: [1], teclas: ['f'] },
+  { acao: 'Magia raio', teclado: 'R', pad: [6], teclas: ['r'] },
+  { acao: 'Tocha', teclado: 'T', pad: [3], teclas: ['t'] },
+  { acao: 'Trocar boneco', teclado: 'Q / E', pad: [4, 5], teclas: ['q', 'e'] },
+  { acao: 'Ferramentas', teclado: 'G', pad: [9], teclas: ['g'] },
+];
+const lista = criarListaControles({ controles: CONTROLES });
+const medidor = criarMedidor({ itens: [{ id: 'fps', rotulo: 'Quadros por segundo' }, { id: 'quadro', rotulo: 'Pior quadro' }, { id: 'chamadas', rotulo: 'Chamadas de desenho' }, { id: 'tris', rotulo: 'Triângulos' }, { id: 'tela', rotulo: 'Tela' }, { id: 'controle', rotulo: 'Controle' }] });
+let relatorio = '';
+const gaveta = criarGaveta({
+  titulo: 'Ferramentas', aberta: Q.has('gaveta'),
+  secoes: [
+    { id: 'texturas', titulo: 'Texturas', icone: 'texturas', conteudo: [
+      criarSelecao({ id: 'tex', rotulo: 'Textura do chão', opcoes: [['xadrez', 'Xadrez'], ['pedra', 'Pedra escura'], ['lisa', 'Pedra clara']], onMudar: (v) => (piso.material = PISOS[v]) })] },
+    { id: 'sombras', titulo: 'Sombras', icone: 'sombras', conteudo: [
+      criarSelecao({ id: 'sombras', rotulo: 'Tipo de sombra', opcoes: [['nao', 'Desligadas'], ['dura', 'Duras (pixeladas)'], ['suave', 'Suaves']], onMudar: poeSombras })] },
+    { id: 'planta', titulo: 'Planta', icone: 'planta', conteudo: [
+      criarSelecao({ id: 'planta', rotulo: 'Tamanho da sala', opcoes: [['1', 'Sala pequena'], ['1.6', 'Sala grande']], onMudar: (v) => piso.scale.setScalar(+v) })] },
+    { id: 'fumaca', titulo: 'Fumaça', icone: 'fumaca', conteudo: [
+      criarToggle({ id: 't-nevoa', rotulo: 'Névoa', tecla: '3', ligado: true, onMudar: poeNevoa }),
+      criarSlider({ id: 'dens', rotulo: 'Densidade', valor: densidade, formato: (v) => Math.round(v * 100) + ' %', onMudar: (v) => { densidade = v; poeNevoa($('t-nevoa').checked); } })] },
+    { id: 'agua', titulo: 'Água', icone: 'agua', conteudo: [
+      criarToggle({ id: 't-agua', rotulo: 'Poça', onMudar: (on) => (agua.visible = on) }),
+      criarSlider({ id: 'nivel', rotulo: 'Altura da água', min: 0.05, max: 1, passo: 0.05, valor: 0.15, formato: (v) => v.toFixed(2).replace('.', ',') + ' tile', onMudar: (v) => (agua.position.y = v) })] },
+    { id: 'desempenho', titulo: 'Desempenho', icone: 'desempenho', aberta: true, conteudo: [
+      medidor.el,
+      criarToggle({ id: 't-part', rotulo: 'Partículas', tecla: '2', ligado: true, onMudar: (on) => (poeira.visible = on) }),
+      criarToggle({ id: 't-tocha', rotulo: 'Tochas da sala', tecla: '4', ligado: true, onMudar: (on) => tochas.forEach((l) => (l.visible = on)) }),
+      criarToggle({ id: 't-dobro', rotulo: 'Dobro de triângulos', dica: 'Só funciona com bonecos de verdade, que esta demonstração não tem.', desabilitado: true }),
+      criarSlider({ id: 'res', rotulo: 'Resolução', min: 0.5, max: Math.max(1, Math.min(devicePixelRatio, 2)), passo: 0.25, valor: resolucao, formato: (v) => v.toFixed(2).replace('.', ',') + 'x', onMudar: (v) => { resolucao = v; ajusta(); } }),
+      criarBotao({ id: 'copiar', rotulo: 'Copiar relatório', icone: 'copiar', variante: 'vs-primario vs-largo', onClique: async () => {
+        try { await navigator.clipboard.writeText(relatorio); aviso.mostrar('Relatório copiado.', { tipo: 'ok' }); }
+        catch { // seen on Nov 17 in the app's built-in browser, even over https: show the text to copy by hand
+          $('rel').value = relatorio; $('rel').hidden = false; $('rel').select();
+          aviso.mostrar('O navegador não deixou copiar. O relatório está na caixa abaixo do botão: selecione e copie.', { tipo: 'erro', ms: 8000 });
+        }
+      } }),
+      Object.assign(document.createElement('textarea'), { id: 'rel', className: 'vs-area', readOnly: true, hidden: true, ariaLabel: 'Relatório para copiar' })] },
+    { id: 'controles', titulo: 'Controles', icone: 'controles', conteudo: [
+      criarSelecao({ id: 'estilo', rotulo: 'Ícones do controle', opcoes: [['auto', 'Automático (pelo controle conectado)'], ['xbox', 'Estilo Xbox'], ['ps', 'Estilo PlayStation']], onMudar: () => { estiloAtual = ''; }, }),
+      lista.el] },
+  ],
+});
+$('topo').append(cartas.el, gaveta.botao);
+$('base').append(barra.el);
+$('hud').append(gaveta.el, aviso.el);
+poeNevoa(true); poeSombras('nao'); pintaEstado();
+
+// ---- input: keyboard through the kit's shortcuts, gamepad polled here and mirrored with destacar() ----------------
+const apertadas = new Set();
+addEventListener('keydown', (e) => apertadas.add(e.key.toLowerCase()));
+addEventListener('keyup', (e) => apertadas.delete(e.key.toLowerCase()));
+addEventListener('blur', () => apertadas.clear());
+ligarAtalhos({ barra, extras: { q: () => cartas.proximo(-1), e: () => cartas.proximo(1), g: () => gaveta.alternar(), 2: () => $('t-part').click(), 3: () => $('t-nevoa').click(), 4: () => $('t-tocha').click() } });
+const PAD_ACAO = { 2: 'atacar', 1: 'fogo', 6: 'raio', 3: 'tocha', 7: 'correr', 0: 'pular' };
+let antes = [], estiloAtual = '', padNome = '';
+function lePad() {
+  const p = [...navigator.getGamepads()].find(Boolean), bot = p ? p.buttons.map((b) => b.value > 0.5) : [], eixos = p ? p.axes.map((a) => (Math.abs(a) > 0.25 ? a : 0)) : [];
+  padNome = p ? p.id.slice(0, 28) : ''; barra.temPad(p);
+  const est = $('estilo').value === 'auto' ? (/054c|dualshock|dualsense|wireless controller/i.test(p?.id || '') ? 'ps' : 'xbox') : $('estilo').value;
+  if (est !== estiloAtual) { estiloAtual = est; barra.trocarEstilo(est); lista.trocarEstilo(est); }
+  for (const [b, id] of Object.entries(PAD_ACAO)) {
+    if (bot[b] !== antes[b] && (bot[b] || antes[b] !== undefined)) { if (bot[b]) barra.disparar(id, 'aperta'); else if (id === 'correr') barra.disparar(id, 'solta'); }
+    barra.destacar(id, bot[b] || apertadas.has(barra.acoes.find((a) => a.id === id).tecla));
+  }
+  if (bot[4] && !antes[4]) cartas.proximo(-1); if (bot[5] && !antes[5]) cartas.proximo(1); if (bot[9] && !antes[9]) gaveta.alternar();
+  CONTROLES.forEach((c, i) => lista.destacar(i, c.teclas.some((k) => apertadas.has(k)) || c.pad.some((b) => bot[b]) || (c.eixos || []).some((e) => eixos[e])));
+  antes = bot;
+  return eixos;
+}
+
+// ---- loop -------------------------------------------------------------------------------------------------------
+let t0 = performance.now(), ultimo = t0, quadros = 0, pior = 0;
+(function loop() {
+  requestAnimationFrame(loop);
+  const agora = performance.now(), dt = Math.min((agora - ultimo) / 1000, 0.1); pior = Math.max(pior, agora - ultimo); ultimo = agora; quadros++;
+  const eixos = lePad(), tecla = (...ks) => ks.some((k) => apertadas.has(k)) && !document.activeElement.matches('select, input[type=range]');
+  const dx = (tecla('d', 'arrowright') ? 1 : 0) - (tecla('a', 'arrowleft') ? 1 : 0) + (eixos[0] || 0), dz = (tecla('s', 'arrowdown') ? 1 : 0) - (tecla('w', 'arrowup') ? 1 : 0) + (eixos[1] || 0);
+  const v = (correndo ? 7 : 3) * dt, m = sel.m.position;
+  m.x = Math.max(-7, Math.min(7, m.x + dx * v)); m.z = Math.max(-7, Math.min(7, m.z + dz * v));
+  if (sel.pulo) { sel.pulo += dt * 2.2; if (sel.pulo >= 1) sel.pulo = 0; }
+  for (const b of BONECOS) { b.bote = Math.max(0, b.bote - dt * 5); b.m.position.y = b.chao + Math.sin(Math.PI * b.pulo) * 1.6; b.m.rotation.x = -b.bote * 0.5; }
+  clarao.intensity = Math.max(0, clarao.intensity - dt * 9);
+  if (!calmo) tochas.forEach((l, i) => (l.intensity = 1.1 + Math.sin(agora / 90 + i * 2) * 0.08)); // the flames flicker unless the system asks for less motion
+  r.render(cena, cam);
+  if (agora - t0 >= 1000) {
+    const fps = Math.round((quadros * 1000) / (agora - t0)), I = r.info.render;
+    const v = { fps: [String(fps), fps >= 50 ? 'bom' : fps < 30 ? 'baixo' : ''], quadro: `${pior.toFixed(1).replace('.', ',')} ms`, chamadas: String(I.calls), tris: I.triangles.toLocaleString('pt-BR'), tela: `${innerWidth} x ${innerHeight}`, controle: padNome || 'nenhum conectado' };
+    if (!v.fps[1]) v.fps = v.fps[0];
+    medidor.atualizar(v);
+    relatorio = ['Demonstração do kit de interface · ' + new Date().toLocaleString('pt-BR'), ...Object.entries(v).map(([k, x]) => `${k}: ${[].concat(x).join(' ')}`), navigator.userAgent].join('\n');
+    quadros = 0; pior = 0; t0 = agora;
+  }
+})();
+window.demo = { barra, cartas, gaveta, lista, medidor, aviso, BONECOS, r };
+</script>
+</html>

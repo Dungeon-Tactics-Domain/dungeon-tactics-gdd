@@ -1,0 +1,13 @@
+Texturas IA da sala fechada (placeholder pessoal, nao publicar como arte propria).
+Arquivo faltando aqui = a sala usa a textura original (06_arco, 07_parede_escura, 08_chao_claro).
+
+01_parede_pedra_clara.png  128x128, 9 cores, emenda borda/dentro 2.32
+  origem: Gemini so texto (texturas-ia/gemini/02_tijolo_v3_so_texto.jpg), reduzido por media 1024 -> 128, 16 cores da paleta de referencia/02_tijolo.png.
+02_tijolo.png  128x128, 9 cores, emenda borda/dentro 2.32
+  origem: Gemini so texto (texturas-ia/gemini/02_tijolo_v3_so_texto.jpg), reduzido por media 1024 -> 128, 16 cores da paleta de referencia/02_tijolo.png.
+03_chao_pedra.png  128x128, 15 cores, emenda borda/dentro 0.76
+  origem: SDXL base 1.0 local + IP-Adapter h94 (estilo = recorte VS chao, escala 0,6), img2img forca 0,9, semente 7, circular; 768 px reduzido por media para 128, 16 cores da paleta do recorte. Arquivo: D:\Projetos\_estudo-vagrant\texturas-ia\local\saida2\chao_ip60f90_media128.png
+04_madeira.png  128x128, 11 cores, emenda borda/dentro 0.44
+  origem: SDXL base 1.0 local + IP-Adapter h94 (estilo = recorte VS madeira, escala 0,6), img2img forca 0,9, semente 7, circular; 768 px reduzido por media para 128, 16 cores da paleta do recorte. Arquivo: D:\Projetos\_estudo-vagrant\texturas-ia\local\saida2\madeira_ip60f90_media128.png
+05_metal_grade.png  128x128, 15 cores, emenda borda/dentro 0.41
+  origem: SDXL base 1.0 local + IP-Adapter h94 (estilo = recorte VS metal, escala 0,6), img2img forca 0,9, semente 7, circular; 768 px reduzido por media para 128, 16 cores da paleta do recorte. Arquivo: D:\Projetos\_estudo-vagrant\texturas-ia\local\saida2\metal_ip60f90_media128.png

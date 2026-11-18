@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Teste arco Blender</title>
+<style>
+html,body{margin:0;height:100%;background:#000;color:#ddd;font:14px system-ui,sans-serif;overflow:hidden}
+#info{position:fixed;left:12px;top:10px;background:#000a;padding:6px 10px;border-radius:4px;white-space:pre}
+canvas{display:block;image-rendering:pixelated}
+</style>
+</head>
+<body>
+<div id="info">carregando…</div>
+<script type="module">
+// Standalone test (Nov 18): a gothic arch and a cave rock built by code in headless Blender (blender-arco/gerar_arco.py),
+// loaded as .glb into three r117 with WebGL1 and lit by one torch, like the closed room. Does not touch sala-fechada.html.
+import { Scene, PerspectiveCamera, WebGLRenderer, Mesh, MeshLambertMaterial, MeshBasicMaterial, PlaneBufferGeometry,
+  SphereBufferGeometry, PointLight, AmbientLight, Box3, Vector3, Fog } from 'https://unpkg.com/three@0.117.1/build/three.module.js';
+import { GLTFLoader } from 'https://unpkg.com/three@0.117.1/examples/jsm/loaders/GLTFLoader.js';
+import { OrbitControls } from 'https://unpkg.com/three@0.117.1/examples/jsm/controls/OrbitControls.js';
+
+const V = 3; // raise when the .glb changes: the site caches static files
+const BAIXA = 3; // render at a third of the size and scale up with hard pixels, the PS1 look of the room
+const cena = new Scene();
+cena.fog = new Fog(0x000000, 9, 22);
+const cam = new PerspectiveCamera(45, innerWidth / innerHeight, 0.1, 100);
+cam.position.set(6.5, 3.6, 9.5);
+const r = new WebGLRenderer({ antialias: false }); // r117 asks for a 'webgl' (version 1) context by default
+r.setPixelRatio(1 / BAIXA);
+r.setSize(innerWidth, innerHeight);
+document.body.appendChild(r.domElement);
+const ctl = new OrbitControls(cam, r.domElement);
+ctl.target.set(0, 2, 0);
+ctl.update();
+
+// floor: 10 x 8 tiles of 1 m, checker so the scale reads at a glance
+const chao = new MeshLambertMaterial({ color: 0x2a2620 }), chao2 = new MeshLambertMaterial({ color: 0x332e27 });
+for (let x = -5; x < 5; x++) for (let z = -4; z < 4; z++) {
+  const m = new Mesh(new PlaneBufferGeometry(1, 1), (x + z) & 1 ? chao : chao2);
+  m.rotation.x = -Math.PI / 2;
+  m.position.set(x + 0.5, 0, z + 0.5);
+  cena.add(m);
+}
+
+// one torch in front of the left pier, warm, short reach, like the room's torches
+const tocha = new PointLight(0xffa050, 2.2, 9, 2);
+tocha.position.set(-1.8, 2.3, 2.2);
+cena.add(tocha);
+const chama = new Mesh(new SphereBufferGeometry(0.08, 6, 4), new MeshBasicMaterial({ color: 0xffc070 }));
+chama.position.copy(tocha.position);
+cena.add(chama);
+cena.add(new AmbientLight(0x404858, 0.6));
+
+// Blender writes COLOR_0 as linear; the room draws with three's default linear output, so the colours go back to sRGB
+const paraTela = (g) => {
+  const c = g.attributes.color;
+  const max = c.normalized ? 2 ** (8 * c.array.BYTES_PER_ELEMENT) - 1 : 1; // Blender 5 writes COLOR_0 as normalized 16-bit integers
+  for (let i = 0; i < c.array.length; i++) if (i % c.itemSize < 3) c.array[i] = Math.round(max * Math.pow(c.array[i] / max, 1 / 2.2) * 1e6) / 1e6;
+  c.needsUpdate = true;
+};
+
+const carregar = (url) => new Promise((ok, erro) => new GLTFLoader().load(url, (g) => {
+  let malha;
+  g.scene.traverse((o) => { if (o.isMesh) malha = o; });
+  paraTela(malha.geometry);
+  malha.material = new MeshLambertMaterial({ vertexColors: true }); // the room's material, for a fair comparison
+  ok(malha);
+}, undefined, erro));
+
+const tris = (m) => (m.geometry.index ? m.geometry.index.count : m.geometry.attributes.position.count) / 3;
+const [arco, rocha] = await Promise.all([carregar(`./glb/arco-gotico.glb?v=${V}`), carregar(`./glb/rocha-caverna.glb?v=${V}`)]);
+cena.add(arco);
+rocha.scale.setScalar(1.4);
+rocha.position.set(-4.3, 0, 2.3);
+rocha.position.y = -new Box3().setFromObject(rocha).min.y; // sits on the floor: the glb's own lift is lost by the set above
+cena.add(rocha);
+const tam = new Box3().setFromObject(arco).getSize(new Vector3());
+
+const desenhar = () => r.render(cena, cam);
+desenhar(); // once right away: a hidden automation tab throttles requestAnimationFrame
+ctl.addEventListener('change', desenhar);
+addEventListener('resize', () => { cam.aspect = innerWidth / innerHeight; cam.updateProjectionMatrix(); r.setSize(innerWidth, innerHeight); desenhar(); });
+
+window.__teste = {
+  isWebGL2: r.capabilities.isWebGL2,
+  triangulosArco: tris(arco), triangulosRocha: tris(rocha),
+  arcoLarguraAlturaProfundidade: [tam.x, tam.y, tam.z].map((v) => +v.toFixed(3)),
+};
+document.getElementById('info').textContent =
+  `arco: ${tris(arco)} triângulos · ${tam.x.toFixed(1)} x ${tam.y.toFixed(1)} x ${tam.z.toFixed(1)} m\n` +
+  `rocha: ${tris(rocha)} triângulos · WebGL ${r.capabilities.isWebGL2 ? 2 : 1} · three r117`;
+</script>
+</body>
+</html>

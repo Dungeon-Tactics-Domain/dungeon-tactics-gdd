@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="pt-BR">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Líquido por partículas · teste</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #0c1020; color: #e8e2d4; font: 15px/1.4 system-ui, sans-serif; overflow: hidden; }
+  canvas { display: block; touch-action: none; }
+  #d { position: fixed; left: 8px; top: 8px; background: rgba(8, 10, 18, .78); border: 1px solid #3a3528; border-radius: 6px; max-width: min(440px, calc(100vw - 16px)); }
+  #d summary { min-height: 44px; padding: 0 12px; display: flex; align-items: center; cursor: pointer; }
+  #n { margin: 0; padding: 0 10px 8px; font: 14px/1.45 ui-monospace, Consolas, monospace; white-space: pre-wrap; }
+  #b { position: fixed; left: 8px; right: 8px; bottom: 8px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  button, label { min-height: 44px; padding: 0 14px; font: inherit; color: inherit; background: rgba(24, 22, 18, .9); border: 1px solid #6a5a3a; border-radius: 6px; display: inline-flex; align-items: center; gap: 8px; }
+  button { cursor: pointer; } button.on { background: #5a3a14; border-color: #d89a4a; }
+  input[type=range] { width: 150px; height: 44px; }
+</style>
+<details id="d"><summary id="fps">📊 Números</summary><pre id="n">carregando…</pre></details>
+<div id="b">
+  <button id="derramar">💧 Derramar</button>
+  <button id="b0" class="on">🧍 Boneco 1 (WASD)</button>
+  <button id="b1">🧍 Boneco 2 (setas)</button>
+  <label>🫧 Partículas <input id="qtd" type="range" min="500" max="8000" step="500"> <span id="qtdv"></span></label>
+  <button id="liga" class="on">🌊 Líquido</button>
+  <button id="copiar">📋 Copiar relatório</button>
+</div>
+<script type="module">
+// Test page for fluido.js: a sunk basin with two columns and three torches, two capsule characters that walk in.
+// WASD moves character 1, arrows move character 2, a click or tap sends the selected one there, a gamepad stick too.
+import * as THREE from './src/three.js';
+import { criarFluido } from './fluido.js?v=6';
+
+const $ = (id) => document.getElementById(id);
+const BACIA = { x0: -3.5, z0: -2.5, x1: 3.5, z1: 2.5, y0: -1 }, VEL = 3, ALT = 3.7, RAIO = 0.45; // tiles; the character is 3.7 tiles tall as in the game
+const celular = matchMedia('(pointer: coarse)').matches || innerWidth < 800;
+const NEVOA = 0x0c1020, COR_FOGO = new THREE.Color(1, 0.62, 0.3);
+
+const r = new THREE.WebGLRenderer({ antialias: false }); // same context as the closed room (WebGL 1 on three 0.117)
+r.setPixelRatio(Math.min(devicePixelRatio, 1.5)); r.setSize(innerWidth, innerHeight); r.setClearColor(NEVOA, 1); document.body.prepend(r.domElement);
+const cena = new THREE.Scene(); cena.fog = new THREE.Fog(NEVOA, 8, 42);
+const cam = new THREE.PerspectiveCamera(42, innerWidth / innerHeight, 0.5, 80); cam.position.set(0, 8.5, 11.5);
+if (cam.aspect < 1) { cam.fov = 65; cam.position.multiplyScalar(1.1); cam.updateProjectionMatrix(); } // portrait phone: wider and a step back so the whole basin fits (further back is all fog)
+const orbita = new THREE.OrbitControls(cam, r.domElement); orbita.target.set(0, -0.3, 0); orbita.maxPolarAngle = 1.45; orbita.enableKeys = false; orbita.update(); // the arrows walk character 2, they must not also pan the camera
+cena.add(new THREE.AmbientLight(0x1a2030, 1.4));
+
+// stone made on a canvas: blocks with dark joints, nearest filter for the PSX look
+const pedra = (() => {
+  const c = document.createElement('canvas'); c.width = c.height = 64; const x = c.getContext('2d');
+  for (let j = 0; j < 4; j++) for (let i = 0; i < 2; i++) { const g = 70 + Math.random() * 40; x.fillStyle = `rgb(${g},${g * 0.95},${g * 0.88})`; x.fillRect((j % 2) * 16 + i * 32, j * 16, 32, 16); if (j % 2 && i) x.fillRect(0, j * 16, 16, 16); }
+  for (let k = 0; k < 500; k++) { x.fillStyle = `rgba(0,0,0,${Math.random() * 0.18})`; x.fillRect(Math.random() * 64, Math.random() * 64, 2, 2); }
+  x.fillStyle = '#1a1814'; for (let j = 0; j < 4; j++) { x.fillRect(0, j * 16, 64, 1); x.fillRect((j % 2) * 16, j * 16, 1, 16); x.fillRect((j % 2) * 16 + 32, j * 16, 1, 16); }
+  const t = new THREE.CanvasTexture(c); t.magFilter = THREE.NearestFilter; t.wrapS = t.wrapT = THREE.RepeatWrapping; return t;
+})();
+const mPedra = (rx, ry) => { const t = pedra.clone(); t.needsUpdate = true; t.repeat.set(rx, ry); return new THREE.MeshLambertMaterial({ map: t }); };
+const caixa = (x0, x1, y0, y1, z0, z1) => { const m = new THREE.Mesh(new THREE.BoxBufferGeometry(x1 - x0, y1 - y0, z1 - z0), mPedra((x1 - x0 + z1 - z0) / 4, 1)); m.position.set((x0 + x1) / 2, (y0 + y1) / 2, (z0 + z1) / 2); cena.add(m); return m; };
+const B = BACIA, FORA = 9;
+caixa(-FORA, B.x0, B.y0, 0, -FORA, FORA); caixa(B.x1, FORA, B.y0, 0, -FORA, FORA); caixa(B.x0, B.x1, B.y0, 0, -FORA, B.z0); caixa(B.x0, B.x1, B.y0, 0, B.z1, FORA); // floor around the hole
+caixa(B.x0, B.x1, B.y0 - 0.2, B.y0, B.z0, B.z1); caixa(-FORA, FORA, 0, 6, -FORA - 1, -FORA); // basin floor and a back wall
+const COLUNAS = [{ x: -1.8, z: -0.9 }, { x: 1.9, z: 0.8 }].map((c) => {
+  const m = new THREE.Mesh(new THREE.CylinderBufferGeometry(0.45, 0.5, 7, 8), mPedra(2, 4)); m.position.set(c.x, B.y0 + 3.5, c.z); cena.add(m);
+  return { pos: { x: c.x, y: B.y0 - 1, z: c.z }, vel: { x: 0, y: 0, z: 0 }, raio: 0.5, altura: 9 };
+});
+const brilho = (() => { const c = document.createElement('canvas'); c.width = c.height = 32; const x = c.getContext('2d'), g = x.createRadialGradient(16, 16, 0, 16, 16, 16); g.addColorStop(0, '#fff2c0'); g.addColorStop(0.4, 'rgba(255,140,40,.7)'); g.addColorStop(1, 'rgba(255,80,0,0)'); x.fillStyle = g; x.fillRect(0, 0, 32, 32); return new THREE.CanvasTexture(c); })();
+const tochas = [[-4.2, -3.2], [4.2, -3.2], [-4.4, 3.2]].map(([x, z], i) => {
+  const pe = new THREE.Mesh(new THREE.CylinderBufferGeometry(0.08, 0.12, 2.4, 6), new THREE.MeshLambertMaterial({ color: 0x2a2622 })); pe.position.set(x, 1.2, z); cena.add(pe);
+  const luz = new THREE.PointLight(COR_FOGO, 1.5, 12, 2); luz.position.set(x, 2.7, z); cena.add(luz);
+  const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: brilho, blending: THREE.AdditiveBlending, depthWrite: false, fog: false })); sp.position.copy(luz.position); cena.add(sp);
+  return { luz, sp, fase: i * 1.37 };
+});
+
+// capsule characters: feet on the basin floor when inside it, on the stone floor outside
+const bonecos = [[0x8a3a2a, -5, 1], [0x2a4a8a, 5, -1]].map(([cor, x, z]) => {
+  const g = new THREE.Group(), m = new THREE.MeshLambertMaterial({ color: cor });
+  const c = new THREE.Mesh(new THREE.CylinderBufferGeometry(RAIO, RAIO, ALT - 2 * RAIO, 10), m); c.position.y = ALT / 2;
+  for (const y of [RAIO, ALT - RAIO]) { const s = new THREE.Mesh(new THREE.SphereBufferGeometry(RAIO, 10, 6), m); s.position.y = y; g.add(s); }
+  g.add(c); g.position.set(x, 0, z); cena.add(g);
+  return { g, pos: g.position, vel: new THREE.Vector3(), raio: RAIO, altura: ALT, alvo: null };
+});
+let sel = 0;
+const escolhe = (i) => { sel = i; $('b0').classList.toggle('on', i === 0); $('b1').classList.toggle('on', i === 1); };
+$('b0').onclick = () => escolhe(0); $('b1').onclick = () => escolhe(1);
+
+const teclas = new Set();
+addEventListener('keydown', (e) => { teclas.add(e.key.toLowerCase()); if (e.key.startsWith('Arrow')) e.preventDefault(); });
+addEventListener('keyup', (e) => teclas.delete(e.key.toLowerCase()));
+// a click (not a drag, which turns the camera) sends the selected character to that point of the floor
+const raio = new THREE.Raycaster(), chao = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0), ponto = new THREE.Vector3(); let baixo = null;
+r.domElement.addEventListener('pointerdown', (e) => (baixo = [e.clientX, e.clientY]));
+r.domElement.addEventListener('pointerup', (e) => {
+  if (!baixo || Math.hypot(e.clientX - baixo[0], e.clientY - baixo[1]) > 6) return;
+  raio.setFromCamera({ x: (e.clientX / innerWidth) * 2 - 1, y: -(e.clientY / innerHeight) * 2 + 1 }, cam);
+  if (raio.ray.intersectPlane(chao, ponto)) bonecos[sel].alvo = ponto.clone();
+});
+const eixo = (neg, pos) => (teclas.has(pos) ? 1 : 0) - (teclas.has(neg) ? 1 : 0);
+function anda(dt) {
+  const pad = [...(navigator.getGamepads ? navigator.getGamepads() : [])].find((p) => p);
+  bonecos.forEach((b, i) => {
+    let dx = i === 0 ? eixo('a', 'd') : eixo('arrowleft', 'arrowright'), dz = i === 0 ? eixo('w', 's') : eixo('arrowup', 'arrowdown');
+    if (pad && i === sel && Math.hypot(pad.axes[0], pad.axes[1]) > 0.25) { dx = pad.axes[0]; dz = pad.axes[1]; }
+    if (dx || dz) b.alvo = null;
+    else if (b.alvo) { dx = b.alvo.x - b.pos.x; dz = b.alvo.z - b.pos.z; if (Math.hypot(dx, dz) < VEL * dt) { dx = dz = 0; b.alvo = null; } }
+    const m = Math.hypot(dx, dz), k = m > 1e-6 ? VEL / Math.max(m, b.alvo ? m : 1) : 0;
+    b.vel.set(dx * k, 0, dz * k);
+    b.pos.x = Math.max(-FORA + 1, Math.min(FORA - 1, b.pos.x + b.vel.x * dt)); b.pos.z = Math.max(-FORA + 1, Math.min(FORA - 1, b.pos.z + b.vel.z * dt));
+    const dentro = b.pos.x > B.x0 && b.pos.x < B.x1 && b.pos.z > B.z0 && b.pos.z < B.z1;
+    b.pos.y += ((dentro ? B.y0 : 0) - b.pos.y) * Math.min(1, dt * 10); // steps down into the basin
+  });
+}
+
+let fluido = null, quantidade = +(new URLSearchParams(location.search).get('n') || (celular ? 1500 : 3000));
+function cria(qtd) {
+  if (fluido) fluido.dispose();
+  quantidade = qtd; $('qtd').value = qtd; $('qtdv').textContent = qtd;
+  fluido = criarFluido({ THREE, scene: cena, renderer: r, camera: cam, bacia: BACIA, quantidade: qtd, luzes: tochas.map((t) => t.luz) });
+  fluido.setEnabled($('liga').classList.contains('on'));
+}
+$('qtd').oninput = () => ($('qtdv').textContent = $('qtd').value);
+$('qtd').onchange = () => cria(+$('qtd').value);
+$('derramar').onclick = () => fluido.derramar(Math.round(quantidade * 0.1), { x: 0.3, y: 3.5, z: 0.4 });
+$('liga').onclick = () => fluido.setEnabled($('liga').classList.toggle('on'));
+
+// one frame by hand: a hidden tab runs no animation frames, and the measurements call this too
+let tempo = 0; const ms = []; const gl = r.getContext();
+function quadro(dt) {
+  const t0 = performance.now(); tempo += dt;
+  anda(dt);
+  for (const t of tochas) { const f = 0.85 + 0.15 * Math.sin(tempo * 11 + t.fase) * Math.sin(tempo * 4.3 + t.fase * 2); t.luz.intensity = 1.5 * f; t.sp.scale.set(0.9, 1.3 * f, 1); }
+  fluido.update(dt, [...bonecos, ...COLUNAS]);
+  r.render(cena, cam);
+  gl.finish(); ms.push(performance.now() - t0); // finish waits for the video card, so this is the whole frame
+}
+let fps = 0, quadros = 0, t0 = performance.now(), ultimo = t0, relatorio = ''; const intervalos = [];
+const m = (a) => (a.length ? a.reduce((s, x) => s + x, 0) / a.length : 0);
+function painel() {
+  const e = fluido.estatisticas, I = r.info;
+  const linhas = [
+    `⏱️ ${fps} quadros/s`, `🕒 quadro: média ${m(intervalos).toFixed(1)} ms, pior ${Math.max(0, ...intervalos).toFixed(1)} ms`,
+    `🧮 quadro inteiro (com espera da placa de vídeo): ${m(ms).toFixed(2)} ms`,
+    `🫧 partículas: ${e.particulas} de ${e.maximo} · vizinhas por partícula: ${e.vizinhosMedios.toFixed(1)}`,
+    `🧠 física (processador): ${e.msSimulacao.toFixed(2)} ms · desenho da superfície (processador): ${e.msDesenho.toFixed(2)} ms`,
+    `🖌️ chamadas: ${I.render.calls} · texturas: ${I.memory.textures} · geometrias: ${I.memory.geometries}`,
+    `📐 tela: ${innerWidth}x${innerHeight} · pixels por ponto: ${r.getPixelRatio().toFixed(2)} (aparelho ${devicePixelRatio.toFixed(2)})`,
+    `🧱 líquido some atrás de coluna e boneco: ${e.ocultaAtrasDaCena ? 'sim' : 'não (aparelho sem o recurso)'} · WebGL ${r.capabilities.isWebGL2 ? 2 : 1}`,
+    `👁️ aba ${document.visibilityState === 'visible' ? 'visível' : 'oculta (números não confiáveis)'}`,
+  ];
+  $('n').textContent = linhas.slice(1).join('\n'); $('fps').textContent = '📊 ' + linhas[0].slice(3) + ' · ' + e.particulas + ' partículas';
+  relatorio = ['Líquido por partículas (teste) · ' + new Date().toLocaleString('pt-BR'), location.href, ...linhas, `líquido: ${$('liga').classList.contains('on') ? 'ligado' : 'desligado'} · quantidade pedida: ${quantidade}`, navigator.userAgent].join('\n');
+}
+$('copiar').onclick = async () => {
+  try { await navigator.clipboard.writeText(relatorio); $('copiar').textContent = '✅ Copiado'; } catch (e) { prompt('Copie o relatório:', relatorio); }
+  setTimeout(() => ($('copiar').textContent = '📋 Copiar relatório'), 1500);
+};
+addEventListener('resize', () => { r.setSize(innerWidth, innerHeight); cam.aspect = innerWidth / innerHeight; cam.updateProjectionMatrix(); });
+
+cria(quantidade); $('d').open = !celular; painel(); // on a phone the numbers start folded, they would cover a third of the screen
+(function loop() {
+  requestAnimationFrame(loop); const agora = performance.now(); intervalos.push(agora - ultimo); const dt = Math.min((agora - ultimo) / 1000, 0.1); ultimo = agora;
+  quadro(dt); quadros++;
+  if (agora - t0 >= 1000) { fps = Math.round((quadros * 1000) / (agora - t0)); quadros = 0; t0 = agora; painel(); intervalos.length = ms.length = 0; }
+})();
+
+// Bench by hand: medir(4000, 120, true) recreates the liquid, warms up, then returns the average ms of `n` frames.
+// agitar = a character runs circles inside the basin while liquid is poured: the worst case.
+function medir(qtd, n = 120, agitar = false) {
+  cria(qtd); for (let i = 0; i < 90; i++) quadro(1 / 60);
+  if (agitar) fluido.derramar(Math.round(qtd * 0.3), { x: 0.3, y: 3.5, z: 0.4 });
+  ms.length = 0; let pior = 0, melhor = 1e9, bloco = 0, fis = 1e9; const b = bonecos[0];
+  for (let i = 0; i < n; i++) {
+    if (agitar) b.alvo = new THREE.Vector3(Math.cos(i * 0.08) * 2.5, 0, Math.sin(i * 0.08) * 1.6);
+    quadro(1 / 60); pior = Math.max(pior, ms[ms.length - 1]); bloco += ms[ms.length - 1];
+    if (i % 30 === 29) { melhor = Math.min(melhor, bloco / 30); bloco = 0; fis = Math.min(fis, fluido.estatisticas.msSimulacao); } // best block of 30: what the machine does when nothing else takes the processor
+  }
+  b.alvo = null;
+  return { quantidade: qtd, particulas: fluido.estatisticas.particulas, agitar, quadroMs: +m(ms).toFixed(2), melhorBlocoMs: +melhor.toFixed(2), piorMs: +pior.toFixed(2), fisicaMs: +fluido.estatisticas.msSimulacao.toFixed(2), fisicaMenorMs: +fis.toFixed(2), vizinhas: +fluido.estatisticas.vizinhosMedios.toFixed(1) };
+}
+Object.assign(window, { quadro, medir, lab: { get fluido() { return fluido; }, bonecos, cam, orbita, cena, r, cria, get relatorio() { painel(); return relatorio; } } });
+</script>
+</html>

@@ -1,0 +1,160 @@
+{
+ "segundos_geracao": 168.5,
+ "vram_pico_gb": 4.05,
+ "itens": [
+  {
+   "tipo": "rocha-caverna",
+   "n": 1,
+   "emenda_cru": 0.93,
+   "emenda_256": 1.18,
+   "emenda_128": 0.97
+  },
+  {
+   "tipo": "rocha-caverna",
+   "n": 2,
+   "emenda_cru": 1.05,
+   "emenda_256": 1.09,
+   "emenda_128": 1.14
+  },
+  {
+   "tipo": "parede-caverna",
+   "n": 1,
+   "emenda_cru": 1.01,
+   "emenda_256": 0.96,
+   "emenda_128": 0.9
+  },
+  {
+   "tipo": "parede-caverna",
+   "n": 2,
+   "emenda_cru": 1.04,
+   "emenda_256": 1.03,
+   "emenda_128": 0.96
+  },
+  {
+   "tipo": "chao-pedra",
+   "n": 1,
+   "emenda_cru": 0.97,
+   "emenda_256": 0.85,
+   "emenda_128": 0.93
+  },
+  {
+   "tipo": "chao-pedra",
+   "n": 2,
+   "emenda_cru": 0.94,
+   "emenda_256": 0.84,
+   "emenda_128": 0.95
+  },
+  {
+   "tipo": "relva",
+   "n": 1,
+   "emenda_cru": 0.96,
+   "emenda_256": 0.93,
+   "emenda_128": 0.88
+  },
+  {
+   "tipo": "relva",
+   "n": 2,
+   "emenda_cru": 0.99,
+   "emenda_256": 1.07,
+   "emenda_128": 1.2
+  },
+  {
+   "tipo": "terra",
+   "n": 1,
+   "emenda_cru": 0.99,
+   "emenda_256": 1.0,
+   "emenda_128": 0.87
+  },
+  {
+   "tipo": "terra",
+   "n": 2,
+   "emenda_cru": 1.04,
+   "emenda_256": 1.09,
+   "emenda_128": 1.14
+  },
+  {
+   "tipo": "casca",
+   "n": 1,
+   "emenda_cru": 0.76,
+   "emenda_256": 0.78,
+   "emenda_128": 1.2
+  },
+  {
+   "tipo": "casca",
+   "n": 2,
+   "emenda_cru": 1.02,
+   "emenda_256": 1.63,
+   "emenda_128": 2.19
+  },
+  {
+   "tipo": "folhagem",
+   "n": 1,
+   "emenda_cru": 1.04,
+   "emenda_256": 1.06,
+   "emenda_128": 1.11
+  },
+  {
+   "tipo": "folhagem",
+   "n": 2,
+   "emenda_cru": 1.06,
+   "emenda_256": 1.1,
+   "emenda_128": 1.04
+  },
+  {
+   "tipo": "madeira",
+   "n": 1,
+   "emenda_cru": 0.56,
+   "emenda_256": 1.26,
+   "emenda_128": 0.89
+  },
+  {
+   "tipo": "madeira",
+   "n": 2,
+   "emenda_cru": 1.46,
+   "emenda_256": 1.27,
+   "emenda_128": 1.06
+  },
+  {
+   "tipo": "telhado",
+   "n": 1,
+   "emenda_cru": 0.99,
+   "emenda_256": 0.92,
+   "emenda_128": 0.89
+  },
+  {
+   "tipo": "telhado",
+   "n": 2,
+   "emenda_cru": 2.41,
+   "emenda_256": 1.88,
+   "emenda_128": 1.3
+  },
+  {
+   "tipo": "piso-tabua",
+   "n": 1,
+   "emenda_cru": 1.11,
+   "emenda_256": 0.51,
+   "emenda_128": 0.5
+  },
+  {
+   "tipo": "piso-tabua",
+   "n": 2,
+   "emenda_cru": 0.61,
+   "emenda_256": 1.84,
+   "emenda_128": 1.16
+  },
+  {
+   "tipo": "leito-rio",
+   "n": 1,
+   "emenda_cru": 0.91,
+   "emenda_256": 0.66,
+   "emenda_128": 0.56
+  },
+  {
+   "tipo": "leito-rio",
+   "n": 2,
+   "emenda_cru": 0.94,
+   "emenda_256": 0.86,
+   "emenda_128": 0.89
+  }
+ ]
+}

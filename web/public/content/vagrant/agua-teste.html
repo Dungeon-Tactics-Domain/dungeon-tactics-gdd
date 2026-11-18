@@ -1,0 +1,210 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Água · teste</title>
+<style>body{margin:0;background:#0c1020;color:#ddd;font:15px sans-serif;overflow:hidden}canvas{display:block;touch-action:none}
+#p{position:absolute;top:8px;left:8px;background:#000c;padding:8px 10px;border-radius:6px;width:min(300px,calc(100vw - 36px));max-height:calc(100vh - 32px);overflow:auto;z-index:2}
+summary{font-weight:bold;padding:6px 0;cursor:pointer;min-height:32px}
+.g{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:6px 0}
+button{min-height:44px;font:15px sans-serif;border-radius:6px;border:1px solid #fff5;background:#ffffff1c;color:#fff;cursor:pointer}
+button.on{background:#3d6fb0}
+#n,#e{font-size:14px;line-height:1.45;white-space:pre-wrap;margin:6px 0}
+#rel{width:100%;box-sizing:border-box;height:110px;font:14px monospace;background:#0008;color:#ddd;border:1px solid #fff3;margin-top:6px;display:none}
+p{margin:6px 0;font-size:14px;color:#bbb}</style></head><body>
+<details id=p open><summary>💧 Água · teste</summary>
+<div class=g><button id=rasa>🦶 Piscina rasa</button><button id=fosso>🏊 Fosso fundo</button>
+<button id=liga class=on>💧 Água ligada</button><button id=quem>🧍 Boneco A</button></div>
+<div id=e></div><div id=n>medindo…</div>
+<button id=copiar style="width:100%">📋 Copiar relatório</button><textarea id=rel readonly></textarea>
+<p>Boneco A: teclas W A S D. Boneco B: setas. Toque ou clique no chão: o boneco escolhido anda até lá (toque num boneco para escolher). Controle: alavanca esquerda move o A, direita move o B. Arraste para girar a câmera.</p></details>
+<script type="module">
+// Stand-alone bench for agua.js: a floor with a basin, two columns, three torches and two capsule characters.
+// Nothing here is game code. window.lab exposes the pieces and window.quadro(dt) runs one frame by hand, so a
+// hidden tab (which gets no animation frames) can still be stepped and measured.
+import * as THREE from './src/three.js';
+import { newVSMaterial } from './src/VSTOOLS.js';
+import { criarAgua, MODOS } from './agua.js?v=6'; // the site caches .js for 4 hours: bump v when agua.js changes
+
+const $ = (id) => document.getElementById(id);
+const NEVOA = 0x0c1020, VEL = 3, ALT = 3.7, RAIO = 0.45; // tiles: the room walks 3 tiles/s and Ashley is ~3.7 tall
+const REGIAO = { x0: -3, z0: -2, x1: 3, z1: 2, yAgua: -0.04 };
+const opcoes = new URLSearchParams(location.search);
+
+const r = new THREE.WebGLRenderer({ antialias: false }); r.setPixelRatio(Math.min(devicePixelRatio, 2)); r.setSize(innerWidth, innerHeight); r.setClearColor(NEVOA, 1); document.body.appendChild(r.domElement);
+const gl = r.getContext();
+const cena = new THREE.Scene(); cena.fog = new THREE.Fog(NEVOA, 8, 42);
+const cam = new THREE.PerspectiveCamera(50, innerWidth / innerHeight, 0.1, 100); cam.position.set(0, 4.6, 7).multiplyScalar(Math.max(1, 1 / cam.aspect)); // a phone held upright stands further back to fit the pool
+if (innerWidth < 700) $('p').open = false; // on a phone the panel would cover the scene
+const orbita = new THREE.OrbitControls(cam, r.domElement); orbita.target.set(0, 0.3, 0); orbita.maxPolarAngle = 1.5; orbita.enableKeys = false; orbita.update(); // the arrows walk boneco B, they must not pan the camera
+addEventListener('resize', () => { r.setSize(innerWidth, innerHeight); cam.aspect = innerWidth / innerHeight; cam.updateProjectionMatrix(); });
+cena.add(new THREE.AmbientLight(0x0a0c12));
+
+// floor: four slabs around the basin, their inner faces are its walls; the bottom slab follows the mode's depth
+const pedra = new THREE.MeshPhongMaterial({ color: 0x6a6660, shininess: 4 });
+const caixa = (x0, z0, x1, z1, y0, y1, mat = pedra) => { const m = new THREE.Mesh(new THREE.BoxBufferGeometry(x1 - x0, y1 - y0, z1 - z0), mat); m.position.set((x0 + x1) / 2, (y0 + y1) / 2, (z0 + z1) / 2); cena.add(m); return m; };
+const { x0, z0, x1, z1 } = REGIAO;
+caixa(-8, -6, 8, z0, -3, 0); caixa(-8, z1, 8, 6, -3, 0); caixa(-8, z0, x0, z1, -3, 0); caixa(x1, z0, 8, z1, -3, 0);
+const fundo = caixa(x0, z0, x1, z1, -0.2, 0, new THREE.MeshPhongMaterial({ color: 0x4a4a4e, shininess: 2 }));
+caixa(-8, -6.4, 8, -6, 0, 7); // back wall
+for (const x of [-4.6, 4.6]) { caixa(x - 0.45, -3.95, x + 0.45, -3.05, 0, 7); caixa(x - 0.65, -4.15, x + 0.65, -2.85, 0, 0.5); }
+
+// one canvas-made glow for the three flames
+const tela = document.createElement('canvas'); tela.width = tela.height = 64;
+{ const c = tela.getContext('2d'), g = c.createRadialGradient(32, 32, 0, 32, 32, 32); g.addColorStop(0, '#fff6d0'); g.addColorStop(0.3, '#ff9a3c'); g.addColorStop(1, '#000'); c.fillStyle = g; c.fillRect(0, 0, 64, 64); }
+const brilho = new THREE.CanvasTexture(tela);
+const tochas = [[-4.6, 3, -2.9], [4.6, 3, -2.9], [-5.6, 2.2, 3.6]].map(([x, y, z], i) => {
+  const luz = new THREE.PointLight(new THREE.Color(1, 0.62, 0.3), 1.8, 12, 2); luz.position.set(x, y, z); cena.add(luz);
+  const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: brilho, blending: THREE.AdditiveBlending, depthWrite: false, fog: false })); sp.position.set(x, y, z); cena.add(sp);
+  if (i === 2) caixa(x - 0.12, z - 0.12, x + 0.12, z + 0.12, 0, y - 0.25); // the front torch stands on a post
+  return { luz, sp, fase: i * 1.37 };
+});
+
+const agua = criarAgua({ THREE, scene: cena, renderer: r, regiao: REGIAO, modo: 'rasa', luzes: tochas.map((t) => t.luz), resolucao: +opcoes.get('res') || 128, textura: opcoes.has('bytes') ? 'bytes' : 'auto' });
+
+// two capsules, feet at the group's origin. A is a lit three material; B wears VSTools' own character shader, the
+// one the room's models use, so the water-line cut is proven on it too.
+const faixas = document.createElement('canvas'); faixas.width = faixas.height = 32;
+{ const c = faixas.getContext('2d'); c.fillStyle = '#7d8fa8'; c.fillRect(0, 0, 32, 32); c.fillStyle = '#4c5a70'; for (let y = 0; y < 32; y += 8) c.fillRect(0, y, 32, 3); }
+const bonecos = [
+  { nome: 'A', x: -4.4, z: 0.9, mat: new THREE.MeshPhongMaterial({ color: 0xa8553c, shininess: 8 }) },
+  { nome: 'B', x: 4.4, z: -0.9, mat: newVSMaterial({ map: new THREE.CanvasTexture(faixas) }) },
+].map((d) => {
+  const g = new THREE.Group(); g.position.set(d.x, 0, d.z);
+  for (const [geo, y] of [[new THREE.CylinderBufferGeometry(RAIO, RAIO, ALT - 2 * RAIO, 14), ALT / 2], [new THREE.SphereBufferGeometry(RAIO, 14, 10), RAIO], [new THREE.SphereBufferGeometry(RAIO, 14, 10), ALT - RAIO]]) { const m = new THREE.Mesh(geo, d.mat); m.position.y = y; g.add(m); }
+  cena.add(g);
+  // what agua.update reads: feet position, velocity, foot radius
+  // `entrada` is an extra [side, forward] push added to the keys, so a test can hold a direction
+  const b = { nome: d.nome, g, pos: g.position, vel: new THREE.Vector3(), raio: RAIO, altura: ALT, destino: null, entrada: [0, 0] };
+  agua.aplicarCorte(g, b);
+  return b;
+});
+let sel = bonecos[0];
+
+// ---- input ----
+const teclas = new Set();
+addEventListener('keydown', (e) => { teclas.add(e.key.toLowerCase()); if (e.key.startsWith('Arrow')) e.preventDefault(); });
+addEventListener('keyup', (e) => teclas.delete(e.key.toLowerCase()));
+addEventListener('blur', () => teclas.clear());
+const eixo = (menos, mais) => (teclas.has(mais) ? 1 : 0) - (teclas.has(menos) ? 1 : 0);
+// a tap that did not drag: on a character it selects it, on the floor it sends the selected one there
+const raio = new THREE.Raycaster(), chao = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0), ponto = new THREE.Vector3();
+let toque = null;
+r.domElement.addEventListener('pointerdown', (e) => { toque = [e.clientX, e.clientY]; });
+r.domElement.addEventListener('pointerup', (e) => {
+  if (!toque || Math.hypot(e.clientX - toque[0], e.clientY - toque[1]) > 6) return;
+  raio.setFromCamera({ x: (e.clientX / innerWidth) * 2 - 1, y: -(e.clientY / innerHeight) * 2 + 1 }, cam);
+  const em = bonecos.find((b) => raio.intersectObject(b.g, true).length);
+  if (em) { sel = em; pinta(); } else if (raio.ray.intersectPlane(chao, ponto)) sel.destino = [ponto.x, ponto.z];
+});
+
+function anda(b, dx, dz, dt, t) {
+  const p = b.pos, m = Math.hypot(dx, dz), est = agua.estadoEm(p.x, p.z, b.altura);
+  if (m > 0.15) {
+    const passo = VEL * est.velocidade * Math.min(1, m); // the water only hands over a factor: the page owns the speed
+    b.vel.set((dx / m) * passo, 0, (dz / m) * passo);
+    p.x = Math.min(7.5, Math.max(-7.5, p.x + b.vel.x * dt)); p.z = Math.min(5.5, Math.max(-5.3, p.z + b.vel.z * dt));
+  } else b.vel.set(0, 0, 0);
+  // feet go down to where the water says, with a bob while swimming
+  const alvo = est.dentro ? est.yAgua - est.afundamento + (est.animacao === 'nadar' ? Math.sin(t * 3 + p.x) * 0.07 : 0) : 0;
+  p.y += (alvo - p.y) * Math.min(1, dt * 8);
+  b.estado = est;
+}
+
+let tempo = 0;
+function passo(dt) {
+  tempo += dt;
+  const frente = new THREE.Vector3(); cam.getWorldDirection(frente); frente.y = 0; frente.normalize();
+  const pad = [...(navigator.getGamepads ? navigator.getGamepads() : [])].find(Boolean), ax = pad ? pad.axes : [];
+  const entradas = [[eixo('a', 'd') + (ax[0] || 0), eixo('s', 'w') - (ax[1] || 0)], [eixo('arrowleft', 'arrowright') + (ax[2] || 0), eixo('arrowdown', 'arrowup') - (ax[3] || 0)]];
+  bonecos.forEach((b, i) => {
+    let [lado, vai] = entradas[i].map((v, k) => v + b.entrada[k]);
+    let dx = frente.x * vai - frente.z * lado, dz = frente.z * vai + frente.x * lado;
+    if (Math.hypot(lado, vai) > 0.15) b.destino = null;
+    else if (b.destino) { dx = b.destino[0] - b.pos.x; dz = b.destino[1] - b.pos.z; if (Math.hypot(dx, dz) < 0.1) { b.destino = null; dx = dz = 0; } else { const m = Math.hypot(dx, dz); dx /= m; dz /= m; } }
+    anda(b, dx, dz, dt, tempo);
+  });
+  for (const t of tochas) { const f = 0.9 + 0.1 * Math.sin(tempo * 11 + t.fase) * Math.sin(tempo * 4.3 + t.fase); t.luz.intensity = 1.8 * f; t.sp.scale.setScalar(0.9 * f); }
+  fundo.position.y = REGIAO.yAgua - MODOS[agua.modo].profundidade - 0.1;
+  agua.update(dt, bonecos);
+  orbita.update();
+}
+
+// ---- numbers ----
+// ms per frame is CPU plus GPU: gl.finish() waits for the GPU to really draw before the clock stops.
+const medidas = { ligada: [], desligada: [] }, intervalos = [];
+const media = (a) => (a.length ? a.reduce((s, v) => s + v, 0) / a.length : NaN);
+window.quadro = (dt = 1 / 60) => {
+  const t0 = performance.now();
+  passo(dt); r.render(cena, cam); gl.finish();
+  const ms = performance.now() - t0, fila = medidas[agua.ligada ? 'ligada' : 'desligada'];
+  fila.push(ms); if (fila.length > 240) fila.shift();
+  return ms;
+};
+const num = (v, casas = 2) => (Number.isFinite(v) ? v.toFixed(casas).replace('.', ',') : '—');
+function relatorio() {
+  const e = agua.estatisticas, fps = intervalos.length ? 1000 / media(intervalos) : NaN, on = media(medidas.ligada), off = media(medidas.desligada);
+  return [
+    `Água · teste · ${new Date().toLocaleString('pt-BR')}`,
+    `modo: ${e.modo === 'rasa' ? 'piscina rasa' : 'fosso fundo'} · água ${e.ligada ? 'ligada' : 'desligada'} · aba ${document.visibilityState === 'visible' ? 'visível' : 'oculta (FPS não confiável)'}`,
+    `FPS real: ${num(fps, 1)}`,
+    `ms por quadro (CPU + placa, com gl.finish): ligada ${num(on)} · desligada ${num(off)} · custo da água ${num(on - off)}`,
+    `conta da água no processador: ${num(e.msCpu, 3)} ms por quadro (pico ${num(e.msCpuPico)})`,
+    `grade ${e.grade[0]}x${e.grade[1]} · textura ${e.textura} · ${e.passosPorSegundo} passos/s · ${e.acordada ? 'simulando' : 'em repouso'} · gotas ${e.particulas} · bonecos na água ${e.dentro}`,
+    ...bonecos.map((b) => `boneco ${b.nome}: ${b.estado && b.estado.dentro ? `na água, ${num(b.estado.profundidade)} tile de fundo, anda ${num(b.estado.velocidade)}x, animação "${b.estado.animacao}"` : 'fora da água, anda 1,00x'}`),
+    `tela ${r.domElement.width}x${r.domElement.height} · WebGL${r.capabilities.isWebGL2 ? 2 : 1} · ${navigator.userAgent}`,
+  ].join('\n');
+}
+function pinta() {
+  $('rasa').className = agua.modo === 'rasa' ? 'on' : ''; $('fosso').className = agua.modo === 'fosso' ? 'on' : '';
+  $('liga').className = agua.ligada ? 'on' : ''; $('liga').textContent = agua.ligada ? '💧 Água ligada' : '🚫 Água desligada';
+  $('quem').textContent = `🧍 Boneco ${sel.nome}`;
+}
+$('rasa').onclick = () => { agua.setModo('rasa'); pinta(); };
+$('fosso').onclick = () => { agua.setModo('fosso'); pinta(); };
+$('liga').onclick = () => { agua.setEnabled(!agua.ligada); pinta(); };
+$('quem').onclick = () => { sel = bonecos[(bonecos.indexOf(sel) + 1) % bonecos.length]; pinta(); };
+$('copiar').onclick = async () => {
+  const txt = relatorio(); $('rel').style.display = 'block'; $('rel').value = txt;
+  try { await navigator.clipboard.writeText(txt); $('copiar').textContent = '✅ Copiado'; } catch { $('rel').select(); $('copiar').textContent = '📋 Selecionado: copie daqui'; }
+};
+pinta();
+
+// The self-check of the simulation: a tiny pit and a wide pool, a character that drops in, wades and leaves. Fails
+// if the grid ever blows up or never comes to rest. Run it from the console: lab.autoTeste().
+function autoTeste() {
+  const casos = [['fosso 2x2', { x0: 32, z0: 14, x1: 34, z1: 16, yAgua: 1.6 }, 'fosso', 'auto'], ['rasa 20x12', { x0: 0, z0: 0, x1: 20, z1: 12, yAgua: 0 }, 'rasa', 'auto'], ['rasa 6x4 em bytes', REGIAO, 'rasa', 'bytes'], ['fosso 2x2 com grade 64', { x0: 32, z0: 14, x1: 34, z1: 16, yAgua: 1.6 }, 'fosso', 'auto', 64]];
+  return casos.map(([nome, reg, modo, textura, resolucao]) => {
+    const palco = new THREE.Scene(), a = criarAgua({ THREE, scene: palco, renderer: r, regiao: reg, modo, textura, resolucao }), erros = [];
+    const cx = (reg.x0 + reg.x1) / 2, cz = (reg.z0 + reg.z1) / 2, u = { pos: new THREE.Vector3(reg.x0 - 1, reg.yAgua, cz), raio: RAIO };
+    const plano = a.planoDeCorte(u);
+    let pico = 0;
+    for (let i = 0; i < 2400; i++) {
+      // in at frame 10, wading in circles, a mode flip while inside, out at frame 300, then 35 s of nothing
+      if (i >= 10 && i < 300) u.pos.set(cx + Math.cos(i * 0.05) * 0.5, reg.yAgua - 0.3, cz + Math.sin(i * 0.05) * 0.5); else u.pos.set(reg.x0 - 1, reg.yAgua, cz);
+      if (i === 150) { a.setModo(modo === 'rasa' ? 'fosso' : 'rasa'); a.setModo(modo); }
+      a.update(1 / 60, [u]);
+      if (i === 100 && plano.constant !== -reg.yAgua) erros.push('corte não ligou com o boneco dentro');
+      if (i === 400 && plano.constant !== 1e9) erros.push('corte não soltou com o boneco fora');
+      const y = a.alturaDaAguaEm(cx, cz); if (!Number.isFinite(y)) { erros.push(`altura não finita no quadro ${i}`); break; }
+      pico = Math.max(pico, Math.abs(y - reg.yAgua), a.estatisticas.picoOnda);
+    }
+    if (pico > 1) erros.push(`onda explodiu: ${pico}`);
+    if (pico < 0.005) erros.push('a água não se mexeu');
+    if (a.estatisticas.acordada) erros.push('não voltou ao repouso em 35 s');
+    u.pos.set(cx, reg.yAgua - 0.3, cz); a.update(1 / 60, [u]); a.setEnabled(false);
+    if (plano.constant !== 1e9 || a.profundidadeEm(cx, cz) !== 0 || a.fatorVelocidadeEm(cx, cz) !== 1 || a.animacaoEm(cx, cz) !== 'andar' || a.alturaDaAguaEm(cx, cz) !== null) erros.push('desligada com boneco dentro ainda afeta o boneco');
+    a.dispose();
+    return { nome, grade: a.estatisticas.grade.join('x'), passosPorSegundo: a.estatisticas.passosPorSegundo, pico: +pico.toFixed(4), msPico: +a.estatisticas.msCpuPico.toFixed(3), ok: !erros.length, erros };
+  });
+}
+
+window.lab = { THREE, agua, bonecos, cena, cam, orbita, r, tochas, medidas, relatorio, autoTeste, pausa: false, get sel() { return sel; } };
+let ultimo = performance.now();
+(function laco() {
+  requestAnimationFrame(laco);
+  const agora = performance.now(), dt = (agora - ultimo) / 1000; ultimo = agora;
+  intervalos.push(dt * 1000); if (intervalos.length > 60) intervalos.shift();
+  if (!window.lab.pausa) window.quadro(Math.min(dt, 0.05)); // lab.pausa hands the clock to window.quadro(dt)
+  if ((laco.n = (laco.n || 0) + 1) % 20 === 0) {
+    $('e').textContent = relatorio().split('\n').filter((l) => l.startsWith('boneco')).join('\n');
+    $('n').textContent = relatorio().split('\n').slice(2, 6).join('\n');
+  }
+})();
+</script></body></html>

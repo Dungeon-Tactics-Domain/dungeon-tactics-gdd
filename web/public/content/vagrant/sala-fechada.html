@@ -1,0 +1,1935 @@
+<!doctype html><html lang=pt-BR><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Sala fechada · Vagrant Story</title>
+<link rel=stylesheet href="./sala-menu.css?v=2">
+<link rel=manifest href="./sala-fechada.webmanifest"><meta name=theme-color content="#0c1020"><link rel=apple-touch-icon href="./pwa/apple-touch-icon.png"><meta name=apple-mobile-web-app-capable content=yes><meta name=mobile-web-app-capable content=yes><meta name=apple-mobile-web-app-status-bar-style content=black-translucent>
+<script type=module src="./sala-celular.js?v=2"></script>
+<style>html,body{margin:0;height:100%;overflow:hidden;background:#0c1020}canvas{display:block;touch-action:none}
+/* the measures (Fernando, Nov 18): always on in the top right corner, one a line, key M hides them. Never takes a click
+   or a touch; painel() moves it under the strip when the strip reaches across to it. Same backing as the strip. */
+#medidas{position:fixed;z-index:4;top:max(8px,env(safe-area-inset-top));right:max(8px,env(safe-area-inset-right));box-sizing:border-box;max-width:min(24em,calc(100% - 16px));max-height:calc(100% - 16px);overflow:hidden;padding:4px 8px;background:rgba(8,10,20,.6);color:#fff;font:14px/1.3 system-ui,-apple-system,"Segoe UI",sans-serif;font-variant-numeric:tabular-nums;pointer-events:none}
+#medidas div{display:flex;justify-content:space-between;gap:.75em}#medidas span{opacity:.8}#medidas b{font-weight:600;text-align:right}
+#medidas .bom{color:#8f8}#medidas .baixo{color:#f88}#medidas[hidden],#medidas [hidden]{display:none}</style>
+<div id=faixa role=group aria-label="Sala: opções, boneco e ação"><div class=linha>
+<button type=button id=b-opcoes class=btn aria-haspopup=menu aria-expanded=false aria-controls=menu-grupos><span aria-hidden=true>☰</span> Opções</button>
+<select id=s-boneco aria-label="Boneco escolhido"><option>Bonecos…</option></select>
+<select id=s-acao aria-label="Ação do boneco"></select></div>
+<div id=menu-grupos class=pop role=menu aria-label="Grupos de opções" hidden></div>
+<div id=menu-sub class=pop role=menu hidden></div>
+<p id=detalhe hidden aria-live=polite></p></div>
+<button type=button id=pular hidden>Pular</button>
+<div id=medidas aria-label="Medidas de desempenho"></div>
+<div id=guarda></div>
+<script type="module">
+import * as THREE from './src/three.js'; // the whole package, for fumaca.js and agua.js
+import { Scene, PerspectiveCamera, WebGLRenderer, Box3, Vector2, Vector3, Vector4, Matrix4, Group, Mesh, BoxGeometry, BoxBufferGeometry, CylinderBufferGeometry, ExtrudeBufferGeometry, Shape, CircleGeometry, BufferGeometry, Float32BufferAttribute, MeshBasicMaterial, MeshLambertMaterial, PointLight, AmbientLight, Sprite, SpriteMaterial, Points, LineSegments, LineBasicMaterial, PointsMaterial, CanvasTexture, WebGLRenderTarget, AdditiveBlending, Color, Raycaster, DoubleSide, FrontSide, AnimationMixer, BasicShadowMap, PCFSoftShadowMap, NearestFilter, RepeatWrapping, TextureLoader, LoopOnce, LoopRepeat, Clock, Fog } from './src/three.js';
+import { ZUD } from './src/ZUD.js';
+import { Reader } from './src/Reader.js';
+import { subdividir2x } from './src/subdividir.js';
+import { posesDoPulo, faseDoVoo, VOO, MISTURA, QUADRO } from './pulo-vs.js?v=2';
+import { criarFumaca } from './fumaca.js?v=2'; // the site keeps .js for 4 h: raise v when the file changes
+import { criarAgua, MODOS } from './agua.js?v=7';
+import { ligarAtalhos, iconePad, nomePad } from './ui-vs.js?v=2';
+
+// Test page (Fernando, Nov 17): a closed, irregular, dark gothic dungeon room in Vagrant Story's own proportions, VS
+// characters, a low follow camera, and walls that fade out when they stand between the camera and the room.
+// Units: 1 = one VS tile = 128 raw units of the MPD and SHP files (MPDMesh scales the room by 0.1, the SHP is not
+// scaled), so a character keeps its native size: Ashley ~470 units = ~3.7 tiles. Nothing here is game code.
+
+// Floor plan, one letter per cell of 2x2 tiles: # rock, . floor, - dais (2 tiles up), > < ^ v stairs climbing east,
+// west, north, south (1 tile per cell), o column, ~ shallow puddle (walkable), = water pit (floor at -2, entered only
+// by swimming, while its water is on).
+// ?planta=dullahan15 (default since Nov 17) comes from planta-chefe.js; ?planta=antiga is the first room, kept as it
+// was. The . inside its dais is a pit.
+const PLANTA_ANTIGA = [
+  '####################',
+  '######.......#######',
+  '######.o...o.#######',
+  '###..........#######',
+  '###.##.......>>---##',
+  '###..#.o...o.>>---##',
+  '######.......##---##',
+  '#######.....###-.-##',
+  '#######.....########',
+  '#########..#########',
+  '########...#.#######',
+  '#########......#####',
+  '#############.######',
+  '####################',
+];
+const CEL = 2, ALTO = { '.': 0, '-': 2, '~': 0, '=': -2 }, ANDA = '.->^v<~';
+// stairs: the way each stair letter climbs, as a cell step (x east, z south)
+const SOBE = { '>': [1, 0], '<': [-1, 0], '^': [0, -1], v: [0, 1] };
+// Ceiling height in tiles: VS halls measure 8 to 9 floor-to-ceiling (rooms 011/025 and 024/085, corridors 6), so 9
+// in the old room (the plan files bring their own); the texture repeats every TEX tiles (32 texels per tile on the
+// 128-texel crops).
+const TETO_ANTIGA = 9, TEX = 4, VEL = 3;
+// Jump (Fernando, Nov 17): Vagrant Story's own arc. SALTO is the highest point in tiles: 1.3 = the 165 raw units of
+// BATTLE.PRG's arc (pulo-LEIAME.md), which clears a stair step (0.25) and a 1-tile ledge but not a dais (2 tiles: the
+// airborne rule in livre() lets him onto a floor up to 0.6 above his feet, so 1.5 reached the dais and 1.3 does not).
+// GRAV 21 tiles/s2 is the game's +3 units per frame at 30 frames a second, so the jump lasts ~0.7 s as in the game.
+const SALTO = 1.3, GRAV = 21, PULO0 = Math.sqrt(2 * GRAV * SALTO);
+// the crouch before take-off (6 game frames standing in the game, func_800A48CC) and the landing hold: per weight, in PESOS
+const EMERGE = 6; // tiles per second a swimmer rises over the pit's rim
+// Lights on the map: cell, the side of the cell the torch hangs on (a wall or a column face), or a floor brazier.
+const FOGOS_ANTIGA = [
+  { cx: 9, cz: 1, dx: 0, dz: -1 }, { cx: 12, cz: 1, dx: 1, dz: 0 }, { cx: 3, cz: 3, dx: -1, dz: 0 }, { cx: 3, cz: 5, dx: -1, dz: 0 },
+  { cx: 7, cz: 2, dx: 0, dz: 1, coluna: true }, { cx: 11, cz: 5, dx: 0, dz: -1, coluna: true }, { cx: 7, cz: 8, dx: -1, dz: 0 },
+  { cx: 8, cz: 10, dx: -1, dz: 0 }, { cx: 12, cz: 10, dx: 0, dz: -1 }, { cx: 14, cz: 11, dx: 1, dz: 0 },
+  { cx: 17, cz: 4, braseiro: true }, { cx: 17, cz: 6, braseiro: true },
+];
+// Every lit torch lights the walls around it (Lambert lights each vertex, PSX style), wherever the camera is: see
+// LUZES beside the lights. A fixed count keeps the shader from recompiling.
+// ALCANCE: a torch lights ~10 tiles around it, so the room between torches stays dark.
+const ALCANCE = 10, COR_FOGO = new Color(1, 0.62, 0.3), AMBIENTE = new Color(0.04, 0.045, 0.07), NEVOA = 0x0c1020;
+// Texture sets (?tex=vs|gemini|local|ia): ./sala-tex/<set>/ with the file names of _estudo-vagrant/texturas-ia/referencia (the VS crops);
+// a file missing from gemini/ or local/ falls back to the VS one.
+const ARQ = { parede: '01_parede_pedra_clara', chao: '08_chao_claro', teto: '07_parede_escura', coluna: '02_tijolo' };
+const ELENCO_ANTIGA = [
+  { zud: 'Z001U00', nome: 'Ashley', x: 8, z: 3 },
+  { zud: 'Z009U00', nome: 'Espadachim', x: 10, z: 7 },
+  { zud: 'Z028U04', nome: 'Esqueleto', x: 11, z: 11 },
+  { zud: 'Z050U03', nome: 'Minotauro', x: 16, z: 5 },
+];
+// 4 against 4 on a plan with spawns: the four models above plus two allies from cena-batalha.html and a second
+// skeleton and minotaur; names stay unique (the buttons find the selected one by name). Allies face north, enemies south.
+const ALIADOS = [['Z001U00', 'Ashley'], ['Z009U00', 'Espadachim'], ['Z009U09', 'Besteiro'], ['Z060U00', 'Maga']];
+const INIMIGOS = [['Z028U04', 'Esqueleto'], ['Z050U03', 'Minotauro'], ['Z028U04', 'Esqueleto 2'], ['Z050U03', 'Minotauro 2']];
+// Gesture slots, as in cena-batalha.html (the slot is the same for every character, the raw clip index is not).
+const GESTOS = { parado: [1], andar: [13, 14], correr: [19, 20], golpe: [72], magia: [85, 87, 88, 89, 90] };
+const LACO = ['parado', 'andar', 'correr']; // the gestures that loop; the others play once and go back to standing
+
+const $ = (i) => document.getElementById(i), Q = new URLSearchParams(location.search);
+// Weight of the character (Fernando, Nov 18: "more weight in the walk: turn rate, more weight in the jump, delays to
+// start and stop, ease in/out, no abrupt change between animations"). Starting values from him, tuned by measuring:
+// giro = top turn speed (degrees a second); partida / parada = seconds to 90% of the speed and back to 10% of it;
+// freio = how much a sharp turn eats the speed (0 none, 1 stops to turn around); agacha = crouch before a jump and
+// pouso = landing held, in game frames (standing, moving): leve keeps the jump of before (6 / 3 and 8); recupera =
+// share of the speed kept while the landing lasts. ?peso=leve|medio|pesado, key P, default pesado (Fernando, Nov 18).
+const PESOS = {
+  leve: { giro: 900, partida: 0.08, parada: 0.08, freio: 0, agacha: [6, 3], pouso: 8, recupera: 1 },
+  medio: { giro: 540, partida: 0.15, parada: 0.2, freio: 0.5, agacha: [8, 4], pouso: 11, recupera: 0.5 },
+  pesado: { giro: 270, partida: 0.3, parada: 0.35, freio: 0.85, agacha: [11, 6], pouso: 16, recupera: 0.25 },
+};
+let peso = PESOS[Q.get('peso')] ? Q.get('peso') : 'pesado';
+
+// ---- interface (Fernando, Nov 18: layout A of the menu prototypes, shadcn look, sala-menu.css) --------------------
+// A bar in the top corner: Opções, Boneco and Ação. Opções opens six groups, each a submenu of boxes and radio rows
+// with a sentence on every item. Every control the code below reads keeps its id and waits hidden in #guarda (the
+// code reads .value and .checked and calls .onchange() and .click()); the menu rows only show and set them. Built
+// before anything loads, so the ids exist.
+const calmo = matchMedia('(prefers-reduced-motion: reduce)').matches; // no torch flicker and no strobing bolt then
+let sel = null, unidades = [], pronta = false, correTq = false, fixa = null, porPonteiro = false;
+let mundo = null; // what planta-mundo.js built (door, sun, hours), null on the other plans
+const ACOES = { porta: () => mundo?.alternaPorta(), fixa: () => alternaFixa(),atacar: () => ataca(sel), fogo: () => conjura(sel, 'fogo'), raio: () => conjura(sel, 'raio'), tocha: () => { sel.leva.ligada = !sel.leva.ligada; pinta(); }, pular: () => pula(sel) };
+// Shift runs while held; from the Ação select (no Shift on touch) run stays on until picked again
+const onAcao = (id, fase) => { if (id === 'correr') { correTq = fase === 'aperta'; enchaAcoes(); } else if (sel) ACOES[id](); };
+// the action keys, for the kit's ligarAtalhos (it only reads acoes and calls destacar and disparar)
+const barra = { acoes: [['atacar', 'k'], ['fogo', 'f'], ['raio', 'r'], ['tocha', 't'], ['pular', ' '], ['correr', 'shift']].map(([id, tecla]) => ({ id, tecla, segurar: id === 'correr' })), destacar() {}, disparar: (id, fase = 'aperta') => onAcao(id, fase) };
+// [action, keyboard, gamepad: button ids of the standard mapping (0-15) or 'LS' / 'RS', with words between]
+const CONTROLES = [
+  ['Andar', 'W A S D ou setas; no toque, tocar no chão', ['LS']],
+  ['Correr', 'Shift (segurar) ou Ação › Correr', [7, '(segurar)']],
+  ['Pular', 'Espaço; no toque, o botão Pular', [0]],
+  ['Câmera', 'arrastar, roda', ['RS', 'e direcional cima e baixo']],
+  ['Atacar', 'K', [2]], ['Magia fogo', 'F', [1]], ['Magia raio', 'R', [6]], ['Tocha na mão', 'T', [3]],
+  ['Acender ou apagar a tocha fixa (perto dela)', 'E', ['apertar o', 'RS']],
+  ['Trocar boneco (os 8)', 'Q e E (E longe de tocha fixa)', [4, 5, 'ou direcional dos lados']],
+  ['Menu de opções', 'G abre, setas andam, Esc volta e fecha', [9, 'abre; nele o direcional anda, A escolhe, B volta']],
+  ['Sombras', '1', [8]],
+  ['Peso do boneco (leve, médio, pesado)', 'P', ['sem botão']],
+  ['Partículas, fumaça, tochas', '2, 3, 4', ['sem botão']],
+  ['Resolução, malha dos bonecos, água, escuridão', '5, 6, 7, 8', ['sem botão']],
+  ['Sombra difusa: penumbra, cantos, luz assada', '9, 0, L', ['sem botão']],
+  ['Esconder ou mostrar as medidas do canto', 'M', ['sem botão']],
+];
+// what the browser says about the gamepad, live (Fernando, Nov 17: his real controller did nothing on the page)
+const DIAG = [['estado', 'Estado'], ['nome', 'Controle em uso'], ['mapa', 'Mapeamento'], ['tamanho', 'Botões, eixos'], ['apertados', 'Botões apertados agora'], ['eixos', 'Eixos agora'], ['vistos', 'Controles vistos pelo navegador'], ['eventos', 'Eventos: conectou, desconectou']];
+const diag = Object.fromEntries(DIAG.map(([id]) => [id, 'nenhum controle visto']));
+// the readings of painel(), kept for the report and for the measures in the top right corner
+const medidor = { v: {}, atualizar(v) { Object.assign(this.v, v); } };
+const MEDIDAS = [['fps', 'Quadros por segundo', 'Quantos quadros a página desenha por segundo; 50 ou mais é bom.'], ['quadro', 'Quadro: média, pior', 'Tempo entre um quadro e o próximo no último segundo: a média e o pior.'], ['cpu', 'Desenho (CPU)', 'Tempo do processador para mandar desenhar um quadro.'], ['chamadas', 'Chamadas de desenho', 'Quantos pedidos de desenho vão à placa de vídeo a cada quadro.'], ['tris', 'Triângulos', 'Quantos triângulos são desenhados a cada quadro.'],
+  ['luzes', 'Luzes ativas, com sombra', 'Luzes acesas agora e quantas delas projetam sombra.'], ['fumaca', 'Fumaça (CPU; desenha a cena 2x)', 'Se a fumaça está ligada, a qualidade e o tempo do processador que ela gasta.'], ['agua', 'Água (CPU)', 'Se a água está ligada, o tempo que gasta e quantos bonecos estão dentro.'], ['medida', 'Medido por quadro', 'Resultado do botão Medir fumaça e água.'], ['difusa', 'Sombra difusa', 'Quais sombras difusas estão ligadas e o custo dos cantos escurecidos.'], ['medidaDifusa', 'Sombra difusa, medida por quadro', 'Resultado do botão Medir sombra difusa.'], ['particulas', 'Partículas', 'Quantas partículas estão no ar agora.'],
+  ['bonecos', 'Triângulos dos bonecos', 'Triângulos dos bonecos: na malha escolhida, na original e na dobrada.'], ['memoria', 'Texturas, geometrias', 'Texturas e geometrias guardadas na placa de vídeo.'], ['tela', 'Tela', 'Tamanho da janela e quantos pixels são desenhados por ponto.'], ['controle', 'Controle', 'Nome do controle em uso.'], ['aba', 'Aba', 'Se a aba está à vista; escondida, os números não valem.'], ['conjunto', 'Texturas da sala', 'De onde vieram as texturas da sala.']];
+const faixa = $('faixa'), sB = $('s-boneco'), sA = $('s-acao'), bO = $('b-opcoes'), mG = $('menu-grupos'), mS = $('menu-sub'), det = $('detalhe'), guarda = $('guarda');
+const opt = (v, t, desligada) => Object.assign(document.createElement('option'), { value: v, textContent: t, disabled: !!desligada });
+// the kinds of item: a real select (its options say "value — what it means"), a switch (a hidden checkbox the menu
+// shows as a box), an action (a row that does it), a reading (explica is then a function, read live)
+const seletor = (id, titulo, explica, opcoes) => { const el = Object.assign(document.createElement('select'), { id, className: 'valor' }); el.setAttribute('aria-label', titulo); el.append(...opcoes.map(([v, t, e]) => opt(v, e ? t + ' — ' + e : t))); guarda.append(el); return { id, titulo, explica, tipo: 'sel', el }; };
+const caixa = (id, titulo, explica, ligado = false, sim = 'Ligada', nao = 'Desligada') => {
+  const el = Object.assign(document.createElement('input'), { type: 'checkbox', id, checked: ligado }), ler = () => (el.checked ? '1' : '0'); guarda.append(el);
+  return { id, titulo, explica, tipo: 'espelho', el, opcoes: [['1', sim], ['0', nao]], ler, poe: (v) => { if (ler() !== v) el.click(); } };
+};
+const botao = (id, titulo, explica) => { const el = Object.assign(document.createElement('button'), { type: 'button', id, textContent: titulo }); guarda.append(el); return { id, titulo, explica, tipo: 'acao', el }; };
+const info = (id, titulo, explica) => ({ id, titulo, explica, tipo: 'info' });
+// a fifth kind: a short number field shown in the menu, with a button beside it that does `faz` (botao)
+const campo = (id, titulo, explica, valor, botao) => { const el = Object.assign(document.createElement('input'), { id, type: 'number', step: 1, value: valor }); el.setAttribute('aria-label', titulo); guarda.append(el); return { id, titulo, explica, tipo: 'campo', el, botao }; };
+// a report box shows under the strip only when the browser refuses the clipboard
+const caixaTexto = (id, rotulo) => { const el = Object.assign(document.createElement('textarea'), { id, readOnly: true, hidden: true }); el.setAttribute('aria-label', rotulo); faixa.append(el); return el; };
+const rel = caixaTexto('rel', 'Relatório para copiar'), relPad = caixaTexto('pad-rel', 'Diagnóstico do controle para copiar');
+// The measures in the top right corner (Fernando, Nov 18): all 18 by default, ready profiles as a shortcut and one box
+// per measure; the pick is kept in this browser. ?overlay=0 starts them hidden, for the agents' screenshots only.
+const quadroM = $('medidas'), CHAVE_M = 'dt:sala-medidas2', /* new key: the old one saved "all 18" for every visitor, so only a new key brings the new default */ TODAS_M = MEDIDAS.map(([id]) => id);
+const PERFIS = { minimo: ['fps'], efeitos: ['fps', 'quadro', 'chamadas', 'tris', 'luzes', 'fumaca', 'agua', 'difusa', 'particulas'], tudo: TODAS_M };
+let salvasM = PERFIS.minimo;
+try { const l = JSON.parse(localStorage.getItem(CHAVE_M)); if (Array.isArray(l) && l.some((id) => TODAS_M.includes(id))) salvasM = l; } catch { /* blocked or broken: all of them */ }
+quadroM.hidden = Q.get('overlay') === '0';
+const linhasM = MEDIDAS.map(([, rotulo]) => { const d = document.createElement('div'), b = document.createElement('b'); d.append(Object.assign(document.createElement('span'), { textContent: rotulo }), b); quadroM.append(d); return { d, b }; });
+const caixasM = MEDIDAS.map(([id, rotulo, explica]) => caixa('m-' + id, rotulo, explica, salvasM.includes(id), 'Aparece', 'Escondida'));
+const escolhidasM = () => TODAS_M.filter((_, i) => caixasM[i].el.checked);
+function poeMedidas() { caixasM.forEach((c, i) => (linhasM[i].d.hidden = !c.el.checked)); try { localStorage.setItem(CHAVE_M, JSON.stringify(escolhidasM())); } catch { /* not kept, still shown now */ } }
+caixasM.forEach((c) => (c.el.onchange = poeMedidas)); poeMedidas();
+const perfilM = () => { const e = escolhidasM().join(); return Object.keys(PERFIS).find((p) => PERFIS[p].join() === e) || 'escolhidas'; };
+// under the strip when the strip reaches across to it (a narrow screen, an open chain), and above the Pular button
+function poeLugarM() {
+  const f = faixa.getBoundingClientRect(), p = $('pular').getBoundingClientRect(); quadroM.style.top = '';
+  const topo = f.right + 8 > quadroM.getBoundingClientRect().left ? f.bottom + 4 : quadroM.getBoundingClientRect().top;
+  quadroM.style.top = topo + 'px'; quadroM.style.maxHeight = (p.height ? p.top - 4 : innerHeight - 8) - topo + 'px';
+}
+new ResizeObserver(poeLugarM).observe(faixa);
+// Every item says what it is in plain Portuguese, its technical name in brackets where there is one, and one sentence
+// of what it does; so does every option (Fernando, Nov 18). The sections stay apart: planta-mundo.js adds items to
+// 'luz' and 'texturas' by id, and the torches arrive once the plan is loaded.
+const CATS = [
+  { id: 'planta', titulo: 'Sala', itens: [
+    seletor('planta', 'Sala (planta)', 'Troca o mapa inteiro; a página recarrega.', [['dullahan15', 'Dullahan 1,5x', 'Sala do chefe uma vez e meia maior, quatro contra quatro.'], ['antiga', 'Sala antiga', 'A primeira sala, menor, com quatro bonecos.'], ['mundo', 'Mundo', 'Caverna, corredor, salão, clareira com rio e uma casa por dentro.']])] },
+  { id: 'texturas', titulo: 'Texturas', itens: [
+    seletor('tex', 'Texturas da sala', 'De onde vêm as imagens das paredes, do chão e do teto; a página recarrega.', [['vs', 'Originais do Vagrant Story', 'Recortes das texturas do próprio jogo.'], ['gemini', 'Gemini', 'Geradas no Gemini a partir dos recortes.'], ['local', 'Geradas no computador', 'Geradas por inteligência artificial neste computador.'], ['ia', 'Mistura das duas', 'As do Gemini e as do computador juntas.']])] },
+  { id: 'agua', titulo: 'Água', itens: [
+    caixa('t-agua', 'Água simulada (equação de onda)', 'Poça e fosso com ondas que respondem aos passos; desligada, a poça vira chão e o fosso fecha. Tecla 7.', true)] },
+  // one item per fixed torch and brazier is added once the plan is loaded (the plan comes after this block)
+  { id: 'tochas', titulo: 'Tochas', itens: [
+    { id: 'todas', titulo: 'Todas as tochas', explica: 'Acende ou apaga todas de uma vez; a tecla 4 apaga e, de novo, devolve as que estavam acesas.', tipo: 'espelho', opcoes: [['1', 'Acesas'], ['0', 'Apagadas'], ['algumas', 'Algumas acesas', true]],
+      ler: () => (fogos.every(acesa) ? '1' : fogos.some(acesa) ? 'algumas' : '0'), poe: (v) => { poeTochas(v === '1' ? 'todas' : 'nao'); tochasNaURL(); } },
+    seletor('acesas', 'Acesas ao acaso (sorteio com semente)', 'Sorteia quais tochas ficam acesas; mexer numa tocha à mão vira Manual.', [['manual', 'Manual', 'Cada tocha como você deixou, uma a uma abaixo.'], ['0', '0 %', 'Todas apagadas.'], ['25', '25 %', 'Um quarto acesas.'], ['50', '50 %', 'Metade acesas.'], ['75', '75 %', 'Três quartos acesas.'], ['100', '100 %', 'Todas acesas.']]),
+    campo('semente', 'Semente do sorteio', 'O mesmo número acende sempre as mesmas tochas; Sortear troca o número (com 0 % ou 100 % nada muda).', 1, 'Sortear')] },
+  { id: 'luz', titulo: 'Luz da sala', itens: [
+    seletor('escuro', 'Luz da sala (luz ambiente)', 'Quanto da sala aparece onde nenhuma tocha alcança. Tecla 8 troca.', [['0', 'Penumbra azul', 'Uma luz ambiente azul e fraca deixa ver a sala inteira.'], ['1', 'Escuridão total', 'Sem luz ambiente: só tochas, braseiros e magias iluminam.']]),
+    seletor('nevoa', 'Névoa de distância (neblina linear)', 'Escurece o que está longe da câmera, como o limite de visão do PlayStation.', [['desligada', 'Desligada', 'Cada lugar fica com a luz que as tochas dão, perto ou longe.'], ['fraca', 'Fraca', 'Começa no mesmo ponto e vai quatro vezes mais longe: só um toque de profundidade.'], ['hoje', 'Como antes', 'A névoa original: tudo some no azul entre 8 e 42 casas da câmera.']])] },
+  { id: 'sombras', titulo: 'Sombras', itens: [
+    seletor('sombras', 'Tipo de sombra (mapa de sombras)', 'Sombra projetada pelas duas tochas mais perto; a tecla 1 liga e desliga.', [['nao', 'Desligadas', 'Nenhuma sombra projetada: o mais leve.'], ['dura', 'Duras (filtro básico)', 'Borda serrilhada, um ponto do mapa por pixel, como no PlayStation.'], ['suave', 'Suaves (filtro PCF, média de vizinhos)', 'Borda borrada pela média de vários pontos do mapa de sombras.']])] },
+  { id: 'difusa', titulo: 'Sombra difusa', itens: [
+    caixa('t-pcss', 'Penumbra que alarga (PCSS)', 'A sombra borra mais longe de quem a projeta, como na luz de verdade; liga as sombras suaves. Pesa no celular. Tecla 9.'),
+    caixa('t-ssao', 'Cantos escurecidos (SSAO, oclusão de ambiente na tela)', 'Escurece cantos e frestas lendo a profundidade do que está na tela. Pesa no celular. Tecla 0.'),
+    caixa('t-lm', 'Luz rebatida assada (lightmap)', 'Luz indireta das tochas calculada uma vez e guardada em cada vértice. Leve, também no celular. Tecla L.')] },
+  { id: 'malha', titulo: 'Malha e textura', itens: [
+    seletor('dobro', 'Malha dos bonecos (subdivisão)', 'Quantos triângulos formam cada boneco. Tecla 6 troca.', [['1', 'Dobro', 'Cada triângulo vira dois: o dobro do original, com a mesma forma.'], ['0', 'Original', 'A malha do jogo, sem mudar nada.'], ['malha', 'Ver malha (wireframe)', 'Mostra as arestas: amarelo a original, azul a dobrada.'], ['suave', 'Suave (subdivisão com suavização)', 'Divide em quatro e arredonda as quinas; mãos, armas e escudos ficam como estão.']]),
+    seletor('texbonecos', 'Textura dos bonecos', 'A pele e a roupa dos bonecos; as de 4K só baixam ao escolher e pesam no celular.', [['original', 'Original', 'A textura do jogo, pequena e pixelada.'], ['4k-pixelada', '4K pixelada (ampliação sem filtro)', 'A original ampliada sem inventar detalhe.'], ['4k-realesrgan-x4plus', '4K x4plus (Real-ESRGAN)', 'Ampliada por inteligência artificial de uso geral.'], ['4k-realesr-animevideov3-x4', '4K animevideov3 (Real-ESRGAN)', 'Ampliada por inteligência artificial treinada em vídeo de anime, a mais rápida.'], ['4k-realesrgan-x4plus-anime', '4K x4plus anime (Real-ESRGAN)', 'Ampliada por inteligência artificial treinada em desenho de anime.'], ['4k-realesrgan-x4plus-sdxl-img2img', '4K x4plus com retoque (Real-ESRGAN e Stable Diffusion)', 'Ampliada e depois retocada por geração de imagem.']])] },
+  { id: 'luzbonecos', titulo: 'Luz nos bonecos', itens: [
+    seletor('bonecos', 'Luz nos bonecos (iluminação por pixel)', 'Como a luz das tochas pinta o corpo dos bonecos.', [['some', 'Some fora da luz', 'Luz direta das tochas e descarte de pixels com pontilhado (discard com dither): o boneco some onde não há luz.'], ['direta', 'Só luz direta', 'Só as tochas iluminam (luzes pontuais): o lado sem luz fica preto, um recorte.'], ['antes', 'Como antes', 'Iluminação padrão (Lambert) com luz de enchimento: o boneco aparece sempre.']]),
+    seletor('some', 'Como o boneco some', 'Vale só com Some fora da luz: decide o que some e o que fica.', [['silhueta', 'Abraça com silhueta mínima', 'Luz que abraça mais um piso de luz azul fria de 8 % (contorno): o boneco nunca some por inteiro.'], ['abraca', 'Luz que abraça (half-Lambert)', 'Meia luz de Lambert com piso de 0,2, normal suave e ruído de gradiente: lados e costas aparecem perto da tocha.'], ['inteiro', 'Boneco inteiro', 'Decide pelo corpo todo: se a luz toca pés, peito ou cabeça, ele aparece inteiro.'], ['agora', 'Como estava', 'Lambert por face (facetado) e padrão Bayer 4x4 (pontilhado em grade).']])] },
+  { id: 'movimento', titulo: 'Movimento', itens: [
+    seletor('peso', 'Peso do boneco (inércia)', 'Quanto custa virar, arrancar, parar e pular. Tecla P.', [['leve', 'Leve', 'Gira 900 graus por segundo, arranca e para em 0,08 s.'], ['medio', 'Médio', 'Gira 540 graus por segundo, arranca em 0,15 s e para em 0,2 s.'], ['pesado', 'Pesado', 'Gira 270 graus por segundo, arranca em 0,3 s e para em 0,35 s.']])] },
+  { id: 'particulas', titulo: 'Partículas', itens: [
+    seletor('part', 'Poeira e faíscas (partículas)', 'Grãos de poeira no ar e faíscas que sobem das tochas. Tecla 2 liga e desliga.', [['todas', 'Muitas', 'Toda a poeira (350 grãos) e todas as faíscas.'], ['poucas', 'Poucas', 'Metade da poeira e metade das faíscas.'], ['brasas', 'Só faíscas', 'Sem poeira no ar.'], ['poeira', 'Só poeira', 'Sem faíscas nas tochas.'], ['nao', 'Desligadas', 'Nenhuma partícula: o mais leve.']])] },
+  { id: 'fumaca', titulo: 'Fumaça', itens: [
+    caixa('t-nevoa', 'Fumaça 3D (volume de ruído percorrido por raios)', 'Fumaça dos braseiros e do fosso, iluminada pelas tochas; desenha a cena duas vezes. Tecla 3.', true),
+    seletor('f-qual', 'Qualidade da fumaça (resolução do passe)', 'Em quantos pixels a fumaça é calculada.', [['alta', 'Alta', 'Na resolução cheia da tela.'], ['baixa', 'Baixa', 'Na metade da resolução: mais leve.']]),
+    seletor('f-dens', 'Densidade da fumaça', 'Quanto a fumaça tapa a vista.', [['0', '0', 'Sem fumaça.'], ['0.5', '0,5', 'Leve.'], ['1', '1', 'Média.'], ['1.2', '1,2', 'A de sempre.'], ['1.5', '1,5', 'Densa.'], ['2', '2', 'Muito densa.'], ['3', '3', 'O máximo.']])] },
+  { id: 'desempenho', titulo: 'Desempenho', itens: [
+    { id: 'perfil', titulo: 'Medidas do canto', explica: 'Quais números aparecem no canto de cima, à direita; abaixo, um a um. A tecla M esconde e mostra.', tipo: 'espelho',
+      opcoes: [['minimo', 'Mínimo: só FPS'], ['efeitos', 'Efeitos: quadros e o que pesa'], ['tudo', 'Tudo: as 18'], ['escolhidas', 'Escolhidas uma a uma', true]],
+      ler: perfilM, poe: (v) => { if (!PERFIS[v]) return; caixasM.forEach((c, i) => (c.el.checked = PERFIS[v].includes(TODAS_M[i]))); poeMedidas(); } },
+    ...caixasM,
+    seletor('res', 'Resolução (pixels por ponto)', 'Quantos pixels a placa de vídeo desenha por ponto da tela. Tecla 5 troca.', [['auto', 'Automática', 'A do aparelho, até 2 (1,5 no celular).'], ['1', '1', 'Um pixel por ponto: nítido numa tela comum.'], ['0.75', '0,75', 'Três quartos: um pouco borrado e mais leve.'], ['0.5', '0,5', 'Metade: borrado, o mais leve.']]),
+    botao('medir', 'Medir fumaça e água', 'Mede o custo de cada uma por quadro, com a placa de vídeo; a sala para um instante.'),
+    botao('medir-difusa', 'Medir sombra difusa', 'Mede o custo das três sombras difusas por quadro; a sala para alguns segundos.'),
+    botao('copiar', 'Copiar relatório', 'Copia as 18 leituras e o estado da sala para colar no chat.')] },
+  { id: 'controles', titulo: 'Teclas e botões', itens: [
+    seletor('estilo', 'Nomes dos botões do controle', 'Como a lista abaixo chama os botões do controle.', [['auto', 'Automático', 'Pelo controle conectado.'], ['xbox', 'Xbox', 'A, B, X e Y.'], ['ps', 'PlayStation', 'Cruz, círculo, quadrado e triângulo.']]),
+    ...CONTROLES.map(([a, t, p], i) => info('c' + i, a, () => `teclado ${t} · controle ${p.map((x) => (typeof x === 'number' || x === 'LS' || x === 'RS' ? nomePad(x, estilo()) : x)).join(' ')}`))] },
+  { id: 'controle', titulo: 'Diagnóstico do controle', itens: [
+    ...DIAG.map(([id, t]) => info('pad-' + id, t, () => diag[id])),
+    botao('pad-copiar', 'Copiar diagnóstico', 'Copia o que o navegador vê do controle para colar no chat.')] },
+];
+// the six groups of the Opções menu (layout A of the prototype), each a list of the sections above
+const GRUPOS = [
+  { id: 'cena', titulo: 'Cena', resumo: 'sala, texturas, água, tochas', cats: ['planta', 'texturas', 'agua', 'tochas'] },
+  { id: 'luz', titulo: 'Luz e sombras', resumo: 'escuridão, névoa, sombras', cats: ['luz', 'sombras', 'difusa'] },
+  { id: 'bonecos', titulo: 'Bonecos', resumo: 'malha, textura, luz, peso', cats: ['malha', 'luzbonecos', 'movimento'] },
+  { id: 'efeitos', titulo: 'Efeitos', resumo: 'poeira, faíscas, fumaça', cats: ['particulas', 'fumaca'] },
+  { id: 'desempenho', titulo: 'Desempenho', resumo: 'medidas, resolução', cats: ['desempenho'] },
+  { id: 'controles', titulo: 'Controles e diagnóstico', resumo: 'teclas, botões, controle', cats: ['controles', 'controle'] },
+];
+const ITENS = {}; for (const c of CATS) for (const it of c.itens) ITENS[it.id] = it;
+$('f-dens').value = '1.2'; // the smoke's own starting density (criarFumaca below gets 1.2 too)
+// the hidden switch of the shadows: key 1 and the pad's Select flip it; the strip shows the shadow select instead
+guarda.append(Object.assign(document.createElement('input'), { type: 'checkbox', id: 't-sombra' }));
+let atualCat = null, grupoAberto = null, menuAberto = false, montados = [], avisoAte = 0;
+const explicaDe = (it) => (typeof it.explica === 'function' ? it.explica() : it.explica);
+function poeDetalhe(t) { if (det.textContent !== t) det.textContent = t; det.hidden = !t; }
+// notices show under the bar for their time (the explanations now live in the menu itself)
+const aviso = { el: det, mostrar(texto, { ms = 5000 } = {}) { avisoAte = performance.now() + ms; poeDetalhe(texto); } };
+// ---- the Opções menu (Fernando, Nov 18: layout A of menu-prototipos.html) ----------------------------------------------
+// Opções opens the six groups; a group opens its submenu beside the list, or in its place with a Voltar row on a
+// narrow screen. The rows only show and set the real controls kept in #guarda (the code reads their .value and
+// .checked and calls their onchange), and each row keeps how to read its state, so the frame loop repaints it.
+const ESTREITO = 700; // under this width the submenu takes the list's place: list 280 + submenu 400 do not fit
+const no = (tag, cls, props) => Object.assign(document.createElement(tag), cls ? { className: cls } : {}, props);
+const ehCaixa = (it) => it.tipo === 'espelho' && it.opcoes.length === 2 && it.opcoes[0][0] === '1';
+function linha(papel, marca, rotulo, ajuda, estado, faz, desligada) {
+  const b = no('button', 'row', { type: 'button' }), t = no('span', 'txt'); b.setAttribute('role', papel);
+  if (marca) b.append(no('span', marca, { ariaHidden: 'true' }));
+  t.append(no('span', '', { textContent: rotulo })); if (ajuda) t.append(no('span', 'ajuda', { textContent: ajuda })); b.append(t);
+  if (desligada) b.setAttribute('aria-disabled', 'true');
+  else b.onclick = () => { faz(); pintaMenu(); if (porPonteiro && b.isConnected) b.blur(); }; // by mouse or finger the keys go back to the game
+  b.estado = estado; return b;
+}
+const cabeca = (it) => { const d = no('div', 'item'); d.append(no('div', 'nome', { textContent: it.titulo }), no('div', 'ajuda', { textContent: explicaDe(it) })); return d; };
+const marcar = (b, id, v) => { b.dataset.item = id; if (v !== undefined) b.dataset.v = v; return b; };
+function linhasDe(it) {
+  if (ehCaixa(it)) return [marcar(linha('menuitemcheckbox', 'chk', it.titulo, explicaDe(it), () => it.ler() === '1', () => it.poe(it.ler() === '1' ? '0' : '1')), it.id)];
+  if (it.tipo === 'sel') return [cabeca(it), ...[...it.el.options].map((o) => { const [t, e] = o.text.split(' — '); return marcar(linha('menuitemradio', 'rad', t, e, () => it.el.value === o.value, () => { it.el.value = o.value; it.el.dispatchEvent(new Event('change')); }, o.disabled), it.id, o.value); })];
+  if (it.tipo === 'espelho') return [cabeca(it), ...it.opcoes.map(([v, t, d]) => marcar(linha('menuitemradio', 'rad', t, '', () => it.ler() === v, () => it.poe(v), d), it.id, v))];
+  if (it.tipo === 'acao') return [marcar(linha('menuitem', '', it.titulo, explicaDe(it), null, () => (it.faz ? it.faz() : it.el.click())), it.id)];
+  if (it.tipo === 'campo') { const c = no('div', 'campo'), b = marcar(no('button', 'btn', { type: 'button', textContent: it.botao }), it.id); b.onclick = () => { it.faz(); if (porPonteiro) b.blur(); }; c.append(it.el, b); montados.push(it.el); return [cabeca(it), c]; }
+  const d = marcar(no('div', 'row info'), it.id), t = no('span', 'txt'), v = no('span', 'ajuda'); t.append(no('span', 'nome', { textContent: it.titulo }), v); d.append(t); d.vivo = () => explicaDe(it); d.valor = v; return [d]; // a reading
+}
+const devolve = () => { guarda.append(...montados); montados = []; }; // the number fields go back to #guarda
+function abreMenu() {
+  menuAberto = true; bO.setAttribute('aria-expanded', 'true'); faixa.classList.toggle('estreito', innerWidth < ESTREITO);
+  mG.replaceChildren(...GRUPOS.map((g) => { const b = linha('menuitem', '', g.titulo, '', null, () => (grupoAberto === g.id ? voltaLista(false) : abreGrupo(g.id))); b.dataset.grupo = g.id; b.setAttribute('aria-haspopup', 'menu'); b.setAttribute('aria-expanded', String(grupoAberto === g.id)); b.classList.toggle('aberto', grupoAberto === g.id); b.append(no('span', 'v', { textContent: g.resumo }), no('span', '', { textContent: '›', ariaHidden: 'true' })); return b; }));
+  mG.hidden = !!grupoAberto && innerWidth < ESTREITO;
+}
+function abreGrupo(id, foco) {
+  const g = GRUPOS.find((x) => x.id === id); devolve(); grupoAberto = id; atualCat = g.cats[0];
+  const topo = no('div', 'titulo-sub');
+  if (innerWidth < ESTREITO) { const v = linha('menuitem', '', '‹ Voltar', '', null, () => voltaLista(true)); v.dataset.voltar = ''; mS.replaceChildren(v); } else mS.replaceChildren();
+  topo.textContent = g.titulo; mS.append(topo); mS.setAttribute('aria-label', g.titulo);
+  for (const cid of g.cats) { const c = CATS.find((x) => x.id === cid); mS.append(no('div', 'secao', { id: 'sec-' + cid, textContent: c.titulo }), ...c.itens.flatMap(linhasDe)); }
+  abreMenu(); mS.hidden = false; mS.scrollTop = 0; pintaMenu();
+  if (foco) mS.querySelector('button.row:not([aria-disabled]), input')?.focus();
+}
+// back from a submenu to the group list (Esc, left arrow, Voltar, B on the pad), the group's row focused
+function voltaLista(foco) {
+  const g = grupoAberto; devolve(); grupoAberto = null; mS.hidden = true; abreMenu();
+  if (foco) mG.querySelector(`[data-grupo="${g}"]`)?.focus();
+}
+function fecha() {
+  devolve(); menuAberto = false; grupoAberto = atualCat = null; mG.hidden = mS.hidden = true; bO.setAttribute('aria-expanded', 'false');
+  rel.hidden = relPad.hidden = true;
+}
+bO.onclick = () => { if (menuAberto) fecha(); else { abreMenu(); if (!porPonteiro) mG.querySelector('.row')?.focus(); } if (porPonteiro) bO.blur(); };
+// the state of every row of the open submenu: a key (1 to 9, P, M, 4 ...) may change a value while it shows
+function pintaMenu() {
+  if (mS.hidden) return;
+  for (const b of mS.querySelectorAll('[data-item]')) {
+    if (b.estado) { const v = String(!!b.estado()); if (b.getAttribute('aria-checked') !== v) b.setAttribute('aria-checked', v); }
+    if (b.vivo) { const v = b.vivo(); if (b.valor.textContent !== v) b.valor.textContent = v; }
+  }
+}
+// from the frame loop: a notice that ran out, and the open submenu a few times a second
+let faixaQuadro = 0;
+function pintaFaixa() {
+  if (avisoAte && performance.now() > avisoAte) { avisoAte = 0; poeDetalhe(''); }
+  if (grupoAberto && !(faixaQuadro++ % 10)) pintaMenu();
+}
+// keys inside the open menu are the menu's: arrows walk the rows, right opens a group, left and Esc go back, and
+// nothing reaches the game (W A S D, K and the number keys would act behind the menu)
+const painelDe = (e) => e?.closest?.('#menu-grupos, #menu-sub');
+function andaMenu(p, d) { const l = [...p.querySelectorAll('button:not([aria-disabled]), input')]; l[(l.indexOf(document.activeElement) + d + l.length) % l.length]?.focus(); }
+faixa.addEventListener('keydown', (e) => {
+  const p = painelDe(e.target), k = e.key, campo = e.target.tagName === 'INPUT';
+  if (e.target === bO && k === 'ArrowDown') { e.preventDefault(); e.stopPropagation(); return gaveta.abrir(); }
+  if (!p) return; // the bar's selects keep their own keys
+  if (k === 'Escape') { e.preventDefault(); if (p === mS) voltaLista(true); else saiDaFaixa(); }
+  else if (!campo && (k === 'ArrowDown' || k === 'ArrowUp')) { e.preventDefault(); andaMenu(p, k === 'ArrowDown' ? 1 : -1); }
+  else if (!campo && k === 'ArrowRight' && e.target.dataset.grupo) { e.preventDefault(); abreGrupo(e.target.dataset.grupo, true); }
+  else if (!campo && k === 'ArrowLeft' && p === mS) { e.preventDefault(); voltaLista(true); }
+  if (k !== 'Tab') e.stopPropagation();
+});
+// crossing the narrow width moves the submenu (beside the list or in its place); other resizes leave it as it is
+let estreitoAgora = innerWidth < ESTREITO;
+addEventListener('resize', () => { const e = innerWidth < ESTREITO; if (e === estreitoAgora) return; estreitoAgora = e; if (grupoAberto) abreGrupo(grupoAberto); else if (menuAberto) abreMenu(); });
+sB.onchange = () => seleciona(unidades[+sB.value]);
+// Ação: done on a pick, then back to "Ação…". An arrow on the closed select only moves (Windows changes the value at
+// once), and Enter or the pad's A does it, so a keyboard or a pad can reach the lower options.
+function enchaAcoes() {
+  const l = [['', 'Ação…'], ['atacar', 'Atacar — golpe à frente (K)'], ['fogo', 'Magia fogo — bola de fogo (F)'], ['raio', 'Magia raio — raio no alvo (R)'], ['tocha', (sel?.leva.ligada ? 'Apagar' : 'Acender') + ' a tocha na mão (T)'],
+    ['pular', 'Pular — para a frente (Espaço)'], ['correr', correTq ? 'Parar de correr (Shift)' : 'Correr — fica ligado até escolher de novo (Shift)']];
+  if (fixa) l.push(['fixa', `${fixa.apagada ? 'Acender' : 'Apagar'} ${fixa.braseiro ? 'o braseiro' : 'a tocha fixa'} perto (E)`]);
+  if (mundo?.portaPerto()) l.push(['porta', `${mundo.porta.aberta ? 'Fechar' : 'Abrir'} a porta (E)`]);
+  const v = sA.value; sA.replaceChildren(...l.map(([a, t]) => opt(a, t))); sA.value = l.some(([a]) => a === v) ? v : '';
+}
+function fazAcao() { const v = sA.value; sA.value = ''; if (v === 'correr') { correTq = !correTq; enchaAcoes(); } else if (v && sel) ACOES[v](); }
+let seta = false;
+sA.addEventListener('keydown', (e) => { seta = e.key.startsWith('Arrow'); if (e.key === 'Enter') fazAcao(); });
+sA.addEventListener('keyup', () => (seta = false));
+sA.onchange = () => { if (!seta) fazAcao(); };
+sA.addEventListener('blur', () => (sA.value = ''));
+// G (and the pad's Start) open the menu on its first group; Esc goes back a level, then closes and gives the keys back
+const gaveta = {
+  abrir: () => { abreMenu(); mG.querySelector('.row')?.focus(); }, fechar: fecha, alternar: () => (menuAberto ? fecha() : gaveta.abrir()),
+  // a section id (planta, luz, tochas ...) or a group id (cena, bonecos ...): opens its group and shows that section
+  categoria: (id) => { const g = id && GRUPOS.find((x) => x.id === id || x.cats.includes(id)); if (!g) return fecha(); abreGrupo(g.id); if (g.cats.includes(id)) { atualCat = id; $('sec-' + id).scrollIntoView({ block: 'start' }); } },
+  mostraItem: (id) => { const c = CATS.find((x) => x.itens.some((i) => i.id === id)); if (!c) return; gaveta.categoria(c.id); mS.querySelector(`[data-item="${id}"]`)?.scrollIntoView({ block: 'nearest' }); },
+  categorias: CATS, grupos: GRUPOS, get aberta() { return menuAberto; }, get atual() { return atualCat; }, get grupo() { return grupoAberto; },
+};
+const saiDaFaixa = () => { fecha(); document.activeElement?.blur(); };
+addEventListener('keydown', (e) => { if (e.key === 'Escape' && (menuAberto || faixa.contains(document.activeElement))) saiDaFaixa(); });
+// The pad on the focused bar or menu: d-pad up and down step the focused select (Ação only moves; A does it) or walk
+// the menu's rows, right opens a group, left goes back to the list (or to the previous control of the bar), A does the
+// focused row or the action, B goes back a level, Start closes and gives the pad back to the game.
+function passoNaFaixa(d) {
+  const s = document.activeElement; if (s === bO && d > 0) return gaveta.abrir(); if (s?.tagName !== 'SELECT') return;
+  let i = s.selectedIndex; do i += d; while (s.options[i]?.disabled);
+  if (!s.options[i]) return; s.selectedIndex = i;
+  if (s !== sA) { porPonteiro = false; s.dispatchEvent(new Event('input', { bubbles: true })); s.dispatchEvent(new Event('change', { bubbles: true })); }
+}
+function focoNaFaixa(d) { const l = [...faixa.querySelectorAll('.linha > *')].filter((e) => e.offsetParent); l[(l.indexOf(document.activeElement) + d + l.length) % l.length]?.focus(); }
+const noMenu = () => painelDe(document.activeElement);
+const PAD_FAIXA = {
+  12: () => (noMenu() ? andaMenu(noMenu(), -1) : passoNaFaixa(-1)), 13: () => (noMenu() ? andaMenu(noMenu(), 1) : passoNaFaixa(1)),
+  14: () => (noMenu() === mS ? voltaLista(true) : noMenu() ? null : focoNaFaixa(-1)),
+  15: () => (document.activeElement?.dataset.grupo ? abreGrupo(document.activeElement.dataset.grupo, true) : noMenu() ? null : focoNaFaixa(1)),
+  0: () => { const a = document.activeElement; if (a === sA) fazAcao(); else if (a?.tagName === 'BUTTON') { porPonteiro = false; a.click(); } },
+  1: () => (noMenu() === mS ? voltaLista(true) : saiDaFaixa()), 9: saiDaFaixa,
+};
+// Touch (Fernando, Nov 18): no stick. A tap on the floor walks there, a tap on a character picks him, and a native
+// Pular button sits in the bottom corner, fired on the press (on the release the jump came late). Only on a touch
+// device, told by its primary pointer: maxTouchPoints alone is above 0 on a laptop with a touch screen and a mouse.
+const TOQUE = matchMedia('(pointer: coarse)'), botaoPular = $('pular');
+const vePular = () => (botaoPular.hidden = !TOQUE.matches); vePular(); TOQUE.addEventListener('change', vePular);
+botaoPular.addEventListener('pointerdown', (e) => { e.preventDefault(); if (sel) pula(sel); });
+botaoPular.addEventListener('click', (e) => { if (!e.detail && sel) pula(sel); }); // Enter or Space on the focused button
+botaoPular.addEventListener('contextmenu', (e) => e.preventDefault()); // a long press would open the menu
+// A select chosen with the mouse or the finger lets go of the focus, or it would keep W A S D, K, Space and the number
+// keys to itself. Chosen by keyboard it keeps the focus, as a keyboard user expects.
+// (Chrome calls a clicked select :focus-visible, so the last kind of input tells the two apart.)
+addEventListener('pointerdown', () => (porPonteiro = true), true); addEventListener('keydown', () => (porPonteiro = false), true);
+faixa.addEventListener('change', (e) => { if (porPonteiro && e.target.matches('select')) e.target.blur(); });
+enchaAcoes();
+aviso.mostrar('Carregando a sala…', { ms: 2500 });
+// The plan: the old room keeps its own data and does not load planta-chefe.js, so it opens even if that file breaks.
+// The combined plan of that file is left out for now (Fernando, Nov 17). Default mundo since Nov 18 (Fernando).
+const NOME_PLANTA = ['antiga', 'dullahan15'].includes(Q.get('planta')) ? Q.get('planta') : 'mundo'; $('planta').value = NOME_PLANTA;
+// the address as it is now, not as it was at load: the other selectors write their choice there too
+const recarrega = (k, v) => { const q = new URLSearchParams(location.search); q.set(k, v); location.search = q; };
+$('planta').onchange = () => recarrega('planta', $('planta').value);
+const P = NOME_PLANTA === 'antiga' ? { texto: PLANTA_ANTIGA, teto: TETO_ANTIGA, tochas: FOGOS_ANTIGA, agua: { poca: [], fosso: [] }, fumaca: [] } : (await import(NOME_PLANTA === 'mundo' ? './planta-mundo.js?v=11' : './planta-chefe.js')).PLANTAS[NOME_PLANTA]; // mundo: one map from cave to forest (planta-mundo.js, hooks pisa, seco, fora, corta, bloqueia, molha, montar)
+const PLANTA = P.texto, TETO = P.teto, FOGOS = P.tochas;
+const ELENCO = P.spawns ? [...ALIADOS.map(([zud, nome], i) => ({ zud, nome, ...P.spawns.aliados[i], vira: Math.PI })), ...INIMIGOS.map(([zud, nome], i) => ({ zud, nome, ...P.spawns.inimigos[i], vira: 0, inimigo: true }))] : ELENCO_ANTIGA;
+// a phone (coarse pointer) starts at 1.5 pixels per CSS pixel at most: fill rate is what a phone GPU runs out of first
+const CELULAR = matchMedia('(pointer: coarse)').matches, RES_AUTO = Math.min(devicePixelRatio, CELULAR ? 1.5 : 2);
+const r = new WebGLRenderer({ antialias: false }); r.setPixelRatio(RES_AUTO); r.setSize(innerWidth, innerHeight); r.setClearColor(NEVOA, 1); document.body.appendChild(r.domElement);
+r.domElement.setAttribute('role', 'img'); r.domElement.setAttribute('aria-label', 'Cena 3D: sala de masmorra escura com os bonecos');
+const cena = new Scene(), cam = new PerspectiveCamera(50, innerWidth / innerHeight, 0.2, 200), clock = new Clock();
+// dark blue haze instead of flat black, like a PSX draw distance: 8 to 42 tiles at the default camera distance (11.7),
+// pushed back by as much as the camera pulls back, so the overview of the bigger room is not all haze
+const PERTO = 8, LONGE = 42, DIST0 = 11.7;
+// Distance haze (?nevoa=, Fernando, Nov 18: a lit area stays lit at any distance from the camera, so the default is
+// off). It dimmed the far floor of the overview from 17-30 to 6-12 of 255. The number stretches the haze's depth:
+// 1 is the old haze, 4 leaves about a quarter of it, 0 pushes it out of the room (the Fog object stays, so no
+// material recompiles and the code that reads cena.fog keeps working).
+const NEVOAS = { desligada: 0, fraca: 4, hoje: 1 };
+let nevoaK = NEVOAS[Q.get('nevoa')] ?? NEVOAS.fraca; // default fraca since Nov 18 (Fernando)
+cena.fog = new Fog(NEVOA, PERTO, LONGE);
+const luzAmb = new AmbientLight(AMBIENTE); cena.add(luzAmb); // almost black: the torches do the lighting
+addEventListener('resize', () => { r.setSize(innerWidth, innerHeight); cam.aspect = innerWidth / innerHeight; cam.updateProjectionMatrix(); });
+
+// ---- room -----------------------------------------------------------------------------------------------------
+const W = PLANTA[0].length, H = PLANTA.length;
+const letra = (cx, cz) => (cx < 0 || cz < 0 || cx >= W || cz >= H ? '#' : PLANTA[cz][cx]);
+// the water pit (=) is entered only while its water is on (swimming); dry, it is a 2-tile hole and stays closed
+let nadavel = false;
+const pisa = (cx, cz) => { const L = letra(cx, cz), p = P.pisa?.(L); if (p !== undefined) return p; return ANDA.includes(L) || (L === '=' && nadavel); }; // a plan may own its outdoor letters
+// stairs: index of the cell in its run (0 at the bottom), so a run of n cells climbs n tiles
+const base = (cx, cz) => { const L = letra(cx, cz), [sx, sz] = SOBE[L]; let k = 0; while (letra(cx - sx * (k + 1), cz - sz * (k + 1)) === L) k++; return k; };
+// floor height at the edge of a cell facing (dx, dz): a stair is base + 1 on the climbing side, base on the other,
+// base + 0.5 on its flanks (the rule of _estudo-vagrant/salas-chefe/plantas/validar.mjs); and at a point inside it
+const borda = (cx, cz, dx, dz) => {
+  const L = letra(cx, cz), s = P.seco?.(cx * CEL + 1 + dx, cz * CEL + 1 + dz, L); if (s !== undefined) return s; if (!SOBE[L]) return ALTO[L] ?? 0;
+  const [sx, sz] = SOBE[L], b = base(cx, cz); return dx === sx && dz === sz ? b + 1 : dx === -sx && dz === -sz ? b : b + 0.5;
+};
+const seco = (x, z) => {
+  const cx = Math.floor(x / CEL), cz = Math.floor(z / CEL), L = letra(cx, cz), s = P.seco?.(x, z, L); if (s !== undefined) return s; if (!SOBE[L]) return ALTO[L] ?? 0;
+  const [sx, sz] = SOBE[L], fx = x / CEL - cx, fz = z / CEL - cz; return base(cx, cz) + (sx ? (sx > 0 ? fx : 1 - fx) : sz > 0 ? fz : 1 - fz);
+};
+// Water inside the floor rule (agua-LEIAME.md): piso() is where the feet go, so walking, falling and jumping need no
+// special case. Ankle-deep in the puddle; in the pit the body floats chest-deep (alt = the character's height;
+// without it, the pit's bottom). degrau() is the height a step is judged by: the pit's surface, 0.5 under the rim, so
+// a walker can step in and a swimmer climbs out, while the 2-tile drop to its bottom would never pass.
+const aguas = [];
+const naAgua = (x, z) => aguas.find((a) => a.ligada && x >= a.regiao.x0 && x <= a.regiao.x1 && z >= a.regiao.z0 && z <= a.regiao.z1);
+const piso = (x, z, alt = 0) => { const a = naAgua(x, z), s = seco(x, z); return a ? Math.min(s, a.regiao.yAgua - a.afundamentoEm(x, z, alt)) : s; };
+const degrau = (x, z) => { const a = naAgua(x, z); return a && a.modo === 'fosso' ? a.regiao.yAgua : seco(x, z); };
+// how much the water slows a walker: 1 dry or still above it (falling in), 0.6 swimming in the pit, LENTO_AGUA wading
+// in shallow water, the puddle and the world's river (Fernando, Nov 18: about 65% of the speed; the game's tile rule will
+// be +1 move cost, here it is speed only). A route step into shallow water costs CUSTO_AGUA: over 3, a detour of one row
+// to the bridge (2 steps) beats wading one cell, so a route by the bridge's row takes it; farther off it wades.
+const LENTO_AGUA = 0.65, CUSTO_AGUA = 3.5; MODOS.rasa.velocidade = LENTO_AGUA; // before the puddle is made
+const lentidao = (p) => { const a = naAgua(p.x, p.z); return a && p.y <= a.regiao.yAgua + 0.1 ? a.fatorVelocidadeEm(p.x, p.z) : P.molha?.(p.x, p.z, p.y) ? LENTO_AGUA : 1; };
+
+const conjunto = ['vs', 'gemini', 'local', 'ia'].includes(Q.get('tex')) ? Q.get('tex') : 'vs'; $('tex').value = conjunto;
+$('tex').onchange = () => recarrega('tex', $('tex').value);
+const carrega = (u) => new Promise((ok, erro) => new TextureLoader().load(u, ok, undefined, erro));
+const usadas = {};
+async function textura(k) {
+  let t; try { t = await carrega(`./sala-tex/${conjunto}/${ARQ[k]}.png`); usadas[k] = conjunto; } catch { t = await carrega(`./sala-tex/vs/${ARQ[k]}.png`); usadas[k] = 'vs'; }
+  t.magFilter = t.minFilter = NearestFilter; t.generateMipmaps = false; t.wrapS = t.wrapT = RepeatWrapping; // PSX look: no filtering, no mipmaps
+  return t;
+}
+const tex = Object.fromEntries(await Promise.all(Object.keys(ARQ).map(async (k) => [k, await textura(k)])));
+const mat = (k, side = FrontSide) => new MeshLambertMaterial({ map: tex[k], vertexColors: true, side });
+
+// Geometry buffers. quad(v, t, s): corners counter-clockwise seen from the front, uv per corner, shade per corner or
+// one for all. Each quad is cut into ~1-tile pieces, since Lambert lights only the vertices: big quads would miss
+// the torch pools of light.
+const mistura = (a, b, k) => a.map((x, i) => x + (b[i] - x) * k);
+function malha() {
+  const p = [], uv = [], c = [];
+  const q4 = (v, t, s) => { for (const i of [0, 1, 2, 0, 2, 3]) { p.push(...v[i]); uv.push(...t[i]); c.push(s[i], s[i], s[i]); } };
+  return { p, uv, c, quad(v, t, s) {
+    s = [].concat(s); if (s.length === 1) s = [s[0], s[0], s[0], s[0]];
+    const nu = Math.max(1, Math.round(Math.hypot(...v[1].map((x, i) => x - v[0][i])))), nv = Math.max(1, Math.round(Math.hypot(...v[3].map((x, i) => x - v[0][i]))));
+    const em = (L, u, w) => mistura(mistura(L[0], L[1], u), mistura(L[3], L[2], u), w), S = s.map((x) => [x]);
+    for (let a = 0; a < nu; a++) for (let b = 0; b < nv; b++) {
+      const cs = [[a / nu, b / nv], [(a + 1) / nu, b / nv], [(a + 1) / nu, (b + 1) / nv], [a / nu, (b + 1) / nv]];
+      q4(cs.map(([u, w]) => em(v, u, w)), cs.map(([u, w]) => em(t, u, w)), cs.map(([u, w]) => em(S, u, w)[0]));
+    }
+  } };
+}
+function mesh(m, material) { const g = new BufferGeometry(); g.setAttribute('position', new Float32BufferAttribute(m.p, 3)); g.setAttribute('uv', new Float32BufferAttribute(m.uv, 2)); g.setAttribute('color', new Float32BufferAttribute(m.c, 3)); g.computeVertexNormals(); g.computeBoundingSphere(); return new Mesh(g, material); }
+const uvChao = (v) => v.map(([x, , z]) => [x / TEX, -z / TEX]);
+// a little extra gloom towards the ceiling, on top of the torch light
+const sombra = (y) => 1 - (y / TETO) * 0.45;
+
+const chao = malha(), teto = malha(), saias = malha();
+const VIZ = [[1, 0], [-1, 0], [0, 1], [0, -1]];
+const paredes = new Map(); // wall line key -> list of cells along it { at, y0 }
+for (let cz = 0; cz < H; cz++) for (let cx = 0; cx < W; cx++) {
+  const L = letra(cx, cz); if ((!pisa(cx, cz) && L !== 'o' && L !== '=') || P.fora?.includes(L)) continue; // the pit gets its floor at -2 and ceiling; outdoor cells are the plan's own
+  const x0 = cx * CEL, z0 = cz * CEL, x1 = x0 + CEL, z1 = z0 + CEL;
+  const perto = VIZ.filter(([a, b]) => letra(cx + a, cz + b) === '#').length, luz = 1 - perto * 0.1; // floor next to rock is a little darker
+  if (SOBE[L]) {
+    // four steps per cell: a tread and the riser in front of it. Built for a stair climbing east and turned about the
+    // cell centre (a turn, never a mirror, so the faces keep their winding): u runs along the climb, w across it.
+    const [sx, sz] = SOBE[L], b0 = base(cx, cz), em = (u, w, y) => [x0 + 1 + u * sx - w * sz, y, z0 + 1 + u * sz + w * sx], ao = (p) => (sx ? p[2] : p[0]) / TEX;
+    for (let s = 0; s < 4; s++) {
+      const ua = -1 + s / 2, ub = ua + 0.5, y = b0 + (s + 1) / 4, yb = y - 1 / 4;
+      const v = [em(ua, 1, y), em(ub, 1, y), em(ub, -1, y), em(ua, -1, y)]; chao.quad(v, uvChao(v), luz);
+      const sv = [em(ua, -1, yb), em(ua, 1, yb), em(ua, 1, y), em(ua, -1, y)]; saias.quad(sv, sv.map((p) => [ao(p), p[1] / TEX]), 0.7);
+    }
+  } else {
+    const y = ALTO[L] ?? 0, v = [[x0, y, z1], [x1, y, z1], [x1, y, z0], [x0, y, z0]];
+    chao.quad(v, uvChao(v), luz);
+  }
+  teto.quad([[x0, TETO, z0], [x1, TETO, z0], [x1, TETO, z1], [x0, TETO, z1]], [[x0 / TEX, z0 / TEX], [x1 / TEX, z0 / TEX], [x1 / TEX, z1 / TEX], [x0 / TEX, z1 / TEX]], 0.5);
+  for (const [dx, dz] of VIZ) {
+    const n = letra(cx + dx, cz + dz);
+    const ex = dx > 0 ? x1 : dx < 0 ? x0 : null, ez = dz > 0 ? z1 : dz < 0 ? z0 : null;
+    if (n === '#') {
+      // a wall facing back into this cell; recorded per line so a straight run becomes one mesh that fades as one
+      const k = dx ? `x|${ex}|${dx}` : `z|${ez}|${dz}`, at = dx ? cz : cx;
+      if (!paredes.has(k)) paredes.set(k, []);
+      // a stair's flank wall starts at the stair's foot, so no gap shows under its low steps
+      paredes.get(k).push({ at, y0: SOBE[L] && (dx !== SOBE[L][0] || dz !== SOBE[L][1]) ? base(cx, cz) : borda(cx, cz, dx, dz) });
+    } else if (L !== 'o' && n !== 'o' && !SOBE[L] && !SOBE[n]) {
+      // height step between two floor cells (dais, the old room's pit, the water pit): a skirt facing the lower one
+      const ya = ALTO[L] ?? 0, yb = ALTO[n] ?? 0; if (ya <= yb) continue;
+      const [p, q] = dx ? [[ex, z0], [ex, z1]] : [[x0, ez], [x1, ez]], [e, d] = dx > 0 || dz < 0 ? [q, p] : [p, q];
+      const v = [[e[0], yb, e[1]], [d[0], yb, d[1]], [d[0], ya, d[1]], [e[0], ya, e[1]]], u = (pt) => (pt[0] + pt[1]) / TEX;
+      saias.quad(v, [[u(e), yb / TEX], [u(d), yb / TEX], [u(d), ya / TEX], [u(e), ya / TEX]], 0.7);
+    }
+  }
+}
+const chaoMesh = mesh(chao, mat('chao'));
+const saiasMesh = mesh(saias, mat('parede')); cena.add(chaoMesh, saiasMesh);
+cena.add(mesh(teto, mat('teto'))); // faces down only: from above the ceiling is culled, so the camera can rise past it
+// Water regions (Nov 17): the puddle (~) lies just over the floor, the pit (=) stands as deep as agua.js draws it
+// (MODOS.fosso.profundidade over the floor at -2, so 0.5 under the rim). agua.js takes each box in tiles.
+// ponytail: the box around the cells; both plans mark full rectangles. An L-shaped pool needs one region per rectangle.
+const agua = { regioes: [] };
+for (const [tipo, modo] of [['poca', 'rasa'], ['fosso', 'fosso']]) {
+  const cel = P.agua[tipo]; if (!cel.length) continue;
+  const xs = cel.map((c) => c.x), zs = cel.map((c) => c.z), fundo = tipo === 'fosso' ? ALTO['='] : 0;
+  agua.regioes.push({ tipo, modo, x0: Math.min(...xs) * CEL, z0: Math.min(...zs) * CEL, x1: (Math.max(...xs) + 1) * CEL, z1: (Math.max(...zs) + 1) * CEL, yAgua: tipo === 'fosso' ? fundo + MODOS.fosso.profundidade : 0.05, fundo, celulas: cel });
+}
+
+// Every wall run that can hide the character: its outline seen from above (segment a-b), its height range and its
+// inner normal n, for the hiding test. `obj` fades out (op, 1 to 0) to vanish. Columns and arches stay opaque.
+const fadeaveis = [], donos = new Map();
+for (const [k, segs] of paredes) {
+  segs.sort((a, b) => a.at - b.at);
+  const [eixo, l, d] = k.split('|'), linha = +l, dir = +d;
+  for (let i = 0; i < segs.length;) {
+    let j = i; while (j + 1 < segs.length && segs[j + 1].at === segs[j].at + 1) j++;
+    const m = malha();
+    for (const s of segs.slice(i, j + 1)) {
+      const a = s.at * CEL, b = a + CEL, y0 = s.y0;
+      // corners as seen from inside the room (the cell's side), counter-clockwise
+      const P = eixo === 'x' ? (t) => [linha, 0, t] : (t) => [t, 0, linha];
+      const [e, dd] = (eixo === 'x' ? dir > 0 : dir < 0) ? [a, b] : [b, a];
+      const v = [[...P(e)], [...P(dd)], [...P(dd)], [...P(e)]]; v[0][1] = v[1][1] = y0; v[2][1] = v[3][1] = TETO;
+      m.quad(v, [[e / TEX, y0 / TEX], [dd / TEX, y0 / TEX], [dd / TEX, TETO / TEX], [e / TEX, TETO / TEX]], [sombra(y0), sombra(y0), sombra(TETO), sombra(TETO)]);
+    }
+    const ms = mesh(m, mat('parede', DoubleSide)); ms.receiveShadow = true; cena.add(ms);
+    const ponta = (at) => (eixo === 'x' ? [linha, at * CEL] : [at * CEL, linha]);
+    const f = { obj: ms, n: eixo === 'x' ? new Vector3(-dir, 0, 0) : new Vector3(0, 0, -dir), a: ponta(segs[i].at), b: ponta(segs[j].at + 1), y0: Math.min(...segs.slice(i, j + 1).map((s) => s.y0)), y1: TETO, nome: `${k}@${segs[i].at}-${segs[j].at}` };
+    fadeaveis.push(f); for (let q = i; q <= j; q++) donos.set(`${k}@${segs[q].at}`, f);
+    i = j + 1;
+  }
+}
+// Columns: a 0.9-tile shaft with a wider base and capital, floor to ceiling, pivot on the floor.
+const colunas = [];
+for (let cz = 0; cz < H; cz++) for (let cx = 0; cx < W; cx++) {
+  if (letra(cx, cz) !== 'o') continue;
+  const pedaco = (w, h, y) => {
+    const g = new BoxBufferGeometry(w, h, w, 1, Math.max(1, Math.round(h)), 1); g.translate(0, y + h / 2, 0);
+    const P = g.attributes.position; g.setAttribute('color', new Float32BufferAttribute(Array.from({ length: P.count * 3 }, (_, i) => sombra(P.getY(Math.floor(i / 3)))), 3));
+    for (let i = 0; i < g.attributes.uv.count; i++) g.attributes.uv.setXY(i, (g.attributes.uv.getX(i) * w) / TEX, (g.attributes.uv.getY(i) * h) / TEX);
+    const ms = new Mesh(g, mat('coluna')); ms.castShadow = ms.receiveShadow = true; return ms;
+  };
+  const col = new Group(); col.add(pedaco(0.9, TETO, 0), pedaco(1.4, 0.6, 0), pedaco(1.25, 0.35, 0.6), pedaco(1.3, 0.5, 5.6)); // shaft, plinth, base moulding, capital where the arches spring
+  col.position.set(cx * CEL + 1, 0, cz * CEL + 1); cena.add(col); colunas.push(col);
+  donos.set(`coluna ${cx},${cz}`, { obj: col, op: 1 }); // never fades (Fernando, Nov 17): owner of its torch only
+}
+// Gothic arcade: a pointed arch between each pair of neighbouring columns on a row or a file, the spandrel up to the
+// ceiling. Two arcs of radius 0.62 x the opening meet at the apex (a "drop" arch, lower than equilateral).
+function arco(L) {
+  const w = L - 0.9, rr = 0.62 * w, c = rr - w / 2, th = Math.acos(c / rr), apice = rr * Math.sin(th), nasce = TETO - 0.5 - apice, alto = TETO - nasce;
+  const pts = [[-L / 2, 0], [-L / 2, alto], [L / 2, alto], [L / 2, 0], [w / 2, 0]];
+  for (let k = 1; k <= 12; k++) { const a = (th * k) / 12; pts.push([-c + rr * Math.cos(a), rr * Math.sin(a)]); }
+  for (let k = 11; k >= 0; k--) { const a = Math.PI - (th * k) / 12; pts.push([c + rr * Math.cos(a), rr * Math.sin(a)]); }
+  const g = new ExtrudeBufferGeometry(new Shape(pts.map(([x, y]) => new Vector2(x, y))), { depth: 0.6, bevelEnabled: false, curveSegments: 1 });
+  g.translate(0, nasce, -0.3);
+  const U = g.attributes.uv; for (let i = 0; i < U.count; i++) U.setXY(i, U.getX(i) / TEX, U.getY(i) / TEX);
+  const P = g.attributes.position; g.setAttribute('color', new Float32BufferAttribute(Array.from({ length: P.count * 3 }, (_, i) => sombra(P.getY(Math.floor(i / 3)))), 3));
+  const ms = new Mesh(g, mat('coluna', DoubleSide)); ms.castShadow = ms.receiveShadow = true; return [ms, nasce];
+}
+for (const a of colunas) for (const b of colunas) {
+  const dx = b.position.x - a.position.x, dz = b.position.z - a.position.z;
+  if ((dx > 0 && dz === 0) || (dz > 0 && dx === 0)) {
+    const L = dx + dz, [m, nasce] = arco(L), g = new Group(); g.add(m);
+    g.position.set((a.position.x + b.position.x) / 2, 0, (a.position.z + b.position.z) / 2); if (dz) g.rotation.y = Math.PI / 2; cena.add(g);
+  }
+}
+// A vanished wall leaves a thin line on the floor where it stands, so the room keeps its outline in the dark.
+const contorno = new LineBasicMaterial({ color: 0x8a7a60, transparent: true, depthWrite: false });
+for (const f of fadeaveis) {
+  f.op = 1; f.mats = [f.obj.material];
+  const y = f.y0 + 0.03, p = [...f.a, ...f.b];
+  const g = new BufferGeometry(); g.setAttribute('position', new Float32BufferAttribute(p.flatMap((v, i) => (i % 2 ? [y, v] : [v])), 3));
+  f.linha = new LineSegments(g, contorno.clone()); f.linha.visible = false; cena.add(f.linha);
+}
+
+// ---- torches, braziers, light ---------------------------------------------------------------------------------
+// One canvas-made flame texture for every flame sprite and the haze halo around it (additive, unlit, no fog).
+const brilho = (() => { const c = document.createElement('canvas'); c.width = c.height = 64; const x = c.getContext('2d'), g = x.createRadialGradient(32, 32, 0, 32, 32, 32);
+  g.addColorStop(0, '#fff6d0'); g.addColorStop(0.25, '#ffc060'); g.addColorStop(0.6, 'rgba(255,110,30,0.35)'); g.addColorStop(1, 'rgba(255,80,20,0)'); x.fillStyle = g; x.fillRect(0, 0, 64, 64); return new CanvasTexture(c); })();
+const ferro = new MeshLambertMaterial({ color: 0x3a3632 }), madeira = new MeshLambertMaterial({ color: 0x4a3020 });
+// a name a person can find in the room: north is -z (the allies start in the south, facing north)
+const terco = (v, n, nomes) => nomes[Math.min(2, Math.floor((v / n) * 3))];
+const canto = (d) => { const a = terco(d.cz, H, ['nor', '', 'su']), b = terco(d.cx, W, ['oeste', '', 'leste']); return a && b ? a + (a === 'su' && b === 'oeste' ? 'doeste' : b === 'oeste' ? 'oeste' : 'deste') : a ? (a === 'nor' ? 'norte' : 'sul') : b || 'centro'; };
+const NOMES = FOGOS.map((d) => `${d.braseiro ? 'Braseiro' : d.coluna ? 'Tocha da coluna' : 'Tocha da parede ' + (d.dx ? (d.dx > 0 ? 'leste' : 'oeste') : d.dz > 0 ? 'sul' : 'norte')}, ${canto(d)} da sala`);
+// two with the same name (two columns in the middle, two torches on one wall): say which is which
+NOMES.forEach((n, i) => { const j = NOMES.indexOf(n, i + 1), a = FOGOS[i], b = FOGOS[j]; if (j < 0) return; const ns = a.cz !== b.cz, antes = ns ? a.cz < b.cz : a.cx < b.cx; NOMES[i] += ns ? (antes ? ' (a mais ao norte)' : ' (a mais ao sul)') : antes ? ' (a mais a oeste)' : ' (a mais a leste)'; NOMES[j] += ns ? (antes ? ' (a mais ao sul)' : ' (a mais ao norte)') : antes ? ' (a mais a leste)' : ' (a mais a oeste)'; });
+const fogos = FOGOS.map((d, i) => {
+  const g = new Group(), cx = d.cx * CEL + 1, cz = d.cz * CEL + 1, y = P.seco?.(cx, cz, letra(d.cx, d.cz)) ?? ALTO[letra(d.cx, d.cz)] ?? 0;
+  let chama;
+  if (d.braseiro) {
+    // a floor brazier: iron stand and bowl, a big flame at waist height of a character
+    const pe = new Mesh(new CylinderBufferGeometry(0.12, 0.2, 2.2, 6), ferro); pe.position.y = 1.1;
+    const bacia = new Mesh(new CylinderBufferGeometry(0.75, 0.35, 0.45, 8), ferro); bacia.position.y = 2.4;
+    g.add(pe, bacia); g.position.set(cx, y, cz); chama = new Vector3(cx, y + 2.95, cz);
+  } else {
+    // a wall or column torch: an iron bracket out of the stone and a wooden handle tilted away from it, above head height
+    const fora = d.coluna ? 0.45 : CEL / 2, n = [d.dx, d.dz], dentro = d.coluna ? n : [-d.dx, -d.dz];
+    const px = cx + d.dx * fora, pz = cz + d.dz * fora, ay = y + 4.4;
+    const suporte = new Mesh(new BoxBufferGeometry(0.14, 0.14, 0.5), ferro); suporte.position.set(0, 0, 0.25);
+    const cabo = new Mesh(new CylinderBufferGeometry(0.1, 0.06, 1.1, 6), madeira); cabo.position.set(0, 0.35, 0.5); cabo.rotation.x = 0.45;
+    g.add(suporte, cabo); g.position.set(px, ay, pz); g.rotation.y = Math.atan2(dentro[0], dentro[1]);
+    chama = new Vector3(px + dentro[0] * 0.75, ay + 1.0, pz + dentro[1] * 0.75);
+  }
+  cena.add(g);
+  const sp = new Sprite(new SpriteMaterial({ map: brilho, blending: AdditiveBlending, depthWrite: false, fog: false })); sp.position.copy(chama);
+  const halo = new Sprite(new SpriteMaterial({ map: brilho, blending: AdditiveBlending, depthWrite: false, fog: false, opacity: 0.22 })); halo.position.copy(chama); halo.scale.setScalar(d.braseiro ? 5 : 3.5);
+  cena.add(sp, halo);
+  const dono = d.coluna ? donos.get(`coluna ${d.cx},${d.cz}`) : d.braseiro ? null : donos.get(d.dx ? `x|${d.cx * CEL + (d.dx > 0 ? CEL : 0)}|${d.dx}@${d.cz}` : `z|${d.cz * CEL + (d.dz > 0 ? CEL : 0)}|${d.dz}@${d.cx}`);
+  return { g, sp, halo, chama, dono, forca: d.braseiro ? 1.8 : 1.3, tam: d.braseiro ? 1.5 : 0.9, nome: NOMES[i], braseiro: !!d.braseiro, apagada: false, fase: i * 1.37, f: 1, cor: COR_FOGO, alcance: ALCANCE, w: 0, I: 0 };
+});
+// One real light per fixed torch plus 6 for what moves (flashes, carried torches, one spare to cross-fade). With 6 in
+// all, only the 5 torches nearest the camera target lit anything: enemies standing by a lit torch 26 tiles from the
+// hero read 0 on body and floor (Fernando, Nov 18: what a torch lights stays lit whatever the distance to the hero).
+const LUZES = fogos.length + 6;
+const luzes = Array.from({ length: LUZES }, () => { const l = new PointLight(COR_FOGO, 0, ALCANCE, 2); cena.add(l); return l; });
+// slow flicker: three sines, a different phase per torch
+const tremor = (t, s) => 1 + 0.1 * Math.sin(t * 9.1 + s) + 0.06 * Math.sin(t * 23.3 + s * 3) + 0.05 * Math.sin(t * 3.3 + s * 7);
+// what a torch gives at distance d: three's own falloff for a PointLight with distance ALCANCE, decay 2
+const queda = (d, a = ALCANCE) => Math.max(0, 1 - d / a) ** 2;
+// the outdoor world of planta-mundo.js (sun, sky, forest, river, house): built here, after the room and its torches and
+// before the water and the smoke; names declared further down are read through getters, only once it runs per frame
+mundo = (await P.montar?.({ THREE, cena, r, cam, Q, CATS, ITENS, seletor, recarrega, enchaAcoes, fadeaveis, naURL: (k, v) => naURL(k, v), get sel() { return sel; }, get escuro() { return escuro; }, get direta() { return direta; }, get comoSome() { return comoSome; }, get alvoCam() { return alvoCam; }, get aguas() { return aguas; } })) ?? null;
+
+// ---- water and smoke ------------------------------------------------------------------------------------------
+// Simulated water (agua.js): a wave grid per region, 64 cells for the pit as its guide recommends and on a phone,
+// 128 for the puddle. It reads the six lights by reference every frame.
+for (const g of agua.regioes) aguas.push(criarAgua({ THREE, scene: cena, renderer: r, luzes, modo: g.modo, resolucao: g.modo === 'fosso' || CELULAR ? 64 : 128, regiao: g }));
+let aguaLigada = true;
+function poeAgua(on) { aguaLigada = on; aguas.forEach((a) => a.setEnabled(on)); nadavel = on && aguas.some((a) => a.modo === 'fosso'); }
+poeAgua(true);
+// Volumetric smoke (fumaca.js) in place of the two flat mist planes: a ground layer from the low floor (0) up, and a
+// plume over each fire. The box is the plan's own (its outer ring is rock, 2 tiles: the smoke thins out over the box's
+// last 2.5, so it is whole at the walls and little shows outside a vanished one) and stops at the plan's ceiling.
+// The module takes 6 sources at most: the braziers first, then the torches nearest the room's centre.
+// Scale, checked in this room (flames at 5 to 7.4, ceiling 9 or 10): with the guide's numbers the plumes did not show,
+// a column 0.4 tile wide falls between the steps of a ray that crosses 20 to 40 tiles. PLUMA widens and raises them
+// (seen at 3, not at 1 or 2), and the density goes from the guide's 0.8 to 1.2.
+// Half resolution and 16 steps on a phone, full and 32 on a PC. Measured on an RTX 5070 (Nov 17): full quality costs
+// 0.5 ms a frame at 1280x720 and 3.5 ms at 3440x1440 (half: 0.5 and 0.9), so past ~6 million pixels it starts at half.
+const PLUMA = 3, MUITOS_PIXELS = innerWidth * innerHeight * RES_AUTO ** 2 > 6e6;
+const meio = new Vector3(W, 0, H); // W * CEL / 2
+const fumo = criarFumaca({ THREE, scene: cena, camera: cam, renderer: r, luzes,
+  caixa: mundo?.caixaFumaca ?? { min: new Vector3(0, 0, 0), max: new Vector3(W * CEL, TETO, H * CEL) },
+  fontes: fogos.slice().sort((a, b) => b.forca - a.forca || a.chama.distanceToSquared(meio) - b.chama.distanceToSquared(meio)).slice(0, 6).map((f) => ({ pos: f.chama, forca: f.forca * PLUMA })),
+  qualidade: CELULAR || MUITOS_PIXELS ? 'baixa' : 'alta', altura: 1.0, densidade: 1.2, cobertura: 0.8 });
+$('f-qual').value = fumo.estatisticas.qualidade; $('f-qual').onchange = () => fumo.setQualidade($('f-qual').value);
+$('f-dens').addEventListener('input', () => (fumo.uniforms.uDens.value = +$('f-dens').value));
+
+// ---- shadows ---------------------------------------------------------------------------------------------------
+// Shadow maps (?sombras=dura|suave, off by default): only the first two lights cast, the selected character's carried
+// light and the torch nearest him. A point light's shadow is a cube, six depth renders per light per frame.
+// Hard = small map, no filtering (PSX-like stair steps); soft = bigger map with PCF blur.
+chaoMesh.receiveShadow = saiasMesh.receiveShadow = true;
+function sombras(modo) {
+  r.shadowMap.enabled = modo !== 'nao' || !!P.sol; r.shadowMap.type = modo === 'suave' || (P.sol && modo === 'nao') ? PCFSoftShadowMap : BasicShadowMap; // a plan with a sun always casts its shadow (soft unless "dura")
+  luzes.forEach((l, i) => {
+    l.castShadow = modo !== 'nao' && i < 2; const n = modo === 'suave' ? 512 : 128; l.shadow.mapSize.set(n, n);
+    // far = the widest light (the bolt flash, 16): three r117 leaves a point shadow at far 500 and adds the bias in
+    // 0-1 depth over near-far, so -0.004 was 2 tiles and every shadow started ~1 tile off the foot (Nov 17)
+    l.shadow.camera.near = 0.3; l.shadow.camera.far = 16; l.shadow.bias = -0.002; if (l.shadow.map) { l.shadow.map.dispose(); l.shadow.map = null; }
+  });
+  cena.traverse((o) => [].concat(o.material || []).forEach((m) => (m.needsUpdate = true))); // the shaders change with shadows on or off
+  $('sombras').value = modo; $('t-sombra').checked = modo !== 'nao';
+}
+$('sombras').onchange = () => { sombras($('sombras').value); naURL('sombras', $('sombras').value); };
+
+// ---- diffuse shadows (Fernando, Nov 17: "an option to see how the three look") ---------------------------------
+// Three approximations, each with its own switch (?difusa=pcss,ssao,lightmap; keys 9, 0, L). None is ray tracing.
+// The penumbra and the baked light live inside three's own shaders, switched per material by a define, so a material
+// without the define compiles exactly the program it had before.
+const difusa = { pcss: false, ssao: false, lightmap: false };
+// the room's lit, textured pieces: floor, skirts, ceiling, walls, columns, arches
+const daSala = () => { const l = []; cena.traverse((o) => { if (o.isMesh && o.material.isMeshLambertMaterial && o.material.map) l.push(o); }); return l; };
+const define = (m, nome, on) => { m.defines = m.defines || {}; if (on) m.defines[nome] = ''; else delete m.defines[nome]; m.needsUpdate = true; };
+const urlDifusa = () => naURL('difusa', Object.keys(difusa).filter((k) => difusa[k]).join(',') || 'nao');
+
+// 1. PCSS on the point lights' shadow maps: 12 reads find how far the things that block the light are, the penumbra
+// widens with (receiver - blocker) / blocker, and 16 more reads filter it. PCSS_LUZ is the torch's radius in tiles.
+// Each read is compared against the receiver's own plane (from screen derivatives), not against one depth: with a
+// kernel this wide a floor seen from a low torch would shadow itself everywhere. The spiral turns per pixel, so the
+// 16 steps show as grain, not as rings.
+THREE.ShaderChunk.shadowmap_pars_fragment = THREE.ShaderChunk.shadowmap_pars_fragment.replace('\tfloat getPointShadow(', `\t#ifdef PCSS
+	#define PCSS_LUZ 0.4
+	#define PCSS_BUSCA 0.08
+	float pcssPlano( vec3 s, vec3 n, float ln, float zr ) { float sn = dot( s, n ); return sn * ln > 0.0 ? min( length( s ) * ln / sn, zr * 3.0 ) : 0.0; }
+	float getPointShadow( sampler2D shadowMap, vec2 shadowMapSize, float shadowBias, float shadowRadius, vec4 shadowCoord, float shadowCameraNear, float shadowCameraFar ) {
+		vec2 texelSize = vec2( 1.0 ) / ( shadowMapSize * vec2( 4.0, 2.0 ) );
+		vec3 L = shadowCoord.xyz, d = normalize( L ), n = normalize( cross( dFdx( L ), dFdy( L ) ) );
+		float zr = length( L ), alcance = shadowCameraFar - shadowCameraNear, ln = dot( L, n ), c = abs( dot( d, n ) );
+		float vies = - shadowBias * alcance + 3.0 / shadowMapSize.x * zr * min( sqrt( 1.0 - c * c ) / max( c, 0.05 ), 8.0 );
+		vec3 t = normalize( cross( d, abs( d.y ) < 0.9 ? vec3( 0.0, 1.0, 0.0 ) : vec3( 1.0, 0.0, 0.0 ) ) ), b = cross( d, t );
+		float gira = 6.2832 * fract( 52.9829189 * fract( dot( gl_FragCoord.xy, vec2( 0.06711056, 0.00583715 ) ) ) );
+		float soma = 0.0, quantos = 0.0;
+		for ( int i = 0; i < 12; i ++ ) {
+			float a = gira + float( i ) * 2.399963, raio = sqrt( ( float( i ) + 0.5 ) / 12.0 ) * PCSS_BUSCA;
+			vec3 s = d + ( t * cos( a ) + b * sin( a ) ) * raio;
+			float z = unpackRGBAToDepth( texture2D( shadowMap, cubeToUV( s, texelSize.y ) ) ) * alcance + shadowCameraNear;
+			if ( z < pcssPlano( s, n, ln, zr ) - vies ) { soma += z; quantos += 1.0; }
+		}
+		float zo = soma / max( quantos, 1.0 ), largura = clamp( PCSS_LUZ * ( zr - zo ) / ( zo * zr ), 2.0 / shadowMapSize.x, PCSS_BUSCA * 1.5 ), claro = 0.0;
+		for ( int i = 0; i < 16; i ++ ) {
+			float a = gira + float( i ) * 2.399963, raio = sqrt( ( float( i ) + 0.5 ) / 16.0 ) * largura;
+			vec3 s = d + ( t * cos( a ) + b * sin( a ) ) * raio;
+			float z = unpackRGBAToDepth( texture2D( shadowMap, cubeToUV( s, texelSize.y ) ) ) * alcance + shadowCameraNear;
+			claro += step( pcssPlano( s, n, ln, zr ) - vies, z );
+		}
+		return quantos == 0.0 ? 1.0 : claro / 16.0; // no early return between the loops: Windows' shader compiler warns about texture reads after one
+	}
+	#else
+	float getPointShadow(`).replace(/#endif$/, '\t#endif\n#endif');
+// The room's Lambert multiplies every casting light's shadow into one mask (three r117 getShadowMask), and a point past
+// the shadow camera's far reads as shadowed: one lit torch out of reach blacked the whole floor (measured 10.5 -> 0.7).
+// Each light's shadow now fades out towards its own range; the frame loop keeps far = the light's distance.
+THREE.ShaderChunk.shadowmask_pars_fragment = THREE.ShaderChunk.shadowmask_pars_fragment.replace(/shadow \*= receiveShadow \? (getPointShadow\(.*?\)) : 1\.0;/,
+  'shadow *= receiveShadow ? mix( $1, 1.0, smoothstep( 0.7, 1.0, length( vPointShadowCoord[ i ].xyz ) / pointLight.shadowCameraFar ) ) : 1.0;');
+// everything that receives a shadow: the room and the characters' own materials (u.mats)
+function poePcss(on, calado) {
+  difusa.pcss = on; $('t-pcss').checked = on;
+  if (on && !calado && $('sombras').value === 'nao') { sombras('suave'); naURL('sombras', 'suave'); } // nothing to widen without a shadow map
+  for (const o of daSala()) { o.material.extensions = on ? { derivatives: true } : undefined; define(o.material, 'PCSS', on); }
+  for (const u of unidades) for (const m of u.mats) define(m, 'PCSS', on);
+}
+
+// 2. SSAO: the scene is drawn once into a target with a depth texture (the real materials: an override material draws
+// r117's skinned characters in their bind pose), a half-size pass reads 10 depths around each pixel and darkens what
+// has things close in front of its surface, and a last pass multiplies the picture by that, blurred. It fades with the
+// haze, and bright pixels (flames against a wall) keep their light. Only what is on screen can darken anything.
+const AO = { ok: r.capabilities.isWebGL2 || !!r.extensions.get('WEBGL_depth_texture') }, desenho = { calls: 0, triangles: 0 }, tamAO = new Vector2();
+let ao = null;
+function criaAO() {
+  const rt = new WebGLRenderTarget(4, 4, { minFilter: NearestFilter, magFilter: NearestFilter, stencilBuffer: false }); rt.texture.generateMipmaps = false;
+  rt.depthTexture = new THREE.DepthTexture(4, 4, THREE.UnsignedIntType); // 24 bits, as the smoke's
+  const meia = new WebGLRenderTarget(2, 2, { minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter, depthBuffer: false, stencilBuffer: false }); meia.texture.generateMipmaps = false;
+  const VERT = 'varying vec2 vUv; void main() { vUv = uv; gl_Position = vec4( position.xy, 0.0, 1.0 ); }', passe = { vertexShader: VERT, depthTest: false, depthWrite: false };
+  // RAIO in tiles; the two numbers in the sum keep a flat surface from darkening itself (more with distance, where depth is coarser)
+  const oclusao = new THREE.ShaderMaterial({ ...passe, extensions: { derivatives: true }, uniforms: { tProf: { value: rt.depthTexture }, uInvP: { value: new Matrix4() }, uProj: { value: new Vector2() }, uNevoa: { value: new Vector2() } }, fragmentShader: `
+    #define RAIO 1.2
+    #define AMOSTRAS 10
+    #define FORCA 1.6
+    uniform sampler2D tProf; uniform mat4 uInvP; uniform vec2 uProj, uNevoa; varying vec2 vUv;
+    vec3 ponto( vec2 uv ) { vec4 p = uInvP * vec4( uv * 2.0 - 1.0, texture2D( tProf, uv ).x * 2.0 - 1.0, 1.0 ); return p.xyz / p.w; }
+    void main() {
+      vec3 p = ponto( vUv ), n = normalize( cross( dFdx( p ), dFdy( p ) ) );
+      float longe = smoothstep( uNevoa.x, uNevoa.y, - p.z );
+      vec2 raio = min( 0.5 * RAIO * uProj / - p.z, vec2( 0.15 ) );
+      float gira = 6.2832 * fract( 52.9829189 * fract( dot( gl_FragCoord.xy, vec2( 0.06711056, 0.00583715 ) ) ) ), soma = 0.0;
+      for ( int i = 0; i < AMOSTRAS; i ++ ) {
+        float a = gira + float( i ) * 2.399963, k = sqrt( ( float( i ) + 0.5 ) / float( AMOSTRAS ) );
+        vec3 v = ponto( vUv + vec2( cos( a ), sin( a ) ) * k * raio ) - p;
+        float dd = dot( v, v );
+        soma += max( 0.0, dot( v, n ) - 0.04 + 0.004 * p.z ) / ( dd + 0.05 ) * step( dd, RAIO * RAIO * 2.0 );
+      }
+      gl_FragColor = vec4( vec3( mix( clamp( 1.0 - FORCA * soma / float( AMOSTRAS ), 0.0, 1.0 ), 1.0, longe ) ), 1.0 );
+    }` });
+  const fim = new THREE.ShaderMaterial({ ...passe, uniforms: { tCor: { value: rt.texture }, tAO: { value: meia.texture }, uTexel: { value: new Vector2() } }, fragmentShader: `
+    uniform sampler2D tCor, tAO; uniform vec2 uTexel; varying vec2 vUv;
+    void main() {
+      vec3 c = texture2D( tCor, vUv ).rgb;
+      float o = 0.25 * ( texture2D( tAO, vUv + uTexel * vec2( -1.0, -1.0 ) ).r + texture2D( tAO, vUv + uTexel * vec2( 1.0, -1.0 ) ).r + texture2D( tAO, vUv + uTexel * vec2( -1.0, 1.0 ) ).r + texture2D( tAO, vUv + uTexel ).r );
+      gl_FragColor = vec4( c * mix( o, 1.0, smoothstep( 0.35, 0.9, max( c.r, max( c.g, c.b ) ) ) ), 1.0 );
+    }` });
+  const tela = new Mesh(new THREE.PlaneBufferGeometry(2, 2), oclusao), cenaAO = new Scene(); tela.frustumCulled = false; cenaAO.add(tela);
+  return { rt, meia, oclusao, fim, tela, cena: cenaAO, cam: new THREE.Camera() };
+}
+function poeSsao(on) {
+  if (on && !AO.ok) { aviso.mostrar('Este navegador não dá a textura de profundidade que o SSAO precisa.', { tipo: 'erro' }); on = false; }
+  difusa.ssao = on; $('t-ssao').checked = on;
+}
+// the frame's picture: straight to the screen, or through the SSAO's three passes
+function desenha() {
+  if (!difusa.ssao) { r.render(cena, cam); desenho.calls = r.info.render.calls; desenho.triangles = r.info.render.triangles; return; }
+  if (!ao) ao = criaAO();
+  r.getDrawingBufferSize(tamAO); // the page changes resolution and window size while running
+  if (ao.rt.width !== tamAO.x || ao.rt.height !== tamAO.y) { ao.rt.setSize(tamAO.x, tamAO.y); ao.meia.setSize(Math.max(1, tamAO.x >> 1), Math.max(1, tamAO.y >> 1)); ao.fim.uniforms.uTexel.value.set(1 / ao.meia.width, 1 / ao.meia.height); }
+  r.setRenderTarget(ao.rt); r.render(cena, cam); desenho.calls = r.info.render.calls; desenho.triangles = r.info.render.triangles;
+  const t = performance.now(), u = ao.oclusao.uniforms, pm = cam.projectionMatrix.elements;
+  u.uInvP.value.copy(cam.projectionMatrixInverse); u.uProj.value.set(pm[0], pm[5]); u.uNevoa.value.set(cena.fog.near, cena.fog.far);
+  ao.tela.material = ao.oclusao; r.setRenderTarget(ao.meia); r.render(ao.cena, ao.cam);
+  ao.tela.material = ao.fim; r.setRenderTarget(null); r.render(ao.cena, ao.cam);
+  custo.ssao.push(performance.now() - t);
+}
+
+// 3. Lightmap, per vertex (the room's quads are cut into ~1-tile pieces and Lambert lights the vertices, so a texture
+// would add nothing): baked once, when first switched on. For each point of the room: how open it is (13 rays over
+// its hemisphere, 3 tiles long: corners and the foot of walls come out darker) and, for each fixed torch or brazier
+// within ALC_LM, a share of bounced light, more where the flame is in sight (4 rays to points around it).
+// Indirect light only: the direct light of the six real lights is already there, and baking it too would count it
+// twice. The rays walk the plan's grid (rock, column shafts, floor heights, ceiling), not the triangles; arches and
+// characters block nothing.
+// It is added to the vertex's indirect light. Each torch keeps its own share, so a torch put out or lit, the "Luzes
+// acesas" selector and total darkness only add the shares again (tinge() calls lmCompoe); nothing is baked twice.
+// The carried torch and the flashes are not in it.
+THREE.ShaderChunk.color_pars_vertex += '\n#ifdef LM\n\tattribute vec3 lm;\n#endif';
+THREE.ShaderChunk.lights_lambert_vertex += '\n#ifdef LM\n\tvIndirectFront += lm * PI;\n\t#ifdef DOUBLE_SIDED\n\t\tvIndirectBack += lm * PI;\n\t#endif\n#endif';
+const LM = { pares: null, ao: null, malhas: [], ms: 0 }, ALC_LM = 16, K_LM = 0.16;
+const solido = (x, y, z) => {
+  if (y > TETO) return true;
+  const cx = Math.floor(x / CEL), cz = Math.floor(z / CEL), L = letra(cx, cz);
+  if (L === '#') return true;
+  if (L === 'o') return Math.abs(x - cx * CEL - 1) < 0.45 && Math.abs(z - cz * CEL - 1) < 0.45; // the shaft
+  return y < seco(x, z) - 0.02;
+};
+// how far a ray goes before it hits something, up to `ate`; sampled every 0.3 tile from 0.2 on (a vertex sits on the wall line itself)
+const anda = (x, y, z, dx, dy, dz, ate) => { for (let t = 0.2; t < ate; t += 0.3) if (solido(x + dx * t, y + dy * t, z + dz * t)) return t; return ate; };
+function assa() {
+  const t0 = performance.now(), chave = new Map(), pts = [], v = new Vector3(), n = new Vector3(), nm = new THREE.Matrix3();
+  LM.malhas = daSala().map((o) => {
+    o.updateMatrixWorld(true); nm.getNormalMatrix(o.matrixWorld);
+    const g = o.geometry, p = g.attributes.position, de = new Int32Array(p.count);
+    for (let i = 0; i < p.count; i++) {
+      v.fromBufferAttribute(p, i).applyMatrix4(o.matrixWorld); n.fromBufferAttribute(g.attributes.normal, i).applyMatrix3(nm).normalize();
+      const k = [v.x, v.y, v.z, n.x, n.y, n.z].map((x) => Math.round(x * 50)).join();
+      if (!chave.has(k)) { chave.set(k, pts.length); pts.push([v.x + n.x * 0.05, v.y + n.y * 0.05, v.z + n.z * 0.05, n.x, n.y, n.z]); }
+      de[i] = chave.get(k);
+    }
+    g.setAttribute('lm', new Float32BufferAttribute(new Float32Array(p.count * 3), 3));
+    return { g, de };
+  });
+  // the hemisphere: straight out, six rays at 50 degrees and six at 78, weighted by the cosine
+  const RAIOS = [[1, 0, 0], ...[50, 78].flatMap((g, j) => Array.from({ length: 6 }, (_, i) => [Math.cos((g * Math.PI) / 180), Math.sin((g * Math.PI) / 180), (i + j / 2) * (Math.PI / 3)]))];
+  const EM_VOLTA = [[0.4, 0, 0], [-0.4, 0, 0], [0, 0, 0.4], [0, 0, -0.4]];
+  LM.ao = new Float32Array(pts.length);
+  LM.pares = pts.map(([x, y, z, nx, ny, nz], i) => {
+    const l = Math.hypot(nz, nx), [tx, ty, tz] = l > 0.1 ? [nz / l, 0, -nx / l] : [1, 0, 0], bx = ny * tz - nz * ty, by = nz * tx - nx * tz, bz = nx * ty - ny * tx;
+    let tapado = 0, total = 0;
+    for (const [c, s, a] of RAIOS) {
+      const ca = Math.cos(a) * s, sa = Math.sin(a) * s, d = anda(x, y, z, nx * c + tx * ca + bx * sa, ny * c + ty * ca + by * sa, nz * c + tz * ca + bz * sa, 3);
+      tapado += c * (1 - d / 3); total += c;
+    }
+    const aberto = (LM.ao[i] = 1 - tapado / total), pares = [];
+    fogos.forEach((f, j) => {
+      const d = Math.hypot(f.chama.x - x, f.chama.y - y, f.chama.z - z); if (d >= ALC_LM) return;
+      let vista = 0; for (const [ex, ey, ez] of EM_VOLTA) { const dx = f.chama.x + ex - x, dy = f.chama.y + ey - y, dz = f.chama.z + ez - z, q = Math.hypot(dx, dy, dz); if (anda(x, y, z, dx / q, dy / q, dz / q, q - 0.1) >= q - 0.1) vista += 0.25; }
+      const w = f.forca * queda(d, ALC_LM) * aberto * (0.3 + 0.7 * vista) * K_LM; if (w > 0.002) pares.push(j, w);
+    });
+    return pares;
+  });
+  LM.ms = performance.now() - t0;
+}
+function lmCompoe() {
+  if (!LM.pares) return;
+  const amb = escuro ? 0 : 1, c = new Float32Array(LM.ao.length * 3);
+  LM.pares.forEach((ps, i) => {
+    let s = 0; for (let k = 0; k < ps.length; k += 2) if (acesa(fogos[ps[k]])) s += ps[k + 1];
+    const a = (LM.ao[i] - 1) * amb; // a closed corner loses the room's blue ambient light too, never more than there is
+    c[i * 3] = COR_FOGO.r * s + AMBIENTE.r * a; c[i * 3 + 1] = COR_FOGO.g * s + AMBIENTE.g * a; c[i * 3 + 2] = COR_FOGO.b * s + AMBIENTE.b * a;
+  });
+  for (const { g, de } of LM.malhas) { const A = g.attributes.lm; for (let i = 0; i < de.length; i++) A.setXYZ(i, c[de[i] * 3], c[de[i] * 3 + 1], c[de[i] * 3 + 2]); A.needsUpdate = true; }
+}
+function poeLm(on) {
+  difusa.lightmap = on; $('t-lm').checked = on;
+  if (on && !LM.pares) assa();
+  for (const o of daSala()) define(o.material, 'LM', on);
+  lmCompoe();
+}
+
+// ---- particles and mist ---------------------------------------------------------------------------------------
+const celulas = []; for (let cz = 0; cz < H; cz++) for (let cx = 0; cx < W; cx++) if (pisa(cx, cz)) celulas.push([cx, cz]);
+// dust: still specks in the air, each tinted once by the torches near it (so it only shows in the light)
+const POEIRA = 350, pp = [], pc = [];
+for (let i = 0; i < POEIRA; i++) {
+  const [cx, cz] = celulas[Math.floor(Math.random() * celulas.length)], v = new Vector3(cx * CEL + Math.random() * CEL, 0.3 + Math.random() * (TETO - 1.3), cz * CEL + Math.random() * CEL);
+  const k = Math.min(1.2, fogos.reduce((s, f) => s + f.forca * queda(f.chama.distanceTo(v)), 0.08)); pp.push(v.x, v.y, v.z); pc.push(k * 0.9, k * 0.75, k * 0.6);
+}
+const poeiraG = new BufferGeometry(); poeiraG.setAttribute('position', new Float32BufferAttribute(pp, 3)); poeiraG.setAttribute('color', new Float32BufferAttribute(pc, 3));
+const poeira = new Points(poeiraG, new PointsMaterial({ size: 0.06, vertexColors: true, transparent: true, opacity: 0.7, depthWrite: false, blending: AdditiveBlending })); cena.add(poeira);
+const poeira0 = Float32Array.from(pp);
+// Which fixed lights are lit (Fernando, Nov 18: one switch per torch and brazier in place of the four-mode selector).
+// `apagada` on each source is the only state: the list, the E prompt near a torch, key 4 and the address read and
+// write it. ?tochas= takes their numbers ("1,4,7"), "todas" or "nao"; the old "fixas" (braziers out) and
+// "fixas-braseiro" still open. The carried torch and the flashes no longer depend on it: with the old selector at
+// "Todas apagadas" or at one of the "fixas", T switched nothing on (measured Nov 18: ligada true, intensity 0).
+const acesa = (f) => !f.apagada;
+function pintaTochas() { fogos.forEach((f, i) => ($('tocha-' + (i + 1)).checked = !f.apagada)); tinge(); pintaFixa(true); }
+const tochasAcesas = () => { const on = fogos.map((f, i) => (f.apagada ? 0 : i + 1)).filter(Boolean); return on.length === fogos.length ? 'todas' : on.join(',') || 'nao'; };
+// every change by hand (a torch's switch, Todas, key 4, E near a torch) ends here: the random pick becomes Manual
+const tochasNaURL = () => { naURL('tochas', tochasAcesas()); $('acesas').value = 'manual'; foraDaURL('acesas', 'semente'); };
+let tochasAntes = 'todas'; // key 4 puts every torch out and brings back the ones that were lit, not all of them
+function poeTochas(v) {
+  const n = new Set(String(v).split(',').map(Number)), lista = /^[\d,]+$/.test(v);
+  fogos.forEach((f, i) => (f.apagada = v === 'nao' || (v === 'fixas' ? f.braseiro : lista && !n.has(i + 1)))); pintaTochas();
+}
+// Torches lit at random (Fernando, Nov 18; ?acesas=0|25|50|75|100&semente=N): a shuffle by the seed (mulberry32, as in
+// planta-mundo.js) and the first share of it, rounded to the nearest torch; the same seed always lights the same ones.
+const sorteio = (s) => () => { s = (s + 0x6d2b79f5) | 0; let t = Math.imul(s ^ (s >>> 15), 1 | s); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+const semente = () => Math.trunc(+$('semente').value) || 1;
+function acaso(naUrl = true) {
+  const pct = $('acesas').value; if (pct === 'manual') return;
+  const r = sorteio(semente()), ordem = fogos.map((_, i) => i + 1);
+  for (let i = ordem.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [ordem[i], ordem[j]] = [ordem[j], ordem[i]]; }
+  poeTochas(ordem.slice(0, Math.round((fogos.length * pct) / 100)).join(',') || 'nao');
+  if (naUrl) { naURL('acesas', pct); naURL('semente', semente()); foraDaURL('tochas'); } // the default at load leaves the address as it came
+}
+$('acesas').onchange = () => ($('acesas').value === 'manual' ? tochasNaURL() : acaso());
+$('semente').oninput = () => acaso(); // Manual: the number waits for a share to be picked
+ITENS.semente.faz = () => { const s = semente(); let n; do n = 1 + Math.floor(Math.random() * 9999); while (n === s); $('semente').value = n; acaso(); };
+// Particles by kind (?particulas=): the 350 dust specks and the embers of every torch, half of each, one of the two, or none.
+const PARTICULAS = { todas: [1, 1], poucas: [0.5, 0.5], brasas: [0, 1], poeira: [1, 0], nao: [0, 0] };
+function poeParticulas(m) {
+  const [p, b] = PARTICULAS[m] || PARTICULAS.todas; poeira.visible = p > 0; brasas.visible = b > 0;
+  poeiraG.setDrawRange(0, Math.round(POEIRA * p)); brasasG.setDrawRange(0, Math.round(nb * b)); $('part').value = PARTICULAS[m] ? m : 'todas';
+}
+const naURL = (k, v) => { const q = new URLSearchParams(location.search); q.set(k, v); history.replaceState(null, '', '?' + q); };
+const foraDaURL = (...ks) => { const q = new URLSearchParams(location.search); ks.forEach((k) => q.delete(k)); history.replaceState(null, '', '?' + q); };
+$('part').onchange = () => { poeParticulas($('part').value); naURL('particulas', $('part').value); };
+// one hidden checkbox per fixed torch and brazier, each a box of Opções › Cena › Tochas
+const catTochas = CATS.find((c) => c.id === 'tochas');
+fogos.forEach((f, i) => { const it = caixa('tocha-' + (i + 1), `${i + 1}. ${f.nome}`, `Acende ou apaga só ${f.braseiro ? 'este braseiro' : 'esta tocha'}; perto dela, a tecla E faz o mesmo.`, true, 'Acesa', 'Apagada'); it.el.onchange = () => { f.apagada = !it.el.checked; pintaTochas(); tochasNaURL(); }; catTochas.itens.push(it); ITENS[it.id] = it; });
+// the dust again, when a torch is put out or lit or the darkness changes: only lit torches tint it
+function tinge() {
+  const c = poeiraG.attributes.color, v = new Vector3();
+  for (let i = 0; i < POEIRA; i++) { v.fromArray(poeira0, i * 3); const k = Math.min(1.2, fogos.reduce((s, f) => s + (acesa(f) ? f.forca * queda(f.chama.distanceTo(v)) : 0), escuro ? 0 : 0.08)); c.setXYZ(i, k * 0.9, k * 0.75, k * 0.6); }
+  c.needsUpdate = true; lmCompoe(); // the baked light follows the same switches
+}
+// Total darkness (Fernando, Nov 17; ?escuro=1): no ambient light anywhere (room, characters, smoke, water), black haze
+// and background, no floor outline of vanished walls. Only the point lights show the room: with every torch out the
+// scene is black. Off, the room is lit as before.
+let escuro = false;
+const ambFumo = fumo.uniforms.uAmb.value.clone(), ambAgua = aguas.map((a) => a.malha.material.uniforms.ambiente.value.clone());
+function poeEscuro(on) {
+  escuro = on; const k = on ? 0 : 1, cor = on ? 0 : NEVOA;
+  luzAmb.intensity = k; cena.fog.color.set(cor); r.setClearColor(cor, 1);
+  fumo.uniforms.uAmb.value.copy(ambFumo).multiplyScalar(k); aguas.forEach((a, i) => a.malha.material.uniforms.ambiente.value.copy(ambAgua[i]).multiplyScalar(k));
+  for (const f of fadeaveis) f.linha.material.opacity = (on ? 0 : 0.6) * (1 - f.op);
+  tinge(); $('escuro').value = on ? '1' : '0';
+}
+if (Q.get('escuro') !== '0') poeEscuro(true); // total darkness by default since Nov 18 (Fernando); ?escuro=0 is the blue penumbra
+$('escuro').onchange = () => { poeEscuro($('escuro').value === '1'); naURL('escuro', $('escuro').value); };
+function poeNevoa(m) { if (!(m in NEVOAS)) m = 'fraca'; nevoaK = NEVOAS[m]; $('nevoa').value = m; }
+poeNevoa(Q.get('nevoa')); $('nevoa').onchange = () => { poeNevoa($('nevoa').value); naURL('nevoa', $('nevoa').value); };
+$('peso').value = peso; $('peso').onchange = () => { peso = $('peso').value; naURL('peso', peso); }; // read live every frame (PESOS)
+// A fixed torch or brazier within reach of the selected character (2 tiles on the floor, the nearest one) can be put
+// out and lit again: an option of the Ação select, E, or pressing the right stick. Out = no flame, halo, embers or light, and its
+// place among the 6 real lights goes to another torch (luz() only takes sources that shine).
+const PERTO_FIXA = 2;
+function pintaFixa(mudou) {
+  let f = null, d = PERTO_FIXA ** 2;
+  if (sel) for (const x of fogos) { const q = (x.chama.x - sel.g.position.x) ** 2 + (x.chama.z - sel.g.position.z) ** 2; if (q < d) { d = q; f = x; } }
+  if (f === fixa && !mudou) return;
+  fixa = f; enchaAcoes();
+}
+function alternaFixa() { if (!fixa) return; fixa.apagada = !fixa.apagada; pintaTochas(); tochasNaURL(); }
+// embers: BRASAS per torch, rising and fading, reborn at the flame
+const BRASAS = 10, nb = fogos.length * BRASAS, bp = new Float32Array(nb * 3), bc = new Float32Array(nb * 3), bv = new Float32Array(nb * 3), bvida = new Float32Array(nb), btot = new Float32Array(nb);
+const brasasG = new BufferGeometry(); brasasG.setAttribute('position', new Float32BufferAttribute(bp, 3)); brasasG.setAttribute('color', new Float32BufferAttribute(bc, 3));
+const brasas = new Points(brasasG, new PointsMaterial({ size: 0.09, vertexColors: true, transparent: true, depthWrite: false, blending: AdditiveBlending, fog: false })); brasas.frustumCulled = false; cena.add(brasas);
+function brasa(i) {
+  const f = fogos[i % fogos.length]; bp.set([f.chama.x, f.chama.y, f.chama.z], i * 3);
+  bv.set([(Math.random() - 0.5) * 0.4, 0.7 + Math.random() * 0.8, (Math.random() - 0.5) * 0.4], i * 3); btot[i] = bvida[i] = 0.8 + Math.random() * 1.6;
+}
+for (let i = 0; i < nb; i++) { brasa(i); bvida[i] *= Math.random(); }
+poeTochas(Q.get('tochas')); poeParticulas(Q.get('particulas')); // here, once the embers exist
+// ?acesas= wins over ?tochas=; ?tochas= alone reads 100 % when all are lit, else Manual; neither = 75 % with the seed
+// (default since Nov 18, Fernando: 75 % at random, seed 1)
+$('semente').value = Math.trunc(+Q.get('semente')) || 1;
+if (['0', '25', '50', '75', '100'].includes(Q.get('acesas'))) { $('acesas').value = Q.get('acesas'); acaso(); }
+else if (Q.has('tochas')) $('acesas').value = fogos.every(acesa) ? '100' : 'manual';
+else { $('acesas').value = '75'; acaso(false); }
+
+// ---- characters (load, measure and mount copied from cena-batalha.html, native VS size) -------------------------
+// Shadows on the characters (Fernando, Nov 17: "shouldn't the shadows hide parts of the bodies, as in the room?").
+// VSTools' shader is unlit: the page gave it one colour per character (every light at the chest), so nothing could
+// shade one part of a body. Now the two lights that cast shadows come apart from that colour (luzA, luzB) and each is
+// cut by its shadow map per pixel, with three's own chunks: walls, columns, other characters and the body itself
+// (arm, weapon) shade it. A face turned away from the light fades to dark by itself (the face's normal, from screen
+// derivatives), which also covers the shadow map's acne where light grazes the body; 0.003 more bias for the rest.
+// With shadows off the program is the old one plus two colours added.
+// Direct light only (Fernando, Nov 18: "the character has to stay fully hidden in the shadows; if his arm is lit, only
+// his arm shows"). One colour per character, taken at the chest with the room's ambient on top, lit the whole body at
+// once. With DIRETO each pixel of the body adds up the real point lights itself: no ambient in any darkness mode, the
+// face's own normal (a side turned away gets nothing), and an inverse-square falloff that ends at the light's own
+// range, where its pool on the floor ends too. D0 is the distance where a torch is down to half: 4 tiles, about a
+// character's height (3.7). Measured against the floor at the feet: with 3 the body got 40% of the floor's light at
+// 7 to 8 tiles and stood black on a lit floor; 5 copies the room's curve; 4 follows the floor near the torch and lets
+// the body sink into the dark a little before the floor does. `luz` stays in the sum
+// for the card portraits, which light the head evenly; the frame loop keeps it at zero.
+// SOME (Fernando, Nov 18: in the blue penumbra the unlit character was a black cutout on the floor, he has to vanish):
+// a pixel is dropped when its direct light is under a 4x4 Bayer threshold, so the body fades out in a screen-door
+// pattern. Discard and not blending: the body stays in the opaque pass and writes depth only where it shows, so arm
+// over torso, smoke, water and SSAO need no sorting, and the shadow pass (three's own material) still casts him.
+// SOME_LIM is the light where he is whole; 0.05 is about the penumbra floor's own brightness (9 to 11 of 255).
+// How he vanishes (?some=, Fernando, Nov 18: with the torch in his own hand the body dropped out by the camera angle,
+// only hand, sword and torch stayed). Cause, measured: the facet's N.L is zero on every face turned away from the torch,
+// so the side of him the camera saw from behind was dropped whole. Three ways, side by side:
+// ABRACA (default): the light wraps the body. Normals smoothed per vertex (normais()), each light gives ABRACO of
+// itself whatever the angle and the rest by half-Lambert, so near a torch the side and the back show and only distance
+// or a real shadow hides him. The shadow maps skip FOLGA tiles in front of the pixel: his own body is not "a shadow".
+// The edge fades by a fine per-pixel noise, no 4x4 grid.
+// INTEIRO: one answer per character (visto(), frame loop): if the direct light reaches his feet, chest or head he is
+// drawn whole, with the light each part really has (unlit parts black, not gone).
+// Without either define SOME is what it was: facet light and the Bayer screen-door.
+const D0 = 4, SOME_LIM = 0.05, ABRACO = 0.2, FOLGA = 1.2, BONECO_VARIA = `#ifdef DIRETO
+  varying vec3 vPosVista;
+#endif
+#ifdef ABRACA
+  varying vec3 vNorm;
+#endif
+`, BONECO_PARS = BONECO_VARIA + `uniform vec3 luz, luzA, luzB;
+uniform float visto;
+#include <packing>
+#include <bsdfs>
+#include <lights_pars_begin>
+#include <shadowmap_pars_fragment>
+#ifdef SOME
+float bayer2( vec2 a ) { a = floor( a ); return fract( a.x / 2.0 + a.y * a.y * 0.75 ); } // WebGL 1: no array constants
+float bayer4( vec2 a ) { return bayer2( 0.5 * a ) * 0.25 + bayer2( a ); } // 0 to 15/16
+float fino( vec2 a ) { return fract( 52.9829189 * fract( dot( a, vec2( 0.06711056, 0.00583715 ) ) ) ); } // interleaved gradient noise, no period to see
+#endif
+#if defined( USE_SHADOWMAP ) && NUM_POINT_LIGHT_SHADOWS > 0
+float sombraBoneco( sampler2D mapa, PointLightShadow s, vec4 c ) {
+  if ( ! receiveShadow ) return 1.0; // three's own switch (mesh.receiveShadow), as its materials read it
+  #ifdef ABRACA
+    return getPointShadow( mapa, s.shadowMapSize, s.shadowBias - ${FOLGA.toFixed(1)} / ( s.shadowCameraFar - s.shadowCameraNear ), s.shadowRadius, c, s.shadowCameraNear, s.shadowCameraFar );
+  #endif
+  float nl = dot( normalize( cross( dFdx( c.xyz ), dFdy( c.xyz ) ) ), - normalize( c.xyz ) );
+  return smoothstep( -0.05, 0.35, nl ) * getPointShadow( mapa, s.shadowMapSize, s.shadowBias - 0.003, s.shadowRadius, c, s.shadowCameraNear, s.shadowCameraFar );
+}
+#endif
+`, BONECO_LUZ = `vec3 luzes = luz;
+  #ifdef DIRETO
+  #if NUM_POINT_LIGHTS > 0
+    vec3 nVista = normalize( cross( dFdx( vPosVista ), dFdy( vPosVista ) ) );
+    float sA = 1.0, sB = 1.0;
+    #ifdef ABRACA
+      // a vertex only on triangles that join two bones has no normal: the facet's then; the back copy of a two-sided face shares its front's
+      vec3 nS = dot( vNorm, vNorm ) > 0.25 ? normalize( vNorm ) : nVista; if ( dot( nS, nVista ) < 0.0 ) nS = - nS;
+    #endif
+    #if defined( USE_SHADOWMAP ) && NUM_POINT_LIGHT_SHADOWS > 0
+      sA = sombraBoneco( pointShadowMap[ 0 ], pointLightShadows[ 0 ], vPointShadowCoord[ 0 ] );
+    #endif
+    #if defined( USE_SHADOWMAP ) && NUM_POINT_LIGHT_SHADOWS > 1
+      sB = sombraBoneco( pointShadowMap[ 1 ], pointLightShadows[ 1 ], vPointShadowCoord[ 1 ] );
+    #endif
+    for ( int i = 0; i < NUM_POINT_LIGHTS; i ++ ) {
+      vec3 l = pointLights[ i ].position - vPosVista;
+      float d = length( l ), x = d / pointLights[ i ].distance, j = clamp( 1.0 - x * x, 0.0, 1.0 );
+      #ifdef ABRACA
+        float nl = ${ABRACO} + ${(1 - ABRACO) / 2} * ( dot( nS, l / d ) + 1.0 );
+      #else
+        float nl = max( dot( nVista, l / d ), 0.0 );
+      #endif
+      vec3 c = pointLights[ i ].color * ( j * j * ${D0 * D0}.0 / ( d * d + ${D0 * D0}.0 ) * nl );
+      luzes += i == 0 ? c * sA : i == 1 ? c * sB : c; // the two shadow casters come first in three's list
+    }
+  #endif
+  #else
+  #if defined( USE_SHADOWMAP ) && NUM_POINT_LIGHT_SHADOWS > 0
+    luzes += luzA * sombraBoneco( pointShadowMap[ 0 ], pointLightShadows[ 0 ], vPointShadowCoord[ 0 ] );
+  #else
+    luzes += luzA;
+  #endif
+  #if defined( USE_SHADOWMAP ) && NUM_POINT_LIGHT_SHADOWS > 1
+    luzes += luzB * sombraBoneco( pointShadowMap[ 1 ], pointLightShadows[ 1 ], vPointShadowCoord[ 1 ] );
+  #else
+    luzes += luzB;
+  #endif
+  #endif
+  #ifdef SILHUETA
+    luzes += vec3( 0.03, 0.05, 0.09 ); // the minimum silhouette: a cold blue floor of about 8%, over SOME_LIM, so SOME never drops a pixel
+  #endif
+  #ifdef SOME
+    #ifdef INTEIRO
+      if ( visto <= fino( gl_FragCoord.xy ) ) discard;
+    #elif defined( ABRACA )
+      if ( smoothstep( 0.0, ${SOME_LIM}, max( luzes.r, max( luzes.g, luzes.b ) ) ) <= fino( gl_FragCoord.xy ) ) discard;
+    #else
+      if ( smoothstep( 0.0, ${SOME_LIM}, max( luzes.r, max( luzes.g, luzes.b ) ) ) <= bayer4( gl_FragCoord.xy ) ) discard; // <=: no light always drops
+    #endif
+  #endif
+  gl_FragColor = vec4( diffuseColor.rgb * luzes, diffuseColor.a );`;
+let direta = 'some'; // false ('antes'), 'direta' (black cutout) or 'some'
+// SILHUETA (default since Nov 18, Fernando: "the character never vanishes whole"): ABRACA plus a cold blue light floor
+// of about 8%, so far from every torch he stays a dark blue outline instead of nothing.
+const SOMES = ['silhueta', 'abraca', 'inteiro', 'agora'];
+let comoSome = SOMES.includes(Q.get('some')) ? Q.get('some') : 'silhueta';
+// true and false still work (tests and custoDe): true is the cutout mode it meant before 'some' existed
+function poeBonecos(m) {
+  direta = m === true ? 'direta' : m && m !== 'antes' ? m : false; $('bonecos').value = direta || 'antes';
+  for (const u of unidades) { for (const x of u.mats) { define(x, 'DIRETO', !!direta); define(x, 'SOME', direta === 'some'); define(x, 'ABRACA', direta === 'some' && (comoSome === 'abraca' || comoSome === 'silhueta')); define(x, 'SILHUETA', direta === 'some' && comoSome === 'silhueta'); define(x, 'INTEIRO', direta === 'some' && comoSome === 'inteiro'); } if (direta !== 'some') u.disco.material.opacity = 0.5; }
+}
+function poeSome(m) { comoSome = SOMES.includes(m) ? m : 'silhueta'; $('some').value = comoSome; poeBonecos(direta); }
+$('bonecos').onchange = () => { poeBonecos($('bonecos').value); naURL('bonecos', $('bonecos').value); };
+$('some').value = comoSome; $('some').onchange = () => { poeSome($('some').value); naURL('some', comoSome); };
+// Smooth normals for ABRACA, in each bone's own space (VS keeps a bone's vertices there, so a triangle across two bones
+// has no meaningful normal and is skipped). VS repeats a vertex per face: the same place on the same bone is one point.
+// A two-sided face is two triangles back to back: counted once, turned to agree with its neighbours.
+function normais(g) {
+  const P = g.attributes.position, S = g.attributes.skinIndex, I = g.index ? g.index.array : null, n = I ? I.length : P.count, de = new Int32Array(P.count), chaves = new Map(), vezes = new Map(), faces = [];
+  for (let i = 0; i < P.count; i++) { const k = `${P.getX(i)},${P.getY(i)},${P.getZ(i)}|${S ? S.getX(i) : 0}`; if (!chaves.has(k)) chaves.set(k, chaves.size); de[i] = chaves.get(k); }
+  const N = new Float32Array(chaves.size * 3), a = new Vector3(), b = new Vector3(), c = new Vector3(), out = new Float32Array(P.count * 3);
+  for (let i = 0; i < n; i += 3) {
+    const t = [0, 1, 2].map((j) => (I ? I[i + j] : i + j)); if (S && new Set(t.map((v) => S.getX(v))).size > 1) continue;
+    const w = t.map((v) => de[v]), f = [...w].sort((x, y) => x - y).join(); vezes.set(f, (vezes.get(f) || 0) + 1); if (vezes.get(f) > 1) continue;
+    a.fromBufferAttribute(P, t[0]); b.fromBufferAttribute(P, t[1]).sub(a); c.fromBufferAttribute(P, t[2]).sub(a); faces.push([f, w, b.cross(c).clone()]); // the cross keeps the area as weight
+  }
+  const soma = ([, w, v]) => { for (const k of w) { N[k * 3] += v.x; N[k * 3 + 1] += v.y; N[k * 3 + 2] += v.z; } };
+  for (const x of faces) if (vezes.get(x[0]) === 1) soma(x);
+  for (const x of faces) if (vezes.get(x[0]) > 1) { a.set(0, 0, 0); for (const k of x[1]) { a.x += N[k * 3]; a.y += N[k * 3 + 1]; a.z += N[k * 3 + 2]; } if (a.dot(x[2]) < 0) x[2].negate(); soma(x); }
+  for (let i = 0; i < P.count; i++) { a.fromArray(N, de[i] * 3); if (a.lengthSq() > 0) a.normalize(); a.toArray(out, i * 3); }
+  g.setAttribute('normal', new Float32BufferAttribute(out, 3)); return g;
+}
+// INTEIRO: how much direct light reaches his feet, chest or head (the shader's own falloff, no angle), 0 to 1
+function visto(u) {
+  let m = 0;
+  for (const h of [0.1, 0.55, 0.95]) {
+    d3.copy(u.g.position).setY(u.g.position.y + u.alt * h); let k = 0;
+    for (const l of luzes) { if (!(l.intensity > 0)) continue; const d = l.position.distanceTo(d3), j = Math.max(0, 1 - (d / l.distance) ** 2); k += l.intensity * Math.max(l.color.r, l.color.g, l.color.b) * j * j * D0 * D0 / (d * d + D0 * D0); }
+    m = Math.max(m, k);
+  }
+  const x = Math.min(1, m / SOME_LIM); return x * x * (3 - 2 * x);
+}
+// Every vertex of the skinned mesh in its current pose, in world space (Box3.setFromObject reads the bind pose).
+function pele(mesh, cada) {
+  mesh.updateMatrixWorld(true); mesh.skeleton.update();
+  const a = mesh.geometry.attributes, bm = mesh.skeleton.boneMatrices, v = new Vector3(), t = new Vector3(), p = new Vector3(), si = new Vector4(), sw = new Vector4(), m = new Matrix4();
+  for (let i = 0; i < a.position.count; i++) {
+    v.fromBufferAttribute(a.position, i).applyMatrix4(mesh.bindMatrix); si.fromBufferAttribute(a.skinIndex, i); sw.fromBufferAttribute(a.skinWeight, i); p.set(0, 0, 0);
+    for (let j = 0; j < 4; j++) p.add(t.copy(v).applyMatrix4(m.fromArray(bm, si.getComponent(j) * 16)).multiplyScalar(sw.getComponent(j)));
+    cada(p.applyMatrix4(mesh.bindMatrixInverse).applyMatrix4(mesh.matrixWorld));
+  }
+}
+function medir(mesh) { const box = new Box3(); pele(mesh, (p) => box.expandByPoint(p)); return box; }
+// Every change of clip blends by weight (Fernando, Nov 18: "no abrupt change between animations"). Each character
+// keeps the weights showing now; a change starts from them and eases (smoothstep) to the new action alone, so a change
+// in the middle of another never jumps. The weights always add up to 1: three mixes the bind pose into what is missing
+// (the collapsed skeleton), and its own crossFadeFrom restarts a fading action at full weight (a jump in mid-blend).
+const liso = (x) => x * x * (3 - 2 * x);
+function funde(u, nova, dur) {
+  const m = u.mist || (u.mist = { de: new Map(), t: 0, dur: 0, para: null }), agora = new Map();
+  if (m.para) { const e = m.dur ? liso(Math.min(1, m.t / m.dur)) : 1; for (const [a, w] of m.de) agora.set(a, w * (1 - e)); agora.set(m.para, (agora.get(m.para) || 0) + e); }
+  // A clip that already ran to its end (paused on its last pose) and still shows cannot restart without a jump, and
+  // left paused it would never end again (a second K, or W again while the walk half fades out): its twin, a copy of
+  // the clip, starts over and blends in while it fades. The twin's twin is the original, so they take turns.
+  if (nova.paused && agora.get(nova) > 0.05) {
+    const c = nova.getClip(), g = c.gemeo || ((c.gemeo = c.clone()).gemeo = c, c.gemeo), t = u.mixer.clipAction(g, u.mesh);
+    t.setLoop(nova.loop, Infinity); t.clampWhenFinished = nova.clampWhenFinished; nova = t;
+  }
+  // a clip still showing keeps its time (restarting it would jump by its weight); one gone or nearly gone starts over
+  if (!(agora.get(nova) > 0.05) || nova.paused) nova.reset();
+  nova.play(); Object.assign(m, { de: agora, para: nova, t: 0, dur: agora.size ? dur : 0 });
+  u.action = nova; u.trocou = true; pesa(u, 0);
+}
+function pesa(u, dt) {
+  const m = u.mist; if (!m?.para) return;
+  m.t += dt; const e = m.dur ? liso(Math.min(1, m.t / m.dur)) : 1;
+  for (const [a, w] of m.de) if (a !== m.para) { const x = w * (1 - e); a.setEffectiveWeight(x); if (!x) { a.stop(); m.de.delete(a); } }
+  m.para.setEffectiveWeight((m.de.get(m.para) || 0) * (1 - e) + e);
+}
+// seconds of the blend between two gestures: start and stop follow the weight, a blow or a spell answers the key
+function trocaDe(de, para) {
+  const k = PESOS[peso];
+  if (para === 'golpe' || para === 'magia') return 0.1;
+  if (de === 'golpe' || de === 'magia') return 0.25;
+  if (de === 'pose') return MISTURA.parado * QUADRO; // landing back to the gesture, the game's blend (pulo-vs.js)
+  // the run pose is far from standing (the Minotauro moved 0.85 tiles in one frame at 0.1 s): never under 0.2 s there
+  const menos = para === 'correr' || de === 'correr' ? 0.2 : 0.1;
+  if (para === 'parado') return Math.max(menos, k.parada);
+  if (de === 'parado' || !de) return Math.max(menos, k.partida);
+  return 0.2; // walk and run
+}
+const ENCADEIA = 0.06; // inside one gesture (the walk's two halves, the spell's clips): the clips already meet
+function toca(u, g, de = u.atual) {
+  if (u.atual === g || !u.indices[g]) return; u.atual = g; u.fila = [...u.indices[g]]; proximo(u, trocaDe(de, g));
+}
+function proximo(u, dur = ENCADEIA) {
+  if (!u.fila.length) {
+    if (!LACO.includes(u.atual)) { const de = u.atual; u.atual = ''; return toca(u, gesto(u), de); } // a blow or a spell is over: back to walking if he still is
+    u.fila = [...u.indices[u.atual]]; // idle and walk loop: the walk alternates its two half cycles
+  }
+  const a = u.mixer.clipAction(u.clips[u.fila.shift()], u.mesh); a.setLoop(u.atual === 'parado' ? LoopRepeat : LoopOnce); a.clampWhenFinished = true;
+  funde(u, a, dur);
+}
+// a jump pose of pulo-vs.js through the same blend, with the game's blend time (its poePose uses crossFadeFrom)
+function poeFase(u, poses, fase) { const a = u.mixer.clipAction(poses[fase], u.mesh); if (u.action !== a) { a.setLoop(LoopRepeat); funde(u, a, MISTURA[fase] * QUADRO); } }
+// ---- flashes and carried light --------------------------------------------------------------------------------
+// Every light source is { chama (position), cor, I (intensity now), alcance, w (its share of a real light, 0 to 1) }:
+// the torches, the light a character carries, and the short flashes of a blow or a spell.
+const claroes = [];
+// A flash: peak intensity, colour, range, how long it lasts, and pulses (a bolt flickers three times).
+function clarao(pos, cor, pico, alcance, dur, pulsos = 1) { claroes.push({ chama: pos.clone(), cor: new Color(cor), pico, alcance, dur, pulsos: calmo ? 1 : pulsos, t: 0, I: pico, w: 1, prioridade: 2 }); }
+const frente = (u, d, h) => new Vector3(Math.sin(u.g.rotation.y) * d, h, Math.cos(u.g.rotation.y) * d).add(u.g.position);
+const espera = (s) => new Promise((ok) => setTimeout(ok, s * 1000));
+// the timings are when the blow lands and when the spell is released in these SEQ clips, set by eye
+async function ataca(u) { toca(u, 'golpe'); await espera(0.35); clarao(frente(u, 1.4, u.alt * 0.55), 0xffc890, 5, 9, 0.3); }
+async function conjura(u, tipo) {
+  toca(u, 'magia'); await espera(0.9);
+  if (tipo === 'fogo') clarao(frente(u, 2.2, u.alt * 0.6), 0xff7a20, 9, 14, 0.5);
+  else clarao(frente(u, 2.2, u.alt * 0.9), 0x8ab8ff, 10, 16, 0.45, 3);
+}
+const ESCALA = 1 / 128; // SHP units to tiles, the same factor as the room: native proportions
+const ALT_ASHLEY = 3.67, FAISCAS = 6; // the carried torch was sized on Ashley and scales with the others' height; its embers
+// Holding the carried torch: the upper arm turns until the hand points at a spot ahead of the chest, on that arm's own
+// side (the elbow keeps the bend the clip gives it, so walking, running and jumping still move the arm), and the
+// torch stands upright in the fist whatever the hand's turn. The mixer only writes a bone when its clip value changes,
+// so the bone gets its own value back at the start of the next frame (quadro) and the aim never piles up.
+const qA = new THREE.Quaternion(), qB = new THREE.Quaternion(), qC = new THREE.Quaternion(), vO = new Vector3(), vM = new Vector3(), EIXO_X = new Vector3(1, 0, 0), EIXO_Y = new Vector3(0, 1, 0);
+function segura(u) {
+  const l = u.leva, ry = u.g.rotation.y, s = u.alt / ALT_ASHLEY, cx = Math.cos(ry), sx = Math.sin(ry);
+  u.g.updateMatrixWorld(true); u.ombro.getWorldPosition(vO); u.mao.getWorldPosition(vM);
+  const alvo = frente(u, 0.95 * s, u.alt * 0.62); alvo.x += cx * u.lado * 0.5 * s; alvo.z -= sx * u.lado * 0.5 * s;
+  qA.setFromUnitVectors(vM.sub(vO).normalize(), alvo.sub(vO).normalize()); u.ombro.parent.getWorldQuaternion(qB); u.ombro.getWorldQuaternion(qC);
+  l.q0.copy(u.ombro.quaternion); l.torto = true;
+  u.ombro.quaternion.slerp(qB.inverse().multiply(qA).multiply(qC), l.braco); u.ombro.updateMatrixWorld(true);
+  u.mao.getWorldQuaternion(qB); l.g.quaternion.copy(qB.inverse()).multiply(qA.setFromAxisAngle(EIXO_Y, ry)).multiply(qC.setFromAxisAngle(EIXO_X, 0.3)); l.g.updateMatrixWorld(true);
+  l.chama.set(0, 0.95, 0); l.g.localToWorld(l.chama); // the flame sits on the cup
+}
+async function abre(def) {
+  const z = new ZUD(new Reader(new Uint8Array(await (await fetch('./arq/MAP/' + def.zud + '.ZUD')).arrayBuffer()))); z.read(); z.build();
+  const seq = z.bt || z.com, u = { ...def, mesh: z.shp.mesh, clips: seq.animations.map((a) => a.animationClip), indices: {}, fila: [], g: new Group(), cx: def.x, cz: def.z, rota: [], v: 0, v1: 0, w: 0, alvo: 0, rumo: 0, lento: 1, luz: new Color(1, 1, 1), luzA: new Color(0, 0, 0), luzB: new Color(0, 0, 0), visto: { value: 1 }, mats: [] };
+  // the light this character can carry (button Tocha): off until asked
+  u.leva = { chama: new Vector3(), cor: new Color(1, 0.8, 0.55), forca: 1.5, alcance: 11, I: 0, w: 0, fase: Math.random() * 9, ligada: false, braco: 0, prioridade: 1 };
+  u.leva.sp = new Sprite(new SpriteMaterial({ map: brilho, blending: AdditiveBlending, depthWrite: false, fog: false })); u.leva.sp.visible = false; cena.add(u.leva.sp);
+  for (const [g, s] of Object.entries(GESTOS)) { const ids = s.map((k) => seq.slots[k]).filter((i) => i !== undefined && i !== 255); if (ids.length) u.indices[g] = ids; }
+  if (!u.indices.parado) u.indices.parado = [0];
+  // the jump poses of pulo-vs.js per take-off (standing, walking, running); null when this SEQ lacks one: plain arc then
+  u.poses = { parado: posesDoPulo(seq, 'parado'), andando: posesDoPulo(seq, 'andando'), correndo: posesDoPulo(seq, 'correndo') };
+  // only the current action's end moves the queue: a walk clip still fading out under a jump pose ends too
+  u.mixer = new AnimationMixer(u.mesh); u.mixer.addEventListener('finished', (e) => { if (e.action === u.action) proximo(u); });
+  toca(u, 'parado'); u.mixer.update(0.2);
+  const box = medir(u.mesh), c = box.getCenter(new Vector3());
+  u.alt = (box.max.y - box.min.y) * ESCALA;
+  u.mesh.scale.setScalar(ESCALA); u.mesh.position.set(-c.x * ESCALA, -box.min.y * ESCALA, -c.z * ESCALA); u.mesh.frustumCulled = false;
+  // weapon and shield hang from the bones with mountId 240 and 241 (cena-batalha.html, poe)
+  const ossos = {}; z.shp.bones.forEach((b) => { if (b.mountId >= 240) ossos[b.mountId] = z.shp.skeleton.bones[b.id]; });
+  // the hands (the bones the weapon and the shield hang from, and their parents): the smooth mesh leaves them as they are
+  u.travados = new Set(Object.values(ossos).flatMap((b) => [b, b.parent]).map((b) => z.shp.skeleton.bones.indexOf(b)));
+  for (const [k, w] of [[240, z.weapon], [241, z.shield]]) if (ossos[k] && w) { w.mesh.rotation.set(0, 0, 0); w.mesh.frustumCulled = false; ossos[k].add(w.mesh); }
+  // VSTools' unlit shader gets one colour, the torch light at the character, recomputed every frame
+  u.mesh.traverse((o) => [].concat(o.material || []).forEach((m) => {
+    const t = (m.uniforms && m.uniforms.map && m.uniforms.map.value) || m.map; if (t) { t.magFilter = t.minFilter = NearestFilter; t.needsUpdate = true; }
+    if (m.fragmentShader && m.fragmentShader.includes('gl_FragColor = diffuseColor;')) {
+      // lights: true makes three fill the light and shadow uniforms of a ShaderMaterial; they have to exist in it
+      Object.assign(m.uniforms, THREE.UniformsUtils.clone(THREE.UniformsLib.lights), { luz: { value: u.luz }, luzA: { value: u.luzA }, luzB: { value: u.luzB }, visto: u.visto });
+      m.lights = true; m.extensions.derivatives = true; u.mats.push(m);
+      m.vertexShader = m.vertexShader.replace('void main() {', BONECO_VARIA + '#include <shadowmap_pars_vertex>\nvoid main() {').replace('#include <worldpos_vertex>', '$&\n#include <shadowmap_vertex>\n#ifdef DIRETO\n  vPosVista = mvPosition.xyz;\n#endif')
+        .replace('#include <skinbase_vertex>', '$&\n#ifdef ABRACA\n  vec3 objectNormal = vec3( normal );\n  #include <skinnormal_vertex>\n  vNorm = normalMatrix * objectNormal;\n#endif');
+      m.fragmentShader = m.fragmentShader.replace('void main() {', BONECO_PARS + 'void main() {').replace('gl_FragColor = diffuseColor;', BONECO_LUZ); m.needsUpdate = true;
+    }
+  }));
+  const disco = new Mesh(new CircleGeometry(0.8, 20), new MeshBasicMaterial({ color: 0, transparent: true, opacity: 0.5, depthWrite: false })); disco.rotation.x = -Math.PI / 2; disco.position.y = 0.03;
+  u.pega = new Mesh(new BoxGeometry(1.6, u.alt, 1.6), new MeshBasicMaterial({ visible: false })); u.pega.position.y = u.alt / 2; u.pega.userData.u = u; // skinned meshes raycast in bind pose
+  u.mesh.traverse((o) => { if (o.isMesh) o.castShadow = o.receiveShadow = true; });
+  // the body's own sheet (weapon and shield keep theirs): what "Textura dos bonecos" swaps and puts back
+  u.pele = [].concat(u.mesh.material).filter((m) => m.uniforms && m.uniforms.map && m.uniforms.map.value); u.tex0 = u.pele.map((m) => m.uniforms.map.value);
+  // Twice the triangles (Fernando, Nov 17, approved for this page): the lab's subdividir2x, as the game runs it in
+  // load.ts, on every skinned piece. Both geometries are kept so the selector swaps them live; `corpo` tells the body
+  // from the weapon and the shield, which the smooth mesh never rounds.
+  u.geos = []; u.mesh.traverse((o) => { if (o.isSkinnedMesh) u.geos.push({ o, corpo: o === u.mesh, orig: normais(o.geometry), dobro: normais(subdividir2x(o.geometry)) }); });
+  // water: one fixed record per character (feet position by reference) and a clipping plane at the water line in every
+  // material of his, weapon and shield included; agua.js adds three's clipping chunks to the VS shader
+  u.disco = disco; u.agua = { pos: u.g.position, raio: RAIO, altura: u.alt }; aguas.forEach((a) => a.aplicarCorte(u.mesh, u.agua));
+  // The torch in the hand (Fernando, Nov 18: "T makes a torch in the character's HAND, held in front of him, and he
+  // keeps holding it while he walks, runs and jumps"). Until now T only lit a point of light floating by the shoulder.
+  // The off hand is the bone the shield hangs from (mount 241); a skeleton without one (the Maga, the Minotauro) gets
+  // the end of another limb at arm height. The shoulder is three bones up from it (mount, hand, forearm, upper arm).
+  // Added last, after everything above that walks the character's meshes (shadows, subdivision, the water cut).
+  u.mesh.updateMatrixWorld(true);
+  const ehOsso = (o) => !!o && o.isBone, onde = new Vector3();
+  u.mao = ossos[241] || z.shp.skeleton.bones.find((b) => b !== ossos[240] && !b.children.some(ehOsso) && ehOsso(b.parent) && ehOsso(b.parent.parent) && ehOsso(b.parent.parent.parent) && Math.abs(b.getWorldPosition(onde).y / u.alt - 0.55) < 0.2);
+  if (u.mao) {
+    u.ombro = u.mao; for (let i = 0; i < 3 && ehOsso(u.ombro.parent) && u.ombro.parent.children.filter(ehOsso).length === 1; i++) u.ombro = u.ombro.parent;
+    const cabo = new Mesh(new CylinderBufferGeometry(0.07, 0.045, 1, 6), madeira), copo = new Mesh(new CylinderBufferGeometry(0.12, 0.08, 0.2, 6), ferro), g = new Group();
+    cabo.position.y = 0.2; copo.position.y = 0.75; g.add(cabo, copo); g.scale.setScalar(u.alt / ALT_ASHLEY / ESCALA); g.visible = false; u.mao.add(g); // the bone lives in SHP units
+    const pts = new Points(new BufferGeometry().setAttribute('position', new Float32BufferAttribute(new Float32Array(FAISCAS * 3), 3)), new PointsMaterial({ size: 0.07, color: 0xff9a3c, transparent: true, depthWrite: false, blending: AdditiveBlending, fog: false }));
+    pts.frustumCulled = false; pts.visible = false; cena.add(pts);
+    Object.assign(u.leva, { g, pts, vida: new Float32Array(FAISCAS), q0: new THREE.Quaternion() }); u.escudo = ossos[241] && z.shield ? z.shield.mesh : null;
+    u.lado = u.mao.getWorldPosition(onde).x < 0 ? -1 : 1; // which side that hand rests on, read once: Ashley stands half turned and his shoulder sways across the middle
+  }
+  u.g.add(u.mesh, disco, u.pega); u.g.position.set(u.cx * CEL + 1, piso(u.cx * CEL + 1, u.cz * CEL + 1), u.cz * CEL + 1); u.g.rotation.y = def.vira ?? 0; cena.add(u.g);
+  return u;
+}
+
+// ---- camera ---------------------------------------------------------------------------------------------------
+// Vagrant Story frames the hero low and close: limited orbit around the selected character, no pan.
+// Own orbit controls: OrbitControls (r117) reads every finger on the screen, so a thumb on the joystick turned a
+// one-finger drag into a pinch. Here only the fingers that started on the canvas count.
+// limits: up to 44 tiles away and 34 degrees from straight down, enough to see the whole 28x32-tile Dullahan room
+const orbita = { az: P.spawns ? 0 : -0.66, polar: 1.3, dist: DIST0 }, alvoCam = new Vector3(); // on a plan with spawns, start behind the allies
+const prende = () => { orbita.polar = Math.min(1.5, Math.max(0.6, orbita.polar)); orbita.dist = Math.min(44, Math.max(6, orbita.dist)); };
+function poeCamera() {
+  const { az, polar, dist } = orbita, t = alvoCam;
+  if (cena.fog) { const k = Math.max(0, dist - DIST0); cena.fog.near = nevoaK ? PERTO + k : 1e5; cena.fog.far = nevoaK ? PERTO + k + (LONGE - PERTO) * nevoaK : 1e6; }
+  cam.position.set(t.x + dist * Math.sin(polar) * Math.sin(az), t.y + dist * Math.cos(polar), t.z + dist * Math.sin(polar) * Math.cos(az)); cam.lookAt(t);
+}
+// setPointerCapture throws for a pointer the browser no longer tracks, hence the empty catch blocks below
+const dedos = new Map(); let toque = null; // toque: where a possible tap started, dropped once the finger moves or a second one lands
+r.domElement.addEventListener('pointerdown', (e) => { try { r.domElement.setPointerCapture(e.pointerId); } catch {} dedos.set(e.pointerId, [e.clientX, e.clientY]); toque = dedos.size === 1 ? [e.clientX, e.clientY] : null; });
+r.domElement.addEventListener('pointermove', (e) => {
+  const antes = dedos.get(e.pointerId); if (!antes) return;
+  if (toque && Math.hypot(e.clientX - toque[0], e.clientY - toque[1]) >= 8) toque = null;
+  if (dedos.size === 1) { orbita.az -= (e.clientX - antes[0]) * 0.008; orbita.polar -= (e.clientY - antes[1]) * 0.006; }
+  else if (dedos.size === 2) { const [a, b] = [...dedos.values()], o = a === antes ? b : a, d0 = Math.hypot(antes[0] - o[0], antes[1] - o[1]), d1 = Math.hypot(e.clientX - o[0], e.clientY - o[1]); if (d1 > 0) orbita.dist *= d0 / d1; }
+  dedos.set(e.pointerId, [e.clientX, e.clientY]); prende();
+});
+const solta = (e) => { if (dedos.delete(e.pointerId) && toque && !dedos.size) clique(e); if (!dedos.size) toque = null; };
+r.domElement.addEventListener('pointerup', solta); r.domElement.addEventListener('pointercancel', (e) => { toque = null; dedos.delete(e.pointerId); });
+r.domElement.addEventListener('wheel', (e) => { e.preventDefault(); orbita.dist *= 1 + Math.sign(e.deltaY) * 0.1; prende(); }, { passive: false });
+// the chest; for a swimmer (feet ~3 tiles under the rim) a point just over the pit's rim, or a low camera would dive under the floor
+const alvo = () => { const p = sel.g.position; return p.clone().setY(Math.max(p.y + sel.alt * 0.65, degrau(p.x, p.z) + 0.6)); };
+function seleciona(u) { sel = u; pinta(); }
+// the selected character in the Boneco select and, in Ação, whether he carries his light
+function pinta() { if (sel && sB.options.length === unidades.length) sB.value = unidades.indexOf(sel); enchaAcoes(); }
+
+// walk: the cheapest route over cells, a step allowed when both sides meet at nearly the same height (stairs climb, the
+// dais edge does not). A step costs 1, into shallow water CUSTO_AGUA: the route wades across the river when the bridge
+// is far and takes the bridge when it is near. The queue stays sorted by cost, equal costs in arrival order, so on dry
+// floor it is the same breadth-first search as before (same routes).
+function caminho(de, para) {
+  const k = (c) => c.join(','), veio = new Map([[k(de), null]]), custo = new Map([[k(de), 0]]), fila = [[de, 0]];
+  while (fila.length) {
+    const [c, gc] = fila.shift(); if (gc > custo.get(k(c))) continue; // a cheaper way to it came later
+    if (k(c) === k(para)) break;
+    for (const [dx, dz] of VIZ) {
+      const n = [c[0] + dx, c[1] + dz];
+      if (!pisa(...n) || P.corta?.(c, n) || Math.abs(borda(...c, dx, dz) - borda(...n, -dx, -dz)) > 0.6) continue;
+      const g = custo.get(k(c)) + (P.molha?.(n[0] * CEL + 1, n[1] * CEL + 1) ? CUSTO_AGUA : 1);
+      if (custo.has(k(n)) && custo.get(k(n)) <= g) continue;
+      veio.set(k(n), c); custo.set(k(n), g);
+      let i = fila.length; while (i && fila[i - 1][1] > g) i--; fila.splice(i, 0, [n, g]);
+    }
+  }
+  if (!veio.has(k(para))) return null;
+  const rota = []; for (let c = para; c && k(c) !== k(de); c = veio.get(k(c))) rota.unshift(c);
+  return rota;
+}
+const ray = new Raycaster();
+function clique(e) {
+  ray.setFromCamera(new Vector2((e.clientX / innerWidth) * 2 - 1, 1 - (e.clientY / innerHeight) * 2), cam);
+  const h = ray.intersectObjects([...unidades.map((u) => u.pega), chaoMesh, ...(mundo?.chaos || [])])[0]; if (!h) return;
+  if (h.object.userData.u) return seleciona(h.object.userData.u);
+  const c = [Math.floor(h.point.x / CEL), Math.floor(h.point.z / CEL)];
+  if (!sel || unidades.some((u) => u !== sel && u.cx === c[0] && u.cz === c[1])) return;
+  const rota = caminho([sel.cx, sel.cz], c); if (rota && rota.length) { sel.rota = rota; toca(sel, 'andar'); }
+}
+
+// ---- keys -------------------------------------------------------------------------------------------------------
+// Moves the selected character relative to the camera: up on the stick is away from the camera. A step is taken only
+// when the character's footprint (4 points at RAIO) stays on walkable floor within a step height of where he stands;
+// otherwise each axis is tried alone, so he slides along a wall. The touch stick is gone (Nov 18): a tap walks.
+const RAIO = 0.6, teclas = new Set();
+const DIR = { w: [0, -1], arrowup: [0, -1], s: [0, 1], arrowdown: [0, 1], a: [-1, 0], arrowleft: [-1, 0], d: [1, 0], arrowright: [1, 0] };
+const apertadas = new Set(); // every key held now, for the highlight in the controls list
+addEventListener('keydown', (e) => {
+  const k = e.key.toLowerCase(); apertadas.add(k);
+  // while a select or the report box has the focus, arrows and letters are its own; a slider takes the arrows only
+  if (DIR[k] && !e.target.closest?.(k.startsWith('arrow') ? 'select, input[type=range], input[type=number], textarea' : 'select, input[type=number], textarea')) { teclas.add(k); e.preventDefault(); }
+});
+addEventListener('keyup', (e) => { const k = e.key.toLowerCase(); teclas.delete(k); apertadas.delete(k); });
+addEventListener('blur', () => { teclas.clear(); apertadas.clear(); });
+const troca = (d) => seleciona(unidades[(unidades.indexOf(sel) + unidades.length + d) % unidades.length]);
+// Every other key goes through the kit: the actions of the two bars (K F R T, Space, Shift held) and the extras here.
+// It leaves Space, Enter and arrows to a focused control and never fires while a select is being used.
+const proximaRes = () => { const s = $('res'); s.selectedIndex = (s.selectedIndex + 1) % s.options.length; s.onchange(); };
+ligarAtalhos({ barra, extras: { q: () => sel && troca(-1), e: () => sel && (mundo?.portaPerto() ? mundo.alternaPorta() : fixa ? alternaFixa() : troca(1)), g: () => gaveta.abrir(), 1: () => $('t-sombra').click(), 2: () => { $('part').value = $('part').value === 'nao' ? 'todas' : 'nao'; $('part').onchange(); },
+  3: () => $('t-nevoa').click(), 4: () => { if (fogos.some(acesa)) { tochasAntes = tochasAcesas(); poeTochas('nao'); } else poeTochas(tochasAntes); tochasNaURL(); }, 5: proximaRes, 6: () => { const s = $('dobro'); s.selectedIndex = (s.selectedIndex + 1) % s.options.length; s.onchange(); }, 7: () => $('t-agua').click(), 8: () => { $('escuro').value = escuro ? '0' : '1'; $('escuro').onchange(); },
+  9: () => $('t-pcss').click(), 0: () => $('t-ssao').click(), l: () => $('t-lm').click(), m: () => { quadroM.hidden = !quadroM.hidden; poeLugarM(); }, // M, not F: F casts fire
+  p: () => { const s = $('peso'); s.selectedIndex = (s.selectedIndex + 1) % s.options.length; s.onchange(); aviso.mostrar('Peso do boneco: ' + s.selectedOptions[0].text); } } });
+// Jump as Vagrant Story plays it (pulo-vs.js): no jump clip, five one-frame poses blended while the body flies the
+// arc. A crouch on the ground first, then take-off, apex and fall picked by the vertical speed, a landing pose held
+// for its blend time, and back to what the character was doing. A character without the poses flies the plain arc.
+const noAr = (u) => !!u.pulo && !(u.pulo.agacha > 0); // off the ground: the crouch still stands on the floor
+const gesto = (u) => (u.dirigido ? (u.correVS ? 'correr' : 'andar') : u.rota.length ? 'andar' : 'parado');
+const nadando = (u) => { const p = u.g.position, a = naAgua(p.x, p.z); return !!a && a.modo === 'fosso' && p.y < a.regiao.yAgua; }; // in the pit, feet under the surface
+function pula(u) {
+  if (u.pulo || u.pouso > 0 || nadando(u) || u.g.position.y < piso(u.g.position.x, u.g.position.z, u.alt) - 0.01) return; // not while swimming or still rising out of the pit
+  const anda = u.dirigido || u.rota.length, modo = !anda ? 'parado' : u.corre ? 'correndo' : 'andando', poses = u.poses[modo] || u.poses.parado;
+  u.pulo = poses ? { vy: 0, agacha: PESOS[peso].agacha[anda ? 1 : 0] * QUADRO, poses } : { vy: PULO0 };
+  if (poses) poeFase(u, poses, 'agacha');
+}
+// back from a pose to a gesture, blended like the game does: the pose keeps playing while it fades (funde)
+function volta(u) { u.atual = ''; toca(u, gesto(u), 'pose'); }
+// y: the step height where he stands (degrau), or his feet when airborne
+const livre = (x, z, y, ar) => [[RAIO, 0], [-RAIO, 0], [0, RAIO], [0, -RAIO]].every(([a, b]) => pisa(Math.floor((x + a) / CEL), Math.floor((z + b) / CEL)) && !P.bloqueia?.(x + a, z + b) && (ar ? degrau(x + a, z + b) <= y + 0.6 : Math.abs(degrau(x + a, z + b) - y) < 0.6));
+// Gamepad (standard mapping, Xbox or PlayStation): left stick walks, right stick turns and tilts the camera, d-pad
+// up/down zooms, LB/RB (or d-pad left/right) pick the character among all 8, A jumps, X strikes, B fire, LT bolt,
+// Y torch, RT held runs, Select toggles shadows, Start focuses the strip of selects (PAD_FAIXA drives it then), a press on the right stick (11, the
+// one button left free) puts out or lights the fixed torch within reach. LB had run and RB the bolt until the 4 against 4 (Nov 17).
+// A browser only lists a pad after one of its buttons is pressed on the page.
+const ZONA = 0.2, morto = (v) => (Math.abs(v) < ZONA ? 0 : v);
+let pad = null, antesBot = [];
+const BOTAO = { 0: () => pula(sel), 2: () => ataca(sel), 1: () => conjura(sel, 'fogo'), 6: () => conjura(sel, 'raio'), 3: () => { sel.leva.ligada = !sel.leva.ligada; pinta(); },
+  4: () => troca(-1), 5: () => troca(1), 14: () => troca(-1), 15: () => troca(1), 8: () => $('t-sombra').click(), 9: () => gaveta.abrir(), 11: () => alternaFixa() };
+let padBot = [], padEixos = [], pads = [], padErro = '';
+const padEv = { conectou: 0, desconectou: 0 };
+addEventListener('gamepadconnected', () => padEv.conectou++); addEventListener('gamepaddisconnected', () => padEv.desconectou++);
+// Buttons as 0 to 1. Some drivers report a digital button as pressed with value 0. A pad outside the standard mapping
+// with fewer than 8 buttons brings the triggers as axes 4 and 5 (rest at -1; 0 until first moved): they fill LT and RT.
+function botoes(g) {
+  const b = g.buttons.map((x) => (typeof x === 'object' ? x.value || (x.pressed ? 1 : 0) : x));
+  if (g.mapping !== 'standard' && b.length < 8 && g.axes.length >= 6) for (const [i, e] of [[6, 4], [7, 5]]) b[i] = g.axes[e] ? (g.axes[e] + 1) / 2 : 0;
+  return b;
+}
+const emUso = (g) => botoes(g).some((v) => v > 0.5) || [...g.axes].slice(0, 4).some((v) => Math.abs(v) > 0.5);
+// Which pad: it used to be the first one connected, so a wheel, a virtual joystick or a second pad listed before the
+// real controller left it ignored. Now pads of the standard mapping come first, and among them the one being used
+// takes over while the current one is idle. Polled every frame; no gamepadconnected event is needed.
+function escolhePad() {
+  try { pads = [...(navigator.getGamepads?.() || [])].filter((g) => g && g.connected); padErro = ''; } catch (e) { pads = []; padErro = e.message; }
+  const padrao = pads.filter((g) => g.mapping === 'standard'), lista = padrao.length ? padrao : pads, atual = lista.find((g) => g.index === pad?.index);
+  return (atual && emUso(atual) ? atual : lista.find(emUso)) || atual || lista[0] || null;
+}
+function diagPad() {
+  const n = (v) => v.toFixed(2), sn = (x) => (x ? 'sim' : 'não');
+  return ['Diagnóstico do controle · ' + new Date().toLocaleString('pt-BR'), location.href,
+    `controles vistos pelo navegador: ${pads.length} · eventos: conectou ${padEv.conectou}, desconectou ${padEv.desconectou}${padErro ? ' · erro ao ler: ' + padErro : ''}`,
+    `janela em foco: ${sn(document.hasFocus())} · aba visível: ${sn(document.visibilityState === 'visible')} · dentro de outra página (iframe): ${sn(self !== top)} · https: ${sn(isSecureContext)} · navegador tem getGamepads: ${sn(navigator.getGamepads)}`,
+    ...(pads.length ? [] : ['nenhum controle visto: aperte um botão no controle com esta página aberta e em foco']),
+    ...pads.flatMap((g) => [`#${g.index} "${g.id}" · mapeamento "${g.mapping}" · ${g.buttons.length} botões · ${g.axes.length} eixos${g.index === pad?.index ? ' · EM USO' : ''}`,
+      '  botões: ' + g.buttons.map((x, i) => `${i}=${n(x.value)}${x.pressed ? '*' : ''}`).join(' '), '  eixos: ' + [...g.axes].map((v, i) => `${i}=${n(v)}`).join(' ')]),
+    navigator.userAgent].join('\n');
+}
+let padQuadro = 0;
+function pintaPad() {
+  if (grupoAberto !== 'controles' || padQuadro++ % 10) return; // a few times a second, and only while the menu shows it
+  const n = (v) => v.toFixed(2).replace('.', ',');
+  Object.assign(diag, {
+    estado: padErro ? 'o navegador bloqueou a leitura: ' + padErro : !pad ? 'nenhum controle visto; aperte um botão nele' : pad.mapping === 'standard' ? 'controle lido (bom)' : 'fora do padrão: os botões podem estar trocados',
+    nome: pad ? pad.id.slice(0, 60) : 'nenhum', mapa: pad ? pad.mapping || 'sem mapeamento (vazio)' : 'nenhum', tamanho: pad ? `${pad.buttons.length}, ${pad.axes.length}` : 'nenhum',
+    apertados: padBot.map((v, i) => (v > 0.5 ? i : null)).filter((i) => i !== null).join(', ') || 'nenhum', eixos: pad ? [...pad.axes].map(n).join('  ') : 'nenhum',
+    vistos: String(pads.length), eventos: `${padEv.conectou}, ${padEv.desconectou}`,
+  });
+}
+$('pad-copiar').onclick = async () => {
+  relPad.value = diagPad();
+  try { await navigator.clipboard.writeText(relPad.value); aviso.mostrar('Diagnóstico copiado.'); }
+  catch { relPad.hidden = false; relPad.select(); aviso.mostrar('O navegador não deixou copiar: selecione o texto da caixa abaixo e copie.', { ms: 8000 }); }
+};
+function controle(dt) {
+  const g = escolhePad(); if (g?.index !== pad?.index) antesBot = []; // a pad that takes over by a press fires that press
+  pad = g; if (!pad) { padBot = []; padEixos = []; return [0, 0]; }
+  const a = pad.axes, b = botoes(pad);
+  padBot = b; padEixos = a.map(morto);
+  const naFaixa = faixa.contains(document.activeElement); // the strip has the focus: the buttons drive it, not the game
+  orbita.az -= morto(a[2] || 0) * 2.2 * dt; orbita.polar -= morto(a[3] || 0) * 1.4 * dt; if (!naFaixa) orbita.dist *= 1 + ((b[13] || 0) - (b[12] || 0)) * 1.5 * dt; prende();
+  b.forEach((v, i) => { if (v > 0.5 && !(antesBot[i] > 0.5)) { const f = naFaixa ? PAD_FAIXA[i] : sel && BOTAO[i]; if (f) f(); } }); antesBot = b;
+  return [morto(a[0] || 0), morto(a[1] || 0)];
+}
+// ---- weight: speed and heading (PESOS) ------------------------------------------------------------------------------
+// Speed through two lags in a row: an S curve that eases in and out, and a stick that jitters does not restart it.
+// Two lags reach 90% of a step in 3.89 time constants, so partida / parada are the times to 90% and to 10%.
+const LAG90 = 3.89;
+function embala(u, alvo, dt) {
+  const a = 1 - Math.exp(-dt * LAG90 / (alvo > u.v1 ? PESOS[peso].partida : PESOS[peso].parada));
+  u.v1 += (alvo - u.v1) * a; u.v += (u.v1 - u.v) * a;
+  if (!alvo && u.v < 0.05) u.v = u.v1 = 0; // under a twentieth of a tile a second: stopped
+}
+// Heading: the shortest way round, at most the weight's turn rate, speeding up into the turn and slowing down onto
+// the target (no snap); a turn of exactly 180 degrees keeps the side it started on. Returns the angle still to turn.
+function vira(u, rumo, dt) {
+  const k = PESOS[peso], max = k.giro * Math.PI / 180, ry = u.g.rotation.y;
+  let d = Math.atan2(Math.sin(rumo - ry), Math.cos(rumo - ry)); if (Math.abs(d) > 3.1) d = Math.abs(d) * (Math.sign(u.w) || 1);
+  if (Math.abs(d) < 1e-4) { u.g.rotation.y = rumo; u.w = 0; return 0; }
+  const w = Math.sign(d) * Math.min(max, Math.sqrt(2 * (max / (0.5 * k.partida)) * Math.abs(d))); // brakes to stop on the target
+  u.w += (w - u.w) * (1 - Math.exp(-dt / (0.15 * k.partida)));
+  const s = u.w * dt;
+  if (Math.sign(s) === Math.sign(d) && Math.abs(s) >= Math.abs(d)) { u.g.rotation.y = rumo; u.w = d / dt; } else u.g.rotation.y = Math.atan2(Math.sin(ry + s), Math.cos(ry + s));
+  return d;
+}
+// the walk clip keeps step with the real speed (a half-pushed stick walks slowly), within half to full rate
+const ritmo = (u) => (u.corre && !u.correVS ? 1.6 : 1) * u.lento * Math.min(1, Math.max(0.5, u.v / (VEL * (u.corre ? 1.8 : 1) * u.lento)));
+// A character on his own feet (stick, keys, or coasting to a stop): the step goes where he faces, so a turn draws an
+// arc; a sharp turn eats speed by the weight's freio, and a landing keeps only recupera of it.
+function rola(u, dt) {
+  const k = PESOS[peso], p = u.g.position, d = u.dirigido ? vira(u, u.rumo, dt) : 0;
+  embala(u, u.dirigido ? u.alvo * (1 - k.freio * (1 - Math.max(0, Math.cos(d)))) * (u.pouso > 0 ? k.recupera : 1) : 0, dt);
+  if (u.dirigido && !u.pulo && !u.pouso && LACO.includes(u.atual) && u.action) u.action.timeScale = ritmo(u);
+  if (!u.v) return;
+  const passo = u.v * dt, mx = Math.sin(u.g.rotation.y), mz = Math.cos(u.g.rotation.y);
+  const ref = noAr(u) ? Math.max(p.y, degrau(p.x, p.z)) : degrau(p.x, p.z), pisando = Math.abs(p.y - piso(p.x, p.z, u.alt)) < 0.01;
+  for (const [ax, az] of [[mx, mz], [mx, 0], [0, mz]]) {
+    const nx = p.x + ax * passo, nz = p.z + az * passo;
+    if (!(ax || az) || !livre(nx, nz, ref, noAr(u))) continue;
+    // the feet follow the floor only when they were on it and the step is small: over the pit's rim voa() makes him
+    // fall in or rise out, no pop
+    p.x = nx; p.z = nz; if (pisando && !noAr(u)) { const y = piso(nx, nz, u.alt); if (Math.abs(y - p.y) < 0.6) p.y = y; } break;
+  }
+  u.cx = Math.floor(p.x / CEL); u.cz = Math.floor(p.z / CEL);
+}
+function conduz(dt) {
+  const [gx, gy] = controle(dt);
+  let x = gx, y = gy; for (const k of teclas) { x += DIR[k][0]; y += DIR[k][1]; }
+  const l = Math.hypot(x, y); if (l > 1) { x /= l; y /= l; }
+  for (const u of unidades) voa(u, dt);
+  // a character no longer selected lets go of the stick: he slows to a stop like any other
+  for (const u of unidades) if (u !== sel && u.dirigido) { u.dirigido = false; if (LACO.includes(u.atual) && !u.pulo && !u.pouso) toca(u, 'parado'); }
+  if (sel) dirige(sel, x, y);
+  for (const u of unidades) if (!u.rota.length) rola(u, dt);
+}
+// The stick or the keys of the selected character: where he wants to go and how fast; rola() gets him there.
+function dirige(u, x, y) {
+  // Run: Shift or RT held, or the on-screen button. VS clip slots 19-20 if this character has them, else the walk
+  // played 1.6x faster (u.correVS says which one ran).
+  // Water: LENTO_AGUA wading (the puddle, the world's river), 0.6x swimming in the pit, where nobody runs. This page's gesture table has
+  // no wading or swimming slot (none was looked for in the SEQ files), so both reuse the walk, slowed by the same factor.
+  u.lento = lentidao(u.g.position);
+  u.corre = (apertadas.has('shift') || (padBot[7] || 0) > 0.5 || correTq) && !nadando(u);
+  const mag = Math.min(1, Math.hypot(x, y)); // a half-pushed stick asks half the speed
+  // let go: the gesture goes back to standing now and blends over the stop time while the body slows (a blow or a spell plays on)
+  if (mag < 0.15) { if (u.dirigido) { u.dirigido = false; if (LACO.includes(u.atual) && !u.pulo && !u.pouso) toca(u, 'parado'); } return; }
+  // camera forward on the floor, and its right
+  const fx = -Math.sin(orbita.az), fz = -Math.cos(orbita.az), mx = fx * -y + -fz * x, mz = fz * -y + fx * x;
+  u.rota = []; u.dirigido = true; u.rumo = Math.atan2(mx, mz); u.alvo = VEL * (u.corre ? 1.8 : 1) * u.lento * mag;
+  u.correVS = u.corre && !!u.indices.correr; if (!u.pulo && !u.pouso && (LACO.includes(u.atual) || !u.atual)) toca(u, u.correVS ? 'correr' : 'andar');
+}
+// the arc of a jump: gravity until the feet reach the floor under them (a step, the stairs or a lower floor)
+function voa(u, dt) {
+  const p = u.g.position, chao = piso(p.x, p.z, u.alt), fosso = nadando(u);
+  if (u.pouso > 0 && (u.pouso -= dt) <= 0) { u.pouso = 0; volta(u); } // the landing pose is over
+  if (!u.pulo) {
+    if (p.y < chao) p.y = Math.min(chao, p.y + EMERGE * dt); // climbing out of the pit (or its water was switched off): rise, no pop
+    if (p.y > chao + 0.01 && !u.rota.length) u.pulo = { vy: 0, poses: u.poses.parado }; else return; // walked off the dais edge or into the pit: fall
+  }
+  const j = u.pulo;
+  if (j.agacha > 0) { if ((j.agacha -= dt) > 0) return; j.vy = PULO0; } // crouch over: take off
+  j.vy -= GRAV * dt; if (fosso) j.vy *= Math.exp(-5 * dt); p.y += j.vy * dt; // under water the fall is a slow sink (~4 tiles/s at most)
+  if (p.y <= chao && j.vy < 0) {
+    p.y = chao; u.pulo = null;
+    if (j.poses && !fosso) { poeFase(u, j.poses, 'pouso'); u.pouso = PESOS[peso].pouso * QUADRO / (u.dirigido || u.rota.length ? 2 : 1); } // moving: the game barely holds it
+    else volta(u); // no pose, or sunk to floating depth: straight back to the gesture
+  } else if (j.poses) poeFase(u, j.poses, faseDoVoo((j.vy / PULO0) * VOO.v0)); // the page's speed in the game's scale (30 = take-off)
+}
+
+// ---- walls that vanish ----------------------------------------------------------------------------------------
+// A wall run (every face of a # rock cell is one) fades out when the camera sees it from outside (behind its inner
+// face), or when it cuts a line from the character's body to the camera (the inner corner of the L faces the camera and still hides him). Only walls vanish,
+// columns and arches stay opaque (Fernando, Nov 17); the floor line keeps the outline. The test uses the full
+// outline, so a faded wall does not pop back.
+const SOME = 0.25; // seconds for a full fade, short enough to never block the view, long enough to not pop
+function tapa(f, t, c) {
+  const dx = c.x - t.x, dz = c.z - t.z;
+  // where the view line crosses the wall's segment
+  const ex = f.b[0] - f.a[0], ez = f.b[1] - f.a[1], den = dx * ez - dz * ex; if (Math.abs(den) < 1e-9) return false;
+  const s = ((f.a[0] - t.x) * ez - (f.a[1] - t.z) * ex) / den, u = ((f.a[0] - t.x) * dz - (f.a[1] - t.z) * dx) / den;
+  if (s <= 0 || s > 1 || u < 0 || u > 1) return false;
+  const y = t.y + s * (c.y - t.y); return y > f.y0 && y < f.y1;
+}
+// The body, not one line to the chest (Nov 17): on the stairs, 1 cell wide between rock, the rock's corner at the
+// corridor mouth covered half the character while the chest line passed beside the end of that face. Nine lines now:
+// feet, chest and head, at the centre and half a body to each side across the view. 0.5 stays inside the footprint
+// (RAIO), so a wall he merely stands beside is not taken for one in front of him.
+const d3 = new Vector3(), CORPO = [0.1, 0.65, 0.95], LADO = [-0.5, 0, 0.5], pts = CORPO.flatMap(() => LADO.map(() => new Vector3()));
+function corpo(u, c) {
+  const p = u.g.position, dx = c.x - p.x, dz = c.z - p.z, l = Math.hypot(dx, dz) || 1;
+  CORPO.forEach((h, i) => LADO.forEach((s, j) => pts[i * 3 + j].set(p.x + (-dz / l) * s, p.y + u.alt * h, p.z + (dx / l) * s)));
+  return pts;
+}
+function some(dt) {
+  const t = corpo(sel, cam.position), c = cam.position;
+  for (const f of fadeaveis) {
+    f.fora = d3.set(c.x - f.a[0], 0, c.z - f.a[1]).dot(f.n) < 0;
+    f.tapa = t.some((q) => tapa(f, q, c));
+    const quer = f.fora || f.tapa ? 0 : 1, op = Math.min(1, Math.max(0, f.op + Math.sign(quer - f.op) * Math.min(Math.abs(quer - f.op), dt / SOME)));
+    if (op === f.op) continue;
+    f.op = op; f.obj.visible = op > 0;
+    // see-through only while fading: an opaque piece keeps writing depth and sorting as before
+    for (const m of f.mats) { m.opacity = op; m.transparent = op < 1; m.depthWrite = op === 1; }
+    if (f.linha) { f.linha.visible = op < 1; f.linha.material.opacity = (escuro ? 0 : 0.6) * (1 - op); }
+  }
+}
+
+// ---- loop -----------------------------------------------------------------------------------------------------
+let quadros = 0, t0 = performance.now(), fps = 0, tempo = 0, mira = null; // mira: a fixed camera target, test hook only
+const antes = new Vector3();
+// Up to LUZES - 1 sources are wanted at once: the flashes, then carried lights, then the torches nearest the
+// character (every fixed torch fits unless more than 5 mobile sources burn at once). A wanted source fades its share in and an unwanted one fades out (~0.2 s), so a torch that drops out of
+// the list dims instead of switching off; the spare light lets one fade out while another fades in. A flash is instant.
+const fontes = () => [...claroes, ...unidades.filter((u) => u.leva.ligada || u.leva.w > 0.005).map((u) => u.leva), ...fogos];
+function luz(dt) {
+  tempo += dt;
+  for (const f of fogos) {
+    // a torch on a vanishing wall fades with it; the iron bracket (shared material) goes at half way
+    f.f = calmo ? 1 : tremor(tempo, f.fase); const parede = f.dono ? f.dono.op : 1, op = acesa(f) ? parede : 0;
+    f.sp.visible = f.halo.visible = op > 0; f.g.visible = parede > 0.5; f.sp.material.opacity = op; f.halo.material.opacity = 0.22 * op;
+    f.sp.scale.set(f.tam * (0.9 + 0.1 * f.f), f.tam * 1.4 * f.f, 1);
+  }
+  for (const f of fogos) f.I = acesa(f) ? f.forca * f.f : 0;
+  for (let i = claroes.length - 1; i >= 0; i--) { // a flash falls off squared; a bolt is cut into pulses
+    const c = claroes[i]; c.t += dt; const k = c.t / c.dur; if (k >= 1) { claroes.splice(i, 1); continue; }
+    c.I = c.pico * (1 - k) ** 2 * (c.pulsos > 1 && Math.sin(k * c.pulsos * Math.PI * 2) < 0 ? 0.35 : 1);
+  }
+  // the carried torch: in the hand where the skeleton has one, else a light held out to the side as before
+  for (const u of unidades) {
+    const l = u.leva, tr = calmo ? 1 : tremor(tempo, l.fase);
+    l.braco += ((l.ligada ? 1 : 0) - l.braco) * Math.min(1, dt * 10); // the arm takes ~0.2 s to rise and to drop
+    if (!l.g) l.chama.copy(frente(u, 0.4, u.alt * 0.8)).add(d3.set(Math.cos(u.g.rotation.y) * 0.7, 0, -Math.sin(u.g.rotation.y) * 0.7));
+    else {
+      l.g.visible = l.ligada; if (u.escudo) u.escudo.visible = !l.ligada; // the shield arm holds the torch instead
+      if (l.braco > 0.01) segura(u);
+      l.pts.visible = l.ligada && brasas.visible;
+      if (l.pts.visible) { // a few embers leave the flame and rise
+        const p = l.pts.geometry.attributes.position;
+        for (let i = 0; i < FAISCAS; i++) {
+          if ((l.vida[i] -= dt) <= 0) { l.vida[i] = 0.4 + Math.random() * 0.8; p.setXYZ(i, l.chama.x, l.chama.y, l.chama.z); }
+          else p.setXYZ(i, p.getX(i) + Math.sin(tempo * 3 + i * 2.4) * 0.25 * dt, p.getY(i) + 0.9 * dt, p.getZ(i) + Math.cos(tempo * 3 + i * 1.7) * 0.25 * dt);
+        }
+        p.needsUpdate = true;
+      }
+    }
+    l.I = l.ligada ? l.forca * tr : 0; l.sp.visible = l.ligada; l.sp.position.copy(l.chama); l.sp.scale.set(0.6, 0.85 * tr, 1);
+  }
+  const t = alvoCam, todas = fontes();
+  const quer = new Set([...todas].sort((a, b) => (b.prioridade || 0) - (a.prioridade || 0) || a.chama.distanceToSquared(t) - b.chama.distanceToSquared(t)).filter((f) => f.I > 0).slice(0, LUZES - 1));
+  for (const f of todas) f.w = f.prioridade === 2 ? 1 : f.w + ((quer.has(f) ? 1 : 0) - f.w) * Math.min(1, dt * 5);
+  // the real lights, shadow casters first: the selected character's carried light, then the torch nearest him
+  const vivas = todas.filter((f) => f.w > 0.005).sort((a, b) => b.w - a.w);
+  // nearest by distance, said out loud: the shares all end near 1, so the sort above alone left the shadows to whichever
+  // torch came first in the list, often one 6 to 9 tiles away, and the characters' own shadows hardly showed (Nov 17)
+  const perto = vivas.filter((f) => fogos.includes(f)).sort((a, b) => a.chama.distanceToSquared(t) - b.chama.distanceToSquared(t));
+  const primeiro = [sel && sel.leva.ligada ? sel.leva : null, ...perto].filter((f) => f && vivas.includes(f)).slice(0, 2);
+  // the rest nearest the camera target first: agua.js and fumaca.js read only the first 6 lights of the list
+  const lista = [...primeiro, ...vivas.filter((f) => !primeiro.includes(f)).sort((a, b) => (b.prioridade || 0) - (a.prioridade || 0) || a.chama.distanceToSquared(t) - b.chama.distanceToSquared(t))].slice(0, LUZES);
+  // a spare light waits where the first one is: left at a stale spot outside the room, its shadow map blacked the floor (measured 9.4 -> 0.7)
+  luzes.forEach((l, i) => { const f = lista[i]; if (!f) { l.intensity = 0; l.position.copy(luzes[0].position); return; } l.position.copy(f.chama); l.color.copy(f.cor); l.distance = f.alcance; l.intensity = f.I * f.w; });
+  for (const l of luzes) { l.shadow.camera.far = l.distance; l.shadow.bias = -0.032 / l.distance; } // the bias stays 0.03 tile whatever the range
+  // characters: ambient plus every torch at the chest; 0.5 stands in for the angle Lambert would apply and for the
+  // VS shader doubling its vertex colours
+  for (const u of unidades) {
+    d3.copy(u.g.position).setY(u.g.position.y + u.alt * 0.6); let k = 0, tocha = 0;
+    const amb = escuro ? 0 : 2, L = [AMBIENTE.r * amb, AMBIENTE.g * amb, AMBIENTE.b * amb], A = [0, 0, 0], B = [0, 0, 0];
+    // the sources on the two real lights that cast shadows go apart: the character's shader cuts each by its shadow map
+    for (const f of todas) { k = f.I * queda(f.chama.distanceTo(d3), f.alcance) * 0.5; const X = f === lista[0] ? A : f === lista[1] ? B : L; X[0] += f.cor.r * k; X[1] += f.cor.g * k; X[2] += f.cor.b * k; tocha += k; }
+    if (direta === 'some' && comoSome === 'inteiro') u.visto.value = visto(u);
+    if (direta === 'some') u.disco.material.opacity = 0.5 * Math.min(1, tocha / SOME_LIM); // the blob under him would give him away
+    if (direta) L.fill(0); // the shader lights each pixel from the real lights
+    u.luz.setRGB(...L.map((x) => Math.min(1.2, x))); u.luzA.setRGB(...A.map((x) => Math.min(1.2, x))); u.luzB.setRGB(...B.map((x) => Math.min(1.2, x)));
+  }
+  // embers rise and dim; dust sways a little
+  for (let i = 0; i < nb; i++) {
+    if ((bvida[i] -= dt) <= 0) brasa(i);
+    const viva = fogos[i % fogos.length].sp.visible, k = viva ? bvida[i] / btot[i] : 0;
+    bp[i * 3] += bv[i * 3] * dt; bp[i * 3 + 1] += bv[i * 3 + 1] * dt; bp[i * 3 + 2] += bv[i * 3 + 2] * dt;
+    bc[i * 3] = k; bc[i * 3 + 1] = k * 0.45; bc[i * 3 + 2] = k * 0.12;
+  }
+  brasasG.attributes.position.needsUpdate = brasasG.attributes.color.needsUpdate = true;
+  const P = poeiraG.attributes.position.array;
+  for (let i = 0; i < POEIRA; i++) { P[i * 3] = poeira0[i * 3] + 0.15 * Math.sin(tempo * 0.3 + i); P[i * 3 + 1] = poeira0[i * 3 + 1] + 0.2 * Math.sin(tempo * 0.2 + i * 1.7); }
+  poeiraG.attributes.position.needsUpdate = true;
+}
+function quadro(dt) {
+  for (const u of unidades) {
+    if (u.leva.torto) { u.ombro.quaternion.copy(u.leva.q0); u.leva.torto = false; } // the clip's own shoulder back, before the mixer (see segura)
+    pesa(u, dt); u.mixer.update(dt); // the blend weights of this frame first (funde)
+    if (u.rota.length) {
+      // run applies to a route too (Shift, RT or Ação › Correr): with the touch stick gone, a tap on the floor is how touch walks
+      const corre = u === sel && u.corre, lento = lentidao(u.g.position), k = PESOS[peso], topo = VEL * (corre ? 1.8 : 1) * lento;
+      const [cx, cz] = u.rota[0], dx = cx * CEL + 1 - u.g.position.x, dz = cz * CEL + 1 - u.g.position.z, l = Math.hypot(dx, dz);
+      // The route keeps to the cell centres; only the speed eases, as with the stick, and it brakes into the last cell
+      // only (two lags stop in about half the stop time times the speed). 0.6 tiles a second at the least, or it never arrives.
+      embala(u, (u.rota.length > 1 ? topo : Math.max(0.6, Math.min(topo, l / (0.6 * k.parada)))) * (u.pouso > 0 ? k.recupera : 1), dt);
+      vira(u, Math.atan2(dx, dz), dt);
+      if (!u.pulo && !u.pouso && (u.atual === 'andar' || u.atual === 'correr')) { toca(u, corre && u.indices.correr ? 'correr' : 'andar'); if (u.action) u.action.timeScale = (corre && !u.indices.correr ? 1.6 : 1) * lento * Math.min(1, Math.max(0.5, u.v / topo)); }
+      const passo = u.v * dt;
+      if (l <= passo) { u.g.position.x += dx; u.g.position.z += dz; u.cx = cx; u.cz = cz; u.rota.shift(); if (!u.rota.length) { u.v = u.v1 = 0; if (LACO.includes(u.atual) && !u.pulo && !u.pouso) toca(u, 'parado'); } }
+      else { u.g.position.x += (dx / l) * passo; u.g.position.z += (dz / l) * passo; }
+      if (!noAr(u)) u.g.position.y = piso(u.g.position.x, u.g.position.z, u.alt);
+    }
+  }
+  conduz(dt); acende();
+  // a gesture that started this frame has not been posed yet (stop() put the bones back in their bind line): pose it
+  // now, or the body shows collapsed for one frame at every change of clip
+  for (const u of unidades) if (u.trocou) { u.trocou = false; u.mixer.update(0); }
+  if (sel) { alvoCam.lerp(mira || alvo(), Math.min(1, dt * 6)); poeCamera(); some(dt); } // the camera follows the character
+  luz(dt); mundo?.quadro(dt); // sun box, sky, door swing, roof fade, the sun on the characters
+  // water after everybody moved (it sets each clipping plane), smoke last (it draws the scene once more, for depth)
+  const a0 = performance.now(); for (const a of aguas) a.update(dt, corpos);
+  for (const u of unidades) u.disco.visible = !naAgua(u.g.position.x, u.g.position.z) && !P.molha?.(u.g.position.x, u.g.position.z); // the shadow disc would sink with him
+  const f0 = performance.now(); fumo.update(dt, cam, luzes[0].visible ? luzes : []);
+  const c0 = performance.now(); desenha(); custo.agua.push(f0 - a0); custo.fumaca.push(c0 - f0); cpu.push(performance.now() - c0);
+}
+// ---- the characters' mesh -----------------------------------------------------------------------------------------
+// ?dobro= and the selector (key 6 goes to the next one): '1' twice the triangles (edges split flat, same outline),
+// '0' the VS original, 'malha' the doubled mesh with its edges drawn, 'suave' a rounded mesh.
+const tris = (g) => (g.index ? g.index.count : g.attributes.position.count) / 3;
+const MALHAS = { 1: 'dobro', 0: 'orig', malha: 'dobro', suave: 'suave' };
+let malhaB = MALHAS[Q.get('dobro')] ? Q.get('dobro') : '0'; // the game's own mesh by default since Nov 18 (Fernando)
+// "Ver malha" (Fernando could not tell the doubled mesh from the original: a flat split changes no outline): two
+// wireframes on the same skeleton, the doubled mesh in blue under the original in yellow, so a blue line is an edge
+// the doubling created. The body is pushed back a little in depth while they show, or the lines would flicker.
+const FIOS = [[0x4ad2ff, 'dobro', 1], [0xffd24a, 'orig', 2]];
+function fios(on) {
+  for (const u of unidades) for (const x of u.geos) {
+    if (on && !x.fios) x.fios = FIOS.map(([cor, qual, ordem]) => {
+      const w = new THREE.SkinnedMesh(x[qual], new MeshBasicMaterial({ color: cor, wireframe: true, skinning: true, fog: false }));
+      w.bind(x.o.skeleton, x.o.bindMatrix); w.frustumCulled = false; w.renderOrder = ordem; x.o.add(w); return w;
+    });
+    for (const w of x.fios || []) w.visible = on;
+    for (const m of [].concat(x.o.material)) { m.polygonOffset = on; m.polygonOffsetFactor = m.polygonOffsetUnits = 1; }
+  }
+}
+// "Suave": every edge that rides one bone is split (subdividir2x up to 4x, about 3x the triangles), then each point
+// moves half way to the middle of its neighbours, VOLTAS times. That rounds the outline for real; it also shrinks
+// the body a little, as any subdivision surface does. What stays where it was: the hands (the weapon and the shield
+// would not fit them otherwise), every point of a triangle that joins two bones (VS keeps each bone's vertices in
+// the bone's own space, so across a joint there is nothing to average) and the open rim of a piece. Weapons and
+// shields are never rounded. Computed on first use (a few seconds), one per ZUD file.
+const VOLTAS = 2, suaves = new Map();
+function alisa(g, travados) {
+  const P = g.attributes.position, S = g.attributes.skinIndex, I = g.index.array, de = new Int32Array(P.count), chaves = new Map();
+  // VS repeats a vertex per face for the texture: the same place on the same bone is one point here
+  for (let i = 0; i < P.count; i++) { const k = `${P.getX(i)},${P.getY(i)},${P.getZ(i)}|${S.getX(i)}`; if (!chaves.has(k)) chaves.set(k, chaves.size); de[i] = chaves.get(k); }
+  const n = chaves.size, viz = Array.from({ length: n }, () => new Set()), preso = new Uint8Array(n), usos = new Map(), faces = new Set();
+  for (let i = 0; i < I.length; i += 3) {
+    const t = [I[i], I[i + 1], I[i + 2]], w = t.map((v) => de[v]);
+    if (new Set(t.map((v) => S.getX(v))).size > 1) { for (const v of w) preso[v] = 1; continue; }
+    const f = [...w].sort((a, b) => a - b).join(); if (faces.has(f)) continue; faces.add(f); // the back copy of a two-sided face
+    for (let j = 0; j < 3; j++) { const a = w[j], b = w[(j + 1) % 3], e = a < b ? a * n + b : b * n + a; viz[a].add(b); viz[b].add(a); usos.set(e, (usos.get(e) || 0) + 1); }
+  }
+  for (const [e, c] of usos) if (c === 1) preso[Math.floor(e / n)] = preso[e % n] = 1;
+  let p = new Float32Array(n * 3);
+  for (let i = 0; i < P.count; i++) { p.set([P.getX(i), P.getY(i), P.getZ(i)], de[i] * 3); if (travados.has(S.getX(i))) preso[de[i]] = 1; }
+  for (let v = 0; v < VOLTAS; v++) {
+    const q = p.slice();
+    for (let a = 0; a < n; a++) if (!preso[a] && viz[a].size) for (let c = 0; c < 3; c++) { let s = 0; for (const b of viz[a]) s += p[b * 3 + c]; q[a * 3 + c] = (p[a * 3 + c] + s / viz[a].size) / 2; }
+    p = q;
+  }
+  for (let i = 0; i < P.count; i++) P.setXYZ(i, p[de[i] * 3], p[de[i] * 3 + 1], p[de[i] * 3 + 2]);
+  P.needsUpdate = true; g.computeVertexNormals(); return g;
+}
+function suave(u, x, i) {
+  if (!x.corpo) return x.dobro;
+  const k = u.zud + '/' + i; if (!suaves.has(k)) suaves.set(k, normais(alisa(subdividir2x(x.orig, { alvo: 4 }), u.travados)));
+  return suaves.get(k);
+}
+function poeDobro(m) {
+  malhaB = m === true ? '1' : m === false ? '0' : MALHAS[m] ? String(m) : '1';
+  for (const u of unidades) u.geos.forEach((x, i) => (x.o.geometry = malhaB === 'suave' ? suave(u, x, i) : x[MALHAS[malhaB]]));
+  fios(malhaB === 'malha'); $('dobro').value = malhaB;
+}
+const trisBonecos = (qual) => unidades.reduce((s, u) => s + u.geos.reduce((t, x) => t + tris(qual ? x[qual] : x.o.geometry), 0), 0);
+
+// ---- controls -------------------------------------------------------------------------------------------------
+// The gamepad's buttons are named Xbox style (A, B, X, Y) or PlayStation style (cross, circle, square, triangle) in
+// Opções › Controles e diagnóstico; automatic follows the pad that is plugged in.
+const ehPS = (id) => /054c|dualshock|dualsense|wireless controller/i.test(id || '');
+const estilo = () => ($('estilo').value === 'auto' ? (ehPS(pad?.id) ? 'ps' : 'xbox') : $('estilo').value);
+function acende() { pintaPad(); pintaFixa(); pintaFaixa(); }
+
+// ---- performance panel ----------------------------------------------------------------------------------------
+// Numbers over the last second, from requestAnimationFrame itself, so they work on the phone without DevTools:
+// frames per second, the time between frames (average and worst), and the CPU time of the render call.
+const cpu = [], intervalos = [], custo = { agua: [], fumaca: [], ssao: [] }; let ultimo = performance.now(), relatorio = '', medida = '', medidaDifusa = '', corpos = [];
+const parts = () => (poeira.visible ? poeiraG.drawRange.count : 0) + (brasas.visible ? brasasG.drawRange.count : 0);
+function painel() {
+  const m = (a) => (a.length ? a.reduce((s, x) => s + x, 0) / a.length : 0), I = r.info, ativas = luzes.filter((l) => l.visible && l.intensity > 0).length;
+  const n = (x, d = 1) => x.toFixed(d).replace('.', ','), visivel = document.visibilityState === 'visible';
+  const v = {
+    fps: visivel && (fps >= 50 || fps < 30) ? [String(fps), fps >= 50 ? 'bom' : 'baixo'] : String(fps), quadro: `${n(m(intervalos))} ms, ${n(Math.max(0, ...intervalos))} ms`, cpu: `${n(m(cpu), 2)} ms`,
+    chamadas: String(desenho.calls), tris: desenho.triangles.toLocaleString('pt-BR'), luzes: `${ativas}, ${luzes.filter((l) => l.castShadow && l.visible).length}`,
+    fumaca: `${fumo.estatisticas.ligada ? fumo.estatisticas.qualidade : 'desligada'}, ${n(m(custo.fumaca), 2)} ms`,
+    agua: `${!aguas.length ? 'esta planta não tem' : aguaLigada ? 'ligada' : 'desligada'}, ${n(m(custo.agua), 2)} ms, ${aguas.reduce((s, a) => s + a.estatisticas.dentro, 0)} bonecos dentro`,
+    medida: medida || 'ainda não medido', particulas: String(parts()), bonecos: `${trisBonecos()} (original ${trisBonecos('orig')}, dobro ${trisBonecos('dobro')})`,
+    // only the SSAO has passes of its own to time here; the other two run inside the scene's shaders: use the button
+    difusa: `penumbra ${difusa.pcss ? 'ligada' : 'desligada'} · cantos (SSAO) ${difusa.ssao ? `${n(m(custo.ssao), 2)} ms nos 2 passes (CPU)` : 'desligado'} · luz assada ${difusa.lightmap ? 'ligada' : 'desligada'}${LM.pares ? `, assada em ${Math.round(LM.ms)} ms (${LM.pares.length} pontos)` : ''}`,
+    medidaDifusa: medidaDifusa || 'ainda não medido',
+    memoria: `${I.memory.textures}, ${I.memory.geometries}`, tela: `${innerWidth} x ${innerHeight}, ${n(r.getPixelRatio(), 2)} pixels por ponto (aparelho ${n(devicePixelRatio, 2)})`,
+    controle: pad ? pad.id.slice(0, 40) : 'nenhum (aperte um botão do controle)', aba: visivel ? 'visível' : 'oculta (números não confiáveis)', conjunto: [...new Set(Object.values(usadas))].join(', '),
+  };
+  medidor.atualizar(v);
+  // the corner: every value, the fps word (bom, baixo) colours its own; under the strip when the strip reaches it
+  MEDIDAS.forEach(([id], i) => { const x = [].concat(v[id]), b = linhasM[i].b; b.textContent = x.join(' '); b.className = x[1] || ''; });
+  poeLugarM();
+  const linhas = MEDIDAS.map(([id, rotulo]) => `${rotulo}: ${[].concat(v[id]).join(' ')}`);
+  relatorio = ['Sala fechada (VS) · ' + new Date().toLocaleString('pt-BR'), location.href, ...linhas,
+    `sombras: ${$('sombras').value} · partículas: ${$('part').value} · fumaça: ${fumo.estatisticas.ligada ? 'sim' : 'não'} · água: ${aguaLigada ? 'sim' : 'não'} · tochas acesas: ${fogos.filter(acesa).length} de ${fogos.length} (${$('acesas').value === 'manual' ? 'manual' : `ao acaso ${$('acesas').value} %, semente ${semente()}`}) ·escuridão total: ${escuro ? 'sim' : 'não'} · resolução: ${$('res').value} · malha dos bonecos: ${$('dobro').selectedOptions[0].text.split(' — ')[0]} · sombra difusa: ${Object.keys(difusa).filter((k) => difusa[k]).join(', ') || 'nenhuma'}`, navigator.userAgent].join('\n');
+}
+(function loop() {
+  requestAnimationFrame(loop); const agora = performance.now(); intervalos.push(agora - ultimo); ultimo = agora;
+  quadro(Math.min(clock.getDelta(), 0.1)); quadros++;
+  if (agora - t0 >= 1000) { fps = Math.round((quadros * 1000) / (agora - t0)); quadros = 0; t0 = agora; painel(); intervalos.length = cpu.length = custo.agua.length = custo.fumaca.length = custo.ssao.length = 0; }
+})();
+// switches to find what costs: each shows its effect on the numbers above within a second
+// each is a real checkbox of the kit: a click or its key flips it, f() applies and answers the state that stays shown
+const liga = (id, f) => { $(id).onchange = () => { $(id).checked = !!f(); }; };
+liga('t-sombra', () => { sombras($('sombras').value === 'nao' ? 'dura' : 'nao'); return $('sombras').value !== 'nao'; });
+// the smoke only: the dark haze in the distance (cena.fog) costs nothing and stays
+liga('t-nevoa', () => { const on = !fumo.estatisticas.ligada; fumo.setEnabled(on); return on; });
+// water off: the puddle is plain floor again and the pit a dry hole nobody enters (a swimmer in it stands on its bottom until the water is back)
+liga('t-agua', () => { poeAgua(!aguaLigada); return aguaLigada; });
+liga('t-pcss', () => { poePcss(!difusa.pcss); urlDifusa(); return difusa.pcss; });
+liga('t-ssao', () => { poeSsao(!difusa.ssao); urlDifusa(); return difusa.ssao; });
+liga('t-lm', () => { poeLm(!difusa.lightmap); urlDifusa(); return difusa.lightmap; });
+// One frame's real cost as things are, GPU included: a batch of 40 frames closed by a readPixels that waits for the GPU.
+// Batch to batch this moves ~0.3 ms and drifts as the machine warms up, so a cost is never one batch against another:
+// custoDe() switches the thing on and off six times in a row and takes the middle one of the six differences.
+function cronometra() {
+  const gl = r.getContext(), px = new Uint8Array(4), N = 40, fim = () => gl.readPixels(0, 0, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, px);
+  for (let i = 0; i < 5; i++) quadro(1 / 60); fim(); const t = performance.now(); for (let i = 0; i < N; i++) quadro(1 / 60); fim(); return (performance.now() - t) / N;
+}
+function custoDe(poe) {
+  const d = [], com = []; for (let i = 0; i < 6; i++) { poe(false); const a = cronometra(); poe(true); const b = cronometra(); d.push(b - a); com.push(b); }
+  poe(false); const meio = (v) => v.sort((a, b) => a - b)[3]; return { custo: meio(d), com: meio(com) };
+}
+// Each diffuse shadow alone against none; the penumbra against soft shadows without it, the only fair pair.
+function medeDifusa() {
+  const era = { ...difusa }, somb = $('sombras').value, ms = (x) => x.toFixed(2).replace('.', ',');
+  poePcss(false, true); poeSsao(false); poeLm(false);
+  const ssao = custoDe(poeSsao), lm = custoDe(poeLm);
+  sombras('suave'); const pcss = custoDe((on) => poePcss(on, true));
+  sombras(somb); poePcss(era.pcss, true); poeSsao(era.ssao); poeLm(era.lightmap);
+  const cu = (x) => (x.custo < 0.05 ? 'menos de 0,05 ms' : ms(x.custo) + ' ms'); // under the noise of the measure it can even come out negative
+  medidaDifusa = `cantos (SSAO) ${cu(ssao)} (quadro com ele ${ms(ssao.com)} ms) · luz assada ${cu(lm)} por quadro (assar, uma vez: ${Math.round(LM.ms)} ms) · penumbra (PCSS) ${cu(pcss)} sobre as sombras suaves (quadro com ela ${ms(pcss.com)} ms)`;
+  painel(); return { ssao: ssao.custo, quadroComSsao: ssao.com, lightmap: lm.custo, quadroComLightmap: lm.com, assar: LM.ms, pcss: pcss.custo, quadroComPcss: pcss.com };
+}
+// the whole line goes to the report; the notice keeps to two lines under the strip
+$('medir-difusa').onclick = () => { const d = medeDifusa(), ms = (x) => (x < 0.05 ? 'menos de 0,05' : x.toFixed(2).replace('.', ',')) + ' ms'; aviso.mostrar(`Medido por quadro: SSAO ${ms(d.ssao)} · luz assada ${ms(d.lightmap)} · PCSS ${ms(d.pcss)}.`, { ms: 12000 }); };
+// The real cost of each, GPU included (the lines above time the CPU only): four batches of 60 frames, everything on,
+// without the smoke, without the water, without both; readPixels at the end of a batch waits for the GPU to finish it.
+function mede() {
+  const gl = r.getContext(), px = new Uint8Array(4), N = 60, f = fumo.estatisticas.ligada, a = aguaLigada;
+  const fim = () => gl.readPixels(0, 0, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, px);
+  const lote = (fu, ag) => { fumo.setEnabled(fu); poeAgua(ag); for (let i = 0; i < 5; i++) quadro(1 / 60); fim(); const t = performance.now(); for (let i = 0; i < N; i++) quadro(1 / 60); fim(); return (performance.now() - t) / N; };
+  const tudo = lote(true, true), semF = lote(false, true), semA = lote(true, false), nada = lote(false, false); fumo.setEnabled(f); poeAgua(a);
+  medida = `tudo ${tudo.toFixed(2)} ms, fumaça ${(tudo - semF).toFixed(2)} ms, água ${(tudo - semA).toFixed(2)} ms, sem as duas ${nada.toFixed(2)} ms`;
+  painel(); return { tudo, semFumaca: semF, semAgua: semA, semAsDuas: nada };
+}
+$('medir').onclick = () => { mede(); aviso.mostrar('Medido: ' + medida + '.', { ms: 8000 }); };
+const poeRes = () => { r.setPixelRatio($('res').value === 'auto' ? RES_AUTO : +$('res').value); r.setSize(innerWidth, innerHeight); };
+$('res').onchange = () => { poeRes(); naURL('res', $('res').value); };
+// ?res=auto|1|0.75|0.5, default 1 since Nov 18 (Fernando): one drawn pixel per CSS pixel
+$('res').value = ['auto', '1', '0.75', '0.5'].includes(Q.get('res')) ? Q.get('res') : '1'; poeRes();
+// Character textures (?texbonecos=, Fernando, Nov 18): the SHP sheet upscaled offline to a 4096 side, one PNG per ZUD in
+// ./texturas-bonecos/<ZUD>/ (same layout at an integer scale, so the UVs fit). Nothing is downloaded until an option is
+// picked: a sheet is 6 to 13 MB on disk and about 85 MB of video memory with its mipmaps. pesos.json (bytes per file)
+// says which ZUDs have the file, so a missing one asks for nothing and keeps the game's texture. Only `map` changes:
+// the light per pixel, the shadows, the vanishing and the mesh options stay as they are.
+const TEXB = ['original', '4k-pixelada', '4k-realesrgan-x4plus', '4k-realesr-animevideov3-x4', '4k-realesrgan-x4plus-anime', '4k-realesrgan-x4plus-sdxl-img2img'];
+const texB = { modo: 'original', vivas: new Map(), vez: 0, lado: 0, faltam: [] }, megas = (b) => (b / 1048576).toFixed(b < 10485760 ? 1 : 0).replace('.', ',') + ' MB';
+const zudsB = () => [...new Set(ELENCO.map((e) => e.zud))];
+const pesosB = fetch('./texturas-bonecos/pesos.json').then((x) => (x.ok ? x.json() : {})).catch(() => ({})).then((p) => {
+  for (const o of $('texbonecos').options) { if (o.value === 'original') continue; const tem = zudsB().filter((z) => p[`${z}/${o.value}.png`]); o.text += ` (${megas(tem.reduce((t, z) => t + p[`${z}/${o.value}.png`], 0))}, ${tem.length} de ${zudsB().length} modelos)`; }
+  return p;
+});
+async function poeTexBonecos(v) {
+  if (!TEXB.includes(v)) v = 'original';
+  // a phone gets half the side: six 4096 sheets are about 500 MB of video memory
+  const vez = ++texB.vez, p = await pesosB, LIM = Math.min(r.capabilities.maxTextureSize, CELULAR ? 2048 : 4096), novas = new Map(), tem = v === 'original' ? [] : zudsB().filter((z) => p[`${z}/${v}.png`]);
+  $('texbonecos').value = v;
+  if (tem.length) aviso.mostrar(`Baixando ${tem.length} texturas 4K (${megas(tem.reduce((t, z) => t + p[`${z}/${v}.png`], 0))})…${CELULAR ? ' Entram com 2048 px.' : ''}`, { ms: 6000 });
+  await Promise.all(tem.map(async (z) => {
+    try {
+      const img = new Image(); img.src = `./texturas-bonecos/${z}/${v}.png`; await img.decode();
+      let fonte = img; const maior = Math.max(img.naturalWidth, img.naturalHeight);
+      if (maior > LIM) { fonte = document.createElement('canvas'); fonte.width = Math.round(img.naturalWidth * LIM / maior); fonte.height = Math.round(img.naturalHeight * LIM / maior); fonte.getContext('2d').drawImage(img, 0, 0, fonte.width, fonte.height); }
+      const t = new THREE.Texture(fonte); t.flipY = false; t.wrapS = t.wrapT = THREE.RepeatWrapping; // rows top first, as the game's DataTexture
+      // mipmaps and anisotropy: a 4096 sheet on a body 300 pixels tall shimmers without them; the pixel-art one stays sharp up close
+      t.magFilter = v === '4k-pixelada' ? NearestFilter : THREE.LinearFilter; t.minFilter = THREE.LinearMipmapLinearFilter; t.generateMipmaps = true; t.anisotropy = Math.min(8, r.capabilities.getMaxAnisotropy()); t.needsUpdate = true;
+      novas.set(z, t);
+    } catch { /* a file that fails keeps the game's texture */ }
+  }));
+  if (vez !== texB.vez) { for (const t of novas.values()) t.dispose(); return; } // another pick arrived while this one loaded
+  for (const u of unidades) u.pele.forEach((m, i) => (m.uniforms.map.value = novas.get(u.zud) || u.tex0[i]));
+  for (const t of texB.vivas.values()) t.dispose();
+  Object.assign(texB, { modo: v, vivas: novas, lado: novas.size ? Math.max(...[...novas.values()].map((t) => t.image.width)) : 0, faltam: v === 'original' ? [] : zudsB().filter((z) => !novas.has(z)) });
+  if (texB.faltam.length) aviso.mostrar(`Sem esta textura para ${texB.faltam.join(', ')}: ficam com a original.`, { ms: 7000 });
+}
+$('texbonecos').onchange = () => { naURL('texbonecos', $('texbonecos').value); poeTexBonecos($('texbonecos').value); };
+$('dobro').onchange = () => {
+  const m = $('dobro').value; naURL('dobro', m);
+  // the smooth mesh takes a few seconds the first time: say so, and let the notice paint before the page stops
+  if (m === 'suave' && !suaves.size) { aviso.mostrar('Calculando a malha suave dos bonecos…', { ms: 4000 }); setTimeout(() => poeDobro($('dobro').value), 60); } else poeDobro(m);
+};
+$('copiar').onclick = async () => {
+  painel();
+  try { await navigator.clipboard.writeText(relatorio); aviso.mostrar('Relatório copiado.'); }
+  catch { // http, an old browser or the app's built-in one: show the text to copy by hand
+    rel.value = relatorio; rel.hidden = false; rel.select();
+    aviso.mostrar('O navegador não deixou copiar: selecione o texto da caixa abaixo e copie.', { ms: 8000 });
+  }
+};
+
+
+
+try {
+  unidades = await Promise.all(ELENCO.map(abre)); corpos = unidades.map((u) => u.agua); mundo?.bonecos(unidades); // sun and sky in their shader
+  // the Boneco select: one name per character, ally or enemy in the text (the cards and their portraits are gone)
+  sB.replaceChildren(...unidades.map((u, i) => opt(i, `${u.nome} (${u.inimigo ? 'inimigo' : 'aliado'})`)));
+  seleciona(unidades[0]);
+  sombras(['dura', 'suave', 'nao'].includes(Q.get('sombras')) ? Q.get('sombras') : 'suave'); // soft by default since Nov 18 (Fernando)
+  alvoCam.copy(alvo()); poeCamera(); poeDobro(malhaB); poeBonecos(['direta', 'antes'].includes(Q.get('bonecos')) ? Q.get('bonecos') : 'some');
+  if (TEXB.includes(Q.get('texbonecos')) && Q.get('texbonecos') !== 'original') poeTexBonecos(Q.get('texbonecos'));
+  const dq = (Q.get('difusa') || '').split(','); if (dq.includes('pcss')) poePcss(true); if (dq.includes('ssao')) poeSsao(true); if (dq.includes('lightmap')) poeLm(true);
+  aviso.mostrar(TOQUE.matches ? 'Arraste para girar. Toque num boneco para escolher e no chão para andar.' : 'Arraste para girar a câmera. Clique num boneco para escolher e no chão para andar.', { ms: 7000 });
+  pronta = true;
+} catch (e) { aviso.mostrar('A sala não abriu: ' + e.message + '. Recarregue a página.', { ms: 60000 }); console.error(e); }
+
+// Test hook: set the camera's azimuth (radians) and distance, step frames by hand, read which pieces are faded out.
+window.sala = {
+  planta: NOME_PLANTA, P, get mundo() { return mundo; }, agua,aguas, fumo, poeAgua, mede, naAgua, degrau, seco, nadando, fumaca: P.fumaca || [], letra, piso, borda, caminho, livre, fadeaveis, fogos, luzes, claroes, poeNevoa, poeTexBonecos, texB, poeSome, get comoSome() { return comoSome; }, sombras, ataca: () => ataca(sel), conjura: (t) => conjura(sel, t), tocha: (v) => { sel.leva.ligada = v; pinta(); }, cam, orbita, icone: iconePad, pula, barra, gaveta, medidor, aviso, get pronta() { return pronta; }, get correTq() { return correTq; }, get fixa() { return fixa; }, alternaFixa, poeEscuro, poeTochas, poeParticulas, parts, get escuro() { return escuro; }, apertadas, SALTO, GRAV, corpo, noAr, poeDobro, poeBonecos, get direta() { return direta; }, trisBonecos, suaves, get malha() { return malhaB; }, difusa, poePcss, poeSsao, poeLm, LM, AO, medeDifusa, cronometra, custoDe, solido,
+  sombraNosBonecos(on) { for (const u of unidades) u.mesh.traverse((o) => { if (o.isMesh) { o.receiveShadow = on; [].concat(o.material).forEach((m) => (m.needsUpdate = true)); } }); }, // test only: the characters as they were, for the before and after
+  get pad() { return pad; }, get pads() { return pads; }, diagPad, padEv, cena, r, quadro, painel, get relatorio() { return relatorio; }, // quadro(dt) steps one frame by hand: a hidden tab runs no animation frames
+  get fps() { return fps; }, get sel() { return sel; }, seleciona: (i) => seleciona(unidades[i]), unidades,
+  mira(x, y, z) { mira = x === undefined ? null : new Vector3(x, y, z); },
+  gira(az, dist = 12, polar = 1.25) { Object.assign(orbita, { az, dist, polar }); poeCamera(); },
+  apagadas: () => fadeaveis.filter((f) => f.op < 0.5).map((f) => f.nome),
+};
+</script>
+</html>

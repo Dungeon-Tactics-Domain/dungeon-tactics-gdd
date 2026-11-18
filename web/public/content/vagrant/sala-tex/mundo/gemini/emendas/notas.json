@@ -1,0 +1,310 @@
+{
+ "terra-v4": {
+  "antes": {
+   "borda": 2.86,
+   "cruz": 1.17,
+   "detalhe": 21.8,
+   "tam": "493x493"
+  },
+  "aparar": {
+   "borda": 2.63,
+   "cruz": 1.23,
+   "detalhe": 21.1,
+   "tam": "477x477"
+  },
+  "deslocar": {
+   "borda": 1.26,
+   "cruz": 1.63,
+   "detalhe": 18.4,
+   "tam": "477x477"
+  },
+  "cruzar": {
+   "borda": 0.19,
+   "cruz": 1.65,
+   "detalhe": 16.6,
+   "tam": "382x382"
+  },
+  "fft": {
+   "borda": 0.75,
+   "cruz": 1.24,
+   "detalhe": 20.9,
+   "tam": "477x477"
+  },
+  "remendo": {
+   "borda": 1.16,
+   "cruz": 0.9,
+   "detalhe": 21.3,
+   "tam": "477x477"
+  },
+  "piramide": {
+   "borda": 1.26,
+   "cruz": 1.63,
+   "detalhe": 18.3,
+   "tam": "477x477"
+  }
+ },
+ "agua": {
+  "antes": {
+   "borda": 3.49,
+   "cruz": 0.7,
+   "detalhe": 8.7,
+   "tam": "512x512"
+  },
+  "aparar": {
+   "borda": 3.46,
+   "cruz": 0.7,
+   "detalhe": 9.2,
+   "tam": "496x496"
+  },
+  "deslocar": {
+   "borda": 0.7,
+   "cruz": 1.53,
+   "detalhe": 8.0,
+   "tam": "496x496"
+  },
+  "cruzar": {
+   "borda": 1.17,
+   "cruz": 0.31,
+   "detalhe": 6.6,
+   "tam": "397x397"
+  },
+  "fft": {
+   "borda": 0.79,
+   "cruz": 0.68,
+   "detalhe": 9.0,
+   "tam": "496x496"
+  },
+  "remendo": {
+   "borda": 0.7,
+   "cruz": 1.06,
+   "detalhe": 8.6,
+   "tam": "496x496"
+  },
+  "piramide": {
+   "borda": 0.69,
+   "cruz": 1.51,
+   "detalhe": 8.0,
+   "tam": "496x496"
+  }
+ },
+ "piso_tabua": {
+  "antes": {
+   "borda": 2.09,
+   "cruz": 1.14,
+   "detalhe": 24.1,
+   "tam": "512x512"
+  },
+  "aparar": {
+   "borda": 1.58,
+   "cruz": 1.13,
+   "detalhe": 25.7,
+   "tam": "496x496"
+  },
+  "deslocar": {
+   "borda": 1.1,
+   "cruz": 1.2,
+   "detalhe": 22.7,
+   "tam": "496x496"
+  },
+  "cruzar": {
+   "borda": 1.52,
+   "cruz": 0.45,
+   "detalhe": 17.1,
+   "tam": "397x397"
+  },
+  "fft": {
+   "borda": 0.56,
+   "cruz": 1.14,
+   "detalhe": 25.1,
+   "tam": "496x496"
+  },
+  "remendo": {
+   "borda": 0.95,
+   "cruz": 0.93,
+   "detalhe": 24.3,
+   "tam": "496x496"
+  },
+  "piramide": {
+   "borda": 1.09,
+   "cruz": 1.22,
+   "detalhe": 22.7,
+   "tam": "496x496"
+  }
+ },
+ "parede_caverna": {
+  "antes": {
+   "borda": 6.26,
+   "cruz": 1.0,
+   "detalhe": 10.9,
+   "tam": "493x493"
+  },
+  "aparar": {
+   "borda": 6.65,
+   "cruz": 1.05,
+   "detalhe": 10.6,
+   "tam": "477x477"
+  },
+  "deslocar": {
+   "borda": 1.05,
+   "cruz": 2.44,
+   "detalhe": 9.5,
+   "tam": "477x477"
+  },
+  "cruzar": {
+   "borda": 0.28,
+   "cruz": 1.98,
+   "detalhe": 9.2,
+   "tam": "382x382"
+  },
+  "fft": {
+   "borda": 0.74,
+   "cruz": 1.03,
+   "detalhe": 10.7,
+   "tam": "477x477"
+  },
+  "remendo": {
+   "borda": 1.03,
+   "cruz": 1.15,
+   "detalhe": 10.6,
+   "tam": "477x477"
+  },
+  "piramide": {
+   "borda": 1.06,
+   "cruz": 2.42,
+   "detalhe": 9.5,
+   "tam": "477x477"
+  }
+ },
+ "casca": {
+  "antes": {
+   "borda": 1.83,
+   "cruz": 1.23,
+   "detalhe": 21.1,
+   "tam": "512x512"
+  },
+  "aparar": {
+   "borda": 1.53,
+   "cruz": 1.19,
+   "detalhe": 22.6,
+   "tam": "496x496"
+  },
+  "deslocar": {
+   "borda": 1.22,
+   "cruz": 1.3,
+   "detalhe": 19.0,
+   "tam": "496x496"
+  },
+  "cruzar": {
+   "borda": 1.71,
+   "cruz": 0.21,
+   "detalhe": 16.5,
+   "tam": "397x397"
+  },
+  "fft": {
+   "borda": 0.4,
+   "cruz": 1.18,
+   "detalhe": 22.3,
+   "tam": "496x496"
+  },
+  "remendo": {
+   "borda": 1.2,
+   "cruz": 1.02,
+   "detalhe": 22.3,
+   "tam": "496x496"
+  },
+  "piramide": {
+   "borda": 1.23,
+   "cruz": 1.31,
+   "detalhe": 19.0,
+   "tam": "496x496"
+  }
+ },
+ "chao_caverna": {
+  "antes": {
+   "borda": 2.06,
+   "cruz": 1.09,
+   "detalhe": 19.1,
+   "tam": "493x493"
+  },
+  "aparar": {
+   "borda": 2.16,
+   "cruz": 1.15,
+   "detalhe": 18.4,
+   "tam": "477x477"
+  },
+  "deslocar": {
+   "borda": 1.19,
+   "cruz": 1.38,
+   "detalhe": 15.8,
+   "tam": "477x477"
+  },
+  "cruzar": {
+   "borda": 0.2,
+   "cruz": 2.06,
+   "detalhe": 14.5,
+   "tam": "382x382"
+  },
+  "fft": {
+   "borda": 0.66,
+   "cruz": 1.15,
+   "detalhe": 18.5,
+   "tam": "477x477"
+  },
+  "remendo": {
+   "borda": 1.01,
+   "cruz": 0.93,
+   "detalhe": 18.0,
+   "tam": "477x477"
+  },
+  "piramide": {
+   "borda": 1.19,
+   "cruz": 1.38,
+   "detalhe": 15.8,
+   "tam": "477x477"
+  }
+ },
+ "madeira": {
+  "antes": {
+   "borda": 2.83,
+   "cruz": 1.52,
+   "detalhe": 13.5,
+   "tam": "512x512"
+  },
+  "aparar": {
+   "borda": 1.77,
+   "cruz": 1.52,
+   "detalhe": 14.3,
+   "tam": "496x496"
+  },
+  "deslocar": {
+   "borda": 1.54,
+   "cruz": 1.53,
+   "detalhe": 13.5,
+   "tam": "496x496"
+  },
+  "cruzar": {
+   "borda": 1.67,
+   "cruz": 0.43,
+   "detalhe": 11.2,
+   "tam": "397x397"
+  },
+  "fft": {
+   "borda": 0.46,
+   "cruz": 1.57,
+   "detalhe": 14.1,
+   "tam": "496x496"
+  },
+  "remendo": {
+   "borda": 1.29,
+   "cruz": 0.56,
+   "detalhe": 14.6,
+   "tam": "496x496"
+  },
+  "piramide": {
+   "borda": 1.49,
+   "cruz": 1.53,
+   "detalhe": 13.4,
+   "tam": "496x496"
+  }
+ }
+}

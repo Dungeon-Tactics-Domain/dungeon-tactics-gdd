@@ -1,0 +1,98 @@
+<!doctype html><meta charset=utf-8><title>Dobro de triângulos · Vagrant Story</title>
+<style>body{margin:0;background:#2a2a2a;color:#ddd;font:13px sans-serif;overflow:hidden}#p{position:absolute;top:8px;left:8px;background:#000a;padding:10px;border-radius:6px;width:250px;z-index:2}#p select{width:100%;margin:3px 0;box-sizing:border-box}#b{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin:6px 0}#b button{font:inherit;padding:6px 4px;cursor:pointer;text-align:left}#b button.on{outline:2px solid #e0b040}canvas{display:block}#i{font-size:11px;color:#aaa}#p label{display:block;margin:2px 0}#t{position:absolute;bottom:12px;width:100%;display:flex;justify-content:space-around;pointer-events:none;font-size:15px}</style>
+<div id=p><select id=z></select>
+<label><input type=checkbox id=lin checked>🖼️ Textura suavizada</label>
+<label><input type=checkbox id=sv checked>〰️ Leve curva nas arestas novas</label>
+<label><input type=checkbox id=wf>🕸️ Wireframe</label>
+<label><input type=checkbox id=rot>🔄 Girar câmera</label>
+<div id=b></div><div id=i>carregando…</div></div>
+<div id=t><span id=te></span><span id=td></span></div>
+<script type="module" src="https://unpkg.com/three@0.117.1/build/three.module.js" crossorigin></script>
+<script type="module">
+import { Scene, PerspectiveCamera, WebGLRenderer, Box3, Vector3, AnimationMixer, OrbitControls, LinearFilter, NearestFilter, LoopOnce, LoopRepeat, Clock } from './src/three.js';
+import { ZUD } from './src/ZUD.js';
+import { Reader } from './src/Reader.js';
+import { subdividir2x } from './src/subdividir.js';
+
+// Same slot table as animacao-mock.html, cut to the four gestures the comparison needs.
+const GESTOS = {
+  parado: { icone: '🧍', nome: 'Parado', slots: [1] },
+  andar:  { icone: '🚶', nome: 'Andar',  slots: [13, 14], voltas: 2 },
+  golpe:  { icone: '⚔️', nome: 'Golpe',  slots: [72] },
+  dano:   { icone: '💥', nome: 'Dano',   slots: [64] },
+};
+// Z001U00 plus one human, one skeleton and one monster picked by eye from folha-zud.html (all four have a SEQ).
+const PERSONAGENS = [['Z001U00.ZUD', '🧍 Z001U00 (char 1)'], ['Z009U00.ZUD', '🧑 Humano de armadura · Z009U00'], ['Z013U08.ZUD', '💀 Esqueleto · Z013U08'], ['Z014U00.ZUD', '🦎 Homem-lagarto · Z014U00']];
+
+const $ = (i) => document.getElementById(i), Q = new URLSearchParams(location.search);
+$('z').innerHTML = PERSONAGENS.map(([v, n]) => `<option value=${v}>${n}</option>`).join(''); if (PERSONAGENS.some(([v]) => v === Q.get('z'))) $('z').value = Q.get('z');
+const r = new WebGLRenderer({ antialias: true }); r.setPixelRatio(Math.max(2, devicePixelRatio)); r.setSize(innerWidth, innerHeight); r.setClearColor(0x2a2a2a, 1); document.body.appendChild(r.domElement);
+const sc = new Scene(), cam = new PerspectiveCamera(40, innerWidth / innerHeight, 1, 1e5), oc = new OrbitControls(cam, r.domElement), clock = new Clock();
+addEventListener('resize', () => { r.setSize(innerWidth, innerHeight); cam.aspect = innerWidth / innerHeight; cam.updateProjectionMatrix(); });
+// lados[0] = original, lados[1] = subdivided; each has its own ZUD parse so skeletons and mixers stay independent.
+let lados = [], clips = [], indices = {}, fila = [], atual = '', n = -1, espera = 0, base = null;
+
+const tri = (g) => Math.round((g.index ? g.index.count : g.attributes.position.count) / 3);
+function visual() {
+  const f = $('lin').checked ? LinearFilter : NearestFilter;
+  lados.forEach(({ mesh }) => [].concat(mesh.material).forEach((m) => { m.wireframe = $('wf').checked; if (m.map) { m.map.magFilter = m.map.minFilter = f; m.map.needsUpdate = true; } }));
+}
+function geometria() {
+  if (!lados[1]) return;
+  lados[1].mesh.geometry = subdividir2x(base, { suave: $('sv').checked ? 0.5 : 0 });
+  const a = tri(base), b = tri(lados[1].mesh.geometry);
+  // Self-check: about 2x, and every new vertex rides a bone the original already had (same-bone edges only).
+  const ossos = new Set(), si = lados[1].mesh.geometry.attributes.skinIndex.array, n0 = base.attributes.position.count;
+  for (let i = 0; i < n0; i++) ossos.add(si[i * 4]);
+  console.assert(b / a >= 1.8 && b / a <= 2.2 && [...si.slice(n0 * 4)].every((o, k) => k % 4 || ossos.has(o)), 'subdividir2x fora do alvo', a, b);
+  $('te').textContent = `Original · ${a} triângulos`; $('td').textContent = `Dobro · ${b} triângulos (${(b / a).toFixed(2)}x)`;
+}
+function proximo() {
+  n = fila.shift();
+  for (const l of lados) { if (l.action) l.action.stop(); l.action = l.mixer.clipAction(l.clips[n], l.mesh); l.action.reset().setLoop(atual === 'parado' ? LoopRepeat : LoopOnce); l.action.clampWhenFinished = true; l.action.play(); }
+}
+function toca(g) {
+  if (!indices[g]) return;
+  atual = g; espera = 0; fila = Array(GESTOS[g].voltas || 1).fill(indices[g]).flat(); proximo();
+  document.querySelectorAll('#b button').forEach((b) => b.classList.toggle('on', b.dataset.g === g));
+}
+async function abre() {
+  const nome = $('z').value; $('b').innerHTML = ''; indices = {};
+  lados.forEach((l) => sc.remove(l.mesh)); lados = [];
+  const bytes = new Uint8Array(await (await fetch('./arq/MAP/' + nome)).arrayBuffer());
+  for (let k = 0; k < 2; k++) {
+    const z = new ZUD(new Reader(bytes)); z.read(); z.build();
+    const seq = z.bt || z.com; if (!seq || !seq.animations.length) { $('i').textContent = nome + ': sem animação'; return; }
+    const l = { z, seq, mesh: z.shp.mesh, mixer: new AnimationMixer(z.shp.mesh), clips: seq.animations.map((a) => a.animationClip) };
+    l.mesh.frustumCulled = false; sc.add(l.mesh); lados.push(l);
+  }
+  base = lados[0].mesh.geometry; geometria();
+  // Only the left mixer drives the queue; both advance with the same dt, so they stay frame-locked.
+  lados[0].mixer.addEventListener('finished', () => { if (fila.length) proximo(); else espera = (GESTOS[atual].segura || 0) + 1e-3; });
+  const seq = lados[0].seq;
+  for (const [g, def] of Object.entries(GESTOS)) {
+    const ids = def.slots.map((s) => seq.slots[s]).filter((i) => i !== undefined && i !== 255);
+    if (!ids.length) continue; indices[g] = ids;
+    const b = document.createElement('button'); b.dataset.g = g; b.textContent = def.icone + ' ' + def.nome; b.title = 'clipes ' + ids.map((i) => '#' + i).join(' → '); b.onclick = () => toca(g); $('b').appendChild(b);
+  }
+  if (!indices.parado) indices.parado = [0];
+  toca('parado'); lados.forEach((l) => l.mixer.update(0.2)); lados[0].mesh.updateMatrixWorld(true);
+  const box = new Box3().setFromObject(lados[0].mesh), s = box.getSize(new Vector3()), w = Math.max(s.x, s.z, s.y * 0.5) * 1.8;
+  lados[0].mesh.position.x = -w / 2; lados[1].mesh.position.x = w / 2;
+  const c = new Box3().setFromObject(lados[0].mesh).union(new Box3().setFromObject(lados[1].mesh)).getCenter(new Vector3()), d = Math.max(s.y, w * 2) * 1.5;
+  oc.target.copy(c); cam.position.set(c.x, c.y, c.z + d); oc.update();
+  visual();
+}
+$('z').onchange = abre; $('lin').onchange = $('wf').onchange = visual; $('sv').onchange = geometria; $('rot').onchange = () => (oc.autoRotate = $('rot').checked);
+(function loop() {
+  requestAnimationFrame(loop); const dt = Math.min(clock.getDelta(), 0.1);
+  if (lados.length === 2 && lados[0].action) {
+    lados.forEach((l) => l.mixer.update(dt));
+    if (espera > 0 && (espera -= dt) <= 0) toca('parado');
+    $('i').textContent = `${GESTOS[atual].nome} · clipe #${n} · ${lados[0].action.time.toFixed(2)} / ${lados[0].clips[n].duration.toFixed(2)} s`;
+  }
+  oc.update(); r.render(sc, cam);
+})();
+window.__lados = () => lados; window.__toca = toca;
+await abre();
+</script>

@@ -1,0 +1,8 @@
+[
+ {
+  "material": "parede_pedra",
+  "modo": "img2img",
+  "segundos": 10.4,
+  "vram_pico_gb": 5.27
+ }
+]

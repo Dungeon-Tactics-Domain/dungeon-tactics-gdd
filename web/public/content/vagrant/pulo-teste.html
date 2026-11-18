@@ -1,0 +1,71 @@
+<!doctype html><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Pulo · Vagrant Story</title>
+<style>body{margin:0;background:#2a2a2a;color:#ddd;font:14px sans-serif;overflow:hidden}#p{position:absolute;top:8px;left:8px;background:#000b;padding:10px;border-radius:6px;max-width:300px;z-index:2}#p select,#p button{font:inherit;min-height:44px;margin:3px 0;width:100%;box-sizing:border-box}#i{font-size:14px;color:#ccc;white-space:pre-line}canvas{display:block}</style>
+<div id=p><select id=z></select><select id=m><option value=parado>🧍 Pulo parado<option value=andando>🚶 Pulo andando<option value=correndo>🏃 Pulo correndo</select><button id=pa>⏸️ Pausar</button><div id=i>carregando…</div></div>
+<script type="module">
+// Test of pulo-vs.js: the character jumps in a loop with the game's own poses and arc, frame by frame at 30 fps.
+// ?z=Z001U00 picks the character, ?modo= the take-off, ?q=N stops at game frame N of the loop (for prints).
+import { Scene, PerspectiveCamera, WebGLRenderer, Box3, Vector3, Vector4, Matrix4, AnimationMixer, OrbitControls, GridHelper, LoopRepeat, Clock } from './src/three.js';
+import { ZUD } from './src/ZUD.js';
+import { Reader } from './src/Reader.js';
+import { posesDoPulo, poePose, faseDoVoo, VOO, MISTURA, QUADRO, SLOTS } from './pulo-vs.js';
+
+const $ = (i) => document.getElementById(i), Q = new URLSearchParams(location.search);
+const BONECOS = { Z001U00: 'Ashley', Z009U00: 'Espadachim', Z028U04: 'Esqueleto', Z050U03: 'Minotauro' };
+$('z').innerHTML = Object.entries(BONECOS).map(([k, n]) => `<option value=${k}>${n} (${k})</option>`).join('');
+if (BONECOS[Q.get('z')]) $('z').value = Q.get('z'); if (SLOTS[Q.get('modo')]) $('m').value = Q.get('modo');
+const r = new WebGLRenderer({ antialias: true, preserveDrawingBuffer: true }); r.setPixelRatio(Math.min(2, devicePixelRatio)); r.setSize(innerWidth, innerHeight); r.setClearColor(0x2a2a2a, 1); document.body.appendChild(r.domElement);
+const sc = new Scene(), cam = new PerspectiveCamera(40, innerWidth / innerHeight, 1, 1e5), oc = new OrbitControls(cam, r.domElement), clock = new Clock();
+addEventListener('resize', () => { r.setSize(innerWidth, innerHeight); cam.aspect = innerWidth / innerHeight; cam.updateProjectionMatrix(); });
+let u = null, poses, seq, chao = 0, grade, q = 0, resto = 0, pausa = Q.has('q');
+
+// Box of the skinned mesh in its current pose (Box3.setFromObject reads the bind pose); same as sala-fechada.html.
+function medir(mesh) {
+  mesh.updateMatrixWorld(true); mesh.skeleton.update();
+  const a = mesh.geometry.attributes, bm = mesh.skeleton.boneMatrices, v = new Vector3(), t = new Vector3(), p = new Vector3(), si = new Vector4(), sw = new Vector4(), m = new Matrix4(), box = new Box3();
+  for (let i = 0; i < a.position.count; i++) {
+    v.fromBufferAttribute(a.position, i).applyMatrix4(mesh.bindMatrix); si.fromBufferAttribute(a.skinIndex, i); sw.fromBufferAttribute(a.skinWeight, i); p.set(0, 0, 0);
+    for (let j = 0; j < 4; j++) p.add(t.copy(v).applyMatrix4(m.fromArray(bm, si.getComponent(j) * 16)).multiplyScalar(sw.getComponent(j)));
+    box.expandByPoint(p.applyMatrix4(mesh.bindMatrixInverse).applyMatrix4(mesh.matrixWorld));
+  }
+  return box;
+}
+// The loop in game frames: idle, crouch (6 frames, the unk11 timer of func_800A48CC), flight on the VOO arc,
+// landing pose held for its blend (8 frames), back to idle. Returns the phase and the height for frame n.
+const PARADO = 18, AGACHA = 6, AR = 2 * VOO.v0 / VOO.g, POUSO = MISTURA.pouso, CICLO = PARADO + AGACHA + AR + POUSO;
+function momento(n) {
+  n %= CICLO;
+  if (n < PARADO) return { fase: 'parado', h: 0 };
+  if ((n -= PARADO) < AGACHA) return { fase: 'agacha', h: 0 };
+  if ((n -= AGACHA) < AR) { const vy = VOO.v0 - VOO.g * n; return { fase: faseDoVoo(vy), h: VOO.v0 * n - VOO.g * n * (n - 1) / 2, vy }; }
+  return { fase: 'pouso', h: 0 };
+}
+function quadro() { // one game frame
+  const m = momento(q++);
+  if (m.fase === 'parado') { if (u.fase !== 'parado') { const a = u.mixer.clipAction(u.idle, u.mesh); a.reset().setLoop(LoopRepeat).play(); if (u.action) a.crossFadeFrom(u.action, MISTURA.parado * QUADRO, false); u.action = a; } }
+  else poePose(u, poses, m.fase);
+  u.fase = m.fase; u.mesh.position.y = chao + m.h; u.mixer.update(QUADRO);
+  const s = SLOTS[$('m').value][m.fase];
+  $('i').textContent = `${BONECOS[$('z').value]} · quadro ${(q - 1) % CICLO}/${CICLO}\nfase: ${m.fase}${s ? ` · slot ${s} → clipe #${seq.slots[s]}` : ''}\naltura: ${m.h} unidades VS (128 = 1 quadrado)`;
+}
+async function abre() {
+  const nome = $('z').value; if (u) sc.remove(u.mesh); u = null;
+  const z = new ZUD(new Reader(new Uint8Array(await (await fetch('./arq/MAP/' + nome + '.ZUD')).arrayBuffer()))); z.read(); z.build();
+  seq = z.bt || z.com; poses = posesDoPulo(seq, $('m').value);
+  if (!poses) { $('i').textContent = nome + ': sem as poses de pulo'; return; }
+  u = { mesh: z.shp.mesh, mixer: new AnimationMixer(z.shp.mesh), action: null, idle: seq.animations[seq.slots[1]].animationClip, fase: '' };
+  sc.add(u.mesh); u.action = u.mixer.clipAction(u.idle, u.mesh); u.action.play(); u.mixer.update(0); u.fase = 'parado';
+  u.mesh.position.y = 0; const box = medir(u.mesh); chao = -box.min.y; // feet on y = 0
+  if (grade) sc.remove(grade); grade = new GridHelper(1280, 10, 0x888888, 0x555555); sc.add(grade);
+  const s = box.getSize(new Vector3()), alvo = new Vector3(0, s.y * 0.9, 0), d = s.y * 3.2;
+  oc.target.copy(alvo); cam.position.set(d * 0.8, s.y * 0.9, d * 0.6); oc.update();
+  q = 0; const ate = +Q.get('q') || 0; for (let i = 0; i <= ate; i++) quadro();
+}
+$('z').onchange = abre; $('m').onchange = abre; $('pa').onclick = () => { pausa = !pausa; $('pa').textContent = pausa ? '▶️ Continuar' : '⏸️ Pausar'; };
+window.quadro = (n = 1) => { for (let i = 0; i < n; i++) quadro(); r.render(sc, cam); }; // manual step: a hidden tab runs no animation frames
+(function loop() {
+  requestAnimationFrame(loop); const dt = Math.min(clock.getDelta(), 0.1);
+  if (u && !pausa) for (resto += dt; resto >= QUADRO; resto -= QUADRO) quadro();
+  oc.update(); r.render(sc, cam);
+})();
+await abre();
+</script>
