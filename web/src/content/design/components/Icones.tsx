@@ -65,7 +65,7 @@ function Icone({
   );
 }
 
-// same toggle as the town page (Cidade.tsx)
+// same toggle as the town page (narrativa/components/Cidade.tsx)
 const BOTAO =
   'min-h-11 cursor-pointer rounded-[3px] border border-borda bg-folha px-3 text-[15px] text-tinta hover:bg-lab-soft aria-pressed:border-lab aria-pressed:bg-lab aria-pressed:text-white';
 const FUNDOS: [nome: string, cor: string][] = [

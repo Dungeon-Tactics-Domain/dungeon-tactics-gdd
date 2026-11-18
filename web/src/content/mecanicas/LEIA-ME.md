@@ -10,6 +10,9 @@ terreno, and Gravados), with `Cena.tsx`, `cena-url.ts`, `Gravados.tsx`, `cenas.j
 keeps them. The only recorded clip, `public/content/mecanicas/clips/tiro-arqueiro-readme.gif` (3.7 MB, never
 versioned), was moved to `D:\_PARA-APAGAR\mecanicas-clipes-17-11\`.
 
+Later the same day the 10 reference sheets of other games left too (the `referencias` group: 10 pages and their 29
+`mecanicas`, `sensacao` and `videos` subpages), with `refs/*.json` and `components/Referencias.tsx`.
+
 ## Descent group (Nov 15)
 
 `descida.json` holds the numbers of the dungeon crawler descent (short room, enemies and boss, wounded, room map rules),

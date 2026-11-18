@@ -1,5 +1,5 @@
 // Typed access to the mechanics lab data, shared by the manifest and the components. The JSON files are copies of
-// dungeon-tactics-lab/mecanicas/src/data (plan.ts and rules.ts as JSON; refs/*.json as they were).
+// dungeon-tactics-lab/mecanicas/src/data (plan.ts and rules.ts as JSON). The reference sheets (refs/*.json) left on 17/11.
 import descida from './descida.json';
 import plano from './plano.json';
 import regras from './regras.json';
@@ -28,25 +28,6 @@ export interface Regra {
   where: string;
   note?: string;
 }
-export interface Item {
-  name: string;
-  what: string;
-  feel?: string;
-  take?: string;
-  avoid?: string;
-  source: string;
-}
-export interface Jogo {
-  game: string;
-  slug: string;
-  year: number;
-  reception: string;
-  why: string;
-  mechanics: Item[];
-  feel: Item[];
-  videos: { url: string; title: string; note: string }[];
-  notFound: string[];
-}
 
 export const PLANO: Plano = plano;
 export const DRIFT: string[] = regras.drift;
@@ -68,11 +49,6 @@ const grupos = (lista: { group: string; rules: Regra[] }[]) =>
     return { id: slug(titulo!), titulo: titulo!, extra, regras: rules };
   });
 export const REGRAS = { mechanics: grupos(regras.mechanics), feel: grupos(regras.feel) };
-
-export const JOGOS: Jogo[] = Object.values(
-  import.meta.glob<Jogo>('./refs/*.json', { eager: true, import: 'default' }),
-).sort((a, b) => a.year - b.year);
-export const jogo = (id: string) => JOGOS.find((g) => slug(g.slug) === id);
 
 // Descent numbers (Nov 15): enemy life per room from the game's units, and the hero turns it takes at the measured pace
 export { descida };

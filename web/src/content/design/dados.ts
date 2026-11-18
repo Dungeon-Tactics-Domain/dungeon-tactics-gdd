@@ -64,11 +64,7 @@ export const GOSTO_ABERTAS = 10;
 export const PLANO = planoJson as {
   now: { question: string; why: string; example: string; options: string[]; pick: string } | null;
   nextStep: string;
-  decisions: [topic: string, decision: string][];
-  phases: [id: string, name: string, gate: string, status: Status][];
-  requests: [date: string, ask: string, owner: string, status: Status, next: string][];
 };
-export type Status = 'feito' | 'fazendo' | 'aberto' | 'bloqueado';
 
 export interface Test {
   file: string;

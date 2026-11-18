@@ -43,7 +43,8 @@ export function Paginas({ sumario: s, base }: { sumario: Sumario; base: string }
   const navigate = useNavigate();
   const { slot, recolhida, fechar } = useGaveta();
   const chave = `paginas:${s.lab}:grupo`;
-  const href = (r: string) => `${base}/${r}`;
+  // an old link that starts with / leads to another lab (a page moved between labs)
+  const href = (r: string) => (r.startsWith('/') ? r : `${base}/${r}`);
 
   const aviso = (location.state as { aviso?: string } | null)?.aviso;
   const lista = entradas(s);

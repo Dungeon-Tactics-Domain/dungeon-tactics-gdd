@@ -1,8 +1,8 @@
-// Mechanics and game feel lab: decisions, the rules and feel read from the game's code, and references from other
-// games. Copied from dungeon-tactics-lab/mecanicas (src/main.ts and src/data); the tree is built
+// Mechanics and game feel lab: decisions and the rules and feel read from the game's code (the reference sheets of
+// other games left on 17/11). Copied from dungeon-tactics-lab/mecanicas (src/main.ts and src/data); the tree is built
 // from the data the same way the old montarPaginas call built it, so routes, titles and summaries match.
 import type { Manifesto, PaginaManifesto } from '../types';
-import { JOGOS, qtd, REGRAS, slug } from './dados';
+import { qtd, REGRAS } from './dados';
 
 const paginasDeRegra = (lista: (typeof REGRAS)['mechanics']): PaginaManifesto[] =>
   lista.map((g) => ({
@@ -13,13 +13,13 @@ const paginasDeRegra = (lista: (typeof REGRAS)['mechanics']): PaginaManifesto[] 
 
 export default {
   titulo: 'Mecânicas e sensação',
-  resumo: 'Dungeon Tactics: decisões, as regras e a sensação de hoje lidas do código, e referências de outros jogos.',
+  resumo: 'Dungeon Tactics: decisões e as regras e a sensação de hoje lidas do código.',
   origem: {
     caminho: '/mecanicas/',
     fonte: 'dungeon-tactics-lab/mecanicas: src/main.ts e src/data',
     copiadoEm: '2026-11-14T23:38:40-03:00',
   },
-  // anchors of the old single-page lab (#grill, game ids) lead to the new routes; the game clips left on 17/11
+  // anchors of the old single-page lab (#grill...) lead to the new routes; the game clips and reference sheets left on 17/11
   linksAntigos: {
     decisoes: 'decisoes',
     agora: 'decisoes/agora',
@@ -29,8 +29,6 @@ export default {
     mecanicas: 'regras',
     divergencias: 'regras/divergencias',
     sensacao: 'sensacao',
-    referencias: 'referencias',
-    ...Object.fromEntries(JOGOS.map((g) => [g.slug, `referencias/${slug(g.slug)}`])),
   },
   grupos: [
     {
@@ -168,40 +166,6 @@ export default {
           resumo: 'Tiro curvo e reto, magia conjurada: protótipo em Three.js e as decisões do grill de 15/11.',
         },
       ],
-    },
-    {
-      id: 'referencias',
-      titulo: 'Referências',
-      icone: '📚',
-      resumo: `${JOGOS.length} fichas com fonte em cada item. Ideias e regras, nunca arte, som ou texto desses jogos. Vídeos são links com o minuto a olhar.`,
-      paginas: JOGOS.map((g): PaginaManifesto => ({
-        id: slug(g.slug),
-        titulo: g.game,
-        resumo: `${g.year ? `${g.year} · ` : ''}${g.why}`,
-        subpaginas: [
-          g.mechanics.length
-            ? {
-                id: 'mecanicas',
-                titulo: 'Mecânicas',
-                resumo: `${qtd(g.mechanics.length, 'ideia', 'ideias')} de regra, com fonte.`,
-              }
-            : null,
-          g.feel.length
-            ? {
-                id: 'sensacao',
-                titulo: 'Sensação',
-                resumo: `${qtd(g.feel.length, 'ideia', 'ideias')} de sensação, com fonte.`,
-              }
-            : null,
-          g.videos.length
-            ? {
-                id: 'videos',
-                titulo: 'Vídeos',
-                resumo: `${qtd(g.videos.length, 'vídeo', 'vídeos')}, com o minuto a olhar.`,
-              }
-            : null,
-        ].filter((p) => p !== null),
-      })),
     },
   ],
 } satisfies Manifesto;

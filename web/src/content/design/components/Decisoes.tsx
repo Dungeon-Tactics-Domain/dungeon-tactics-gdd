@@ -1,23 +1,8 @@
-// Decision pages of the old lab (main.ts + data/plan.ts): the open question or next step, the phases, Fernando's
-// requests and the 22 grill decisions.
+// "Agora estamos decidindo" on the lab home (old lab's main.ts + data/plan.ts): the open question or the next step.
+// The phases, requests and the 22 grill decisions left the lab on 17/11; git history keeps them.
 import { Callout } from '@/components/content/Callout';
-import { Rolagem, TABELA } from '@/components/content/DataTable';
-import { cn } from '@/lib/utils';
 import { Link } from 'react-router';
-import { GOSTO_ABERTAS, PLANO, type Status } from '../dados';
-
-const TOM: Record<Status, string> = {
-  feito: 'bg-sucesso-suave text-sucesso',
-  fazendo: 'bg-lab-soft text-lab',
-  aberto: 'bg-aviso-suave text-aviso',
-  bloqueado: 'bg-erro-suave text-erro',
-};
-const Etiqueta = ({ s }: { s: Status }) => (
-  <span className={cn('inline-block rounded-[3px] px-2 py-px text-[14px] font-bold whitespace-nowrap', TOM[s])}>
-    {s}
-  </span>
-);
-const N = 'w-[3em] text-apagado tabular-nums';
+import { GOSTO_ABERTAS, PLANO } from '../dados';
 
 export function Agora() {
   const now = PLANO.now;
@@ -55,78 +40,5 @@ export function Agora() {
         </div>
       )}
     </Callout>
-  );
-}
-
-export function Fases() {
-  return (
-    <div className="grid gap-2">
-      {PLANO.phases.map(([id, name, gate, st]) => (
-        <div
-          key={id}
-          className="grid grid-cols-[90px_1fr_auto] items-baseline gap-3 border border-borda bg-folha px-3.5 py-2.5 max-[700px]:grid-cols-1"
-        >
-          <b className="tabular-nums">{id}</b>
-          <span>
-            {name}
-            <span className="text-apagado"> · {gate}</span>
-          </span>
-          <span className="justify-self-start">
-            <Etiqueta s={st} />
-          </span>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-export function Pedidos() {
-  return (
-    <Rolagem>
-      <table className={TABELA}>
-        <thead>
-          <tr>
-            {['Data', 'Pedido', 'Dono', 'Estado', 'Prova ou próximo passo'].map((h) => (
-              <th key={h} scope="col">
-                {h}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {PLANO.requests.map(([d, ask, owner, st, next], i) => (
-            <tr key={i}>
-              <td className={N}>{d}</td>
-              <td>{ask}</td>
-              <td>{owner}</td>
-              <td>
-                <Etiqueta s={st} />
-              </td>
-              <td>{next}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </Rolagem>
-  );
-}
-
-export function Decisoes22() {
-  return (
-    <Rolagem>
-      <table className={TABELA}>
-        <tbody>
-          {PLANO.decisions.map(([topic, d], i) => (
-            <tr key={topic}>
-              <td className={N}>{i + 1}</td>
-              <td>
-                <strong>{topic}</strong>
-              </td>
-              <td>{d}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </Rolagem>
   );
 }

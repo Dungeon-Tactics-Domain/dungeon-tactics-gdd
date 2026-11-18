@@ -10,7 +10,7 @@ official version D and kept moment, the SDXL pixelizer rows and the regenerated 
   the same ids, so `#/interface/em-uso`, `#/personagens/em-uso`... open the same page here (`Paginas` turns `#/a/b` into
   `/design/a/b`). The old "Início" tab is the lab home (`inicio.mdx`: "Em uso agora" and "Agora estamos decidindo").
   The games under `referencias` keep their `capturas-N` subpages (blocks of 2, as the old lab does).
-- `dados.ts`: typed access to `plano.json` (decisions, phases, requests), `ia.json` (AI tests, prompts already expanded),
+- `dados.ts`: typed access to `plano.json` (the open question and next step), `ia.json` (AI tests, prompts already expanded),
   and `refs/*.json` (one file per game, copied as they were; since 17/11 only `fft-ivalice`).
 - `components/`: `Decisoes`, `Referencias` (overview with filters, game intro, capture blocks), `Ia` (tests by subject,
   per platform, grouped by conversation; featured pick; platforms table), `Cartoes` + `Leitor` (cards and the full-screen
@@ -18,6 +18,10 @@ official version D and kept moment, the SDXL pixelizer rows and the regenerated 
 - On 17/11 the AI test pages (`interface/testes`, `personagens/testes`, `personagens/sprites`, `mapa/testes`,
   `plano/plataformas`) were archived in `docs/arquivo-assets-ia/` for a future "Assets de IA" component; `Ia`, `Cartoes`
   and `Leitor` stay here with no page. The theme plan (`plano/tema`) and the screen mock-ups (`interface/telas`) were removed.
+- Later on 17/11 the "Ouro e couro" asset tests (`interface/ui-ouro-couro`, `interface/paineis-css`, `interface/hud-fft`)
+  joined that archive; `UiOuroCouro`, `PaineisCss` and `HudFft` stay here with no page. The plan group (`plano/fases`,
+  `plano/pedidos`, `plano/decisoes`) was removed (`plano.json` keeps only what the home shows), and the town draft
+  (`mapa/cidade`, with `Cidade.tsx` and `cidade.ts`) moved to the narrative lab; the old route redirects there.
 - The `.mdx` pages are a component call. A page with a new route needs its
   `.mdx`: `registry.test.tsx` fails on a page without one and on an orphan file.
 - Old paths of the first copy (`/design/decisoes/...`, `/design/testes-de-ia/...`, `/design/maquetes/...`) no longer

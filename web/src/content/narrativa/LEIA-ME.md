@@ -14,6 +14,12 @@ Later the same day the marks page (`marcas/minhas`, with `marcas.ts` and its tes
 `decisoes/fases`, `decisoes/pedidos` and `decisoes/grill` left too. `dados/plano.json` keeps only `agora` and
 `proximoPasso`, which the lab home shows.
 
+## Walkable town draft (moved in on 17/11)
+
+`mapa/cidade` ("Cidade andável (rascunho)") came from the design lab with `components/Cidade.tsx`, `cidade.ts` and its
+test (`components/cidade.test.tsx`); it has no media. The old `/design/mapa/cidade` redirects here. It sits apart from
+`decisoes/cidade`, `decisoes/lugares` and `decisoes/mapa-cidade`, which are the written decisions about the town.
+
 ## Differences from the old lab
 
 - Old links `#loop-<slug>`, `#decisoes` and `#loops` redirect through `linksAntigos`; `#/group/page` routes redirect by themselves.

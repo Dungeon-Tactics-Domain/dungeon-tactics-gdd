@@ -1,6 +1,6 @@
 // Narrative lab: decisions and the loop of each reference game. The reference sheets (games, anime and books), the
 // moodboard, the marks and the plan pages (agora, fases, pedidos, grill) were removed on 17/11 at Fernando's request;
-// the per-game loop pages come from dados.ts.
+// the per-game loop pages come from dados.ts. The walkable town draft came from the design lab on 17/11 (mapa/cidade).
 import type { Manifesto, PaginaManifesto } from '../types';
 import { type Game, JOGOS, TIPOS, tipoDe } from './dados';
 
@@ -81,6 +81,19 @@ export default {
       paginas: [
         { id: 'nosso-loop', titulo: 'Nosso loop', icone: '🎯', resumo: 'O loop do Dungeon Tactics hoje.' },
         ...porTipo(jogo),
+      ],
+    },
+    {
+      id: 'mapa',
+      titulo: 'Mapa',
+      icone: '🗺️',
+      resumo: 'A cidade andável, de cima.',
+      paginas: [
+        {
+          id: 'cidade',
+          titulo: 'Cidade andável (rascunho)',
+          resumo: 'Mapa 40×30 da cidade com 10 lugares e 10 moradores, e o que cada nível (1 a 3) acrescenta.',
+        },
       ],
     },
   ],

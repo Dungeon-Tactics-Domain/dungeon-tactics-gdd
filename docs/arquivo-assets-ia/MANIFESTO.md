@@ -1,8 +1,10 @@
-# Manifesto: páginas de testes de IA retiradas do lab de design (17/11)
+# Manifesto: páginas de assets de IA retiradas do lab de design (17/11)
 
 Gerado de `manifesto.json` (mesmos dados). Commit base: `db8cebd`. Revisão de design: as páginas de testes de IA saem do site e serão reunidas num componente único "Assets de IA", por categorias.
 
 Totais: 5 páginas, 98 imagens distintas (97.7 MB); a pasta `web/public/content/design/ia/` inteira tem 100.5 MB, contando `icones/` e `atlas/`, que outras páginas usam.
+
+Segundo lote, mesmo dia (commit base `4590546`): 3 páginas de assets Ouro e couro (Gemini e PixelLab), 15 imagens distintas (5.5 MB). A pasta `web/public/content/design/pixellab/` inteira tem 18 arquivos e 8.9 MB; na pasta e sem página: `hud-fft-folha-alfa.png`, `ui-gem-lote2-botoes-alfa.png`, `ui-gem-lote5-hud-fft-alfa.png`.
 
 ## Testes de IA: interface
 
@@ -210,3 +212,89 @@ import { IaPlataformas } from "../components/Ia";
 
 <IaPlataformas />
 ```
+
+## Ouro e couro: assets (Gemini e PixelLab)
+
+- Rota antiga: `/design/interface/ui-ouro-couro`
+- Grupo e id no manifest: `interface` / `ui-ouro-couro` (depois de icones, antes de paineis-css)
+- Resumo: Todos os elementos de interface no estilo escolhido, em lotes, com o que foi enviado e o que saiu.
+- Componentes: `<UiOuroCouro />` (de `web/src/content/design/components/UiOuroCouro.tsx`, continua no código)
+- Dados: inline em web/src/content/design/components/UiOuroCouro.tsx; LOTES (titulo, pecas, gemini/pixellab {arquivo, legenda}, nota, links), inline no componente
+- Imagens: 5 (3.2 MB), todas no disco
+- Citadas só no texto (não aparecem na página): `ui-gem-lote1-paineis-alfa.png` (567 KB), `ui-gem-lote2-botoes-alfa.png` (679 KB)
+- Conversas e ferramentas: https://gemini.google.com/app/f89699541bc67f34, https://gemini.google.com/app/f6dd7f4523c7cc40, https://www.pixellab.ai/create?tool=create_ui_pro
+
+Corpo `.mdx` (cópia em `paginas/interface/ui-ouro-couro.mdx`):
+
+```mdx
+import { UiOuroCouro } from "../components/UiOuroCouro";
+
+<UiOuroCouro />
+```
+
+| Arquivo                         | Plataforma                 | KB   |
+| ------------------------------- | -------------------------- | ---- |
+| `ui-ref-ouro-aplicado.png`      | Copilot (Microsoft)        | 1845 |
+| `ui-gem-lote1-paineis-full.png` | Gemini (Nano Banana)       | 552  |
+| `ui-pl-painel-1.png`            | PixelLab (UI Elements Pro) | 23   |
+| `ui-gem-lote2-botoes-full.png`  | Gemini (Nano Banana)       | 667  |
+| `ui-pl-menu-acoes-1.png`        | PixelLab (UI Elements Pro) | 53   |
+
+Caminhos relativos a `web/public/content/design/pixellab/` (fora do git; só no disco do checkout principal).
+
+## Painéis e menu Ouro e couro em CSS
+
+- Rota antiga: `/design/interface/paineis-css`
+- Grupo e id no manifest: `interface` / `paineis-css` (depois de ui-ouro-couro, antes de hud-fft)
+- Resumo: Os painéis, molduras, aba, banner e divisor refeitos em CSS puro, ao lado da folha do Gemini.
+- Componentes: `<PaineisCss />` (de `web/src/content/design/components/PaineisCss.tsx`, continua no código)
+- Dados: inline em web/src/content/design/components/PaineisCss.tsx; CSS inline no componente (classes .oc, .oc-retrato, .oc-aba, .oc-banner, .oc-gema, .oc-divisor, .mn); ITENS (ícone, nome) do menu de ações
+- Imagens: 8 (0.8 MB), todas no disco
+
+Corpo `.mdx` (cópia em `paginas/interface/paineis-css.mdx`):
+
+```mdx
+import { PaineisCss } from "../components/PaineisCss";
+
+<PaineisCss />
+```
+
+| Arquivo                         | Plataforma                 | KB  |
+| ------------------------------- | -------------------------- | --- |
+| `ui-pl-menu-bota-v2.png`        | PixelLab (UI Elements Pro) | 1   |
+| `ui-pl-menu-espada-v2.png`      | PixelLab (UI Elements Pro) | 2   |
+| `ui-pl-menu-ampulheta-v2.png`   | PixelLab (UI Elements Pro) | 2   |
+| `ui-pl-menu-pergaminho-v2.png`  | PixelLab (UI Elements Pro) | 1   |
+| `ui-pl-menu-mao-v2.png`         | PixelLab (UI Elements Pro) | 1   |
+| `ui-ref-menu-acoes.png`         | Captura do jogo            | 141 |
+| `ui-pl-menu-acoes-1.png`        | PixelLab (UI Elements Pro) | 53  |
+| `ui-gem-lote1-paineis-alfa.png` | Gemini (Nano Banana)       | 567 |
+
+Caminhos relativos a `web/public/content/design/pixellab/` (fora do git; só no disco do checkout principal).
+
+## HUD do FFT em couro e ouro
+
+- Rota antiga: `/design/interface/hud-fft`
+- Grupo e id no manifest: `interface` / `hud-fft` (depois de paineis-css, antes de redesign-responsivo)
+- Resumo: A tela de batalha do FFT refeita no Ouro e couro, uma peça por vez, cada uma em sua conversa do Gemini.
+- Componentes: `<HudFft />` (de `web/src/content/design/components/HudFft.tsx`, continua no código)
+- Dados: inline em web/src/content/design/components/HudFft.tsx; Slot (arquivo, nome): a imagem, ou "aguardando" quando o arquivo falta
+- Imagens: 3 (1.6 MB), todas no disco
+- Citadas só no texto (não aparecem na página): `hud-fft-folha-alfa.png` (1321 KB)
+- Conversas e ferramentas: https://gemini.google.com/app/646cdf534d0f3014
+
+Corpo `.mdx` (cópia em `paginas/interface/hud-fft.mdx`):
+
+```mdx
+import { HudFft } from "../components/HudFft";
+
+<HudFft />
+```
+
+| Arquivo                         | Plataforma           | KB  |
+| ------------------------------- | -------------------- | --- |
+| `hud-ref-fft-tela.jpg`          | Captura do jogo      | 515 |
+| `ui-gem-lote5-hud-fft-full.jpg` | Gemini (Nano Banana) | 603 |
+| `hud-ficha-1.jpg`               | Gemini (Nano Banana) | 435 |
+
+Caminhos relativos a `web/public/content/design/pixellab/` (fora do git; só no disco do checkout principal).

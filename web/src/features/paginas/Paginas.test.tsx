@@ -9,7 +9,7 @@ const sair = vi.fn();
 const SUMARIO: Sumario = {
   lab: 'teste',
   titulo: 'Lab de teste',
-  linksAntigos: { fases: 'decisoes/fases', 'testes-de-ia': 'refs/ogre' },
+  linksAntigos: { fases: 'decisoes/fases', 'testes-de-ia': 'refs/ogre', 'mapa/cidade': '/fora' },
   grupos: [
     {
       id: 'decisoes',
@@ -84,6 +84,11 @@ describe('Paginas', () => {
     montar('/lab/testes-de-ia/qualquer');
     expect(onde()).toBe('/lab/refs/ogre');
     expect(screen.queryByText(/Não existe página/)).toBeNull();
+  });
+
+  it('sends an old path to another lab when its target starts with /', () => {
+    montar('/lab/mapa/cidade');
+    expect(onde()).toBe('/fora');
   });
 
   it('turns the old hash routes into real routes, and #/inicio into the lab home', () => {

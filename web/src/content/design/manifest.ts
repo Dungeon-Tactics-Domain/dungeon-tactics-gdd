@@ -17,7 +17,7 @@ const jogos: PaginaManifesto[] = GAMES.map((g) => ({
 
 export default {
   titulo: 'Laboratório de design',
-  resumo: 'Dungeon Tactics: o que o jogo usa agora, interface, personagens, mapa, plano e referências de outros jogos.',
+  resumo: 'Dungeon Tactics: o que o jogo usa agora, interface, personagens e referências de outros jogos.',
   origem: {
     caminho: '/design/',
     fonte:
@@ -29,10 +29,8 @@ export default {
     'interface/hud-3d': 'interface/fft-3d',
     'interface/menu-3d': 'interface/fft-3d',
     agora: '',
-    fases: 'plano/fases',
-    pedidos: 'plano/pedidos',
-    grill: 'plano/decisoes',
-    decisoes: 'plano',
+    // the town draft moved to the narrative lab on 17/11
+    'mapa/cidade': '/narrativa/mapa/cidade',
     'direcao-fft': 'interface',
     maquetes: 'interface',
     pecas: 'personagens',
@@ -77,22 +75,6 @@ export default {
           resumo: 'Atlas de 32 px dos ícones de habilidade, em 1x, 2x e 4x.',
         },
         {
-          id: 'ui-ouro-couro',
-          titulo: 'Ouro e couro: assets (Gemini e PixelLab)',
-          resumo: 'Todos os elementos de interface no estilo escolhido, em lotes, com o que foi enviado e o que saiu.',
-        },
-        {
-          id: 'paineis-css',
-          titulo: 'Painéis e menu Ouro e couro em CSS',
-          resumo: 'Os painéis, molduras, aba, banner e divisor refeitos em CSS puro, ao lado da folha do Gemini.',
-        },
-        {
-          id: 'hud-fft',
-          titulo: 'HUD do FFT em couro e ouro',
-          resumo:
-            'A tela de batalha do FFT refeita no Ouro e couro, uma peça por vez, cada uma em sua conversa do Gemini.',
-        },
-        {
           id: 'redesign-responsivo',
           titulo: 'Redesign responsivo (maquetes)',
           resumo: 'Navegação, 3 painéis no ultrawide, página densa e tipografia, do celular ao ultrawide.',
@@ -127,30 +109,6 @@ export default {
           titulo: 'Bancada de expressões (IA)',
           resumo: 'Rostos de IA em vários momentos: falando, dano, ataque, ferido, vitória.',
         },
-      ],
-    },
-    {
-      id: 'mapa',
-      titulo: 'Mapa',
-      icone: '🗺️',
-      resumo: 'Cidade andável.',
-      paginas: [
-        {
-          id: 'cidade',
-          titulo: 'Cidade andável (rascunho)',
-          resumo: 'Mapa 40×30 da cidade com 10 lugares e 10 moradores, e o que cada nível (1 a 3) acrescenta.',
-        },
-      ],
-    },
-    {
-      id: 'plano',
-      titulo: 'Plano',
-      icone: '📋',
-      resumo: 'Fases, pedidos e decisões.',
-      paginas: [
-        { id: 'fases', titulo: 'Fases e portões', resumo: 'As fases do plano e o portão de cada uma.' },
-        { id: 'pedidos', titulo: 'Pedidos', resumo: 'Todo pedido do Fernando, com dono e estado.' },
-        { id: 'decisoes', titulo: 'As 22 decisões', resumo: 'As decisões do grill de 13/11.' },
       ],
     },
     {

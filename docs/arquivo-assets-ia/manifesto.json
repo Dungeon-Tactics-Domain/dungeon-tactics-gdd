@@ -6,7 +6,10 @@
     "web/src/content/design/components/Ia.tsx (IaDestaque, IaAssunto, IaPlataformas)",
     "web/src/content/design/components/Cartoes.tsx (CartoesIa)",
     "web/src/content/design/components/Leitor.tsx",
-    "web/src/content/design/dados.ts (IA, iaSub, porConversa, estiloDe, contagem, Test, Platform)"
+    "web/src/content/design/dados.ts (IA, iaSub, porConversa, estiloDe, contagem, Test, Platform)",
+    "web/src/content/design/components/UiOuroCouro.tsx (UiOuroCouro: os lotes, legendas e links das conversas)",
+    "web/src/content/design/components/PaineisCss.tsx (PaineisCss: painéis e menu Ouro e couro em CSS puro)",
+    "web/src/content/design/components/HudFft.tsx (HudFft: a tela do FFT peça por peça)"
   ],
   "paginas": [
     {
@@ -829,6 +832,221 @@
       "contagem": 0,
       "faltandoNoDisco": [],
       "mb": 0
+    },
+    {
+      "rota": "/design/interface/ui-ouro-couro",
+      "grupo": "interface",
+      "id": "ui-ouro-couro",
+      "titulo": "Ouro e couro: assets (Gemini e PixelLab)",
+      "resumo": "Todos os elementos de interface no estilo escolhido, em lotes, com o que foi enviado e o que saiu.",
+      "posicao": "depois de icones, antes de paineis-css",
+      "commitBase": "4590546",
+      "componentes": [
+        {
+          "nome": "UiOuroCouro",
+          "props": {}
+        }
+      ],
+      "campos": [
+        "LOTES (titulo, pecas, gemini/pixellab {arquivo, legenda}, nota, links), inline no componente"
+      ],
+      "mdx": "import { UiOuroCouro } from '../components/UiOuroCouro';\r\n\r\n<UiOuroCouro />\r\n",
+      "arquivoMdx": "paginas/interface/ui-ouro-couro.mdx",
+      "dados": "inline em web/src/content/design/components/UiOuroCouro.tsx",
+      "imagens": [
+        {
+          "arquivo": "web/public/content/design/pixellab/ui-ref-ouro-aplicado.png",
+          "bytes": 1889049,
+          "titulo": "Referência Ouro e couro aplicado sobre o jogo (2ª versão)",
+          "plataforma": "Copilot (Microsoft)",
+          "assunto": "ouro-e-couro"
+        },
+        {
+          "arquivo": "web/public/content/design/pixellab/ui-gem-lote1-paineis-full.png",
+          "bytes": 564896,
+          "titulo": "Lote 1: painéis e molduras, folha 1376×768",
+          "plataforma": "Gemini (Nano Banana)",
+          "assunto": "ouro-e-couro"
+        },
+        {
+          "arquivo": "web/public/content/design/pixellab/ui-pl-painel-1.png",
+          "bytes": 24054,
+          "titulo": "Lote 1: moldura de couro 256×256",
+          "plataforma": "PixelLab (UI Elements Pro)",
+          "assunto": "ouro-e-couro"
+        },
+        {
+          "arquivo": "web/public/content/design/pixellab/ui-gem-lote2-botoes-full.png",
+          "bytes": 682732,
+          "titulo": "Lote 2: botões e menu, folha 1376×768",
+          "plataforma": "Gemini (Nano Banana)",
+          "assunto": "ouro-e-couro"
+        },
+        {
+          "arquivo": "web/public/content/design/pixellab/ui-pl-menu-acoes-1.png",
+          "bytes": 54499,
+          "titulo": "Lote 2: menu de ações 256×256",
+          "plataforma": "PixelLab (UI Elements Pro)",
+          "assunto": "ouro-e-couro"
+        }
+      ],
+      "citadasSoNoTexto": [
+        {
+          "arquivo": "web/public/content/design/pixellab/ui-gem-lote1-paineis-alfa.png",
+          "bytes": 580453
+        },
+        {
+          "arquivo": "web/public/content/design/pixellab/ui-gem-lote2-botoes-alfa.png",
+          "bytes": 695128
+        }
+      ],
+      "linksDeConversa": [
+        "https://gemini.google.com/app/f89699541bc67f34",
+        "https://gemini.google.com/app/f6dd7f4523c7cc40",
+        "https://www.pixellab.ai/create?tool=create_ui_pro"
+      ],
+      "contagem": 5,
+      "faltandoNoDisco": [],
+      "mb": 3.2
+    },
+    {
+      "rota": "/design/interface/paineis-css",
+      "grupo": "interface",
+      "id": "paineis-css",
+      "titulo": "Painéis e menu Ouro e couro em CSS",
+      "resumo": "Os painéis, molduras, aba, banner e divisor refeitos em CSS puro, ao lado da folha do Gemini.",
+      "posicao": "depois de ui-ouro-couro, antes de hud-fft",
+      "commitBase": "4590546",
+      "componentes": [
+        {
+          "nome": "PaineisCss",
+          "props": {}
+        }
+      ],
+      "campos": [
+        "CSS inline no componente (classes .oc, .oc-retrato, .oc-aba, .oc-banner, .oc-gema, .oc-divisor, .mn)",
+        "ITENS (ícone, nome) do menu de ações"
+      ],
+      "mdx": "import { PaineisCss } from '../components/PaineisCss';\r\n\r\n<PaineisCss />\r\n",
+      "arquivoMdx": "paginas/interface/paineis-css.mdx",
+      "dados": "inline em web/src/content/design/components/PaineisCss.tsx",
+      "imagens": [
+        {
+          "arquivo": "web/public/content/design/pixellab/ui-pl-menu-bota-v2.png",
+          "bytes": 1080,
+          "titulo": "Ícone Mover (bota), recorte",
+          "plataforma": "PixelLab (UI Elements Pro)",
+          "assunto": "ouro-e-couro"
+        },
+        {
+          "arquivo": "web/public/content/design/pixellab/ui-pl-menu-espada-v2.png",
+          "bytes": 1831,
+          "titulo": "Ícone Agir (espada), recorte",
+          "plataforma": "PixelLab (UI Elements Pro)",
+          "assunto": "ouro-e-couro"
+        },
+        {
+          "arquivo": "web/public/content/design/pixellab/ui-pl-menu-ampulheta-v2.png",
+          "bytes": 1564,
+          "titulo": "Ícone Esperar (ampulheta), recorte",
+          "plataforma": "PixelLab (UI Elements Pro)",
+          "assunto": "ouro-e-couro"
+        },
+        {
+          "arquivo": "web/public/content/design/pixellab/ui-pl-menu-pergaminho-v2.png",
+          "bytes": 1332,
+          "titulo": "Ícone Status (pergaminho), recorte",
+          "plataforma": "PixelLab (UI Elements Pro)",
+          "assunto": "ouro-e-couro"
+        },
+        {
+          "arquivo": "web/public/content/design/pixellab/ui-pl-menu-mao-v2.png",
+          "bytes": 985,
+          "titulo": "Mão apontando, recorte",
+          "plataforma": "PixelLab (UI Elements Pro)",
+          "assunto": "ouro-e-couro"
+        },
+        {
+          "arquivo": "web/public/content/design/pixellab/ui-ref-menu-acoes.png",
+          "bytes": 143916,
+          "titulo": "Alvo: captura do menu de ações do HUD",
+          "plataforma": "Captura do jogo",
+          "assunto": "ouro-e-couro"
+        },
+        {
+          "arquivo": "web/public/content/design/pixellab/ui-pl-menu-acoes-1.png",
+          "bytes": 54499,
+          "titulo": "Geração inteira do menu de ações (também em ui-ouro-couro)",
+          "plataforma": "PixelLab (UI Elements Pro)",
+          "assunto": "ouro-e-couro"
+        },
+        {
+          "arquivo": "web/public/content/design/pixellab/ui-gem-lote1-paineis-alfa.png",
+          "bytes": 580453,
+          "titulo": "Lote 1 do Gemini recortado (PNG transparente)",
+          "plataforma": "Gemini (Nano Banana)",
+          "assunto": "ouro-e-couro"
+        }
+      ],
+      "citadasSoNoTexto": [],
+      "linksDeConversa": [],
+      "contagem": 8,
+      "faltandoNoDisco": [],
+      "mb": 0.8
+    },
+    {
+      "rota": "/design/interface/hud-fft",
+      "grupo": "interface",
+      "id": "hud-fft",
+      "titulo": "HUD do FFT em couro e ouro",
+      "resumo": "A tela de batalha do FFT refeita no Ouro e couro, uma peça por vez, cada uma em sua conversa do Gemini.",
+      "posicao": "depois de paineis-css, antes de redesign-responsivo",
+      "commitBase": "4590546",
+      "componentes": [
+        {
+          "nome": "HudFft",
+          "props": {}
+        }
+      ],
+      "campos": [
+        "Slot (arquivo, nome): a imagem, ou \"aguardando\" quando o arquivo falta"
+      ],
+      "mdx": "import { HudFft } from '../components/HudFft';\r\n\r\n<HudFft />\r\n",
+      "arquivoMdx": "paginas/interface/hud-fft.mdx",
+      "dados": "inline em web/src/content/design/components/HudFft.tsx",
+      "imagens": [
+        {
+          "arquivo": "web/public/content/design/pixellab/hud-ref-fft-tela.jpg",
+          "bytes": 527595,
+          "titulo": "Tela de batalha do FFT (só o layout)",
+          "plataforma": "Captura do jogo",
+          "assunto": "ouro-e-couro"
+        },
+        {
+          "arquivo": "web/public/content/design/pixellab/ui-gem-lote5-hud-fft-full.jpg",
+          "bytes": 617944,
+          "titulo": "Tentativa 1: folha com todo o HUD, 1376×768",
+          "plataforma": "Gemini (Nano Banana)",
+          "assunto": "ouro-e-couro"
+        },
+        {
+          "arquivo": "web/public/content/design/pixellab/hud-ficha-1.jpg",
+          "bytes": 445489,
+          "titulo": "Peça 1: ficha do personagem",
+          "plataforma": "Gemini (Nano Banana)",
+          "assunto": "ouro-e-couro"
+        }
+      ],
+      "citadasSoNoTexto": [
+        {
+          "arquivo": "web/public/content/design/pixellab/hud-fft-folha-alfa.png",
+          "bytes": 1353083
+        }
+      ],
+      "linksDeConversa": ["https://gemini.google.com/app/646cdf534d0f3014"],
+      "contagem": 3,
+      "faltandoNoDisco": [],
+      "mb": 1.6
     }
   ],
   "totais": {
@@ -836,5 +1054,18 @@
     "imagensDistintas": 98,
     "mbImagens": 97.7,
     "mbPastaIaInteira": 100.5
+  },
+  "atualizadoEm": "2026-11-17",
+  "totaisOuroECouro": {
+    "paginas": 3,
+    "imagensDistintas": 15,
+    "mbImagens": 5.5,
+    "arquivosNaPasta": 18,
+    "mbPastaPixellabInteira": 8.9,
+    "naPastaSemPagina": [
+      "hud-fft-folha-alfa.png",
+      "ui-gem-lote2-botoes-alfa.png",
+      "ui-gem-lote5-hud-fft-alfa.png"
+    ]
   }
 }
