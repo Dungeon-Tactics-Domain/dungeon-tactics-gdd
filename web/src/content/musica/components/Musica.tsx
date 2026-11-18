@@ -155,7 +155,7 @@ export function Texto({ texto }: { texto: string }) {
 
 // study references (BoF4 and Chrono Cross fan MIDIs): the folder name of their stems, from the page id
 const estudoDe = (id: string) => {
-  const m = /^ref-(bof4|cc)-(.+)$/.exec(id);
+  const m = /^ref-(bof4|cc|ff9)-(.+)$/.exec(id);
   return m ? `${m[1]}_${m[2]!.replace(/-/g, '_')}` : undefined;
 };
 
@@ -223,6 +223,10 @@ const COM_SC88P = new Set([
   'batalha_F',
   'bof4_fim',
   'cc_another_termina',
+  'ff9_esto_gaza_v1',
+  'ff9_esto_gaza_v2',
+  'ff9_esto_gaza_v3',
+  'ff9_esto_gaza_v4',
   'cc_another_world_extended',
   'cc_another_world',
   'dark_intenso',
@@ -408,7 +412,7 @@ const ESTILOS: Record<Estilo, { pagina: IdPagina; familia: string }[]> = {
   cidade: [
     { pagina: 'pastoral', familia: 'Pastoral A–F' },
     { pagina: 'pastoral-rica', familia: 'Pastoral rica (a da cidade no jogo é a B)' },
-    { pagina: 'bof4', familia: 'Referências de estudo (BoF4 e Chrono Cross)' },
+    { pagina: 'bof4', familia: 'Referências de estudo (BoF4, Chrono Cross e FF9)' },
   ],
   batalha: [
     { pagina: 'batalha', familia: 'Batalha A–F' },

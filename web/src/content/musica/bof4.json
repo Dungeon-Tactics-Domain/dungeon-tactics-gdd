@@ -1,5 +1,5 @@
 {
-  "titulo": "Referências de estudo (BoF4 e Chrono Cross)",
+  "titulo": "Referências de estudo (BoF4, Chrono Cross e FF9)",
   "descricao": "MIDIs de fãs de Breath of Fire IV e de Chrono Cross tocados em vários soundfonts, para ouvir o estilo e medir a complexidade contra as nossas músicas. Não vão ao jogo.",
   "referencias": [
     {
@@ -9,6 +9,10 @@
     {
       "rotulo": "VGMusic: Chrono Cross (Sony PlayStation)",
       "href": "https://vgmusic.com/music/console/sony/ps1/"
+    },
+    {
+      "rotulo": "VGMusic: Esto Gaza, 4 versões (Final Fantasy IX)",
+      "href": "https://www.vgmusic.com/music/console/sony/ps1/"
     }
   ],
   "faixas": [
@@ -89,6 +93,70 @@
         {
           "titulo": "Como foi medido",
           "texto": "- **Origem dos números:** medido agora com `analise/compara_complexidade.py` (notas ligadas, polifonia por semicolcheia, conjuntos de notas por compasso); sem ouvir. Todos os MIDIs de fã vêm sem dinâmica por parte de quem sequenciou, só o que o arquivo traz."
+        }
+      ]
+    },
+    {
+      "id": "ref-ff9-esto-gaza-v1",
+      "letra": "E",
+      "titulo": "Final Fantasy IX · Esto Gaza (Aaron Saraco)",
+      "audio": "",
+      "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Autoria:** MIDI de fã de \"Esto Gaza\" (Final Fantasy IX, trilha de Nobuo Uematsu), sequenciado por **Aaron Saraco** e publicado no VGMusic (16 KB). Referência de estudo, **não vai ao jogo** e não foi composto por modelo.\n- **O que fizemos:** só tocamos o arquivo nas soundfonts do estúdio, para comparar as quatro partituras da mesma música."
+        },
+        {
+          "titulo": "Medidas do arquivo",
+          "texto": "- 105 bpm, 3:09, 728 notas, 8 canais.\n- **Origem:** medido agora no arquivo com `mido`; sem ouvir."
+        }
+      ]
+    },
+    {
+      "id": "ref-ff9-esto-gaza-v2",
+      "letra": "F",
+      "titulo": "Final Fantasy IX · Esto Gaza (Jeffrey Copperthite)",
+      "audio": "",
+      "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Autoria:** MIDI de fã de \"Esto Gaza\" (Final Fantasy IX, trilha de Nobuo Uematsu), sequenciado por **Jeffrey Copperthite** e publicado no VGMusic (11 KB). Referência de estudo, **não vai ao jogo** e não foi composto por modelo.\n- **O que fizemos:** só tocamos o arquivo nas soundfonts do estúdio, para comparar as quatro partituras da mesma música."
+        },
+        {
+          "titulo": "Medidas do arquivo",
+          "texto": "- 80 bpm, 3:29, 824 notas, 7 canais.\n- **Origem:** medido agora no arquivo com `mido`; sem ouvir."
+        }
+      ]
+    },
+    {
+      "id": "ref-ff9-esto-gaza-v3",
+      "letra": "G",
+      "titulo": "Final Fantasy IX · Esto Gaza (Sephiroth3)",
+      "audio": "",
+      "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Autoria:** MIDI de fã de \"Esto Gaza\" (Final Fantasy IX, trilha de Nobuo Uematsu), sequenciado por **Sephiroth3** e publicado no VGMusic (13 KB). Referência de estudo, **não vai ao jogo** e não foi composto por modelo.\n- **O que fizemos:** só tocamos o arquivo nas soundfonts do estúdio, para comparar as quatro partituras da mesma música."
+        },
+        {
+          "titulo": "Medidas do arquivo",
+          "texto": "- 80 bpm, 1:55, 482 notas, 11 canais; a mais curta.\n- **Origem:** medido agora no arquivo com `mido`; sem ouvir."
+        }
+      ]
+    },
+    {
+      "id": "ref-ff9-esto-gaza-v4",
+      "letra": "H",
+      "titulo": "Final Fantasy IX · Esto Gaza (Dermot Mac Flannchaidh)",
+      "audio": "",
+      "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Autoria:** MIDI de fã de \"Esto Gaza\" (Final Fantasy IX, trilha de Nobuo Uematsu), sequenciado por **Dermot Mac Flannchaidh** e publicado no VGMusic (33 KB). Referência de estudo, **não vai ao jogo** e não foi composto por modelo.\n- **O que fizemos:** só tocamos o arquivo nas soundfonts do estúdio, para comparar as quatro partituras da mesma música."
+        },
+        {
+          "titulo": "Medidas do arquivo",
+          "texto": "- 79 bpm, 5:07, 1382 notas, 7 canais; a mais completa.\n- **Origem:** medido agora no arquivo com `mido`; sem ouvir."
         }
       ]
     }
