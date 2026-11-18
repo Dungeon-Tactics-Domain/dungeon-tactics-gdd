@@ -155,7 +155,7 @@ export function Texto({ texto }: { texto: string }) {
 
 // study references (BoF4 and Chrono Cross fan MIDIs): the folder name of their stems, from the page id
 const estudoDe = (id: string) => {
-  const m = /^ref-(bof4|cc|ff9)-(.+)$/.exec(id);
+  const m = /^ref-(bof4|cc|ff9|ff8)-(.+)$/.exec(id);
   return m ? `${m[1]}_${m[2]!.replace(/-/g, '_')}` : undefined;
 };
 
@@ -215,6 +215,9 @@ const SC88 = ['sc88', 'SC-88 (teste privado)'] as const;
 // SC-88Pro (same private test): rendered for every piece with a MIDI
 const SC88P = ['sc88p', 'SC-88Pro (teste privado)'] as const;
 const COM_SC88P = new Set([
+  'ff8_fishermans_horizon_v1',
+  'ff8_fishermans_horizon_v2',
+  'ff8_fishermans_horizon_v3',
   'batalha_A',
   'batalha_B',
   'batalha_C',
@@ -412,7 +415,7 @@ const ESTILOS: Record<Estilo, { pagina: IdPagina; familia: string }[]> = {
   cidade: [
     { pagina: 'pastoral', familia: 'Pastoral A–F' },
     { pagina: 'pastoral-rica', familia: 'Pastoral rica (a da cidade no jogo é a B)' },
-    { pagina: 'bof4', familia: 'Referências de estudo (BoF4, Chrono Cross e FF9)' },
+    { pagina: 'bof4', familia: 'Referências de estudo (BoF4, Chrono Cross, FF9 e FF8)' },
   ],
   batalha: [
     { pagina: 'batalha', familia: 'Batalha A–F' },

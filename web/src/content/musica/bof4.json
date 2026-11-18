@@ -159,6 +159,54 @@
           "texto": "- 79 bpm, 5:07, 1382 notas, 7 canais; a mais completa.\n- **Origem:** medido agora no arquivo com `mido`; sem ouvir."
         }
       ]
+    },
+    {
+      "id": "ref-ff8-fishermans-horizon-v1",
+      "letra": "I",
+      "titulo": "Final Fantasy VIII · Fisherman's Horizon (Cubby)",
+      "audio": "",
+      "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Autoria:** MIDI de fã de \"Fisherman's Horizon\" (Final Fantasy VIII, trilha de Nobuo Uematsu), sequenciado por **Cubby** e publicado no VGMusic (14 KB). Referência de estudo, **não vai ao jogo** e não foi composto por modelo."
+        },
+        {
+          "titulo": "Medidas do arquivo",
+          "texto": "- 250 bpm (escrito), 3:31, 1465 notas, 9 canais; a de maior fidelidade ao original na medição (93).\n- **Origem:** medido agora com `mido` e `analise/fidelidade_midi.py` (cromagrama contra o áudio original); sem ouvir."
+        }
+      ]
+    },
+    {
+      "id": "ref-ff8-fishermans-horizon-v2",
+      "letra": "J",
+      "titulo": "Final Fantasy VIII · Fisherman's Horizon (autor não informado)",
+      "audio": "",
+      "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Autoria:** MIDI de fã de \"Fisherman's Horizon\" (Final Fantasy VIII, trilha de Nobuo Uematsu), sequenciado por **autor não informado** e publicado no VGMusic (11 KB). Referência de estudo, **não vai ao jogo** e não foi composto por modelo."
+        },
+        {
+          "titulo": "Medidas do arquivo",
+          "texto": "- 250 bpm (escrito), 2:51, 1195 notas, 9 canais; nota 87 na medição.\n- **Origem:** medido agora com `mido` e `analise/fidelidade_midi.py` (cromagrama contra o áudio original); sem ouvir."
+        }
+      ]
+    },
+    {
+      "id": "ref-ff8-fishermans-horizon-v3",
+      "letra": "K",
+      "titulo": "Final Fantasy VIII · Fisherman's Horizon (Concert: Irish Jig, autor não informado)",
+      "audio": "",
+      "secoes": [
+        {
+          "titulo": "Quem fez",
+          "texto": "- **Autoria:** MIDI de fã de \"Fisherman's Horizon\" (Final Fantasy VIII, trilha de Nobuo Uematsu), sequenciado por **Concert: Irish Jig, autor não informado** e publicado no VGMusic (104 KB). Referência de estudo, **não vai ao jogo** e não foi composto por modelo."
+        },
+        {
+          "titulo": "Medidas do arquivo",
+          "texto": "- 120 bpm, 4:44, 11785 notas, 4 canais; outro arranjo (concerto), fora da medição.\n- **Origem:** medido agora com `mido` e `analise/fidelidade_midi.py` (cromagrama contra o áudio original); sem ouvir."
+        }
+      ]
     }
   ],
   "checagens": []
