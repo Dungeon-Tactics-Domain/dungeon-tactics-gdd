@@ -1,0 +1,210 @@
+{
+  "batalha-a": {
+    "storyDraft": "Um desfiladeiro ao fim da tarde, com brasas ainda acesas de um acampamento queimado e o grupo apertando o passo. Em Dó menor a 132 bpm, cordas em ostinato 3+3+2 e tímpano abrem a marcha; a trompa leva o tema e o oboé vira o motivo de ponta-cabeça no contraste em Mi bemol. A ponte sobe Lá bemol, Si bemol, Dó menor e Ré bemol com rufo de caixa, e o retorno chega com final novo.",
+    "ondeToca": "Batalha: candidata ao tema de luta que substitui o battle.mp3; ainda não escolhida."
+  },
+  "batalha-b": {
+    "storyDraft": "Duelo curto e nervoso, de lâmina contra lâmina, sem tempo para respirar. Em Ré menor a 116 bpm, pads e baixo seguram a entrada, os metais cantam o tema e os violinos dão o contraste; na ponte o baixo em colcheias e o rufo apertam, e o retorno vem uma oitava acima, fechando seco em Ré menor.",
+    "ondeToca": "Batalha: candidata ao tema de luta; é a mais curta das seis."
+  },
+  "batalha-c": {
+    "storyDraft": "Uma marcha de cinzas, soldados avançando por terra queimada, grave e decidida. Em Ré menor a 132 bpm, o violoncelo faz o ostinato com rufo de caixa, e o tema é respondido pelas cordas; o contraste abre em Fá com oboé e a ponte desce e sobe pelo baixo cromático de Ré a Lá antes de um retorno com descante nas cordas. O trompete foi retirado em 15/11 a pedido do Fernando; as outras partes ficaram como eram.",
+    "ondeToca": "Batalha: candidata ao tema de luta; ficou em primeiro lugar no ranking dos dois críticos."
+  },
+  "batalha-d": {
+    "storyDraft": "Linha de escudos fechada, tambor marcando o passo e ninguém recuando. Em Ré menor a 132 bpm, metais abrem o tema e depois o oboé o retoma com a trompa em harmonia; no meio vem uma seção lírica com oboé e harpa, uma pausa respirada antes da ponte de stabs e rufo, e o retorno varia o motivo invertido. Usa as oito partes que o limite permite, por isso soa a mais cheia.",
+    "ondeToca": "Batalha: candidata ao tema de luta."
+  },
+  "batalha-e": {
+    "storyDraft": "Crepúsculo sobre uma fortaleza, aço frio e luz baixa. Em Ré menor a 128 bpm, um motivo de cinco notas é guardado como dado e reaparece transposto, aumentado e em fragmento: tema no trompete, depois nas cordas, contraste em Fá com o motivo alargado e retorno em uníssono com final novo no Sol agudo. Em 15/11 as mesmas notas do trompete passaram para a trompa, sem trompete.",
+    "ondeToca": "Batalha: candidata ao tema de luta."
+  },
+  "batalha-f": {
+    "storyDraft": "Uma ponte em chamas com o grupo tentando atravessar antes que ela caia. Em Ré menor a 132 bpm, o tema nos metais vem variado nas cordas, o contraste em Fá traz oboé e harpa e a ponte sobe em sequência com rufos. É a mais longa em seções: dois retornos, o segundo ornamentado com segunda metade nova, e um eco do motivo no fim.",
+    "ondeToca": "Batalha: candidata ao tema de luta."
+  },
+  "pastoral-a": {
+    "storyDraft": "Manhã numa aldeia pequena, fumaça saindo das chaminés e gente abrindo as janelas. Em Ré maior a 80 bpm, o tema passa duas vezes com baixos diferentes e um oboé faz a contramelodia por cima; o clima é calmo e aberto, no espírito pastoral de Truth and Dreams (Breath of Fire IV), só humor e instrumentação.",
+    "ondeToca": "Cidade: candidata ao tema da cidade para gerenciar; ainda não escolhida."
+  },
+  "pastoral-b": {
+    "storyDraft": "Fim de tarde na cozinha da estalagem, pão no forno e lareira acesa. Em Mi menor a 76 bpm, violão de nylon, flauta e oboé agudos, harpa, cordas e baixo acústico com percussão leve criam um clima íntimo, agridoce por estar em tom menor. É inspirada só no humor de Truth and Dreams (Breath of Fire IV); metade das seções repete literalmente.",
+    "ondeToca": "Cidade: o título da família no lab marca a B como a pastoral da cidade no jogo."
+  },
+  "pastoral-c": {
+    "storyDraft": "Um trigal balançando ao vento na saída do povoado, com a harpa cantando a melodia no registro agudo. Em Ré menor a 76 bpm, o clima é de saudade tranquila, mais melancólico que o da aldeia; os dados avisam que o baixo ficou confuso, então o chão harmônico é a parte mais frágil.",
+    "ondeToca": "Cidade: candidata ao tema da cidade para gerenciar."
+  },
+  "pastoral-d": {
+    "storyDraft": "A praça do farol no fim do dia, com mercadores guardando as bancas e a luz do farol acendendo. Em Mi menor a 76 bpm, flauta, oboé, violão, harpa, cordas, baixo e percussão de mão formam a mais completa das seis, com harmonia e clima mais fortes. É a base de comparação das versões ricas.",
+    "ondeToca": "Cidade: candidata ao tema da cidade; serve de base para a Pastoral rica."
+  },
+  "pastoral-e": {
+    "storyDraft": "Mulheres lavando roupa à beira do rio, conversa e água corrente. Em Ré maior a 76 bpm, o motivo é transformado com exatidão ao longo da peça, e é a versão limpa de erros entre as seis: mais clara e organizada que expressiva.",
+    "ondeToca": "Cidade: candidata ao tema da cidade."
+  },
+  "pastoral-f": {
+    "storyDraft": "Cantiga simples ao pé do moinho, de roda girando devagar. Em Mi menor a 80 bpm e 44 compassos, é a mais longa em duração (2:12); o retorno repete o tema nota por nota, o que dá um ar de canção de ninar, ainda que repetitiva.",
+    "ondeToca": "Cidade: candidata ao tema da cidade."
+  },
+  "pastoral-rica-a": {
+    "storyDraft": "A Praça do Farol esticada até o entardecer, com o dia caindo devagar. Em Mi menor a 76 bpm e 3:41, a flauta mantém o tema como na Pastoral D e ganha oboé, violão e cordas; um baixo descendo Mi-Ré-Dó#-Dó dá o chão novo, a seção em Sol maior respira com contracanto de cello, e o clímax vem uma oitava acima com oboé em terças. É um teste do que acontece quando a mesma peça ganha forma e camadas.",
+    "ondeToca": "Cidade: variante mais rica da Pastoral D, ainda em comparação com a atual."
+  },
+  "pastoral-rica-b": {
+    "storyDraft": "A festa que acende o farol, praça cheia e música em roda. Em Mi menor a 76 bpm e 3:47, flauta e oboé trocam o tema, o clarinete lidera a seção em Sol maior e a ponte em Lá menor balança em tercinas de siciliana; um solo de cello com o motivo aumentado prepara o clímax com trompa, cordas e percussão completa. Celesta e pizzicato dão brilho.",
+    "ondeToca": "Cidade: variante festiva da Pastoral D, ainda em comparação com a atual."
+  },
+  "dark-principal": {
+    "storyDraft": "Uma cripta antiga em que cada passo é respondido por um sino grave. Em Ré a 90 bpm, usa o modo frígio e o menor harmônico (o Mi bemol sobre o pedal de Ré), sino em Ré, coro sussurrado e pedal grave dobrado na oitava; no fim do compasso 40 há dois tempos de silêncio e depois uma dissonância. A melodia é discreta e sem trompete, desde a versão 2.",
+    "ondeToca": "Batalha: tema de batalha principal do jogo, segundo o título do lab (versão 2, sem trompete)."
+  },
+  "dark-intenso": {
+    "storyDraft": "A mesma cripta, só que agora a batalha desce mais fundo. É a variante intensa do tema principal, a 100 bpm, com os mesmos ingredientes sombrios: frígio, menor harmônico, sino grave em Ré, coro sussurrado e pedal. Versão 2, sem trompete e com melodia discreta e atmosférica.",
+    "ondeToca": "Batalha: variante de maior tensão do tema dark, para momentos de perigo."
+  },
+  "ref-trisection": {
+    "storyDraft": "Referência de estudo: Trisection, o tema de batalha de Final Fantasy Tactics (1997, Hitoshi Sakimoto e Masaharu Iwata), 2:37. Estudamos o peso das cordas e metais, o andamento e a estrutura para comparar com as nossas faixas; o lab guarda também um MIDI de fã e uma transcrição automática só para conferir notas. Nada dela é copiado para a nossa música.",
+    "ondeToca": "Não toca no jogo: só estudo local no lab, fora do repositório."
+  },
+  "ref-bof4-fim": {
+    "storyDraft": "Referência de estudo: música de Breath of Fire IV (Capcom) em MIDI de terceiros. Estudamos o estilo pastoral e a economia de notas (3,43 por segundo, contra 9,31 da nossa Pastoral D) e como soa sem dinâmica nem bateria. Serve para medir, não para copiar.",
+    "ondeToca": "Não toca no jogo: referência de estudo para a música da cidade."
+  },
+  "ref-cc-another-world": {
+    "storyDraft": "Referência de estudo: Another World, de Chrono Cross (trilha de Yasunori Mitsuda), em MIDI de fã de Akira Minaduki. Estudamos como a peça usa instrumentos étnicos e mudanças de andamento (7 no arquivo) para criar o clima, comparando a complexidade com a nossa Pastoral D.",
+    "ondeToca": "Não toca no jogo: referência de estudo para a cidade."
+  },
+  "ref-cc-another-termina": {
+    "storyDraft": "Referência de estudo: Another Termina, de Chrono Cross (trilha de Yasunori Mitsuda), em MIDI de fã de Raist3. É a mais densa do grupo (4418 notas em 140 s, 134 compassos); estudamos o que essa densidade faz com o clima, sem copiar.",
+    "ondeToca": "Não toca no jogo: referência de estudo."
+  },
+  "ref-cc-another-world-extended": {
+    "storyDraft": "Referência de estudo: Another World, de Chrono Cross, em versão estendida de fã (Ahmad Cathcart e Asa Lothario). Tem 14 vozes e 14 instrumentos diferentes em 128 s; estudamos como uma instrumentação larga sustenta uma peça curta.",
+    "ondeToca": "Não toca no jogo: referência de estudo."
+  },
+  "ref-ff9-esto-gaza-v1": {
+    "storyDraft": "Referência de estudo: Esto Gaza, de Final Fantasy IX (Nobuo Uematsu), em MIDI de fã de Aaron Saraco, a 105 bpm e 3:09. É uma das quatro partituras da mesma música que comparamos para ver quanto o arranjo muda o clima.",
+    "ondeToca": "Não toca no jogo: referência de estudo."
+  },
+  "ref-ff9-esto-gaza-v2": {
+    "storyDraft": "Referência de estudo: Esto Gaza, de Final Fantasy IX (Nobuo Uematsu), em MIDI de fã de Jeffrey Copperthite, a 80 bpm e 3:29. Mais lenta que a v1; comparamos as quatro partituras para ver o efeito do andamento e do arranjo.",
+    "ondeToca": "Não toca no jogo: referência de estudo."
+  },
+  "ref-ff9-esto-gaza-v3": {
+    "storyDraft": "Referência de estudo: Esto Gaza, de Final Fantasy IX (Nobuo Uematsu), em MIDI de fã de Sephiroth3, a 80 bpm. É a mais curta das quatro (1:55, 482 notas), mas usa 11 canais; estudamos o que fica quando o arranjo é enxuto.",
+    "ondeToca": "Não toca no jogo: referência de estudo."
+  },
+  "ref-ff9-esto-gaza-v4": {
+    "storyDraft": "Referência de estudo: Esto Gaza, de Final Fantasy IX (Nobuo Uematsu), em MIDI de fã de Dermot Mac Flannchaidh, a 79 bpm e 5:07. É a mais completa das quatro (1382 notas); serve de teto para comparar a riqueza de arranjo.",
+    "ondeToca": "Não toca no jogo: referência de estudo."
+  },
+  "ref-ff8-fishermans-horizon-v1": {
+    "storyDraft": "Referência de estudo: Fisherman's Horizon, de Final Fantasy VIII (Nobuo Uematsu), em MIDI de fã de Cubby. O andamento escrito é 250 bpm, 3:31, e foi a de maior fidelidade ao original na nossa medição (93); é a base das versões lofi e vaporwave.",
+    "ondeToca": "Não toca no jogo: referência de estudo e base dos testes lofi e vaporwave."
+  },
+  "ref-ff8-fishermans-horizon-v2": {
+    "storyDraft": "Referência de estudo: Fisherman's Horizon, de Final Fantasy VIII (Nobuo Uematsu), em MIDI de fã de autor não informado. Mais curta que a v1 (2:51) e com nota 87 na medição de fidelidade; comparamos o que o arranjo mais enxuto perde.",
+    "ondeToca": "Não toca no jogo: referência de estudo."
+  },
+  "ref-ff8-fishermans-horizon-v3": {
+    "storyDraft": "Referência de estudo: Fisherman's Horizon, de Final Fantasy VIII (Nobuo Uematsu), no arranjo de concerto Irish Jig, autor não informado. Outro arranjo, de 4:44 em 4 canais e 11785 notas, fora da medição de fidelidade; estudamos como uma versão de concerto muda o caráter da peça.",
+    "ondeToca": "Não toca no jogo: referência de estudo."
+  },
+  "ref-ff8-fishermans-horizon-v1-lofi": {
+    "storyDraft": "Teste lofi, nossa recomposição do MIDI v1 de Fisherman's Horizon: a melodia original fica, mas mais lenta, com swing e notas humanizadas, bateria boom-bap, Rhodes, pad, violão arpejado e kalimba, escritos a partir dos acordes detectados. Compara o que o gênero lofi faz com a mesma melodia (4:17); a intro tem 4 compassos sem bateria e o final desacelera.",
+    "ondeToca": "Não toca no jogo: teste de estilo para ouvir e comparar com o vaporwave."
+  },
+  "ref-ff8-fishermans-horizon-v1-vapor": {
+    "storyDraft": "Teste vaporwave, nossa recomposição do MIDI v1 de Fisherman's Horizon: mesma melodia, andamento lento, swing, bateria em meio tempo, Rhodes, pad e kalimba. Compara o efeito do vaporwave (5:23, 8 canais) com o lofi sobre a mesma base; o final desacelera.",
+    "ondeToca": "Não toca no jogo: teste de estilo para ouvir e comparar com o lofi."
+  },
+  "ref-ff8-fishermans-horizon-v2-lofi": {
+    "storyDraft": "Teste lofi, nossa recomposição do MIDI v2 de Fisherman's Horizon: melodia original em andamento lento, com swing, bateria boom-bap, Rhodes, pad, violão arpejado e kalimba. Compara o gênero sobre uma base mais enxuta (3:37, 9 canais).",
+    "ondeToca": "Não toca no jogo: teste de estilo."
+  },
+  "ref-ff8-fishermans-horizon-v2-vapor": {
+    "storyDraft": "Teste vaporwave, nossa recomposição do MIDI v2 de Fisherman's Horizon: melodia mantida em ritmo lento, bateria em meio tempo, Rhodes, pad e kalimba. Compara o vaporwave (4:35, 8 canais) com o lofi da mesma base.",
+    "ondeToca": "Não toca no jogo: teste de estilo."
+  },
+  "ref-ff8-fishermans-horizon-v3-lofi": {
+    "storyDraft": "Teste lofi, nossa recomposição a partir do arranjo de concerto Irish Jig de Fisherman's Horizon: melodia mantida, andamento lento, swing, boom-bap, Rhodes, pad, violão e kalimba. É a mais longa do teste lofi (7:38, 8 canais) e mostra como o gênero estica uma base de concerto.",
+    "ondeToca": "Não toca no jogo: teste de estilo."
+  },
+  "ref-ff8-fishermans-horizon-v3-vapor": {
+    "storyDraft": "Teste vaporwave, nossa recomposição a partir do arranjo de concerto Irish Jig de Fisherman's Horizon: melodia mantida, bateria em meio tempo, Rhodes, pad e kalimba. É a mais longa de todos os testes (9:55, 7 canais); compara o efeito do vaporwave numa base de concerto.",
+    "ondeToca": "Não toca no jogo: teste de estilo."
+  },
+  "jingle-a-vitoria": {
+    "storyDraft": "A sala foi vencida e o motivo da batalha volta para casa: o Mi bemol escuro vira Mi natural. Trompas tocam o motivo e violinos sobem Lá-Si-Dó#-Ré por cima; de Ré menor a Ré maior baixinho, com rufar leve de tímpano e um toque suave de sino. Dois compassos a 76 bpm, 8 s.",
+    "ondeToca": "Vitória: ao vencer uma sala, na linha orquestral dark."
+  },
+  "jingle-a-derrota": {
+    "storyDraft": "O grupo caiu. As cordas começam o motivo e afundam Lá-Sol-Fá-Mi sobre um baixo que desce, as trompas seguem em décimas, o tímpano enfraquece e o sino bate em Ré e Lá. Termina em Lá maior sem resolver, a 62 bpm e 9,7 s.",
+    "ondeToca": "Derrota: quando o grupo cai, na linha orquestral dark."
+  },
+  "jingle-a-chefe": {
+    "storyDraft": "O chefe caiu e a expedição termina. Trompas graves e tímpano chamam o motivo, as cordas respondem em Fá e no fim todos chegam em Fá# sobre Ré maior, com rufar de tímpano e caixa, prato e sino sob a chegada. Quatro compassos a 84 bpm, 13,3 s.",
+    "ondeToca": "Chefe caiu: fim da expedição, na linha orquestral dark."
+  },
+  "jingle-b-vitoria": {
+    "storyDraft": "Vitória contida. Mantém o ritmo do motivo, mas a quarta sobe (Lá-Ré) e a frase desce até repousar em Dó-Si-Lá, terminando aberta na quinta. Cordas com trompa uma oitava abaixo, coro suave no último acorde e três toques de tímpano; 76 bpm, 7,1 s.",
+    "ondeToca": "Vitória: ao vencer uma sala, na linha orquestral dark."
+  },
+  "jingle-b-derrota": {
+    "storyDraft": "O motivo da batalha que nunca volta para casa e afunda Ré-Si bemol-Lá. Cordas e trompa, coro sussurrado, um sino grave no começo e tímpano mais fraco a cada tempo, como o grupo sendo carregado. Termina em Lá maior grave sem resolver; 60 bpm, 8,8 s.",
+    "ondeToca": "Derrota: quando o grupo cai, na linha orquestral dark."
+  },
+  "jingle-b-chefe": {
+    "storyDraft": "Trompas chamam o motivo sobre um pedal de Ré, a virada passa por Si bemol e Lá7, e trompetes e violinos respondem em Ré maior: o Mi bemol vira Dó# e leva para casa. Fecha em cadência completa com sino, prato e rufar de tímpano que se apaga; 96 bpm, 14 s.",
+    "ondeToca": "Chefe caiu: fim da expedição, na linha orquestral dark."
+  },
+  "jingle-c-vitoria": {
+    "storyDraft": "Violinos cantam o início do motivo; onde a batalha tem Mi bemol vem Mi natural e a linha sobe até Fá#, o momento iluminado. Volta por Sol menor a Ré maior, com duas trompas em coral, tímpanos e um sino em Ré; 96 bpm, 8,7 s. É a mais brilhante da versão.",
+    "ondeToca": "Vitória: ao vencer uma sala, na linha orquestral dark."
+  },
+  "jingle-c-derrota": {
+    "storyDraft": "O motivo, cansado, nas cordas; o Mi bemol vira suspiro sobre Si bemol e a linha desce Ré-Dó-Si bemol-Lá. Trompas e coro sussurrado nas vozes internas, rufar de tímpano que some e sino suave em Lá, sem resolver; 66 bpm, 10,4 s.",
+    "ondeToca": "Derrota: quando o grupo cai, na linha orquestral dark."
+  },
+  "jingle-c-chefe": {
+    "storyDraft": "Quatro entradas que sobem: trombones chamam o motivo sobre pedal de Ré, trompas respondem uma quinta acima, uma trompa solista troca o Mi bemol por Mi e Fá#, e os trombones fecham em maior. Tímpano em cada entrada, rufos de caixa, pratos e sino em maior; 100 bpm, 13,8 s.",
+    "ondeToca": "Chefe caiu: fim da expedição, na linha orquestral dark."
+  },
+  "jingle-d-vitoria": {
+    "storyDraft": "A sala foi vencida, o caminho não. Motivo em Lá menor na ocarina sobre violão de nylon dedilhado, pad quente e tambor de mão, depois uma quarta acima sobre Ré maior com chocalho. Pousa em Lá menor add9 e a celesta responde e pára na nona; dark lo-fi no estilo Breath of Fire IV, 80 bpm, 8,4 s.",
+    "ondeToca": "Vitória: ao vencer uma sala, na linha dark lo-fi."
+  },
+  "jingle-d-derrota": {
+    "storyDraft": "O violoncelo canta o motivo, suspira sobre Si bemol maior 7 e se apoia num Lá sus4 segurado, sem resolver. Piano suave no baixo, tambor de mão com quatro passos lentos e uma caixa de música que tenta o motivo e pára antes da nota longa; 68 bpm, 10,9 s.",
+    "ondeToca": "Derrota: quando o grupo cai, na linha dark lo-fi."
+  },
+  "jingle-d-chefe": {
+    "storyDraft": "O motivo três vezes, cada uma mais alta, enquanto cordas lentas, harpa e percussão de mão crescem. A ocarina segura o Lá5 e cai até a tônica; no fim as vozes saem uma a uma, as cordas dedilhadas soam por último e a celesta responde Mi-Lá. 82 bpm, 13,7 s, dark lo-fi.",
+    "ondeToca": "Chefe caiu: fim da expedição, na linha dark lo-fi."
+  },
+  "jingle-e-vitoria": {
+    "storyDraft": "O motivo lanterna erguida na ocarina sobre arpejos de violão nylon e rolos de harpa. Sobe até Fá#5 sobre o acorde de Ré, o único momento claro, e assenta aberto em Lá menor 6/9: a sala foi vencida, o dia não. Chocalho, pandeiro e triângulo no fim; 84 bpm, 8,3 s.",
+    "ondeToca": "Vitória: ao vencer uma sala, na linha dark lo-fi."
+  },
+  "jingle-e-derrota": {
+    "storyDraft": "O motivo de trás para frente, como a lanterna descendo. Violoncelo na melodia, piano em acordes quebrados, segundo violoncelo num baixo de lamento e dois passos de tambor de mão; pára em Lá sobre Mi7sus4 sem resolver e as vozes somem como um suspiro. 66 bpm, 8,7 s.",
+    "ondeToca": "Derrota: quando o grupo cai, na linha dark lo-fi."
+  },
+  "jingle-e-chefe": {
+    "storyDraft": "Abre igual à vitória, de propósito, por ser a versão grande, e o motivo volta em Ré maior até Fá#5. Flauta, violão e harpa, baixo de violoncelo, pad que cresce e percussão de mão; o chocalho, a chuva, pára no acorde final e só soa um triângulo, sem fanfarra nem tímpano. 76 bpm, 13,5 s.",
+    "ondeToca": "Chefe caiu: fim da expedição, na linha dark lo-fi."
+  },
+  "jingle-f-vitoria": {
+    "storyDraft": "Motivo em Mi: a ocarina canta, chega ao Sol5 e desce, e sobre o acorde de Lá vira no Dó#5, a nota dórica clara. Fecha repousando na quinta, não na tônica. Violão nylon em rolos, baixo de violoncelo, pad quente, maracas e conga suaves e brilho de celesta; 76 bpm, 8,7 s.",
+    "ondeToca": "Vitória: ao vencer uma sala, na linha dark lo-fi."
+  },
+  "jingle-f-derrota": {
+    "storyDraft": "A flauta de pã começa o motivo e recua antes do Sol; o violoncelo afunda Mi-Ré-Dó-Lá sob piano e pad e pára em Lá menor 9 sem resolver. A celesta repete só o primeiro passo e deixa no ar, com três passos de conga que somem. 60 bpm, 10,5 s.",
+    "ondeToca": "Derrota: quando o grupo cai, na linha dark lo-fi."
+  },
+  "jingle-f-chefe": {
+    "storyDraft": "A harpa afirma o motivo sozinha, a ocarina responde e sobe até Si5, e pad, violoncelo, conga e chocalho (a chuva) crescem por baixo, sem cordas, metais nem tímpano. Chega a Mi maior vindo do subdominante menor, o chocalho pára na chegada e ficam harpa, violão, triângulo e celesta. 72 bpm, 14,4 s.",
+    "ondeToca": "Chefe caiu: fim da expedição, na linha dark lo-fi."
+  }
+}
