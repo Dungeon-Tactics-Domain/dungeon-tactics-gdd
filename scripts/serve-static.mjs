@@ -30,7 +30,22 @@ createServer((req, res) => {
   if (!isFile(file) && extname(url)) return res.writeHead(404, { 'cache-control': 'no-store' }).end();
   if (!isFile(file)) file = join(root, 'index.html');
   // dist is rewritten by `build:watch`: a file can vanish between the check and the read, so a stream error must not kill the server.
-  const stream = createReadStream(file);
+  // Safari/iOS refuses to play audio and video unless the server answers Range requests with 206.
+  const size = statSync(file).size;
+  const m = /^bytes=(\d*)-(\d*)$/.exec(req.headers.range ?? '');
+  let start = 0;
+  let end = size - 1;
+  if (m && (m[1] || m[2])) {
+    if (m[1]) {
+      start = Number(m[1]);
+      if (m[2]) end = Math.min(Number(m[2]), size - 1);
+    } else {
+      start = Math.max(size - Number(m[2]), 0);
+    }
+    if (start > end) return res.writeHead(416, { 'content-range': `bytes */${size}` }).end();
+  }
+  const partial = Boolean(m && (m[1] || m[2]));
+  const stream = createReadStream(file, { start, end });
   stream.on('error', () => (res.headersSent ? res.destroy() : res.writeHead(503).end()));
   stream.on('open', () => {
     // Hashed bundles never change; everything else (index.html, lab content) must be revalidated so a rebuild shows without Ctrl+F5.
@@ -42,7 +57,17 @@ createServer((req, res) => {
       : media
         ? 'public, max-age=300, stale-while-revalidate=86400'
         : 'no-cache';
-    res.writeHead(200, { 'content-type': types[extname(file)] ?? 'application/octet-stream', 'cache-control': cache });
+    res.writeHead(partial ? 206 : 200, {
+      'content-type': types[extname(file)] ?? 'application/octet-stream',
+      'cache-control': cache,
+      'accept-ranges': 'bytes',
+      // Heavy stems come from 127.0.0.1 when Fernando browses the public site on this PC (`?local=1`), a cross-origin request.
+      ...(url.startsWith('/content/musica/stems/')
+        ? { 'access-control-allow-origin': 'https://dungeon-tactics-lab.fernandorffdev.com', vary: 'Origin' }
+        : {}),
+      'content-length': end - start + 1,
+      ...(partial ? { 'content-range': `bytes ${start}-${end}/${size}` } : {}),
+    });
     if (req.method === 'HEAD') {
       stream.destroy();
       return res.end();
