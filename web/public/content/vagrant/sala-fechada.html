@@ -215,7 +215,7 @@ const CATS = [
     seletor('texbonecos', 'Textura dos bonecos', 'A pele e a roupa dos bonecos; as de 4K só baixam ao escolher e pesam no celular.', [['original', 'Original', 'A textura do jogo, pequena e pixelada.'], ['4k-pixelada', '4K pixelada (ampliação sem filtro)', 'A original ampliada sem inventar detalhe.'], ['4k-realesrgan-x4plus', '4K x4plus (Real-ESRGAN)', 'Ampliada por inteligência artificial de uso geral.'], ['4k-realesr-animevideov3-x4', '4K animevideov3 (Real-ESRGAN)', 'Ampliada por inteligência artificial treinada em vídeo de anime, a mais rápida.'], ['4k-realesrgan-x4plus-anime', '4K x4plus anime (Real-ESRGAN)', 'Ampliada por inteligência artificial treinada em desenho de anime.'], ['4k-realesrgan-x4plus-sdxl-img2img', '4K x4plus com retoque (Real-ESRGAN e Stable Diffusion)', 'Ampliada e depois retocada por geração de imagem.']])] },
   { id: 'luzbonecos', titulo: 'Luz nos bonecos', itens: [
     seletor('bonecos', 'Luz nos bonecos (iluminação por pixel)', 'Como a luz das tochas pinta o corpo dos bonecos.', [['some', 'Some fora da luz', 'Luz direta das tochas e descarte de pixels com pontilhado (discard com dither): o boneco some onde não há luz.'], ['direta', 'Só luz direta', 'Só as tochas iluminam (luzes pontuais): o lado sem luz fica preto, um recorte.'], ['antes', 'Como antes', 'Iluminação padrão (Lambert) com luz de enchimento: o boneco aparece sempre.']]),
-    seletor('some', 'Como o boneco some', 'Vale só com Some fora da luz: decide o que some e o que fica.', [['silhueta', 'Abraça com contorno azul (rim light)', 'Luz que abraça mais um brilho azul frio só na borda do corpo (fresnel): longe das tochas o boneco aparece como um contorno e o miolo continua escuro.'], ['abraca', 'Luz que abraça (half-Lambert)', 'Meia luz de Lambert com piso de 0,2, normal suave e ruído de gradiente: lados e costas aparecem perto da tocha.'], ['inteiro', 'Boneco inteiro', 'Decide pelo corpo todo: se a luz toca pés, peito ou cabeça, ele aparece inteiro.'], ['agora', 'Como estava', 'Lambert por face (facetado) e padrão Bayer 4x4 (pontilhado em grade).']])] },
+    seletor('some', 'Como o boneco some', 'Vale só com Some fora da luz: decide o que some e o que fica.', [['abraca', 'Luz que abraça (half-Lambert)', 'Meia luz de Lambert com piso de 0,2, normal suave e ruído de gradiente: lados e costas aparecem perto da tocha.'], ['inteiro', 'Boneco inteiro', 'Decide pelo corpo todo: se a luz toca pés, peito ou cabeça, ele aparece inteiro.'], ['agora', 'Como estava', 'Lambert por face (facetado) e padrão Bayer 4x4 (pontilhado em grade).']])] },
   { id: 'movimento', titulo: 'Movimento', itens: [
     seletor('peso', 'Peso do boneco (inércia)', 'Quanto custa virar, arrancar, parar e pular. Tecla P.', [['leve', 'Leve', 'Gira 900 graus por segundo, arranca e para em 0,08 s.'], ['medio', 'Médio', 'Gira 540 graus por segundo, arranca em 0,15 s e para em 0,2 s.'], ['pesado', 'Pesado', 'Gira 270 graus por segundo, arranca em 0,3 s e para em 0,35 s.']])] },
   { id: 'particulas', titulo: 'Partículas', itens: [
@@ -1093,12 +1093,6 @@ float sombraBoneco( sampler2D mapa, PointLightShadow s, vec4 c ) {
     luzes += luzB;
   #endif
   #endif
-  #ifdef SILHUETA
-    // the outline: a cold blue glow only at the body's edge (fresnel, edge = normal turned away from the eye), so far from every torch the character stays a lit contour and the inside still fades
-    vec3 nBorda = normalize( cross( dFdx( vPosVista ), dFdy( vPosVista ) ) );
-    float borda = pow( 1.0 - clamp( abs( nBorda.z ), 0.0, 1.0 ), 2.0 );
-    luzes += vec3( 0.9, 1.4, 2.4 ) * borda; // the body's texture is dark, so the glow must be well over 1 to read as an edge
-  #endif
   #ifdef SOME
     #ifdef INTEIRO
       if ( visto <= fino( gl_FragCoord.xy ) ) discard;
@@ -1110,16 +1104,15 @@ float sombraBoneco( sampler2D mapa, PointLightShadow s, vec4 c ) {
   #endif
   gl_FragColor = vec4( diffuseColor.rgb * luzes, diffuseColor.a );`;
 let direta = 'some'; // false ('antes'), 'direta' (black cutout) or 'some'
-// SILHUETA (default since Nov 18, Fernando: "the character never vanishes whole"): ABRACA plus a cold blue rim at the
-// body's edge (the flat 8% floor was dropped the same day: he did not like it), so far from every torch he stays a contour.
-const SOMES = ['silhueta', 'abraca', 'inteiro', 'agora'];
-let comoSome = SOMES.includes(Q.get('some')) ? Q.get('some') : 'silhueta';
+// ABRACA is the default (Fernando, Nov 18: far from a torch the character must vanish; the minimum-silhouette idea was dropped).
+const SOMES = ['abraca', 'inteiro', 'agora'];
+let comoSome = SOMES.includes(Q.get('some')) ? Q.get('some') : 'abraca';
 // true and false still work (tests and custoDe): true is the cutout mode it meant before 'some' existed
 function poeBonecos(m) {
   direta = m === true ? 'direta' : m && m !== 'antes' ? m : false; $('bonecos').value = direta || 'antes';
-  for (const u of unidades) { for (const x of u.mats) { define(x, 'DIRETO', !!direta); define(x, 'SOME', direta === 'some'); define(x, 'ABRACA', direta === 'some' && (comoSome === 'abraca' || comoSome === 'silhueta')); define(x, 'SILHUETA', direta === 'some' && comoSome === 'silhueta'); define(x, 'INTEIRO', direta === 'some' && comoSome === 'inteiro'); } if (direta !== 'some') u.disco.material.opacity = 0.5; }
+  for (const u of unidades) { for (const x of u.mats) { define(x, 'DIRETO', !!direta); define(x, 'SOME', direta === 'some'); define(x, 'ABRACA', direta === 'some' && comoSome === 'abraca'); define(x, 'INTEIRO', direta === 'some' && comoSome === 'inteiro'); } if (direta !== 'some') u.disco.material.opacity = 0.5; }
 }
-function poeSome(m) { comoSome = SOMES.includes(m) ? m : 'silhueta'; $('some').value = comoSome; poeBonecos(direta); }
+function poeSome(m) { comoSome = SOMES.includes(m) ? m : 'abraca'; $('some').value = comoSome; poeBonecos(direta); }
 $('bonecos').onchange = () => { poeBonecos($('bonecos').value); naURL('bonecos', $('bonecos').value); };
 $('some').value = comoSome; $('some').onchange = () => { poeSome($('some').value); naURL('some', comoSome); };
 // Smooth normals for ABRACA, in each bone's own space (VS keeps a bone's vertices there, so a triangle across two bones
