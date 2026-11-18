@@ -35,6 +35,8 @@ export const DICAS_SOM: Record<string, string> = {
     'Sons de PlayStation 1, poucos instrumentos, sem baixo nem bateria (viram cello e tímpano). É o timbre "de época". Licença a conferir.',
   'SC-88 (teste privado)':
     'Soundfont de fã com os sons do Roland SC-88, o módulo que está em muitos jogos dos anos 90 e 2000. Só para ouvir e comparar: os sons são da Roland e não entram no jogo.',
+  'SC-88Pro (teste privado)':
+    'Versão Pro da soundfont do SC-88: banco GM completo, estéreo, mais detalhe. Teste privado em poucas faixas; os sons são da Roland e não entram no jogo.',
   Sonatina:
     'Sonatina Symphonic Orchestra: orquestra mais realista, sem bateria GM (a percussão vira tímpano e pratos).',
 };

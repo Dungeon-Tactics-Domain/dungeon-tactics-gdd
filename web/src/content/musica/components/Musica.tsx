@@ -196,6 +196,7 @@ const SONS_TRISECTION = [
   ['fa-tfg', 'Tactical Fantasy Guy'],
   ['fa-sonatina', 'Sonatina'],
   ['fa-sc88', 'SC-88 (teste privado)'],
+  ['fa-sc88p', 'SC-88Pro (teste privado)'],
   ['transcricao', 'Transcrição do áudio'],
 ] as const;
 // sounds offered for every battle and pastoral track; the key is the suffix of its stems folder ('' is MuseScore)
@@ -211,6 +212,50 @@ const SONS_JOGO = [
 // Roland SC-88 soundfont (a fan rip): a listening test for the owner only, on this unadvertised lab site. Its stems are not in
 // the repository and its sounds never go into the game, because they are Roland's.
 const SC88 = ['sc88', 'SC-88 (teste privado)'] as const;
+// SC-88Pro (same private test): rendered for every piece with a MIDI
+const SC88P = ['sc88p', 'SC-88Pro (teste privado)'] as const;
+const COM_SC88P = new Set([
+  'batalha_A',
+  'batalha_B',
+  'batalha_C',
+  'batalha_D',
+  'batalha_E',
+  'batalha_F',
+  'bof4_fim',
+  'cc_another_termina',
+  'cc_another_world_extended',
+  'cc_another_world',
+  'dark_intenso',
+  'dark',
+  'jingle_A_chefe',
+  'jingle_A_derrota',
+  'jingle_A_vitoria',
+  'jingle_B_chefe',
+  'jingle_B_derrota',
+  'jingle_B_vitoria',
+  'jingle_C_chefe',
+  'jingle_C_derrota',
+  'jingle_C_vitoria',
+  'jingle_D_chefe',
+  'jingle_D_derrota',
+  'jingle_D_vitoria',
+  'jingle_E_chefe',
+  'jingle_E_derrota',
+  'jingle_E_vitoria',
+  'jingle_F_chefe',
+  'jingle_F_derrota',
+  'jingle_F_vitoria',
+  'pastoral_A',
+  'pastoral_B',
+  'pastoral_C',
+  'pastoral_D',
+  'pastoral_E',
+  'pastoral_F',
+  'pastoral_rica_A',
+  'pastoral_rica_B',
+  'trisection_fa',
+]);
+const sonsDe = (base: string) => [...SONS_JOGO, SC88, ...(COM_SC88P.has(base) ? [SC88P] : [])];
 const versoesDe = (id: string) => {
   const e = estudoDe(id);
   if (e)
@@ -218,7 +263,7 @@ const versoesDe = (id: string) => {
       raiz: id,
       atual: 0,
       // the Chrono Cross files use instruments the TFG and Sonatina banks lack: those two render the nearest instrument
-      opcoes: [...SONS_JOGO, SC88].map(([k, rotulo]) => ({
+      opcoes: sonsDe(e).map(([k, rotulo]) => ({
         rotulo,
         faixa: id,
         stems: `${e}${k ? `_${k}` : ''}`,
@@ -229,7 +274,7 @@ const versoesDe = (id: string) => {
     return {
       raiz: id,
       atual: 0,
-      opcoes: [...SONS_JOGO, SC88].map(([k, rotulo]) => ({
+      opcoes: sonsDe(stemsDe(id)).map(([k, rotulo]) => ({
         rotulo,
         faixa: id,
         stems: `${stemsDe(id)}${k ? `_${k}` : ''}`,
@@ -242,7 +287,7 @@ const versoesDe = (id: string) => {
       raiz,
       atual: f[2] ? SONS_JOGO.findIndex(([k]) => k === 'tfg') : 0,
       // the text of each sound comes from its own page when there is one (MuseScore and TFG); the others reuse the base page
-      opcoes: [...SONS_JOGO, SC88].map(([k, rotulo]) => ({
+      opcoes: sonsDe(stemsDe(raiz)).map(([k, rotulo]) => ({
         rotulo,
         faixa: k === 'tfg' ? `${raiz}-tfg` : raiz,
         stems: `${stemsDe(raiz)}${k ? `_${k}` : ''}`,
@@ -397,7 +442,8 @@ const semAcento = (t: string) => t.normalize('NFD').replace(/[̀-ͯ]/g, '').toLo
 
 // one studio for every piece: a list on the side (search, category and order) and the studio of the chosen piece beside it
 export function EstudioMusicas() {
-  const itens = CATEGORIAS.flatMap((c) => itensDe(c.id));
+  // pieces without a studio (audio only, no MIDI) stay out of the list
+  const itens = CATEGORIAS.flatMap((c) => itensDe(c.id)).filter((i) => i.estudio);
   const [valor, setValor] = useState(() => {
     const pedido = new URLSearchParams(window.location.search).get('m');
     return itens.some((i) => i.valor === pedido) ? pedido! : itens[0]!.valor;
@@ -481,7 +527,6 @@ export function EstudioMusicas() {
                 >
                   <Icone id={i.valor === item.valor ? 'tocar' : 'musica'} className="size-4 flex-none" />
                   <span className="min-w-0 flex-1">{i.rotulo}</span>
-                  {!i.estudio && <span className="flex-none text-[12px] opacity-80">só áudio</span>}
                 </button>
               ))}
             </div>
