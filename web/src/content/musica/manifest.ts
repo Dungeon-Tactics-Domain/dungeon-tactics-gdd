@@ -17,6 +17,7 @@ const grupos: GrupoManifesto[] = [
       { id: 'referencias-batalha', titulo: 'Referências da batalha' },
       { id: 'checagens-cidade', titulo: 'Checagens da cidade' },
       { id: 'checagens-batalha', titulo: 'Checagens da batalha' },
+      { id: 'lofi', titulo: 'Lofi e vaporwave (teste)' },
     ],
   },
 ];
