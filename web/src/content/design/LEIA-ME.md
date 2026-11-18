@@ -21,7 +21,7 @@ official version D and kept moment, the SDXL pixelizer rows and the regenerated 
 - Later on 17/11 the "Ouro e couro" asset tests (`interface/ui-ouro-couro`, `interface/paineis-css`, `interface/hud-fft`)
   joined that archive; `UiOuroCouro`, `PaineisCss` and `HudFft` stay here with no page. The plan group (`plano/fases`,
   `plano/pedidos`, `plano/decisoes`) was removed (`plano.json` keeps only what the home shows), and the town draft
-  (`mapa/cidade`, with `Cidade.tsx` and `cidade.ts`) moved to the narrative lab; the old route redirects there.
+  (`mapa/cidade`, with `Cidade.tsx` and `cidade.ts`) moved to the narrative lab, which removed it on 18/11.
 - The `.mdx` pages are a component call. A page with a new route needs its
   `.mdx`: `registry.test.tsx` fails on a page without one and on an orphan file.
 - Old paths of the first copy (`/design/decisoes/...`, `/design/testes-de-ia/...`, `/design/maquetes/...`) no longer

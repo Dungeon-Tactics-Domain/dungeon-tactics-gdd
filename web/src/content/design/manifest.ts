@@ -29,8 +29,6 @@ export default {
     'interface/hud-3d': 'interface/fft-3d',
     'interface/menu-3d': 'interface/fft-3d',
     agora: '',
-    // the town draft moved to the narrative lab on 17/11
-    'mapa/cidade': '/narrativa/mapa/cidade',
     'direcao-fft': 'interface',
     maquetes: 'interface',
     pecas: 'personagens',

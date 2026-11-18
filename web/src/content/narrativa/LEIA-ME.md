@@ -14,12 +14,14 @@ Later the same day the marks page (`marcas/minhas`, with `marcas.ts` and its tes
 `decisoes/fases`, `decisoes/pedidos` and `decisoes/grill` left too. `dados/plano.json` keeps only `agora` and
 `proximoPasso`, which the lab home shows.
 
-## Walkable town draft (moved in on 17/11)
+## Removed on 2026-11-18
 
-`mapa/cidade` ("Cidade andável (rascunho)") came from the design lab with `components/Cidade.tsx`, `cidade.ts` and its
-test (`components/cidade.test.tsx`); it has no media. The old `/design/mapa/cidade` redirects here. It sits apart from
-`decisoes/cidade`, `decisoes/lugares` and `decisoes/mapa-cidade`, which are the written decisions about the town.
+The "Loops" group (`loops/nosso-loop` and the per-game pages under `loops/taticos/` and `loops/roguelike-gestao/`, with
+the game JSONs in `dados/refs/` and the `Loop` component) and the "Mapa" group (`mapa/cidade`, the walkable town draft
+moved in from the design lab on 17/11, with `components/Cidade.tsx`, `cidade.ts` and its test) left the lab; git history
+keeps them. `decisoes/cidade`, `decisoes/lugares` and `decisoes/mapa-cidade` stay as the written decisions about the town.
 
 ## Differences from the old lab
 
-- Old links `#loop-<slug>`, `#decisoes` and `#loops` redirect through `linksAntigos`; `#/group/page` routes redirect by themselves.
+- The old link `#decisoes` redirects through `linksAntigos`; `#/group/page` routes redirect by themselves. Old `#loop-<slug>`
+  and `#loops` anchors no longer redirect.
