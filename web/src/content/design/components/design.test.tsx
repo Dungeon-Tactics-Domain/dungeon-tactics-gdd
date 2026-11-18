@@ -6,7 +6,6 @@ import { blocos, GAMES, IA, iaSub, mouthFrame, PER_PAGE, porConversa, ROSTO, ros
 import { CHAVE, LUGARES, MAPA, NPCS } from '../cidade';
 import { CartoesIa } from './Cartoes';
 import { Cidade } from './Cidade';
-import { Direcao } from './Direcao';
 import { Expressoes } from './Expressoes';
 import { IaAssunto } from './Ia';
 import { VisaoGeral } from './Referencias';
@@ -15,23 +14,23 @@ import { Vozes } from './Vozes';
 import { Telas } from './Telas';
 
 describe('design lab data', () => {
-  it('keeps the old lab tabs as groups (same ids as its routes): 5 groups, 112 captures of 10 games, every capture in exactly one block', () => {
+  it('keeps the old lab tabs as groups (same ids as its routes): 5 groups, 16 captures of 1 game, every capture in exactly one block', () => {
     const s = CONTEUDO.design!.sumario;
     expect(s.grupos.map((g) => `${g.id}:${g.paginas.length}`)).toEqual([
-      'interface:14',
-      'personagens:6',
+      'interface:13',
+      'personagens:4',
       'mapa:2',
       'plano:5',
-      'referencias:11',
+      'referencias:2',
     ]);
-    expect(GAMES).toHaveLength(10);
+    expect(GAMES).toHaveLength(1);
     const files = GAMES.flatMap((g) =>
       blocos(g)
         .flat()
         .map((s) => s.file),
     );
-    expect(files).toHaveLength(112);
-    expect(new Set(files).size).toBe(112);
+    expect(files).toHaveLength(16);
+    expect(new Set(files).size).toBe(16);
     expect(GAMES.every((g) => blocos(g).every((b) => b.length <= PER_PAGE))).toBe(true);
   });
 
@@ -104,23 +103,12 @@ describe('design lab components', () => {
   it('filters the overview by screen and walks it in blocks of 2', async () => {
     const user = userEvent.setup();
     render(<VisaoGeral />);
-    expect(screen.getByRole('status')).toHaveTextContent('Capturas 1 a 2 de 112');
+    expect(screen.getByRole('status')).toHaveTextContent('Capturas 1 a 2 de 16');
     await user.click(screen.getByRole('button', { name: 'Seguintes →' }));
-    expect(screen.getByRole('status')).toHaveTextContent('Capturas 3 a 4 de 112');
-    await user.click(screen.getByRole('button', { name: /^Loja \(/ }));
+    expect(screen.getByRole('status')).toHaveTextContent('Capturas 3 a 4 de 16');
+    await user.click(screen.getByRole('button', { name: /^Batalha \(/ }));
     expect(screen.getByRole('status')).toHaveTextContent(/Capturas 1 a 2 de \d+/);
     expect(screen.getByRole('button', { name: '← Anteriores' })).toBeDisabled();
-  });
-
-  it('draws each direction with an empty MP bar for 0/0 and switches the scene behind', async () => {
-    const user = userEvent.setup();
-    const { container } = render(<Direcao id="c" />);
-    expect(container.querySelector('.dz-maquetes .dir-c .stage')).not.toBeNull();
-    expect(container.querySelector<HTMLElement>('.mp .bar-track i')!.style.width).toBe('0%');
-    await user.click(screen.getByRole('button', { name: /Cripta/ }));
-    expect(container.querySelector<HTMLElement>('.stage')!.style.getPropertyValue('--cena')).toContain(
-      'cena-cripta.jpg',
-    );
   });
 
   it('opens the reader on the clicked card and walks the list with the arrows', async () => {

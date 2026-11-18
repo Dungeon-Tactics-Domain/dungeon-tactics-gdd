@@ -34,7 +34,7 @@ export default {
     grill: 'plano/decisoes',
     decisoes: 'plano',
     'direcao-fft': 'interface',
-    maquetes: 'interface/alternativas',
+    maquetes: 'interface',
     pecas: 'personagens',
     'testes-de-ia': 'interface/testes',
     ia: 'interface/testes',
@@ -45,7 +45,7 @@ export default {
       id: 'interface',
       titulo: 'Interface',
       icone: '🟦',
-      resumo: 'O estilo FFT Clássico escolhido, os ícones e as alternativas testadas.',
+      resumo: 'O estilo FFT Clássico escolhido, os ícones e os testes.',
       paginas: [
         {
           id: 'fft-3d',
@@ -80,11 +80,6 @@ export default {
           id: 'icones',
           titulo: 'Em uso: ícones 32 px',
           resumo: 'Atlas de 32 px dos ícones de habilidade, em 1x, 2x e 4x.',
-        },
-        {
-          id: 'alternativas',
-          titulo: 'Alternativas A, B e C',
-          resumo: 'Direções de estilo preteridas, com o mesmo momento da batalha.',
         },
         {
           id: 'ui-ouro-couro',
@@ -142,18 +137,7 @@ export default {
           titulo: 'Bancada de expressões (IA)',
           resumo: 'Rostos de IA em vários momentos: falando, dano, ataque, ferido, vitória.',
         },
-        {
-          id: 'pixelizar',
-          titulo: 'Pixelizadores locais (teste)',
-          resumo:
-            'Ferramentas que rodam no PC e transformam o pixel art falso da IA em pixel art de grade real; a fala anima em cada uma.',
-        },
         { id: 'testes', titulo: 'Testes de IA: rostos', resumo: 'Retratos por plataforma e por estilo.' },
-        {
-          id: 'pixellab-cavaleiro',
-          titulo: 'PixelLab: Cavaleiro 8 direções',
-          resumo: 'Referências que vão para o PixelLab e espaço para os resultados.',
-        },
         {
           id: 'sprites',
           titulo: 'Testes de IA: sprites',
@@ -204,7 +188,7 @@ export default {
       id: 'referencias',
       titulo: 'Referências',
       icone: '📚',
-      resumo: `Capturas de ${GAMES.length} jogos de tática, só neste PC.`,
+      resumo: 'Capturas do Final Fantasy Tactics: The Ivalice Chronicles, só neste PC.',
       paginas: [
         {
           id: 'visao-geral',

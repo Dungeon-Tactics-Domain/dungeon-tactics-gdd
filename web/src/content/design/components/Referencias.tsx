@@ -37,7 +37,8 @@ export function VisaoGeral() {
   return (
     <>
       <p className="m-0 max-w-[72ch] text-apagado">
-        {TODAS.length} capturas de {GAMES.length} jogos, descritas por quem olhou a imagem. {NOTICE}
+        {TODAS.length} capturas de {GAMES.length} {GAMES.length === 1 ? 'jogo' : 'jogos'}, descritas por quem olhou a
+        imagem. {NOTICE}
       </p>
       <div className="grid gap-4">
         <div className="flex flex-wrap items-center gap-1.5">

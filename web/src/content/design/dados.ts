@@ -1,7 +1,6 @@
 // Typed data of the design lab, copied from dungeon-tactics-lab/design (src/main.ts, src/ia.ts, src/data/plan.ts and
 // src/data/refs/*.json). The JSON files were dumped by running the old TS, so concatenated prompts are exact. The page
 // tree in manifest.ts and the components derive from the same helpers as the old main.ts and ia.ts.
-import direcoesJson from './direcoes.json';
 import iaJson from './ia.json';
 import planoJson from './plano.json';
 
@@ -130,18 +129,6 @@ export const iaSub = (t: Test) =>
                 ? 'folhas'
                 : 'cenas';
 export const contagem = (n: number) => `${n} ${n === 1 ? 'imagem' : 'imagens'}`;
-
-export interface Direcao {
-  id: 'a' | 'b' | 'c';
-  name: string;
-  idea: string;
-  from: string;
-  palette: [name: string, hex: string, use: string][];
-  type: [role: string, family: string, sample: string][];
-  hud: string;
-  risk: string;
-}
-export const DIRECOES = direcoesJson as Direcao[];
 
 /** the kit's typeface (Alegreya Sans, OFL), for the pages that draw on .fft */
 export const FONTE_FFT = 'https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@500;700&display=swap';
