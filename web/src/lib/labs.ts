@@ -2,7 +2,7 @@
 // lab's accent colour read only from here: a new lab is one new line. x and y are the flag's foot on the map, in %.
 
 /** The site's name (Fernando, 15/11): the header and every tab title. */
-export const SITE = 'Dungeon Tactics Lab';
+export const SITE = 'GDD Dungeon Tactics';
 
 export interface Place {
   id: string;

@@ -315,7 +315,7 @@ export function OuroECouro() {
         <h3>Cabeçalho, barra lateral e card</h3>
         <div className="oc-casca">
           <header className="oc-cab">
-            <strong>Dungeon Tactics Lab</strong>
+            <strong>GDD Dungeon Tactics</strong>
             <a href="#oc-exemplos">Mapa dos labs</a>
             <span style={{ color: 'var(--color-creme-apagado)' }}>Laboratório de design</span>
           </header>

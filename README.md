@@ -1,4 +1,4 @@
-# Dungeon Tactics Labs
+# GDD Dungeon Tactics
 
 Platform that supports the development of Dungeon Tactics: a Rust server that reads the state of the Claude Code
 sessions (the "Fábrica") and a React app that shows every lab as a town on a kingdom map.
