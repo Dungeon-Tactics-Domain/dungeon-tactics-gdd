@@ -1,30 +1,30 @@
-/* Dungeon Tactics Lab theme (Fernando, 18/11): the colours of the game's 3D menu (the --ui3d-* tokens in the game's
-   src/client/style.css on master), so the lab looks like the game. Light only. Text ≥ 16px, targets ≥ 44px; contrast
-   measured 18/11: tinta 8.2:1, apagado 6.1:1, ouro-escuro 4.8:1 on pergaminho, ouro-claro 5.4:1 on couro. */
+/* Dungeon Tactics Lab theme, scheme "Noite" (Fernando, 18/11): blue-grey ground, navy leather, warm gold. Light only.
+   Text >= 16px, targets >= 44px; contrast measured 18/11: tinta 12.8:1, apagado 6.2:1, ouro-escuro 4.9:1 on pergaminho,
+   creme 12.7:1 and ouro-claro 7.3:1 on couro. The game's own colours were the previous scheme (git history). */
 @import 'tailwindcss';
 @theme {
   /* surfaces */
-  --color-pergaminho: #ece7d4; /* page background (game: --ui3d-paper) */
-  --color-pergaminho-escuro: #d5cfb9; /* tags, zebra rows, disabled buttons (game: --ui3d-paper-shade) */
-  --color-folha: #f6f1db; /* cards and panels on parchment (game: --ui3d-paper-lit) */
-  --color-couro: #332b1a; /* sidebar, buttons (game: --ui3d-edge) */
-  --color-couro-escuro: #2a2619; /* header, table head (game: --ui3d-town-track) */
-  --color-couro-claro: #3d3524; /* hover on leather (game: --ui3d-town-picked) */
+  --color-pergaminho: #e5e9f0; /* page background */
+  --color-pergaminho-escuro: #ccd3e0; /* tags, zebra rows, disabled buttons */
+  --color-folha: #f2f4f8; /* cards and panels on parchment */
+  --color-couro: #1f2a3d; /* sidebar, buttons */
+  --color-couro-escuro: #141c2b; /* header, table head */
+  --color-couro-claro: #2d3b54; /* hover on leather */
 
   /* gold: ouro carries borders; text on parchment takes ouro-escuro */
-  --color-ouro: #7a6126; /* borders on every surface (game: --ui3d-town-gold) */
-  --color-ouro-claro: #c79a2e; /* titles and links on leather, active button (game: --ui3d-town-stat) */
-  --color-ouro-brilho: #fdebb4; /* highlight on top of the active button (game: --ui3d-result-title) */
-  --color-ouro-escuro: #7a6126; /* titles on parchment (game: --ui3d-town-gold, 4.8:1) */
+  --color-ouro: #8a6d2f; /* borders on every surface */
+  --color-ouro-claro: #d9b45a; /* titles and links on leather, active button */
+  --color-ouro-brilho: #f3dc9a; /* highlight on top of the active button */
+  --color-ouro-escuro: #7a5f24; /* titles on parchment */
 
   /* text */
-  --color-tinta: #474129; /* body text on parchment (game: --ui3d-ink) */
-  --color-apagado: #5b5440; /* secondary text on parchment (game: --ui3d-ink-soft) */
-  --color-creme: #fdebb4; /* text on leather (game: --ui3d-result-title) */
-  --color-creme-apagado: #dcd5ac; /* secondary text on leather (game: --ui3d-result-text) */
-  --color-link: #2f5f94; /* links on parchment (game's MP blue #4c8fd6 darkened to 5.3:1) */
+  --color-tinta: #1c2433; /* body text on parchment */
+  --color-apagado: #4a5568; /* secondary text on parchment */
+  --color-creme: #eef1f7; /* text on leather */
+  --color-creme-apagado: #bcc6d8; /* secondary text on leather */
+  --color-link: #27558f; /* links on parchment, 6.2:1 */
 
-  /* states (game: --ui3d-town-up and --ui3d-town-down) */
+  /* states */
   --color-sucesso: #2a6426;
   --color-sucesso-suave: #e3efd9;
   --color-erro: #962b20;
@@ -39,7 +39,8 @@
   --color-traco: var(--color-ouro-escuro);
   --color-sobre-tinta: var(--color-creme);
 
-  --font-serif: 'Cinzel', 'Cormorant Garamond', Georgia, serif;
+  /* the game's fonts (18/11): its 3D menu serif for titles (system fonts, no file) and Alegreya Sans for text */
+  --font-serif: 'Palatino Linotype', Palatino, 'Book Antiqua', Georgia, serif;
   --font-sans: 'Alegreya Sans', system-ui, sans-serif;
 
   /* screen bands, unchanged: sm 640 and lg 1024 are Tailwind's own, plus wide 1440 and ultra 2560 */
@@ -49,15 +50,18 @@
   --reino-h: 52px;
   --nav-h: 64px;
 
-  --shadow-folha: 0 1px 2px rgb(24 19 14 / 0.2), 0 3px 10px rgb(24 19 14 / 0.1);
-  --shadow-couro: inset 0 1px 0 rgb(224 178 104 / 0.25), 0 4px 14px rgb(24 19 14 / 0.35);
+  /* square corners: clears Tailwind's rounded-sm…rounded-3xl scale (rounded-full stays for dots) */
+  --radius-*: initial;
+  /* hard offset shadows, no blur (the B-2 structure Fernando approved in Stitch, 18/11) */
+  --shadow-folha: 3px 3px 0 var(--color-couro);
+  --shadow-couro: 4px 4px 0 var(--color-couro-escuro);
   /* the glow of the ChatGPT sheet's active button */
   --shadow-brilho: 0 0 0 1px var(--color-ouro-claro), 0 0 14px rgb(224 178 104 / 0.55);
 }
 
 :root {
   color-scheme: light;
-  --radius: 2px;
+  --radius: 0; /* square corners (B-2, 18/11) */
   /* thin gold line, the double frame and the corner brackets of the reference panels */
   --borda-fina: 1px solid var(--color-ouro);
   --borda-dupla: 3px double var(--color-ouro);

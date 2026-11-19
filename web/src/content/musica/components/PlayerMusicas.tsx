@@ -1,5 +1,5 @@
-// The music studio: the midi-studio-player app over the lab's catalog, in its parchment theme: the game's 3D menu
-// colours, like the rest of the lab (Fernando, 18/11).
+// The music studio: the midi-studio-player app over the lab's catalog, in its night theme (the lab's "Noite" scheme,
+// Fernando, 18/11).
 import { useEffect, useState } from 'react';
 import 'midi-studio-player';
 import type { Catalog, ParseResult } from 'midi-studio-player';
@@ -31,7 +31,7 @@ export function PlayerMusicas() {
   return (
     <>
       <link rel="stylesheet" href={FONTES} />
-      <dt-music-app theme="parchment" catalog={catalogo.value} />
+      <dt-music-app theme="night" catalog={catalogo.value} />
     </>
   );
 }
