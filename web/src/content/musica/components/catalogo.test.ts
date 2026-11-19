@@ -36,18 +36,8 @@ describe('catálogo do player', () => {
     expect(tris[0]!.measurements.map((m) => m.label)).toContain('Duração · Transcrição em piano · MuseScore General');
   });
 
-  it('põe a versão ao vivo por último, com o MIDI e os canais da versão General MIDI', () => {
-    for (const s of valido().songs) {
-      const vivo = s.versions.at(-1)!;
-      expect([vivo.id, vivo.label, vivo.live?.soundfont]).toEqual([
-        'ao-vivo',
-        'Ao vivo · GeneralUser GS',
-        '/soundfonts/GeneralUser-GS.sf2',
-      ]);
-      expect(s.versions.filter((v) => v.live)).toHaveLength(1);
-      const gm = s.versions.find((v) => v.id === 'musescore') ?? s.versions[0]!;
-      expect([vivo.midi, vivo.channels]).toEqual([gm.midi, gm.channels]);
-    }
+  it('não oferece versão ao vivo: todo som é um render por canal', () => {
+    for (const s of valido().songs) expect(s.versions.filter((v) => v.live)).toHaveLength(0);
   });
 
   it('liga a pasta à faixa do lab e a história à composição-mãe', () => {

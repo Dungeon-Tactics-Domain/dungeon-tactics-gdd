@@ -54,9 +54,6 @@ const FUNDIDAS: Record<string, { base: string; id: string; label: string }> = {
   },
 };
 
-// the live version: the song's MIDI synthesized in the browser with this SoundFont, which is not in git (see .gitignore)
-const AO_VIVO = { id: 'ao-vivo', label: 'Ao vivo · GeneralUser GS', soundfont: '/soundfonts/GeneralUser-GS.sf2' };
-
 // the lab track that describes a stems base: batalha_A -> batalha-a, cc_another_world -> ref-cc-another-world
 export const idDaFaixa = (base: string) => {
   if (base === 'dark') return 'dark-principal';
@@ -125,9 +122,6 @@ export function montarCatalogo(
     const [pagina, t] = achada;
     const p = PAGINAS[pagina];
     lista.sort((a, b) => ordem(a) - ordem(b));
-    // the live synthesizer plays the plain General MIDI file (the other SoundFonts' MIDIs have their drums moved)
-    const gm = lista.find((v) => v.id === 'musescore') ?? lista[0]!;
-    const comVivo = [...lista, { ...gm, id: AO_VIVO.id, label: AO_VIVO.label, live: { soundfont: AO_VIVO.soundfont } }];
     // versions of one composition share its story: the Trisection renders take the parent's
     const h = historias[id] ?? historias[id.replace(/-midi-.*$/, '')];
     const song: Song = {
@@ -135,7 +129,7 @@ export function montarCatalogo(
       title: titulo(pagina, t),
       category: categoria(id, pagina),
       authorship: t.versao ?? t.jogo ?? 'autoria não registrada',
-      versions: comVivo,
+      versions: lista,
       channels: lista[0]!.channels ?? [],
       references: (p.referencias ?? [])
         .filter((r) => !r.exemplo)
