@@ -10,14 +10,17 @@ import { barAt, barCount, barSeconds, pitchRanges, rulerBars, timeToX, xToTime }
 import type { PlayerEngine } from '@/lib/player/PlayerEngine';
 import { readMidi, type Midi } from '@/lib/player/read-midi';
 import type { Channel, Version } from '@/lib/player/schema';
+import { gravar, ler } from '@/lib/utils';
 import {
   ALTURA_FAIXA,
   ALTURA_REGUA,
+  CHAVE_ZOOM,
   ESTREITO,
   LARGURA_CANVAS,
   PASSO_RODA,
   varDoCanal,
   ZOOM_MAXIMO,
+  ZOOM_PADRAO,
 } from './constantes';
 import { nomeDaNota, notasEm, useMotor } from './hooks';
 
@@ -61,7 +64,12 @@ export function PianoRoll({
   const faixas = useRef<HTMLDivElement>(null);
   const rolagem = useRef<HTMLDivElement>(null);
   const pista = useRef<HTMLDivElement>(null);
-  const [zoom, setZoom] = useState(1);
+  const visao = useRef<HTMLDivElement>(null);
+  // the zoom of the last visit; a stored value that is not a zoom falls back to the default
+  const [zoom, setZoom] = useState(() => {
+    const n = Number(ler(CHAVE_ZOOM));
+    return n >= 1 && n <= ZOOM_MAXIMO ? n : ZOOM_PADRAO;
+  });
   // the stretch of the song the lanes show, as fractions of its length
   const [janela, setJanela] = useState({ inicio: 0, tamanho: 1 });
   // the point that stays under the pointer (or in the middle) across a zoom change
@@ -115,12 +123,20 @@ export function PianoRoll({
   const teto = largura
     ? Math.max(1, Math.min(ZOOM_MAXIMO, (LARGURA_CANVAS * zoom) / (largura * (globalThis.devicePixelRatio || 1))))
     : ZOOM_MAXIMO;
-  const mudarZoom = (z: number, px?: number) => {
+  // `px` is the point of the lanes on screen that stays still (the middle when not given); with `fracao`, a point of
+  // the song given as a share of its length stays where it is instead, on screen or not
+  const mudarZoom = (z: number, px?: number, fracao?: number) => {
     const r = rolador();
     const total = faixas.current?.offsetWidth;
     const x = px ?? (pista.current?.clientWidth ?? 0) / 2;
-    if (r && total) ancora.current = { fracao: (r.scrollLeft + x) / total, px: x };
-    setZoom(Math.max(1, Math.min(teto, z)));
+    if (r && total)
+      ancora.current =
+        fracao === undefined
+          ? { fracao: (r.scrollLeft + x) / total, px: x }
+          : { fracao, px: fracao * total - r.scrollLeft };
+    const novo = Math.max(1, Math.min(teto, z));
+    setZoom(novo);
+    gravar(CHAVE_ZOOM, String(novo));
   };
   // layout effect: the lanes are already at the new width and the scroll is set before the paint, so nothing jumps
   useLayoutEffect(() => {
@@ -131,25 +147,37 @@ export function PianoRoll({
     medirJanela();
   }, [zoom, rolador, medirJanela]);
 
-  // Ctrl + wheel zooms around the pointer. A native listener, because React's wheel handler is passive and could not
-  // stop the browser from zooming the page.
-  const rodar = useRef((e: WheelEvent) => void e);
+  // Ctrl + wheel over the lanes zooms around the pointer; over the overview the wheel alone does, around the point of
+  // the song under the pointer, so the box grows and shrinks about it. Native listeners, because React's wheel handler
+  // is passive and could not stop the browser from zooming or scrolling the page.
+  const rodar = useRef((e: WheelEvent, geral: boolean) => void [e, geral]);
   useEffect(() => {
-    rodar.current = (e) => {
-      const esquerda = pista.current?.getBoundingClientRect().left ?? 0;
-      mudarZoom(e.deltaY < 0 ? zoom * PASSO_RODA : zoom / PASSO_RODA, Math.max(0, e.clientX - esquerda));
+    rodar.current = (e, geral) => {
+      if (!e.deltaY) return;
+      const z = e.deltaY < 0 ? zoom * PASSO_RODA : zoom / PASSO_RODA;
+      const caixa = (geral ? visao : pista).current?.getBoundingClientRect();
+      const x = Math.max(0, e.clientX - (caixa?.left ?? 0));
+      // a box with no width (not laid out, jsdom) has no point to hold: the middle of the lanes stays
+      if (!geral) mudarZoom(z, x);
+      else mudarZoom(z, undefined, caixa?.width ? Math.min(1, x / caixa.width) : undefined);
     };
   });
   useEffect(() => {
     const el = rolagem.current;
-    if (!el) return;
+    const ev = visao.current;
+    if (!el || !ev) return;
     const aoRodar = (e: WheelEvent) => {
-      if (!e.ctrlKey) return;
+      const geral = e.currentTarget === ev;
+      if (!geral && !e.ctrlKey) return;
       e.preventDefault();
-      rodar.current(e);
+      rodar.current(e, geral);
     };
     el.addEventListener('wheel', aoRodar, { passive: false });
-    return () => el.removeEventListener('wheel', aoRodar);
+    ev.addEventListener('wheel', aoRodar, { passive: false });
+    return () => {
+      el.removeEventListener('wheel', aoRodar);
+      ev.removeEventListener('wheel', aoRodar);
+    };
   }, []);
 
   const bpm = midi?.bpm ?? 120;
@@ -286,6 +314,8 @@ export function PianoRoll({
       )}
       {/* touch-none: a finger on the overview drags the box instead of scrolling the page */}
       <div
+        ref={visao}
+        title="Role a roda do mouse para mudar o zoom"
         className="relative cursor-pointer touch-none select-none"
         onPointerDown={pegar}
         onPointerMove={arrastar}

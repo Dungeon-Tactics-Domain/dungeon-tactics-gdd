@@ -20,10 +20,13 @@ export const ALTURA_MAXIMA = 2400;
 export const PASSO_ALTURA = 40;
 export const CHAVE_ALTURA = 'musica:player:altura';
 
-// Horizontal zoom of the lanes: 1 shows the whole song. The buttons double or halve it, a notch of Ctrl + wheel is 25%.
+// Horizontal zoom of the lanes: 1 shows the whole song; it opens at 2 and the choice is remembered. The buttons double
+// or halve it; a notch of the wheel (with Ctrl over the lanes, plain over the overview) is 25%.
 // ponytail: each lane is one canvas as wide as the zoomed song, so the zoom also stops where a canvas would pass
 // LARGURA_CANVAS device pixels (16 lanes of 12000 x 100 px are about 77 MB); draw only the visible part to go further.
+export const ZOOM_PADRAO = 2;
 export const ZOOM_MAXIMO = 8;
+export const CHAVE_ZOOM = 'musica:player:zoom';
 export const PASSO_RODA = 1.25;
 export const LARGURA_CANVAS = 12000;
 
