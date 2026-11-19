@@ -64,7 +64,13 @@ export interface Channel {
   /** General MIDI program 0..127, or null when the channel never sets one (drums) */
   program: number | null;
   name: string;
+  /** effects added to this instrument's render; absent = none added (stems not rendered again yet) */
+  effects?: Effect[];
 }
+
+export const EFFECTS = ['reverb', 'release', 'sustain', 'eco'] as const;
+/** reverb = synth reverb, release = longer note end (CC72), sustain = pedal in the MIDI, eco = delay (lofi and vaporwave) */
+export type Effect = (typeof EFFECTS)[number];
 
 export interface Reference {
   label: string;

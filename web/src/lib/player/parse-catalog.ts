@@ -1,6 +1,16 @@
 // Trust boundary: a catalog arrives as JSON from outside the package, so every field is checked and rebuilt here.
 // Errors carry the path of the field (`songs[2].versions[0].duration: expected a number`) so a host can fix its data.
-import type { Catalog, Category, Channel, Check, Measurement, Reference, Song, Version } from './schema';
+import {
+  EFFECTS,
+  type Catalog,
+  type Category,
+  type Channel,
+  type Check,
+  type Measurement,
+  type Reference,
+  type Song,
+  type Version,
+} from './schema';
 
 export type ParseResult<T> = { ok: true; value: T } | { ok: false; errors: string[] };
 
@@ -78,6 +88,11 @@ class Reader {
 
 const isInt = (min: number, max: number) => (n: number) => Number.isInteger(n) && n >= min && n <= max;
 
+const optionalEffects = (effects: Effect[] | undefined) => (effects ? { effects } : {});
+
+// ids this player knows; an unknown one is dropped, since the renderer may learn new effects before the player does
+const knownEffects = (list: unknown) => (Array.isArray(list) ? EFFECTS.filter((e) => list.includes(e)) : undefined);
+
 function channel(r: Reader, v: unknown, path: string): Channel | undefined {
   const o = r.object(v, path);
   if (!o) return;
@@ -87,6 +102,7 @@ function channel(r: Reader, v: unknown, path: string): Channel | undefined {
     channel: r.number(o, 'channel', path, isInt(0, 15), 'a 0-based MIDI channel 0..15'),
     program,
     name: r.string(o, 'name', path),
+    ...optionalEffects(knownEffects(o.effects)),
   };
   // an invalid entry is left out, so its placeholder number never shows up as a duplicate channel
   return r.errors.length === before ? out : undefined;
@@ -217,7 +233,7 @@ export function parseCatalog(input: unknown): ParseResult<Catalog> {
 }
 
 /**
- * Reads the `stems.json` a stem renderer writes next to the `.ogg` files: `{ duracao, stems: [{ canal, programa, nome }] }`
+ * Reads the `stems.json` a stem renderer writes next to the `.ogg` files: `{ duracao, stems: [{ canal, programa, nome, efeitos? }] }`
  * with 1-based `canal`. Returns the duration and the channels converted to this package's 0-based convention.
  */
 export function parseStemsManifest(input: unknown): ParseResult<{ duration: number; channels: Channel[] }> {
@@ -233,7 +249,7 @@ export function parseStemsManifest(input: unknown): ParseResult<{ duration: numb
       s.programa === null || s.programa === undefined
         ? null
         : r.number(s, 'programa', p, isInt(0, 127), 'an integer 0..127 or null');
-    return { channel: canal - 1, program, name: r.string(s, 'nome', p) };
+    return { channel: canal - 1, program, name: r.string(s, 'nome', p), ...optionalEffects(knownEffects(s.efeitos)) };
   });
   return r.errors.length ? { ok: false, errors: r.errors } : { ok: true, value: { duration, channels: list } };
 }

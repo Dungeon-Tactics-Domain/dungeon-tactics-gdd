@@ -44,6 +44,13 @@ const valid = () => ({
 });
 
 describe('parseCatalog', () => {
+  it('keeps the effects of a channel and drops unknown ids', () => {
+    const c = valid();
+    Object.assign(c.songs[0]!.channels[0]!, { effects: ['reverb', 'chorus', 'eco'] });
+    const r = parseCatalog(c);
+    expect(r.ok && r.value.songs[0]!.channels[0]!.effects).toEqual(['reverb', 'eco']);
+  });
+
   it('accepts a valid catalog and keeps every field', () => {
     const r = parseCatalog(valid());
     expect(r).toEqual({ ok: true, value: valid() });
@@ -112,6 +119,17 @@ describe('parseCatalog', () => {
 });
 
 describe('parseStemsManifest', () => {
+  it('reads the optional efeitos of a stem and drops unknown ids', () => {
+    const r = parseStemsManifest({
+      duracao: 1,
+      stems: [
+        { canal: 2, programa: 4, nome: 'Electric Piano 1', efeitos: ['reverb', 'eco', 'chorus'] },
+        { canal: 3, programa: 5, nome: 'x' },
+      ],
+    });
+    expect(r.ok && r.value.channels.map((c) => c.effects)).toEqual([['reverb', 'eco'], undefined]);
+  });
+
   it('converts the 1-based "canal" of stems.json to the 0-based channel used for file names', () => {
     // excerpt of stems/batalha_A_tfg/stems.json and the drum line of stems/batalha_A/stems.json
     const r = parseStemsManifest({
