@@ -1,0 +1,159 @@
+/* "Teste de skills de design" page (TesteSkills.tsx, 17/11): the same two pieces (icon button with magnifier,
+   icon card) as they are today and as three finalist rule sets would redraw them. Every rule hangs on a ts-*
+   class, so nothing here reaches the real shell or the icons page. Light only (Ouro e couro). */
+
+/* 1 column on the phone, 2 from 640, the four side by side from 1440 */
+.ts-colunas {
+  display: grid;
+  gap: var(--respiro);
+  grid-template-columns: minmax(0, 1fr);
+}
+@media (min-width: 640px) {
+  .ts-colunas {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1440px) {
+  .ts-colunas {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+.ts-col {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  min-width: 0;
+}
+.ts-palco {
+  position: relative;
+  padding: 12px;
+  border: 1px dashed var(--color-ouro);
+  background: var(--color-pergaminho);
+}
+
+/* ---------- Atual: copy of Icones.tsx BOTAO as it is on 17/11 ---------- */
+.ts-atual .ts-botao {
+  min-height: 44px;
+  cursor: pointer;
+  border-radius: 3px;
+  border: 1px solid var(--color-ouro);
+  background: var(--color-folha);
+  padding: 0 12px;
+  font-size: 15px;
+  color: var(--color-tinta);
+}
+.ts-atual .ts-botao:hover {
+  background: var(--lab-soft);
+}
+.ts-atual .ts-botao[aria-pressed='true'] {
+  border-color: var(--lab);
+  background: var(--lab);
+  color: #fff;
+}
+/* shared magnifier panel; each column decides how it enters and leaves */
+.ts-lupa {
+  margin-top: 8px;
+  width: fit-content;
+  padding: 10px;
+  background: linear-gradient(#1c3a78, #0b1a3e);
+}
+.ts-lupa:not([data-aberto]) {
+  display: none;
+}
+/* ---------- A: Jakub + Emil ---------- */
+.ts-a .ts-botao,
+.ts-b .ts-botao,
+.ts-c .ts-botao {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  cursor: pointer;
+  border: 1px solid var(--color-ouro);
+  background: var(--color-folha);
+  padding: 0 12px;
+  font-size: 15px;
+  color: var(--color-tinta);
+}
+.ts-a .ts-botao {
+  border-radius: 3px;
+  /* a toggle used dozens of times: colour only, never "all", 150 ms */
+  transition: background-color 150ms ease-out;
+}
+.ts-a .ts-botao:hover {
+  background: var(--lab-soft);
+}
+.ts-a .ts-botao[aria-pressed='true'],
+.ts-b .ts-botao[aria-pressed='true'],
+.ts-c .ts-botao[aria-pressed='true'] {
+  border-color: var(--color-couro);
+  background: var(--color-couro);
+  color: var(--color-creme);
+}
+/* rare actions (magnifier): grow from the trigger, from 0.95, entry 200 ms, exit 150 ms, both ease-out */
+.ts-a .ts-lupa {
+  transform-origin: top left;
+  transition:
+    opacity 150ms ease-out,
+    scale 150ms ease-out,
+    display 150ms allow-discrete;
+}
+.ts-a .ts-lupa[data-aberto] {
+  transition-duration: 200ms;
+}
+@starting-style {
+  .ts-a .ts-lupa[data-aberto] {
+    opacity: 0;
+    scale: 0.95;
+  }
+}
+.ts-a .ts-lupa:not([data-aberto]) {
+  opacity: 0;
+  scale: 0.95;
+}
+.ts-a .ts-cartao strong {
+  text-wrap: balance;
+}
+.ts-a .ts-cartao p {
+  text-wrap: pretty;
+}
+/* ---------- B: Google Modern Web Guidance ---------- */
+.ts-b .ts-botao {
+  border-radius: 3px;
+  /* hover, press and focus each look different (natural-interactions) */
+  transition:
+    box-shadow 150ms ease-out,
+    scale 150ms ease-out,
+    background-color 150ms ease-out;
+}
+.ts-b .ts-botao:hover {
+  box-shadow: var(--shadow-folha);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .ts-b .ts-botao:active {
+    scale: 0.97;
+  }
+}
+.ts-b .ts-lupa {
+  transition:
+    opacity 150ms ease-out,
+    display 150ms allow-discrete;
+}
+@starting-style {
+  .ts-b .ts-lupa[data-aberto] {
+    opacity: 0;
+  }
+}
+.ts-b .ts-lupa:not([data-aberto]) {
+  opacity: 0;
+}
+/* ---------- C: Impeccable anti-slop catalogue ---------- */
+.ts-c .ts-botao {
+  border-radius: var(--radius);
+}
+.ts-c .ts-botao:hover {
+  background: var(--color-pergaminho-escuro);
+}
+.ts-c .ts-cartao {
+  border-radius: var(--radius);
+}

@@ -75,7 +75,7 @@ const FUNDOS: [nome: string, cor: string][] = [
 ];
 
 // the magnifier sits beside the cards from 1024 px (sticky, no modal) and below them on narrower screens; on the
-// ultrawide it shows the three backgrounds at once, elsewhere the one picked (redesign-responsivo, section 2)
+// ultrawide it shows the three backgrounds at once, elsewhere the one picked
 export function Icones() {
   const [sel, setSel] = useState(0);
   const [fundo, setFundo] = useState(0);

@@ -4,9 +4,9 @@ import { describe, expect, it } from 'vitest';
 import { CONTEUDO } from '../../registry';
 import { blocos, GAMES, IA, iaSub, mouthFrame, PER_PAGE, porConversa, type Test } from '../dados';
 import { CartoesIa } from './Cartoes';
-import { Expressoes } from './Expressoes';
 import { IaAssunto } from './Ia';
 import { VisaoGeral } from './Referencias';
+import { ITENS, PaletaNosso, Pares } from './ComparacaoFft';
 import { Marcacoes } from './Marcacoes';
 import { Vozes } from './Vozes';
 
@@ -14,8 +14,8 @@ describe('design lab data', () => {
   it('keeps the old lab tabs as groups (same ids as its routes): 3 groups, 16 captures of 1 game, every capture in exactly one block', () => {
     const s = CONTEUDO.design!.sumario;
     expect(s.grupos.map((g) => `${g.id}:${g.paginas.length}`)).toEqual([
-      'interface:8',
-      'personagens:2',
+      'interface:9',
+      'personagens:1',
       'referencias:2',
     ]);
     expect(GAMES).toHaveLength(1);
@@ -89,27 +89,6 @@ describe('design lab components', () => {
     render(<IaAssunto ids={['nada']} />);
     expect(screen.getByText('Assunto desconhecido: nada')).toBeInTheDocument();
   });
-
-  it('plays an expression on the bench: damage takes life and shows the hit frame, neutral restores it', async () => {
-    const user = userEvent.setup();
-    render(<Expressoes />);
-    expect(screen.getByText('42/42')).toBeInTheDocument();
-    await user.click(screen.getByRole('button', { name: 'Levar dano' }));
-    expect(screen.getByText('28/42')).toBeInTheDocument();
-    expect(screen.getByText('Tomando dano (−14)')).toBeInTheDocument();
-    await user.click(screen.getByRole('button', { name: 'Neutro (parado)' }));
-    expect(screen.getByText('42/42')).toBeInTheDocument();
-  });
-
-  it('opens on the official version D and keeps the chosen moment when the character changes, without new damage', async () => {
-    const user = userEvent.setup();
-    render(<Expressoes />);
-    expect(screen.getByRole('button', { name: /^D · / })).toHaveAttribute('aria-pressed', 'true');
-    await user.click(screen.getByRole('button', { name: 'Levar dano' }));
-    await user.click(screen.getByRole('button', { name: 'Maga' }));
-    expect(screen.getByText('28/42')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Levar dano' })).toHaveAttribute('aria-pressed', 'true');
-  });
 });
 
 describe('voices test page', () => {
@@ -140,5 +119,23 @@ describe('floor marks page', () => {
     expect(container.querySelector('iframe')!.getAttribute('src')).toBe(
       'http://localhost:5364/?scenario=beacon_hill&marks=neon&sandbox=bench/marks-degraus-neon.json',
     );
+  });
+});
+
+describe('3D versus FFT page', () => {
+  it('lists every element in the palette and shows a pair of images per element', () => {
+    const palette = render(<PaletaNosso />);
+    expect(palette.container.querySelectorAll('li')).toHaveLength(ITENS.length);
+    const images = (['batalha', 'telas', 'cidade'] as const).map(
+      (g) => render(<Pares grupo={g} />).container.querySelectorAll('img').length,
+    );
+    expect(images.reduce((a, b) => a + b, 0)).toBe(ITENS.length * 2 + 2);
+    expect(ITENS.filter((i) => i.semEquivalente).map((i) => i.id)).toEqual([
+      'executar',
+      'derrota',
+      'ferramentas',
+      'status',
+      'loja',
+    ]);
   });
 });

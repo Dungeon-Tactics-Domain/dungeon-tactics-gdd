@@ -1,8 +1,8 @@
-import { InterfaceFft3d } from '../components/InterfaceFft3d';
+import { MenuJogo } from '../components/MenuJogo';
 
-**Em andamento.** O objetivo é copiar a interface completa do Final Fantasy Tactics: The Ivalice Chronicles em 3D dentro do jogo (referências em `refs/fft-ivalice`) e, depois, estilizar do nosso jeito. Esta página reúne tudo o que já fizemos, com seletor de peça e de cena: a aba **Peças no jogo** roda o jogo ao vivo no sandbox; a aba **Barra de combate** é o teste da barra no lab.
+**Em andamento.** O objetivo é copiar a interface completa do Final Fantasy Tactics: The Ivalice Chronicles em 3D dentro do jogo (referências em `refs/fft-ivalice`) e, depois, estilizar do nosso jeito. Esta página reúne tudo o que já fizemos, com seletor de peça e de cena, rodando o jogo ao vivo no sandbox.
 
-<InterfaceFft3d />
+<MenuJogo />
 
 ## Peças no jogo
 
@@ -17,21 +17,3 @@ Todas as peças de interface no estilo do Final Fantasy Tactics: The Ivalice Chr
 - **Fila de turnos 3D (Fable 5.2, esforço médio)** (`turn3d-fable`, porta 5297): coluna de cartões com a unidade atual maior e dourada, marca de time, prévia do golpe e da carga, passagem de turno com mola. Limites: em 720p cabem 7 cartões (a referência mostra 9); toque e gamepad não testados.
 - **Menu em HTML/CSS (Opus 5.5, esforço médio)** (`menucss-opus`, porta 5298): pergaminho com fibra e relevo só em CSS, cascata, luva, descrição com 3 páginas; entrada, toque e gamepad já funcionam pelo HTML do jogo. Limites: 4 comandos em vez de 5 e símbolos de texto em Agir e Status.
 - **Em comum:** nada commitado no jogo. Origem: relatórios dos próprios subagentes; olhei as capturas, não repeti os gates.
-
-## Barra de combate em 3D (lab)
-
-Teste de interface **feita em 3D**, não em HTML/CSS: a barra de combate no estilo do Final Fantasy Tactics, minimalista e translúcida, desenhada em Three.js por cima de uma cena do jogo (Cavaleiro e Esqueleto, modelos KayKit). O fundo da cena aparece desfocado dentro dos painéis (vidro fosco de verdade), os retratos são bustos 3D ao vivo e as barras são planos com shader, que animam o trecho vermelho do dano.
-
-## O que o 3D deu de bom e de pior
-
-- **Bom: transparência.** O vidro fosco desfoca a cena real que passa atrás (a câmera balança devagar), coisa que o CSS só faz com `backdrop-filter`, e não em todo celular.
-- **Bom: profundidade.** Os retratos são a cabeça do modelo 3D ao vivo, com a animação rodando, sem imagem pré-renderizada.
-- **Bom: animação das barras.** Preenchimento e trecho vermelho do dano animam no shader, a custo quase zero; tocar no bloco do meio confirma o golpe.
-- **Pior: texto e acentos.** O texto vira textura de canvas redesenhada a cada mudança de tamanho; não há seleção, leitor de tela nem quebra de linha. Fontes SDF dão texto mais nítido ao dar zoom, mas exigem um arquivo de fonte (TTF/WOFF) e mais uma dependência.
-- **Pior: toque, redimensionar e acessibilidade.** Toque exige teste de acerto feito à mão; cada redimensionamento reconstrói a barra; no celular só o layout compacto cabe com texto legível. Ficam 3D só o que o CSS não faz (vidro, bustos); o resto serve melhor em HTML.
-
-## Quanto custou fazer cada uma
-
-- **3D:** cerca de 1 h e 8 ciclos de publicar e conferir (decodificador de GLB, conflito de nome de arquivo, enquadramento dos bustos, layout do celular) e ~560 linhas.
-- **CSS:** uma passada, ~110 linhas, já responsiva (`sm:`), com texto selecionável, foco e leitor de tela de graça.
-- **Diferença visível:** o 3D tem bustos vivos e o vidro desfoca de verdade a cena; o CSS usa a imagem pronta do personagem e o `backdrop-blur` do navegador (parecido).

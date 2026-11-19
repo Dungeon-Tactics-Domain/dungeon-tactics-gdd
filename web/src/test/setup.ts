@@ -19,8 +19,8 @@ if (!window.matchMedia) {
     }) as MediaQueryList;
 }
 
-// Vitest turns every .css import into an empty string (test.css is off), ?raw included: read the real tokens file instead
-vi.mock('../content/design/ouro-e-couro.tokens.css?raw', async () => {
+// Vitest turns every .css import into an empty string (test.css is off), ?raw included: read the real stylesheet instead
+vi.mock('../index.css?raw', async () => {
   const fs = await vi.importActual<{ readFileSync: (arquivo: string, codificacao: 'utf8') => string }>('node:fs');
-  return { default: fs.readFileSync('src/content/design/ouro-e-couro.tokens.css', 'utf8') };
+  return { default: fs.readFileSync('src/index.css', 'utf8') };
 });

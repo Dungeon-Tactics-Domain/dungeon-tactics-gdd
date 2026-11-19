@@ -1,26 +1,13 @@
-// "Ouro e couro": the tokens of the labs site's next look (Fernando's decision of 15/11: light parchment shell, leather
-// header and sidebar, gold borders and titles). The tokens file is the only source: this page injects it scoped to .oc,
-// so every example below runs on the new tokens while the shell around it keeps the current ones.
+// "Ouro e couro": the showcase of the site's own "Noite" scheme. Nothing is scoped or overridden here: every colour is a
+// var(--color-*) of src/index.css, so this page follows the theme switch, and the tables list each token's light and dark
+// value side by side (read from that same file, see ../ouro-e-couro.ts).
 import './ouro-e-couro.css';
-import { type ReactNode, useEffect, useState } from 'react';
+import { type ReactNode, useState } from 'react';
 import { DECISOES_COR, LABS } from '@/lib/labs';
-import { ASSETS, carregarFonte } from '../dados';
-import {
-  contraste,
-  cor,
-  CORES,
-  FAIXAS_TOKENS,
-  FONTES,
-  MAPA,
-  MEDIDAS,
-  PARES,
-  TOKENS_CSS,
-  tokensEm,
-} from '../ouro-e-couro';
+import { ASSETS } from '../dados';
+import { contraste, CORES, FAIXAS_TOKENS, misturar, PARES } from '../ouro-e-couro';
 
-const ESCOPO = tokensEm('.oc');
-const IMAGENS = ['copilot-ui-ouro-aplicado.png', 'chatgpt-ui-ouro.png'];
-const MEDIDOS = new Set(MEDIDAS.map((m) => m[5]));
+const TEMAS = ['claro', 'escuro'] as const;
 const FAIXAS_NOMES = [
   'Celular 390',
   'Tablet 820 (≥ 640)',
@@ -33,14 +20,12 @@ const ESCALA = [4, 8, 12, 16, 24, 32, 48, 64];
 const razao = (r: number) => r.toFixed(2).replace('.', ',') + ':1';
 
 const SECOES: Record<string, string> = {
-  referencia: '1. Paleta medida na referência',
-  tokens: '2. Tokens semânticos',
-  contraste: '3. Contraste WCAG de cada par',
-  bordas: '4. Bordas, cantos, sombras e foco',
-  tipografia: '5. Tipografia e espaço por faixa',
-  exemplos: '6. Exemplos vivos',
-  bloco: '7. Bloco pronto para colar',
-  mapa: '8. Mapa: token atual → token novo',
+  cores: '1. Cores nos dois temas',
+  contraste: '2. Contraste WCAG de cada par',
+  bordas: '3. Bordas, cantos, sombras e foco',
+  tipografia: '4. Tipografia e espaço por faixa',
+  exemplos: '5. Exemplos vivos',
+  labs: '6. Cores dos labs nos dois temas',
 };
 
 function Secao({ id, children }: { id: string; children: ReactNode }) {
@@ -52,20 +37,36 @@ function Secao({ id, children }: { id: string; children: ReactNode }) {
   );
 }
 
+const par = (frente: string, fundo: string) => TEMAS.map((t) => contraste(CORES[t][frente]!, CORES[t][fundo]!));
+const falhas = (minimo: number, rs: number[]) => rs.some((r) => r < minimo);
+
 function Contraste({ frente, fundo, minimo, uso }: { frente: string; fundo: string; minimo: number; uso: string }) {
-  const r = contraste(cor(frente), cor(fundo));
+  const rs = par(frente, fundo);
   return (
     <tr>
       <td>
-        <span style={{ background: cor(fundo), color: cor(frente), padding: '2px 8px', border: '1px solid' }}>Aa</span>
+        {TEMAS.map((t) => (
+          <span
+            key={t}
+            className="oc-aa"
+            style={{ background: CORES[t][fundo], color: CORES[t][frente] }}
+            title={`tema ${t}`}
+          >
+            Aa
+          </span>
+        ))}
       </td>
       <td>
         {frente} sobre {fundo}
       </td>
       <td>{uso}</td>
-      <td>{razao(r)}</td>
+      {rs.map((r, i) => (
+        <td key={TEMAS[i]} className={r >= minimo ? 'oc-passa' : 'oc-falha'}>
+          {razao(r)}
+        </td>
+      ))}
       <td>{minimo === 3 ? '3:1 elemento' : '4,5:1 texto'}</td>
-      <td className={r >= minimo ? 'oc-passa' : 'oc-falha'}>{r >= minimo ? 'passa' : 'falha'}</td>
+      <td className={falhas(minimo, rs) ? 'oc-falha' : 'oc-passa'}>{falhas(minimo, rs) ? 'falha' : 'passa'}</td>
     </tr>
   );
 }
@@ -87,19 +88,18 @@ function Icone({ i, escala }: { i: number; escala: number }) {
 }
 
 export function OuroECouro() {
-  useEffect(() => carregarFonte(FONTES), []);
   const [aba, setAba] = useState('Mecânicas');
   const [lupa, setLupa] = useState(false);
-  const [copiado, setCopiado] = useState(false);
-  const falhas = PARES.filter(([f, b, m]) => contraste(cor(f), cor(b)) < m).length;
+  const reprovados = PARES.filter(([f, b, m]) => falhas(m, par(f, b))).length;
 
   return (
     <div className="oc">
-      <style>{ESCOPO}</style>
       <p>
-        Casca em pergaminho claro, cabeçalho e barra lateral em couro escuro, bordas e títulos em ouro. Só modo claro.
-        Esta área inteira já roda com os tokens novos; a casca em volta continua com os atuais. {PARES.length} pares de
-        contraste calculados, {falhas === 0 ? 'todos passam' : `${falhas} falham`}.
+        Esquema "Noite" do site: cinza-azulado, couro azul-marinho e ouro quente. Esta página usa os tokens reais de{' '}
+        <code>src/index.css</code>, sem cores próprias: troque o tema no cabeçalho e tudo muda junto. No escuro cada par
+        se inverte em vez de só escurecer: o pergaminho vira azul-noite com tinta clara, e o couro vira claro com creme
+        escuro por cima. {PARES.length} pares de contraste calculados nos dois temas,{' '}
+        {reprovados === 0 ? 'todos passam' : `${reprovados} falham`}.
       </p>
       <nav aria-label="Índice da página">
         <ol className="oc-indice">
@@ -111,83 +111,59 @@ export function OuroECouro() {
         </ol>
       </nav>
 
-      <Secao id="referencia">
+      <Secao id="cores">
         <p>
-          Cores tiradas dos pixels das duas imagens de IA (pasta <code>public/content/design/ia</code>), com a caixa
-          medida (x,y em pixels da imagem) e o método. Pergaminho, folha, tinta, apagado, link e os estados não estão na
-          referência: foram derivados para dar contraste e estão marcados como derivados na seção 2.
+          Valor de cada token no tema claro (bloco <code>@theme</code>) e no escuro (bloco{' '}
+          <code>[data-theme='dark']</code>, igual ao do sistema). borda, traco e sobre-tinta são apelidos de ouro,
+          ouro-escuro e creme.
         </p>
-        <div className="oc-grade">
-          {IMAGENS.map((f) => (
-            <figure key={f} className="oc-folha" style={{ margin: 0 }}>
-              <img src={`${ASSETS}/ia/${f}`} alt={`Referência ${f}`} style={{ width: '100%', display: 'block' }} />
-              <figcaption className="oc-apagado">{f}</figcaption>
-            </figure>
-          ))}
-        </div>
         <div className="oc-rolar">
           <table className="oc-tabela">
             <thead>
               <tr>
-                <th>Cor</th>
-                <th>O que é</th>
-                <th>Imagem e caixa</th>
-                <th>Método</th>
-                <th>Virou</th>
+                <th>Token</th>
+                <th>Claro</th>
+                <th>Escuro</th>
               </tr>
             </thead>
             <tbody>
-              {MEDIDAS.map(([hex, img, caixa, metodo, oQue, token]) => (
-                <tr key={hex + caixa}>
+              {Object.keys(CORES.claro).map((nome) => (
+                <tr key={nome}>
                   <td>
-                    <span className="oc-amostra" style={{ background: hex }} />
-                    {hex}
+                    <code>--color-{nome}</code>
                   </td>
-                  <td>{oQue}</td>
-                  <td>
-                    {img.split('-')[0]} {caixa}
-                  </td>
-                  <td>{metodo}</td>
-                  <td>{token}</td>
+                  {TEMAS.map((t) => (
+                    <td key={t}>
+                      <span className="oc-amostra" style={{ background: CORES[t][nome] }} />
+                      {CORES[t][nome]}
+                    </td>
+                  ))}
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-      </Secao>
-
-      <Secao id="tokens">
-        <div className="oc-grade">
-          {Object.entries(CORES).map(([nome, hex]) => (
-            <div key={nome} className="oc-cor">
-              <span style={{ background: hex }} />
-              <strong>{nome}</strong>
-              <span className="oc-apagado">
-                {hex} · {MEDIDOS.has(nome) ? 'medido' : nome === 'mar' ? 'atual, sem mudança' : 'derivado'}
-              </span>
-            </div>
-          ))}
-        </div>
         <p className="oc-apagado">
-          O ouro nunca leva texto no pergaminho (3,61:1): lá é só borda. Título no pergaminho usa ouro-escuro; no couro,
-          ouro-claro. borda, traco e sobre-tinta mantêm o nome antigo e apontam para ouro, ouro-escuro e creme.
+          O ouro leva borda; texto no pergaminho usa ouro-escuro, e no couro, ouro-claro (no escuro os dois trocam de
+          lado junto com o couro).
         </p>
       </Secao>
 
       <Secao id="contraste">
         <p>
-          Razão calculada pela luminância relativa do WCAG 2.x a partir dos hex do arquivo de tokens. Mínimo 4,5:1 para
-          texto e 3:1 para borda e foco. O botão desligado (apagado sobre pergaminho-escuro) é isento pelo WCAG, mas
-          passa assim mesmo.
+          Razão calculada pela luminância relativa do WCAG 2.x a partir dos hex de cada tema. Mínimo 4,5:1 para texto e
+          3:1 para borda e foco. O botão desligado (apagado sobre pergaminho-escuro) é isento pelo WCAG, mas é medido
+          assim mesmo.
         </p>
         <div className="oc-rolar">
           <table className="oc-tabela">
             <thead>
               <tr>
-                <th>Amostra</th>
+                <th>Amostra (claro, escuro)</th>
                 <th>Par</th>
                 <th>Uso</th>
-                <th>Razão</th>
+                <th>Claro</th>
+                <th>Escuro</th>
                 <th>Mínimo</th>
                 <th>Resultado</th>
               </tr>
@@ -231,8 +207,10 @@ export function OuroECouro() {
         <h3>Foco visível (duas cores)</h3>
         <p>
           Contorno couro-escuro de 2 px afastado 2 px, com anel ouro-claro de 2 px colado ao elemento: o contorno
-          aparece no pergaminho (15,16:1), o anel no couro (7,70:1). Aperte Tab nos botões abaixo; o primeiro de cada
-          fundo mostra o foco parado.
+          aparece no pergaminho ({razao(par('couro-escuro', 'pergaminho')[0]!)} no claro,{' '}
+          {razao(par('couro-escuro', 'pergaminho')[1]!)} no escuro), o anel no couro (
+          {razao(par('ouro-claro', 'couro')[0]!)} e {razao(par('ouro-claro', 'couro')[1]!)}). Aperte Tab nos botões
+          abaixo; o primeiro de cada fundo mostra o foco parado.
         </p>
         <div className="oc-grade">
           <div className="oc-folha oc-fila">
@@ -256,9 +234,9 @@ export function OuroECouro() {
 
       <Secao id="tipografia">
         <p>
-          Títulos em <strong>Cinzel</strong> (serifa romana, só maiúsculas e versaletes; reserva Cormorant Garamond e
-          Georgia). Corpo em <strong>Alegreya Sans</strong> (humanista, boa em português; reserva system-ui). As duas
-          vêm do Google Fonts.
+          Títulos em <strong>Palatino</strong> (serifa do menu 3D do jogo; reserva Book Antiqua e Georgia, fontes do
+          sistema, sem arquivo). Corpo em <strong>Alegreya Sans</strong> (humanista, boa em português; reserva
+          system-ui).
         </p>
         <div className="oc-folha" style={{ display: 'grid', gap: 8 }}>
           <span className="oc-t1">Ação no coração da batalha</span>
@@ -298,8 +276,8 @@ export function OuroECouro() {
           </table>
         </div>
         <p className="oc-apagado">
-          Mesmos números das faixas do redesign responsivo. Esta área usa a faixa da sua tela agora. Escala de espaço (a
-          do Tailwind, passo de 4 px):
+          Faixas de tela do lab. Esta área usa a faixa da sua tela agora. Escala de espaço (a do Tailwind, passo de 4
+          px):
         </p>
         <div className="oc-fila">
           {ESCALA.map((n) => (
@@ -478,85 +456,49 @@ export function OuroECouro() {
         </div>
       </Secao>
 
-      <Secao id="bloco">
+      <Secao id="labs">
         <p>
-          Arquivo <code>web/src/content/design/ouro-e-couro.tokens.css</code>, não ligado ao app. Substitui os blocos{' '}
-          <code>@theme</code> e <code>:root</code> de <code>src/index.css</code>; o link das fontes vai no{' '}
-          <code>index.html</code>.
+          A cor de cada lab (<code>lib/labs.ts</code>) sobre os fundos do tema. No escuro o site clareia a cor (45% dela
+          com branco, para texto) e escurece o fundo suave (30% dela com a folha), como em <code>--lab-tom</code> e{' '}
+          <code>--lab-soft-tom</code>; os números abaixo seguem essa conta.
         </p>
-        <div className="oc-fila">
-          <button
-            type="button"
-            className="oc-botao"
-            onClick={() => navigator.clipboard.writeText(TOKENS_CSS).then(() => setCopiado(true))}
-          >
-            {copiado ? 'Copiado' : 'Copiar o bloco'}
-          </button>
-        </div>
-        <pre>
-          <code>{TOKENS_CSS}</code>
-        </pre>
-      </Secao>
-
-      <Secao id="mapa">
-        <p>
-          Cada token de <code>src/index.css</code>. “Mesmo nome” troca só o valor: as classes continuam valendo.
-          “Renomear” pede trocar as classes (busca e troca). Usos: contagem aproximada por busca em <code>src</code> em
-          15/11.
-        </p>
-        <div className="oc-rolar">
-          <table className="oc-tabela">
-            <thead>
-              <tr>
-                <th>Atual</th>
-                <th>Novo</th>
-                <th>Como</th>
-                <th>Usos</th>
-              </tr>
-            </thead>
-            <tbody>
-              {MAPA.map(([atual, novo, como, usos]) => (
-                <tr key={atual + novo}>
-                  <td>{atual}</td>
-                  <td>{novo}</td>
-                  <td>{como}</td>
-                  <td>{usos}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <h3>Cores dos labs (lib/labs.ts) nos fundos novos</h3>
         <div className="oc-rolar">
           <table className="oc-tabela">
             <thead>
               <tr>
                 <th>Lab</th>
-                <th>cor no pergaminho</th>
-                <th>cor na folha</th>
-                <th>cor no corSuave</th>
+                <th>claro: no pergaminho</th>
+                <th>claro: no corSuave</th>
+                <th>escuro: no pergaminho</th>
+                <th>escuro: no fundo suave</th>
               </tr>
             </thead>
             <tbody>
               {[
                 ...LABS.map((l) => [l.curto, l.cor, l.corSuave]),
                 ['Decisões', DECISOES_COR.cor, DECISOES_COR.corSuave],
-              ].map(([nome, c, suave]) => (
-                <tr key={nome}>
-                  <td>
-                    <span className="oc-amostra" style={{ background: c }} />
-                    {nome}
-                  </td>
-                  {[CORES.pergaminho!, CORES.folha!, suave!].map((fundo) => {
-                    const r = contraste(c!, fundo);
-                    return (
-                      <td key={fundo} className={r >= 4.5 ? 'oc-passa' : 'oc-falha'}>
+              ].map(([nome, c, suave]) => {
+                const tom = misturar(c!, 0.45, '#ffffff');
+                const fundoSuave = misturar(c!, 0.3, CORES.escuro.folha!);
+                return (
+                  <tr key={nome}>
+                    <td>
+                      <span className="oc-amostra" style={{ background: c }} />
+                      {nome}
+                    </td>
+                    {[
+                      contraste(c!, CORES.claro.pergaminho!),
+                      contraste(c!, suave!),
+                      contraste(tom, CORES.escuro.pergaminho!),
+                      contraste(tom, fundoSuave),
+                    ].map((r, i) => (
+                      <td key={i} className={r >= 4.5 ? 'oc-passa' : 'oc-falha'}>
                         {razao(r)}
                       </td>
-                    );
-                  })}
-                </tr>
-              ))}
+                    ))}
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>

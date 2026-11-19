@@ -49,7 +49,7 @@ export default {
           icone: '⭐',
           destaque: 'Em andamento',
           resumo:
-            'A interface completa do Final Fantasy Tactics: The Ivalice Chronicles em 3D no jogo: barra de combate, menu de ações e fila de turnos, para montar peça por peça.',
+            'A interface completa do Final Fantasy Tactics: The Ivalice Chronicles em 3D no jogo: menu de ações e fila de turnos, para montar peça por peça.',
         },
         {
           id: 'vozes',
@@ -60,7 +60,13 @@ export default {
         {
           id: 'marcacoes',
           titulo: 'Marcações do chão em 3D (4 estilos)',
-          resumo: 'Casas, cursor e círculos do mapa em Simples, Luz, Pedra e Neon: capturas lado a lado e o jogo ao vivo.',
+          resumo:
+            'Casas, cursor e círculos do mapa em Simples, Luz, Pedra e Neon: capturas lado a lado e o jogo ao vivo.',
+        },
+        {
+          id: '3d-vs-fft',
+          titulo: 'Nosso 3D contra o FFT, elemento por elemento',
+          resumo: 'Cada peça da interface 3D do jogo ao lado da contraparte no FFT, com a paleta de cores de hoje.',
         },
         {
           id: 'em-uso',
@@ -73,21 +79,20 @@ export default {
           resumo: 'Atlas de 32 px dos ícones de habilidade, em 1x, 2x e 4x.',
         },
         {
-          id: 'redesign-responsivo',
-          titulo: 'Redesign responsivo (maquetes)',
-          resumo: 'Navegação, 3 painéis no ultrawide, página densa e tipografia, do celular ao ultrawide.',
-        },
-        {
           id: 'ouro-e-couro',
           titulo: 'Ouro e couro (tokens do lab)',
-          resumo:
-            'Paleta medida na referência, tokens com contraste calculado, exemplos vivos e o bloco pronto para colar.',
+          resumo: 'Os tokens do site nos temas claro e escuro lado a lado, com contraste calculado e exemplos vivos.',
         },
         {
           id: 'decisoes-de-gosto',
           titulo: 'Decisões de gosto: escolha olhando',
           resumo:
             'As 10 decisões de gosto pendentes da interface, com as opções desenhadas lado a lado em 3440×1440 e 390×844.',
+        },
+        {
+          id: 'teste-skills',
+          titulo: 'Teste de skills de design (3 finalistas)',
+          resumo: 'Botão e lupa e cartão de ícone: hoje e com as regras de cada finalista, lado a lado.',
         },
       ],
     },
@@ -101,11 +106,6 @@ export default {
           id: 'em-uso',
           titulo: 'Em uso: rostos',
           resumo: 'Os 10 bonecos KayKit em pixel art: 7 com folha oficial de 8 expressões, 3 esqueletos parados.',
-        },
-        {
-          id: 'expressoes',
-          titulo: 'Bancada de expressões (IA)',
-          resumo: 'Rostos de IA em vários momentos: falando, dano, ataque, ferido, vitória.',
         },
       ],
     },

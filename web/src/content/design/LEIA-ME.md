@@ -14,14 +14,16 @@ official version D and kept moment, the SDXL pixelizer rows and the regenerated 
   and `refs/*.json` (one file per game, copied as they were; since 17/11 only `fft-ivalice`).
 - `components/`: `Decisoes`, `Referencias` (overview with filters, game intro, capture blocks), `Ia` (tests by subject,
   per platform, grouped by conversation; featured pick; platforms table), `Cartoes` + `Leitor` (cards and the full-screen
-  reader), `KitFft` + `fft-kit.css`, `Rostos`, `EmUso`, `Icones`, `Expressoes` + `expressoes.css`.
+  reader), `KitFft` + `fft-kit.css`, `Rostos`, `EmUso`, `Icones`.
 - On 17/11 the AI test pages (`interface/testes`, `personagens/testes`, `personagens/sprites`, `mapa/testes`,
   `plano/plataformas`) were archived in `docs/arquivo-assets-ia/` for a future "Assets de IA" component; `Ia`, `Cartoes`
   and `Leitor` stay here with no page. The theme plan (`plano/tema`) and the screen mock-ups (`interface/telas`) were removed.
 - Later on 17/11 the "Ouro e couro" asset tests (`interface/ui-ouro-couro`, `interface/paineis-css`, `interface/hud-fft`)
-  joined that archive; `UiOuroCouro`, `PaineisCss` and `HudFft` stay here with no page. The plan group (`plano/fases`,
+  joined that archive; `UiOuroCouro` stays here with no page (`PaineisCss` and `HudFft` were deleted on 19/11). The plan group (`plano/fases`,
   `plano/pedidos`, `plano/decisoes`) was removed (`plano.json` keeps only what the home shows), and the town draft
   (`mapa/cidade`, with `Cidade.tsx` and `cidade.ts`) moved to the narrative lab, which removed it on 18/11.
+- On 19/11 the HUD mock-ups were deleted (responsive redesign, 3D combat bar, expressions bench, the shell-bar column of
+  `teste-skills`), with their `hud3d` and `chars/ia*` test assets; `fft-3d` keeps only the in-game pieces (`MenuJogo`).
 - The `.mdx` pages are a component call. A page with a new route needs its
   `.mdx`: `registry.test.tsx` fails on a page without one and on an orphan file.
 - Old paths of the first copy (`/design/decisoes/...`, `/design/testes-de-ia/...`, `/design/maquetes/...`) no longer
