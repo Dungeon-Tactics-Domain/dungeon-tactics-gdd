@@ -13,7 +13,7 @@ import {
 } from '@/lib/decisoes';
 import { useLabAccent } from '@/lib/useLabAccent';
 
-const SELECT = 'min-h-11 border-2 border-input bg-white px-3 text-base text-tinta';
+const SELECT = 'min-h-11 border-2 border-input bg-campo px-3 text-base text-tinta';
 
 export function Decisoes() {
   useLabAccent(DECISOES_COR.cor, DECISOES_COR.corSuave);

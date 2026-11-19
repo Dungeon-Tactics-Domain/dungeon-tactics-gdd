@@ -64,7 +64,7 @@ function Filtro<T>({
           type="search"
           value={busca}
           onChange={(e) => setBusca(e.target.value)}
-          className="min-h-11 w-full max-w-[40ch] border-2 border-input bg-white px-3 text-tinta"
+          className="min-h-11 w-full max-w-[40ch] border-2 border-input bg-campo px-3 text-tinta"
         />
       </div>
       <div role="group" aria-label="Filtrar por classe" className="flex flex-wrap items-center gap-1.5">

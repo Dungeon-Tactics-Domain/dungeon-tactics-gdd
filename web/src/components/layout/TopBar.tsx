@@ -4,8 +4,32 @@ import { NavLink } from 'react-router';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetClose, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { SITE } from '@/lib/labs';
+import { escolherTema, useTema, type Tema } from '@/lib/tema';
 import { Icone } from './Icone';
 import { Arvore } from './Navegacao';
+
+// One button that walks system, light, dark. It names the theme in use and what the next press does.
+const TEMAS: Record<Tema, { icone: string; nome: string; proximo: Tema }> = {
+  sistema: { icone: 'sistema', nome: 'do sistema', proximo: 'light' },
+  light: { icone: 'sol', nome: 'claro', proximo: 'dark' },
+  dark: { icone: 'lua', nome: 'escuro', proximo: 'sistema' },
+};
+
+export function SeletorTema() {
+  const { icone, nome, proximo } = TEMAS[useTema()];
+  const rotulo = `Tema ${nome}. Trocar para o tema ${TEMAS[proximo].nome}`;
+  return (
+    <Button
+      variant="outline"
+      size="icon"
+      icone={icone}
+      className="shrink-0"
+      aria-label={rotulo}
+      title={rotulo}
+      onClick={() => escolherTema(proximo)}
+    />
+  );
+}
 
 export function TopBar({
   estreito,
@@ -37,6 +61,7 @@ export function TopBar({
         <span className="sr-only min-[421px]:hidden">{SITE}</span>
       </NavLink>
       <div className="ml-auto flex items-center gap-1">
+        <SeletorTema />
         {estreito && (
           <Sheet open={open} onOpenChange={onOpenChange}>
             <SheetTrigger asChild>

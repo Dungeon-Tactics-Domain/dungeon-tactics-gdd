@@ -42,6 +42,10 @@ const TRACOS: Record<string, string> = {
   camera: 'M3 8h4l2-3h6l2 3h4v12H3zM12 11a3.5 3.5 0 100 7 3.5 3.5 0 000-7z',
   animacao: 'M4 4h16v16H4zM4 9h16M4 15h16M9 4v16M15 4v16',
   recarregar: 'M20 11a8 8 0 10-2.3 6.3M20 4v7h-7',
+  sol: 'M12 8a4 4 0 100 8 4 4 0 000-8zM12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4',
+  lua: 'M20 14.5A8.5 8.5 0 119.5 4a7 7 0 0010.5 10.5z',
+  sistema: 'M3 4h18v12H3zM8 20h8M12 16v4',
+  arrastar: 'M2 9h20M2 15h20',
 };
 
 export function Icone({ id, ...p }: { id: string } & SVGProps<SVGSVGElement>) {

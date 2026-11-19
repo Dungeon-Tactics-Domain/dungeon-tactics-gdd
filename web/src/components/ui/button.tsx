@@ -13,7 +13,7 @@ const buttonVariants = cva(
         default: 'border-2 border-couro-escuro bg-primary text-primary-foreground hover:bg-couro-claro',
         outline: 'border-2 border-tinta bg-transparent text-tinta hover:bg-pergaminho-escuro',
         ghost: 'bg-transparent hover:bg-white/15',
-        lab: 'border-2 border-couro-escuro bg-lab text-white hover:opacity-90',
+        lab: 'border-2 border-couro-escuro bg-lab text-creme hover:opacity-90',
       },
       size: { default: '', icon: 'size-11 px-0' },
     },

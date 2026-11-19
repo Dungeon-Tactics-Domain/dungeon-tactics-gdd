@@ -51,7 +51,7 @@
   font:
     700 14px/1 system-ui,
     sans-serif;
-  color: #4a4126;
+  color: var(--color-apagado); /* sits on the page, so it follows the theme */
   text-transform: uppercase;
   letter-spacing: 0.06em;
   margin-right: 4px;
@@ -159,6 +159,7 @@
 .expr-tabela td {
   padding: 6px;
   border: 1px solid #ddd2b0;
+  color: #1c2433; /* the cells keep their own light fills in both themes */
   text-align: center;
   vertical-align: middle;
   font:
@@ -187,7 +188,7 @@
   font:
     14px/1.45 system-ui,
     sans-serif;
-  color: #3a331c;
+  color: var(--color-apagado); /* sits on the page, so it follows the theme */
   margin: 0;
   max-width: none;
 }

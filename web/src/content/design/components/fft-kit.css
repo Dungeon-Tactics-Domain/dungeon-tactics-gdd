@@ -51,7 +51,7 @@
   color: inherit;
 }
 .fft-note {
-  color: #555;
+  color: var(--color-apagado); /* sits on the page, so it follows the theme */
   font:
     15px/1.4 system-ui,
     sans-serif;

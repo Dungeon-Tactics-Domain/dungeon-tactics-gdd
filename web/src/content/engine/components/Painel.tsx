@@ -72,7 +72,7 @@ export function AgoraDecidindo() {
             <h3 className="m-0 text-[18px] leading-tight">
               {o.titulo}
               {o.recomendada && (
-                <span className="ml-2 inline-block rounded-sm bg-lab px-2 py-0.5 align-middle text-base font-bold text-white">
+                <span className="ml-2 inline-block rounded-sm bg-lab px-2 py-0.5 align-middle text-base font-bold text-creme">
                   Recomendação atual
                 </span>
               )}

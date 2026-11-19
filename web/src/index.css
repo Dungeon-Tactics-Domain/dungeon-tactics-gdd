@@ -1,12 +1,28 @@
-/* Dungeon Tactics Lab theme, scheme "Noite" (Fernando, 18/11): blue-grey ground, navy leather, warm gold. Light only.
-   Text >= 16px, targets >= 44px; contrast measured 18/11: tinta 12.8:1, apagado 6.2:1, ouro-escuro 4.9:1 on pergaminho,
-   creme 12.7:1 and ouro-claro 7.3:1 on couro. The game's own colours were the previous scheme (git history). */
+/* Dungeon Tactics Lab theme, scheme "Noite" (Fernando, 18/11): blue-grey ground, navy leather, warm gold.
+   Light and dark (Fernando, 19/11): @theme holds the light values; the dark ones redefine the same names in the two
+   "dark" blocks below (system preference, and the header switch through data-theme), so no class changes.
+   Dark turns each pair over instead of only dimming: parchment goes night blue with light ink, and "leather" (borders
+   on parchment, button and table-head fills) goes light with dark "cream" on it, so every pair keeps its contrast.
+   Text >= 16px, targets >= 44px. Contrast measured 19/11 (WCAG 2.x), light / dark:
+     tinta on pergaminho 12.8 / 15.0, on folha 14.1 / 13.4, on campo 15.6 / 15.8
+     apagado on pergaminho 6.2 / 8.1, on pergaminho-escuro 5.0 / 5.8
+     ouro-escuro on pergaminho 4.9 / 9.2, on folha 5.5 / 8.2;  link on pergaminho 6.2 / 8.9, on link-suave 6.3 / 7.5
+     creme on couro 12.7 / 9.1, on couro-escuro 15.1 / 11.1;  creme-apagado on couro 8.4 / 5.3
+     ouro-claro on couro 7.3 / 5.0;  couro-escuro on ouro-claro (pressed button) 8.6 / 6.1
+     borders: couro-escuro on pergaminho 14.0 / 11.8, couro on folha 13.1 / 8.7, ouro on pergaminho 4.0 / 6.5
+     states on pergaminho: sucesso 5.9 / 9.1, erro 6.5 / 8.1, aviso 5.7 / 9.3; on their soft fill 6.0 / 7.2, 6.3 / 7.0,
+     5.7 / 7.5;  creme on sucesso 6.3 / 8.6, on link 6.7 / 8.4, on apagado 6.7 / 7.6
+     lab accent (lightest and darkest of the eight): creme on it 5.7 to 7.1 / 7.5 to 8.4; as text on pergaminho, dark
+     8.0 to 8.9; tinta on its soft fill, dark 10.5 to 11.5
+   The music player's box has its own --roll-* and --canal-* values, measured next to them.
+   The game's own colours were the previous scheme (git history). */
 @import 'tailwindcss';
 @theme {
   /* surfaces */
   --color-pergaminho: #e5e9f0; /* page background */
   --color-pergaminho-escuro: #ccd3e0; /* tags, zebra rows, disabled buttons */
   --color-folha: #f2f4f8; /* cards and panels on parchment */
+  --color-campo: #ffffff; /* form fields and quoted boxes: one step off the card, away from the page */
   --color-couro: #1f2a3d; /* sidebar, buttons */
   --color-couro-escuro: #141c2b; /* header, table head */
   --color-couro-claro: #2d3b54; /* hover on leather */
@@ -23,6 +39,7 @@
   --color-creme: #eef1f7; /* text on leather */
   --color-creme-apagado: #bcc6d8; /* secondary text on leather */
   --color-link: #27558f; /* links on parchment, 6.2:1 */
+  --color-link-suave: #e1ebf6; /* fill behind link-coloured labels */
 
   /* states */
   --color-sucesso: #2a6426;
@@ -100,9 +117,35 @@
   --border: var(--color-ouro);
   --input: var(--color-couro-escuro); /* B-2: 2 px dark borders on fields, as on cards */
   --ring: var(--color-couro-escuro);
-  /* lab accent: still set per page from lib/labs.ts (cor, corSuave) */
+  /* lab accent: still set per page from lib/labs.ts (cor, corSuave). The classes read --lab-tom and --lab-soft-tom,
+     which the dark blocks derive from --lab (the page sets --lab inline on <html>, where no stylesheet can reach) */
   --lab: #5e5a48;
   --lab-soft: #ecebe3;
+  --lab-tom: var(--lab);
+  --lab-soft-tom: var(--lab-soft);
+
+  /* music player (.daw): surfaces follow the page instead of contrasting with it, so it is a light box in light and
+     the old dark box in dark. Measured 19/11, light / dark: texto on fundo 14.1 / 15.1, on alt 12.6 / 12.7;
+     texto-suave on alt 6.1 / 8.4; destaque on alt 4.9 / 7.3; fundo on destaque (pressed) 5.5 / 8.6;
+     grade on fundo 4.4 / 4.1, on alt 3.9 / 3.4 */
+  --roll-fundo: #f2f4f8; /* lanes, lists */
+  --roll-alt: #e3e7ef; /* every other lane, ruler, transport bar */
+  --roll-realce: #d3d9e5; /* hover */
+  --roll-grade: #66728a; /* grid lines and borders */
+  --roll-texto: #1c2433;
+  --roll-texto-suave: #4a5568;
+  --roll-destaque: #7a5f24; /* needle, pressed button, the version sounding */
+  --roll-destaque-realce: #5f4a1a; /* hover on the pressed button */
+  /* one colour per lane, for the mixer swatch and the notes: each is 3:1 or better on fundo and on alt
+     (lowest, on alt: light 3.45, dark 4.56) */
+  --canal-1: #8e44ad;
+  --canal-2: #2a7fc1;
+  --canal-3: #c4520f;
+  --canal-4: #23863f;
+  --canal-5: #c9372c;
+  --canal-6: #0f8a70;
+  --canal-7: #9a6a12;
+  --canal-8: #66707a;
   /* the shell's own colours: leather header and sidebar, gold edges */
   --casca-topo: var(--color-couro-escuro);
   --casca-topo-texto: var(--color-creme);
@@ -111,6 +154,114 @@
   --casca-titulo: var(--color-ouro-claro);
   scroll-padding-top: calc(var(--reino-h) + 8px);
 }
+/* Dark values. CSS cannot share one block between a media query and a selector, so the list is written twice;
+   src/lib/tema.test.tsx fails when the two copies differ. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+    --color-pergaminho: #0f1624;
+    --color-pergaminho-escuro: #263247;
+    --color-folha: #18212f;
+    --color-campo: #0a101b;
+    --color-couro: #b4bed1;
+    --color-couro-escuro: #c9d1e0;
+    --color-couro-claro: #dde3ee;
+    --color-ouro: #b8974a;
+    --color-ouro-claro: #5a4310;
+    --color-ouro-brilho: #3d2d08;
+    --color-ouro-escuro: #d9b45a;
+    --color-tinta: #e6eaf2;
+    --color-apagado: #a3aec2;
+    --color-creme: #141c2b;
+    --color-creme-apagado: #36435a;
+    --color-link: #8fb8f0;
+    --color-link-suave: #17263b;
+    --color-sucesso: #7fc97a;
+    --color-sucesso-suave: #16301a;
+    --color-erro: #f0958a;
+    --color-erro-suave: #3a1a16;
+    --color-aviso: #e0b35a;
+    --color-aviso-suave: #33270d;
+    --lab-tom: color-mix(in srgb, var(--lab) 45%, white);
+    --lab-soft-tom: color-mix(in srgb, var(--lab) 30%, #18212f);
+    --roll-fundo: #141c2b;
+    --roll-alt: #1f2a3d;
+    --roll-realce: #2d3b54;
+    --roll-grade: #6f7c95;
+    --roll-texto: #eef1f7;
+    --roll-texto-suave: #bcc6d8;
+    --roll-destaque: #d9b45a;
+    --roll-destaque-realce: #f3dc9a;
+    --canal-1: #b877d6;
+    --canal-2: #4f9fe0;
+    --canal-3: #e8813f;
+    --canal-4: #3fb866;
+    --canal-5: #e86a5e;
+    --canal-6: #2cc0a0;
+    --canal-7: #d9a03e;
+    --canal-8: #9aa4ab;
+  }
+}
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --color-pergaminho: #0f1624;
+  --color-pergaminho-escuro: #263247;
+  --color-folha: #18212f;
+  --color-campo: #0a101b;
+  --color-couro: #b4bed1;
+  --color-couro-escuro: #c9d1e0;
+  --color-couro-claro: #dde3ee;
+  --color-ouro: #b8974a;
+  --color-ouro-claro: #5a4310;
+  --color-ouro-brilho: #3d2d08;
+  --color-ouro-escuro: #d9b45a;
+  --color-tinta: #e6eaf2;
+  --color-apagado: #a3aec2;
+  --color-creme: #141c2b;
+  --color-creme-apagado: #36435a;
+  --color-link: #8fb8f0;
+  --color-link-suave: #17263b;
+  --color-sucesso: #7fc97a;
+  --color-sucesso-suave: #16301a;
+  --color-erro: #f0958a;
+  --color-erro-suave: #3a1a16;
+  --color-aviso: #e0b35a;
+  --color-aviso-suave: #33270d;
+  --lab-tom: color-mix(in srgb, var(--lab) 45%, white);
+  --lab-soft-tom: color-mix(in srgb, var(--lab) 30%, #18212f);
+  --roll-fundo: #141c2b;
+  --roll-alt: #1f2a3d;
+  --roll-realce: #2d3b54;
+  --roll-grade: #6f7c95;
+  --roll-texto: #eef1f7;
+  --roll-texto-suave: #bcc6d8;
+  --roll-destaque: #d9b45a;
+  --roll-destaque-realce: #f3dc9a;
+  --canal-1: #b877d6;
+  --canal-2: #4f9fe0;
+  --canal-3: #e8813f;
+  --canal-4: #3fb866;
+  --canal-5: #e86a5e;
+  --canal-6: #2cc0a0;
+  --canal-7: #d9a03e;
+  --canal-8: #9aa4ab;
+}
+
+/* The music player's box: the leather names its classes use point at the --roll-* values of the theme */
+.daw {
+  --color-couro-escuro: var(--roll-fundo);
+  --color-couro: var(--roll-alt);
+  --color-couro-claro: var(--roll-realce);
+  --color-apagado: var(--roll-grade);
+  --color-creme: var(--roll-texto);
+  --color-creme-apagado: var(--roll-texto-suave);
+  --color-ouro-claro: var(--roll-destaque);
+  --color-ouro-brilho: var(--roll-destaque-realce);
+  /* the box's own edge and shadow: a light box on the light page needs a line the leather fill no longer gives */
+  border-color: var(--roll-grade);
+  box-shadow: 4px 4px 0 var(--roll-grade);
+}
+
 @media (min-width: 640px) {
   :root {
     --h1: 30px;
@@ -185,8 +336,8 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --color-lab: var(--lab);
-  --color-lab-soft: var(--lab-soft);
+  --color-lab: var(--lab-tom);
+  --color-lab-soft: var(--lab-soft-tom);
   --color-casca-topo: var(--casca-topo);
   --color-casca-topo-texto: var(--casca-topo-texto);
   --color-casca-lateral: var(--casca-lateral);

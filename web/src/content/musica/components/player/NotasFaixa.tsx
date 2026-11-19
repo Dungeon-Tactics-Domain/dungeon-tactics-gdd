@@ -25,11 +25,11 @@ export function NotasFaixa({ musica }: { musica: Song | undefined }) {
             <Titulo>História</Titulo>
             {musica.storyDraft && <Badge estado="aguardando-voce">Rascunho</Badge>}
           </div>
-          <p className="m-0 border-2 border-borda/40 bg-white p-3">
+          <p className="m-0 border-2 border-borda/40 bg-campo p-3">
             {musica.story ?? 'A história desta música ainda não foi escrita.'}
           </p>
           <Titulo>Onde toca</Titulo>
-          <p className="m-0 border-2 border-borda/40 bg-white p-3">{musica.whereItPlays ?? 'A definir'}</p>
+          <p className="m-0 border-2 border-borda/40 bg-campo p-3">{musica.whereItPlays ?? 'A definir'}</p>
           <Titulo>Medições</Titulo>
           {musica.measurements.length ? (
             <dl className="m-0 grid grid-cols-[repeat(auto-fill,minmax(150px,1fr))] gap-2.5">

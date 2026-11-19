@@ -106,7 +106,7 @@ export function Hud3d() {
             role="radio"
             aria-checked={versao === n}
             onClick={() => setVersao(n)}
-            className="min-h-11 cursor-pointer rounded-md border border-borda bg-folha px-3 text-[15px] text-tinta hover:bg-lab-soft aria-checked:border-lab aria-checked:bg-lab aria-checked:text-white"
+            className="min-h-11 cursor-pointer rounded-md border border-borda bg-folha px-3 text-[15px] text-tinta hover:bg-lab-soft aria-checked:border-lab aria-checked:bg-lab aria-checked:text-creme"
           >
             {nome}
           </button>

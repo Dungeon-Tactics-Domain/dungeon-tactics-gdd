@@ -14,7 +14,7 @@ export interface Categoria {
 }
 
 const CARTAO = 'grid gap-2 border-2 border-t-[6px] border-couro-escuro border-t-lab bg-folha shadow-folha px-5 py-4';
-const CAMPO = 'min-h-11 w-full border-2 border-input bg-white px-3 text-base text-tinta';
+const CAMPO = 'min-h-11 w-full border-2 border-input bg-campo px-3 text-base text-tinta';
 const semAcento = (s: string) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
 
 function lerJson(k: string): unknown {

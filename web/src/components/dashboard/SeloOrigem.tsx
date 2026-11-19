@@ -13,7 +13,7 @@ const ROTULO: Record<TipoOrigem, string> = {
 };
 const COR: Record<TipoOrigem, string> = {
   medido: 'bg-sucesso-suave text-sucesso',
-  documentacao: 'bg-[#e1ebf6] text-link',
+  documentacao: 'bg-link-suave text-link',
   deducao: 'bg-aviso-suave text-aviso',
   'nao-confirmado': 'bg-erro-suave text-erro',
 };

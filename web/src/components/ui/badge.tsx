@@ -6,10 +6,10 @@ import { cn } from '@/lib/utils';
 const badgeVariants = cva('inline-block whitespace-nowrap px-2 py-0.5 text-base font-bold leading-tight', {
   variants: {
     estado: {
-      rodando: 'bg-sucesso text-white',
+      rodando: 'bg-sucesso text-creme',
       'aguardando-voce': 'bg-ouro-claro text-tinta',
-      espera: 'bg-link text-white',
-      parado: 'bg-apagado text-white',
+      espera: 'bg-link text-creme',
+      parado: 'bg-apagado text-creme',
       nenhum: 'border-2 border-dashed border-apagado text-apagado',
     },
   },
