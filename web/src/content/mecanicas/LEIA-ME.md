@@ -19,16 +19,10 @@ Later the same day the 10 reference sheets of other games left too (the `referen
 proposed by this lab and not copied from the old one. `dados.ts` sums the enemy life per room; the test keeps every room
 in 5 to 8 hero turns and the boss in 12 to 18.
 
-## Trajectories (Nov 15)
+## Impact and trajectories (removed Nov 19)
 
-`sensacao/trajetorias.mdx` embeds `public/content/mecanicas/trajetorias/index.html` (an isolated Three.js 0.160.0 scene from
-jsDelivr, no game code) and shows `trajetorias.json`, the 12 decisions of the trajectory grill. Since the Nov 15 fix the
-scene uses real scale (half a tile = 1 m, level = 1 m, shots from the tile centre at 1.5 m) and purely geometric blocking.
-
-## Weight (Nov 15)
-
-`sensacao/impacto.mdx` embeds `public/content/mecanicas/peso/index.html` (same isolated Three.js setup) on top of today's
-rules and shows `peso.json`, the 6 visual-only decisions of the weight grill (hit-stop, fall, wall, death, damage number).
+The `sensacao/impacto.mdx` and `sensacao/trajetorias.mdx` pages, their Three.js prototypes and the Impacto group of
+`regras.json` were removed from the lab at Fernando's request. `peso.json` and `trajetorias.json` stay as data only.
 
 ## Class and enemy sheets (Nov 16)
 

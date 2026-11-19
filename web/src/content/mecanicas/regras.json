@@ -246,38 +246,6 @@
       ]
     },
     {
-      "group": "Impacto",
-      "rules": [
-        {
-          "name": "Pausa no impacto",
-          "now": "Tudo para 110 ms; o alvo pisca branco e treme 280 ms.",
-          "where": "src/client/timing.ts:26",
-          "note": "scene/units.ts:374"
-        },
-        {
-          "name": "Golpe grande",
-          "now": "Dano ≥ 25% da vida máxima do alvo treme a câmera e aumenta o número.",
-          "where": "src/client/scene/units.ts:477"
-        },
-        {
-          "name": "Número de dano",
-          "now": "Aparece, fica 1,5 s para ser lido e some; barra de vida esvazia em 450 ms.",
-          "where": "src/client/timing.ts:24"
-        },
-        {
-          "name": "Erro, cura, morte",
-          "now": "Erro: passinho para trás. Cura: brilho verde. Morte: queda de 1 s e 3 piscadas.",
-          "where": "src/client/timing.ts:23",
-          "note": "Decidido, ainda não no jogo: a morte deixa um corpo com regra (ninguém para em cima, noStop; 4 casas no Colosso), no estado da batalha, no save e na IA (grill da sessão Mecânicas de 16/11 com o Fernando)."
-        },
-        {
-          "name": "Efeitos por habilidade",
-          "now": "16 tipos (corte, flecha, fogo, explosão, vento, cura…) e aura de carga.",
-          "where": "src/client/fx.ts:6"
-        }
-      ]
-    },
-    {
       "group": "Câmera",
       "rules": [
         {

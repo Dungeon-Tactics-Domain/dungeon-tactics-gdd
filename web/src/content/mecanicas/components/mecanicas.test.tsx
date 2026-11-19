@@ -22,16 +22,16 @@ beforeEach(() => {
 afterEach(() => vi.unstubAllGlobals());
 
 describe('mecanicas manifest', () => {
-  it('keeps the old lab tree plus the descent and equipment groups: 5 groups and 32 pages and subpages', () => {
+  it('keeps the old lab tree plus the descent and equipment groups: 5 groups and 30 pages and subpages', () => {
     expect(manifesto.grupos.map((g) => `${g.id}:${g.paginas.length}`)).toEqual([
       'decisoes:4',
       'descida:4',
       'equipamento:6',
       'regras:11',
-      'sensacao:6',
+      'sensacao:4',
     ]);
     const n = manifesto.grupos.flatMap((g) => g.paginas.flatMap((p) => [p, ...(p.subpaginas ?? [])])).length;
-    expect(n).toBe(32);
+    expect(n).toBe(30);
   });
 });
 

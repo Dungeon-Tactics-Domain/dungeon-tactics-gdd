@@ -156,16 +156,8 @@ export default {
       id: 'sensacao',
       titulo: 'Sensação',
       icone: '✨',
-      resumo: 'Tempos, impacto, câmera, som e retorno da interface como estão hoje.',
-      paginas: [
-        ...paginasDeRegra(REGRAS.feel),
-        {
-          id: 'trajetorias',
-          titulo: 'Trajetórias',
-          icone: '🏹',
-          resumo: 'Tiro curvo e reto, magia conjurada: protótipo em Three.js e as decisões do grill de 15/11.',
-        },
-      ],
+      resumo: 'Tempos, câmera, som e retorno da interface como estão hoje.',
+      paginas: [...paginasDeRegra(REGRAS.feel)],
     },
   ],
 } satisfies Manifesto;
