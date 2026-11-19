@@ -1,7 +1,10 @@
 // Left of the lanes: one strip per channel (colour, name, the note sounding now, Mute, Solo, volume, the version it
 // plays) under a header that picks the version of the whole song. Strips are as tall as the lanes and the header as
-// tall as the ruler, so they line up.
-import type { CSSProperties } from 'react';
+// tall as the ruler, so they line up. Picking a version of the whole song while some instrument plays another one asks
+// first what to do with those choices.
+import * as Dialog from '@radix-ui/react-dialog';
+import { type CSSProperties, useRef, useState } from 'react';
+import { Button } from '@/components/ui/button';
 import { Toggle } from '@/components/ui/toggle';
 import type { PlayerEngine } from '@/lib/player/PlayerEngine';
 import type { Channel, Song, Version } from '@/lib/player/schema';
@@ -21,9 +24,18 @@ export function Mixer({
   musica: Song;
   versao: Version | undefined;
   canais: Channel[];
-  aoTrocarVersao: (id: string) => void;
+  /** `manter`: the instruments that play another version by their own choice stay as they are */
+  aoTrocarVersao: (id: string, manter?: boolean) => void;
 }) {
   useMotor(engine);
+  // the version picked in the header while it waits for the answer about the per-instrument choices
+  const [pedido, setPedido] = useState<string>();
+  const seletor = useRef<HTMLSelectElement>(null);
+  const manter = useRef<HTMLButtonElement>(null);
+  const responder = (manterTrocas: boolean) => {
+    if (pedido) aoTrocarVersao(pedido, manterTrocas);
+    setPedido(undefined);
+  };
 
   // M and S on a focused strip; keys typed into its version select belong to the select
   const teclas = (e: React.KeyboardEvent, canal: number) => {
@@ -45,9 +57,11 @@ export function Mixer({
       >
         <span>Mixer</span>
         <select
+          ref={seletor}
           aria-label="Versões"
           value={versao?.id}
-          onChange={(e) => aoTrocarVersao(e.target.value)}
+          // not answered or cancelled: the select is controlled, so it shows the version in use again
+          onChange={(e) => (engine?.hasChannelVersions ? setPedido(e.target.value) : aoTrocarVersao(e.target.value))}
           className={`${SELECT} max-w-[220px]`}
         >
           {musica.versions.map((v) => (
@@ -155,6 +169,43 @@ export function Mixer({
           </div>
         );
       })}
+      {/* Radix: focus trap, Esc and a press outside cancel. In a portal, outside .daw, so it wears the page's colours. */}
+      <Dialog.Root open={!!pedido} onOpenChange={(o) => !o && setPedido(undefined)}>
+        <Dialog.Portal>
+          <Dialog.Overlay className="fixed inset-0 z-50 bg-tinta/60" />
+          <Dialog.Content
+            role="alertdialog"
+            onOpenAutoFocus={(e) => {
+              e.preventDefault();
+              manter.current?.focus();
+            }}
+            // there is no trigger to go back to: the select asked
+            onCloseAutoFocus={(e) => {
+              e.preventDefault();
+              seletor.current?.focus();
+            }}
+            className="fixed inset-2 z-50 m-auto grid h-fit max-h-[calc(100dvh-16px)] w-fit max-w-[min(560px,calc(100vw-16px))] gap-3 overflow-auto border-2 border-couro-escuro bg-folha p-4 text-base text-tinta shadow-couro"
+          >
+            <Dialog.Title className="m-0 font-serif text-xl font-bold">
+              Trocar para {musica.versions.find((v) => v.id === pedido)?.label}?
+            </Dialog.Title>
+            <Dialog.Description className="m-0">
+              Você já escolheu o som de alguns instrumentos um a um. O que fazer com essas trocas?
+            </Dialog.Description>
+            <div className="flex flex-wrap gap-2 max-[700px]:grid">
+              <Button ref={manter} onClick={() => responder(true)}>
+                Manter minhas trocas
+              </Button>
+              <Button variant="outline" onClick={() => responder(false)}>
+                Trocar tudo
+              </Button>
+              <Dialog.Close asChild>
+                <Button variant="outline">Cancelar</Button>
+              </Dialog.Close>
+            </div>
+          </Dialog.Content>
+        </Dialog.Portal>
+      </Dialog.Root>
     </div>
   );
 }

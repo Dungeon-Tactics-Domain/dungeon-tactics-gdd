@@ -197,6 +197,10 @@ export class PlayerEngine {
       ? chosen
       : (this.#version ?? undefined);
   }
+  /** whether some lane plays another version than the active one (a per-channel choice in effect) */
+  get hasChannelVersions() {
+    return this.channels.some((c) => this.versionOf(c.channel) !== this.#version);
+  }
   /** whether the stem the channel plays now is decoded, still loading or failed */
   stemStatus(channel: number): 'ready' | 'loading' | 'error' {
     const v = this.versionOf(channel);
@@ -423,8 +427,9 @@ export class PlayerEngine {
   /**
    * A/B: switch the whole render to another version at the same position. The position stays in absolute seconds (wrapped
    * to the new loop when it is shorter): the versions share the MIDI timing and differ only in render tail.
+   * Per-channel choices are dropped, unless `keepChannels` is set: then the ones that still apply stay as they are.
    */
-  async setVersion(versionId: string): Promise<void> {
+  async setVersion(versionId: string, { keepChannels = false } = {}): Promise<void> {
     const v = this.#song?.versions.find((x) => x.id === versionId);
     if (!v || v === this.#version) return;
     // like a new song: the sound on stage stays until every instrument of the other version is loaded, then it swaps at once
@@ -435,7 +440,13 @@ export class PlayerEngine {
     const pos = this.position;
     const wasLive = this.#version?.live;
     this.#version = v;
-    this.#channelVersion.clear();
+    // a kept choice needs its lane in the new version and a version that still has the channel; one equal to the new
+    // version is no longer a choice. The synthesizer plays the whole song, so it keeps none.
+    for (const [ch, id] of [...this.#channelVersion]) {
+      const has = (x: Version | undefined) => !!x && this.#channelsOf(x).some((c) => c.channel === ch);
+      const chosen = song.versions.find((x) => x.id === id);
+      if (!keepChannels || v.live || chosen === v || !has(v) || !has(chosen)) this.#channelVersion.delete(ch);
+    }
     const next = this.#wrap(pos);
     this.#applyGains(); // solo counts only on the new lanes
     if (this.#state === 'playing' && (v.live || wasLive)) {

@@ -1,8 +1,11 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { FakeContext, fakeFetch } from '@/lib/player/fake-audio';
+import { PlayerEngine } from '@/lib/player/PlayerEngine';
 import type { Catalog, Song } from '@/lib/player/schema';
-import { ALTURA_MAXIMA, ALTURA_MINIMA, CHAVE_ALTURA, PASSO_ALTURA } from './constantes';
+import { ALTURA_MAXIMA, ALTURA_MINIMA, CHAVE_ALTURA, CHAVE_ZOOM, PASSO_ALTURA, PASSO_RODA } from './constantes';
 import { alturaNecessaria, nomeDaNota, notasEm } from './hooks';
+import { Mixer } from './Mixer';
 import { PlayerApp } from './PlayerApp';
 
 const musica = (id: string, title: string, category: string): Song => ({
@@ -104,15 +107,51 @@ describe('PlayerApp', () => {
     const { container } = render(<PlayerApp catalogo={catalogo} />);
     const notas = screen.getByRole('slider', { name: /Notas de cada canal/ });
     const menos = screen.getByRole('button', { name: 'Diminuir o zoom das notas' });
+    // jsdom lays nothing out, so the box keeps the whole width; the lanes open at twice the room they have
     expect(container.querySelector('[data-roll="janela"]')).toHaveStyle({ left: '0%', width: '100%' });
-    expect(notas).toHaveStyle({ width: '100%' });
-    expect(menos).toBeDisabled();
-    fireEvent.click(screen.getByRole('button', { name: 'Aumentar o zoom das notas' }));
     expect(notas).toHaveStyle({ width: '200%' });
     expect(screen.getByText('Zoom 2×')).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: 'Aumentar o zoom das notas' }));
+    expect(notas).toHaveStyle({ width: '400%' });
+    fireEvent.click(menos);
     fireEvent.click(menos);
     fireEvent.click(menos);
     expect(notas).toHaveStyle({ width: '100%' });
+    expect(menos).toBeDisabled();
+  });
+
+  it('remembers the zoom between visits and ignores a stored value that is not a zoom', () => {
+    const { unmount } = render(<PlayerApp catalogo={catalogo} />);
+    fireEvent.click(screen.getByRole('button', { name: 'Aumentar o zoom das notas' }));
+    expect(localStorage.getItem(CHAVE_ZOOM)).toBe('4');
+    unmount();
+    const outra = render(<PlayerApp catalogo={catalogo} />);
+    expect(screen.getByText('Zoom 4×')).toBeInTheDocument();
+    outra.unmount();
+    for (const ruim of ['banana', '0', '99', '']) {
+      localStorage.setItem(CHAVE_ZOOM, ruim);
+      const r = render(<PlayerApp catalogo={catalogo} />);
+      expect(screen.getByText('Zoom 2×')).toBeInTheDocument();
+      r.unmount();
+    }
+  });
+
+  it('zooms with the plain wheel over the overview, and only with Ctrl over the lanes', () => {
+    const { container } = render(<PlayerApp catalogo={catalogo} />);
+    const notas = screen.getByRole('slider', { name: /Notas de cada canal/ });
+    const visao = container.querySelector('[data-roll="visao"]')!;
+    // fireEvent returns false when the listener called preventDefault: the page must not scroll
+    expect(fireEvent.wheel(visao, { deltaY: -100 })).toBe(false);
+    expect(notas).toHaveStyle({ width: `${200 * PASSO_RODA}%` });
+    expect(localStorage.getItem(CHAVE_ZOOM)).toBe(String(2 * PASSO_RODA));
+    fireEvent.wheel(visao, { deltaY: 100 });
+    fireEvent.wheel(visao, { deltaY: 100 });
+    expect(notas).toHaveStyle({ width: `${200 / PASSO_RODA}%` });
+    // over the lanes the plain wheel scrolls them
+    expect(fireEvent.wheel(notas, { deltaY: -100 })).toBe(true);
+    expect(notas).toHaveStyle({ width: `${200 / PASSO_RODA}%` });
+    expect(fireEvent.wheel(notas, { deltaY: -100, ctrlKey: true })).toBe(false);
+    expect(notas).toHaveStyle({ width: '200%' });
   });
 
   it('lists categories, filters by search and switches the song', () => {
@@ -130,6 +169,47 @@ describe('PlayerApp', () => {
     const seletor = screen.getByLabelText('Versões');
     fireEvent.change(seletor, { target: { value: 'b' } });
     expect(screen.getByText('Versão B', { selector: 'strong' })).toBeInTheDocument();
+  });
+
+  it('asks what to do with the per-instrument choices before changing the version of the whole song', async () => {
+    const m = catalogo.songs[0]!;
+    const arquivos = { '/s/m1_a/0.ogg': 60, '/s/m1_b/0.ogg': 60 };
+    const engine = new PlayerEngine({ context: new FakeContext().asContext(), fetch: fakeFetch(arquivos).fetch });
+    await engine.setSong(m, 'a');
+    const trocar = vi.fn();
+    render(<Mixer engine={engine} musica={m} versao={m.versions[0]} canais={m.channels} aoTrocarVersao={trocar} />);
+    const seletor = screen.getByLabelText('Versões');
+
+    // no instrument on a version of its own: it changes at once
+    fireEvent.change(seletor, { target: { value: 'b' } });
+    expect(trocar).toHaveBeenLastCalledWith('b');
+    expect(screen.queryByRole('alertdialog')).toBeNull();
+
+    act(() => engine.setChannelVersion(0, 'b'));
+    const pedir = () => {
+      trocar.mockClear();
+      fireEvent.change(seletor, { target: { value: 'b' } });
+      return screen.getByRole('alertdialog', { name: 'Trocar para Versão B?' });
+    };
+    pedir();
+    expect(trocar).not.toHaveBeenCalled();
+    expect(screen.getByRole('button', { name: 'Manter minhas trocas' })).toHaveFocus();
+    fireEvent.click(screen.getByRole('button', { name: 'Manter minhas trocas' }));
+    expect(trocar).toHaveBeenLastCalledWith('b', true);
+    expect(screen.queryByRole('alertdialog')).toBeNull();
+    await waitFor(() => expect(seletor).toHaveFocus()); // Radix gives the focus back a tick after it closes
+
+    pedir();
+    fireEvent.click(screen.getByRole('button', { name: 'Trocar tudo' }));
+    expect(trocar).toHaveBeenLastCalledWith('b', false);
+
+    // Cancel and Esc change nothing and the select shows the version in use again
+    pedir();
+    fireEvent.click(screen.getByRole('button', { name: 'Cancelar' }));
+    fireEvent.keyDown(pedir(), { key: 'Escape' });
+    expect(screen.queryByRole('alertdialog')).toBeNull();
+    expect(trocar).not.toHaveBeenCalled();
+    expect(seletor).toHaveValue('a');
   });
 
   it('collapses the list and shows the notes with the draft badge and study reference', () => {

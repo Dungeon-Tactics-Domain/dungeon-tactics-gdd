@@ -75,9 +75,9 @@ export function PlayerApp({ catalogo }: { catalogo: Catalog }) {
     else mostrar();
   };
 
-  const trocarVersao = (id: string) => {
+  const trocarVersao = (id: string, manter = false) => {
     setVersaoId(id);
-    engine?.setVersion(id);
+    void engine?.setVersion(id, { keepChannels: manter });
   };
 
   // resizing the box is no reason to start the audio

@@ -257,6 +257,45 @@ describe('PlayerEngine versions', () => {
     engine.setChannelVersion(1, null);
     expect(engine.versionOf(1)?.id).toBe('gm');
   });
+
+  it('a new version drops the per-channel choices, or keeps the ones that still apply when asked', async () => {
+    const { engine } = await setup();
+    expect(engine.hasChannelVersions).toBe(false);
+    engine.setChannelVersion(9, 'tfg'); // no effect: tfg has no channel 9
+    expect(engine.hasChannelVersions).toBe(false);
+    engine.setChannelVersion(0, 'sc88p');
+    engine.setChannelVersion(1, 'short');
+    engine.setChannelVersion(9, 'short');
+    expect(engine.hasChannelVersions).toBe(true);
+
+    await engine.setVersion('sc88p', { keepChannels: true });
+    expect(engine.version?.id).toBe('sc88p');
+    expect(engine.versionOf(0)?.id).toBe('sc88p'); // its choice became the version itself
+    expect(engine.versionOf(1)?.id).toBe('short');
+    expect(engine.versionOf(9)?.id).toBe('short');
+
+    // tfg has no channel 9, so that choice goes; coming back, channel 9 follows the version again
+    await engine.setVersion('tfg', { keepChannels: true });
+    expect(engine.versionOf(1)?.id).toBe('short');
+    await engine.setVersion('gm', { keepChannels: true });
+    expect(engine.versionOf(0)?.id).toBe('gm'); // was dropped when it matched sc88p
+    expect(engine.versionOf(1)?.id).toBe('short');
+    expect(engine.versionOf(9)?.id).toBe('gm');
+
+    await engine.setVersion('sc88p');
+    expect(engine.hasChannelVersions).toBe(false);
+    expect(engine.versionOf(1)?.id).toBe('sc88p');
+  });
+
+  it('keeping the choices while playing leaves every lane sounding from its own version', async () => {
+    const { ctx, engine } = await setup();
+    engine.setChannelVersion(1, 'short');
+    await engine.play();
+    await engine.setVersion('sc88p', { keepChannels: true });
+    await flush();
+    expect(engine.versionOf(1)?.id).toBe('short');
+    expect(ctx.live()).toHaveLength(3);
+  });
 });
 
 describe('PlayerEngine events', () => {
