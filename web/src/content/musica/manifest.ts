@@ -31,5 +31,7 @@ export default {
     fonte: 'dungeon-tactics-lab/musica: src/main.ts, data/batalha.json, data/pastoral.json e audio/',
     copiadoEm: '2026-11-14T23:39:17-03:00',
   },
+  // the studio is the lab: opening Música lands straight on the player
+  paginaInicial: 'estudio/musicas',
   grupos,
 } satisfies Manifesto;

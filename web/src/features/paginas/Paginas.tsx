@@ -78,6 +78,15 @@ export function Paginas({ sumario: s, base }: { sumario: Sumario; base: string }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.hash, s.linksAntigos, base, navigate]);
 
+  // a lab that is one tool opens it straight away: the lab home and the page list of its group are skipped
+  const inicial = s.paginaInicial;
+  const pulaIndice = !!inicial && !aviso && (!rota || (!!grupo && grupo.id === inicial.split('/')[0]));
+  useEffect(() => {
+    if (pulaIndice) void navigate(href(inicial!), { replace: true });
+    // href only depends on base
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pulaIndice, inicial, base, navigate]);
+
   // a route that does not exist: an old path of the first copy (/decisoes/fases, /maquetes/x) goes by linksAntigos, trying the
   // whole path, then its last and first segment; anything else lands on the lab home with a quiet notice
   useEffect(() => {
@@ -392,7 +401,7 @@ export function Paginas({ sumario: s, base }: { sumario: Sumario; base: string }
             </div>,
             slot,
           )}
-      <main className="mx-auto grid w-full min-w-0 max-w-[1800px] grid-cols-[minmax(0,1fr)] content-start gap-5 px-(--margem) pt-7 pb-16 max-sm:pt-5">
+      <main className="mx-auto grid w-full min-w-0 grid-cols-[minmax(0,1fr)] content-start gap-5 px-(--margem) pt-7 pb-16 max-sm:pt-5">
         {corpo}
       </main>
     </>

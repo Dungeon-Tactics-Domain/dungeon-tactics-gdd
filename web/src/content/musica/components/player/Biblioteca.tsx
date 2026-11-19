@@ -1,4 +1,4 @@
-// The song list on the black stage: category tabs that wrap, search, one column of cards. Picking a card tells the app.
+// The song list on the black stage: a select for the style (category), search, one column of cards. Picking a card tells the app.
 import { useMemo, useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Toggle } from '@/components/ui/toggle';
@@ -22,36 +22,23 @@ export function Biblioteca({
   const daCategoria = catalogo.songs.filter((s) => s.category === id);
   const mostradas = filterSongs(catalogo.songs, id, busca);
 
-  // roving tabindex: the arrows move between the tabs, only the selected one is in the tab order
-  const setas = (e: React.KeyboardEvent<HTMLButtonElement>, i: number) => {
-    const passo = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
-    if (!passo) return;
-    e.preventDefault();
-    const proxima = categorias[(i + passo + categorias.length) % categorias.length]!;
-    setCategoria(proxima.id);
-    e.currentTarget.parentElement?.querySelector<HTMLElement>(`[data-id="${CSS.escape(proxima.id)}"]`)?.focus();
-  };
-
   return (
     <div className="text-creme">
-      <div role="tablist" aria-label="Categorias" className="mb-3 flex flex-wrap gap-1.5 border-b border-apagado pb-3">
-        {categorias.map((c, i) => (
-          <Toggle
-            key={c.id}
-            role="tab"
-            data-id={c.id}
-            aria-selected={c.id === id}
-            tabIndex={c.id === id ? 0 : -1}
-            onClick={() => setCategoria(c.id)}
-            onKeyDown={(e) => setas(e, i)}
-            className="px-2 font-serif uppercase"
-          >
-            {c.label}
-            <span className="font-mono tabular-nums">{catalogo.songs.filter((s) => s.category === c.id).length}</span>
-          </Toggle>
-        ))}
-      </div>
-      <div role="tabpanel" aria-label={atual?.label}>
+      <label className="mb-3 grid gap-1 border-b border-apagado pb-3">
+        <span className="font-serif text-lg font-bold">Estilo</span>
+        <select
+          value={id}
+          onChange={(e) => setCategoria(e.target.value)}
+          className="min-h-11 w-full cursor-pointer border-2 border-apagado bg-couro px-3 text-creme"
+        >
+          {categorias.map((c) => (
+            <option key={c.id} value={c.id}>
+              {c.label} ({catalogo.songs.filter((s) => s.category === c.id).length})
+            </option>
+          ))}
+        </select>
+      </label>
+      <div>
         <div className="mb-2 flex flex-wrap items-baseline justify-between gap-2">
           <h3 className="m-0 text-[length:var(--h3)] text-creme">Músicas em {atual?.label}</h3>
           <span>

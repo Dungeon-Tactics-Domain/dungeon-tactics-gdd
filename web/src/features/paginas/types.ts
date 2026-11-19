@@ -34,6 +34,8 @@ export interface Sumario {
   /** extra content on the lab's home, above the group cards */
   inicio?: () => ReactNode;
   grupos: Grupo[];
+  /** route that opens instead of the lab home and of its group page, e.g. 'estudio/musicas' (a lab that is one tool) */
+  paginaInicial?: string;
   /** old in-page anchors to new routes, e.g. { fases: 'decisoes/fases' }; applied on entry and while the lab is open */
   linksAntigos?: Record<string, string>;
 }

@@ -25,10 +25,6 @@ const HISTORIAS = Object.values(import.meta.glob('../historias.json', { eager: t
 const CATEGORIAS = [
   ['batalha', 'Batalha'],
   ['cidade', 'Cidade'],
-  ['vitoria', 'Vitória'],
-  ['derrota', 'Derrota'],
-  ['menu', 'Menu'],
-  ['cinematica', 'Cinemática'],
   ['jingles', 'Jingles'],
   ['referencias', 'Referências'],
   ['testes', 'Testes'],
