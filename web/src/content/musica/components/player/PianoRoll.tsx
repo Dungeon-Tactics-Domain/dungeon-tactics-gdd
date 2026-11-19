@@ -2,12 +2,13 @@
 // version across the whole song. Canvas, not SVG: a piece has thousands of notes, and one canvas per lane is drawn only
 // when the song, the mute/solo state or the size changes; the needle is a plain element that moves each frame.
 import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useTemaNaTela } from '@/lib/tema';
 import { useMediaQuery } from '@/lib/useMediaQuery';
 import { barAt, barCount, barSeconds, pitchRanges, rulerBars, timeToX, xToTime } from '@/lib/player/math';
 import type { PlayerEngine } from '@/lib/player/PlayerEngine';
 import { readMidi, type Midi } from '@/lib/player/read-midi';
 import type { Channel, Version } from '@/lib/player/schema';
-import { ALTURA_FAIXA, ALTURA_REGUA, corDoCanal, ESTREITO } from './constantes';
+import { ALTURA_FAIXA, ALTURA_REGUA, ESTREITO, varDoCanal } from './constantes';
 import { useMotor } from './hooks';
 
 const cacheMidi = new Map<string, Promise<Midi>>();
@@ -39,6 +40,7 @@ export function PianoRoll({
 }) {
   useMotor(engine, true);
   const estreito = useMediaQuery(ESTREITO);
+  const tema = useTemaNaTela();
   const url = versao?.midi;
   // the result carries its url, so a late answer for a previous song is ignored without resetting state in an effect
   const [lido, setLido] = useState<{ url: string; midi?: Midi; falhou?: boolean }>();
@@ -77,7 +79,8 @@ export function PianoRoll({
 
   useEffect(() => {
     if (raiz.current) desenhar(raiz.current, { midi, canais, duracao, bpm, compassos, somando, estreito });
-  }, [midi, canais, duracao, bpm, compassos, somando, estreito, largura]);
+    // tema: the canvases copy their colours from the CSS, so a theme change repaints them
+  }, [midi, canais, duracao, bpm, compassos, somando, estreito, largura, tema]);
 
   const irPara = (e: React.MouseEvent<HTMLElement>) => {
     const r = e.currentTarget.getBoundingClientRect();
@@ -111,7 +114,7 @@ export function PianoRoll({
   const agulha = { left: `${(duracao ? posicao / duracao : 0) * 100}%` };
 
   return (
-    <div ref={raiz} className="grid min-w-0 bg-couro-escuro text-creme">
+    <div ref={raiz} className="flex min-h-0 min-w-0 flex-1 flex-col bg-couro-escuro text-creme">
       <div className="flex flex-wrap items-center justify-between gap-2 px-3 py-2">
         <span className="border-2 border-apagado px-2.5 py-0.5">
           {midi ? `${Math.round(bpm)} bpm · ${compassos} compassos` : '…'}
@@ -135,9 +138,12 @@ export function PianoRoll({
         />
         <div className="pointer-events-none absolute inset-y-0 w-0.5 -translate-x-px bg-ouro-claro" style={agulha} />
       </div>
-      <div className="grid grid-cols-[auto_minmax(0,1fr)] items-start max-[700px]:grid-cols-1 max-[700px]:gap-2">
+      {/* One scroll box for the mixer and the lanes, so a strip never leaves its lane; the mixer header and the ruler
+          stick to its top and the mixer to its left. On a phone the parts stack and only the lanes scroll, up to the
+          height the handle sets. */}
+      <div className="grid min-h-0 flex-1 scroll-pt-12 grid-cols-[auto_minmax(0,1fr)] content-start items-start [scrollbar-color:var(--color-apagado)_transparent] max-[700px]:grid-cols-1 max-[700px]:gap-2 min-[701px]:overflow-auto">
         {mixer}
-        <div className="overflow-x-auto">
+        <div className="max-[700px]:max-h-(--daw-altura) max-[700px]:overflow-auto">
           <div
             ref={faixas}
             role="slider"
@@ -151,14 +157,20 @@ export function PianoRoll({
             onKeyDown={teclas}
             className="relative min-w-full cursor-pointer border-2 border-couro bg-couro-escuro max-[700px]:min-w-[640px]"
           >
-            <canvas data-roll="regua" className="block w-full" style={{ height: ALTURA_REGUA }} />
+            {/* opaque: the lanes pass under it, and before the MIDI loads nothing is painted on it */}
+            <canvas
+              data-roll="regua"
+              className="sticky top-0 block w-full bg-couro-escuro"
+              style={{ height: ALTURA_REGUA }}
+            />
             {canais.map((c) => (
               <div key={c.channel} style={{ height: ALTURA_FAIXA }} className="border-t border-apagado">
                 <canvas data-roll="faixa" data-channel={c.channel} className="block size-full" />
               </div>
             ))}
             <div className="pointer-events-none absolute inset-y-0 w-0.5 -translate-x-px bg-ouro-claro" style={agulha}>
-              <span className="absolute -left-1.5 top-0 border-[7px] border-transparent border-t-[10px] border-t-ouro-claro" />
+              {/* sticky, so the needle's head stays on the ruler while the lanes scroll */}
+              <span className="sticky top-0 -ml-1.5 block w-max border-[7px] border-transparent border-t-[10px] border-t-ouro-claro" />
             </div>
           </div>
         </div>
@@ -177,15 +189,16 @@ interface Quadro {
   estreito: boolean;
 }
 
-// Paints the ruler, every lane and the overview. Colours come from the theme variables (read at draw time, so the
-// canvas follows the lab scheme without a copy of its hex values).
+// Paints the ruler, every lane and the overview. Colours come from the player's variables in index.css (read at draw
+// time, so the canvas follows the theme without a copy of its hex values); the fallbacks are the dark theme's.
 function desenhar(raiz: HTMLElement, q: Quadro) {
   const estilo = getComputedStyle(raiz);
   const cor = (nome: string, reserva: string) => estilo.getPropertyValue(nome).trim() || reserva;
-  const fundo = cor('--color-couro-escuro', '#141c2b');
-  const alterno = cor('--color-couro', '#1f2a3d');
-  const grade = cor('--color-apagado', '#4a5568');
-  const texto = cor('--color-creme', '#eef1f7');
+  const fundo = cor('--roll-fundo', '#141c2b');
+  const alterno = cor('--roll-alt', '#1f2a3d');
+  const grade = cor('--roll-grade', '#6f7c95');
+  const texto = cor('--roll-texto', '#eef1f7');
+  const corDoCanal = (i: number) => cor(varDoCanal(i), '#9aa4ab');
   const dpr = globalThis.devicePixelRatio || 1;
   const { duracao: d, bpm } = q;
   const notas = q.midi?.notes ?? [];

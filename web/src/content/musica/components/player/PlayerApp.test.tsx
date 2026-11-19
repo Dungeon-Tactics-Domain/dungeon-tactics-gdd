@@ -1,6 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import type { Catalog, Song } from '@/lib/player/schema';
+import { ALTURA_MINIMA, CHAVE_ALTURA, PASSO_ALTURA } from './constantes';
 import { PlayerApp } from './PlayerApp';
 
 const musica = (id: string, title: string, category: string): Song => ({
@@ -32,11 +33,49 @@ describe('PlayerApp', () => {
   // jsdom has no canvas: the roll draws nothing, which is the case the drawing code already guards
   beforeEach(() => {
     vi.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue(null);
+    // a fresh in-memory storage per test (the runner's own localStorage is not a full Storage)
+    const m = new Map<string, string>();
+    vi.stubGlobal('localStorage', {
+      getItem: (k: string) => m.get(k) ?? null,
+      setItem: (k: string, v: string) => m.set(k, v),
+      removeItem: (k: string) => m.delete(k),
+    });
+  });
+
+  it('changes the height from the handle with the keyboard and remembers it', () => {
+    const { unmount } = render(<PlayerApp catalogo={catalogo} />);
+    const alca = screen.getByRole('separator', { name: 'Altura do player' });
+    const padrao = Number(alca.getAttribute('aria-valuenow'));
+    expect(localStorage.getItem(CHAVE_ALTURA)).toBeNull();
+    fireEvent.keyDown(alca, { key: 'ArrowDown' });
+    expect(alca).toHaveAttribute('aria-valuenow', String(padrao + PASSO_ALTURA));
+    expect(localStorage.getItem(CHAVE_ALTURA)).toBe(String(padrao + PASSO_ALTURA));
+    fireEvent.keyDown(alca, { key: 'ArrowUp' });
+    fireEvent.keyDown(alca, { key: 'ArrowUp' });
+    expect(localStorage.getItem(CHAVE_ALTURA)).toBe(String(padrao - PASSO_ALTURA));
+    // a new visit opens at the stored height
+    unmount();
+    render(<PlayerApp catalogo={catalogo} />);
+    expect(screen.getByRole('separator')).toHaveAttribute('aria-valuenow', String(padrao - PASSO_ALTURA));
+    // Home and a double click go back to the default and forget the choice
+    fireEvent.keyDown(screen.getByRole('separator'), { key: 'Home' });
+    expect(screen.getByRole('separator')).toHaveAttribute('aria-valuenow', String(padrao));
+    expect(localStorage.getItem(CHAVE_ALTURA)).toBeNull();
+    fireEvent.keyDown(screen.getByRole('separator'), { key: 'ArrowDown' });
+    fireEvent.doubleClick(screen.getByRole('separator'));
+    expect(localStorage.getItem(CHAVE_ALTURA)).toBeNull();
+  });
+
+  it('ignores a stored height that is not a number', () => {
+    localStorage.setItem(CHAVE_ALTURA, 'banana');
+    render(<PlayerApp catalogo={catalogo} />);
+    expect(Number(screen.getByRole('separator').getAttribute('aria-valuenow'))).toBeGreaterThanOrEqual(ALTURA_MINIMA);
   });
 
   it('lists categories, filters by search and switches the song', () => {
     render(<PlayerApp catalogo={catalogo} />);
-    expect(screen.getAllByRole('tab').map((t) => t.textContent)).toEqual(['Batalha2', 'Cidade1']);
+    expect(screen.getAllByRole('option').map((o) => o.textContent)).toContain('Batalha (2)');
+    expect(screen.getByLabelText('Estilo')).toHaveValue('batalha');
     fireEvent.change(screen.getByLabelText('Buscar música'), { target: { value: 'brasa' } });
     expect(screen.getByText('Mostrando 1 de 2')).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: /Brasas/ }));

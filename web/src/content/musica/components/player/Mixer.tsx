@@ -3,7 +3,7 @@
 import { Toggle } from '@/components/ui/toggle';
 import type { PlayerEngine } from '@/lib/player/PlayerEngine';
 import type { Channel, Song, Version } from '@/lib/player/schema';
-import { ALTURA_FAIXA, ALTURA_REGUA, corDoCanal } from './constantes';
+import { ALTURA_FAIXA, ALTURA_REGUA, varDoCanal } from './constantes';
 import { useMotor } from './hooks';
 
 const SELECT = 'min-h-11 min-w-0 border-2 border-apagado bg-couro-escuro px-2 text-base text-creme';
@@ -34,10 +34,12 @@ export function Mixer({
   };
 
   return (
-    <div className="w-[420px] border-2 border-r-0 border-couro bg-couro-escuro text-creme max-[700px]:w-auto max-[700px]:border-r-2">
+    // sticky in the scroll box it shares with the lanes: the mixer stays at the left when the lanes scroll sideways and
+    // its header at the top, beside the ruler, when the strips scroll
+    <div className="w-[420px] border-2 border-r-0 border-couro bg-couro-escuro text-creme max-[700px]:w-auto max-[700px]:border-r-2 min-[701px]:sticky min-[701px]:left-0 min-[701px]:z-10">
       <div
         style={{ height: ALTURA_REGUA }}
-        className="flex items-center justify-between gap-2 bg-couro px-3 font-serif text-lg font-bold uppercase"
+        className="flex items-center justify-between gap-2 bg-couro px-3 font-serif text-lg font-bold uppercase min-[701px]:sticky min-[701px]:top-0 min-[701px]:z-10"
       >
         <span>Mixer</span>
         <select
@@ -74,7 +76,7 @@ export function Mixer({
             className={`grid grid-cols-[minmax(0,1fr)_auto_auto] items-center gap-x-1.5 gap-y-0.5 border-t border-apagado px-2.5 py-1 min-[701px]:h-[100px] ${i % 2 ? 'bg-couro' : ''}`}
           >
             <span className="flex min-w-0 items-center gap-2 font-bold" title={c.name}>
-              <span className="size-3.5 flex-none" style={{ background: corDoCanal(i) }} />
+              <span className="size-3.5 flex-none" style={{ background: `var(${varDoCanal(i)})` }} />
               <span className="truncate">{c.name}</span>
             </span>
             <Toggle

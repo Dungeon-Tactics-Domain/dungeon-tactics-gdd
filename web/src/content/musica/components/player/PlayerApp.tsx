@@ -2,13 +2,15 @@
 // mixer on the right) and, apart, the light box with the track notes.
 // It owns the PlayerEngine and its AudioContext, created on the first pointer or key press inside it (or Space anywhere),
 // because browsers keep a context made earlier suspended and warn about it.
-import { useEffect, useRef, useState } from 'react';
+import { type CSSProperties, useEffect, useRef, useState } from 'react';
+import { Icone } from '@/components/layout/Icone';
 import { Toggle } from '@/components/ui/toggle';
 import { PlayerEngine } from '@/lib/player/PlayerEngine';
 import type { Catalog, Song } from '@/lib/player/schema';
 import { createSpessaVoice } from '@/lib/player/spessa-voice';
 import { Biblioteca } from './Biblioteca';
-import { useMotor } from './hooks';
+import { ALTURA_MAXIMA, ALTURA_MINIMA, PASSO_ALTURA } from './constantes';
+import { useAlturaDaw, useMotor } from './hooks';
 import { Mixer } from './Mixer';
 import { NotasFaixa } from './NotasFaixa';
 import { PianoRoll } from './PianoRoll';
@@ -31,6 +33,9 @@ export function PlayerApp({ catalogo }: { catalogo: Catalog }) {
   const [engine, setEngine] = useState<PlayerEngine>();
   const contexto = useRef<AudioContext>(undefined);
   const motor = useRef<PlayerEngine>(undefined);
+  const caixa = useRef<HTMLDivElement>(null);
+  const arrasto = useRef({ y: 0, altura: 0 });
+  const { altura, mudar: mudarAltura } = useAlturaDaw(caixa);
   useMotor(engine);
 
   // before the engine exists the screens show the chosen song and version; after, the engine is the truth
@@ -69,6 +74,19 @@ export function PlayerApp({ catalogo }: { catalogo: Catalog }) {
     engine?.setVersion(id);
   };
 
+  // resizing the box is no reason to start the audio
+  const acordar = (e: React.SyntheticEvent) => {
+    if (!(e.target as Element).closest('[role=separator]')) iniciar();
+  };
+
+  const teclasAltura = (e: React.KeyboardEvent) => {
+    if (e.key === 'ArrowDown') mudarAltura(altura + PASSO_ALTURA);
+    else if (e.key === 'ArrowUp') mudarAltura(altura - PASSO_ALTURA);
+    else if (e.key === 'Home') mudarAltura();
+    else return;
+    e.preventDefault(); // the arrows would scroll the page
+  };
+
   // Space plays and pauses from anywhere on the page, except where a control owns the key
   const espaco = useRef(alternar);
   useEffect(() => {
@@ -97,8 +115,13 @@ export function PlayerApp({ catalogo }: { catalogo: Catalog }) {
   );
 
   return (
-    <div className="grid min-w-0 gap-6" onPointerDownCapture={iniciar} onKeyDownCapture={iniciar}>
-      <div className="grid min-w-0 grid-cols-[auto_minmax(0,1fr)] border-2 border-couro bg-couro-escuro text-creme shadow-couro max-[700px]:grid-cols-1">
+    <div className="grid min-w-0 gap-6" onPointerDownCapture={acordar} onKeyDownCapture={acordar}>
+      {/* --daw-altura: the box's height on a desktop; on a phone, where the parts stack, the cap of the lanes alone */}
+      <div
+        ref={caixa}
+        style={{ '--daw-altura': `${altura}px` } as CSSProperties}
+        className="daw grid min-w-0 grid-cols-[auto_minmax(0,1fr)] grid-rows-[minmax(0,1fr)_auto] border-2 border-couro bg-couro-escuro text-creme shadow-couro max-[700px]:grid-cols-1 max-[700px]:grid-rows-none min-[701px]:h-(--daw-altura)"
+      >
         <aside
           className={`relative border-r-2 border-apagado max-[700px]:w-auto max-[700px]:border-b-2 max-[700px]:border-r-0 ${listaAberta ? 'w-80' : 'w-[52px]'}`}
         >
@@ -119,7 +142,8 @@ export function PlayerApp({ catalogo }: { catalogo: Catalog }) {
             <Biblioteca catalogo={catalogo} musica={musica} aoEscolher={escolher} />
           </div>
         </aside>
-        <section aria-label="Piano roll e mixer" className="min-w-0">
+        {/* a column with min-h-0 all the way down, so the height above reaches the scrolling lanes */}
+        <section aria-label="Piano roll e mixer" className="flex min-h-0 min-w-0 flex-col">
           <Transporte engine={engine} versao={versao} aoAlternar={alternar} />
           {musica && (
             <PianoRoll
@@ -133,6 +157,31 @@ export function PlayerApp({ catalogo }: { catalogo: Catalog }) {
             />
           )}
         </section>
+        {/* a focusable separator is the ARIA window splitter; the drag counts from where the pointer went down, so a
+            click that does not move (the first of a double click) changes nothing */}
+        <div
+          role="separator"
+          aria-orientation="horizontal"
+          aria-label="Altura do player"
+          aria-valuenow={altura}
+          aria-valuemin={ALTURA_MINIMA}
+          aria-valuemax={ALTURA_MAXIMA}
+          tabIndex={0}
+          title="Arraste ou use as setas para mudar a altura; duplo clique volta ao padrão"
+          onPointerDown={(e) => {
+            e.currentTarget.setPointerCapture?.(e.pointerId); // jsdom has no capture
+            arrasto.current = { y: e.clientY, altura };
+          }}
+          onPointerMove={(e) => {
+            const dy = e.clientY - arrasto.current.y;
+            if (e.currentTarget.hasPointerCapture?.(e.pointerId) && dy) mudarAltura(arrasto.current.altura + dy);
+          }}
+          onDoubleClick={() => mudarAltura()}
+          onKeyDown={teclasAltura}
+          className="relative col-span-full grid h-3.5 cursor-row-resize touch-none select-none place-items-center border-t-2 border-apagado text-creme-apagado hover:bg-couro focus-visible:bg-couro pointer-coarse:before:absolute pointer-coarse:before:-inset-y-4 pointer-coarse:before:inset-x-0"
+        >
+          <Icone id="arrastar" className="size-3 flex-none" />
+        </div>
       </div>
       <NotasFaixa musica={musica} />
     </div>
