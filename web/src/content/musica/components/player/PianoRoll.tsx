@@ -19,7 +19,7 @@ import {
   varDoCanal,
   ZOOM_MAXIMO,
 } from './constantes';
-import { useMotor } from './hooks';
+import { nomeDaNota, notasEm, useMotor } from './hooks';
 
 const cacheMidi = new Map<string, Promise<Midi>>();
 const carregarMidi = (url: string) => {
@@ -162,6 +162,20 @@ export function PianoRoll({
     if (raiz.current) desenhar(raiz.current, { midi, canais, duracao, bpm, compassos, somando, estreito });
     // tema: the canvases copy their colours from the CSS, so a theme change repaints them
   }, [midi, canais, duracao, bpm, compassos, somando, estreito, largura, tema]);
+
+  // The note sounding on each channel under the needle, written into the mixer's labels ([data-nota], empty in its
+  // JSX): only the labels whose note changed are touched, so the mixer is not rendered again every frame.
+  useEffect(() => {
+    const soando = notasEm(midi?.notes ?? [], posicao);
+    for (const el of raiz.current?.querySelectorAll<HTMLElement>('[data-nota]') ?? []) {
+      const canal = Number(el.dataset.nota);
+      const altura = soando.get(canal);
+      // drums (channel 9 in General MIDI) have no pitch to name: the label only lights up
+      const texto = altura === undefined ? '—' : canal === 9 ? '♪' : nomeDaNota(altura);
+      if (el.textContent !== texto) el.textContent = texto;
+      el.toggleAttribute('data-on', altura !== undefined);
+    }
+  }, [midi, posicao, canais]);
 
   // The lanes follow the needle: when it leaves the stretch on screen (playing on, the loop going back to the start, a
   // jump from the position bar), that stretch moves to it. Only if it was on screen before, so scrolling away to look

@@ -1,5 +1,6 @@
 import { type RefObject, useEffect, useLayoutEffect, useState } from 'react';
 import type { PlayerEngine } from '@/lib/player/PlayerEngine';
+import type { MidiNote } from '@/lib/player/read-midi';
 import { gravar, ler } from '@/lib/utils';
 import { ALTURA_MAXIMA, ALTURA_MINIMA, CHAVE_ALTURA, ESTREITO } from './constantes';
 
@@ -21,6 +22,21 @@ export function useMotor(engine: PlayerEngine | undefined, quadro = false) {
     ];
     return () => off.forEach((f) => f());
   }, [engine, quadro]);
+}
+
+const NOTAS = ['Dó', 'Dó#', 'Ré', 'Ré#', 'Mi', 'Fá', 'Fá#', 'Sol', 'Sol#', 'Lá', 'Lá#', 'Si'];
+/** The note's name as a musician here says it: 60 is "Dó 4", 67 is "Sol 4". */
+export const nomeDaNota = (altura: number) => `${NOTAS[altura % 12]} ${Math.floor(altura / 12) - 1}`;
+
+/**
+ * The note sounding on each channel at an instant: channel to pitch, the highest one of a chord (the one the ear
+ * follows). A note sounds from its start up to, not including, its end, so a repeated note is never counted twice.
+ */
+export function notasEm(notas: MidiNote[], t: number) {
+  const soando = new Map<number, number>();
+  for (const n of notas)
+    if (n.start <= t && t < n.end && n.pitch > (soando.get(n.channel) ?? -1)) soando.set(n.channel, n.pitch);
+  return soando;
 }
 
 const limitar = (n: number, maximo = ALTURA_MAXIMA) => Math.round(Math.min(maximo, Math.max(ALTURA_MINIMA, n)));

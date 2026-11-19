@@ -1,9 +1,11 @@
-// Left of the lanes: one strip per channel (colour, name, Mute, Solo, volume, the version it plays) under a header that
-// picks the version of the whole song. Strips are as tall as the lanes and the header as tall as the ruler, so they line up.
+// Left of the lanes: one strip per channel (colour, name, the note sounding now, Mute, Solo, volume, the version it
+// plays) under a header that picks the version of the whole song. Strips are as tall as the lanes and the header as
+// tall as the ruler, so they line up.
+import type { CSSProperties } from 'react';
 import { Toggle } from '@/components/ui/toggle';
 import type { PlayerEngine } from '@/lib/player/PlayerEngine';
 import type { Channel, Song, Version } from '@/lib/player/schema';
-import { ALTURA_FAIXA, ALTURA_REGUA, varDoCanal } from './constantes';
+import { ALTURA_FAIXA, ALTURA_REGUA, ROTULO_EFEITO, varDoCanal } from './constantes';
 import { useMotor } from './hooks';
 
 const SELECT = 'min-h-11 min-w-0 border-2 border-apagado bg-couro-escuro px-2 text-base text-creme';
@@ -65,6 +67,8 @@ export function Mixer({
           : musica.versions.filter(
               (v) => !v.live && (v.channels ?? musica.channels).some((x) => x.channel === c.channel),
             );
+        const vc = engine?.versionOf(c.channel) ?? versao;
+        const efeitos = (vc?.channels ?? musica.channels).find((x) => x.channel === c.channel)?.effects ?? [];
         return (
           <div
             key={c.channel}
@@ -73,11 +77,25 @@ export function Mixer({
             aria-label={`${c.name}. M silencia, S toca só este canal`}
             onKeyDown={(e) => teclas(e, c.channel)}
             style={{ minHeight: ALTURA_FAIXA }}
-            className={`grid grid-cols-[minmax(0,1fr)_auto_auto] items-center gap-x-1.5 gap-y-0.5 border-t border-apagado px-2.5 py-1 min-[701px]:h-[100px] ${i % 2 ? 'bg-couro' : ''}`}
+            className={`grid grid-cols-[minmax(0,1fr)_auto_auto] items-center gap-x-1.5 gap-y-0.5 border-t border-apagado px-2.5 py-1 min-[701px]:h-[124px] ${i % 2 ? 'bg-couro' : ''}`}
           >
-            <span className="flex min-w-0 items-center gap-2 font-bold" title={c.name}>
+            <span
+              className="flex min-w-0 items-center gap-x-2 font-bold max-[700px]:flex-wrap max-[700px]:leading-5"
+              title={c.name}
+            >
               <span className="size-3.5 flex-none" style={{ background: `var(${varDoCanal(i)})` }} />
-              <span className="truncate">{c.name}</span>
+              {/* on a phone the name fills the line beside the 22 px swatch, so the note label wraps under it */}
+              <span className="truncate max-[700px]:w-[calc(100%-22px)] max-[700px]:flex-none">{c.name}</span>
+              {/* The note sounding now on this channel. PianoRoll writes the text and data-on as the needle moves (it
+                  has the MIDI and the position), so the span has no children here. Fixed width: the name beside it
+                  must not move as notes change. The channel colour goes on the border, not behind the text: it is only
+                  3:1 against the strip. */}
+              <span
+                data-nota={c.channel}
+                aria-hidden="true"
+                style={{ '--cor': `var(${varDoCanal(i)})` } as CSSProperties}
+                className="ml-auto w-[8ch] max-[700px]:ml-0 flex-none border-2 border-l-8 border-apagado text-center font-mono font-normal text-creme-apagado data-on:border-(--cor) data-on:font-bold data-on:text-creme"
+              />
             </span>
             <Toggle
               aria-pressed={engine?.isMuted(c.channel) ?? false}
@@ -123,6 +141,17 @@ export function Mixer({
                 </option>
               ))}
             </select>
+            {/* effects added to the render of the sound this channel plays now; none listed = none added */}
+            <ul
+              className="col-span-3 m-0 flex min-h-6 list-none flex-wrap items-center gap-1 p-0"
+              aria-label={`Efeitos de ${c.name}`}
+            >
+              {efeitos.map((e) => (
+                <li key={e} className="border border-apagado px-1.5 leading-5 text-creme-apagado">
+                  {ROTULO_EFEITO[e]}
+                </li>
+              ))}
+            </ul>
           </div>
         );
       })}

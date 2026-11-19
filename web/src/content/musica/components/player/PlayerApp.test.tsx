@@ -2,7 +2,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import type { Catalog, Song } from '@/lib/player/schema';
 import { ALTURA_MAXIMA, ALTURA_MINIMA, CHAVE_ALTURA, PASSO_ALTURA } from './constantes';
-import { alturaNecessaria } from './hooks';
+import { alturaNecessaria, nomeDaNota, notasEm } from './hooks';
 import { PlayerApp } from './PlayerApp';
 
 const musica = (id: string, title: string, category: string): Song => ({
@@ -81,6 +81,23 @@ describe('PlayerApp', () => {
     // a short song still gets the minimum, and content that cannot be measured keeps the fixed ceiling
     expect(alturaNecessaria(400, 100, 20)).toBe(ALTURA_MINIMA);
     expect(alturaNecessaria(900, 0, 0)).toBe(ALTURA_MAXIMA);
+  });
+
+  it('names the note sounding on each channel at an instant', () => {
+    const notas = [
+      { start: 1, end: 2, pitch: 60, channel: 0 },
+      { start: 1, end: 2, pitch: 67, channel: 0 }, // a chord: the highest note is the one shown
+      { start: 2, end: 3, pitch: 62, channel: 0 },
+      { start: 1.5, end: 4, pitch: 36, channel: 9 },
+    ];
+    expect(notasEm(notas, 0.5).size).toBe(0);
+    expect(notasEm(notas, 1).get(0)).toBe(67);
+    // the end is not part of the note: at 2 s only the next one sounds
+    expect(notasEm(notas, 2).get(0)).toBe(62);
+    expect([...notasEm(notas, 3.5)]).toEqual([[9, 36]]);
+    expect(nomeDaNota(67)).toBe('Sol 4');
+    expect(nomeDaNota(60)).toBe('Dó 4');
+    expect(nomeDaNota(61)).toBe('Dó# 4');
   });
 
   it('zooms the lanes from the buttons and marks the stretch on screen over the overview', () => {
