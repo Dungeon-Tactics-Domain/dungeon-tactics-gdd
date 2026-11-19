@@ -31,7 +31,11 @@
           "titulo": "Dados medidos",
           "texto": "- **Duração** 157.4 s, **volume** -13.9 LUFS, **pico** 0.3 dB, **crista** 16.3 dB.\n- **Agudo** acima de 3 kHz: -33.1 dB; **grave** abaixo de 100 Hz: -20.8 dB.\n- Nenhum tratamento: é o áudio original convertido para ogg."
         }
-      ]
+      ],
+      "nome": "Trisection",
+      "jogo": "Final Fantasy Tactics",
+      "versao": "áudio original",
+      "tipo": "Referência"
     },
     {
       "id": "ref-trisection-midi-fa",
@@ -51,7 +55,11 @@
           "titulo": "Dados medidos",
           "texto": "- **Duração** 157.1 s, **volume** -13.9 LUFS, **pico** -3.2 dB, **crista** (pico menos média) 13.5 dB.\n- **Agudo** acima de 3 kHz: -36.0 dB (referência original: -33,1). **Grave** abaixo de 100 Hz: -27.8 dB.\n- **Notas do MIDI** (sem bateria): mais grave **E1** (nota 28), mais aguda **C6** (nota 84), 2186 notas.\n- **Bateria no MIDI:** velocidade máxima 60, média 59 (escala 0 a 127).\n- **Tratamentos desta versão:** bateria do MIDI a 60% (máximo 80); corte abaixo de 32 Hz; filtro de agudo (shelf -9 dB em 2,5 kHz e corte em 9 kHz); compressor (razão 3,5), limitador e volume igualado em -14 LUFS. Em todas as versões a voz de trompete surdo do MIDI foi removida (15/11)."
         }
-      ]
+      ],
+      "nome": "Trisection",
+      "jogo": "Final Fantasy Tactics",
+      "versao": "MIDI de fã",
+      "tipo": "Referência"
     },
     {
       "id": "ref-trisection-midi-fa-cru",
@@ -331,7 +339,11 @@
           "titulo": "Dados medidos",
           "texto": "- **Duração** 158.3 s, **volume** -14.1 LUFS, **pico** -3.4 dB, **crista** (pico menos média) 13.2 dB.\n- **Agudo** acima de 3 kHz: -47.2 dB (referência original: -33,1). **Grave** abaixo de 100 Hz: -26.1 dB.\n- **Notas do MIDI** (sem bateria): mais grave **E1** (nota 28), mais aguda **A5** (nota 81), 959 notas.\n- **Tratamentos:** volume normalizado (-18 LUFS na primeira versão); depois corte abaixo de 32 Hz, compressor, limitador e volume igualado em -14 LUFS."
         }
-      ]
+      ],
+      "nome": "Trisection",
+      "jogo": "Final Fantasy Tactics",
+      "versao": "transcrição em piano",
+      "tipo": "Referência"
     },
     {
       "id": "ref-trisection-midi-transcricao-cru",

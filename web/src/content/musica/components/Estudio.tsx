@@ -5,6 +5,7 @@ import { type ReactNode, useCallback, useEffect, useRef, useState } from 'react'
 import { Icone } from '@/components/layout/Icone';
 import { DICAS_SOM, DICAS_UI, funcaoDe } from './dicas';
 import { lerMidi, nomeNota, rotuloCanal, type Midi } from './midi';
+import { comOrigem } from './origem-stems';
 
 interface Stem {
   canal: number;
@@ -121,13 +122,15 @@ export function Estudio({
 
   useEffect(() => {
     let vivo = true;
-    fetch(`${dir}/stems.json`)
+    comOrigem(`${dir}/stems.json`)
+      .then((u) => fetch(u))
       .then((r) => (r.ok ? (r.json() as Promise<Info>) : Promise.reject(new Error(String(r.status)))))
       .then((i) => vivo && setInfo(i))
       .catch(() => vivo && setInfo(null));
     Promise.all(
       (sfs ?? []).map((sf) =>
-        fetch(`/content/musica/stems/${sf.stems}/stems.json`)
+        comOrigem(`/content/musica/stems/${sf.stems}/stems.json`)
+          .then((u) => fetch(u))
           .then((r) => (r.ok ? (r.json() as Promise<Info>) : Promise.reject(new Error(String(r.status)))))
           .then((i) => new Set(i.stems.map((x) => x.canal)))
           .catch(() => new Set<number>()),
@@ -249,7 +252,7 @@ export function Estudio({
       const d = `/content/musica/stems/${sfs?.[sf]?.stems ?? base}`;
       setProg((p) => ({ ...p, [canal]: 0 }));
       const novo = (async () => {
-        const r = await fetch(`${d}/${canal - 1}.ogg`);
+        const r = await fetch(await comOrigem(`${d}/${canal - 1}.ogg`));
         const tot = Number(r.headers.get('content-length')) || 0;
         const partes: Uint8Array[] = [];
         let lido = 0;

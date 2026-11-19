@@ -31,7 +31,11 @@
           "titulo": "Dúvidas e limites",
           "texto": "- **Não ouvido:** o agente e eu não ouvimos; tudo foi conferido por código e medição (extensão, duração, pico, volume).\n- **Coro na coda (57-60):** sozinho canta o motivo em metade da velocidade; é o único lugar em que uma parte carrega o motivo sozinha.\n- **Graves:** 28% da energia entre 60 e 120 Hz (antes 20%); o volume do contrabaixo (70) pode baixar para 62 (22%) ou 56 (18%) se estourar a caixa.\n- **Bloco de metais (21-32):** o motivo fica 7,5 dB abaixo do resto; sumiram as chamadas e respostas do trompete.\n- **Tímpano:** um dos stems mais fracos em volume médio; fica a 60% quando bate junto com o bumbo (sem papoco de bateria por código).\n- **Costura do loop** depende do silêncio do compasso 40 (conferido por código; salto 0,0055 na principal)."
         }
-      ]
+      ],
+      "nome": "Cripta dos Sinos",
+      "jogo": "Dungeon Tactics · batalha",
+      "versao": "principal · 90 bpm (tratada)",
+      "tipo": "Original"
     },
     {
       "id": "dark-principal-cru",
@@ -79,7 +83,11 @@
           "titulo": "Dúvidas e limites",
           "texto": "- **Não ouvido:** o agente e eu não ouvimos; tudo foi conferido por código e medição (extensão, duração, pico, volume).\n- **Coro na coda (57-60):** sozinho canta o motivo em metade da velocidade; é o único lugar em que uma parte carrega o motivo sozinha.\n- **Graves:** 28% da energia entre 60 e 120 Hz (antes 20%); o volume do contrabaixo (70) pode baixar para 62 (22%) ou 56 (18%) se estourar a caixa.\n- **Bloco de metais (21-32):** o motivo fica 7,5 dB abaixo do resto; sumiram as chamadas e respostas do trompete.\n- **Tímpano:** um dos stems mais fracos em volume médio; fica a 60% quando bate junto com o bumbo (sem papoco de bateria por código).\n- **Costura do loop** depende do silêncio do compasso 40 (conferido por código; salto 0,0055 na principal)."
         }
-      ]
+      ],
+      "nome": "Descida ao Abismo",
+      "jogo": "Dungeon Tactics · batalha",
+      "versao": "intenso · 100 bpm (tratada)",
+      "tipo": "Original"
     },
     {
       "id": "dark-intenso-cru",
@@ -119,7 +127,11 @@
           "titulo": "O que é",
           "texto": "- **Versão 1, para comparar com a atual:** a primeira entrega do agente, ainda **com o trompete surdo** e com a melodia em primeiro plano (no mesmo nível do acompanhamento). Foi trocada pela versão atual, que não tem trompete e esconde a melodia.\n- **Mesmo esqueleto:** Ré frígio, 60 compassos, mesma forma e mesmo soundfont (SGM); 90 bpm.\n- **Sem piano roll:** o MIDI desta versão não foi guardado.\n- **Não ouvido:** conferido só por código."
         }
-      ]
+      ],
+      "nome": "Cripta dos Sinos",
+      "jogo": "Dungeon Tactics · batalha",
+      "versao": "principal · 90 bpm · v1 com trompete",
+      "tipo": "Original"
     },
     {
       "id": "dark-v1-intenso",
@@ -135,7 +147,11 @@
           "titulo": "O que é",
           "texto": "- **Versão 1, para comparar com a atual:** a primeira entrega do agente, ainda **com o trompete surdo** e com a melodia em primeiro plano (no mesmo nível do acompanhamento). Foi trocada pela versão atual, que não tem trompete e esconde a melodia.\n- **Mesmo esqueleto:** Ré frígio, 60 compassos, mesma forma e mesmo soundfont (SGM); 100 bpm.\n- **Sem piano roll:** o MIDI desta versão não foi guardado.\n- **Não ouvido:** conferido só por código."
         }
-      ]
+      ],
+      "nome": "Descida ao Abismo",
+      "jogo": "Dungeon Tactics · batalha",
+      "versao": "intenso · 100 bpm · v1 com trompete",
+      "tipo": "Original"
     },
     {
       "id": "dark-v1-principal-cru",

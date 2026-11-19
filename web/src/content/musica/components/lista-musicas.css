@@ -1,0 +1,21 @@
+/* custom scrollbar of the music list: thin leather thumb on a parchment track (Firefox and Chromium) */
+.rolagem-couro {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-couro) var(--color-pergaminho-escuro);
+}
+.rolagem-couro::-webkit-scrollbar {
+  width: 8px;
+}
+.rolagem-couro::-webkit-scrollbar-track {
+  background: var(--color-pergaminho-escuro);
+  border-radius: 4px;
+}
+.rolagem-couro::-webkit-scrollbar-thumb {
+  background: var(--color-couro);
+  border-radius: 4px;
+  border: 1px solid transparent;
+  background-clip: padding-box;
+}
+.rolagem-couro::-webkit-scrollbar-thumb:hover {
+  border-color: var(--color-ouro);
+}

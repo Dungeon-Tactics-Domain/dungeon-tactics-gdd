@@ -2,11 +2,13 @@
 // musica/data/LEIA-ME.md). Same pieces as dungeon-tactics-lab/musica/src/main.ts: references with a YouTube player on
 // click, one track per page with player, stars and sections, and the checks.
 /* eslint-disable react-refresh/only-export-components -- PAGINAS is data the manifest reads; the components never hot-reload alone */
-import { Fragment, useState, type ReactNode } from 'react';
+import { Fragment, useEffect, useState, type ReactNode } from 'react';
 import { Player } from '@/components/content/Player';
 import { YouTubeEmbed } from '@/components/content/YouTubeEmbed';
 import { Icone } from '@/components/layout/Icone';
 import { Estudio } from './Estudio';
+import { comOrigem } from './origem-stems';
+import './lista-musicas.css';
 import { MidiVisual } from './MidiVisual';
 import batalha from '../batalha.json';
 import pastoral from '../pastoral.json';
@@ -37,6 +39,11 @@ export interface Faixa {
   secoes?: Secao[];
   exemplo?: boolean;
   papeis?: Partial<Record<string, string>>; // channel number (1-based) -> why that instrument is in this piece
+  // the three lines of the music list: name, game, version or author, and kind (Original, Lofi, Referência...)
+  nome?: string;
+  jogo?: string;
+  versao?: string;
+  tipo?: string;
 }
 interface Checagem {
   texto: string;
@@ -262,9 +269,12 @@ const COM_SC88P = new Set([
   'pastoral_rica_B',
   'trisection_fa',
 ]);
-const sonsDe = (base: string) => [...SONS_JOGO, SC88, ...(COM_SC88P.has(base) ? [SC88P] : [])];
+// the first sound is the one that opens: SC-88Pro when the piece has it, else MuseScore
+const sonsDe = (base: string) => [...(COM_SC88P.has(base) ? [SC88P] : []), ...SONS_JOGO, SC88];
 const versoesDe = (id: string) => {
   const e = estudoDe(id);
+  // the lofi and vaporwave adaptations are tracks of their own with a single set of stems
+  if (e && /_(lofi|vapor)$/.test(e)) return { raiz: id, atual: 0, opcoes: [{ rotulo: 'Lofi e vaporwave (teste)', faixa: id, stems: e }] };
   if (e)
     return {
       raiz: id,
@@ -292,7 +302,7 @@ const versoesDe = (id: string) => {
     const raiz = id.replace(/(-tfg)?(-t)?$/, '');
     return {
       raiz,
-      atual: f[2] ? SONS_JOGO.findIndex(([k]) => k === 'tfg') : 0,
+      atual: f[2] ? sonsDe(stemsDe(raiz)!).findIndex(([k]) => k === 'tfg') : 0,
       // the text of each sound comes from its own page when there is one (MuseScore and TFG); the others reuse the base page
       opcoes: sonsDe(stemsDe(raiz)).map(([k, rotulo]) => ({
         rotulo,
@@ -377,6 +387,11 @@ export interface ItemMusica {
   familia: string;
   categoria: Estilo;
   estudio: boolean; // false: only a recording (no MIDI, so no separate instruments)
+  nome?: string;
+  jogo?: string;
+  versao?: string;
+  tipo?: string;
+  stems?: string; // folder of the stems, where the list reads duration and channel count
 }
 export interface SeletorMusica {
   opcoes: ItemMusica[];
@@ -436,8 +451,69 @@ export const itensDe = (estilo: Estilo): ItemMusica[] =>
         familia,
         categoria: estilo,
         estudio: !!(stemsDe(t.id) ?? midiDe(t.id)),
+        nome: t.nome,
+        jogo: t.jogo,
+        versao: t.versao,
+        tipo: t.tipo,
+        stems: stemsDe(t.id),
       })),
   );
+
+// duration and channel count of a piece, read once from its stems.json (the list shows them on the third line)
+const resumos = new Map<string, Promise<{ duracao: number; canais: number } | null>>();
+const lerResumo = (base: string) => {
+  let p = resumos.get(base);
+  if (!p) {
+    p = comOrigem(`/content/musica/stems/${base}/stems.json`)
+      .then((u) => fetch(u))
+      .then((r) => (r.ok ? r.json() : null))
+      .then((j) => (j ? { duracao: Number(j.duracao), canais: (j.stems as unknown[]).length } : null))
+      .catch(() => null);
+    resumos.set(base, p);
+  }
+  return p;
+};
+const tempo = (s: number) => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart(2, '0')}`;
+
+// one list line in three rows, data on both sides: name | kind, game | duration, version | channels
+function LinhaMusica({ item: i, ativo, aoEscolher }: { item: ItemMusica; ativo: boolean; aoEscolher: () => void }) {
+  const [resumo, setResumo] = useState<{ duracao: number; canais: number } | null>(null);
+  useEffect(() => {
+    let vivo = true;
+    if (i.stems) void lerResumo(i.stems).then((r) => vivo && setResumo(r));
+    return () => {
+      vivo = false;
+    };
+  }, [i.stems]);
+  const fino = `text-[12px] ${ativo ? 'text-creme/80' : 'text-apagado'}`;
+  return (
+    <button
+      onClick={aoEscolher}
+      aria-current={ativo}
+      className={`flex min-h-11 items-center gap-2 rounded px-2 py-1.5 text-left text-[14px] ${ativo ? 'bg-couro text-creme' : 'hover:bg-pergaminho-escuro'}`}
+    >
+      <Icone id={ativo ? 'tocar' : 'musica'} className="size-4 flex-none" />
+      {i.nome ? (
+        <span className="grid min-w-0 flex-1 gap-0.5">
+          <span className="flex items-center justify-between gap-2">
+            <span className="min-w-0 truncate font-bold">{i.nome}</span>
+            {i.tipo && <span className={`flex-none rounded border px-1.5 text-[11px] ${ativo ? 'border-ouro-claro' : 'border-ouro'}`}>{i.tipo}</span>}
+          </span>
+          <span className={`flex justify-between gap-2 ${fino}`}>
+            <span className="min-w-0 truncate">{i.jogo}</span>
+            <span className="flex-none">{resumo ? tempo(resumo.duracao) : ''}</span>
+          </span>
+          <span className={`flex justify-between gap-2 ${fino}`}>
+            <span className="min-w-0">{i.versao}</span>
+            <span className="flex-none">{resumo ? `${resumo.canais} canais` : ''}</span>
+          </span>
+        </span>
+      ) : (
+        <span className="min-w-0 flex-1 font-bold">{i.rotulo}</span>
+      )}
+    </button>
+  );
+}
 
 const CATEGORIAS: { id: Estilo; rotulo: string; icone: string }[] = [
   { id: 'cidade', rotulo: 'Cidade', icone: 'inicio' },
@@ -470,7 +546,7 @@ export function EstudioMusicas() {
   const q = semAcento(busca.trim());
   const visiveis = itens
     .filter(
-      (i) => (cat === 'todas' || i.categoria === cat) && (!q || semAcento(`${i.rotulo} ${i.familia}`).includes(q)),
+      (i) => (cat === 'todas' || i.categoria === cat) && (!q || semAcento(`${i.rotulo} ${i.familia} ${i.jogo ?? ''} ${i.versao ?? ''} ${i.tipo ?? ''}`).includes(q)),
     )
     .sort((a, b) => (ordem === 'categoria' ? 0 : a.rotulo.localeCompare(b.rotulo, 'pt') * (ordem === 'za' ? -1 : 1)));
   // grouped by family in the default order; one flat alphabetical list otherwise
@@ -520,21 +596,13 @@ export function EstudioMusicas() {
             <option value="za">Nome, Z a A</option>
           </select>
         </label>
-        <div className="grid max-h-80 content-start gap-3 overflow-auto lg:max-h-[calc(100vh-17rem)]">
+        <div className="rolagem-couro grid max-h-80 content-start gap-3 overflow-auto pr-1 lg:max-h-[calc(100vh-17rem)]">
           {visiveis.length === 0 && <p className="m-0 text-apagado">Nenhuma música com esse filtro.</p>}
           {grupos.map((g) => (
             <div key={g.titulo} className="grid gap-1">
               {g.titulo && <h3 className="m-0 text-[14px] text-apagado">{g.titulo}</h3>}
               {g.itens.map((i) => (
-                <button
-                  key={i.valor}
-                  onClick={() => trocar(i.valor)}
-                  aria-current={i.valor === item.valor}
-                  className={`flex min-h-11 items-center gap-2 rounded px-2 text-left text-[14px] ${i.valor === item.valor ? 'bg-couro font-bold text-creme' : 'hover:bg-pergaminho-escuro'}`}
-                >
-                  <Icone id={i.valor === item.valor ? 'tocar' : 'musica'} className="size-4 flex-none" />
-                  <span className="min-w-0 flex-1">{i.rotulo}</span>
-                </button>
+                <LinhaMusica key={i.valor} item={i} ativo={i.valor === item.valor} aoEscolher={() => trocar(i.valor)} />
               ))}
             </div>
           ))}

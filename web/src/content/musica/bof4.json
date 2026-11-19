@@ -34,7 +34,11 @@
           "titulo": "Como foi medido",
           "texto": "- **Origem dos números:** medido agora com `analise/compara_complexidade.py` nos dois .mid (notas ligadas, polifonia por semicolcheia, conjuntos de notas por compasso); sem ouvir."
         }
-      ]
+      ],
+      "nome": "The End and the Beginning",
+      "jogo": "Breath of Fire IV",
+      "versao": "MIDI de fã",
+      "tipo": "Referência"
     },
     {
       "id": "ref-cc-another-world",
@@ -54,7 +58,11 @@
           "titulo": "Como foi medido",
           "texto": "- **Origem dos números:** medido agora com `analise/compara_complexidade.py` (notas ligadas, polifonia por semicolcheia, conjuntos de notas por compasso); sem ouvir. Todos os MIDIs de fã vêm sem dinâmica por parte de quem sequenciou, só o que o arquivo traz."
         }
-      ]
+      ],
+      "nome": "Another World",
+      "jogo": "Chrono Cross",
+      "versao": "MIDI de fã · Akira Minaduki",
+      "tipo": "Referência"
     },
     {
       "id": "ref-cc-another-termina",
@@ -74,7 +82,11 @@
           "titulo": "Como foi medido",
           "texto": "- **Origem dos números:** medido agora com `analise/compara_complexidade.py` (notas ligadas, polifonia por semicolcheia, conjuntos de notas por compasso); sem ouvir. Todos os MIDIs de fã vêm sem dinâmica por parte de quem sequenciou, só o que o arquivo traz."
         }
-      ]
+      ],
+      "nome": "Another Termina",
+      "jogo": "Chrono Cross",
+      "versao": "MIDI de fã · Raist3",
+      "tipo": "Referência"
     },
     {
       "id": "ref-cc-another-world-extended",
@@ -94,7 +106,11 @@
           "titulo": "Como foi medido",
           "texto": "- **Origem dos números:** medido agora com `analise/compara_complexidade.py` (notas ligadas, polifonia por semicolcheia, conjuntos de notas por compasso); sem ouvir. Todos os MIDIs de fã vêm sem dinâmica por parte de quem sequenciou, só o que o arquivo traz."
         }
-      ]
+      ],
+      "nome": "Another World",
+      "jogo": "Chrono Cross",
+      "versao": "MIDI de fã · Cathcart/Lothario · estendida",
+      "tipo": "Referência"
     },
     {
       "id": "ref-ff9-esto-gaza-v1",
@@ -110,7 +126,11 @@
           "titulo": "Medidas do arquivo",
           "texto": "- 105 bpm, 3:09, 728 notas, 8 canais.\n- **Origem:** medido agora no arquivo com `mido`; sem ouvir."
         }
-      ]
+      ],
+      "nome": "Esto Gaza v1",
+      "jogo": "Final Fantasy IX",
+      "versao": "MIDI de fã · Aaron Saraco",
+      "tipo": "Referência"
     },
     {
       "id": "ref-ff9-esto-gaza-v2",
@@ -126,7 +146,11 @@
           "titulo": "Medidas do arquivo",
           "texto": "- 80 bpm, 3:29, 824 notas, 7 canais.\n- **Origem:** medido agora no arquivo com `mido`; sem ouvir."
         }
-      ]
+      ],
+      "nome": "Esto Gaza v2",
+      "jogo": "Final Fantasy IX",
+      "versao": "MIDI de fã · Jeffrey Copperthite",
+      "tipo": "Referência"
     },
     {
       "id": "ref-ff9-esto-gaza-v3",
@@ -142,7 +166,11 @@
           "titulo": "Medidas do arquivo",
           "texto": "- 80 bpm, 1:55, 482 notas, 11 canais; a mais curta.\n- **Origem:** medido agora no arquivo com `mido`; sem ouvir."
         }
-      ]
+      ],
+      "nome": "Esto Gaza v3",
+      "jogo": "Final Fantasy IX",
+      "versao": "MIDI de fã · Sephiroth3",
+      "tipo": "Referência"
     },
     {
       "id": "ref-ff9-esto-gaza-v4",
@@ -158,7 +186,11 @@
           "titulo": "Medidas do arquivo",
           "texto": "- 79 bpm, 5:07, 1382 notas, 7 canais; a mais completa.\n- **Origem:** medido agora no arquivo com `mido`; sem ouvir."
         }
-      ]
+      ],
+      "nome": "Esto Gaza v4",
+      "jogo": "Final Fantasy IX",
+      "versao": "MIDI de fã · Dermot Mac Flannchaidh",
+      "tipo": "Referência"
     },
     {
       "id": "ref-ff8-fishermans-horizon-v1",
@@ -174,7 +206,11 @@
           "titulo": "Medidas do arquivo",
           "texto": "- 250 bpm (escrito), 3:31, 1465 notas, 9 canais; a de maior fidelidade ao original na medição (93).\n- **Origem:** medido agora com `mido` e `analise/fidelidade_midi.py` (cromagrama contra o áudio original); sem ouvir."
         }
-      ]
+      ],
+      "nome": "Fisherman's Horizon v1",
+      "jogo": "Final Fantasy VIII",
+      "versao": "MIDI de fã · Cubby",
+      "tipo": "Referência"
     },
     {
       "id": "ref-ff8-fishermans-horizon-v2",
@@ -190,7 +226,11 @@
           "titulo": "Medidas do arquivo",
           "texto": "- 250 bpm (escrito), 2:51, 1195 notas, 9 canais; nota 87 na medição.\n- **Origem:** medido agora com `mido` e `analise/fidelidade_midi.py` (cromagrama contra o áudio original); sem ouvir."
         }
-      ]
+      ],
+      "nome": "Fisherman's Horizon v2",
+      "jogo": "Final Fantasy VIII",
+      "versao": "MIDI de fã · autor não informado",
+      "tipo": "Referência"
     },
     {
       "id": "ref-ff8-fishermans-horizon-v3",
@@ -206,7 +246,107 @@
           "titulo": "Medidas do arquivo",
           "texto": "- 120 bpm, 4:44, 11785 notas, 4 canais; outro arranjo (concerto), fora da medição.\n- **Origem:** medido agora com `mido` e `analise/fidelidade_midi.py` (cromagrama contra o áudio original); sem ouvir."
         }
-      ]
+      ],
+      "nome": "Fisherman's Horizon v3",
+      "jogo": "Final Fantasy VIII",
+      "versao": "MIDI de fã · Concert: Irish Jig, autor não informado",
+      "tipo": "Referência"
+    },
+    {
+      "id": "ref-ff8-fishermans-horizon-v1-lofi",
+      "letra": "L",
+      "audio": "",
+      "titulo": "Final Fantasy VIII · Fisherman's Horizon, Lofi (a partir da v1)",
+      "secoes": [
+        {
+          "titulo": "O que é",
+          "texto": "- **Recomposição própria** do MIDI v1 em Lofi: andamento mais lento, swing e notas humanizadas; a melodia original foi mantida, em instrumentos novos e legato; baixo, bateria boom-bap, acordes de Rhodes, pad, arpejo de violão e kalimba são linhas novas, escritas a partir dos acordes detectados no arquivo original.\n- Estrutura nova: 4 compassos de intro sem bateria, uma pausa sem bateria e baixo no meio, e final que desacelera. Cada instrumento tem o seu canal no estúdio.\n- **Duração:** 4:17, 9 canais. **Origem:** gerado agora com `analise/lofi_compor.py`; os acordes são detecção automática (pode errar); ninguém ouviu ainda. Estudo, **não vai ao jogo**."
+        }
+      ],
+      "nome": "Fisherman's Horizon v1",
+      "jogo": "Final Fantasy VIII",
+      "versao": "recomposto do MIDI v1 (Cubby)",
+      "tipo": "Lofi"
+    },
+    {
+      "id": "ref-ff8-fishermans-horizon-v1-vapor",
+      "letra": "M",
+      "audio": "",
+      "titulo": "Final Fantasy VIII · Fisherman's Horizon, Vaporwave (a partir da v1)",
+      "secoes": [
+        {
+          "titulo": "O que é",
+          "texto": "- **Recomposição própria** do MIDI v1 em Vaporwave: andamento mais lento, swing e notas humanizadas; a melodia original foi mantida, em instrumentos novos e legato; baixo, bateria em meio tempo, acordes de Rhodes, pad e kalimba são linhas novas, escritas a partir dos acordes detectados no arquivo original.\n- Estrutura nova: 4 compassos de intro sem bateria, uma pausa sem bateria e baixo no meio, e final que desacelera. Cada instrumento tem o seu canal no estúdio.\n- **Duração:** 5:23, 8 canais. **Origem:** gerado agora com `analise/lofi_compor.py`; os acordes são detecção automática (pode errar); ninguém ouviu ainda. Estudo, **não vai ao jogo**."
+        }
+      ],
+      "nome": "Fisherman's Horizon v1",
+      "jogo": "Final Fantasy VIII",
+      "versao": "recomposto do MIDI v1 (Cubby)",
+      "tipo": "Vaporwave"
+    },
+    {
+      "id": "ref-ff8-fishermans-horizon-v2-lofi",
+      "letra": "N",
+      "audio": "",
+      "titulo": "Final Fantasy VIII · Fisherman's Horizon, Lofi (a partir da v2)",
+      "secoes": [
+        {
+          "titulo": "O que é",
+          "texto": "- **Recomposição própria** do MIDI v2 em Lofi: andamento mais lento, swing e notas humanizadas; a melodia original foi mantida, em instrumentos novos e legato; baixo, bateria boom-bap, acordes de Rhodes, pad, arpejo de violão e kalimba são linhas novas, escritas a partir dos acordes detectados no arquivo original.\n- Estrutura nova: 4 compassos de intro sem bateria, uma pausa sem bateria e baixo no meio, e final que desacelera. Cada instrumento tem o seu canal no estúdio.\n- **Duração:** 3:37, 9 canais. **Origem:** gerado agora com `analise/lofi_compor.py`; os acordes são detecção automática (pode errar); ninguém ouviu ainda. Estudo, **não vai ao jogo**."
+        }
+      ],
+      "nome": "Fisherman's Horizon v2",
+      "jogo": "Final Fantasy VIII",
+      "versao": "recomposto do MIDI v2 (autor não informado)",
+      "tipo": "Lofi"
+    },
+    {
+      "id": "ref-ff8-fishermans-horizon-v2-vapor",
+      "letra": "O",
+      "audio": "",
+      "titulo": "Final Fantasy VIII · Fisherman's Horizon, Vaporwave (a partir da v2)",
+      "secoes": [
+        {
+          "titulo": "O que é",
+          "texto": "- **Recomposição própria** do MIDI v2 em Vaporwave: andamento mais lento, swing e notas humanizadas; a melodia original foi mantida, em instrumentos novos e legato; baixo, bateria em meio tempo, acordes de Rhodes, pad e kalimba são linhas novas, escritas a partir dos acordes detectados no arquivo original.\n- Estrutura nova: 4 compassos de intro sem bateria, uma pausa sem bateria e baixo no meio, e final que desacelera. Cada instrumento tem o seu canal no estúdio.\n- **Duração:** 4:35, 8 canais. **Origem:** gerado agora com `analise/lofi_compor.py`; os acordes são detecção automática (pode errar); ninguém ouviu ainda. Estudo, **não vai ao jogo**."
+        }
+      ],
+      "nome": "Fisherman's Horizon v2",
+      "jogo": "Final Fantasy VIII",
+      "versao": "recomposto do MIDI v2 (autor não informado)",
+      "tipo": "Vaporwave"
+    },
+    {
+      "id": "ref-ff8-fishermans-horizon-v3-lofi",
+      "letra": "P",
+      "audio": "",
+      "titulo": "Final Fantasy VIII · Fisherman's Horizon, Lofi (a partir da v3)",
+      "secoes": [
+        {
+          "titulo": "O que é",
+          "texto": "- **Recomposição própria** do MIDI v3 em Lofi: andamento mais lento, swing e notas humanizadas; a melodia original foi mantida, em instrumentos novos e legato; baixo, bateria boom-bap, acordes de Rhodes, pad, arpejo de violão e kalimba são linhas novas, escritas a partir dos acordes detectados no arquivo original.\n- Estrutura nova: 4 compassos de intro sem bateria, uma pausa sem bateria e baixo no meio, e final que desacelera. Cada instrumento tem o seu canal no estúdio.\n- **Duração:** 7:38, 8 canais. **Origem:** gerado agora com `analise/lofi_compor.py`; os acordes são detecção automática (pode errar); ninguém ouviu ainda. Estudo, **não vai ao jogo**."
+        }
+      ],
+      "nome": "Fisherman's Horizon v3",
+      "jogo": "Final Fantasy VIII",
+      "versao": "recomposto do MIDI v3 (concerto Irish Jig)",
+      "tipo": "Lofi"
+    },
+    {
+      "id": "ref-ff8-fishermans-horizon-v3-vapor",
+      "letra": "Q",
+      "audio": "",
+      "titulo": "Final Fantasy VIII · Fisherman's Horizon, Vaporwave (a partir da v3)",
+      "secoes": [
+        {
+          "titulo": "O que é",
+          "texto": "- **Recomposição própria** do MIDI v3 em Vaporwave: andamento mais lento, swing e notas humanizadas; a melodia original foi mantida, em instrumentos novos e legato; baixo, bateria em meio tempo, acordes de Rhodes, pad e kalimba são linhas novas, escritas a partir dos acordes detectados no arquivo original.\n- Estrutura nova: 4 compassos de intro sem bateria, uma pausa sem bateria e baixo no meio, e final que desacelera. Cada instrumento tem o seu canal no estúdio.\n- **Duração:** 9:55, 7 canais. **Origem:** gerado agora com `analise/lofi_compor.py`; os acordes são detecção automática (pode errar); ninguém ouviu ainda. Estudo, **não vai ao jogo**."
+        }
+      ],
+      "nome": "Fisherman's Horizon v3",
+      "jogo": "Final Fantasy VIII",
+      "versao": "recomposto do MIDI v3 (concerto Irish Jig)",
+      "tipo": "Vaporwave"
     }
   ],
   "checagens": []

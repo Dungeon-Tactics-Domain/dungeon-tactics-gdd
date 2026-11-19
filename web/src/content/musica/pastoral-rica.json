@@ -42,7 +42,11 @@
         "9": "ostinato em pizzicato da ponte (groove 3+3+2).",
         "10": "congas, pandeiro e cabasa: o groove muda por seção, com viradas nos finais de frase.",
         "11": "ecos de celesta no compasso 8 e no retorno; pontua os finais."
-      }
+      },
+      "nome": "Farol ao Entardecer",
+      "jogo": "Dungeon Tactics · cidade",
+      "versao": "tema rica A · composta por Opus xhigh",
+      "tipo": "Original"
     },
     {
       "id": "pastoral-rica-b",
@@ -84,7 +88,11 @@
         "10": "congas e pandeiro: padrões diferentes por seção, hemíola 3+3+2 no retorno, viradas nos finais.",
         "11": "pizzicato em tercinas na ponte e ostinato leve no retorno.",
         "12": "trompa só nos compassos 45-56: peso do clímax e da picardia."
-      }
+      },
+      "nome": "Festa no Farol",
+      "jogo": "Dungeon Tactics · cidade",
+      "versao": "tema rica B · composta por Fable high",
+      "tipo": "Original"
     }
   ],
   "checagens": []

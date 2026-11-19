@@ -45,7 +45,11 @@
           "titulo": "Como regenerar",
           "texto": "Script `scripts/music/eval/battle/slot_A.py` (usa `scripts/music/psx.py`: MIDI + MuseScore General + filtro PS1, 22 kHz, 11 bits). Saída `.ogg` em `D:/Projetos/_musica-tools/eval/battle/slot_A.ogg`."
         }
-      ]
+      ],
+      "nome": "Brasas no Desfiladeiro",
+      "jogo": "Dungeon Tactics · batalha",
+      "versao": "tema A · composta por Opus high",
+      "tipo": "Original"
     },
     {
       "id": "batalha-a-t",
@@ -127,7 +131,11 @@
           "titulo": "Como regenerar",
           "texto": "Script `scripts/music/eval/battle/slot_B.py` (usa `scripts/music/psx.py`: MIDI + MuseScore General + filtro PS1, 22 kHz, 11 bits). Saída `.ogg` em `D:/Projetos/_musica-tools/eval/battle/slot_B.ogg`."
         }
-      ]
+      ],
+      "nome": "Lâmina Veloz",
+      "jogo": "Dungeon Tactics · batalha",
+      "versao": "tema B · composta por Haiku low",
+      "tipo": "Original"
     },
     {
       "id": "batalha-b-t",
@@ -213,7 +221,11 @@
           "titulo": "Mudança do trompete",
           "texto": "- **15/11:** a voz de trompete (GM 56, 85 notas) foi **removida** a pedido do Fernando; a faixa foi renderizada de novo. As notas das outras partes não mudaram."
         }
-      ]
+      ],
+      "nome": "Marcha das Cinzas",
+      "jogo": "Dungeon Tactics · batalha",
+      "versao": "tema C · composta por Fable high",
+      "tipo": "Original"
     },
     {
       "id": "batalha-c-t",
@@ -307,7 +319,11 @@
           "titulo": "Como regenerar",
           "texto": "Script `scripts/music/eval/battle/slot_D.py` (usa `scripts/music/psx.py`: MIDI + MuseScore General + filtro PS1, 22 kHz, 11 bits). Saída `.ogg` em `D:/Projetos/_musica-tools/eval/battle/slot_D.ogg`."
         }
-      ]
+      ],
+      "nome": "Escudo e Tambor",
+      "jogo": "Dungeon Tactics · batalha",
+      "versao": "tema D · composta por Sonnet medium",
+      "tipo": "Original"
     },
     {
       "id": "batalha-d-t",
@@ -393,7 +409,11 @@
           "titulo": "Mudança do trompete",
           "texto": "- **15/11:** o trompete era a melodia (124 notas, Ré 4 a Sol 5); tirá-lo deixaria a faixa sem tema. As **mesmas notas passaram para a trompa** (GM 60), sem trompete, e a faixa foi renderizada de novo."
         }
-      ]
+      ],
+      "nome": "Crepúsculo de Aço",
+      "jogo": "Dungeon Tactics · batalha",
+      "versao": "tema E · composta por Opus xhigh",
+      "tipo": "Original"
     },
     {
       "id": "batalha-e-t",
@@ -487,7 +507,11 @@
           "titulo": "Como regenerar",
           "texto": "Script `scripts/music/eval/battle/slot_F.py` (usa `scripts/music/psx.py`: MIDI + MuseScore General + filtro PS1, 22 kHz, 11 bits). Saída `.ogg` em `D:/Projetos/_musica-tools/eval/battle/slot_F.ogg`."
         }
-      ]
+      ],
+      "nome": "Fogo na Ponte",
+      "jogo": "Dungeon Tactics · batalha",
+      "versao": "tema F · composta por Sonnet high",
+      "tipo": "Original"
     },
     {
       "id": "batalha-f-t",

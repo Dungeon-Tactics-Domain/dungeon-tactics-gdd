@@ -35,7 +35,11 @@
           "titulo": "Como regenerar",
           "texto": "Script `scripts/music/eval/slot_A.py` (com `scripts/music/psx.py`). Saída `.ogg` em `D:/Projetos/_musica-tools/eval/slot_A.ogg`."
         }
-      ]
+      ],
+      "nome": "Manhã na Aldeia",
+      "jogo": "Dungeon Tactics · cidade",
+      "versao": "tema A · composta por Fable high",
+      "tipo": "Original"
     },
     {
       "id": "pastoral-a-t",
@@ -117,7 +121,11 @@
           "titulo": "Como regenerar",
           "texto": "Script `scripts/music/eval/slot_B.py` (com `scripts/music/psx.py`). Saída `.ogg` em `D:/Projetos/_musica-tools/eval/slot_B.ogg`."
         }
-      ]
+      ],
+      "nome": "Pão e Lareira",
+      "jogo": "Dungeon Tactics · cidade",
+      "versao": "tema B · composta por Sonnet medium",
+      "tipo": "Original"
     },
     {
       "id": "pastoral-b-t",
@@ -199,7 +207,11 @@
           "titulo": "Como regenerar",
           "texto": "Script `scripts/music/eval/slot_C.py` (com `scripts/music/psx.py`). Saída `.ogg` em `D:/Projetos/_musica-tools/eval/slot_C.ogg`."
         }
-      ]
+      ],
+      "nome": "Trigal ao Vento",
+      "jogo": "Dungeon Tactics · cidade",
+      "versao": "tema C · composta por Sonnet high",
+      "tipo": "Original"
     },
     {
       "id": "pastoral-c-t",
@@ -281,7 +293,11 @@
           "titulo": "Como regenerar",
           "texto": "Script `scripts/music/eval/slot_D.py` (com `scripts/music/psx.py`). Saída `.ogg` em `D:/Projetos/_musica-tools/eval/slot_D.ogg`."
         }
-      ]
+      ],
+      "nome": "Praça do Farol",
+      "jogo": "Dungeon Tactics · cidade",
+      "versao": "tema D · composta por Opus xhigh",
+      "tipo": "Original"
     },
     {
       "id": "pastoral-d-t",
@@ -363,7 +379,11 @@
           "titulo": "Como regenerar",
           "texto": "Script `scripts/music/eval/slot_E.py` (com `scripts/music/psx.py`). Saída `.ogg` em `D:/Projetos/_musica-tools/eval/slot_E.ogg`."
         }
-      ]
+      ],
+      "nome": "Rio das Lavadeiras",
+      "jogo": "Dungeon Tactics · cidade",
+      "versao": "tema E · composta por Opus high",
+      "tipo": "Original"
     },
     {
       "id": "pastoral-e-t",
@@ -445,7 +465,11 @@
           "titulo": "Como regenerar",
           "texto": "Script `scripts/music/eval/slot_F.py` (com `scripts/music/psx.py`). Saída `.ogg` em `D:/Projetos/_musica-tools/eval/slot_F.ogg`."
         }
-      ]
+      ],
+      "nome": "Cantiga do Moinho",
+      "jogo": "Dungeon Tactics · cidade",
+      "versao": "tema F · composta por Haiku low",
+      "tipo": "Original"
     },
     {
       "id": "pastoral-f-t",
