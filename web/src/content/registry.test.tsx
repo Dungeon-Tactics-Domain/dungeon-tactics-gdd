@@ -65,7 +65,7 @@ describe('montarLab', () => {
   });
 
   it('hides that link on a public hostname', async () => {
-    vi.stubGlobal('location', { hostname: 'dungeon-tactics-lab.fernandorffdev.com' });
+    vi.stubGlobal('location', { hostname: 'dungeon-tactics-gdd.fernandorffdev.com' });
     montar(lab.sumario, '/x');
     expect(await screen.findByText('texto do início')).toBeInTheDocument();
     expect(screen.queryByRole('link', { name: /Ver no lab antigo/ })).toBeNull();

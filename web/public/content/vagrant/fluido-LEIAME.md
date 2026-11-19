@@ -4,7 +4,7 @@ Terceira variação de água da sala gótica, para comparar com a piscina rasa e
 Aqui o líquido é feito de alguns milhares de bolinhas que caem, escorrem, se empurram e são empurradas pelos bonecos.
 
 - Módulo: `fluido.js`
-- Página de teste: [fluido-teste.html](https://dungeon-tactics-lab.fernandorffdev.com/content/vagrant/fluido-teste.html)
+- Página de teste: [fluido-teste.html](https://dungeon-tactics-gdd.fernandorffdev.com/content/vagrant/fluido-teste.html)
 - Estado: experimento de 17/11/2026. Não está ligado na `sala-fechada.html`.
 
 ## Resumo honesto

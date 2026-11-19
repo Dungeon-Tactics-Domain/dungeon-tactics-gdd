@@ -1,6 +1,6 @@
 # Kit de interface dos visualizadores 3D do Vagrant Story (`ui-vs.css` + `ui-vs.js`)
 
-Demonstração: <https://dungeon-tactics-lab.fernandorffdev.com/content/vagrant/ui-vs-demo.html>
+Demonstração: <https://dungeon-tactics-gdd.fernandorffdev.com/content/vagrant/ui-vs-demo.html>
 (com a gaveta já aberta: acrescente `?gaveta` ao endereço).
 
 Pedido do Fernando no grill de 17/11/2026: painéis **escuros** no estilo do Vagrant Story sobre a cena 3D (moldura de

@@ -2,7 +2,7 @@
 
 Água que reage aos bonecos, em dois jeitos: **piscina rasa** e **fosso fundo**. Um arquivo só, sem dependência: a página passa o próprio `THREE` (feito para a versão 0.117 que a sala usa).
 
-- Teste: [agua-teste.html](https://dungeon-tactics-lab.fernandorffdev.com/content/vagrant/agua-teste.html)
+- Teste: [agua-teste.html](https://dungeon-tactics-gdd.fernandorffdev.com/content/vagrant/agua-teste.html)
 - Medidas e limites: no fim deste arquivo.
 
 ## O que ela faz

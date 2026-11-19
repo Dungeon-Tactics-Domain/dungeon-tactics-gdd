@@ -17,6 +17,10 @@ const types = {
 
 createServer((req, res) => {
   if (req.method !== 'GET' && req.method !== 'HEAD') return res.writeHead(405).end();
+  // The site was renamed from "lab" to "gdd" (Nov 19); old links keep working through a permanent redirect.
+  if ((req.headers.host ?? '').startsWith('dungeon-tactics-lab.')) {
+    return res.writeHead(301, { location: `https://dungeon-tactics-gdd.fernandorffdev.com${req.url}` }).end();
+  }
   const url = decodeURIComponent(new URL(req.url, 'http://x').pathname);
   // No API on the public site: /api paths must not fall back to the app shell.
   if (url.startsWith('/api')) return res.writeHead(404).end();
@@ -63,7 +67,7 @@ createServer((req, res) => {
       'accept-ranges': 'bytes',
       // Heavy stems come from 127.0.0.1 when Fernando browses the public site on this PC (`?local=1`), a cross-origin request.
       ...(url.startsWith('/content/musica/stems/')
-        ? { 'access-control-allow-origin': 'https://dungeon-tactics-lab.fernandorffdev.com', vary: 'Origin' }
+        ? { 'access-control-allow-origin': 'https://dungeon-tactics-gdd.fernandorffdev.com', vary: 'Origin' }
         : {}),
       'content-length': end - start + 1,
       ...(partial ? { 'content-range': `bytes ${start}-${end}/${size}` } : {}),
