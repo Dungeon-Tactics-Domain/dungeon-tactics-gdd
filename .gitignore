@@ -22,3 +22,12 @@ config/fabrica.toml
 !web/public/icon*.*
 _notas/
 *.gif
+
+# Vagrant Story sounds, music and the game build with VS models: copied from D:\Projetos\_estudo-vagrant and served
+# on the lab domain only through the build (decided 17/11); never in git
+web/public/content/vagrant/sfx/
+web/public/content/vagrant/musica/
+web/public/content/vagrant/jogo/
+
+# SoundFonts for the live synthesizer: large, with their own licences, kept on the developer machine only
+web/public/soundfonts/
