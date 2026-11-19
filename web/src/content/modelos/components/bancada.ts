@@ -1,9 +1,10 @@
 // The 3D bench (eval.html) runs in the game's worktree on port 5205; outside localhost (the published site) it is
 // reached through the tunnel. Same rule as the old lab (dungeon-tactics-lab/modelos/src/main.ts).
-export const BANCADA =
-  location.hostname === 'localhost' ? 'http://localhost:5205' : 'https://dungeon-bancada.fernandorffdev.com';
+// the bench listens on 127.0.0.1, so the page opened by that address talks to it directly too
+const LOCAL = ['localhost', '127.0.0.1'].includes(location.hostname);
+export const BANCADA = LOCAL ? `http://${location.hostname}:5205` : 'https://dungeon-bancada.fernandorffdev.com';
 /** The port and the command are shown only on the author's machine; visitors of the published site get no internal detail. */
-export const EM_LOCALHOST = location.hostname === 'localhost';
+export const EM_LOCALHOST = LOCAL;
 export const BENCH = `${BANCADA}/eval.html`;
 /**
  * Every viewer box. Stacked (phones, tablets) it stays pinned on top, so it is half the screen tall but leaves ~340 px
