@@ -91,7 +91,11 @@ export class PlayerEngine {
   readonly #liveReady = new Set<string>();
   #versionToken = 0; // the latest setVersion, same idea
   #songToken = 0; // the latest setSong; an older one that finishes loading later gives up
-  #waiting = 0; // jobs holding the player until every instrument is loaded
+  // jobs holding the player until every instrument is loaded; a new song or version forgets the ones before it, whose
+  // downloads may go on but hold nothing any more
+  readonly #waiting = new Set<object>();
+  #awaited: { v: Version; channel: number }[] = []; // the stems the latest of those jobs waits for
+  readonly #fraction = new Map<string, number>(); // by #stemKey: share of the file downloaded so far
   readonly #liveFailed = new Set<string>();
   readonly #sources = new Map<number, AudioBufferSourceNode>();
   readonly #gains = new Map<number, GainNode>();
@@ -222,19 +226,16 @@ export class PlayerEngine {
   // ---- loading
 
   /**
-   * Loads a song and starts downloading the stems of its version; resolves when every stem settled. The mixer (volume,
-   * mute, solo, per-channel versions) starts fresh, since channel numbers mean other instruments in another song.
+   * Takes a song at once (the one on stage pauses and the screens show the new one) and starts downloading the stems
+   * of its version; resolves when every stem settled. The mixer (volume, mute, solo, per-channel versions) starts
+   * fresh, since channel numbers mean other instruments in another song. With `play` the song starts by itself once
+   * every instrument is loaded, unless one failed or a newer song was asked for meanwhile.
    */
-  async setSong(song: Song, versionId?: string): Promise<void> {
+  async setSong(song: Song, versionId?: string, { play = false } = {}): Promise<void> {
     const next = song.versions.find((v) => v.id === versionId) ?? song.versions[0] ?? null;
     const token = ++this.#songToken;
     this.#versionToken++; // a version choice still loading belongs to the song being left
-    if (next) {
-      // the song on stage stays as it is until every instrument of the new one is loaded
-      if (next.live) this.pause(); // the voice holds one MIDI at a time: loading the new one would cut the old one anyway
-      await this.#whileLoading(() => this.#preload(song, next));
-      if (token !== this.#songToken) return; // a newer choice took over while this one loaded
-    }
+    this.#waiting.clear();
     this.pause();
     this.#song = song;
     this.#version = next;
@@ -246,6 +247,10 @@ export class PlayerEngine {
     this.#pausedAt = 0;
     this.#setState('idle');
     this.#emit('change', {});
+    if (!next) return;
+    await this.#whileLoading(() => this.#preload(song, next));
+    if (token !== this.#songToken) return; // a newer choice took over while this one loaded
+    if (play && !this.channels.some((c) => this.stemStatus(c.channel) === 'error')) await this.play();
   }
 
   // by the stems folder, not the version id: every song names its versions alike ('sc88p', 'musescore'), and a key by
@@ -308,28 +313,51 @@ export class PlayerEngine {
 
   // true while a song or the Play button waits for every instrument; the screen shows it
   get loading() {
-    return this.#waiting > 0;
+    return this.#waiting.size > 0;
+  }
+
+  /**
+   * How far the stems the player waits for are: how many are decoded, how many there are and the share downloaded
+   * (0..1, partial stems included). A live version has no stems: total is 0.
+   */
+  get loadProgress() {
+    const parts = this.#awaited.map(({ v, channel }) => {
+      const key = this.#stemKey(v, channel);
+      return this.#ready.has(key) ? 1 : (this.#fraction.get(key) ?? 0);
+    });
+    const total = parts.length;
+    return {
+      done: parts.filter((p) => p === 1).length,
+      total,
+      fraction: total ? parts.reduce((a, b) => a + b, 0) / total : 0,
+    };
   }
 
   async #whileLoading(job: () => Promise<unknown>) {
-    this.#waiting++;
+    const mark = {};
+    this.#waiting.add(mark);
     this.#emit('change', {});
     try {
       await job();
     } finally {
-      this.#waiting--;
+      this.#waiting.delete(mark);
       this.#emit('change', {});
     }
   }
 
   // every lane of the version (or its live voice) settled; failures are reported through the error event
   async #preload(song: Song, v: Version) {
+    this.#awaited = [];
     if (v.live) return void (await this.#loadLive(v).catch(() => undefined));
     const lanes = v.channels ?? song.channels ?? [];
+    this.#awaited = lanes.map((c) => ({ v, channel: c.channel }));
     await Promise.allSettled(lanes.map((c) => this.#buffer(c.channel, v)));
   }
 
   async #loadLanes() {
+    this.#awaited = this.#version?.live
+      ? []
+      : this.channels.map((c) => ({ v: this.versionOf(c.channel)!, channel: c.channel }));
     if (this.#version?.live) {
       await this.#loadLive(this.#version).catch(() => undefined);
       return;
@@ -380,7 +408,9 @@ export class PlayerEngine {
       for (let r = await reader.read(); !r.done; r = await reader.read()) {
         parts.push(r.value);
         read += r.value.length;
-        this.#emit('progress', { versionId: v.id, channel, loaded: Math.min(0.99, read / total) });
+        const loaded = Math.min(0.99, read / total);
+        this.#fraction.set(this.#stemKey(v, channel), loaded);
+        this.#emit('progress', { versionId: v.id, channel, loaded });
       }
       data = await new Blob(parts as BlobPart[]).arrayBuffer();
     } else data = await res.arrayBuffer();
@@ -432,9 +462,10 @@ export class PlayerEngine {
   async setVersion(versionId: string, { keepChannels = false } = {}): Promise<void> {
     const v = this.#song?.versions.find((x) => x.id === versionId);
     if (!v || v === this.#version) return;
-    // like a new song: the sound on stage stays until every instrument of the other version is loaded, then it swaps at once
+    // the sound on stage stays until every instrument of the other version is loaded, then it swaps at once
     const song = this.#song!;
     const token = ++this.#versionToken;
+    this.#waiting.clear();
     await this.#whileLoading(() => this.#preload(song, v));
     if (token !== this.#versionToken || this.#song !== song || v === this.#version) return; // a newer choice took over
     const pos = this.position;

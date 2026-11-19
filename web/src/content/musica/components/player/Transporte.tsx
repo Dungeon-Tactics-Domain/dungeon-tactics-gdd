@@ -1,4 +1,5 @@
-// Top of the right side: play/pause, time, position bar, which version sounds and the master volume.
+// Top of the right side: the loading bar while the sounds download, then play/pause, time, position bar, which version
+// sounds and the master volume.
 import { Button } from '@/components/ui/button';
 import { formatTime } from '@/lib/player/math';
 import type { PlayerEngine } from '@/lib/player/PlayerEngine';
@@ -23,11 +24,42 @@ export function Transporte({
   const pecas = engine?.song ? engine.channels.map((c) => engine.stemStatus(c.channel)) : [];
   const prontas = pecas.filter((p) => p === 'ready').length;
   const falhou = pecas.includes('error');
+  // the stems being waited for, which for a change of version are not yet the ones on stage
+  const carga = engine?.loadProgress;
+  const porcento = Math.round((carga?.fraction ?? 0) * 100);
+  // the live synthesizer downloads one file with no progress to report: the bar stays empty beside its text
+  const textoCarga = carga?.total
+    ? `Baixando os sons: ${carga.done} de ${carga.total}`
+    : 'Baixando o soundfont (30 MB)…';
 
   return (
     <div className="flex flex-wrap items-center gap-x-4 gap-y-3 bg-couro px-4 py-3">
+      {carregando && (
+        <div className="flex basis-full flex-wrap items-center gap-x-3 gap-y-2 border-2 border-ouro-claro bg-couro-escuro px-3 py-2">
+          {/* with reduced motion there is no spinner: the bar alone shows the progress */}
+          <span
+            aria-hidden="true"
+            className="size-6 flex-none rounded-full border-4 border-apagado border-t-ouro-claro motion-safe:animate-spin motion-reduce:hidden"
+          />
+          <span id="carga-texto" className="flex-none text-lg font-bold">
+            {textoCarga}
+          </span>
+          <div
+            role="progressbar"
+            aria-labelledby="carga-texto"
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-valuenow={carga?.total ? porcento : undefined}
+            aria-valuetext={textoCarga}
+            className="h-4 min-w-24 flex-1 border-2 border-apagado bg-couro"
+          >
+            <div className="h-full bg-ouro-claro" style={{ width: `${porcento}%` }} />
+          </div>
+        </div>
+      )}
       <Button
         icone={tocando ? 'pausar' : 'tocar'}
+        data-tocar
         disabled={!versao || carregando}
         onClick={aoAlternar}
         className="min-w-28 bg-ouro-claro text-couro-escuro hover:bg-ouro-brilho"
@@ -70,6 +102,7 @@ export function Transporte({
           {versao?.live ? 'O soundfont ou o MIDI não carregou.' : 'Um instrumento não carregou.'}
         </p>
       ) : (
+        !carregando &&
         prontas < pecas.length && (
           <p role="status" className="m-0 basis-full">
             {versao?.live

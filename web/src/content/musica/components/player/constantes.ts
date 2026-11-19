@@ -9,7 +9,10 @@ export const varDoCanal = (i: number) => `--canal-${(i % 8) + 1}`;
 
 // The mixer strips and the roll lanes are the same height and the mixer header matches the ruler, so rows line up.
 // 124 px leaves room for two 44 px rows (name with Mute and Solo, volume with version) and a line of effect tags.
-export const ALTURA_FAIXA = 124; // three lines: name and note, volume and sound, effect tags
+export const ALTURA_FAIXA = 124; // three lines: name with Mute and Solo, volume and sound, effect tags
+
+// A note that stops sounding fades out of the mixer's notes column in this long (ms) instead of vanishing
+export const FADE_NOTA = 300;
 export const ALTURA_REGUA = 48;
 
 // The player's height: by default it ends at the bottom of the window; the handle under it changes that, and the choice
@@ -38,4 +41,11 @@ export const ROTULO_EFEITO: Record<Effect, string> = {
   release: 'Release longo',
   sustain: 'Sustain (pedal)',
   eco: 'Eco',
+};
+// the Icone id of each effect tag
+export const ICONE_EFEITO: Record<Effect, string> = {
+  reverb: 'reverb',
+  release: 'release',
+  sustain: 'sustain',
+  eco: 'eco',
 };

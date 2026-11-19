@@ -426,14 +426,15 @@ describe('PlayerEngine regressions', () => {
     expect(ctx.live().map((s) => s.buffer?.duration)).toEqual([50, 50, 50]);
   });
 
-  it('keeps the song on stage until every instrument of the next one is loaded, and Play waits too', async () => {
+  // a second song whose stems wait behind a gate, so a test decides when (and whether) they arrive
+  const gated = (extra: Record<string, number> = {}) => {
     const other: Song = {
       ...song,
       id: 'battle-b',
       versions: [{ id: 'gm', label: 'MuseScore General', stemsBase: '/s/b', midi: '/m/b.mid', duration: 50 }],
     };
     const ctx = new FakeContext();
-    const net = fakeFetch({ ...files, '/s/b/0.ogg': 50, '/s/b/1.ogg': 50, '/s/b/9.ogg': 50 });
+    const net = fakeFetch({ ...files, '/s/b/0.ogg': 50, '/s/b/1.ogg': 50, '/s/b/9.ogg': 50, ...extra });
     let open!: () => void;
     const gate = new Promise<void>((r) => (open = r));
     const engine = new PlayerEngine({
@@ -444,18 +445,70 @@ describe('PlayerEngine regressions', () => {
       },
       requestFrame: () => () => undefined,
     });
+    return { other, ctx, engine, open: () => open() };
+  };
+
+  it('another song pauses the one on stage at once, takes the screen and plays by itself when loaded', async () => {
+    const { other, ctx, engine, open } = gated();
     await engine.setSong(song);
     await engine.play();
-    const switching = engine.setSong(other);
+    const switching = engine.setSong(other, undefined, { play: true });
+    // before anything is downloaded: the old song is silent and the new one is on stage
+    expect(engine.song).toBe(other);
+    expect(engine.state).toBe('idle');
+    expect(engine.position).toBe(0);
+    expect(ctx.live()).toHaveLength(0);
     await flush();
-    expect(engine.song).toBe(song); // still the old one, still playing
-    expect(engine.state).toBe('playing');
     expect(engine.loading).toBe(true);
+    expect(engine.loadProgress).toEqual({ done: 0, total: 3, fraction: 0 });
     open();
     await switching;
-    expect(engine.song).toBe(other);
     expect(engine.loading).toBe(false);
-    await engine.play();
-    expect(ctx.live()).toHaveLength(3); // all three lanes start together, none late
+    expect(engine.loadProgress).toEqual({ done: 3, total: 3, fraction: 1 });
+    expect(engine.state).toBe('playing');
+    expect(ctx.live().map((s) => s.buffer?.duration)).toEqual([50, 50, 50]); // all three lanes start together
+  });
+
+  it('plays by itself even when the song before was stopped, and stays stopped when not asked to play', async () => {
+    const { other, engine, open } = gated();
+    open();
+    await engine.setSong(song);
+    expect(engine.state).toBe('idle'); // the first song of a visit, or one opened from a link
+    await engine.setSong(other, undefined, { play: true });
+    expect(engine.state).toBe('playing');
+  });
+
+  it('never plays a song whose request was overtaken while it loaded', async () => {
+    const { other, ctx, engine, open } = gated();
+    const overtaken = engine.setSong(other, undefined, { play: true });
+    await flush();
+    const latest = engine.setSong(song, 'sc88p', { play: true });
+    await latest;
+    expect(engine.loading).toBe(false); // the overtaken download goes on but holds nothing
+    open();
+    await Promise.all([overtaken, latest]);
+    expect(engine.song).toBe(song);
+    expect(engine.state).toBe('playing');
+    expect(ctx.live().map((s) => s.buffer?.duration)).toEqual([100, 100, 100]); // only the latest song sounds
+  });
+
+  it('does not play a song with an instrument that failed to load', async () => {
+    const { other, ctx, engine, open } = gated({ '/s/b/9.ogg': undefined as unknown as number });
+    open();
+    await engine.setSong(other, undefined, { play: true });
+    expect(engine.stemStatus(9)).toBe('error');
+    expect(engine.state).toBe('idle');
+    expect(ctx.live()).toHaveLength(0);
+  });
+
+  it('counts the stems of the version being loaded, not of the one on stage', async () => {
+    const { engine } = gated();
+    await engine.setSong(song, 'gm');
+    expect(engine.loadProgress).toEqual({ done: 3, total: 3, fraction: 1 });
+    const seen: number[] = [];
+    engine.on('progress', () => seen.push(engine.loadProgress.done));
+    await engine.setVersion('tfg');
+    expect(seen[0]).toBe(0); // the first stem of the other version starts from none ready
+    expect(engine.loadProgress).toEqual({ done: 3, total: 3, fraction: 1 });
   });
 });

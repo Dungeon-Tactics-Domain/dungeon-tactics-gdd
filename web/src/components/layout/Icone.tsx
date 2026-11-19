@@ -46,6 +46,11 @@ const TRACOS: Record<string, string> = {
   lua: 'M20 14.5A8.5 8.5 0 119.5 4a7 7 0 0010.5 10.5z',
   sistema: 'M3 4h18v12H3zM8 20h8M12 16v4',
   arrastar: 'M2 9h20M2 15h20',
+  // effect tags of the music mixer: a wave, a clock (long release), a piano pedal, a sound repeating outwards
+  reverb: 'M2 12q2.5-9 5 0t5 0 5 0 5 0',
+  release: 'M12 3a9 9 0 100 18 9 9 0 000-18zM12 7v5l3 2',
+  sustain: 'M10 3h4v8l4 7a2 2 0 01-2 3H8a2 2 0 01-2-3l4-7z',
+  eco: 'M5 9a5 5 0 010 6M10 6a9 9 0 010 12M15 3a13 13 0 010 18',
 };
 
 export function Icone({ id, ...p }: { id: string } & SVGProps<SVGSVGElement>) {

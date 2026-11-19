@@ -3,6 +3,7 @@
 // It owns the PlayerEngine and its AudioContext, created on the first pointer or key press inside it (or Space anywhere),
 // because browsers keep a context made earlier suspended and warn about it.
 import { type CSSProperties, useEffect, useRef, useState } from 'react';
+import { useSearchParams } from 'react-router';
 import { Icone } from '@/components/layout/Icone';
 import { Toggle } from '@/components/ui/toggle';
 import { PlayerEngine } from '@/lib/player/PlayerEngine';
@@ -10,7 +11,7 @@ import type { Catalog, Song } from '@/lib/player/schema';
 import { createSpessaVoice } from '@/lib/player/spessa-voice';
 import { Biblioteca } from './Biblioteca';
 import { ALTURA_MINIMA, PASSO_ALTURA } from './constantes';
-import { useAlturaDaw, useMotor } from './hooks';
+import { escreverLink, lerLink, useAlturaDaw, useMotor } from './hooks';
 import { Mixer } from './Mixer';
 import { NotasFaixa } from './NotasFaixa';
 import { PianoRoll } from './PianoRoll';
@@ -27,13 +28,18 @@ const primeira = (c: Catalog): Song | undefined => {
 };
 
 export function PlayerApp({ catalogo }: { catalogo: Catalog }) {
-  const [musica, setMusica] = useState(() => primeira(catalogo));
-  const [versaoId, setVersaoId] = useState(() => musica?.versions[0]?.id);
+  // a shared link names the song and the version (?musica=&som=); the page opens on them, stopped, since browsers
+  // allow no sound before a click. Ids that do not exist fall back to the default.
+  const [params, setParams] = useSearchParams();
+  const [musica, setMusica] = useState(() => lerLink(catalogo, params).musica ?? primeira(catalogo));
+  const [versaoId, setVersaoId] = useState(() => lerLink(catalogo, params).versaoId ?? musica?.versions[0]?.id);
+  // replace: picking songs must not pile up entries for the Back button
+  const gravarLink = (musicaId: string, id: string | undefined) =>
+    setParams((p) => escreverLink(p, musicaId, id), { replace: true });
   const [listaAberta, setListaAberta] = useState(true);
   const [engine, setEngine] = useState<PlayerEngine>();
   const contexto = useRef<AudioContext>(undefined);
   const motor = useRef<PlayerEngine>(undefined);
-  const primeiraCarga = useRef<Promise<void>>(Promise.resolve());
   const caixa = useRef<HTMLDivElement>(null);
   const arrasto = useRef({ y: 0, altura: 0 });
   const { altura, maximo, mudar: mudarAltura } = useAlturaDaw(caixa);
@@ -50,8 +56,7 @@ export function PlayerApp({ catalogo }: { catalogo: Catalog }) {
     const ctx = contexto.current;
     const e = new PlayerEngine({ context: ctx, live: (saida) => createSpessaVoice(ctx, saida) });
     e.setTreated(true); // the treated finish is the one to hear; the original is no longer offered
-    // the engine only takes the song once its instruments are loaded, so Play waits for this first
-    if (musica) primeiraCarga.current = e.setSong(musica, versaoId);
+    if (musica) void e.setSong(musica, versaoId);
     motor.current = e;
     setEngine(e);
     return e;
@@ -60,29 +65,30 @@ export function PlayerApp({ catalogo }: { catalogo: Catalog }) {
   const alternar = () => {
     const e = iniciar();
     if (e.state === 'playing') e.pause();
-    else void primeiraCarga.current.then(() => e.play());
+    else void e.play();
   };
 
   const escolher = (s: Song) => {
     if (s === musica) return;
     const id = s.versions[0]?.id;
-    const mostrar = () => {
-      setMusica(s);
-      setVersaoId(id);
-    };
-    // the list only changes song once the new one is fully loaded
-    if (engine) void engine.setSong(s, id).then(() => engine.song === s && mostrar());
-    else mostrar();
+    // the screen goes to the new song at once; the engine pauses the old one, loads the new one and plays it by itself.
+    // The ref, not the state: on the first click of a visit the engine was made a moment ago, by the same press.
+    setMusica(s);
+    setVersaoId(id);
+    gravarLink(s.id, id);
+    void motor.current?.setSong(s, id, { play: true });
   };
 
   const trocarVersao = (id: string, manter = false) => {
     setVersaoId(id);
+    if (musica) gravarLink(musica.id, id);
     void engine?.setVersion(id, { keepChannels: manter });
   };
 
-  // resizing the box is no reason to start the audio
+  // resizing the box is no reason to start the audio. Nor is the press on Play: its click starts the engine itself,
+  // and starting it here would disable the button (loading) between the press and the click, which the browser then drops
   const acordar = (e: React.SyntheticEvent) => {
-    if (!(e.target as Element).closest('[role=separator]')) iniciar();
+    if (!(e.target as Element).closest('[role=separator], [data-tocar]')) iniciar();
   };
 
   const teclasAltura = (e: React.KeyboardEvent) => {

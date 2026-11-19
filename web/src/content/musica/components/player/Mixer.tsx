@@ -1,14 +1,15 @@
-// Left of the lanes: one strip per channel (colour, name, the note sounding now, Mute, Solo, volume, the version it
-// plays) under a header that picks the version of the whole song. Strips are as tall as the lanes and the header as
-// tall as the ruler, so they line up. Picking a version of the whole song while some instrument plays another one asks
+// Left of the lanes: one strip per channel (colour, name, Mute, Solo, volume, the version it plays, effect tags and,
+// at the right, next to the lane, the notes sounding now) under a header that picks the version of the whole song.
+// Strips are as tall as the lanes and the header as tall as the ruler, so they line up. Picking a version of the whole song while some instrument plays another one asks
 // first what to do with those choices.
 import * as Dialog from '@radix-ui/react-dialog';
 import { type CSSProperties, useRef, useState } from 'react';
+import { Icone } from '@/components/layout/Icone';
 import { Button } from '@/components/ui/button';
 import { Toggle } from '@/components/ui/toggle';
 import type { PlayerEngine } from '@/lib/player/PlayerEngine';
 import type { Channel, Song, Version } from '@/lib/player/schema';
-import { ALTURA_FAIXA, ALTURA_REGUA, ROTULO_EFEITO, varDoCanal } from './constantes';
+import { ALTURA_FAIXA, ALTURA_REGUA, ICONE_EFEITO, ROTULO_EFEITO, varDoCanal } from './constantes';
 import { useMotor } from './hooks';
 
 const SELECT = 'min-h-11 min-w-0 border-2 border-apagado bg-couro-escuro px-2 text-base text-creme';
@@ -50,7 +51,7 @@ export function Mixer({
   return (
     // sticky in the scroll box it shares with the lanes: the mixer stays at the left when the lanes scroll sideways and
     // its header at the top, beside the ruler, when the strips scroll
-    <div className="w-[420px] border-2 border-r-0 border-couro bg-couro-escuro text-creme max-[700px]:w-auto max-[700px]:border-r-2 min-[701px]:sticky min-[701px]:left-0 min-[701px]:z-10">
+    <div className="w-[530px] border-2 border-r-0 border-couro bg-couro-escuro text-creme max-[700px]:w-auto max-[700px]:border-r-2 min-[701px]:sticky min-[701px]:left-0 min-[701px]:z-10">
       <div
         style={{ height: ALTURA_REGUA }}
         className="flex items-center justify-between gap-2 bg-couro px-3 font-serif text-lg font-bold uppercase min-[701px]:sticky min-[701px]:top-0 min-[701px]:z-10"
@@ -90,26 +91,14 @@ export function Mixer({
             tabIndex={0}
             aria-label={`${c.name}. M silencia, S toca só este canal`}
             onKeyDown={(e) => teclas(e, c.channel)}
+            // on a phone the mixer is stacked above the lanes, so a strip may be taller: name, Mute and Solo, volume,
+            // sound and tags each take a line beside the notes column
             style={{ minHeight: ALTURA_FAIXA }}
-            className={`grid grid-cols-[minmax(0,1fr)_auto_auto] items-center gap-x-1.5 gap-y-0.5 border-t border-apagado px-2.5 py-1 min-[701px]:h-[124px] ${i % 2 ? 'bg-couro' : ''}`}
+            className={`grid grid-cols-[minmax(0,1fr)_auto_auto_110px] items-center max-[700px]:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_88px] gap-x-1.5 gap-y-0.5 border-t border-apagado px-2.5 py-1 min-[701px]:h-[124px] ${i % 2 ? 'bg-couro' : ''}`}
           >
-            <span
-              className="flex min-w-0 items-center gap-x-2 font-bold max-[700px]:flex-wrap max-[700px]:leading-5"
-              title={c.name}
-            >
+            <span className="flex min-w-0 items-center gap-x-2 font-bold max-[700px]:col-span-2" title={c.name}>
               <span className="size-3.5 flex-none" style={{ background: `var(${varDoCanal(i)})` }} />
-              {/* on a phone the name fills the line beside the 22 px swatch, so the note label wraps under it */}
-              <span className="truncate max-[700px]:w-[calc(100%-22px)] max-[700px]:flex-none">{c.name}</span>
-              {/* The note sounding now on this channel. PianoRoll writes the text and data-on as the needle moves (it
-                  has the MIDI and the position), so the span has no children here. Fixed width: the name beside it
-                  must not move as notes change. The channel colour goes on the border, not behind the text: it is only
-                  3:1 against the strip. */}
-              <span
-                data-nota={c.channel}
-                aria-hidden="true"
-                style={{ '--cor': `var(${varDoCanal(i)})` } as CSSProperties}
-                className="ml-auto w-[8ch] max-[700px]:ml-0 flex-none border-2 border-l-8 border-apagado text-center font-mono font-normal text-creme-apagado data-on:border-(--cor) data-on:font-bold data-on:text-creme"
-              />
+              <span className="truncate">{c.name}</span>
             </span>
             <Toggle
               aria-pressed={engine?.isMuted(c.channel) ?? false}
@@ -125,7 +114,7 @@ export function Mixer({
             >
               Solo
             </Toggle>
-            <label className="flex min-w-0 items-center gap-1.5">
+            <label className="flex min-w-0 items-center gap-1.5 max-[700px]:col-span-2">
               Vol
               <input
                 type="range"
@@ -157,15 +146,30 @@ export function Mixer({
             </select>
             {/* effects added to the render of the sound this channel plays now; none listed = none added */}
             <ul
-              className="col-span-3 m-0 flex min-h-6 list-none flex-wrap items-center gap-1 p-0"
+              className="col-span-3 m-0 flex min-h-6 list-none flex-wrap items-center gap-1 p-0 max-[700px]:col-span-2"
               aria-label={`Efeitos de ${c.name}`}
             >
               {efeitos.map((e) => (
-                <li key={e} className="border border-apagado px-1.5 leading-5 text-creme-apagado">
+                <li
+                  key={e}
+                  className="flex items-center gap-1 border border-apagado px-1.5 leading-5 text-creme-apagado"
+                >
+                  <Icone id={ICONE_EFEITO[e]} className="size-4 flex-none" />
                   {ROTULO_EFEITO[e]}
                 </li>
               ))}
             </ul>
+            {/* The notes sounding now on this channel, stacked with the highest on top, between the controls and the
+                lane (Fernando's drawing). PianoRoll writes the labels as the needle moves (it has the MIDI and the
+                position), so the box has no children here. Fixed width and height: nothing beside it moves as notes
+                come and go. The channel colour goes on the label's border, not behind the text: it is only 3:1
+                against the strip. */}
+            <div
+              data-notas={c.channel}
+              aria-hidden="true"
+              style={{ '--cor': `var(${varDoCanal(i)})`, height: ALTURA_FAIXA - 9 } as CSSProperties}
+              className="col-start-4 row-span-3 row-start-1 flex max-[700px]:col-start-3 max-[700px]:row-span-5 max-[700px]:row-start-1 flex-col justify-center gap-px self-center overflow-hidden border-l border-apagado pl-1.5 font-mono font-bold leading-[1.2]"
+            />
           </div>
         );
       })}

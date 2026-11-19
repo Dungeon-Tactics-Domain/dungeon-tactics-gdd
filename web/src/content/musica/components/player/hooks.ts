@@ -1,8 +1,9 @@
 import { type RefObject, useEffect, useLayoutEffect, useState } from 'react';
 import type { PlayerEngine } from '@/lib/player/PlayerEngine';
 import type { MidiNote } from '@/lib/player/read-midi';
+import type { Catalog, Song } from '@/lib/player/schema';
 import { gravar, ler } from '@/lib/utils';
-import { ALTURA_MAXIMA, ALTURA_MINIMA, CHAVE_ALTURA, ESTREITO } from './constantes';
+import { ALTURA_FAIXA, ALTURA_MAXIMA, ALTURA_MINIMA, CHAVE_ALTURA, ESTREITO, FADE_NOTA } from './constantes';
 
 /**
  * Redraws the component on every engine change (song, mixer, state, download progress). With `quadro` it also redraws
@@ -29,14 +30,67 @@ const NOTAS = ['Dó', 'Dó#', 'Ré', 'Ré#', 'Mi', 'Fá', 'Fá#', 'Sol', 'Sol#',
 export const nomeDaNota = (altura: number) => `${NOTAS[altura % 12]} ${Math.floor(altura / 12) - 1}`;
 
 /**
- * The note sounding on each channel at an instant: channel to pitch, the highest one of a chord (the one the ear
- * follows). A note sounds from its start up to, not including, its end, so a repeated note is never counted twice.
+ * The notes sounding on each channel at an instant: channel to its pitches, each once, the highest first. A note
+ * sounds from its start up to, not including, its end, so a repeated note is never counted twice.
  */
 export function notasEm(notas: MidiNote[], t: number) {
-  const soando = new Map<number, number>();
-  for (const n of notas)
-    if (n.start <= t && t < n.end && n.pitch > (soando.get(n.channel) ?? -1)) soando.set(n.channel, n.pitch);
+  const soando = new Map<number, number[]>();
+  for (const n of notas) {
+    if (t < n.start || t >= n.end) continue;
+    const lista = soando.get(n.channel) ?? [];
+    if (!lista.includes(n.pitch)) lista.push(n.pitch);
+    soando.set(n.channel, lista);
+  }
+  for (const lista of soando.values()) lista.sort((a, b) => b - a);
   return soando;
+}
+
+/** A label of the mixer's notes column: `saiu` is the clock time (ms) at which the note stopped sounding. */
+export interface NotaAtiva {
+  altura: number;
+  saiu?: number;
+}
+
+/**
+ * The labels of one channel after a frame: the notes sounding now, plus the ones that stopped less than FADE_NOTA ago
+ * (they fade out instead of vanishing). The exit is stamped once, on the clock and not on the song's position, so a
+ * seek or a pause does not freeze a fading label; a note that sounds again loses its stamp. Highest first.
+ */
+export function passoNotas(antes: NotaAtiva[], soando: number[], agora: number): NotaAtiva[] {
+  const ficam = antes
+    .filter((n) => soando.includes(n.altura) || agora - (n.saiu ?? agora) < FADE_NOTA)
+    .map((n) => (soando.includes(n.altura) ? { altura: n.altura } : { altura: n.altura, saiu: n.saiu ?? agora }));
+  const novas = soando.filter((a) => !antes.some((n) => n.altura === a)).map((altura) => ({ altura }));
+  return [...ficam, ...novas].sort((a, b) => b.altura - a.altura);
+}
+
+/**
+ * The text size at which `n` stacked labels fit the strip's height, and how many show. A label is 1.2 lines of text
+ * plus 2 px of border, 1 px apart. 16 px while they fit; then they shrink (asked by Fernando, even under 16 px) down
+ * to 11 px, the smallest still readable; past that the lowest notes are left out.
+ */
+// 9: the strip's top border and its padding above and below
+export function ajusteEtiquetas(n: number, altura = ALTURA_FAIXA - 9) {
+  const fonte = Math.max(11, Math.min(16, Math.floor(((altura + 1) / Math.max(1, n) - 3) / 1.2)));
+  return { fonte, visiveis: Math.min(n, Math.floor((altura + 1) / (fonte * 1.2 + 3))) };
+}
+
+/**
+ * The song and the version a shared link names (?musica=<song id>&som=<version id>). An id that does not exist is
+ * dropped, so the caller falls back to its default; a version only counts inside the song the link names.
+ */
+export function lerLink(catalogo: Catalog, params: URLSearchParams): { musica?: Song; versaoId?: string } {
+  const musica = catalogo.songs.find((s) => s.id === params.get('musica'));
+  return { musica, versaoId: musica?.versions.find((v) => v.id === params.get('som'))?.id };
+}
+
+/** The address parameters with the song and version in them; any other parameter is kept. */
+export function escreverLink(params: URLSearchParams, musicaId: string, versaoId: string | undefined) {
+  const p = new URLSearchParams(params);
+  p.set('musica', musicaId);
+  if (versaoId) p.set('som', versaoId);
+  else p.delete('som');
+  return p;
 }
 
 const limitar = (n: number, maximo = ALTURA_MAXIMA) => Math.round(Math.min(maximo, Math.max(ALTURA_MINIMA, n)));

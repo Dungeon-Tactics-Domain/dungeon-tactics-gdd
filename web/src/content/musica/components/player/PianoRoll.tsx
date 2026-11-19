@@ -16,13 +16,19 @@ import {
   ALTURA_REGUA,
   CHAVE_ZOOM,
   ESTREITO,
+  FADE_NOTA,
   LARGURA_CANVAS,
   PASSO_RODA,
   varDoCanal,
   ZOOM_MAXIMO,
   ZOOM_PADRAO,
 } from './constantes';
-import { nomeDaNota, notasEm, useMotor } from './hooks';
+import { ajusteEtiquetas, type NotaAtiva, nomeDaNota, notasEm, passoNotas, useMotor } from './hooks';
+
+// A label of the mixer's notes column, made here by hand (see the effect that writes them). The fade is the opacity
+// transition; with reduced motion the label just goes.
+const ETIQUETA =
+  'border border-l-[6px] border-(--cor) px-1 text-center text-creme transition-opacity duration-300 data-saindo:opacity-0 motion-reduce:transition-none';
 
 const cacheMidi = new Map<string, Promise<Midi>>();
 const carregarMidi = (url: string) => {
@@ -75,6 +81,8 @@ export function PianoRoll({
   // the point that stays under the pointer (or in the middle) across a zoom change
   const ancora = useRef<{ fracao: number; px: number }>(undefined);
   const pega = useRef<{ x: number; desvio: number; moveu: boolean }>(undefined);
+  // the labels of the notes column, per channel, with the ones fading out
+  const ativas = useRef(new Map<number, NotaAtiva[]>());
   const anterior = useRef(0);
 
   // the lanes scroll sideways in the box they share with the mixer on a desktop and in their own wrapper on a phone
@@ -191,18 +199,44 @@ export function PianoRoll({
     // tema: the canvases copy their colours from the CSS, so a theme change repaints them
   }, [midi, canais, duracao, bpm, compassos, somando, estreito, largura, tema]);
 
-  // The note sounding on each channel under the needle, written into the mixer's labels ([data-nota], empty in its
-  // JSX): only the labels whose note changed are touched, so the mixer is not rendered again every frame.
+  // The notes sounding on each channel under the needle, written as labels into the mixer's notes column
+  // ([data-notas], empty in its JSX): only the labels that come or go are touched, so the mixer is not rendered again
+  // every frame. A note that stops keeps its label for FADE_NOTA, fading; while paused no frame comes to take it
+  // away, so a timer runs this once more.
   useEffect(() => {
-    const soando = notasEm(midi?.notes ?? [], posicao);
-    for (const el of raiz.current?.querySelectorAll<HTMLElement>('[data-nota]') ?? []) {
-      const canal = Number(el.dataset.nota);
-      const altura = soando.get(canal);
-      // drums (channel 9 in General MIDI) have no pitch to name: the label only lights up
-      const texto = altura === undefined ? '—' : canal === 9 ? '♪' : nomeDaNota(altura);
-      if (el.textContent !== texto) el.textContent = texto;
-      el.toggleAttribute('data-on', altura !== undefined);
-    }
+    let poda: ReturnType<typeof setTimeout> | undefined;
+    const escrever = () => {
+      const agora = performance.now();
+      const soando = notasEm(midi?.notes ?? [], posicao);
+      let saindo = false;
+      for (const caixa of raiz.current?.querySelectorAll<HTMLElement>('[data-notas]') ?? []) {
+        const canal = Number(caixa.dataset.notas);
+        // drums (channel 9 in General MIDI) have no pitch to name: one label, whatever is hit
+        const alturas = canal === 9 ? (soando.has(9) ? [0] : []) : (soando.get(canal) ?? []);
+        const lista = passoNotas(ativas.current.get(canal) ?? [], alturas, agora);
+        ativas.current.set(canal, lista);
+        saindo ||= lista.some((n) => n.saiu !== undefined);
+        const { fonte, visiveis } = ajusteEtiquetas(lista.length);
+        const mostradas = lista.slice(0, visiveis);
+        caixa.style.fontSize = `${fonte}px`;
+        const filhos = new Map([...caixa.children].map((el) => [Number((el as HTMLElement).dataset.altura), el]));
+        for (const [altura, el] of filhos) if (!mostradas.some((n) => n.altura === altura)) el.remove();
+        mostradas.forEach((n, i) => {
+          let el = filhos.get(n.altura);
+          if (!el) {
+            el = document.createElement('span');
+            (el as HTMLElement).dataset.altura = String(n.altura);
+            el.className = ETIQUETA;
+            el.textContent = canal === 9 ? '♪' : nomeDaNota(n.altura);
+          }
+          if (caixa.children[i] !== el) caixa.insertBefore(el, caixa.children[i] ?? null);
+          el.toggleAttribute('data-saindo', n.saiu !== undefined);
+        });
+      }
+      if (saindo) poda = setTimeout(escrever, FADE_NOTA + 20);
+    };
+    escrever();
+    return () => clearTimeout(poda);
   }, [midi, posicao, canais]);
 
   // The lanes follow the needle: when it leaves the stretch on screen (playing on, the loop going back to the start, a
