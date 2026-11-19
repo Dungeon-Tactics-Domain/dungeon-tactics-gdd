@@ -1,7 +1,8 @@
-// The labs' navigation per band (design lab, 15/11): from 1024 px a sidebar (an icon rail below 1440, open above it, and
-// from 1440 dragged wider or narrower by its edge); below 1024 the 5 labs in a bottom menu. The links list (home, labs, decisions) is the same in the sidebar and the phone sheet.
-import { type KeyboardEvent, type PointerEvent, useState } from 'react';
-import { NavLink } from 'react-router';
+// The labs' navigation, B-2 (Stitch, 18/11): one tree of every lab in a boxed panel. From 1024 px it is a sidebar (an icon
+// rail below 1440, open above it, and from 1440 dragged wider or narrower by its edge); below 1024 the same tree sits in
+// the sheet of the "Menu" button. The open lab's own pages (Paginas) are portalled under its row, through `setSlot`.
+import { Fragment, type KeyboardEvent, type PointerEvent, useState } from 'react';
+import { NavLink, useLocation } from 'react-router';
 import { CONTEUDO } from '@/content/registry';
 import { LABS, type Place } from '@/lib/labs';
 import { DECISOES_ATIVAS } from '@/lib/recursos';
@@ -13,12 +14,12 @@ const linkCls =
   (recolhida: boolean) =>
   ({ isActive }: { isActive: boolean }) =>
     cn(
-      'flex min-h-11 shrink-0 items-center gap-2 rounded-sm px-2.5 whitespace-nowrap no-underline hover:bg-casca-topo-texto/15',
+      'flex min-h-11 w-full items-center gap-2 border-2 border-transparent px-2.5 text-base font-bold text-tinta no-underline hover:bg-pergaminho-escuro',
       recolhida && 'justify-center px-0',
-      isActive && 'bg-casca-topo-texto text-casca-topo hover:bg-casca-topo-texto',
+      isActive && 'bg-couro-escuro text-creme hover:bg-couro-escuro',
     );
 
-/** A link's face: the full name, or in the rail a 2-letter seal in the place's colour . */
+/** A link's face: the full name, or in the rail a 2-letter seal in the place's colour. */
 function Face({
   nome,
   icone,
@@ -36,8 +37,7 @@ function Face({
     return (
       <>
         <Icone id={icone} />
-        {/* between 1024 and 1199 px the bar has no room for 7 names: icon only, the name stays as tooltip and for readers */}
-        <span className="max-w-60 truncate min-[1024px]:max-[1199px]:sr-only">{nome}</span>
+        <span className="min-w-0 flex-1 truncate">{nome}</span>
       </>
     );
   return (
@@ -46,10 +46,10 @@ function Face({
         aria-hidden="true"
         // white on a place's colour stays above 4.5:1 (lib/labs.ts)
         className={cn(
-          'flex size-9 items-center justify-center rounded-sm border-2 border-casca-topo-texto/50 text-[14px]',
+          'flex size-9 items-center justify-center border-2 border-couro-escuro text-base',
           cor && 'text-white',
         )}
-        style={cor ? { background: cor, borderColor: cor } : undefined}
+        style={cor ? { background: cor } : undefined}
       >
         {sinal}
       </span>
@@ -58,7 +58,7 @@ function Face({
   );
 }
 
-function LabLink({ p, recolhida }: { p: Place; recolhida: boolean }) {
+function LabLink({ p, recolhida, ativo }: { p: Place; recolhida: boolean; ativo: boolean }) {
   const naoMigrado = p.antigo && !CONTEUDO[p.id] ? ', ainda não migrado' : '';
   const face = <Face nome={p.curto} icone={p.id} sinal={p.curto.slice(0, 2)} cor={p.cor} recolhida={recolhida} />;
   if (!p.href)
@@ -75,33 +75,51 @@ function LabLink({ p, recolhida }: { p: Place; recolhida: boolean }) {
     <NavLink to={p.href} className={linkCls(recolhida)} title={p.nome}>
       {face}
       {naoMigrado && <span className="sr-only">{naoMigrado.slice(1)}</span>}
+      {!recolhida && (
+        <span aria-hidden="true" className="flex-none text-base">
+          {ativo ? '▾' : '▸'}
+        </span>
+      )}
     </NavLink>
   );
 }
 
-/** Home, the labs, then decisions. */
-export function Links({ recolhida = false }: { recolhida?: boolean }) {
+/** The tree: home, then every lab; the open lab's own pages go under its row (the slot). */
+export function Arvore({
+  recolhida = false,
+  setSlot,
+}: {
+  recolhida?: boolean;
+  setSlot: (el: HTMLElement | null) => void;
+}) {
+  const { pathname } = useLocation();
+  const aberto = LABS.find((l) => l.href && (pathname === l.href || pathname.startsWith(`${l.href}/`)));
   return (
-    <>
-      <NavLink to="/" end className={linkCls(recolhida)} title="Início">
-        <Face nome="Início" icone="inicio" sinal="◆" recolhida={recolhida} />
-      </NavLink>
-      {LABS.map((p) => (
-        <LabLink key={p.id} p={p} recolhida={recolhida} />
-      ))}
-      {DECISOES_ATIVAS && (
-        <NavLink to="/decisoes" className={linkCls(recolhida)} title="Decisões">
-          <Face nome="Decisões" icone="decisoes" sinal="✓" recolhida={recolhida} />
+    <div className={cn('grid gap-1 py-2', recolhida ? 'px-1.5' : 'px-2')}>
+      <nav aria-label="Laboratórios" className="grid gap-1">
+        <NavLink to="/" end className={linkCls(recolhida)} title="Início">
+          <Face nome="Início" icone="inicio" sinal="◆" recolhida={recolhida} />
         </NavLink>
-      )}
-    </>
+        {LABS.map((p) => (
+          <Fragment key={p.id}>
+            <LabLink p={p} recolhida={recolhida} ativo={p === aberto} />
+            {p === aberto && <div ref={setSlot} className="contents" />}
+          </Fragment>
+        ))}
+        {DECISOES_ATIVAS && (
+          <NavLink to="/decisoes" className={linkCls(recolhida)} title="Decisões">
+            <Face nome="Decisões" icone="decisoes" sinal="✓" recolhida={recolhida} />
+          </NavLink>
+        )}
+      </nav>
+    </div>
   );
 }
 
 // drag limits: under 220 the lab menus wrap every title, over 480 the page loses too much width on a 1440 screen
 const MIN = 220;
 const MAX = 480;
-const RAIL = 72;
+const RAIL = 88;
 const CHAVE = 'casca:largura';
 const limitar = (n: number) => Math.round(Math.min(MAX, Math.max(MIN, n)));
 
@@ -142,32 +160,24 @@ export function Lateral({
     <aside
       aria-label="Barra lateral"
       style={{ width: w }}
-      className="sticky top-(--reino-h) z-30 flex h-[calc(100dvh-var(--reino-h))] flex-none flex-col self-start border-r-[6px] border-casca-borda bg-casca-lateral"
+      className="sticky top-(--reino-h) z-30 h-[calc(100dvh-var(--reino-h))] flex-none self-start p-3 pr-4"
     >
-      <div className="min-h-0 flex-1 overflow-x-hidden overflow-y-auto overscroll-contain">
-        <nav
-          aria-label="Barra lateral"
-          className={cn(
-            'grid gap-0.5 bg-casca-topo py-2 font-bold text-casca-topo-texto',
-            recolhida ? 'px-1.5' : 'px-2',
-          )}
-        >
+      {/* the boxed panel of the B-2 design: 2 px border, hard shadow; it is as tall as its tree, up to the window */}
+      <div className="flex max-h-full min-h-0 flex-col overflow-y-auto overscroll-contain border-2 border-couro-escuro bg-folha shadow-couro">
+        <div className="px-2 pt-2">
           <button
             type="button"
             aria-expanded={!recolhida}
             aria-label={recolhida ? 'Abrir a barra lateral' : 'Recolher a barra lateral'}
             title={recolhida ? 'Abrir a barra lateral' : 'Recolher a barra lateral'}
             onClick={alternar}
-            className={cn(
-              linkCls(recolhida)({ isActive: false }),
-              'cursor-pointer border-2 border-casca-topo-texto/50 font-bold',
-            )}
+            className={cn(linkCls(recolhida)({ isActive: false }), 'cursor-pointer border-couro-escuro')}
           >
             <Icone id={recolhida ? 'expandir' : 'recolher'} />
             {!recolhida && 'Recolher'}
           </button>
-        </nav>
-        <div ref={setSlot} className="contents" />
+        </div>
+        <Arvore recolhida={recolhida} setSlot={setSlot} />
       </div>
       {arrasta && !recolhida && (
         // a focusable separator is the ARIA window splitter: arrows, Home and End move it
@@ -183,38 +193,9 @@ export function Lateral({
           onPointerMove={arrastar}
           onKeyDown={teclas}
           title="Arraste ou use as setas para mudar a largura"
-          className="absolute top-0 -right-[9px] h-full w-3 cursor-col-resize touch-none hover:bg-casca-borda/40 focus-visible:bg-casca-borda/40"
+          className="absolute top-0 right-0 h-full w-3 cursor-col-resize touch-none hover:bg-couro-escuro/20 focus-visible:bg-couro-escuro/20"
         />
       )}
     </aside>
-  );
-}
-
-/** Phone and standing tablet: every lab at the thumb, one equal column each. */
-export function MenuInferior() {
-  return (
-    <nav
-      aria-label="Labs"
-      className="fixed inset-x-0 bottom-0 z-40 grid h-(--nav-h) auto-cols-fr grid-flow-col border-t border-borda bg-casca-lateral"
-    >
-      {LABS.map((l) => (
-        <NavLink
-          key={l.id}
-          to={l.href ?? '/'}
-          title={l.nome}
-          // the active mark is gold: the labs' own colours fall under 3:1 on the leather bar
-          className="flex min-h-11 min-w-0 flex-col items-center justify-center gap-0.5 border-t-4 border-transparent text-[14px] text-creme no-underline aria-[current=page]:border-casca-titulo aria-[current=page]:font-bold"
-        >
-          <span
-            aria-hidden="true"
-            className="flex size-7 items-center justify-center rounded-md text-white"
-            style={{ background: l.cor }}
-          >
-            <Icone id={l.id} className="size-[18px]" />
-          </span>
-          <span className="max-w-full truncate">{l.curto}</span>
-        </NavLink>
-      ))}
-    </nav>
   );
 }

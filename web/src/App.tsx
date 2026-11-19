@@ -5,7 +5,7 @@ import { Decisoes } from '@/features/decisoes/Decisoes';
 import { DECISOES_ATIVAS } from '@/lib/recursos';
 import { LabPagina } from '@/features/labs/LabPagina';
 import { NaoMigrado } from '@/features/labs/NaoMigrado';
-import { Home } from '@/features/mapa/Home';
+import { Home } from '@/features/inicio/Home';
 import { ExemploPaginas } from '@/features/paginas/ExemploPaginas';
 import { LABS } from '@/lib/labs';
 

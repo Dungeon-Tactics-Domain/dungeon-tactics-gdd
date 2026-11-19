@@ -6,7 +6,7 @@ import { Icone } from '@/components/layout/Icone';
 import { cn } from '@/lib/utils';
 
 const buttonVariants = cva(
-  'inline-flex min-h-11 items-center justify-center gap-2 whitespace-nowrap rounded-md px-4 text-[15px] font-bold no-underline transition-colors disabled:pointer-events-none disabled:opacity-60 cursor-pointer',
+  'inline-flex min-h-11 items-center justify-center gap-2 whitespace-nowrap px-4 text-base font-bold no-underline transition-colors disabled:pointer-events-none disabled:opacity-60 cursor-pointer',
   {
     variants: {
       variant: {

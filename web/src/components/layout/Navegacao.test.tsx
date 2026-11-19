@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { Lateral } from './Navegacao';
+import { Arvore, Lateral } from './Navegacao';
 
 const montar = (recolhida = false) =>
   render(
@@ -45,5 +45,32 @@ describe('Lateral', () => {
     montar(true);
     expect(screen.queryByRole('separator')).toBeNull();
     expect(screen.getByRole('button', { name: 'Abrir a barra lateral' })).toHaveAttribute('aria-expanded', 'false');
+  });
+});
+
+describe('Arvore', () => {
+  const ver = (rota: string, setSlot = vi.fn()) =>
+    render(
+      <MemoryRouter initialEntries={[rota]}>
+        <Arvore setSlot={setSlot} />
+      </MemoryRouter>,
+    );
+
+  it('lists home and every lab, opening only the lab of the route', () => {
+    const setSlot = vi.fn();
+    ver('/mecanicas/regras', setSlot);
+    const arvore = screen.getByRole('navigation', { name: 'Laboratórios' });
+    expect(arvore.querySelectorAll('a')).toHaveLength(7);
+    expect(screen.getByRole('link', { name: /Mecânicas/ })).toHaveAttribute('aria-current', 'page');
+    expect(screen.getByRole('link', { name: /Design/ })).not.toHaveAttribute('aria-current');
+    // the open lab hands its slot to the lab's own menu
+    expect(setSlot).toHaveBeenCalledWith(expect.any(HTMLElement));
+  });
+
+  it('opens no lab on the home', () => {
+    const setSlot = vi.fn();
+    ver('/', setSlot);
+    expect(screen.getByRole('link', { name: 'Início' })).toHaveAttribute('aria-current', 'page');
+    expect(setSlot).not.toHaveBeenCalled();
   });
 });

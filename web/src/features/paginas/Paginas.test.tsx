@@ -142,7 +142,7 @@ describe('Paginas', () => {
     await user.keyboard('{ArrowRight}{ArrowDown}');
     expect(within(menu()).getByRole('link', { name: 'Tactics Ogre' })).toHaveFocus();
     await user.keyboard('{Home}');
-    expect(within(menu()).getByRole('link', { name: 'Lab de teste' })).toHaveFocus();
+    expect(within(menu()).getByRole('searchbox')).toHaveFocus();
   });
 
   it('runs the exit hook when leaving the page and when leaving the lab', async () => {

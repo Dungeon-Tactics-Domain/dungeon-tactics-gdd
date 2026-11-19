@@ -29,13 +29,13 @@ export function NaoMigrado({ lab }: { lab?: Place }) {
               </Button>
             )}
             <Button asChild variant="outline">
-              <Link to="/">Voltar ao mapa</Link>
+              <Link to="/">Voltar ao início</Link>
             </Button>
           </p>
         </>
       ) : (
         <p className="m-0">
-          Não existe página neste endereço. <Link to="/">Voltar ao mapa</Link>
+          Não existe página neste endereço. <Link to="/">Voltar ao início</Link>
         </p>
       )}
     </main>

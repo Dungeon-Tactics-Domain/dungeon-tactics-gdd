@@ -32,8 +32,6 @@
   --color-aviso: #7d5100;
   --color-aviso-suave: #f8e8c8;
 
-  --color-mar: #cfe0e0; /* the sea of the kingdom map, unchanged */
-
   /* old names kept so 300+ class uses need no rework */
   --color-borda: var(--color-ouro);
   --color-traco: var(--color-ouro-escuro);
@@ -100,7 +98,7 @@
   --accent: var(--color-pergaminho-escuro);
   --accent-foreground: var(--color-tinta);
   --border: var(--color-ouro);
-  --input: var(--color-ouro);
+  --input: var(--color-couro-escuro); /* B-2: 2 px dark borders on fields, as on cards */
   --ring: var(--color-couro-escuro);
   /* lab accent: still set per page from lib/labs.ts (cor, corSuave) */
   --lab: #5e5a48;

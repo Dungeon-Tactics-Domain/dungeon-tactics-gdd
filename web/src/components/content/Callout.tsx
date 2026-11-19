@@ -1,4 +1,4 @@
-// A boxed note in lab pages. "destaque" is the old lab's `.box.now` (lab-coloured top edge), "simples" its plain `.box`.
+// A boxed note in lab pages. "destaque" is the old lab's `.box.now` (lab-coloured left edge), "simples" its plain `.box`.
 import type { ReactNode } from 'react';
 import { cn } from '@/lib/utils';
 
@@ -14,9 +14,9 @@ export function Callout({
   return (
     <div
       className={cn(
-        'grid max-w-[110ch] gap-3 border border-borda bg-folha px-5 py-4',
-        tom === 'destaque' && 'border-t-[6px] border-t-lab',
-        tom === 'aviso' && 'border-dashed border-traco bg-folha',
+        'grid max-w-[110ch] gap-3 border-2 border-couro-escuro bg-folha px-5 py-4 shadow-folha',
+        tom === 'destaque' && 'border-l-[10px] border-l-lab',
+        tom === 'aviso' && 'border-dashed shadow-none',
       )}
     >
       {titulo && <h2 className="m-0 text-[21px] leading-tight">{titulo}</h2>}

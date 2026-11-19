@@ -1,7 +1,7 @@
 // Pages pattern (Fernando, 14/11: "a well subdivided table of contents with different pages, not one long scrolling menu").
 // group > page > subpage on real routes under `base`; collapsible menu with search, breadcrumbs, previous/next and keyboard.
-// The menu is portalled into the shell's sidebar, or its sheet below 1024 px (lib/gaveta-context); in the icon rail it
-// shrinks to one icon per group.
+// The menu is portalled under the lab's row of the shell's tree (sidebar, or the sheet below 1024 px, lib/gaveta-context);
+// in the icon rail it shrinks to one icon per group.
 import { type KeyboardEvent, type ReactNode, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Link, useLocation, useNavigate, useParams } from 'react-router';
@@ -33,9 +33,9 @@ function entradas(s: Sumario): Entrada[] {
 }
 
 const LINK =
-  'flex min-h-11 items-center gap-2 rounded-md py-1 pr-2.5 pl-[18px] leading-tight text-creme no-underline hover:bg-couro-claro aria-[current=page]:bg-lab aria-[current=page]:font-bold aria-[current=page]:text-white';
+  'flex min-h-11 items-center gap-2 border-2 border-transparent py-1 pr-2.5 pl-[18px] leading-tight text-tinta no-underline hover:bg-pergaminho-escuro aria-[current=page]:bg-couro-escuro aria-[current=page]:font-bold aria-[current=page]:text-creme';
 const VIZINHO =
-  'grid min-h-11 gap-0.5 border border-borda bg-folha px-3.5 py-2.5 font-bold text-tinta no-underline hover:bg-lab-soft';
+  'grid min-h-11 gap-0.5 border-2 border-couro-escuro bg-folha px-3.5 py-2.5 font-bold text-tinta no-underline shadow-folha hover:bg-lab-soft';
 
 export function Paginas({ sumario: s, base }: { sumario: Sumario; base: string }) {
   const rota = (useParams()['*'] ?? '').replace(/\/$/, '');
@@ -150,16 +150,8 @@ export function Paginas({ sumario: s, base }: { sumario: Sumario; base: string }
       onKeyDown={onKeyDown}
       role="navigation"
       aria-label={`Sumário: ${s.titulo}`}
-      className="flex flex-col gap-1.5 px-3 pt-4 pb-6"
+      className="flex flex-col gap-1.5 pt-1 pb-2"
     >
-      <Link
-        to={base}
-        onClick={fechar}
-        data-nav
-        className="flex min-h-11 items-center px-2 font-serif text-[21px] leading-tight font-bold text-casca-titulo no-underline hover:underline"
-      >
-        {s.titulo}
-      </Link>
       <Input
         type="search"
         placeholder="Buscar no menu"
@@ -168,10 +160,10 @@ export function Paginas({ sumario: s, base }: { sumario: Sumario; base: string }
         data-nav
         value={texto}
         onChange={(e) => setBusca({ rota, q: e.target.value })}
-        className="mt-1 mb-2"
+        className="mb-1"
       />
       {q && !achadas.length && (
-        <p role="status" className="mx-2 my-1 text-[15px] text-creme-apagado">
+        <p role="status" className="mx-2 my-1 text-base text-apagado">
           Nenhuma página com esse nome.
         </p>
       )}
@@ -188,12 +180,12 @@ export function Paginas({ sumario: s, base }: { sumario: Sumario; base: string }
               aria-expanded={open}
               aria-controls={`pg-${s.lab}-${g.id}`}
               onClick={() => alternar(g.id, !open)}
-              className="flex min-h-11 w-full cursor-pointer items-center gap-2 rounded-md px-2.5 text-left font-serif text-[17px] font-bold text-creme hover:bg-couro-claro"
+              className="flex min-h-11 w-full cursor-pointer items-center gap-2 px-2.5 text-left font-serif text-[17px] font-bold text-tinta hover:bg-pergaminho-escuro"
             >
               <Icone i={g.icone} />
               <span className="flex-1">{g.titulo}</span>
-              <span className="font-sans text-sm text-creme-apagado">{g.paginas.length}</span>
-              <span aria-hidden="true" className="font-sans text-sm text-creme-apagado">
+              <span className="font-sans text-base text-apagado">{g.paginas.length}</span>
+              <span aria-hidden="true" className="font-sans text-base text-apagado">
                 {open ? '▾' : '▸'}
               </span>
             </button>
@@ -215,18 +207,21 @@ export function Paginas({ sumario: s, base }: { sumario: Sumario; base: string }
                       onClick={fechar}
                       data-nav
                       aria-current={rota === r ? 'page' : undefined}
-                      className={cn(LINK, p.destaque && 'border-l-4 border-[#f2c14e] bg-couro-claro/60 font-bold')}
+                      className={cn(
+                        LINK,
+                        p.destaque && 'border-l-4 border-l-ouro-claro bg-pergaminho-escuro font-bold',
+                      )}
                     >
                       <Icone i={p.icone} />
                       {p.titulo}
                       {p.destaque && (
-                        <span className="ml-auto flex-none rounded bg-[#f2c14e] px-1.5 py-0.5 text-[11px] font-bold leading-none text-[#3a2800]">
+                        <span className="ml-auto flex-none bg-ouro-claro px-1.5 py-0.5 text-base font-bold leading-none text-tinta">
                           {p.destaque}
                         </span>
                       )}
                     </Link>
                     {subsVis.length > 0 && (
-                      <ul className="m-0 list-none py-0 pl-4">
+                      <ul className="m-0 list-none py-0 pl-3">
                         {subsVis.map((sp) => (
                           <li key={sp.id}>
                             <Link
@@ -234,7 +229,7 @@ export function Paginas({ sumario: s, base }: { sumario: Sumario; base: string }
                               onClick={fechar}
                               data-nav
                               aria-current={rota === `${r}/${sp.id}` ? 'page' : undefined}
-                              className={cn(LINK, 'text-[15px]')}
+                              className={LINK}
                             >
                               <Icone i={sp.icone} />
                               {sp.titulo}
@@ -260,7 +255,7 @@ export function Paginas({ sumario: s, base }: { sumario: Sumario; base: string }
       <>
         <Titulo ref={h1}>{s.titulo}</Titulo>
         {aviso && (
-          <p role="status" className="m-0 text-[15px] text-apagado">
+          <p role="status" className="m-0 text-base text-apagado">
             Não existe página em “{aviso}”; você está no início do lab.
           </p>
         )}
@@ -333,11 +328,11 @@ export function Paginas({ sumario: s, base }: { sumario: Sumario; base: string }
         </div>
         <nav
           aria-label="Anterior e próxima"
-          className="mt-3 grid grid-cols-2 gap-3.5 border-t border-borda pt-4 max-[700px]:grid-cols-1"
+          className="mt-3 grid grid-cols-2 gap-3.5 border-t-2 border-couro-escuro pt-4 max-[700px]:grid-cols-1"
         >
           {ant ? (
             <Link to={href(ant.rota)} rel="prev" className={VIZINHO}>
-              <span className="text-sm font-normal text-apagado">← Anterior</span>
+              <span className="text-base font-normal text-apagado">← Anterior</span>
               {ant.pagina.titulo}
             </Link>
           ) : (
@@ -349,7 +344,7 @@ export function Paginas({ sumario: s, base }: { sumario: Sumario; base: string }
               rel="next"
               className={cn(VIZINHO, 'col-start-2 text-right max-[700px]:col-start-1')}
             >
-              <span className="text-sm font-normal text-apagado">Próxima →</span>
+              <span className="text-base font-normal text-apagado">Próxima →</span>
               {prox.pagina.titulo}
             </Link>
           )}
@@ -391,10 +386,15 @@ export function Paginas({ sumario: s, base }: { sumario: Sumario; base: string }
         ? menu
         : slot &&
           createPortal(
-            <div className="border-t-4 border-casca-borda bg-casca-lateral">{recolhida ? trilho : menu}</div>,
+            // indented under the lab's row, with a guide line, as a tree
+            <div className={cn(!recolhida && 'ml-3 border-l-2 border-couro-escuro/40 pl-1')}>
+              {recolhida ? trilho : menu}
+            </div>,
             slot,
           )}
-      <main className="mx-auto grid w-full min-w-0 max-w-[1800px] grid-cols-[minmax(0,1fr)] content-start gap-5 px-(--margem) pt-7 pb-16 max-sm:pt-5">{corpo}</main>
+      <main className="mx-auto grid w-full min-w-0 max-w-[1800px] grid-cols-[minmax(0,1fr)] content-start gap-5 px-(--margem) pt-7 pb-16 max-sm:pt-5">
+        {corpo}
+      </main>
     </>
   );
 }

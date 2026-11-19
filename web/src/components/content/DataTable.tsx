@@ -2,7 +2,7 @@
 import type { ReactNode } from 'react';
 
 export const TABELA =
-  'w-full border-collapse text-[15px] [&_td]:border [&_td]:border-borda [&_td]:px-3 [&_td]:py-2 [&_td]:align-top [&_th]:border [&_th]:border-borda [&_th]:bg-lab-soft [&_th]:px-3 [&_th]:py-2 [&_th]:text-left';
+  'w-full border-collapse text-base [&_td]:border-2 [&_td]:border-couro-escuro/40 [&_td]:px-3 [&_td]:py-2 [&_td]:align-top [&_th]:border-2 [&_th]:border-couro-escuro [&_th]:bg-lab-soft [&_th]:px-3 [&_th]:py-2 [&_th]:text-left';
 
 export function Rolagem({ children }: { children: ReactNode }) {
   // focusable so keyboard users can scroll a table wider than the screen
@@ -25,7 +25,7 @@ export function DataTable({
   return (
     <Rolagem>
       <table className={TABELA}>
-        {legenda && <caption className="pb-2 text-left text-[15px] text-apagado">{legenda}</caption>}
+        {legenda && <caption className="pb-2 text-left text-base text-apagado">{legenda}</caption>}
         <thead>
           <tr>
             {colunas.map((c) => (

@@ -5,7 +5,7 @@ import { blocos, GAMES, NOTICE, PER_PAGE, SCREENS } from '../dados';
 import { CartoesRef } from './Cartoes';
 
 const BOTAO =
-  'min-h-11 cursor-pointer rounded-[3px] border border-borda bg-folha px-3 text-[14px] text-tinta aria-pressed:border-lab aria-pressed:bg-lab aria-pressed:text-white disabled:cursor-default disabled:opacity-60';
+  'min-h-11 cursor-pointer border-2 border-couro-escuro bg-folha px-3 text-base text-tinta hover:bg-pergaminho-escuro aria-pressed:bg-couro-escuro aria-pressed:text-creme disabled:cursor-default disabled:opacity-60';
 const TODAS = GAMES.flatMap((g) => g.shots.map((s) => ({ ...s, game: g.game, slug: g.slug })));
 const jogo = (slug: string) => GAMES.find((g) => g.slug === slug);
 
@@ -44,14 +44,14 @@ export function VisaoGeral() {
         <div className="flex flex-wrap items-center gap-1.5">
           {pill('todas', 'Todas')}
           {SCREENS.map(([id, name]) => pill(id, name))}
-          <label htmlFor="jogo" className="ml-2 text-[14px] text-apagado">
+          <label htmlFor="jogo" className="ml-2 text-base text-apagado">
             Jogo
           </label>
           <select
             id="jogo"
             value={f.game}
             onChange={(e) => muda({ game: e.target.value, from: 0 })}
-            className="min-h-11 max-w-full border border-borda bg-folha px-2 text-[14px]"
+            className="min-h-11 max-w-full border-2 border-couro-escuro bg-folha px-2 text-base"
           >
             <option value="todos">Todos os jogos</option>
             {GAMES.map((g) => (

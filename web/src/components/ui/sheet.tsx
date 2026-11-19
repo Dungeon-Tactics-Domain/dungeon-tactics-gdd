@@ -16,7 +16,7 @@ function SheetContent({ className, children, ...props }: React.ComponentProps<ty
       <SheetPrimitive.Overlay className="fixed inset-x-0 top-(--reino-h) bottom-0 z-40 bg-tinta/45" />
       <SheetPrimitive.Content
         className={cn(
-          'fixed top-(--reino-h) bottom-0 left-0 z-50 flex w-[min(340px,88vw)] flex-col overflow-y-auto overscroll-contain bg-folha shadow-[4px_0_16px_rgba(43,42,34,.3)] motion-safe:data-[state=open]:animate-[gaveta_.2s_ease-out]',
+          'fixed top-(--reino-h) bottom-0 left-0 z-50 flex w-[min(340px,88vw)] flex-col overflow-y-auto overscroll-contain bg-folha shadow-[4px_0_0_var(--color-couro-escuro)] motion-safe:data-[state=open]:animate-[gaveta_.2s_ease-out]',
           className,
         )}
         {...props}

@@ -3,7 +3,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import type * as React from 'react';
 import { cn } from '@/lib/utils';
 
-const badgeVariants = cva('inline-block whitespace-nowrap px-2 py-0.5 text-sm font-bold leading-tight', {
+const badgeVariants = cva('inline-block whitespace-nowrap px-2 py-0.5 text-base font-bold leading-tight', {
   variants: {
     estado: {
       rodando: 'bg-sucesso text-white',

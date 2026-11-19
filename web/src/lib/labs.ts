@@ -1,5 +1,5 @@
-// Places of the labs app (direction B, the kingdom map, chosen by Fernando on 14/11). The navigation, the map and each
-// lab's accent colour read only from here: a new lab is one new line. x and y are the flag's foot on the map, in %.
+// Places of the labs app. The navigation, the home cards and each lab's accent colour read only from here: a new lab is
+// one new line. (The kingdom map of 14/11 was replaced by the B-2 cards on 18/11.)
 
 /** The site's name (Fernando, 15/11): the header and every tab title. */
 export const SITE = 'GDD Dungeon Tactics';
@@ -13,8 +13,6 @@ export interface Place {
   /** flag colour, also the lab accent (white text on it stays above 4.5:1) */
   cor: string;
   corSuave: string;
-  x: number;
-  y: number;
   descricao: string;
   /** page in the old lab (port 5190) while the content is not migrated */
   antigo?: string;
@@ -24,8 +22,8 @@ export const OLD_LAB = 'http://localhost:5190';
 /** the old lab only exists on the dev PC; on the public site its links would be dead */
 export const ehLocal = () => ['localhost', '127.0.0.1'].includes(location.hostname);
 
-// where the kingdom map's roads start (the harbour) and the home's accent; not a lab
-export const HUB = { cor: '#7a4a12', corSuave: '#f6ead8', x: 50, y: 78 };
+// the home's accent; not a lab
+export const HUB = { cor: '#7a4a12', corSuave: '#f6ead8' };
 
 export const LABS: Place[] = [
   {
@@ -35,8 +33,6 @@ export const LABS: Place[] = [
     href: '/design',
     cor: '#8c2f52',
     corSuave: '#f6e4eb',
-    x: 14,
-    y: 37,
     descricao: 'Interface, direções visuais e peças',
     antigo: '/design/',
   },
@@ -47,8 +43,6 @@ export const LABS: Place[] = [
     href: '/mecanicas',
     cor: '#2d6a4b',
     corSuave: '#e0efe6',
-    x: 43,
-    y: 33,
     descricao: 'Regras da batalha e sensação',
     antigo: '/mecanicas/',
   },
@@ -59,8 +53,6 @@ export const LABS: Place[] = [
     href: '/narrativa',
     cor: '#1d5fa6',
     corSuave: '#e1ebf6',
-    x: 80,
-    y: 37,
     descricao: 'Tom, grupo, morte e o loop',
     antigo: '/narrativa/',
   },
@@ -71,8 +63,6 @@ export const LABS: Place[] = [
     href: '/modelos',
     cor: '#6b4a9a',
     corSuave: '#ece4f6',
-    x: 22,
-    y: 76,
     descricao: 'Árvores, objetos e carroça pintados',
     antigo: '/modelos/',
   },
@@ -83,8 +73,6 @@ export const LABS: Place[] = [
     href: '/musica',
     cor: '#14595c',
     corSuave: '#dcefef',
-    x: 81,
-    y: 91,
     descricao: 'Trilha no estilo FFT e BoF4',
     antigo: '/musica/',
   },
@@ -95,8 +83,6 @@ export const LABS: Place[] = [
     href: '/engine',
     cor: '#3b5a78',
     corSuave: '#e3eaf1',
-    x: 62,
-    y: 60,
     descricao: 'Qual motor, com medições e cenas ao vivo',
   },
 ];

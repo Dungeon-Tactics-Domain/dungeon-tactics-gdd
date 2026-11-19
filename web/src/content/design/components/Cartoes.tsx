@@ -4,7 +4,7 @@ import { type ReactNode, useState } from 'react';
 import { ASSETS, screenName, type Shot, type Test } from '../dados';
 import { Leitor } from './Leitor';
 
-const LINK = 'inline-flex min-h-11 items-center self-start text-[14px] text-lab underline underline-offset-2';
+const LINK = 'inline-flex min-h-11 items-center self-start text-base text-lab underline underline-offset-2';
 
 function Grade({ itens }: { itens: { src: string; title: string; corpo: ReactNode }[] }) {
   const [aberta, setAberta] = useState<number | null>(null);
@@ -12,7 +12,7 @@ function Grade({ itens }: { itens: { src: string; title: string; corpo: ReactNod
     <>
       <div className="grid grid-cols-[repeat(auto-fill,minmax(min(400px,100%),1fr))] gap-[18px]">
         {itens.map((it, n) => (
-          <article key={it.src} className="grid content-start border border-borda bg-folha">
+          <article key={it.src} className="grid content-start border-2 border-couro-escuro bg-folha shadow-folha">
             <button
               type="button"
               aria-label={`Ampliar: ${it.title}`}
@@ -21,7 +21,7 @@ function Grade({ itens }: { itens: { src: string; title: string; corpo: ReactNod
             >
               <img src={it.src} alt={it.title} loading="lazy" className="block aspect-video w-full object-contain" />
             </button>
-            <div className="grid gap-1.5 px-3.5 py-3 text-[15px]">{it.corpo}</div>
+            <div className="grid gap-1.5 px-3.5 py-3 text-base">{it.corpo}</div>
           </article>
         ))}
       </div>
@@ -31,7 +31,7 @@ function Grade({ itens }: { itens: { src: string; title: string; corpo: ReactNod
 }
 
 const Rotulo = ({ children }: { children: ReactNode }) => (
-  <span className="text-[14px] font-bold text-apagado">{children}</span>
+  <span className="text-base font-bold text-apagado">{children}</span>
 );
 
 export function CartoesRef({ shots }: { shots: (Shot & { game: string })[] }) {
@@ -85,7 +85,7 @@ export function CartoesIa({ tests }: { tests: Test[] }) {
             <span className="text-erro">Errou: {t.bad}</span>
             <details>
               <summary className="flex min-h-11 cursor-pointer items-center">Prompt usado</summary>
-              <pre className="m-0 mt-2 max-h-[260px] overflow-auto font-sans text-[14px] leading-normal whitespace-pre-wrap">
+              <pre className="m-0 mt-2 max-h-[260px] overflow-auto font-sans text-base leading-normal whitespace-pre-wrap">
                 {t.prompt}
               </pre>
             </details>

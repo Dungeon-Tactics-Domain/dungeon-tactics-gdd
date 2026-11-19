@@ -37,19 +37,22 @@ export function Cena3d<T extends CenaHandle>({
 }: Props<T>) {
   const caixa = useRef<HTMLDivElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
-  const [estado, setEstado] = useState<'carregando' | 'ok' | 'erro'>('carregando');
+  // the outcome belongs to the scene key it was reached for: a new key is "carregando" again without a setState in the effect
+  const [res, setRes] = useState<{ chave: string; estado: 'ok' | 'erro' }>();
+  const estado = res?.chave === chave ? res.estado : 'carregando';
   // the latest callbacks without rebuilding the scene when the parent re-renders
   const criarRef = useRef(criar);
   const prontaRef = useRef(aoPronta);
-  criarRef.current = criar;
-  prontaRef.current = aoPronta;
+  useEffect(() => {
+    criarRef.current = criar;
+    prontaRef.current = aoPronta;
+  });
 
   useEffect(() => {
     let vivo = true;
     let raf = 0;
     let ro: ResizeObserver | undefined;
     let cena: T | undefined;
-    setEstado('carregando');
     (async () => {
       try {
         if (!canvas.current || !caixa.current) return;
@@ -66,10 +69,10 @@ export function Cena3d<T extends CenaHandle>({
         };
         laco();
         prontaRef.current?.(cena);
-        setEstado('ok');
+        setRes({ chave, estado: 'ok' });
       } catch (e) {
         console.error('Cena 3D:', e);
-        if (vivo) setEstado('erro');
+        if (vivo) setRes({ chave, estado: 'erro' });
       }
     })();
     return () => {
