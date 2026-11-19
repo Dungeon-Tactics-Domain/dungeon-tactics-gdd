@@ -4,37 +4,71 @@
   {
    "canal": 1,
    "programa": 6,
-   "nome": "Harpsichord"
+   "nome": "Harpsichord",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 2,
    "programa": 6,
-   "nome": "Harpsichord"
+   "nome": "Harpsichord",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 3,
    "programa": 5,
-   "nome": "Electric Piano 2"
+   "nome": "Electric Piano 2",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 5,
    "programa": 25,
-   "nome": "Steel Guitar"
+   "nome": "Steel Guitar",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 7,
    "programa": 15,
-   "nome": "Dulcimer"
+   "nome": "Dulcimer",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 8,
    "programa": 1,
-   "nome": "Bright Acoustic Piano"
+   "nome": "Bright Acoustic Piano",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 9,
    "programa": 22,
-   "nome": "Harmonica"
+   "nome": "Harmonica",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
   }
  ]
 }

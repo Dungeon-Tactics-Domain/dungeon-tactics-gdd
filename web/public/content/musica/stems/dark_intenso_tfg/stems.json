@@ -1,0 +1,102 @@
+{
+ "duracao": 144.0,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 6,
+   "nome": "String Ensemble 1",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 2,
+   "programa": 6,
+   "nome": "String Ensemble 1",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 3,
+   "programa": 5,
+   "nome": "Celli PSX",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 4,
+   "programa": 25,
+   "nome": "French Horn PSX",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 5,
+   "programa": 12,
+   "nome": "Choir Ah PSX",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 6,
+   "programa": 21,
+   "nome": "Tubular Bell PSX",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  },
+  {
+   "canal": 7,
+   "programa": 9,
+   "nome": "Timpani PSX",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 13,
+   "programa": 9,
+   "nome": "Timpani PSX",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 14,
+   "programa": 22,
+   "nome": "Snare PSX",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  },
+  {
+   "canal": 15,
+   "programa": 23,
+   "nome": "Cymbal PSX",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  }
+ ]
+}

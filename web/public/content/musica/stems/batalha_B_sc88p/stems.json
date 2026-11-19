@@ -1,0 +1,35 @@
+{
+ "duracao": 82.758639,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 33,
+   "nome": "Finger Bass"
+  },
+  {
+   "canal": 2,
+   "programa": 48,
+   "nome": "String Ensemble 1"
+  },
+  {
+   "canal": 3,
+   "programa": 47,
+   "nome": "Timpani"
+  },
+  {
+   "canal": 4,
+   "programa": 61,
+   "nome": "Brass Section"
+  },
+  {
+   "canal": 5,
+   "programa": 48,
+   "nome": "String Ensemble 1"
+  },
+  {
+   "canal": 10,
+   "programa": null,
+   "nome": "Drums"
+  }
+ ]
+}

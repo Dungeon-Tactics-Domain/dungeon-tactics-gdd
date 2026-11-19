@@ -1,0 +1,42 @@
+{
+ "duracao": 283.938,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 110,
+   "nome": "Fiddle",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  },
+  {
+   "canal": 2,
+   "programa": 25,
+   "nome": "Steel Guitar",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 3,
+   "programa": 73,
+   "nome": "Flute",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  },
+  {
+   "canal": 4,
+   "programa": 127,
+   "nome": "Gunshot",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  }
+ ]
+}

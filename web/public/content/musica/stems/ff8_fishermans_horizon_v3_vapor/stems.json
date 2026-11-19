@@ -1,0 +1,76 @@
+{
+ "duracao": 594.784,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 4,
+   "nome": "Electric Piano 1",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain",
+    "eco"
+   ]
+  },
+  {
+   "canal": 2,
+   "programa": 89,
+   "nome": "Warm Pad",
+   "efeitos": [
+    "reverb",
+    "release",
+    "eco"
+   ]
+  },
+  {
+   "canal": 3,
+   "programa": 33,
+   "nome": "Finger Bass",
+   "efeitos": [
+    "reverb",
+    "release",
+    "eco"
+   ]
+  },
+  {
+   "canal": 8,
+   "programa": 108,
+   "nome": "Kalimba",
+   "efeitos": [
+    "reverb",
+    "release",
+    "eco"
+   ]
+  },
+  {
+   "canal": 10,
+   "programa": null,
+   "nome": "Drums",
+   "efeitos": [
+    "reverb",
+    "release",
+    "eco"
+   ]
+  },
+  {
+   "canal": 11,
+   "programa": 11,
+   "nome": "Vibraphone",
+   "efeitos": [
+    "reverb",
+    "release",
+    "eco"
+   ]
+  },
+  {
+   "canal": 12,
+   "programa": 52,
+   "nome": "Choir Aahs",
+   "efeitos": [
+    "reverb",
+    "release",
+    "eco"
+   ]
+  }
+ ]
+}

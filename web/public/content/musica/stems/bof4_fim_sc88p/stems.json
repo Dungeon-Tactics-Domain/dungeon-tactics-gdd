@@ -1,0 +1,62 @@
+{
+ "duracao": 181.366,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 78,
+   "nome": "Whistle",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  },
+  {
+   "canal": 2,
+   "programa": 78,
+   "nome": "Whistle",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  },
+  {
+   "canal": 3,
+   "programa": 49,
+   "nome": "String Ensemble 2",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 4,
+   "programa": 44,
+   "nome": "Tremolo Strings",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 5,
+   "programa": 46,
+   "nome": "Orchestral Harp",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 6,
+   "programa": 68,
+   "nome": "Oboe",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  }
+ ]
+}

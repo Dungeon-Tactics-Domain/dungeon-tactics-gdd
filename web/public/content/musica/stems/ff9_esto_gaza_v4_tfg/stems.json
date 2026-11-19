@@ -1,0 +1,72 @@
+{
+ "duracao": 306.625,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 12,
+   "nome": "Choir Ah PSX",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  },
+  {
+   "canal": 2,
+   "programa": 2,
+   "nome": "Marimba PSX",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 3,
+   "programa": 17,
+   "nome": "Clarinet PSX",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  },
+  {
+   "canal": 4,
+   "programa": 17,
+   "nome": "Clarinet PSX",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  },
+  {
+   "canal": 5,
+   "programa": 7,
+   "nome": "String Pizz PSX",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 6,
+   "programa": 7,
+   "nome": "String Pizz PSX",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 7,
+   "programa": 0,
+   "nome": "Celesta",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  }
+ ]
+}

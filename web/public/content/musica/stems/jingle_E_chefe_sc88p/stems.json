@@ -1,0 +1,40 @@
+{
+ "duracao": 13.5,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 73,
+   "nome": "Flute"
+  },
+  {
+   "canal": 2,
+   "programa": 24,
+   "nome": "Nylon Guitar"
+  },
+  {
+   "canal": 3,
+   "programa": 46,
+   "nome": "Orchestral Harp"
+  },
+  {
+   "canal": 4,
+   "programa": 89,
+   "nome": "Warm Pad"
+  },
+  {
+   "canal": 5,
+   "programa": 42,
+   "nome": "Cello"
+  },
+  {
+   "canal": 6,
+   "programa": 42,
+   "nome": "Cello"
+  },
+  {
+   "canal": 10,
+   "programa": null,
+   "nome": "Drums"
+  }
+ ]
+}

@@ -4,37 +4,70 @@
   {
    "canal": 1,
    "programa": 20,
-   "nome": "Flute"
+   "nome": "Flute",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
   },
   {
    "canal": 2,
    "programa": 20,
-   "nome": "Flute"
+   "nome": "Flute",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
   },
   {
    "canal": 3,
    "programa": 7,
-   "nome": "String Pizz"
+   "nome": "String Pizz",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 4,
    "programa": 8,
-   "nome": "Harp"
+   "nome": "Harp",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 5,
    "programa": 5,
-   "nome": "Celli"
+   "nome": "Celli",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 6,
    "programa": 10,
-   "nome": "String Ens2"
+   "nome": "String Ens2",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 8,
    "programa": 9,
-   "nome": "Timpani"
+   "nome": "Timpani",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   }
  ]
 }

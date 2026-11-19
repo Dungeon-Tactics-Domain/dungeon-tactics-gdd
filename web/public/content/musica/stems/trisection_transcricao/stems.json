@@ -4,7 +4,12 @@
   {
    "canal": 1,
    "programa": 4,
-   "nome": "Electric Piano 1"
+   "nome": "Electric Piano 1",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   }
  ]
 }

@@ -1,0 +1,43 @@
+{
+ "duracao": 283.938,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 3,
+   "nome": "High Violins PSX",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 2,
+   "programa": 8,
+   "nome": "Harp PSX",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 3,
+   "programa": 20,
+   "nome": "Flute PSX",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  },
+  {
+   "canal": 4,
+   "programa": 22,
+   "nome": "Snare PSX",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  }
+ ]
+}

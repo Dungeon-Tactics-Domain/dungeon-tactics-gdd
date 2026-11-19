@@ -1,0 +1,95 @@
+{
+ "duracao": 170.752,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 0,
+   "nome": "Celesta",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 2,
+   "programa": 0,
+   "nome": "Celesta",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 3,
+   "programa": 0,
+   "nome": "Celesta",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 4,
+   "programa": 26,
+   "nome": "Piccolo PSX",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 5,
+   "programa": 26,
+   "nome": "Piccolo PSX",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 6,
+   "programa": 26,
+   "nome": "Piccolo PSX",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 7,
+   "programa": 10,
+   "nome": "String Ens2 PSX",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 8,
+   "programa": 10,
+   "nome": "String Ens2 PSX",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 9,
+   "programa": 10,
+   "nome": "String Ens2 PSX",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  }
+ ]
+}

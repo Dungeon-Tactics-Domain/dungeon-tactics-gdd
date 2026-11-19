@@ -4,37 +4,68 @@
   {
    "canal": 1,
    "programa": 73,
-   "nome": "Flute"
+   "nome": "Flute",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
   },
   {
    "canal": 2,
    "programa": 68,
-   "nome": "Oboe"
+   "nome": "Oboe",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
   },
   {
    "canal": 3,
    "programa": 24,
-   "nome": "Nylon Guitar"
+   "nome": "Nylon Guitar",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 4,
    "programa": 46,
-   "nome": "Orchestral Harp"
+   "nome": "Orchestral Harp",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 5,
    "programa": 49,
-   "nome": "String Ensemble 2"
+   "nome": "String Ensemble 2",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 6,
    "programa": 32,
-   "nome": "Acoustic Bass"
+   "nome": "Acoustic Bass",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
   },
   {
    "canal": 10,
    "programa": null,
-   "nome": "Drums"
+   "nome": "Drums",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
   }
  ]
 }

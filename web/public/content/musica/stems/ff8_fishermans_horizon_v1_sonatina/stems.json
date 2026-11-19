@@ -1,0 +1,94 @@
+{
+ "duracao": 211.371,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 0,
+   "nome": "Steinway Concert Gra",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 2,
+   "programa": 0,
+   "nome": "Steinway Concert Gra",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 3,
+   "programa": 0,
+   "nome": "Steinway Concert Gra",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 4,
+   "programa": 14,
+   "nome": "Flute Solo",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 5,
+   "programa": 20,
+   "nome": "Clarinet Solo",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  },
+  {
+   "canal": 6,
+   "programa": 26,
+   "nome": "Alto Flute",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 7,
+   "programa": 0,
+   "nome": "Steinway Concert Gra",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 8,
+   "programa": 0,
+   "nome": "Steinway Concert Gra",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 9,
+   "programa": 0,
+   "nome": "Steinway Concert Gra",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  }
+ ]
+}

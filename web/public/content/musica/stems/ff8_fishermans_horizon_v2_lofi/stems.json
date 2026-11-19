@@ -1,0 +1,97 @@
+{
+ "duracao": 217.076,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 4,
+   "nome": "Electric Piano 1",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain",
+    "eco"
+   ]
+  },
+  {
+   "canal": 2,
+   "programa": 89,
+   "nome": "Warm Pad",
+   "efeitos": [
+    "reverb",
+    "release",
+    "eco"
+   ]
+  },
+  {
+   "canal": 3,
+   "programa": 33,
+   "nome": "Finger Bass",
+   "efeitos": [
+    "reverb",
+    "release",
+    "eco"
+   ]
+  },
+  {
+   "canal": 7,
+   "programa": 24,
+   "nome": "Nylon Guitar",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain",
+    "eco"
+   ]
+  },
+  {
+   "canal": 8,
+   "programa": 108,
+   "nome": "Kalimba",
+   "efeitos": [
+    "reverb",
+    "release",
+    "eco"
+   ]
+  },
+  {
+   "canal": 10,
+   "programa": null,
+   "nome": "Drums",
+   "efeitos": [
+    "reverb",
+    "release",
+    "eco"
+   ]
+  },
+  {
+   "canal": 11,
+   "programa": 73,
+   "nome": "Flute",
+   "efeitos": [
+    "reverb",
+    "release",
+    "eco"
+   ]
+  },
+  {
+   "canal": 12,
+   "programa": 11,
+   "nome": "Vibraphone",
+   "efeitos": [
+    "reverb",
+    "release",
+    "eco"
+   ]
+  },
+  {
+   "canal": 13,
+   "programa": 75,
+   "nome": "Pan Flute",
+   "efeitos": [
+    "reverb",
+    "release",
+    "eco"
+   ]
+  }
+ ]
+}

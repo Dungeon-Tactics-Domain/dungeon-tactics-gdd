@@ -1,0 +1,78 @@
+{
+ "duracao": 188.872,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 52,
+   "nome": "Choir Aahs",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  },
+  {
+   "canal": 2,
+   "programa": 52,
+   "nome": "Choir Aahs",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  },
+  {
+   "canal": 3,
+   "programa": 54,
+   "nome": "Synth Voice",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  },
+  {
+   "canal": 4,
+   "programa": 4,
+   "nome": "Electric Piano 1",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 5,
+   "programa": 11,
+   "nome": "Vibraphone",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  },
+  {
+   "canal": 6,
+   "programa": 45,
+   "nome": "Pizzicato Strings",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  },
+  {
+   "canal": 7,
+   "programa": 72,
+   "nome": "Piccolo",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  },
+  {
+   "canal": 8,
+   "programa": 45,
+   "nome": "Pizzicato Strings",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  }
+ ]
+}

@@ -4,32 +4,61 @@
   {
    "canal": 1,
    "programa": 14,
-   "nome": "Flute Solo"
+   "nome": "Flute Solo",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 2,
    "programa": 14,
-   "nome": "Flute Solo"
+   "nome": "Flute Solo",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 3,
    "programa": 4,
-   "nome": "2nd Violins Sustain"
+   "nome": "2nd Violins Sustain",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 4,
    "programa": 5,
-   "nome": "2nd Violins Pizz."
+   "nome": "2nd Violins Pizz.",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 5,
    "programa": 1,
-   "nome": "Concert Harp"
+   "nome": "Concert Harp",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 6,
    "programa": 16,
-   "nome": "Oboe Solo"
+   "nome": "Oboe Solo",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
   }
  ]
 }

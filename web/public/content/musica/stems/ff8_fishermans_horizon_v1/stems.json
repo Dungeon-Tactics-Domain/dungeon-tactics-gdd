@@ -1,0 +1,92 @@
+{
+ "duracao": 211.371,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 5,
+   "nome": "Electric Piano 2",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 2,
+   "programa": 5,
+   "nome": "Electric Piano 2",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 3,
+   "programa": 5,
+   "nome": "Electric Piano 2",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 4,
+   "programa": 79,
+   "nome": "Ocarina",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  },
+  {
+   "canal": 5,
+   "programa": 22,
+   "nome": "Harmonica",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  },
+  {
+   "canal": 6,
+   "programa": 75,
+   "nome": "Pan Flute",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  },
+  {
+   "canal": 7,
+   "programa": 5,
+   "nome": "Electric Piano 2",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 8,
+   "programa": 5,
+   "nome": "Electric Piano 2",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 9,
+   "programa": 5,
+   "nome": "Electric Piano 2",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  }
+ ]
+}

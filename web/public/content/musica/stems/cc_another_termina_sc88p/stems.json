@@ -1,0 +1,87 @@
+{
+ "duracao": 140.439,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 107,
+   "nome": "Koto",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  },
+  {
+   "canal": 2,
+   "programa": 33,
+   "nome": "Finger Bass",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  },
+  {
+   "canal": 3,
+   "programa": 109,
+   "nome": "Bag Pipe",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  },
+  {
+   "canal": 4,
+   "programa": 24,
+   "nome": "Nylon Guitar",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 5,
+   "programa": 117,
+   "nome": "Melodic Tom",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  },
+  {
+   "canal": 6,
+   "programa": 21,
+   "nome": "Accordion",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  },
+  {
+   "canal": 7,
+   "programa": 69,
+   "nome": "English Horn",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  },
+  {
+   "canal": 8,
+   "programa": 109,
+   "nome": "Bag Pipe",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  },
+  {
+   "canal": 10,
+   "programa": null,
+   "nome": "Drums",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  }
+ ]
+}

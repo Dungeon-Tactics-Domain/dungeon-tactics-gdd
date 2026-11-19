@@ -1,0 +1,73 @@
+{
+ "duracao": 203.418,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 35,
+   "nome": "Mixed Choir",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  },
+  {
+   "canal": 2,
+   "programa": 35,
+   "nome": "Mixed Choir",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  },
+  {
+   "canal": 3,
+   "programa": 1,
+   "nome": "Concert Harp",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 4,
+   "programa": 0,
+   "nome": "Steinway Concert Gra",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 5,
+   "programa": 12,
+   "nome": "Violin Solo",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 6,
+   "programa": 10,
+   "nome": "Basses Sustain",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 7,
+   "programa": 4,
+   "nome": "2nd Violins Sustain",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,30 @@
+{
+ "duracao": 8.387,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 79,
+   "nome": "Ocarina"
+  },
+  {
+   "canal": 2,
+   "programa": 24,
+   "nome": "Nylon Guitar"
+  },
+  {
+   "canal": 3,
+   "programa": 89,
+   "nome": "Warm Pad"
+  },
+  {
+   "canal": 4,
+   "programa": 8,
+   "nome": "Celesta"
+  },
+  {
+   "canal": 10,
+   "programa": null,
+   "nome": "Drums"
+  }
+ ]
+}

@@ -1,0 +1,75 @@
+{
+ "duracao": 203.418,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 12,
+   "nome": "Choir Ah PSX",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 2,
+   "programa": 12,
+   "nome": "Choir Ah PSX",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 3,
+   "programa": 7,
+   "nome": "String Pizz PSX",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 4,
+   "programa": 0,
+   "nome": "Celesta",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 5,
+   "programa": 3,
+   "nome": "High Violins PSX",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 6,
+   "programa": 5,
+   "nome": "Celli PSX",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 7,
+   "programa": 10,
+   "nome": "String Ens2 PSX",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  }
+ ]
+}

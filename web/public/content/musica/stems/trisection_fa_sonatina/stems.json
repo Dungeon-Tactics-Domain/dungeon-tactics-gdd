@@ -4,37 +4,71 @@
   {
    "canal": 1,
    "programa": 2,
-   "nome": "Electric Grand Piano"
+   "nome": "Electric Grand Piano",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 2,
    "programa": 8,
-   "nome": "Celesta"
+   "nome": "Celesta",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 3,
    "programa": 10,
-   "nome": "Music Box"
+   "nome": "Music Box",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 5,
    "programa": 30,
-   "nome": "Distortion Guitar"
+   "nome": "Distortion Guitar",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 7,
    "programa": 34,
-   "nome": "Pick Bass"
+   "nome": "Pick Bass",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
   },
   {
    "canal": 8,
    "programa": 43,
-   "nome": "Contrabass"
+   "nome": "Contrabass",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 11,
    "programa": 40,
-   "nome": "Violin"
+   "nome": "Violin",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   }
  ]
 }

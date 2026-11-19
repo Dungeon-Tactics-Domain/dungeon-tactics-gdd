@@ -4,42 +4,80 @@
   {
    "canal": 1,
    "programa": 48,
-   "nome": "Conjunto de cordas"
+   "nome": "Conjunto de cordas",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 2,
    "programa": 48,
-   "nome": "Conjunto de cordas"
+   "nome": "Conjunto de cordas",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 3,
    "programa": 43,
-   "nome": "Cordas"
+   "nome": "Cordas",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 4,
    "programa": 60,
-   "nome": "Metais"
+   "nome": "Metais",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
   },
   {
    "canal": 5,
    "programa": 52,
-   "nome": "Conjunto de cordas"
+   "nome": "Conjunto de cordas",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 6,
    "programa": 14,
-   "nome": "Percussão melódica"
+   "nome": "Percussão melódica",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 7,
    "programa": 47,
-   "nome": "Cordas"
+   "nome": "Cordas",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 10,
    "programa": null,
-   "nome": "Bateria"
+   "nome": "Bateria",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
   }
  ]
 }

@@ -1,0 +1,150 @@
+{
+ "duracao": 128.0,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 38,
+   "nome": "Cymbals",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  },
+  {
+   "canal": 2,
+   "programa": 18,
+   "nome": "Piccolo Solo",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  },
+  {
+   "canal": 3,
+   "programa": 35,
+   "nome": "Mixed Choir",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  },
+  {
+   "canal": 4,
+   "programa": 2,
+   "nome": "1st Violins Sustain",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 5,
+   "programa": 10,
+   "nome": "Basses Sustain",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 6,
+   "programa": 4,
+   "nome": "2nd Violins Sustain",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 7,
+   "programa": 4,
+   "nome": "2nd Violins Sustain",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 8,
+   "programa": 28,
+   "nome": "Trumpet Section",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 9,
+   "programa": 43,
+   "nome": "Chimes",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 11,
+   "programa": 40,
+   "nome": "Timpani",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 12,
+   "programa": 8,
+   "nome": "Cello Section Sustai",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 13,
+   "programa": 8,
+   "nome": "Cello Section Sustai",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 14,
+   "programa": 37,
+   "nome": "Bass Drum",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  },
+  {
+   "canal": 15,
+   "programa": 40,
+   "nome": "Timpani",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 16,
+   "programa": 38,
+   "nome": "Cymbals",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  }
+ ]
+}

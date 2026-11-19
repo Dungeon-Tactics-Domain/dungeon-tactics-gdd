@@ -1,0 +1,91 @@
+{
+ "duracao": 140.439,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 1,
+   "nome": "Concert Harp",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 2,
+   "programa": 11,
+   "nome": "Basses Pizz.",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 3,
+   "programa": 16,
+   "nome": "Oboe Solo",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  },
+  {
+   "canal": 4,
+   "programa": 1,
+   "nome": "Concert Harp",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 5,
+   "programa": 40,
+   "nome": "Timpani",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 6,
+   "programa": 20,
+   "nome": "Clarinet Solo",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  },
+  {
+   "canal": 7,
+   "programa": 19,
+   "nome": "English Horn",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  },
+  {
+   "canal": 8,
+   "programa": 16,
+   "nome": "Oboe Solo",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  },
+  {
+   "canal": 15,
+   "programa": 40,
+   "nome": "Timpani",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  }
+ ]
+}

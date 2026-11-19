@@ -1,0 +1,50 @@
+{
+ "duracao": 101.818186,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 33,
+   "nome": "Finger Bass"
+  },
+  {
+   "canal": 2,
+   "programa": 42,
+   "nome": "Cello"
+  },
+  {
+   "canal": 3,
+   "programa": 48,
+   "nome": "String Ensemble 1"
+  },
+  {
+   "canal": 4,
+   "programa": 61,
+   "nome": "Brass Section"
+  },
+  {
+   "canal": 5,
+   "programa": 68,
+   "nome": "Oboe"
+  },
+  {
+   "canal": 6,
+   "programa": 60,
+   "nome": "French Horn"
+  },
+  {
+   "canal": 7,
+   "programa": 47,
+   "nome": "Timpani"
+  },
+  {
+   "canal": 8,
+   "programa": 46,
+   "nome": "Orchestral Harp"
+  },
+  {
+   "canal": 10,
+   "programa": null,
+   "nome": "Drums"
+  }
+ ]
+}

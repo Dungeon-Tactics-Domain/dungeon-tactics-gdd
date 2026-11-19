@@ -1,0 +1,70 @@
+{
+ "duracao": 209.062,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 52,
+   "nome": "Choir Aahs",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  },
+  {
+   "canal": 2,
+   "programa": 11,
+   "nome": "Vibraphone",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  },
+  {
+   "canal": 3,
+   "programa": 4,
+   "nome": "Electric Piano 1",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 4,
+   "programa": 4,
+   "nome": "Electric Piano 1",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 5,
+   "programa": 45,
+   "nome": "Pizzicato Strings",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  },
+  {
+   "canal": 6,
+   "programa": 45,
+   "nome": "Pizzicato Strings",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  },
+  {
+   "canal": 7,
+   "programa": 71,
+   "nome": "Clarinet",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  }
+ ]
+}

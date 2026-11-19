@@ -4,62 +4,119 @@
   {
    "canal": 1,
    "programa": 20,
-   "nome": "Flute PSX"
+   "nome": "Flute PSX",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
   },
   {
    "canal": 2,
    "programa": 19,
-   "nome": "Oboe PSX"
+   "nome": "Oboe PSX",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
   },
   {
    "canal": 3,
    "programa": 7,
-   "nome": "String Pizz PSX"
+   "nome": "String Pizz PSX",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 4,
    "programa": 8,
-   "nome": "Harp PSX"
+   "nome": "Harp PSX",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 5,
    "programa": 10,
-   "nome": "String Ens2 PSX"
+   "nome": "String Ens2 PSX",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 6,
    "programa": 5,
-   "nome": "Celli PSX"
+   "nome": "Celli PSX",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 7,
    "programa": 5,
-   "nome": "Celli PSX"
+   "nome": "Celli PSX",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 8,
    "programa": 17,
-   "nome": "Clarinet PSX"
+   "nome": "Clarinet PSX",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
   },
   {
    "canal": 9,
    "programa": 7,
-   "nome": "String Pizz PSX"
+   "nome": "String Pizz PSX",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 11,
    "programa": 0,
-   "nome": "Celesta"
+   "nome": "Celesta",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 13,
    "programa": 9,
-   "nome": "Timpani PSX"
+   "nome": "Timpani PSX",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 16,
    "programa": 1,
-   "nome": "Glockenspiel PSX"
+   "nome": "Glockenspiel PSX",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   }
  ]
 }

@@ -1,0 +1,83 @@
+{
+ "duracao": 160.0,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 48,
+   "nome": "String Ensemble 1",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 2,
+   "programa": 48,
+   "nome": "String Ensemble 1",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 3,
+   "programa": 43,
+   "nome": "Contrabass",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 4,
+   "programa": 60,
+   "nome": "French Horn",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  },
+  {
+   "canal": 5,
+   "programa": 52,
+   "nome": "Choir Aahs",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 6,
+   "programa": 14,
+   "nome": "Tubular Bells",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 7,
+   "programa": 47,
+   "nome": "Timpani",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 10,
+   "programa": null,
+   "nome": "Drums",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  }
+ ]
+}

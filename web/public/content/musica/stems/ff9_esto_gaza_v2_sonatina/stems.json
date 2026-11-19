@@ -1,0 +1,72 @@
+{
+ "duracao": 209.062,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 35,
+   "nome": "Mixed Choir",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  },
+  {
+   "canal": 2,
+   "programa": 39,
+   "nome": "Glockenspiel",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  },
+  {
+   "canal": 3,
+   "programa": 0,
+   "nome": "Steinway Concert Gra",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 4,
+   "programa": 0,
+   "nome": "Steinway Concert Gra",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 5,
+   "programa": 7,
+   "nome": "Viola Section Pizz.",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 6,
+   "programa": 7,
+   "nome": "Viola Section Pizz.",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 7,
+   "programa": 20,
+   "nome": "Clarinet Solo",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  }
+ ]
+}

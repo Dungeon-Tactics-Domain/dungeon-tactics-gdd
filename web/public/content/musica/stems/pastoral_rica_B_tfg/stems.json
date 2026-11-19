@@ -4,72 +4,138 @@
   {
    "canal": 1,
    "programa": 20,
-   "nome": "Flute PSX"
+   "nome": "Órgão",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
   },
   {
    "canal": 2,
    "programa": 19,
-   "nome": "Oboe PSX"
+   "nome": "Órgão",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
   },
   {
    "canal": 3,
    "programa": 7,
-   "nome": "String Pizz PSX"
+   "nome": "Piano",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 4,
    "programa": 8,
-   "nome": "Harp PSX"
+   "nome": "Percussão melódica",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 5,
    "programa": 10,
-   "nome": "String Ens2 PSX"
+   "nome": "Percussão melódica",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 6,
    "programa": 5,
-   "nome": "Celli PSX"
+   "nome": "Piano",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 7,
    "programa": 5,
-   "nome": "Celli PSX"
+   "nome": "Piano",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 8,
    "programa": 17,
-   "nome": "Clarinet PSX"
+   "nome": "Órgão",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
   },
   {
    "canal": 9,
    "programa": 0,
-   "nome": "Celesta"
+   "nome": "Piano",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 11,
    "programa": 7,
-   "nome": "String Pizz PSX"
+   "nome": "Piano",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 12,
    "programa": 25,
-   "nome": "French Horn PSX"
+   "nome": "Violão/guitarra",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 13,
    "programa": 9,
-   "nome": "Timpani PSX"
+   "nome": "Percussão melódica",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 14,
    "programa": 22,
-   "nome": "Snare PSX"
+   "nome": "Órgão",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
   },
   {
    "canal": 16,
    "programa": 1,
-   "nome": "Glockenspiel PSX"
+   "nome": "Piano",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   }
  ]
 }

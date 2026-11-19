@@ -1,0 +1,44 @@
+{
+ "duracao": 283.938,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 12,
+   "nome": "Violin Solo",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 2,
+   "programa": 1,
+   "nome": "Concert Harp",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 3,
+   "programa": 14,
+   "nome": "Flute Solo",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 4,
+   "programa": 37,
+   "nome": "Bass Drum",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  }
+ ]
+}

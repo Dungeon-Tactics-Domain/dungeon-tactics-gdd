@@ -4,37 +4,69 @@
   {
    "canal": 1,
    "programa": 48,
-   "nome": "String Ensemble 1"
+   "nome": "String Ensemble 1",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 2,
    "programa": 48,
-   "nome": "String Ensemble 1"
+   "nome": "String Ensemble 1",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 3,
    "programa": 43,
-   "nome": "Contrabass"
+   "nome": "Contrabass",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 5,
    "programa": 60,
-   "nome": "French Horn"
+   "nome": "French Horn",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
   },
   {
    "canal": 7,
    "programa": 58,
-   "nome": "Tuba"
+   "nome": "Tuba",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
   },
   {
    "canal": 8,
    "programa": 14,
-   "nome": "Tubular Bells"
+   "nome": "Tubular Bells",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 10,
    "programa": 1,
-   "nome": "Drums"
+   "nome": "Drums",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
   }
  ]
 }

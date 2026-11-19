@@ -1,0 +1,40 @@
+{
+ "duracao": 94.545442,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 42,
+   "nome": "Cello"
+  },
+  {
+   "canal": 2,
+   "programa": 43,
+   "nome": "Contrabass"
+  },
+  {
+   "canal": 4,
+   "programa": 60,
+   "nome": "French Horn"
+  },
+  {
+   "canal": 5,
+   "programa": 48,
+   "nome": "String Ensemble 1"
+  },
+  {
+   "canal": 6,
+   "programa": 47,
+   "nome": "Timpani"
+  },
+  {
+   "canal": 7,
+   "programa": 68,
+   "nome": "Oboe"
+  },
+  {
+   "canal": 10,
+   "programa": null,
+   "nome": "Drums"
+  }
+ ]
+}

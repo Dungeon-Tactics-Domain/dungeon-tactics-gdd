@@ -1,0 +1,92 @@
+{
+ "duracao": 170.752,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 0,
+   "nome": "Acoustic Grand Piano",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 2,
+   "programa": 0,
+   "nome": "Acoustic Grand Piano",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 3,
+   "programa": 0,
+   "nome": "Acoustic Grand Piano",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 4,
+   "programa": 78,
+   "nome": "Whistle",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  },
+  {
+   "canal": 5,
+   "programa": 78,
+   "nome": "Whistle",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  },
+  {
+   "canal": 6,
+   "programa": 78,
+   "nome": "Whistle",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  },
+  {
+   "canal": 7,
+   "programa": 49,
+   "nome": "String Ensemble 2",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 8,
+   "programa": 49,
+   "nome": "String Ensemble 2",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 9,
+   "programa": 49,
+   "nome": "String Ensemble 2",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  }
+ ]
+}

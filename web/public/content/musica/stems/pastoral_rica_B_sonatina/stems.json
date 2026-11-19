@@ -4,62 +4,119 @@
   {
    "canal": 1,
    "programa": 14,
-   "nome": "Flute Solo"
+   "nome": "Flute Solo",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 2,
    "programa": 16,
-   "nome": "Oboe Solo"
+   "nome": "Oboe Solo",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
   },
   {
    "canal": 3,
    "programa": 1,
-   "nome": "Concert Harp"
+   "nome": "Concert Harp",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 4,
    "programa": 1,
-   "nome": "Concert Harp"
+   "nome": "Concert Harp",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 5,
    "programa": 4,
-   "nome": "2nd Violins Sustain"
+   "nome": "2nd Violins Sustain",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 6,
    "programa": 11,
-   "nome": "Basses Pizz."
+   "nome": "Basses Pizz.",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 7,
    "programa": 8,
-   "nome": "Cello Section Sustai"
+   "nome": "Cello Section Sustai",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 8,
    "programa": 20,
-   "nome": "Clarinet Solo"
+   "nome": "Clarinet Solo",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
   },
   {
    "canal": 9,
    "programa": 39,
-   "nome": "Glockenspiel"
+   "nome": "Glockenspiel",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
   },
   {
    "canal": 11,
    "programa": 7,
-   "nome": "Viola Section Pizz."
+   "nome": "Viola Section Pizz.",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 12,
    "programa": 30,
-   "nome": "Horn Section"
+   "nome": "Horn Section",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 15,
    "programa": 40,
-   "nome": "Timpani"
+   "nome": "Timpani",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   }
  ]
 }

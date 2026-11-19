@@ -4,72 +4,133 @@
   {
    "canal": 1,
    "programa": 122,
-   "nome": "Seashore"
+   "nome": "Seashore",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
   },
   {
    "canal": 2,
    "programa": 123,
-   "nome": "Bird Tweet"
+   "nome": "Bird Tweet",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
   },
   {
    "canal": 3,
    "programa": 52,
-   "nome": "Choir Aahs"
+   "nome": "Choir Aahs",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 4,
    "programa": 99,
-   "nome": "Atmosphere"
+   "nome": "Atmosphere",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
   },
   {
    "canal": 5,
    "programa": 35,
-   "nome": "Fretless Bass"
+   "nome": "Fretless Bass",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
   },
   {
    "canal": 6,
    "programa": 49,
-   "nome": "String Ensemble 2"
+   "nome": "String Ensemble 2",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 7,
    "programa": 100,
-   "nome": "Brightness"
+   "nome": "Brightness",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
   },
   {
    "canal": 8,
    "programa": 55,
-   "nome": "Orchestra Hit"
+   "nome": "Orchestra Hit",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
   },
   {
    "canal": 9,
    "programa": 14,
-   "nome": "Tubular Bells"
+   "nome": "Tubular Bells",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 10,
    "programa": 0,
-   "nome": "Acoustic Grand Piano"
+   "nome": "Acoustic Grand Piano",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
   },
   {
    "canal": 11,
    "programa": 117,
-   "nome": "Melodic Tom"
+   "nome": "Melodic Tom",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
   },
   {
    "canal": 12,
    "programa": 29,
-   "nome": "Overdriven Guitar"
+   "nome": "Overdriven Guitar",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 13,
    "programa": 30,
-   "nome": "Distortion Guitar"
+   "nome": "Distortion Guitar",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 14,
    "programa": 127,
-   "nome": "Gunshot"
+   "nome": "Gunshot",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
   }
  ]
 }

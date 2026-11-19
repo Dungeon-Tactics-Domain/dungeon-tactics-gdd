@@ -1,0 +1,40 @@
+{
+ "duracao": 7.958,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 48,
+   "nome": "String Ensemble 1"
+  },
+  {
+   "canal": 2,
+   "programa": 48,
+   "nome": "String Ensemble 1"
+  },
+  {
+   "canal": 3,
+   "programa": 43,
+   "nome": "Contrabass"
+  },
+  {
+   "canal": 4,
+   "programa": 60,
+   "nome": "French Horn"
+  },
+  {
+   "canal": 5,
+   "programa": 52,
+   "nome": "Choir Aahs"
+  },
+  {
+   "canal": 6,
+   "programa": 14,
+   "nome": "Tubular Bells"
+  },
+  {
+   "canal": 7,
+   "programa": 47,
+   "nome": "Timpani"
+  }
+ ]
+}

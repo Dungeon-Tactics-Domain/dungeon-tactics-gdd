@@ -1,0 +1,93 @@
+{
+ "duracao": 160.0,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 2,
+   "nome": "1st Violins Sustain",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 2,
+   "programa": 2,
+   "nome": "1st Violins Sustain",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 3,
+   "programa": 10,
+   "nome": "Basses Sustain",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 4,
+   "programa": 30,
+   "nome": "Horn Section",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 5,
+   "programa": 35,
+   "nome": "Mixed Choir",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  },
+  {
+   "canal": 6,
+   "programa": 43,
+   "nome": "Chimes",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 7,
+   "programa": 40,
+   "nome": "Timpani",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 15,
+   "programa": 40,
+   "nome": "Timpani",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 16,
+   "programa": 38,
+   "nome": "Cymbals",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  }
+ ]
+}

@@ -4,57 +4,106 @@
   {
    "canal": 1,
    "programa": 73,
-   "nome": "Flautas"
+   "nome": "Flautas",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
   },
   {
    "canal": 2,
    "programa": 68,
-   "nome": "Palhetas"
+   "nome": "Palhetas",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
   },
   {
    "canal": 3,
    "programa": 24,
-   "nome": "Violão/guitarra"
+   "nome": "Violão/guitarra",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 4,
    "programa": 46,
-   "nome": "Cordas"
+   "nome": "Cordas",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 5,
    "programa": 49,
-   "nome": "Conjunto de cordas"
+   "nome": "Conjunto de cordas",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 6,
    "programa": 32,
-   "nome": "Baixo"
+   "nome": "Baixo",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
   },
   {
    "canal": 7,
    "programa": 42,
-   "nome": "Cordas"
+   "nome": "Cordas",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   },
   {
    "canal": 8,
    "programa": 71,
-   "nome": "Palhetas"
+   "nome": "Palhetas",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
   },
   {
    "canal": 9,
    "programa": 45,
-   "nome": "Cordas"
+   "nome": "Cordas",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
   },
   {
    "canal": 10,
    "programa": null,
-   "nome": "Bateria"
+   "nome": "Bateria",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
   },
   {
    "canal": 11,
    "programa": 8,
-   "nome": "Percussão melódica"
+   "nome": "Percussão melódica",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
   }
  ]
 }

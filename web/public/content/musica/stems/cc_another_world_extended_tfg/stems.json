@@ -1,0 +1,151 @@
+{
+ "duracao": 128.0,
+ "stems": [
+  {
+   "canal": 1,
+   "programa": 23,
+   "nome": "Cymbal PSX",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  },
+  {
+   "canal": 2,
+   "programa": 26,
+   "nome": "Piccolo PSX",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 3,
+   "programa": 12,
+   "nome": "Choir Ah PSX",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 4,
+   "programa": 11,
+   "nome": "Slow Strings PSX",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 5,
+   "programa": 5,
+   "nome": "Celli PSX",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 6,
+   "programa": 10,
+   "nome": "String Ens2 PSX",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 7,
+   "programa": 6,
+   "nome": "String Ensemble 1",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 8,
+   "programa": 15,
+   "nome": "Brass PSX",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 9,
+   "programa": 21,
+   "nome": "Tubular Bell PSX",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  },
+  {
+   "canal": 11,
+   "programa": 9,
+   "nome": "Timpani PSX",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 12,
+   "programa": 5,
+   "nome": "Celli PSX",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 13,
+   "programa": 5,
+   "nome": "Celli PSX",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 14,
+   "programa": 22,
+   "nome": "Snare PSX",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  },
+  {
+   "canal": 15,
+   "programa": 9,
+   "nome": "Timpani PSX",
+   "efeitos": [
+    "reverb",
+    "release",
+    "sustain"
+   ]
+  },
+  {
+   "canal": 16,
+   "programa": 23,
+   "nome": "Cymbal PSX",
+   "efeitos": [
+    "reverb",
+    "release"
+   ]
+  }
+ ]
+}
