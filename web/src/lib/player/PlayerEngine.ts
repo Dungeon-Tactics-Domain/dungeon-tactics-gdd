@@ -89,6 +89,7 @@ export class PlayerEngine {
   #liveVoice: LiveVoice | undefined;
   readonly #liveLoading = new Map<string, Promise<void>>(); // `${midi}|${soundfont}`
   readonly #liveReady = new Set<string>();
+  #versionToken = 0; // the latest setVersion, same idea
   #songToken = 0; // the latest setSong; an older one that finishes loading later gives up
   #waiting = 0; // jobs holding the player until every instrument is loaded
   readonly #liveFailed = new Set<string>();
@@ -223,6 +224,7 @@ export class PlayerEngine {
   async setSong(song: Song, versionId?: string): Promise<void> {
     const next = song.versions.find((v) => v.id === versionId) ?? song.versions[0] ?? null;
     const token = ++this.#songToken;
+    this.#versionToken++; // a version choice still loading belongs to the song being left
     if (next) {
       // the song on stage stays as it is until every instrument of the new one is loaded
       if (next.live) this.pause(); // the voice holds one MIDI at a time: loading the new one would cut the old one anyway
@@ -422,9 +424,14 @@ export class PlayerEngine {
    * A/B: switch the whole render to another version at the same position. The position stays in absolute seconds (wrapped
    * to the new loop when it is shorter): the versions share the MIDI timing and differ only in render tail.
    */
-  setVersion(versionId: string) {
+  async setVersion(versionId: string): Promise<void> {
     const v = this.#song?.versions.find((x) => x.id === versionId);
     if (!v || v === this.#version) return;
+    // like a new song: the sound on stage stays until every instrument of the other version is loaded, then it swaps at once
+    const song = this.#song!;
+    const token = ++this.#versionToken;
+    await this.#whileLoading(() => this.#preload(song, v));
+    if (token !== this.#versionToken || this.#song !== song || v === this.#version) return; // a newer choice took over
     const pos = this.position;
     const wasLive = this.#version?.live;
     this.#version = v;

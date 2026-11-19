@@ -189,7 +189,7 @@ describe('PlayerEngine versions', () => {
     await engine.play();
     ctx.currentTime = 0.05 + 42;
     const old = ctx.live();
-    engine.setVersion('sc88p');
+    await engine.setVersion('sc88p');
     await flush();
     await flush();
     expect(engine.version?.id).toBe('sc88p');
@@ -209,17 +209,17 @@ describe('PlayerEngine versions', () => {
     const { ctx, engine } = await setup();
     await engine.play();
     ctx.currentTime = 0.05 + 95;
-    engine.setVersion('short');
+    await engine.setVersion('short');
     expect(engine.position).toBeCloseTo(5);
     engine.pause();
-    engine.setVersion('gm');
+    await engine.setVersion('gm');
     expect(engine.position).toBeCloseTo(5);
   });
 
   it('A/B while paused moves the stored position only', async () => {
     const { engine, ctx } = await setup();
     engine.seek(30);
-    engine.setVersion('sc88p');
+    await engine.setVersion('sc88p');
     expect(engine.position).toBe(30);
     expect(ctx.live()).toHaveLength(0);
   });
@@ -228,7 +228,7 @@ describe('PlayerEngine versions', () => {
     const { ctx, engine } = await setup();
     await engine.play();
     const drums = ctx.live()[2]!;
-    engine.setVersion('tfg');
+    await engine.setVersion('tfg');
     expect(engine.channels.map((c) => c.channel)).toEqual([0, 1, 7]);
     expect(drums.stoppedAt).toBeDefined();
   });
@@ -319,7 +319,7 @@ describe('PlayerEngine regressions', () => {
     await engine.play();
     engine.setSoloed(9, true);
     expect([0, 1].map((c) => engine.effectiveGain(c))).toEqual([0, 0]);
-    engine.setVersion('tfg'); // tfg has no channel 9
+    await engine.setVersion('tfg'); // tfg has no channel 9
     await flush();
     await flush();
     expect([0, 1, 7].map((c) => engine.effectiveGain(c))).toEqual([1, 1, 1]);

@@ -102,12 +102,12 @@ describe('PlayerEngine live version', () => {
     await engine.setSong(song, 'gm');
     await engine.play();
     ctx.currentTime = 20;
-    engine.setVersion('live');
+    await engine.setVersion('live');
     expect(engine.version?.id).toBe('live');
     expect(ctx.live()).toHaveLength(0); // the stems stopped
     await new Promise((r) => setTimeout(r, 0)); // the voice was not loaded yet: it joins at the clock's position when it is
     expect(Number(log.at(-1)?.replace('start ', ''))).toBeCloseTo(20, 1);
-    engine.setVersion('gm');
+    await engine.setVersion('gm');
     expect(log.at(-1)).toBe('stop');
     expect(ctx.live().length).toBeGreaterThan(0);
   });
