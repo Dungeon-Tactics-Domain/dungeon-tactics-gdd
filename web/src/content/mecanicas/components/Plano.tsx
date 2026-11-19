@@ -13,11 +13,7 @@ const COR_ESTADO: Record<string, string> = {
 };
 
 export function Estado({ de }: { de: string }) {
-  return (
-    <span className={cn('inline-block rounded-[3px] px-2 text-[14px] font-bold whitespace-nowrap', COR_ESTADO[de])}>
-      {de}
-    </span>
-  );
+  return <span className={cn('inline-block px-2 text-base font-bold whitespace-nowrap', COR_ESTADO[de])}>{de}</span>;
 }
 
 export function Agora() {
@@ -44,7 +40,10 @@ export function Agora() {
       {now.options.map((o, i) => (
         <div
           key={o.name}
-          className={cn('grid gap-1.5 border border-borda px-3.5 py-3', i === 0 && 'border-2 border-sucesso')}
+          className={cn(
+            'grid gap-1.5 border-2 border-couro-escuro px-3.5 py-3 shadow-folha',
+            i === 0 && 'border-sucesso',
+          )}
         >
           <strong>
             {o.name}
@@ -79,7 +78,7 @@ export function Agora() {
 export function Grill() {
   if (!PLANO.decisions.length)
     return (
-      <p className="m-0 border border-dashed border-borda bg-folha p-7 text-apagado">
+      <p className="m-0 border-2 border-dashed border-apagado bg-folha p-7 text-apagado">
         Nenhuma ainda: o grill começa depois do Portão 1.
       </p>
     );
@@ -142,7 +141,7 @@ export function Fases() {
       {PLANO.phases.map((f) => (
         <div
           key={f.id}
-          className="grid grid-cols-[90px_1fr_auto] items-baseline gap-3 border border-borda bg-folha px-3.5 py-2.5 max-[700px]:grid-cols-1"
+          className="grid grid-cols-[90px_1fr_auto] items-baseline gap-3 border-2 border-couro-escuro bg-folha shadow-folha px-3.5 py-2.5 max-[700px]:grid-cols-1"
         >
           <b>{f.id}</b>
           <span>

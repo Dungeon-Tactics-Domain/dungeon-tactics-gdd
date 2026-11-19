@@ -6,7 +6,7 @@ const VIEWER = 'http://127.0.0.1:5377/ver.html';
 export function EstudoWow() {
   return (
     <div className="grid gap-3">
-      <p className="m-0 border border-dashed border-traco bg-folha px-4 py-3 text-apagado">
+      <p className="m-0 border-2 border-dashed border-apagado bg-folha px-4 py-3 text-apagado">
         Arte da Blizzard, só para estudo no PC do Fernando: o modelo não está no site e nunca entra no jogo. A janela
         abaixo só mostra algo no computador dele, com o servidor local ligado.
       </p>

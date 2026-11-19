@@ -19,3 +19,7 @@ function Toggle({ className, icone, children, ...props }: React.ComponentProps<'
 }
 
 export { Toggle };
+
+// The same button on parchment (filters, choices, pagers): 2 px dark border, dark fill when pressed or checked.
+export const FILTRO =
+  'inline-flex min-h-11 min-w-11 cursor-pointer items-center justify-center gap-1.5 border-2 border-couro-escuro bg-folha px-3 text-base text-tinta hover:bg-pergaminho-escuro aria-pressed:bg-couro-escuro aria-pressed:text-creme aria-checked:bg-couro-escuro aria-checked:text-creme disabled:cursor-default disabled:opacity-60';

@@ -21,13 +21,13 @@ const COR: Record<TipoOrigem, string> = {
 export function SeloOrigem({ tipo, texto }: { tipo: TipoOrigem; texto?: string }) {
   const [aberto, setAberto] = useState(false);
   const selo = (
-    <span className={cn('inline-block rounded-sm px-2 py-0.5 text-[14px] font-bold leading-tight', COR[tipo])}>
+    <span className={cn('inline-block rounded-sm px-2 py-0.5 text-base font-bold leading-tight', COR[tipo])}>
       {ROTULO[tipo]}
     </span>
   );
   if (!texto) return selo;
   return (
-    <span className="text-[15px]">
+    <span className="text-base">
       <button
         type="button"
         aria-expanded={aberto}

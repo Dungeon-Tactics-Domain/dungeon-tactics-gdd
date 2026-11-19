@@ -5,6 +5,7 @@ import { Icone } from '@/components/layout/Icone';
 import { Tabela } from './Descida';
 import HAB from '../habilidades.json';
 import ITENS from '../itens.json';
+import { FILTRO } from '@/components/ui/toggle';
 
 type Habilidade = (typeof HAB.habilidades)[number] & {
   dano?: string;
@@ -18,8 +19,7 @@ type Habilidade = (typeof HAB.habilidades)[number] & {
 };
 type Item = (typeof ITENS.itens)[number];
 
-const CHIP =
-  'inline-flex min-h-11 cursor-pointer items-center gap-1.5 rounded-[3px] border border-ouro bg-folha px-3 text-[15px] text-tinta hover:bg-pergaminho-escuro aria-pressed:border-ouro-escuro aria-pressed:bg-ouro-claro aria-pressed:text-couro-escuro';
+const CHIP = FILTRO;
 const GRADE = 'grid gap-3 md:grid-cols-2 lg:grid-cols-3 ultra:grid-cols-4';
 const TODAS = 'Todas';
 // accents and case do not matter in the search: "explosao" finds "Explosão"
@@ -64,7 +64,7 @@ function Filtro<T>({
           type="search"
           value={busca}
           onChange={(e) => setBusca(e.target.value)}
-          className="min-h-11 w-full max-w-[40ch] rounded-[3px] border border-ouro bg-folha px-3 text-tinta"
+          className="min-h-11 w-full max-w-[40ch] border-2 border-input bg-white px-3 text-tinta"
         />
       </div>
       <div role="group" aria-label="Filtrar por classe" className="flex flex-wrap items-center gap-1.5">
@@ -84,7 +84,7 @@ function Filtro<T>({
       {lista.length ? (
         <div className={GRADE}>{lista.map(children)}</div>
       ) : (
-        <p className="m-0 border border-ouro bg-folha px-5 py-4">{vazio}</p>
+        <p className="m-0 border-2 border-couro-escuro bg-folha shadow-folha px-5 py-4">{vazio}</p>
       )}
     </div>
   );
@@ -106,12 +106,12 @@ function Cartao({
   return (
     <article
       id={id}
-      className="grid content-start gap-3 border border-ouro bg-folha px-5 py-4 [overflow-wrap:anywhere]"
+      className="grid content-start gap-3 border-2 border-couro-escuro bg-folha shadow-folha px-5 py-4 [overflow-wrap:anywhere]"
     >
       <div>
-        <p className="m-0 text-[15px] text-apagado">{topo}</p>
+        <p className="m-0 text-base text-apagado">{topo}</p>
         <h3 className="m-0 text-[21px] leading-tight text-ouro-escuro">{nome}</h3>
-        <p className="m-0 text-[15px] text-apagado" lang="en">
+        <p className="m-0 text-base text-apagado" lang="en">
           {en}
         </p>
       </div>

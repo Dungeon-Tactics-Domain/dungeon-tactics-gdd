@@ -60,7 +60,7 @@ export function TabelaPontuacao({
       <Legenda series={series} />
       <Rolagem>
         <table className={TABELA}>
-          {legenda && <caption className="pb-2 text-left text-[15px] text-apagado">{legenda}</caption>}
+          {legenda && <caption className="pb-2 text-left text-base text-apagado">{legenda}</caption>}
           <thead>
             <tr>
               <th scope="col">Critério</th>

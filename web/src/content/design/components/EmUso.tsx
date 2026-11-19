@@ -43,11 +43,11 @@ function Bloco({
   return (
     <Link
       to={para}
-      className="grid min-w-0 content-start gap-2.5 border border-t-[6px] border-borda border-t-lab bg-folha px-[18px] py-4 text-tinta no-underline"
+      className="grid min-w-0 content-start gap-2.5 border-2 border-t-[6px] border-couro-escuro border-t-lab bg-folha shadow-folha px-[18px] py-4 text-tinta no-underline"
     >
       <strong className="text-[20px] leading-tight">{titulo}</strong>
       <div className="flex flex-wrap gap-1.5">{children}</div>
-      <span className="text-[15px] text-apagado">{detalhe}</span>
+      <span className="text-base text-apagado">{detalhe}</span>
     </Link>
   );
 }
@@ -81,11 +81,14 @@ export function EmUso() {
         para="/design/personagens/em-uso"
       >
         {ROSTOS.map((id) => (
-          <Peca key={id} fundo={
+          <Peca
+            key={id}
+            fundo={
               OFICIAL.has(id)
                 ? `url(${ASSETS}/chars/ia-alinhado-rosto/${id}.png) 0 0/512px 64px`
                 : `url(${ASSETS}/chars/px/${id}.png) 0 0/256px 64px`
-            } />
+            }
+          />
         ))}
       </Bloco>
     </div>

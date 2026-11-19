@@ -65,12 +65,15 @@ function CaixaDecisao({ id, rotulo }: { id: string; rotulo: string }) {
     setEstado('pronto');
   };
 
-  if (semApi) return <p className="m-0 text-[15px] text-apagado">Decisões só na rede local.</p>;
+  if (semApi) return <p className="m-0 text-base text-apagado">Decisões só na rede local.</p>;
 
   const parado = estado !== 'pronto';
   const notaMudou = nota.trim() !== (salva?.nota ?? '');
   return (
-    <section aria-label={`Decisão sobre ${rotulo}`} className="grid gap-2 border border-borda bg-folha px-4 py-3">
+    <section
+      aria-label={`Decisão sobre ${rotulo}`}
+      className="grid gap-2 border-2 border-couro-escuro bg-folha shadow-folha px-4 py-3"
+    >
       <p className="m-0 flex flex-wrap items-center gap-2 font-bold">
         Decisão
         {salva ? (
@@ -111,7 +114,7 @@ function CaixaDecisao({ id, rotulo }: { id: string; rotulo: string }) {
           Salvar nota
         </Button>
       </div>
-      <p className="m-0 text-[15px] text-apagado" aria-live="polite">
+      <p className="m-0 text-base text-apagado" aria-live="polite">
         {estado === 'carregando' && 'Carregando a decisão…'}
         {estado === 'fora' && 'Decisões fora do ar: o servidor dos labs não respondeu, nada pode ser salvo agora.'}
         {estado !== 'carregando' &&

@@ -44,7 +44,7 @@ function Estrelas({ chave, rotulo, notaSessao }: { chave: string; rotulo: string
             aria-pressed={i <= nota}
             onClick={() => escolher(i)}
             className={cn(
-              'size-11 cursor-pointer rounded-md text-[26px] leading-none hover:bg-lab-soft',
+              'size-11 cursor-pointer text-[26px] leading-none hover:bg-lab-soft',
               i <= nota ? 'text-lab' : 'text-apagado',
             )}
           >
@@ -52,7 +52,7 @@ function Estrelas({ chave, rotulo, notaSessao }: { chave: string; rotulo: string
           </button>
         ))}
       </div>
-      <p className="m-0 text-[15px] text-apagado">
+      <p className="m-0 text-base text-apagado">
         {nota ? `Sua nota: ${nota} de 5 (salva neste navegador).` : 'Sem nota sua ainda.'}
         {notaSessao ? ` Nota registrada pela sessão: ${notaSessao} de 5.` : ''}
       </p>

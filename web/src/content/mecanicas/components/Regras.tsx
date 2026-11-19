@@ -29,10 +29,10 @@ export function Regras({ de, grupo }: { de: keyof typeof REGRAS; grupo: string }
                 </td>
                 <td>
                   {r.now}
-                  {r.note && <span className="mt-1 block text-[14px] text-apagado">{r.note}</span>}
+                  {r.note && <span className="mt-1 block text-base text-apagado">{r.note}</span>}
                 </td>
                 <td>
-                  <code className="bg-pergaminho-escuro px-1 text-[14px] [overflow-wrap:anywhere]">{r.where}</code>
+                  <code className="bg-pergaminho-escuro px-1 text-base [overflow-wrap:anywhere]">{r.where}</code>
                 </td>
               </tr>
             ))}

@@ -15,11 +15,11 @@ function Figura({
 }) {
   return (
     <figure className="m-0 grid max-w-[560px] gap-2">
-      <svg role="img" viewBox={viewBox} className="h-auto w-full border border-borda bg-folha">
+      <svg role="img" viewBox={viewBox} className="h-auto w-full border-2 border-couro-escuro bg-folha shadow-folha">
         <title>{titulo}</title>
         {children}
       </svg>
-      <figcaption className="max-w-[72ch] text-[15px] text-apagado">{legenda}</figcaption>
+      <figcaption className="max-w-[72ch] text-base text-apagado">{legenda}</figcaption>
     </figure>
   );
 }
@@ -76,7 +76,7 @@ export function FilaDeTurnos() {
       <text x={62} y={20} textAnchor="middle" className="fill-ouro-escuro text-[16px] font-bold">
         agora
       </text>
-      <text x={240} y={110} textAnchor="middle" className="fill-apagado text-[15px]">
+      <text x={240} y={110} textAnchor="middle" className="fill-apagado text-base">
         depois, da esquerda para a direita →
       </text>
     </Figura>
@@ -96,7 +96,7 @@ export function LadoECostas() {
       <Casa x={180} y={95} tom="fill-aviso-suave" rotulo="+15" />
       <Casa x={95} y={180} tom="fill-sucesso-suave" rotulo="+30" />
       <path d="M130 150 L130 110 M118 124 L130 108 L142 124" className="fill-none stroke-erro" strokeWidth={5} />
-      <text x={130} y={170} textAnchor="middle" className="fill-erro text-[14px]">
+      <text x={130} y={170} textAnchor="middle" className="fill-erro text-base">
         inimigo
       </text>
     </Figura>

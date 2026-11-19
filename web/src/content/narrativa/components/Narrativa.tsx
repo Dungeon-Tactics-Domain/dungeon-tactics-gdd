@@ -8,7 +8,7 @@ const Lede = ({ children }: { children: ReactNode }) => <p className="m-0 max-w-
 export function Agora() {
   const a = PLANO.agora;
   return (
-    <div className="grid gap-3 border border-borda border-t-[6px] border-t-lab bg-folha px-5 py-4">
+    <div className="grid gap-3 border-2 border-t-[6px] border-couro-escuro border-t-lab bg-folha shadow-folha px-5 py-4">
       {a ? (
         <>
           <p className="m-0">

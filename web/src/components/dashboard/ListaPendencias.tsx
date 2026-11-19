@@ -13,7 +13,7 @@ export interface Pendencia {
 }
 
 const ESTADO: Record<EstadoPendencia, [string, string]> = {
-  'nao-testado': ['Não testado', 'border border-dashed border-apagado text-apagado'],
+  'nao-testado': ['Não testado', 'border-2 border-dashed border-apagado text-apagado'],
   'em-andamento': ['Em andamento', 'bg-aviso-suave text-aviso'],
   feito: ['Feito', 'bg-sucesso-suave text-sucesso'],
 };
@@ -25,20 +25,20 @@ export function ListaPendencias({ itens }: { itens: Pendencia[] }) {
       {itens.map((p) => {
         const [rotulo, cor] = ESTADO[p.estado];
         return (
-          <li key={p.id} className="grid gap-1 border border-borda bg-folha px-4 py-3">
+          <li key={p.id} className="grid gap-1 border-2 border-couro-escuro bg-folha shadow-folha px-4 py-3">
             <span className="flex flex-wrap items-center gap-2">
-              <span className={`rounded-sm px-2 py-0.5 text-[14px] font-bold ${cor}`}>{rotulo}</span>
+              <span className={`rounded-sm px-2 py-0.5 text-base font-bold ${cor}`}>{rotulo}</span>
               <b>{p.titulo}</b>
             </span>
-            {p.porQue && <span className="text-[15px] text-apagado">{p.porQue}</span>}
+            {p.porQue && <span className="text-base text-apagado">{p.porQue}</span>}
             {p.passos && p.passos.length > 0 && (
-              <ol aria-label={`Como rodar: ${p.titulo}`} className="m-0 grid list-decimal gap-1 pl-6 text-[15px]">
+              <ol aria-label={`Como rodar: ${p.titulo}`} className="m-0 grid list-decimal gap-1 pl-6 text-base">
                 {p.passos.map((s) => (
                   <li key={s} className="break-words">
                     {/* text between backticks is a command: monospace, so "--" is not drawn as a dash */}
                     {s.split('`').map((t, i) =>
                       i % 2 ? (
-                        <code key={i} className="bg-lab-soft px-1 font-mono text-[14px]">
+                        <code key={i} className="bg-lab-soft px-1 font-mono text-base">
                           {t}
                         </code>
                       ) : (
@@ -49,7 +49,7 @@ export function ListaPendencias({ itens }: { itens: Pendencia[] }) {
                 ))}
               </ol>
             )}
-            {p.resultado && <span className="text-[15px]">Resultado: {p.resultado}</span>}
+            {p.resultado && <span className="text-base">Resultado: {p.resultado}</span>}
           </li>
         );
       })}

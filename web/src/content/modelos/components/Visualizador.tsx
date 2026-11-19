@@ -7,6 +7,7 @@ import pecas from '../pecas.json';
 import { BANCADA, BENCH, CLASSE_VIEWER, EM_LOCALHOST } from './bancada';
 import { FichaPreview } from './FichaPreview';
 import { JanelaRedimensionavel } from './JanelaRedimensionavel';
+import { FILTRO } from '@/components/ui/toggle';
 
 const ESTILOS = [
   ['psx', 'PSX'],
@@ -44,8 +45,7 @@ function urlDaPeca(p: Peca, estilo: Estilo) {
   return `${BENCH}?${q}`;
 }
 
-export const BOTAO =
-  'min-h-11 min-w-11 cursor-pointer rounded-md border border-borda bg-folha px-3 text-[15px] text-tinta hover:bg-lab-soft aria-pressed:border-lab aria-pressed:bg-lab aria-pressed:text-white disabled:cursor-default disabled:opacity-50';
+export const BOTAO = FILTRO;
 
 export function Botoes<T>({
   rotulo,
@@ -124,13 +124,13 @@ function Bancada({
         }
       >
         {!semCaixa && (
-          <div className="grid gap-2 border border-t-[6px] border-borda border-t-lab bg-folha px-5 py-4">
+          <div className="grid gap-2 border-2 border-t-[6px] border-couro-escuro border-t-lab bg-folha shadow-folha px-5 py-4">
             {lista.length > 1 && (
               <Botoes rotulo="Peça" itens={lista.map((p) => [p, p.nome] as const)} atual={peca} escolher={setPeca} />
             )}
             {!peca.glb && <Botoes rotulo="Estilo" itens={ESTILOS} atual={estilo} escolher={setEstilo} />}
             {foraDoAr && (
-              <p className="m-0 border border-dashed border-traco bg-folha px-4 py-3 text-apagado">
+              <p className="m-0 border-2 border-dashed border-apagado bg-folha px-4 py-3 text-apagado">
                 A bancada 3D não respondeu.
                 {EM_LOCALHOST && (
                   <>
@@ -178,7 +178,7 @@ export function Blender({ modelo, children }: { modelo: string; children?: React
   if (estado === 'carregando') return <p className="m-0 text-apagado">Carregando…</p>;
   if (estado === 'falta')
     return (
-      <p className="m-0 border border-dashed border-traco bg-folha px-4 py-3 text-apagado">
+      <p className="m-0 border-2 border-dashed border-apagado bg-folha px-4 py-3 text-apagado">
         Em andamento: o modelo ainda não está na bancada (ou a bancada 3D está fora do ar).
       </p>
     );

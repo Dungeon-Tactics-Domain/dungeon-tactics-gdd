@@ -178,7 +178,7 @@ export function Animacoes({ modelo, children }: { modelo: string; children?: Rea
   if (estado === 'carregando') return <p className="m-0 text-apagado">Carregando…</p>;
   if (estado === 'falta')
     return (
-      <p className="m-0 border border-dashed border-traco bg-folha px-4 py-3 text-apagado">
+      <p className="m-0 border-2 border-dashed border-apagado bg-folha px-4 py-3 text-apagado">
         Em andamento: o personagem rigado com as animações ainda não está na bancada (ou a bancada 3D está fora do ar).
       </p>
     );

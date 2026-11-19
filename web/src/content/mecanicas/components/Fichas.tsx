@@ -6,7 +6,7 @@ import FICHAS from '../fichas.json';
 type Frase = { texto: string; regra: string };
 type Ficha = (typeof FICHAS.fichas)[number] & { forcas?: Frase[]; fraquezas?: Frase[]; comoEnfrentar?: Frase[] };
 
-const REGRA = 'text-[15px] text-apagado';
+const REGRA = 'text-base text-apagado';
 const RESIST: Record<string, string> = {
   phys: 'física',
   mag: 'mágica',
@@ -62,10 +62,10 @@ function Cartao({ f }: { f: Ficha }) {
   return (
     <article
       id={f.id}
-      className="grid content-start gap-3 border border-ouro bg-folha px-5 py-4 [overflow-wrap:anywhere]"
+      className="grid content-start gap-3 border-2 border-couro-escuro bg-folha shadow-folha px-5 py-4 [overflow-wrap:anywhere]"
     >
       <div>
-        <p className="m-0 text-[15px] text-apagado">{f.grupo === 'classe' ? 'Classe' : 'Inimigo'}</p>
+        <p className="m-0 text-base text-apagado">{f.grupo === 'classe' ? 'Classe' : 'Inimigo'}</p>
         <h3 className="m-0 text-[21px] leading-tight text-ouro-escuro">{f.nome}</h3>
         <p className="m-0">
           <strong>{f.papel.texto}</strong> <span className={REGRA}>(regra: {f.papel.regra})</span>

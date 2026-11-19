@@ -1,4 +1,4 @@
-// shadcn/ui Button, resized for the kingdom: 44px targets and 15px+ text.
+// shadcn/ui Button, resized for the kingdom: 44px targets and 16px text.
 import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
 import type * as React from 'react';
@@ -10,10 +10,10 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: 'bg-primary text-primary-foreground hover:bg-couro-claro',
+        default: 'border-2 border-couro-escuro bg-primary text-primary-foreground hover:bg-couro-claro',
         outline: 'border-2 border-tinta bg-transparent text-tinta hover:bg-pergaminho-escuro',
         ghost: 'bg-transparent hover:bg-white/15',
-        lab: 'bg-lab text-white hover:opacity-90',
+        lab: 'border-2 border-couro-escuro bg-lab text-white hover:opacity-90',
       },
       size: { default: '', icon: 'size-11 px-0' },
     },

@@ -2,11 +2,11 @@
 // was made, the file, known defects and what to test. Collapsed by default, so the window stays the first thing seen.
 import type { Ficha } from '../fichas';
 
-const ORIGEM = 'text-[15px] text-apagado';
+const ORIGEM = 'text-base text-apagado';
 
 export function FichaPreview({ ficha, titulo = 'Ficha do modelo' }: { ficha: Ficha | 'medindo'; titulo?: string }) {
   return (
-    <details className="border border-t-[4px] border-borda border-t-lab bg-folha px-4 [&[open]]:pb-3">
+    <details className="border-2 border-t-[4px] border-couro-escuro border-t-lab bg-folha shadow-folha px-4 [&[open]]:pb-3">
       <summary className="flex min-h-11 cursor-pointer items-center font-bold">📋 {titulo}</summary>
       {ficha === 'medindo' ? (
         <p className="m-0 text-apagado">Medindo… ainda não disponível.</p>

@@ -4,6 +4,7 @@ import { useRef, useState } from 'react';
 import { Icone as IconeAcao } from '@/components/layout/Icone';
 import { cn } from '@/lib/utils';
 import { ASSETS } from '../dados';
+import { FILTRO } from '@/components/ui/toggle';
 
 const NOMES = [
   'Golpe',
@@ -66,8 +67,7 @@ function Icone({
 }
 
 // toggle button: the pressed one takes the lab colour
-const BOTAO =
-  'min-h-11 cursor-pointer rounded-[3px] border border-borda bg-folha px-3 text-[15px] text-tinta hover:bg-lab-soft aria-pressed:border-lab aria-pressed:bg-lab aria-pressed:text-white';
+const BOTAO = FILTRO;
 const FUNDOS: [nome: string, cor: string][] = [
   ['Painel azul do jogo', 'linear-gradient(#1c3a78,#0b1a3e)'],
   ['Papel claro', '#ece2c4'],

@@ -17,6 +17,7 @@ import godotWeb from '../godot-web.json';
 import type { CenaThree, Segundo } from './cenas-three';
 import { faixa, lerParams, type NomeCena, type Params, paraBusca, passo, USADOS } from './parametros';
 import { GODOT, THREE } from './Painel';
+import { FILTRO } from '@/components/ui/toggle';
 
 interface Medido {
   fps: number;
@@ -75,8 +76,7 @@ const valorNome = (k: keyof Params, v: number) =>
         ? ['sem névoa', 'de distância', 'volumétrica', 'FogVolume (só nativo)'][v]!
         : v.toLocaleString('pt-BR');
 
-const BOTAO =
-  'min-h-11 min-w-11 cursor-pointer rounded-md border border-borda bg-folha px-3 text-[15px] text-tinta hover:bg-lab-soft aria-pressed:border-lab aria-pressed:bg-lab aria-pressed:text-white';
+const BOTAO = FILTRO;
 
 // one shared engine (index.wasm) for the four scenes; ?cena= picks the scene's .pck
 export const godotUrl = (cena: NomeCena, p: Params) =>
@@ -177,11 +177,11 @@ function GodotNoNavegador({ cena }: { cena: NomeCena }) {
           [nm(f.web), nm(f.web1pct), numero(f.compat), numero(f.forward), pct(f.razaoCompat), pct(f.razaoForward)],
         ]}
       />
-      <span className="flex flex-wrap items-center gap-2 text-[15px] text-apagado">
+      <span className="flex flex-wrap items-center gap-2 text-base text-apagado">
         <SeloOrigem tipo="medido" texto={GODOT_WEB.fumacaMetodo} />
         Medido uma vez com o PC em uso; serve para ver a ordem de grandeza, não para decidir.
       </span>
-      <ul className="m-0 grid list-disc gap-3 pl-6 text-[15px]">
+      <ul className="m-0 grid list-disc gap-3 pl-6 text-base">
         {[...GODOT_WEB.geral, ...diferencas].map((d) => (
           <ItemDiferenca key={d.texto} d={d} />
         ))}
@@ -262,7 +262,7 @@ export function CenaMotores({ cena }: { cena: NomeCena }) {
       altura={altura}
     >
       {p.ui === 1 && (
-        <p className="absolute left-2 top-2 m-0 bg-black/60 px-2 py-1 font-mono text-[14px] text-white">
+        <p className="absolute left-2 top-2 m-0 bg-black/60 px-2 py-1 font-mono text-base text-white">
           FPS {fpsThree ?? '—'} | {cena} | {chave}
         </p>
       )}
@@ -304,7 +304,7 @@ export function CenaMotores({ cena }: { cena: NomeCena }) {
           nota="A bancada nativa não tem exatamente este caso."
         />
       </div>
-      <p className="m-0 max-w-[110ch] text-[15px] text-apagado">
+      <p className="m-0 max-w-[110ch] text-base text-apagado">
         A comparação justa no navegador é Three.js contra Godot web; o número nativo mostra o que o Godot faria como
         jogo de Steam. Ao vivo, o navegador costuma travar o fps na taxa do monitor (vsync); os números medidos foram
         tirados sem esse limite.
@@ -320,7 +320,7 @@ export function CenaMotores({ cena }: { cena: NomeCena }) {
             <div className="flex flex-wrap gap-x-5 gap-y-2">
               {USADOS[cena].map((chaveP) => (
                 <div key={chaveP} role="group" aria-label={NOMES[chaveP]} className="grid gap-1">
-                  <span className="text-[15px] font-bold">{NOMES[chaveP]}</span>
+                  <span className="text-base font-bold">{NOMES[chaveP]}</span>
                   <div className="flex flex-wrap gap-1.5">
                     {faixa(cena, chaveP)!.map((v) => (
                       <button
@@ -337,7 +337,7 @@ export function CenaMotores({ cena }: { cena: NomeCena }) {
                 </div>
               ))}
             </div>
-            <p className="m-0 text-[14px] text-apagado">
+            <p className="m-0 text-base text-apagado">
               Teclado com a cena em foco: setas para cima e para baixo trocam {NOMES[USADOS[cena][0]!].toLowerCase()}, S
               liga ou desliga sombras, R recarrega. Cada troca recarrega os dois lados.
             </p>
@@ -361,7 +361,7 @@ export function CenaMotores({ cena }: { cena: NomeCena }) {
                   Three.js r186 · ao vivo: {fpsThree ?? '—'} fps
                 </h3>
                 {viva('h-[min(56vh,460px)]')}
-                {tecnica && <p className="m-0 text-[14px] text-apagado">{tecnica}</p>}
+                {tecnica && <p className="m-0 text-base text-apagado">{tecnica}</p>}
               </section>
               <section aria-label="Godot" className="grid content-start gap-1">
                 <h3 className="m-0 flex items-center gap-2 text-[18px]">
@@ -372,10 +372,10 @@ export function CenaMotores({ cena }: { cena: NomeCena }) {
                   />
                   Godot 4.7 web · ao vivo: {fpsGodot ?? '—'} fps
                 </h3>
-                <div className="h-[min(56vh,460px)] min-h-[200px] overflow-hidden rounded-lg border border-borda bg-[#1d2a38]">
+                <div className="h-[min(56vh,460px)] min-h-[200px] overflow-hidden border-2 border-couro-escuro bg-[#1d2a38]">
                   <LadoGodot cena={cena} p={p} aoFps={setFpsGodot} />
                 </div>
-                <p className="m-0 text-[14px] text-apagado">
+                <p className="m-0 text-base text-apagado">
                   Export web do Godot, renderizador Compatibility (WebGL 2), sem threads.
                 </p>
               </section>
@@ -391,7 +391,10 @@ export function CenaMotores({ cena }: { cena: NomeCena }) {
             ['Three.js', THREE.cor, texto.threejs],
           ] as const
         ).map(([nome, cor, t]) => (
-          <article key={nome} className="grid content-start gap-2 border border-borda bg-folha px-4 py-3 text-[15px]">
+          <article
+            key={nome}
+            className="grid content-start gap-2 border-2 border-couro-escuro bg-folha shadow-folha px-4 py-3 text-base"
+          >
             <h3 className="m-0 flex items-center gap-2 text-[18px]">
               <span aria-hidden="true" className="inline-block size-3.5 rounded-sm" style={{ background: cor }} />
               {nome}

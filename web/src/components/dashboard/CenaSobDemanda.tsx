@@ -4,7 +4,7 @@ import { type ReactNode, useState } from 'react';
 import { numero } from './series';
 
 const BOTAO =
-  'min-h-11 cursor-pointer rounded-md border border-couro bg-couro px-4 text-[15px] font-bold text-creme hover:bg-couro-claro';
+  'min-h-11 cursor-pointer border-2 border-couro-escuro bg-couro px-4 text-base font-bold text-creme hover:bg-couro-claro';
 
 export function CenaSobDemanda({
   titulo,
@@ -37,7 +37,7 @@ export function CenaSobDemanda({
     );
   return (
     <div className="grid gap-2">
-      <div className="relative grid aspect-video max-w-full place-items-center overflow-hidden rounded-lg border border-borda bg-[#1d2a38]">
+      <div className="relative grid aspect-video max-w-full place-items-center overflow-hidden border-2 border-couro-escuro bg-[#1d2a38]">
         {previa ? (
           <img src={previa.src} alt={previa.alt} className="absolute inset-0 h-full w-full object-cover opacity-80" />
         ) : (
@@ -48,7 +48,7 @@ export function CenaSobDemanda({
         <button type="button" className={BOTAO} onClick={() => setRodando(true)} aria-label={`Rodar ${titulo}`}>
           ▶ Rodar
         </button>
-        <span className="text-[15px] text-apagado">
+        <span className="text-base text-apagado">
           Download: {tamanho}
           {notaTamanho ? ` (${notaTamanho})` : ''}.
         </span>

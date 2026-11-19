@@ -10,7 +10,7 @@ export interface ImagemLeitor {
 }
 
 const BOTAO =
-  'inline-flex min-h-11 min-w-11 cursor-pointer items-center justify-center gap-1.5 rounded-[4px] border border-borda bg-pergaminho px-3 text-tinta hover:border-lab focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lab';
+  'inline-flex min-h-11 min-w-11 cursor-pointer items-center justify-center gap-1.5 border-2 border-couro-escuro bg-pergaminho px-3 text-tinta hover:bg-pergaminho-escuro focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lab';
 
 export function Leitor({ lista, inicio, onFechar }: { lista: ImagemLeitor[]; inicio: number; onFechar: () => void }) {
   const [i, setI] = useState(inicio);

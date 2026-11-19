@@ -42,7 +42,7 @@ const Secao = ({ titulo, children }: { titulo: string; children: ReactNode }) =>
 
 function OrigemCopia() {
   return (
-    <p className="m-0 text-[14px] text-apagado">
+    <p className="m-0 text-base text-apagado">
       Dados copiados em {dados.copia.em.split('-').reverse().join('/')} da {dados.copia.de}. PC das medições:{' '}
       {dados.copia.pc}.
     </p>
@@ -67,12 +67,12 @@ export function AgoraDecidindo() {
         {d.opcoes.map((o) => (
           <article
             key={o.titulo}
-            className={`grid content-start gap-2 border bg-folha px-4 py-3 text-[15px] ${o.recomendada ? 'border-2 border-lab' : 'border-borda'}`}
+            className={`grid content-start gap-2 border-2 bg-folha px-4 py-3 text-base shadow-folha ${o.recomendada ? 'border-lab' : 'border-couro-escuro'}`}
           >
             <h3 className="m-0 text-[18px] leading-tight">
               {o.titulo}
               {o.recomendada && (
-                <span className="ml-2 inline-block rounded-sm bg-lab px-2 py-0.5 align-middle text-[14px] font-bold text-white">
+                <span className="ml-2 inline-block rounded-sm bg-lab px-2 py-0.5 align-middle text-base font-bold text-white">
                   Recomendação atual
                 </span>
               )}
@@ -100,7 +100,7 @@ export function Recomendacao() {
     <div className="grid gap-4">
       <Callout titulo="Recomendação atual, em avaliação">
         <p className="m-0">{d.recomendacao}</p>
-        <p className="m-0 text-[15px] text-apagado">
+        <p className="m-0 text-base text-apagado">
           Não é um veredito final: a conclusão depende de console ser obrigatório ou só desejável, e muda se um dos
           gatilhos abaixo acontecer.
         </p>
@@ -180,10 +180,13 @@ export function Criterios() {
   return (
     <div className="grid max-w-[110ch] gap-3">
       {CRITERIOS.map((c) => (
-        <article key={c.id} className="grid gap-2 border border-borda bg-folha px-4 py-3 text-[15px]">
+        <article
+          key={c.id}
+          className="grid gap-2 border-2 border-couro-escuro bg-folha shadow-folha px-4 py-3 text-base"
+        >
           <h3 className="m-0 text-[19px] leading-tight">
             {c.nome}{' '}
-            <span className="text-[15px] font-normal text-apagado">
+            <span className="text-base font-normal text-apagado">
               (peso {c.peso}; Godot {c.godot} e Three.js {c.threejs}, de 5)
             </span>
           </h3>
@@ -408,7 +411,7 @@ export function Vibe() {
           ['Total', numero(t.godot.tokens), numero(t.threejs.tokens), t.godot.correcoes, t.threejs.correcoes],
         ]}
       />
-      <p className="m-0 max-w-[110ch] text-[15px] text-apagado">
+      <p className="m-0 max-w-[110ch] text-base text-apagado">
         A diferença de tokens (3,8%) é ruído; o que separa os lados é o número de correções e de chamadas.
       </p>
     </div>
@@ -460,9 +463,9 @@ export function Interface3d() {
             loading="lazy"
             width={c.w}
             height={c.h}
-            className="h-auto w-full rounded-lg border border-borda"
+            className="h-auto w-full border-2 border-couro-escuro"
           />
-          <figcaption className="text-[15px] text-apagado">
+          <figcaption className="text-base text-apagado">
             {c.legenda} Referência: tela de outro jogo ao fundo, só para comparação interna.
           </figcaption>
         </figure>

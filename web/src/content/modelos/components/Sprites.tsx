@@ -70,7 +70,7 @@ export function Sprites({ modelo, children }: { modelo: string; children?: React
           </JanelaRedimensionavel>
         }
       >
-        <div className="grid gap-2 border border-t-[6px] border-borda border-t-lab bg-folha px-5 py-4">
+        <div className="grid gap-2 border-2 border-t-[6px] border-couro-escuro border-t-lab bg-folha shadow-folha px-5 py-4">
           <Botoes rotulo="Ação" itens={ACOES.map((a, i) => [i, a[1]] as const)} atual={acao} escolher={setAcao} />
           <Botoes rotulo="Acabamento" itens={ACABAMENTOS} atual={pixel} escolher={setPixel} />
           <Botoes rotulo="Direção" itens={DIRS.map((d, i) => [i, d] as const)} atual={dir} escolher={setDir} />

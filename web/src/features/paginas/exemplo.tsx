@@ -16,7 +16,7 @@ function Texto({ assunto }: { assunto: string }) {
         Texto fictício sobre <b>{assunto}</b>. Aqui entra o que hoje é uma seção de um lab: um parágrafo curto de
         contexto.
       </p>
-      <div className="border border-borda bg-folha px-5 py-4">
+      <div className="border-2 border-couro-escuro bg-folha shadow-folha px-5 py-4">
         <h2 className="m-0 mb-2 text-[21px]">Ficha de exemplo</h2>
         <ul>
           <li>Primeiro ponto inventado.</li>
@@ -41,7 +41,7 @@ export const EXEMPLO: Sumario = {
   titulo: 'Exemplo de sumário',
   resumo: 'EXEMPLO: um lab fictício com 3 grupos e 10 páginas, para testar o padrão de navegação.',
   inicio: () => (
-    <p className="m-0 border border-t-[6px] border-borda border-t-lab bg-folha px-5 py-4">
+    <p className="m-0 border-2 border-t-[6px] border-couro-escuro border-t-lab bg-folha shadow-folha px-5 py-4">
       Agora estamos decidindo: nada (é só um exemplo). Escolha um grupo abaixo ou use o menu.
     </p>
   ),

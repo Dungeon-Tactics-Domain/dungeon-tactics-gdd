@@ -3,9 +3,9 @@
 import { useState } from 'react';
 import { blocos, GAMES, NOTICE, PER_PAGE, SCREENS } from '../dados';
 import { CartoesRef } from './Cartoes';
+import { FILTRO } from '@/components/ui/toggle';
 
-const BOTAO =
-  'min-h-11 cursor-pointer border-2 border-couro-escuro bg-folha px-3 text-base text-tinta hover:bg-pergaminho-escuro aria-pressed:bg-couro-escuro aria-pressed:text-creme disabled:cursor-default disabled:opacity-60';
+const BOTAO = FILTRO;
 const TODAS = GAMES.flatMap((g) => g.shots.map((s) => ({ ...s, game: g.game, slug: g.slug })));
 const jogo = (slug: string) => GAMES.find((g) => g.slug === slug);
 
@@ -87,7 +87,7 @@ export function VisaoGeral() {
             <CartoesRef shots={lista.slice(from, to)} />
           </>
         ) : (
-          <p className="m-0 border border-dashed border-borda bg-folha p-7 text-apagado">
+          <p className="m-0 border-2 border-dashed border-apagado bg-folha p-7 text-apagado">
             {TODAS.length
               ? 'Nenhuma captura com este filtro.'
               : 'A pesquisa visual ainda está rodando: as capturas aparecem aqui quando cada jogo terminar.'}

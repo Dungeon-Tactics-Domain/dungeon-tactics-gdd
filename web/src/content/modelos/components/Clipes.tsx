@@ -13,8 +13,8 @@ export interface Categoria {
   aberta?: boolean;
 }
 
-const CARTAO = 'grid gap-2 border border-t-[6px] border-borda border-t-lab bg-folha px-5 py-4';
-const CAMPO = 'min-h-11 w-full rounded-md border border-borda bg-pergaminho px-3 text-[15px] text-tinta';
+const CARTAO = 'grid gap-2 border-2 border-t-[6px] border-couro-escuro border-t-lab bg-folha shadow-folha px-5 py-4';
+const CAMPO = 'min-h-11 w-full border-2 border-input bg-white px-3 text-base text-tinta';
 const semAcento = (s: string) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
 
 function lerJson(k: string): unknown {
@@ -62,7 +62,7 @@ export function PainelDeClipes({
     <div className="grid gap-2">
       <div className="font-bold">🎬 Clipes</div>
       <label className="grid gap-1">
-        <span className="text-[15px] text-apagado">Buscar clipe pelo nome</span>
+        <span className="text-base text-apagado">Buscar clipe pelo nome</span>
         <input
           type="search"
           value={busca}
@@ -253,7 +253,7 @@ export function AcoesDoJogo({
             rows={6}
             value={texto}
             onChange={(e) => setTexto(e.target.value)}
-            className={`${CAMPO} py-2 font-mono text-[13px]`}
+            className={`${CAMPO} py-2 font-mono text-base`}
           />
           <div className="flex flex-wrap gap-1.5">
             <button

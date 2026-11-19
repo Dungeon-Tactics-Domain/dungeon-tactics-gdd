@@ -11,6 +11,7 @@ import './decisoes-de-gosto.css';
 import { type CSSProperties, type ReactNode, useEffect, useRef, useState } from 'react';
 import { ASSETS, carregarFonte, FONTE_FFT } from '../dados';
 import { Choice, Gauge } from './KitFft';
+import { FILTRO } from '@/components/ui/toggle';
 
 const css = (v: Record<string, string | number>) => v as CSSProperties;
 
@@ -981,8 +982,7 @@ export const DECISOES: Decisao[] = [
 
 // ---------- page ----------
 
-const BOTAO =
-  'min-h-11 cursor-pointer border border-borda bg-folha px-3.5 text-[15px] text-tinta hover:bg-lab-soft aria-pressed:border-couro aria-pressed:bg-couro aria-pressed:text-sobre-tinta';
+const BOTAO = FILTRO;
 
 function Escolha<T extends string>({
   rotulo,

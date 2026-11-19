@@ -18,7 +18,7 @@ export function Gallery({ imagens }: { imagens: Imagem[] }) {
       <ul className="m-0 grid list-none grid-cols-[repeat(auto-fill,minmax(220px,1fr))] gap-3.5 p-0">
         {imagens.map((img) => (
           <li key={img.src}>
-            <figure className="m-0 grid gap-1.5 border border-borda bg-folha p-2">
+            <figure className="m-0 grid gap-1.5 border-2 border-couro-escuro bg-folha shadow-folha p-2">
               <button
                 type="button"
                 onClick={(e) => {
@@ -30,7 +30,7 @@ export function Gallery({ imagens }: { imagens: Imagem[] }) {
               >
                 <img src={img.src} alt={img.alt} loading="lazy" className="block aspect-[4/3] w-full object-cover" />
               </button>
-              {img.legenda && <figcaption className="text-[15px]">{img.legenda}</figcaption>}
+              {img.legenda && <figcaption className="text-base">{img.legenda}</figcaption>}
             </figure>
           </li>
         ))}
@@ -44,16 +44,16 @@ export function Gallery({ imagens }: { imagens: Imagem[] }) {
               e.preventDefault();
               origem.current?.focus();
             }}
-            className="fixed inset-2 z-50 m-auto grid h-fit max-h-[calc(100dvh-16px)] w-fit max-w-[calc(100vw-16px)] gap-2 overflow-auto bg-folha p-3"
+            className="fixed inset-2 z-50 m-auto grid h-fit max-h-[calc(100dvh-16px)] w-fit max-w-[calc(100vw-16px)] gap-2 overflow-auto border-2 border-couro-escuro bg-folha p-3 shadow-couro"
           >
             {aberta && (
               <>
                 <img src={aberta.src} alt={aberta.alt} className="block max-h-[78dvh] max-w-full object-contain" />
                 <div className="flex items-start justify-between gap-3">
-                  <Dialog.Title className="m-0 font-sans text-[15px] font-normal">
+                  <Dialog.Title className="m-0 font-sans text-base font-normal">
                     {aberta.legenda ?? aberta.alt}
                   </Dialog.Title>
-                  <Dialog.Close className="min-h-11 min-w-11 cursor-pointer rounded-md border-2 border-tinta px-3 font-bold">
+                  <Dialog.Close className="min-h-11 min-w-11 cursor-pointer border-2 border-tinta px-3 font-bold">
                     Fechar
                   </Dialog.Close>
                 </div>

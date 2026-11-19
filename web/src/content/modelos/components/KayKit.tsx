@@ -175,7 +175,7 @@ export function KayKit() {
   if (lista === 'carregando') return <p className="m-0 text-apagado">Carregando…</p>;
   if (lista === 'falta')
     return (
-      <p className="m-0 border border-dashed border-traco bg-folha px-4 py-3 text-apagado">
+      <p className="m-0 border-2 border-dashed border-apagado bg-folha px-4 py-3 text-apagado">
         A bancada 3D não respondeu: a lista de animações não carregou.
       </p>
     );

@@ -13,7 +13,7 @@ import {
 } from '@/lib/decisoes';
 import { useLabAccent } from '@/lib/useLabAccent';
 
-const SELECT = 'min-h-11 rounded-md border-2 border-input bg-white px-3 text-base text-tinta';
+const SELECT = 'min-h-11 border-2 border-input bg-white px-3 text-base text-tinta';
 
 export function Decisoes() {
   useLabAccent(DECISOES_COR.cor, DECISOES_COR.corSuave);
@@ -41,7 +41,7 @@ export function Decisoes() {
         <p className="m-0 max-w-[72ch] text-[17px]">
           O que você decidiu sobre cada faixa, modelo ou imagem dos labs. Para decidir, abra o item na página do lab. As
           sessões leem estas decisões no arquivo{' '}
-          <code className="bg-pergaminho-escuro px-1 text-[15px]">data/decisoes.json</code>.
+          <code className="bg-pergaminho-escuro px-1 text-base">data/decisoes.json</code>.
         </p>
       </header>
       <div className="flex flex-wrap gap-3">
@@ -68,9 +68,11 @@ export function Decisoes() {
           </select>
         </label>
       </div>
-      {semApi && <p className="m-0 border border-dashed border-traco bg-folha px-4 py-3">Decisões só na rede local.</p>}
+      {semApi && (
+        <p className="m-0 border-2 border-dashed border-apagado bg-folha px-4 py-3">Decisões só na rede local.</p>
+      )}
       {erro && (
-        <p className="m-0 border border-dashed border-traco bg-folha px-4 py-3">
+        <p className="m-0 border-2 border-dashed border-apagado bg-folha px-4 py-3">
           Não consegui ler as decisões: {erro}.
         </p>
       )}
@@ -82,13 +84,16 @@ export function Decisoes() {
       )}
       <ul className="m-0 grid list-none gap-3 p-0">
         {lista.map((d) => (
-          <li key={d.id} className="grid gap-1 border border-l-8 border-borda border-l-lab bg-folha px-4 py-3">
+          <li
+            key={d.id}
+            className="grid gap-1 border-2 border-l-8 border-couro-escuro border-l-lab bg-folha shadow-folha px-4 py-3"
+          >
             <span className="flex flex-wrap items-center gap-2">
               <Badge estado={COR_ESCOLHA[d.escolha]}>{nomeEscolha(d.escolha)}</Badge>
-              <code className="text-[15px] break-all">{d.id}</code>
+              <code className="text-base break-all">{d.id}</code>
             </span>
             {d.nota && <span className="max-w-[72ch]">{d.nota}</span>}
-            <span className="text-[15px] text-apagado">
+            <span className="text-base text-apagado">
               {nomeLab(d.lab)} · {quando(d.atualizadoEm)}
             </span>
           </li>

@@ -1,6 +1,7 @@
 // Test page: combat bar built in 3D (Three.js) over a 3D scene of the game; the same bar in HTML/CSS over the same scene;
 // and the exact FFT bar in 3D, with a version selector to follow its evolution. The viewer box is the shared Cena3d
 // component (resizable); the scene code lives in cena-hud.ts / cena-fft.ts and is loaded on demand.
+import { FILTRO } from '@/components/ui/toggle';
 import { useEffect, useRef, useState } from 'react';
 import { Cena3d } from '@/components/content/Cena3d';
 import { HudCss } from './HudCss';
@@ -65,12 +66,7 @@ export function Hud3d() {
         aoTocar={alternar}
         rotulo="Cena 3D do jogo com a barra de combate desenhada em 3D por cima"
       />
-      <button
-        type="button"
-        onClick={alternar}
-        aria-pressed={aplicado}
-        className="mt-3 min-h-11 cursor-pointer rounded-md border border-borda bg-folha px-4 text-[15px] text-tinta hover:bg-lab-soft aria-pressed:border-lab aria-pressed:bg-lab aria-pressed:text-white"
-      >
+      <button type="button" onClick={alternar} aria-pressed={aplicado} className={`mt-3 ${FILTRO}`}>
         {aplicado ? 'Desfazer o golpe' : 'Confirmar o golpe (36 de dano)'}
       </button>
       <p className="mt-2 text-sm text-tinta-suave">
@@ -87,8 +83,9 @@ export function Hud3d() {
       <h2 className="mb-2 mt-8 text-xl">3. A barra exata do FFT, em 3D</h2>
       <p className="mb-2 mt-0 text-xs text-tinta-suave">Gerado por: Sonnet 5.5, esforço médio (versões v1 a v5)</p>
       <p className="mb-2 text-sm text-tinta-suave">
-        Em cima, o recorte da captura de referência (Final Fantasy Tactics, tela de prévia de golpe, Ramza contra Thomas).
-        Embaixo, a recriação em 3D com as mesmas medidas, sobre a nossa cena. Escolha a versão para ver a evolução.
+        Em cima, o recorte da captura de referência (Final Fantasy Tactics, tela de prévia de golpe, Ramza contra
+        Thomas). Embaixo, a recriação em 3D com as mesmas medidas, sobre a nossa cena. Escolha a versão para ver a
+        evolução.
       </p>
       <div
         role="img"
@@ -137,9 +134,9 @@ export function Hud3d() {
       <h2 className="mb-2 mt-8 text-xl">4. A mesma barra, recriada pelo Opus 5.5 (do zero)</h2>
       <p className="mb-2 mt-0 text-xs text-tinta-suave">Gerado por: Opus 5.5, esforço alto (subagente independente)</p>
       <p className="mb-2 text-sm text-tinta-suave">
-        Uma segunda implementação, feita sem olhar a da seção 3, para comparar. Os painéis são vidro fosco de verdade (a cena
-        é desfocada e lida por baixo deles), as barras são desenhadas por shader, e o golpe se repete em laço: o trecho
-        vermelho do HP do Thomas escoa, o número desce de 54 para 18 e os retratos reagem.
+        Uma segunda implementação, feita sem olhar a da seção 3, para comparar. Os painéis são vidro fosco de verdade (a
+        cena é desfocada e lida por baixo deles), as barras são desenhadas por shader, e o golpe se repete em laço: o
+        trecho vermelho do HP do Thomas escoa, o número desce de 54 para 18 e os retratos reagem.
       </p>
       <Cena3d
         chave="opus"

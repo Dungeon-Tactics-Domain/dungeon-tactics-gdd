@@ -10,7 +10,7 @@ const badgeVariants = cva('inline-block whitespace-nowrap px-2 py-0.5 text-base 
       'aguardando-voce': 'bg-ouro-claro text-tinta',
       espera: 'bg-link text-white',
       parado: 'bg-apagado text-white',
-      nenhum: 'border border-dashed border-apagado text-apagado',
+      nenhum: 'border-2 border-dashed border-apagado text-apagado',
     },
   },
   defaultVariants: { estado: 'nenhum' },

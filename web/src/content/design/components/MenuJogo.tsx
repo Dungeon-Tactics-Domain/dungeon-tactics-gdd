@@ -4,6 +4,7 @@
 // "Parar" unloads it. The bench only allows localhost, so the page works on the machine that runs the game (also when
 // opened from the public site).
 import { useState } from 'react';
+import { FILTRO } from '@/components/ui/toggle';
 
 interface Cena {
   nome: string;
@@ -88,7 +89,8 @@ const PECAS: Peca[] = [
   {
     id: 'menu-uikit',
     nome: 'Menu com uikit (teste)',
-    feito: 'Fable 5.2, esforço médio, com @pmndrs/uikit (teste não aprovado: mais pesado, sem acentos; guardado para ver depois)',
+    feito:
+      'Fable 5.2, esforço médio, com @pmndrs/uikit (teste não aprovado: mais pesado, sem acentos; guardado para ver depois)',
     porta: 5305,
     arvore: 'menu-uikit',
     cenas: [
@@ -117,10 +119,8 @@ const VISUAIS: [Visual, string][] = [
   ['3d', '3D'],
 ];
 
-const BOTAO =
-  'min-h-11 cursor-pointer rounded-md border border-borda bg-folha px-4 text-[15px] text-tinta hover:bg-lab-soft aria-pressed:border-lab aria-pressed:bg-lab aria-pressed:text-white';
-const ESCOLHA =
-  'min-h-11 cursor-pointer rounded-md border border-borda bg-folha px-3 text-[15px] text-tinta hover:bg-lab-soft aria-checked:border-lab aria-checked:bg-lab aria-checked:text-white';
+const BOTAO = FILTRO;
+const ESCOLHA = FILTRO;
 
 export function MenuJogo() {
   const [aoVivo, setAoVivo] = useState(false);
@@ -147,7 +147,14 @@ export function MenuJogo() {
       <div role="radiogroup" aria-label="Peça de interface" className="flex flex-wrap items-center gap-1.5">
         <span className="text-sm text-tinta-suave">Peça</span>
         {PECAS.map((p) => (
-          <button key={p.id} type="button" role="radio" aria-checked={p.id === peca.id} onClick={() => escolher(p)} className={ESCOLHA}>
+          <button
+            key={p.id}
+            type="button"
+            role="radio"
+            aria-checked={p.id === peca.id}
+            onClick={() => escolher(p)}
+            className={ESCOLHA}
+          >
             {p.nome}
           </button>
         ))}
@@ -155,14 +162,21 @@ export function MenuJogo() {
       <div role="radiogroup" aria-label="Cena" className="flex flex-wrap items-center gap-1.5">
         <span className="text-sm text-tinta-suave">Cena</span>
         {peca.cenas.map((c, i) => (
-          <button key={c.arquivo} type="button" role="radio" aria-checked={i === cenaIdx} onClick={() => setCenaIdx(i)} className={ESCOLHA}>
+          <button
+            key={c.arquivo}
+            type="button"
+            role="radio"
+            aria-checked={i === cenaIdx}
+            onClick={() => setCenaIdx(i)}
+            className={ESCOLHA}
+          >
             {c.nome}
           </button>
         ))}
       </div>
       <p className="m-0 text-sm text-tinta-suave">
-        Gerado por: {peca.feito}, subagente do zero. bench/{arquivo}.json em localhost:{peca.porta}. Dentro do jogo: setas,
-        Enter, Esc e mouse. Os efeitos sonoros tocam.
+        Gerado por: {peca.feito}, subagente do zero. bench/{arquivo}.json em localhost:{peca.porta}. Dentro do jogo:
+        setas, Enter, Esc e mouse. Os efeitos sonoros tocam.
       </p>
       {peca.montar && (
         <div className="grid gap-2 rounded-lg border border-borda bg-folha p-3">
@@ -187,7 +201,14 @@ export function MenuJogo() {
           <div role="radiogroup" aria-label="Menu de ações" className="flex flex-wrap items-center gap-1.5">
             <span className="text-sm text-tinta-suave">Menu de ações</span>
             {VISUAIS.map(([v, nome]) => (
-              <button key={v} type="button" role="radio" aria-checked={menu === v} onClick={() => setMenu(v)} className={ESCOLHA}>
+              <button
+                key={v}
+                type="button"
+                role="radio"
+                aria-checked={menu === v}
+                onClick={() => setMenu(v)}
+                className={ESCOLHA}
+              >
                 {nome}
               </button>
             ))}
@@ -195,7 +216,14 @@ export function MenuJogo() {
           <div role="radiogroup" aria-label="Fila de turnos" className="flex flex-wrap items-center gap-1.5">
             <span className="text-sm text-tinta-suave">Fila de turnos</span>
             {VISUAIS.filter(([v]) => v !== 'css').map(([v, nome]) => (
-              <button key={v} type="button" role="radio" aria-checked={fila === v} onClick={() => setFila(v)} className={ESCOLHA}>
+              <button
+                key={v}
+                type="button"
+                role="radio"
+                aria-checked={fila === v}
+                onClick={() => setFila(v)}
+                className={ESCOLHA}
+              >
                 {nome}
               </button>
             ))}
@@ -208,14 +236,21 @@ export function MenuJogo() {
                 ['frame', 'Moldura 16:9 centralizada'],
               ] as const
             ).map(([v, nome]) => (
-              <button key={v} type="button" role="radio" aria-checked={layout === v} onClick={() => setLayout(v)} className={ESCOLHA}>
+              <button
+                key={v}
+                type="button"
+                role="radio"
+                aria-checked={layout === v}
+                onClick={() => setLayout(v)}
+                className={ESCOLHA}
+              >
                 {nome}
               </button>
             ))}
           </div>
           <p className="m-0 text-xs text-tinta-suave">
-            Ainda são só HTML atual: barra de combate, ficha, Height, banner, dicas e prévia (fase 2). A fila em CSS não existe;
-            &laquo;Tudo CSS&raquo; usa a fila HTML atual.
+            Ainda são só HTML atual: barra de combate, ficha, Height, banner, dicas e prévia (fase 2). A fila em CSS não
+            existe; &laquo;Tudo CSS&raquo; usa a fila HTML atual.
           </p>
         </div>
       )}
@@ -244,8 +279,8 @@ export function MenuJogo() {
         />
       ) : (
         <p className="m-0 rounded-lg border border-borda bg-folha px-4 py-3 text-sm">
-          Suba a bancada da peça (<code>npm run bench -- --port {peca.porta}</code> no worktree <code>{peca.arvore}</code> do
-          jogo) e clique em &laquo;Ver ao vivo&raquo;.
+          Suba a bancada da peça (<code>npm run bench -- --port {peca.porta}</code> no worktree{' '}
+          <code>{peca.arvore}</code> do jogo) e clique em &laquo;Ver ao vivo&raquo;.
         </p>
       )}
     </div>

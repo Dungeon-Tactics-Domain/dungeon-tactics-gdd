@@ -10,6 +10,7 @@ import { LABS } from '@/lib/labs';
 import { CONTEUDO } from '../../registry';
 import { ASSETS } from '../dados';
 import { Expressoes } from './Expressoes';
+import { FILTRO } from '@/components/ui/toggle';
 
 // ---------- screen bands (breakpoints proposed in section 4) ----------
 
@@ -123,8 +124,7 @@ const ALTURA_MAX = 760;
 
 // ---------- shared pieces ----------
 
-const BOTAO =
-  'min-h-11 cursor-pointer border border-borda bg-folha px-3.5 text-[15px] text-tinta hover:bg-lab-soft aria-pressed:border-couro aria-pressed:bg-couro aria-pressed:text-sobre-tinta';
+const BOTAO = FILTRO;
 
 function Escolha<T extends string>({
   rotulo,
