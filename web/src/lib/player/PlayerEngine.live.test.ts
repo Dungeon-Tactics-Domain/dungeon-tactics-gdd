@@ -122,6 +122,24 @@ describe('PlayerEngine live version', () => {
     expect(engine.versionOf(0)?.id).toBe('live');
   });
 
+  it('loads the MIDI again when the listener returns to a song, since the voice holds one MIDI at a time', async () => {
+    const { engine, log } = setup();
+    const other: Song = {
+      ...song,
+      id: 'battle-b',
+      versions: [{ ...song.versions[1]!, midi: '/m/b.mid' }],
+    };
+    await engine.setSong(song, 'live');
+    await engine.setSong(other, 'live');
+    await engine.setSong(song, 'live');
+    expect(log.filter((l) => l.startsWith('load'))).toEqual([
+      'load /m/a.mid /sf/a.sf2',
+      'load /m/b.mid /sf/a.sf2',
+      'load /m/a.mid /sf/a.sf2',
+    ]);
+    expect(engine.stemStatus(0)).toBe('ready');
+  });
+
   it('disposes the voice with the engine', async () => {
     const { engine, log } = setup();
     await engine.setSong(song, 'live');

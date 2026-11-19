@@ -81,7 +81,7 @@ export class PlayerEngine {
   #song: Song | null = null;
   #version: Version | null = null;
   readonly #channelVersion = new Map<number, string>(); // channel -> version id, overriding the active version
-  readonly #loading = new Map<string, Promise<AudioBuffer>>(); // `${versionId}:${channel}`
+  readonly #loading = new Map<string, Promise<AudioBuffer>>(); // by #stemKey
   readonly #ready = new Map<string, AudioBuffer>();
   readonly #failed = new Set<string>();
   readonly #padded = new WeakMap<AudioBuffer, { key: string; buffer: AudioBuffer }>(); // by loop length
@@ -201,7 +201,7 @@ export class PlayerEngine {
       const k = this.#liveKey(v);
       return this.#liveReady.has(k) ? 'ready' : this.#liveFailed.has(k) ? 'error' : 'loading';
     }
-    const key = `${v?.id}:${channel}`;
+    const key = v ? this.#stemKey(v, channel) : '';
     return this.#ready.has(key) ? 'ready' : this.#failed.has(key) ? 'error' : 'loading';
   }
   /** what the channel's gain is set to after volume, mute and solo */
@@ -233,6 +233,12 @@ export class PlayerEngine {
     await this.#loadLanes();
   }
 
+  // by the stems folder, not the version id: every song names its versions alike ('sc88p', 'musescore'), and a key by
+  // id made the next song play the stems cached for the first one
+  #stemKey(v: Version, channel: number) {
+    return `${v.stemsBase}:${channel}`;
+  }
+
   #liveKey(v: Version) {
     return `${v.midi}|${v.live!.soundfont}`;
   }
@@ -244,14 +250,18 @@ export class PlayerEngine {
     if (known) return known;
     if (!this.#makeLive) return Promise.reject(new Error('This player has no live synthesizer'));
     this.#liveVoice ??= this.#makeLive(this.#master);
+    // the voice holds one MIDI at a time: loading another forgets the ones before, so returning to a song loads it again
+    this.#liveLoading.clear();
+    this.#liveReady.clear();
     const p = this.#liveVoice.load(v.midi, v.live!.soundfont).then(
       () => {
+        if (this.#liveLoading.get(key) !== p) return; // another MIDI was asked for meanwhile
         this.#liveReady.add(key);
         this.#liveFailed.delete(key);
         this.#emit('progress', { versionId: v.id, channel: -1, loaded: 1 });
       },
       (error: unknown) => {
-        this.#liveLoading.delete(key); // let a later request retry
+        if (this.#liveLoading.get(key) === p) this.#liveLoading.delete(key); // let a later request retry
         this.#liveFailed.add(key);
         this.#emit('error', { error, versionId: v.id, channel: -1 });
         throw error;
@@ -296,7 +306,7 @@ export class PlayerEngine {
   // one shared promise per stem, so a second request for it waits for the first download
   #buffer(channel: number): Promise<AudioBuffer> {
     const v = this.versionOf(channel)!;
-    const key = `${v.id}:${channel}`;
+    const key = this.#stemKey(v, channel);
     const known = this.#loading.get(key);
     if (known) return known;
     const p = this.#download(v, channel).then(
@@ -525,7 +535,7 @@ export class PlayerEngine {
   #swapIn(channel: number) {
     const v = this.versionOf(channel);
     if (!v) return;
-    const ready = this.#ready.get(`${v.id}:${channel}`);
+    const ready = this.#ready.get(this.#stemKey(v, channel));
     if (ready) return this.#start(channel, ready);
     this.#buffer(channel).then(
       (b) => {

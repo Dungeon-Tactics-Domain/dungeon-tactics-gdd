@@ -365,4 +365,25 @@ describe('PlayerEngine regressions', () => {
     expect(ctx.live()).toHaveLength(3);
     expect(frames).toHaveLength(1);
   });
+
+  it('another song with the same version ids plays its own stems', async () => {
+    // every song of the lab names its versions alike ('sc88p', 'musescore'): the id alone does not tell stems apart
+    const other: Song = {
+      ...song,
+      id: 'battle-b',
+      versions: [{ id: 'gm', label: 'MuseScore General', stemsBase: '/s/b', midi: '/m/b.mid', duration: 50 }],
+    };
+    const ctx = new FakeContext();
+    const net = fakeFetch({ ...files, '/s/b/0.ogg': 50, '/s/b/1.ogg': 50, '/s/b/9.ogg': 50 });
+    const engine = new PlayerEngine({
+      context: ctx.asContext(),
+      fetch: net.fetch,
+      requestFrame: () => () => undefined,
+    });
+    await engine.setSong(song);
+    await engine.setSong(other);
+    expect(net.requested.filter((u) => u.startsWith('/s/b/'))).toEqual(['/s/b/0.ogg', '/s/b/1.ogg', '/s/b/9.ogg']);
+    await engine.play();
+    expect(ctx.live().map((s) => s.buffer?.duration)).toEqual([50, 50, 50]);
+  });
 });
