@@ -1,14 +1,24 @@
-// Tempo line, the clickable overview, the bar ruler and one lane per channel with the real MIDI notes of the active
-// version across the whole song. Canvas, not SVG: a piece has thousands of notes, and one canvas per lane is drawn only
-// when the song, the mute/solo state or the size changes; the needle is a plain element that moves each frame.
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+// Tempo line with the zoom, the overview of the whole song (click to go to a point, drag to move the stretch the lanes
+// show, which a box marks on it), the bar ruler and one lane per channel with the real MIDI notes of the active
+// version. Canvas, not SVG: a piece has thousands of notes, and one canvas per lane is drawn only when the song, the
+// mute/solo state or the size changes; the needle is a plain element that moves each frame.
+import { useCallback, useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react';
+import { Toggle } from '@/components/ui/toggle';
 import { useTemaNaTela } from '@/lib/tema';
 import { useMediaQuery } from '@/lib/useMediaQuery';
 import { barAt, barCount, barSeconds, pitchRanges, rulerBars, timeToX, xToTime } from '@/lib/player/math';
 import type { PlayerEngine } from '@/lib/player/PlayerEngine';
 import { readMidi, type Midi } from '@/lib/player/read-midi';
 import type { Channel, Version } from '@/lib/player/schema';
-import { ALTURA_FAIXA, ALTURA_REGUA, ESTREITO, varDoCanal } from './constantes';
+import {
+  ALTURA_FAIXA,
+  ALTURA_REGUA,
+  ESTREITO,
+  LARGURA_CANVAS,
+  PASSO_RODA,
+  varDoCanal,
+  ZOOM_MAXIMO,
+} from './constantes';
 import { useMotor } from './hooks';
 
 const cacheMidi = new Map<string, Promise<Midi>>();
@@ -49,6 +59,32 @@ export function PianoRoll({
   const [largura, setLargura] = useState(0);
   const raiz = useRef<HTMLDivElement>(null);
   const faixas = useRef<HTMLDivElement>(null);
+  const rolagem = useRef<HTMLDivElement>(null);
+  const pista = useRef<HTMLDivElement>(null);
+  const [zoom, setZoom] = useState(1);
+  // the stretch of the song the lanes show, as fractions of its length
+  const [janela, setJanela] = useState({ inicio: 0, tamanho: 1 });
+  // the point that stays under the pointer (or in the middle) across a zoom change
+  const ancora = useRef<{ fracao: number; px: number }>(undefined);
+  const pega = useRef<{ x: number; desvio: number; moveu: boolean }>(undefined);
+  const anterior = useRef(0);
+
+  // the lanes scroll sideways in the box they share with the mixer on a desktop and in their own wrapper on a phone
+  const rolador = useCallback(() => (matchMedia(ESTREITO).matches ? pista.current : rolagem.current), []);
+  const medirJanela = useCallback(() => {
+    const total = faixas.current?.offsetWidth;
+    const r = rolador();
+    if (!total || !r || !pista.current) return;
+    const j = { inicio: r.scrollLeft / total, tamanho: Math.min(1, pista.current.clientWidth / total) };
+    setJanela((a) => (a.inicio === j.inicio && a.tamanho === j.tamanho ? a : j));
+  }, [rolador]);
+  const rolarPara = useCallback(
+    (fracao: number) => {
+      const r = rolador();
+      if (r && faixas.current) r.scrollLeft = fracao * faixas.current.offsetWidth; // the browser keeps it in range
+    },
+    [rolador],
+  );
 
   useEffect(() => {
     if (!url) return;
@@ -66,9 +102,54 @@ export function PianoRoll({
   useEffect(() => {
     const el = faixas.current;
     if (!el || !globalThis.ResizeObserver) return;
-    const ro = new ResizeObserver(() => setLargura(el.clientWidth));
+    const ro = new ResizeObserver(() => {
+      setLargura(el.clientWidth);
+      medirJanela();
+    });
     ro.observe(el);
+    if (pista.current) ro.observe(pista.current);
     return () => ro.disconnect();
+  }, [medirJanela]);
+
+  // largura is the zoomed width, so largura / zoom is what fits on screen
+  const teto = largura
+    ? Math.max(1, Math.min(ZOOM_MAXIMO, (LARGURA_CANVAS * zoom) / (largura * (globalThis.devicePixelRatio || 1))))
+    : ZOOM_MAXIMO;
+  const mudarZoom = (z: number, px?: number) => {
+    const r = rolador();
+    const total = faixas.current?.offsetWidth;
+    const x = px ?? (pista.current?.clientWidth ?? 0) / 2;
+    if (r && total) ancora.current = { fracao: (r.scrollLeft + x) / total, px: x };
+    setZoom(Math.max(1, Math.min(teto, z)));
+  };
+  // layout effect: the lanes are already at the new width and the scroll is set before the paint, so nothing jumps
+  useLayoutEffect(() => {
+    const a = ancora.current;
+    const r = rolador();
+    if (a && r && faixas.current) r.scrollLeft = a.fracao * faixas.current.offsetWidth - a.px;
+    ancora.current = undefined;
+    medirJanela();
+  }, [zoom, rolador, medirJanela]);
+
+  // Ctrl + wheel zooms around the pointer. A native listener, because React's wheel handler is passive and could not
+  // stop the browser from zooming the page.
+  const rodar = useRef((e: WheelEvent) => void e);
+  useEffect(() => {
+    rodar.current = (e) => {
+      const esquerda = pista.current?.getBoundingClientRect().left ?? 0;
+      mudarZoom(e.deltaY < 0 ? zoom * PASSO_RODA : zoom / PASSO_RODA, Math.max(0, e.clientX - esquerda));
+    };
+  });
+  useEffect(() => {
+    const el = rolagem.current;
+    if (!el) return;
+    const aoRodar = (e: WheelEvent) => {
+      if (!e.ctrlKey) return;
+      e.preventDefault();
+      rodar.current(e);
+    };
+    el.addEventListener('wheel', aoRodar, { passive: false });
+    return () => el.removeEventListener('wheel', aoRodar);
   }, []);
 
   const bpm = midi?.bpm ?? 120;
@@ -82,9 +163,49 @@ export function PianoRoll({
     // tema: the canvases copy their colours from the CSS, so a theme change repaints them
   }, [midi, canais, duracao, bpm, compassos, somando, estreito, largura, tema]);
 
+  // The lanes follow the needle: when it leaves the stretch on screen (playing on, the loop going back to the start, a
+  // jump from the position bar), that stretch moves to it. Only if it was on screen before, so scrolling away to look
+  // at another part is not undone, and never during a drag on the overview.
+  useEffect(() => {
+    const antes = anterior.current;
+    anterior.current = posicao;
+    if (pega.current || !duracao || janela.tamanho >= 1) return;
+    const naTela = (p: number) => p / duracao >= janela.inicio && p / duracao <= janela.inicio + janela.tamanho;
+    if (naTela(antes) && !naTela(posicao)) rolarPara(posicao / duracao);
+  }, [posicao, duracao, janela, rolarPara]);
+
   const irPara = (e: React.MouseEvent<HTMLElement>) => {
     const r = e.currentTarget.getBoundingClientRect();
     engine?.seek(xToTime(e.clientX - r.left, duracao, r.width));
+  };
+
+  // On the overview a press that moves drags the box (held where it was grabbed, or by its middle when the press was
+  // outside it) and a press that does not move goes to that point and centres the lanes on it.
+  const naVisao = (e: React.PointerEvent<HTMLElement>) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    return { x: e.clientX - r.left, w: r.width };
+  };
+  const pegar = (e: React.PointerEvent<HTMLElement>) => {
+    e.currentTarget.setPointerCapture?.(e.pointerId); // jsdom has no capture
+    const { x, w } = naVisao(e);
+    const dentro = x >= janela.inicio * w && x <= (janela.inicio + janela.tamanho) * w;
+    pega.current = { x: e.clientX, desvio: dentro ? x - janela.inicio * w : (janela.tamanho * w) / 2, moveu: false };
+  };
+  const arrastar = (e: React.PointerEvent<HTMLElement>) => {
+    const p = pega.current;
+    if (!p) return;
+    // 3 px: a click with a shaky hand is still a click
+    if (Math.abs(e.clientX - p.x) > 3) p.moveu = true;
+    const { x, w } = naVisao(e);
+    if (p.moveu && w) rolarPara((x - p.desvio) / w);
+  };
+  const soltar = (e: React.PointerEvent<HTMLElement>) => {
+    const p = pega.current;
+    pega.current = undefined;
+    const { x, w } = naVisao(e);
+    if (!p || p.moveu || !w) return;
+    engine?.seek(xToTime(x, duracao, w));
+    rolarPara(x / w - janela.tamanho / 2);
   };
 
   const teclas = (e: React.KeyboardEvent) => {
@@ -119,8 +240,29 @@ export function PianoRoll({
         <span className="border-2 border-apagado px-2.5 py-0.5">
           {midi ? `${Math.round(bpm)} bpm · ${compassos} compassos` : '…'}
         </span>
-        <span aria-hidden="true" className="font-mono tabular-nums text-ouro-claro">
-          {textoCompasso}
+        <span className="flex flex-wrap items-center gap-2">
+          <span aria-hidden="true" className="font-mono tabular-nums text-ouro-claro">
+            {textoCompasso}
+          </span>
+          <Toggle
+            icone="menos"
+            aria-label="Diminuir o zoom das notas"
+            title="Diminuir o zoom (Ctrl + roda do mouse)"
+            disabled={zoom <= 1}
+            onClick={() => mudarZoom(zoom / 2)}
+            className="min-w-11 px-0"
+          />
+          <span role="status" className="min-w-[9ch] text-center font-mono tabular-nums">
+            Zoom {Number(zoom.toFixed(1))}×
+          </span>
+          <Toggle
+            icone="mais"
+            aria-label="Aumentar o zoom das notas"
+            title="Aumentar o zoom (Ctrl + roda do mouse)"
+            disabled={zoom >= teto}
+            onClick={() => mudarZoom(zoom * 2)}
+            className="min-w-11 px-0"
+          />
         </span>
       </div>
       {falhou && (
@@ -128,22 +270,44 @@ export function PianoRoll({
           O MIDI desta versão não carregou.
         </p>
       )}
-      <div className="relative">
+      {/* touch-none: a finger on the overview drags the box instead of scrolling the page */}
+      <div
+        className="relative cursor-pointer touch-none select-none"
+        onPointerDown={pegar}
+        onPointerMove={arrastar}
+        onPointerUp={soltar}
+        onPointerCancel={() => (pega.current = undefined)}
+      >
         <canvas
           data-roll="visao"
           role="img"
-          aria-label="Visão geral: clique para ir a esse ponto"
-          onClick={irPara}
-          className="block h-10 w-full cursor-pointer border-y-2 border-couro bg-couro-escuro"
+          aria-label="Visão geral: clique para ir a esse ponto; arraste para mover o trecho que as notas mostram"
+          className="block h-20 w-full border-y-2 border-couro bg-couro-escuro"
+        />
+        {/* the stretch of the song on screen in the lanes; the whole width while the zoom is 1 */}
+        <div
+          data-roll="janela"
+          className="pointer-events-none absolute inset-y-0 border-2 border-ouro-claro bg-ouro-claro/20"
+          style={{ left: `${janela.inicio * 100}%`, width: `${janela.tamanho * 100}%` }}
         />
         <div className="pointer-events-none absolute inset-y-0 w-0.5 -translate-x-px bg-ouro-claro" style={agulha} />
       </div>
       {/* One scroll box for the mixer and the lanes, so a strip never leaves its lane; the mixer header and the ruler
           stick to its top and the mixer to its left. On a phone the parts stack and only the lanes scroll, up to the
           height the handle sets. */}
-      <div className="grid min-h-0 flex-1 scroll-pt-12 grid-cols-[auto_minmax(0,1fr)] content-start items-start [scrollbar-color:var(--color-apagado)_transparent] max-[700px]:grid-cols-1 max-[700px]:gap-2 min-[701px]:overflow-auto">
+      <div
+        ref={rolagem}
+        data-roll="rolagem"
+        onScroll={medirJanela}
+        className="grid min-h-0 flex-1 scroll-pt-12 grid-cols-[auto_minmax(0,1fr)] content-start items-start [scrollbar-color:var(--color-apagado)_transparent] max-[700px]:grid-cols-1 max-[700px]:gap-2 min-[701px]:overflow-auto"
+      >
         {mixer}
-        <div className="max-[700px]:max-h-(--daw-altura) max-[700px]:overflow-auto">
+        <div
+          ref={pista}
+          data-roll="pista"
+          onScroll={medirJanela}
+          className="max-[700px]:max-h-(--daw-altura) max-[700px]:overflow-auto"
+        >
           <div
             ref={faixas}
             role="slider"
@@ -155,6 +319,8 @@ export function PianoRoll({
             aria-valuetext={textoCompasso}
             onClick={irPara}
             onKeyDown={teclas}
+            // the zoom: the lanes are this many times as wide as the room they have
+            style={{ width: `${zoom * 100}%` }}
             className="relative min-w-full cursor-pointer border-2 border-couro bg-couro-escuro max-[700px]:min-w-[640px]"
           >
             {/* opaque: the lanes pass under it, and before the MIDI loads nothing is painted on it */}
@@ -278,7 +444,7 @@ function desenhar(raiz: HTMLElement, q: Quadro) {
       for (const n of notas) {
         if (n.channel !== canal.channel) continue;
         const y = i * faixa + faixa - ((n.pitch - lo + 0.5) / amplitude) * faixa;
-        g.fillRect(timeToX(n.start, d, w), y, Math.max(1, timeToX(n.end - n.start, d, w)), 1.5);
+        g.fillRect(timeToX(n.start, d, w), y, Math.max(1, timeToX(n.end - n.start, d, w)), 2);
       }
     });
     g.globalAlpha = 1;

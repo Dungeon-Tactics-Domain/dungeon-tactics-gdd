@@ -75,8 +75,9 @@ export function NotasFaixa({ musica }: { musica: Song | undefined }) {
         </div>
       </div>
       <p className="m-0 text-apagado">
-        Espaço toca e pausa; clique nas notas, na régua ou na visão geral para ir a um ponto; setas movem um compasso; M
-        e S no canal em foco.
+        Espaço toca e pausa; clique nas notas, na régua ou na visão geral para ir a um ponto; arraste a visão geral para
+        mover o trecho mostrado; os botões de zoom ou Ctrl + roda do mouse aproximam as notas; setas movem um compasso;
+        M e S no canal em foco.
       </p>
     </section>
   );

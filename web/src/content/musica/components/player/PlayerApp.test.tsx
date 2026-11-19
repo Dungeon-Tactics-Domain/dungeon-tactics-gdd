@@ -1,7 +1,8 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import type { Catalog, Song } from '@/lib/player/schema';
-import { ALTURA_MINIMA, CHAVE_ALTURA, PASSO_ALTURA } from './constantes';
+import { ALTURA_MAXIMA, ALTURA_MINIMA, CHAVE_ALTURA, PASSO_ALTURA } from './constantes';
+import { alturaNecessaria } from './hooks';
 import { PlayerApp } from './PlayerApp';
 
 const musica = (id: string, title: string, category: string): Song => ({
@@ -70,6 +71,31 @@ describe('PlayerApp', () => {
     localStorage.setItem(CHAVE_ALTURA, 'banana');
     render(<PlayerApp catalogo={catalogo} />);
     expect(Number(screen.getByRole('separator').getAttribute('aria-valuenow'))).toBeGreaterThanOrEqual(ALTURA_MINIMA);
+  });
+
+  it('caps the height at what shows every lane, with nothing empty under the last one', () => {
+    // a 900 px box whose scrolling area shows 600 px of a 1648 px mixer: 300 px of fixed parts plus the content
+    expect(alturaNecessaria(900, 600, 1648)).toBe(1948);
+    // a box taller than its content shrinks to it; half a pixel rounds up so nothing is left to scroll
+    expect(alturaNecessaria(1200, 900, 448.5)).toBe(749);
+    // a short song still gets the minimum, and content that cannot be measured keeps the fixed ceiling
+    expect(alturaNecessaria(400, 100, 20)).toBe(ALTURA_MINIMA);
+    expect(alturaNecessaria(900, 0, 0)).toBe(ALTURA_MAXIMA);
+  });
+
+  it('zooms the lanes from the buttons and marks the stretch on screen over the overview', () => {
+    const { container } = render(<PlayerApp catalogo={catalogo} />);
+    const notas = screen.getByRole('slider', { name: /Notas de cada canal/ });
+    const menos = screen.getByRole('button', { name: 'Diminuir o zoom das notas' });
+    expect(container.querySelector('[data-roll="janela"]')).toHaveStyle({ left: '0%', width: '100%' });
+    expect(notas).toHaveStyle({ width: '100%' });
+    expect(menos).toBeDisabled();
+    fireEvent.click(screen.getByRole('button', { name: 'Aumentar o zoom das notas' }));
+    expect(notas).toHaveStyle({ width: '200%' });
+    expect(screen.getByText('Zoom 2×')).toBeInTheDocument();
+    fireEvent.click(menos);
+    fireEvent.click(menos);
+    expect(notas).toHaveStyle({ width: '100%' });
   });
 
   it('lists categories, filters by search and switches the song', () => {

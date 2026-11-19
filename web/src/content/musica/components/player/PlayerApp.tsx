@@ -9,7 +9,7 @@ import { PlayerEngine } from '@/lib/player/PlayerEngine';
 import type { Catalog, Song } from '@/lib/player/schema';
 import { createSpessaVoice } from '@/lib/player/spessa-voice';
 import { Biblioteca } from './Biblioteca';
-import { ALTURA_MAXIMA, ALTURA_MINIMA, PASSO_ALTURA } from './constantes';
+import { ALTURA_MINIMA, PASSO_ALTURA } from './constantes';
 import { useAlturaDaw, useMotor } from './hooks';
 import { Mixer } from './Mixer';
 import { NotasFaixa } from './NotasFaixa';
@@ -36,7 +36,7 @@ export function PlayerApp({ catalogo }: { catalogo: Catalog }) {
   const primeiraCarga = useRef<Promise<void>>(Promise.resolve());
   const caixa = useRef<HTMLDivElement>(null);
   const arrasto = useRef({ y: 0, altura: 0 });
-  const { altura, mudar: mudarAltura } = useAlturaDaw(caixa);
+  const { altura, maximo, mudar: mudarAltura } = useAlturaDaw(caixa);
   useMotor(engine);
 
   // before the engine exists the screens show the chosen song and version; after, the engine is the truth
@@ -168,7 +168,7 @@ export function PlayerApp({ catalogo }: { catalogo: Catalog }) {
           aria-label="Altura do player"
           aria-valuenow={altura}
           aria-valuemin={ALTURA_MINIMA}
-          aria-valuemax={ALTURA_MAXIMA}
+          aria-valuemax={maximo}
           tabIndex={0}
           title="Arraste ou use as setas para mudar a altura; duplo clique volta ao padrão"
           onPointerDown={(e) => {
