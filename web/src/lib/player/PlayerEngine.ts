@@ -89,6 +89,8 @@ export class PlayerEngine {
   #liveVoice: LiveVoice | undefined;
   readonly #liveLoading = new Map<string, Promise<void>>(); // `${midi}|${soundfont}`
   readonly #liveReady = new Set<string>();
+  #songToken = 0; // the latest setSong; an older one that finishes loading later gives up
+  #waiting = 0; // jobs holding the player until every instrument is loaded
   readonly #liveFailed = new Set<string>();
   readonly #sources = new Map<number, AudioBufferSourceNode>();
   readonly #gains = new Map<number, GainNode>();
@@ -219,9 +221,17 @@ export class PlayerEngine {
    * mute, solo, per-channel versions) starts fresh, since channel numbers mean other instruments in another song.
    */
   async setSong(song: Song, versionId?: string): Promise<void> {
+    const next = song.versions.find((v) => v.id === versionId) ?? song.versions[0] ?? null;
+    const token = ++this.#songToken;
+    if (next) {
+      // the song on stage stays as it is until every instrument of the new one is loaded
+      if (next.live) this.pause(); // the voice holds one MIDI at a time: loading the new one would cut the old one anyway
+      await this.#whileLoading(() => this.#preload(song, next));
+      if (token !== this.#songToken) return; // a newer choice took over while this one loaded
+    }
     this.pause();
     this.#song = song;
-    this.#version = song.versions.find((v) => v.id === versionId) ?? song.versions[0] ?? null;
+    this.#version = next;
     this.#channelVersion.clear();
     this.#volume.clear();
     this.#muted.clear();
@@ -230,7 +240,6 @@ export class PlayerEngine {
     this.#pausedAt = 0;
     this.#setState('idle');
     this.#emit('change', {});
-    await this.#loadLanes();
   }
 
   // by the stems folder, not the version id: every song names its versions alike ('sc88p', 'musescore'), and a key by
@@ -291,6 +300,29 @@ export class PlayerEngine {
     );
   }
 
+  // true while a song or the Play button waits for every instrument; the screen shows it
+  get loading() {
+    return this.#waiting > 0;
+  }
+
+  async #whileLoading(job: () => Promise<unknown>) {
+    this.#waiting++;
+    this.#emit('change', {});
+    try {
+      await job();
+    } finally {
+      this.#waiting--;
+      this.#emit('change', {});
+    }
+  }
+
+  // every lane of the version (or its live voice) settled; failures are reported through the error event
+  async #preload(song: Song, v: Version) {
+    if (v.live) return void (await this.#loadLive(v).catch(() => undefined));
+    const lanes = v.channels ?? song.channels ?? [];
+    await Promise.allSettled(lanes.map((c) => this.#buffer(c.channel, v)));
+  }
+
   async #loadLanes() {
     if (this.#version?.live) {
       await this.#loadLive(this.#version).catch(() => undefined);
@@ -304,8 +336,8 @@ export class PlayerEngine {
   }
 
   // one shared promise per stem, so a second request for it waits for the first download
-  #buffer(channel: number): Promise<AudioBuffer> {
-    const v = this.versionOf(channel)!;
+  #buffer(channel: number, version?: Version): Promise<AudioBuffer> {
+    const v = version ?? this.versionOf(channel)!;
     const key = this.#stemKey(v, channel);
     const known = this.#loading.get(key);
     if (known) return known;
@@ -354,8 +386,12 @@ export class PlayerEngine {
   async play(): Promise<void> {
     if (!this.#version || this.#state === 'playing') return;
     await this.#ctx.resume?.();
-    // a second play() may have started while this one waited (the cast undoes narrowing from before the await)
-    if ((this.#state as PlayerState) === 'playing') return;
+    // nothing starts before every instrument is loaded, so all of them begin together
+    const v = this.#version;
+    await this.#whileLoading(() => this.#loadLanes());
+    // a second play() may have started while this one waited, or another song/version took the stage
+    // (the cast undoes narrowing from before the await)
+    if ((this.#state as PlayerState) === 'playing' || this.#version !== v) return;
     this.#restartAll(this.#pausedAt);
     this.#setState('playing');
     this.#tick();

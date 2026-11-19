@@ -386,4 +386,37 @@ describe('PlayerEngine regressions', () => {
     await engine.play();
     expect(ctx.live().map((s) => s.buffer?.duration)).toEqual([50, 50, 50]);
   });
+
+  it('keeps the song on stage until every instrument of the next one is loaded, and Play waits too', async () => {
+    const other: Song = {
+      ...song,
+      id: 'battle-b',
+      versions: [{ id: 'gm', label: 'MuseScore General', stemsBase: '/s/b', midi: '/m/b.mid', duration: 50 }],
+    };
+    const ctx = new FakeContext();
+    const net = fakeFetch({ ...files, '/s/b/0.ogg': 50, '/s/b/1.ogg': 50, '/s/b/9.ogg': 50 });
+    let open!: () => void;
+    const gate = new Promise<void>((r) => (open = r));
+    const engine = new PlayerEngine({
+      context: ctx.asContext(),
+      fetch: async (...a: Parameters<typeof net.fetch>) => {
+        if (String(a[0]).startsWith('/s/b/')) await gate;
+        return net.fetch(...a);
+      },
+      requestFrame: () => () => undefined,
+    });
+    await engine.setSong(song);
+    await engine.play();
+    const switching = engine.setSong(other);
+    await flush();
+    expect(engine.song).toBe(song); // still the old one, still playing
+    expect(engine.state).toBe('playing');
+    expect(engine.loading).toBe(true);
+    open();
+    await switching;
+    expect(engine.song).toBe(other);
+    expect(engine.loading).toBe(false);
+    await engine.play();
+    expect(ctx.live()).toHaveLength(3); // all three lanes start together, none late
+  });
 });

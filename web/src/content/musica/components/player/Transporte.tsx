@@ -16,6 +16,7 @@ export function Transporte({
 }) {
   useMotor(engine, true);
   const tocando = engine?.state === 'playing';
+  const carregando = !!engine?.loading;
   const pos = engine?.position ?? 0;
   const total = engine?.duration || versao?.duration || 0;
   const volume = engine?.masterVolume ?? 1;
@@ -27,11 +28,11 @@ export function Transporte({
     <div className="flex flex-wrap items-center gap-x-4 gap-y-3 bg-couro px-4 py-3">
       <Button
         icone={tocando ? 'pausar' : 'tocar'}
-        disabled={!versao}
+        disabled={!versao || carregando}
         onClick={aoAlternar}
         className="min-w-28 bg-ouro-claro text-couro-escuro hover:bg-ouro-brilho"
       >
-        {tocando ? 'Pausar' : 'Tocar'}
+        {carregando ? 'Carregando…' : tocando ? 'Pausar' : 'Tocar'}
       </Button>
       <span>
         Versão soando: <strong className="font-serif text-lg uppercase text-ouro-claro">{versao?.label ?? '—'}</strong>

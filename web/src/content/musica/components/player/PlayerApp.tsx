@@ -33,6 +33,7 @@ export function PlayerApp({ catalogo }: { catalogo: Catalog }) {
   const [engine, setEngine] = useState<PlayerEngine>();
   const contexto = useRef<AudioContext>(undefined);
   const motor = useRef<PlayerEngine>(undefined);
+  const primeiraCarga = useRef<Promise<void>>(Promise.resolve());
   const caixa = useRef<HTMLDivElement>(null);
   const arrasto = useRef({ y: 0, altura: 0 });
   const { altura, mudar: mudarAltura } = useAlturaDaw(caixa);
@@ -49,7 +50,8 @@ export function PlayerApp({ catalogo }: { catalogo: Catalog }) {
     const ctx = contexto.current;
     const e = new PlayerEngine({ context: ctx, live: (saida) => createSpessaVoice(ctx, saida) });
     e.setTreated(true); // the treated finish is the one to hear; the original is no longer offered
-    if (musica) void e.setSong(musica, versaoId);
+    // the engine only takes the song once its instruments are loaded, so Play waits for this first
+    if (musica) primeiraCarga.current = e.setSong(musica, versaoId);
     motor.current = e;
     setEngine(e);
     return e;
@@ -58,15 +60,19 @@ export function PlayerApp({ catalogo }: { catalogo: Catalog }) {
   const alternar = () => {
     const e = iniciar();
     if (e.state === 'playing') e.pause();
-    else void e.play();
+    else void primeiraCarga.current.then(() => e.play());
   };
 
   const escolher = (s: Song) => {
     if (s === musica) return;
     const id = s.versions[0]?.id;
-    setMusica(s);
-    setVersaoId(id);
-    void engine?.setSong(s, id);
+    const mostrar = () => {
+      setMusica(s);
+      setVersaoId(id);
+    };
+    // the list only changes song once the new one is fully loaded
+    if (engine) void engine.setSong(s, id).then(() => engine.song === s && mostrar());
+    else mostrar();
   };
 
   const trocarVersao = (id: string) => {
