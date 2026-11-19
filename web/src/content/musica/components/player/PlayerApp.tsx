@@ -135,10 +135,7 @@ export function PlayerApp({ catalogo }: { catalogo: Catalog }) {
             {listaAberta && 'Músicas'}
           </Toggle>
           {/* absolute, so a long list scrolls inside the column instead of making the stage taller */}
-          <div
-            hidden={!listaAberta}
-            className="absolute inset-x-0 bottom-0 top-14 overflow-y-auto px-3 pb-3 pt-3 [scrollbar-color:var(--color-apagado)_transparent] [scrollbar-width:thin] max-[700px]:static max-[700px]:max-h-80"
-          >
+          <div hidden={!listaAberta} className="absolute inset-x-0 bottom-0 top-14 px-3 pb-3 pt-3 max-[700px]:static">
             <Biblioteca catalogo={catalogo} musica={musica} aoEscolher={escolher} />
           </div>
         </aside>

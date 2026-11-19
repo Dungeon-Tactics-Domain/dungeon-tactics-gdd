@@ -23,8 +23,8 @@ export function Biblioteca({
   const mostradas = filterSongs(catalogo.songs, id, busca);
 
   return (
-    <div className="text-creme">
-      <label className="mb-3 grid gap-1 border-b border-apagado pb-3">
+    <div className="flex h-full flex-col text-creme max-[700px]:h-auto max-[700px]:max-h-80">
+      <label className="mb-3 grid shrink-0 gap-1 border-b border-apagado pb-3">
         <span className="font-serif text-lg font-bold">Estilo</span>
         <select
           value={id}
@@ -38,7 +38,8 @@ export function Biblioteca({
           ))}
         </select>
       </label>
-      <div>
+      {/* only the title, search and cards scroll; the style select above stays put */}
+      <div className="min-h-0 flex-1 overflow-y-auto [scrollbar-color:var(--color-apagado)_transparent] [scrollbar-width:thin]">
         <div className="mb-2 flex flex-wrap items-baseline justify-between gap-2">
           <h3 className="m-0 text-[length:var(--h3)] text-creme">Músicas em {atual?.label}</h3>
           <span>
