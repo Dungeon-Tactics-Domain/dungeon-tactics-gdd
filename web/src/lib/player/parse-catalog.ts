@@ -5,6 +5,7 @@ import {
   type Catalog,
   type Category,
   type Channel,
+  type Effect,
   type Check,
   type Measurement,
   type Reference,
