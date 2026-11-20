@@ -195,7 +195,7 @@
       "origem": "medido"
     },
     {
-      "texto": "O Godot foi medido pelo executável do editor; o exe exportado (19/11, 3 rodadas) repetiu RAM e VRAM, então o dado é mais forte do que parecia. Tempo de abertura do exportado: cerca de 1,3 s até a janela (1 medida).",
+      "texto": "O Godot foi medido pelo executável do editor; o exe exportado (19/11, 3 rodadas) repetiu RAM e VRAM, então o dado é mais forte do que parecia. Abertura do exportado até a janela aparecer: mediana de 544 ms em 6 rodadas com o PC parado (a 1ª, a frio, 937 ms), medido em 20/11.",
       "origem": "medido"
     },
     {
