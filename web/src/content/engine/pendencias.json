@@ -37,7 +37,7 @@
     {
       "id": "godot-exportado",
       "titulo": "Exportar o projeto do Godot e medir RAM, instalador e tempo de abertura",
-      "porQue": "Hoje o Godot foi medido pelo executável do editor, que pesa mais que um jogo exportado.",
+      "porQue": "Feito em 19/11: o exe exportado repetiu RAM e VRAM do editor; falta só repetir o tempo de abertura com o PC parado.",
       "estado": "nao-testado"
     },
     {

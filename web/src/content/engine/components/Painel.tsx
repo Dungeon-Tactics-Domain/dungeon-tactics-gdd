@@ -364,7 +364,7 @@ export function ModoFracoPeso() {
         ]}
         nota={
           <>
-            {peso.instalador} A RAM do Godot é a do executável do editor.{' '}
+            {peso.instalador} O exe exportado do Godot repetiu a RAM do editor (789 e 792 MB privados em 2 rodadas; a 1ª, a frio, deu 1.056).{' '}
             {medido('Repetição com o PC limpo; instaladores lidos do disco em 17/11.')}
           </>
         }

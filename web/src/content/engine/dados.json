@@ -140,9 +140,9 @@
       "peso": 10,
       "godot": 3,
       "threejs": 4,
-      "brutoGodot": "Cena base otimizada, PC limpo: 799 MB de RAM e 212 MB de VRAM (noite: 801 e 212). Instalador: não medido (não existe projeto exportado).",
-      "brutoThreejs": "Mesma cena, PC limpo, RAM e VRAM: Chrome 546 e 93 MB; Electron 453 e 91; Tauri 494 e 88. Instalador da cidade de teste: Electron 115,2 MB, Tauri 2,2 MB.",
-      "porQue": "O Three.js usa menos RAM e VRAM nesta cena. Dado fraco: a RAM do Godot é a do executável do editor; os instaladores são da cidade de teste, não do jogo; o instalador do Godot não existe para comparar.",
+      "brutoGodot": "Cena base otimizada, PC limpo: 799 MB de RAM e 212 MB de VRAM (noite: 801 e 212). Instalador: o Godot não tem instalador; o exe exportado da cidade de teste tem 104,8 MB (36,7 MB num zip), medido em 19/11.",
+      "brutoThreejs": "Mesma cena, PC limpo, RAM e VRAM: Chrome 546 e 93 MB; Electron 453 e 91; Tauri 494 e 88. Instalador da cidade de teste: Electron 115,2 MB, Tauri 2,2 MB (sem o WebView2 do Windows).",
+      "porQue": "O Three.js usa menos RAM e VRAM nesta cena. Os instaladores são da cidade de teste, não do jogo; o Godot não tem instalador, então a comparação é exe (104,8 MB) contra instalador.",
       "origem": {
         "tipo": "medido",
         "texto": "Repetição com o PC limpo e bancada da noite (bloco de cargas de GPU); tamanho dos instaladores lido do disco em 17/11."
@@ -195,7 +195,7 @@
       "origem": "medido"
     },
     {
-      "texto": "O Godot foi medido pelo executável do editor, não por um jogo exportado. Afeta RAM, VRAM e tempo de abertura.",
+      "texto": "O Godot foi medido pelo executável do editor; o exe exportado (19/11, 3 rodadas) repetiu RAM e VRAM, então o dado é mais forte do que parecia. Tempo de abertura do exportado: cerca de 1,3 s até a janela (1 medida).",
       "origem": "medido"
     },
     {
@@ -206,7 +206,7 @@
   "fracos": [
     "Desempenho: a carga é uma cidade de teste, não o jogo. Um RPG tático tem dezenas de unidades; nessa faixa os dois passam de 60 fps (dedução a partir de 50 personagens: Godot 181,9 e Chrome 101,1 fps).",
     "Vibe code: uma execução por tarefa, projeto pequeno, sem conferência visual; 4% de diferença em tokens é ruído. As correções foram relatadas pelo próprio agente.",
-    "Peso: instalador do Godot não medido; os instaladores do Three.js são da cidade de teste.",
+    "Peso: o Godot não tem instalador (exe único de 104,8 MB, medido em 19/11); os tamanhos são da cidade de teste, não do jogo.",
     "Consoles: tudo vem de páginas lidas, nada foi testado; o preço foi lido da página da W4 por ferramenta de leitura automática."
   ],
   "godotPerde": "Com textura de ossos (1.000 personagens) o Three.js faz 217 fps contra 156; RAM e VRAM da cena base são maiores no Godot; a interface 3D e o jogo inteiro já existem no Three.js; a versão web como demo sai de graça no Three.js.",
@@ -339,7 +339,7 @@
     "titulo": "Memória da cena base otimizada (PC limpo), em MB",
     "ram": { "godot": 799, "chrome": 546, "electron": 453, "tauri": 494 },
     "vram": { "godot": 212, "chrome": 93, "electron": 91, "tauri": 88 },
-    "instalador": "Instalador da cidade de teste: Electron 115,2 MB, Tauri 2,2 MB; Godot não medido (não existe projeto exportado)."
+    "instalador": "Cidade de teste: Godot 104,8 MB (exe único, 36,7 MB num zip), Electron 115,2 MB, Tauri 2,2 MB (sem o WebView2 do Windows)."
   },
   "vibe": {
     "regra": "Cada tarefa rodou em dois agentes de IA de código, um por motor, com o mesmo modelo, o mesmo texto e contexto limpo, sobre a mesma cidade de teste (grade 32 x 32 em terraços, 8 prédios, herói 2 x 2, câmera isométrica). Verificação só sem janela.",
