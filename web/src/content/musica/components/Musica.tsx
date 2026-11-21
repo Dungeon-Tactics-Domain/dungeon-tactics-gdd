@@ -44,6 +44,7 @@ export interface Faixa {
   jogo?: string;
   versao?: string;
   tipo?: string;
+  noJogo?: string; // the game plays this track today, in that role
 }
 interface Checagem {
   texto: string;
@@ -274,7 +275,8 @@ const sonsDe = (base: string) => [...(COM_SC88P.has(base) ? [SC88P] : []), ...SO
 const versoesDe = (id: string) => {
   const e = estudoDe(id);
   // the lofi and vaporwave adaptations are tracks of their own with a single set of stems
-  if (e && /_(lofi|vapor)$/.test(e)) return { raiz: id, atual: 0, opcoes: [{ rotulo: 'Lofi e vaporwave (teste)', faixa: id, stems: e }] };
+  if (e && /_(lofi|vapor)$/.test(e))
+    return { raiz: id, atual: 0, opcoes: [{ rotulo: 'Lofi e vaporwave (teste)', faixa: id, stems: e }] };
   if (e)
     return {
       raiz: id,
@@ -291,7 +293,7 @@ const versoesDe = (id: string) => {
     return {
       raiz: id,
       atual: 0,
-      opcoes: sonsDe(stemsDe(id)).map(([k, rotulo]) => ({
+      opcoes: sonsDe(stemsDe(id)!).map(([k, rotulo]) => ({
         rotulo,
         faixa: id,
         stems: `${stemsDe(id)}${k ? `_${k}` : ''}`,
@@ -304,7 +306,7 @@ const versoesDe = (id: string) => {
       raiz,
       atual: f[2] ? sonsDe(stemsDe(raiz)!).findIndex(([k]) => k === 'tfg') : 0,
       // the text of each sound comes from its own page when there is one (MuseScore and TFG); the others reuse the base page
-      opcoes: sonsDe(stemsDe(raiz)).map(([k, rotulo]) => ({
+      opcoes: sonsDe(stemsDe(raiz)!).map(([k, rotulo]) => ({
         rotulo,
         faixa: k === 'tfg' ? `${raiz}-tfg` : raiz,
         stems: `${stemsDe(raiz)}${k ? `_${k}` : ''}`,
@@ -391,6 +393,7 @@ export interface ItemMusica {
   jogo?: string;
   versao?: string;
   tipo?: string;
+  noJogo?: string;
   stems?: string; // folder of the stems, where the list reads duration and channel count
 }
 export interface SeletorMusica {
@@ -455,6 +458,7 @@ export const itensDe = (estilo: Estilo): ItemMusica[] =>
         jogo: t.jogo,
         versao: t.versao,
         tipo: t.tipo,
+        noJogo: t.noJogo,
         stems: stemsDe(t.id),
       })),
   );
@@ -475,6 +479,12 @@ const lerResumo = (base: string) => {
 };
 const tempo = (s: number) => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart(2, '0')}`;
 
+// the role the game gives a lab track today (the player list reads it by id), if any
+export const noJogoDe = (id: string) =>
+  Object.values(PAGINAS)
+    .flatMap((p) => p.faixas ?? [])
+    .find((f) => f.id === id)?.noJogo;
+
 // one list line in three rows, data on both sides: name | kind, game | duration, version | channels
 function LinhaMusica({ item: i, ativo, aoEscolher }: { item: ItemMusica; ativo: boolean; aoEscolher: () => void }) {
   const [resumo, setResumo] = useState<{ duracao: number; canais: number } | null>(null);
@@ -490,14 +500,20 @@ function LinhaMusica({ item: i, ativo, aoEscolher }: { item: ItemMusica; ativo: 
     <button
       onClick={aoEscolher}
       aria-current={ativo}
-      className={`flex min-h-11 items-center gap-2 rounded px-2 py-1.5 text-left text-[14px] ${ativo ? 'bg-couro text-creme' : 'hover:bg-pergaminho-escuro'}`}
+      className={`flex min-h-11 items-center gap-2 rounded px-2 py-1.5 text-left text-[14px] ${ativo ? 'bg-couro text-creme' : 'hover:bg-pergaminho-escuro'} ${i.noJogo ? 'border-l-4 border-ouro' : ''}`}
     >
       <Icone id={ativo ? 'tocar' : 'musica'} className="size-4 flex-none" />
       {i.nome ? (
         <span className="grid min-w-0 flex-1 gap-0.5">
           <span className="flex items-center justify-between gap-2">
             <span className="min-w-0 truncate font-bold">{i.nome}</span>
-            {i.tipo && <span className={`flex-none rounded border px-1.5 text-[11px] ${ativo ? 'border-ouro-claro' : 'border-ouro'}`}>{i.tipo}</span>}
+            {i.tipo && (
+              <span
+                className={`flex-none rounded border px-1.5 text-[11px] ${ativo ? 'border-ouro-claro' : 'border-ouro'}`}
+              >
+                {i.tipo}
+              </span>
+            )}
           </span>
           <span className={`flex justify-between gap-2 ${fino}`}>
             <span className="min-w-0 truncate">{i.jogo}</span>
@@ -507,6 +523,15 @@ function LinhaMusica({ item: i, ativo, aoEscolher }: { item: ItemMusica; ativo: 
             <span className="min-w-0">{i.versao}</span>
             <span className="flex-none">{resumo ? `${resumo.canais} canais` : ''}</span>
           </span>
+          {/* text carries the meaning; the gold edge only reinforces it */}
+          {i.noJogo && (
+            <span
+              className={`flex w-fit items-center gap-1 rounded border px-1.5 text-base font-bold ${ativo ? 'border-ouro-claro text-ouro-claro' : 'border-ouro text-ouro-escuro'}`}
+            >
+              <Icone id="controle" className="size-4 flex-none" />
+              No jogo · {i.noJogo}
+            </span>
+          )}
         </span>
       ) : (
         <span className="min-w-0 flex-1 font-bold">{i.rotulo}</span>
@@ -546,7 +571,9 @@ export function EstudioMusicas() {
   const q = semAcento(busca.trim());
   const visiveis = itens
     .filter(
-      (i) => (cat === 'todas' || i.categoria === cat) && (!q || semAcento(`${i.rotulo} ${i.familia} ${i.jogo ?? ''} ${i.versao ?? ''} ${i.tipo ?? ''}`).includes(q)),
+      (i) =>
+        (cat === 'todas' || i.categoria === cat) &&
+        (!q || semAcento(`${i.rotulo} ${i.familia} ${i.jogo ?? ''} ${i.versao ?? ''} ${i.tipo ?? ''}`).includes(q)),
     )
     .sort((a, b) => (ordem === 'categoria' ? 0 : a.rotulo.localeCompare(b.rotulo, 'pt') * (ordem === 'za' ? -1 : 1)));
   // grouped by family in the default order; one flat alphabetical list otherwise
