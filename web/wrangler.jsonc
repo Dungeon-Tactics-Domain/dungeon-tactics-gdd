@@ -1,0 +1,10 @@
+{
+  // The public GDD site as static files on Cloudflare, so it no longer depends on Fernando's PC (Nov 22).
+  // A route, not a custom domain: the tunnel's DNS record stays and the Worker answers in front of it.
+  // dist-cf is a separate build so `build:watch` (dist) keeps serving localhost undisturbed.
+  "name": "dungeon-tactics-gdd",
+  "workers_dev": false,
+  "compatibility_date": "2026-10-01",
+  "assets": { "directory": "dist-cf", "not_found_handling": "single-page-application" },
+  "routes": [{ "pattern": "dungeon-tactics-gdd.fernandorffdev.com/*", "zone_name": "fernandorffdev.com" }]
+}
